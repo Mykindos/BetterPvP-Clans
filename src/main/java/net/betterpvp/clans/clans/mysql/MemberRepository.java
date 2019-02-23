@@ -18,60 +18,10 @@ public class MemberRepository implements Repository<Clans>{
 	
 	public static final String TABLE_NAME = "kitmap_clanmembers";
 
-	public static String CREATE_MEMBER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-			+ "(Clan VARCHAR(14), "
-			+ "UUID VARCHAR(64), "
-			+ "Role VARCHAR(12)); ";
-
-	public static void saveMembers(Clan clan) {
-		for (ClanMember member : clan.getMembers()) {
-			String query = "INSERT INTO " + TABLE_NAME + " (Clan, UUID, Role) VALUES "
-					+ "('" + clan.getName() + "', "
-					+ "'" + member.getUUID().toString() + "', "
-					+ "'" + member.getRole().toString() + "')";
-			new Query(query);
-		}
-	}
-
-	public static void saveMember(Clan clan, ClanMember member) {
-		String query = "INSERT INTO " + TABLE_NAME + " (Clan, UUID, Role) VALUES "
-				+ "('" + clan.getName() + "', "
-				+ "'" + member.getUUID().toString() + "', "
-				+ "'" + member.getRole().toString() + "')";
-		new Query(query);
-		Log.write("Clans", "Added [" + member.getUUID() + "/" + Bukkit.getPlayer(member.getUUID()).getName() + "] to [" + clan.getName() + "]");
-	}
-
-	public static void loadMembers(Clans i) {
-	
-		
-	}
-
-	public static void updateMember(ClanMember member) {
-		String query = "UPDATE " + TABLE_NAME + " SET Role='" + member.getRole().toString() + "' WHERE UUID='" + member.getUUID().toString() + "'";
-		new Query(query);
-	}
-
-	public static void deleteMember(ClanMember member) {
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE UUID='" + member.getUUID().toString() + "'";
-		new Query(query);
-	}
-	
-	public static void wipe(){
-		String query = "TRUNCATE TABLE " + TABLE_NAME;
-		new Query(query);
-	}
-
-	@Override
-	public LoadPriority getLoadPriority() {
-		// TODO Auto-generated method stub
-		return LoadPriority.HIGHEST;
-	}
-
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -93,7 +43,7 @@ public class MemberRepository implements Repository<Clans>{
 
 						if(clan != null){
 							clan.getMembers().add(new ClanMember(uuid, role));
-							
+
 							//clan.getTeam().addEntry(ClientUtilities.getClient(uuid).getName());
 						}
 						count++;
@@ -106,10 +56,62 @@ public class MemberRepository implements Repository<Clans>{
 					Log.debug("Connection", "Could not load clanmembers (Connection Error), ");
 					ex.printStackTrace();
 				}
-				
+
 			}
-			
+
 		}.runTaskAsynchronously(i);
+
+	}
+
+	public static String CREATE_MEMBER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+			+ "(Clan VARCHAR(14), "
+			+ "UUID VARCHAR(64), "
+			+ "Role VARCHAR(12)); ";
+
+	public static void saveMembers(Clan clan) {
+		for (ClanMember member : clan.getMembers()) {
+			String query = "INSERT INTO " + TABLE_NAME + " (Clan, UUID, Role) VALUES "
+					+ "('" + clan.getName() + "', "
+					+ "'" + member.getUUID().toString() + "', "
+					+ "'" + member.getRole().toString() + "')";
+			QueryFactory.runQuery(query);
+		}
+	}
+
+	public static void saveMember(Clan clan, ClanMember member) {
+		String query = "INSERT INTO " + TABLE_NAME + " (Clan, UUID, Role) VALUES "
+				+ "('" + clan.getName() + "', "
+				+ "'" + member.getUUID().toString() + "', "
+				+ "'" + member.getRole().toString() + "')";
+		QueryFactory.runQuery(query);
+		Log.write("Clans", "Added [" + member.getUUID() + "/" + Bukkit.getPlayer(member.getUUID()).getName() + "] to [" + clan.getName() + "]");
+	}
+
+	public static void loadMembers(Clans i) {
+	
 		
 	}
+
+	public static void updateMember(ClanMember member) {
+		String query = "UPDATE " + TABLE_NAME + " SET Role='" + member.getRole().toString() + "' WHERE UUID='" + member.getUUID().toString() + "'";
+		QueryFactory.runQuery(query);
+	}
+
+	public static void deleteMember(ClanMember member) {
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE UUID='" + member.getUUID().toString() + "'";
+		QueryFactory.runQuery(query);
+	}
+	
+	public static void wipe(){
+		String query = "TRUNCATE TABLE " + TABLE_NAME;
+		QueryFactory.runQuery(query);
+	}
+
+	@Override
+	public LoadPriority getLoadPriority() {
+		// TODO Auto-generated method stub
+		return LoadPriority.HIGHEST;
+	}
+
+
 }

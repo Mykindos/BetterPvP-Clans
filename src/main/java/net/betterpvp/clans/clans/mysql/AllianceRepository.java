@@ -21,45 +21,9 @@ public class AllianceRepository implements Repository<Clans>{
 			+ "Other VARCHAR(16), "
 			+ "Trusted TINYINT); ";
 
-	public static void loadAlliances(Clans i) {
-		
-		
-	}
-
-	public static void saveAlly(Clan clan, Clan other, boolean trusted) {
-		String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Trusted) VALUES "
-				+ "('" + clan.getName() + "', "
-				+ "'" + other.getName() + "', "
-				+ "'" + UtilFormat.toTinyInt(trusted) + "') ";
-		new Query(query);
-	}
-
-	public static void updateAlly(Clan clan, Clan other) {
-		String query = "UPDATE " + TABLE_NAME + " SET Trusted='" + UtilFormat.toTinyInt(clan.hasTrust(other)) + "' WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "'";
-		new Query(query);
-	}
-
-	public static void deleteAlly(Clan clan, Clan other) {
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "' OR "
-				+ "Clan='" + other.getName() + "' AND Other='" + clan.getName() + "'";
-		new Query(query);
-	}
-	
-	public static void wipe(){
-		String query = "TRUNCATE TABLE " + TABLE_NAME;
-		new Query(query);
-	}
-
-	@Override
-	public LoadPriority getLoadPriority() {
-		// TODO Auto-generated method stub
-		return LoadPriority.HIGHEST;
-	}
-
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		QueryFactory.runQuery(CREATE_ALLY_TABLE);
 	}
 
 
@@ -88,7 +52,7 @@ public class AllianceRepository implements Repository<Clans>{
 
 					statement.close();
 					result.close();
-					
+
 					Log.debug("MySQL", "Linked " + count + " alliances to Clans");
 
 				} catch (SQLException ex) {
@@ -96,9 +60,41 @@ public class AllianceRepository implements Repository<Clans>{
 					ex.printStackTrace();
 				}
 			}
-			
-			
+
+
 		}.runTaskAsynchronously(i);
-		
+
 	}
+
+	public static void saveAlly(Clan clan, Clan other, boolean trusted) {
+		String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Trusted) VALUES "
+				+ "('" + clan.getName() + "', "
+				+ "'" + other.getName() + "', "
+				+ "'" + UtilFormat.toTinyInt(trusted) + "') ";
+		QueryFactory.runQuery(query);
+	}
+
+	public static void updateAlly(Clan clan, Clan other) {
+		String query = "UPDATE " + TABLE_NAME + " SET Trusted='" + UtilFormat.toTinyInt(clan.hasTrust(other)) + "' WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "'";
+		QueryFactory.runQuery(query);
+	}
+
+	public static void deleteAlly(Clan clan, Clan other) {
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "' OR "
+				+ "Clan='" + other.getName() + "' AND Other='" + clan.getName() + "'";
+		QueryFactory.runQuery(query);
+	}
+	
+	public static void wipe(){
+		String query = "TRUNCATE TABLE " + TABLE_NAME;
+		QueryFactory.runQuery(query);
+	}
+
+	@Override
+	public LoadPriority getLoadPriority() {
+		// TODO Auto-generated method stub
+		return LoadPriority.HIGHEST;
+	}
+
+
 }

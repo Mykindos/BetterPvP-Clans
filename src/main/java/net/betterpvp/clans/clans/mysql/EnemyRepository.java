@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.Dominance;
 import net.betterpvp.core.database.Connect;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.database.Query;
+import net.betterpvp.core.database.QueryFactory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -75,7 +76,7 @@ public class EnemyRepository {
 	public static void saveDominance(Dominance dom) {
 		String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Points) VALUES ('"
 				+ dom.getSelf().getName() + "', '" + dom.getClan().getName() + "', '" + dom.getPoints() + "')";
-		new Query(query);
+		QueryFactory.runQuery(query);
 		
 	
 	
@@ -84,18 +85,18 @@ public class EnemyRepository {
 
 	public static void updateDominance(Dominance dom) {
 		String query = "UPDATE " + TABLE_NAME + " SET Points='" + dom.getPoints() + "' WHERE (Clan='" + dom.getSelf().getName() + "' AND Other='" + dom.getClan().getName() + "')";
-		new Query(query);
+		QueryFactory.runQuery(query);
 	}
 
 	public static void deleteEnemy(Dominance dom) {
 		String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + dom.getSelf().getName() + "' AND Other='" + dom.getClan().getName() + "' OR "
 				+ "Clan='" + dom.getClan().getName() + "' AND Other='" + dom.getSelf().getName() + "'";
-		new Query(query);
+		QueryFactory.runQuery(query);
 	}
 	
 	public static void wipe(){
 		String query = "TRUNCATE TABLE " + TABLE_NAME;
-		new Query(query);
+		QueryFactory.runQuery(query);
 	}
 
 }

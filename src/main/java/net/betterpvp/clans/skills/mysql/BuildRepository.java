@@ -108,7 +108,7 @@ public class BuildRepository implements Repository<Clans> {
 				+ "Active='" + UtilFormat.toTinyInt(build.isActive()) + "'"
 				+ " WHERE UUID = ('" + uuid.toString() + "') AND ID = " + build.getID() + " AND Role='" + build.getRole() + "'";
 		
-		new Query(query);
+		QueryFactory.runQuery(query);
 	}
 	
 	private static void setSkill(RoleBuild build, Types type, String str){

@@ -21,24 +21,6 @@ public class FieldsRepository implements Repository<Clans> {
 	private static World world = Bukkit.getWorld("world");
 	
 	public static HashMap<Location, Integer> blocks = new HashMap<>();
-	
-	public static void saveOre(Block b) {
-		
-		String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
-				+ "('" + b.getTypeId() + "', "
-				+ "'" + b.getLocation().getX() + "', "
-				+ "'" + b.getLocation().getY() + "', "
-				+ "'" + b.getLocation().getZ() + "')";
-
-		QueryFactory.runQuery(query);
-	}
-	
-	public static void deleteOre(Block b){
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='" + b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
-		QueryFactory.runQuery(query);
-
-	}
-
 
 	public static void loadFields(Clans i){
 
@@ -93,4 +75,23 @@ public class FieldsRepository implements Repository<Clans> {
 	public LoadPriority getLoadPriority() {
 		return LoadPriority.HIGHEST;
 	}
+
+
+	public static void saveOre(Block b) {
+
+		String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
+				+ "('" + b.getTypeId() + "', "
+				+ "'" + b.getLocation().getX() + "', "
+				+ "'" + b.getLocation().getY() + "', "
+				+ "'" + b.getLocation().getZ() + "')";
+
+		QueryFactory.runQuery(query);
+	}
+
+	public static void deleteOre(Block b){
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='" + b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
+		QueryFactory.runQuery(query);
+
+	}
+
 }

@@ -20,12 +20,7 @@ import java.sql.SQLException;
 public class InsuranceRepository implements Repository<Clans>{
 
 	public static final String TABLE_NAME = "kitmap_insurance";
-	
-	public static void loadInsurance(final Clans i) {
-		
 
-	}
-	
 	public static void removeInsurance(){
 		String query = "DELETE FROM " + TABLE_NAME + " WHERE ((Time+86400000)-" + System.currentTimeMillis() + ") < 0";
 		/*String query = "DELETE FROM insurance WHERE Type='" + i.getType().toString() 
@@ -35,37 +30,13 @@ public class InsuranceRepository implements Repository<Clans>{
 				+ "' AND X='" + i.getLocation().getX()
 				+ "' AND Y='" + i.getLocation().getY()
 				+ "' AND Z='" + i.getLocation().getZ() + "'";*/
-		new Query(query);
-	}
-
-	public static void saveInsurance(Clan c, Insurance i){
-		if(Clans.getOptions().isLastDay()){
-			return;
-		}
-		if(i.getMaterial() == Material.AIR){
-			return;
-		}
-		String query = "INSERT INTO " + TABLE_NAME + " VALUES ('" + c.getName() + "', '" 
-				+ i.getType().toString() + "', '" 
-				+ i.getMaterial().name() + "', '"
-				+ i.getData() + "', '"
-				+ i.getTime() + "', '"
-				+ i.getLocation().getX() + "', '"
-				+ i.getLocation().getY() + "', '"
-				+ i.getLocation().getZ() + "')";
-		new Query(query);
-	}
-
-	@Override
-	public LoadPriority getLoadPriority() {
-		// TODO Auto-generated method stub
-		return LoadPriority.HIGHEST;
+		QueryFactory.runQuery(query);
 	}
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+
+
 	}
 
 	@Override
@@ -98,7 +69,7 @@ public class InsuranceRepository implements Repository<Clans>{
 								}
 							}
 						}
-						
+
 						count++;
 					}
 
@@ -117,7 +88,33 @@ public class InsuranceRepository implements Repository<Clans>{
 			}
 
 		}.runTaskAsynchronously(i);
-		
+
 	}
+
+	public static void saveInsurance(Clan c, Insurance i){
+		if(Clans.getOptions().isLastDay()){
+			return;
+		}
+		if(i.getMaterial() == Material.AIR){
+			return;
+		}
+		String query = "INSERT INTO " + TABLE_NAME + " VALUES ('" + c.getName() + "', '" 
+				+ i.getType().toString() + "', '" 
+				+ i.getMaterial().name() + "', '"
+				+ i.getData() + "', '"
+				+ i.getTime() + "', '"
+				+ i.getLocation().getX() + "', '"
+				+ i.getLocation().getY() + "', '"
+				+ i.getLocation().getZ() + "')";
+		QueryFactory.runQuery(query);
+	}
+
+	@Override
+	public LoadPriority getLoadPriority() {
+		// TODO Auto-generated method stub
+		return LoadPriority.HIGHEST;
+	}
+
+
 
 }

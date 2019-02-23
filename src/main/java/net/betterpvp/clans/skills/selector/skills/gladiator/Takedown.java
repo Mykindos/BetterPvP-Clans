@@ -10,6 +10,8 @@ import net.betterpvp.clans.gamer.combat.LogManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.utility.*;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -82,7 +84,7 @@ public class Takedown extends Skill{
 	@EventHandler
 	public void end(UpdateEvent event)
 	{
-		if(event.getType() == UpdateType.TICK){
+		if(event.getType() == UpdateEvent.UpdateType.TICK){
 
 			Iterator<Entry<Player, Long>> it = active.entrySet().iterator();
 			while(it.hasNext()){
