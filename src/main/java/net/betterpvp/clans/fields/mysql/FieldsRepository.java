@@ -18,17 +18,20 @@ public class FieldsRepository implements Repository<Clans> {
 	
 	public static final String TABLE_NAME = "kitmap_fields";
 
+	public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
+			"  `ID` int(10)," +
+			"  `X` double(10, 0)," +
+			"  `Y` double(10, 0)," +
+			"  `Z` double(10, 0)" +
+			");";
+
 	private static World world = Bukkit.getWorld("world");
 	
 	public static HashMap<Location, Integer> blocks = new HashMap<>();
 
-	public static void loadFields(Clans i){
-
-	}
-
 	@Override
 	public void initialize() {
-
+		QueryFactory.runQuery(CREATE_FIELDS_TABLE);
 	}
 
 	@Override

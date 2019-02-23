@@ -4,17 +4,14 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.Dominance;
-import net.betterpvp.core.database.Connect;
-import net.betterpvp.core.database.Log;
-import net.betterpvp.core.database.Query;
-import net.betterpvp.core.database.QueryFactory;
+import net.betterpvp.core.database.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EnemyRepository {
+public class EnemyRepository implements Repository<Clans> {
 
 	public static final String TABLE_NAME = "kitmap_dominance";
 	
@@ -24,13 +21,21 @@ public class EnemyRepository {
 			+ "Points INT, "
 			+ "Time LONG); ";
 
-	public static void loadEnemies(Clans i) {
-		new BukkitRunnable(){
+
+
+	@Override
+	public void initialize() {
+		QueryFactory.runQuery(CREATE_ENEMY_TABLE);
+	}
+
+	@Override
+	public void load(Clans clans) {
+		new BukkitRunnable() {
 
 			@Override
 			public void run() {
 				int count = 0;
-				if(!Connect.isConnected()){
+				if (!Connect.isConnected()) {
 					Connect.openConnection();
 				}
 				try {
@@ -39,11 +44,11 @@ public class EnemyRepository {
 
 					while (result.next()) {
 
-						if(ClanUtilities.getClan(result.getString(1)) != null){
-							if(ClanUtilities.getClan(result.getString(2)) != null){
+						if (ClanUtilities.getClan(result.getString(1)) != null) {
+							if (ClanUtilities.getClan(result.getString(2)) != null) {
 								Clan clan = ClanUtilities.getClan(result.getString(1));
 								Clan target = ClanUtilities.getClan(result.getString(2));
-								if(clan != target){
+								if (clan != target) {
 									int points = result.getInt(3);
 									Long time = result.getLong(4);
 
@@ -51,7 +56,7 @@ public class EnemyRepository {
 									Dominance dom = new Dominance(clan, target, points);
 									dom.setTime(time);
 									clan.getEnemies()
-									.add(dom);
+											.add(dom);
 									count++;
 								}
 							}
@@ -68,10 +73,14 @@ public class EnemyRepository {
 					ex.printStackTrace();
 				}
 			}
-			
-		}.runTaskAsynchronously(i);
-		
+		}.runTaskAsynchronously(clans);
 	}
+
+	@Override
+	public LoadPriority getLoadPriority() {
+		return LoadPriority.HIGHEST;
+	}
+
 
 	public static void saveDominance(Dominance dom) {
 		String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Points) VALUES ('"

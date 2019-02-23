@@ -21,9 +21,9 @@ public class ClanRepository implements Repository<Clans>{
 
 
 
-	public static final String DATABASE_NAME = "kitmap_clans";
+	public static final String TABLE_NAME = "kitmap_clans";
 
-	public static String CREATE_CLANS_TABLE = "CREATE TABLE IF NOT EXISTS " + DATABASE_NAME + " "
+	public static String CREATE_CLANS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
 			+ "(Name VARCHAR(14), "
 			+ "Created LONG, "
 			+ "Leader VARCHAR(64), "
@@ -47,7 +47,7 @@ public class ClanRepository implements Repository<Clans>{
 			public void run() {
 				int count = 0;
 				try {
-					PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + DATABASE_NAME);
+					PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
 					ResultSet result = statement.executeQuery();
 
 					while (result.next()) {
@@ -139,7 +139,7 @@ public class ClanRepository implements Repository<Clans>{
 		String query = "";
 		if (clan instanceof AdminClan) {
 			AdminClan admin = (AdminClan) clan;
-			query = "INSERT INTO " + DATABASE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
+			query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
 					+ "('" + admin.getName() + "', "
 					+ "'" + admin.getCreated() + "', "
 					+ "'" + admin.getLeader().toString() + "', "
@@ -152,7 +152,7 @@ public class ClanRepository implements Repository<Clans>{
 					+ "'" + clan.getPoints() + "', "
 					+ "'" + clan.getRawCooldown() + "')";
 		} else {
-			query = "INSERT INTO " + DATABASE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
+			query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
 					+ "('" + clan.getName() + "', "
 					+ "'" + clan.getCreated() + "', "
 					+ "'" + clan.getLeader().toString() + "', "
@@ -234,48 +234,48 @@ public class ClanRepository implements Repository<Clans>{
 	}
 
 	public static void deleteClan(Clan clan) {
-		String query = "DELETE FROM " + DATABASE_NAME + " WHERE Name='" + clan.getName() + "'";
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateMembers(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Members='" + UtilFormat.toString(clan.getMembers()) + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Members='" + UtilFormat.toString(clan.getMembers()) + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateClaims(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Territory='" + UtilFormat.toString(clan.getTerritory()) + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Territory='" + UtilFormat.toString(clan.getTerritory()) + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateHome(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Home='" + UtilFormat.locationToFile(clan.getHome()) + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Home='" + UtilFormat.locationToFile(clan.getHome()) + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateLastLogin(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET LastLogin='" + System.currentTimeMillis() + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET LastLogin='" + System.currentTimeMillis() + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateEnergy(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Energy='" + clan.getEnergy() + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Energy='" + clan.getEnergy() + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updatePoints(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Points='" + clan.getPoints() + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Points='" + clan.getPoints() + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 	public static void updateCooldown(Clan clan) {
-		String query = "UPDATE " + DATABASE_NAME + " SET Cooldown='" + clan.getRawCooldown() + "' WHERE Name='" + clan.getName() + "'";
+		String query = "UPDATE " + TABLE_NAME + " SET Cooldown='" + clan.getRawCooldown() + "' WHERE Name='" + clan.getName() + "'";
 		QueryFactory.runQuery(query);
 	}
 
 
 	public static void wipe(){
-		String query = "TRUNCATE TABLE " + DATABASE_NAME;
+		String query = "TRUNCATE TABLE " + TABLE_NAME;
 		QueryFactory.runQuery(query);
 	}
 
