@@ -1,6 +1,6 @@
 package net.betterpvp.clans.skills.events;
 
-import net.battleau.clans.skills.skills.Skill;
+import net.betterpvp.clans.skills.skills.Skill;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

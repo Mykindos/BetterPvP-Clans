@@ -1,8 +1,8 @@
 package net.betterpvp.clans.worldevents.types;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.worldevents.WEType;
-import net.battleau.clans.worldevents.WorldEvent;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.worldevents.WEType;
+import net.betterpvp.clans.worldevents.WorldEvent;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;

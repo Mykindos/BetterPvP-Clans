@@ -1,8 +1,8 @@
 package net.betterpvp.clans.worldevents.types.environmental;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.worldevents.WEType;
-import net.battleau.clans.worldevents.types.Environmental;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.worldevents.WEType;
+import net.betterpvp.clans.worldevents.types.Environmental;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

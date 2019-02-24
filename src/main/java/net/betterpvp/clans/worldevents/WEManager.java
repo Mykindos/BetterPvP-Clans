@@ -1,9 +1,6 @@
 package net.betterpvp.clans.worldevents;
 
-import net.battleau.clans.format.C;
-import net.battleau.clans.weapon.EnchantedWeapon;
-import net.battleau.clans.weapon.Weapon;
-import net.battleau.clans.worldevents.types.Environmental;
+
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -24,7 +21,7 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
-import net.betterpvp.mah.utility.Titles;
+
 import org.bukkit.*;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;

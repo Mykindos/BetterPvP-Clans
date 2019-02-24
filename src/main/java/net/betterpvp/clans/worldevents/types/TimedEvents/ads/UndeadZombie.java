@@ -1,6 +1,6 @@
 package net.betterpvp.clans.worldevents.types.TimedEvents.ads;
 
-import net.battleau.clans.worldevents.types.WorldEventMinion;
+import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;

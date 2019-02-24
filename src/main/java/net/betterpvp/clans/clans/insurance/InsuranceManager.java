@@ -1,5 +1,7 @@
-package net.betterpvp.clans.clans;
+package net.betterpvp.clans.clans.insurance;
 
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.listeners.InsuranceListener;
 
 import java.util.Collections;

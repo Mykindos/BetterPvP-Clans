@@ -14,6 +14,7 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.utility.UtilMessage;
 import net.betterpvp.clans.utility.UtilPlayer;
+import net.betterpvp.core.framework.UpdateEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -150,7 +151,7 @@ public class Immolate extends Skill{
 
 	@EventHandler
 	public void SnowAura(UpdateEvent event) {
-		if (event.getType() != UpdateType.TICK) {
+		if (event.getType() != UpdateEvent.UpdateType.TICK) {
 			return;
 		}
 		Iterator<UUID> iterator = active.iterator();

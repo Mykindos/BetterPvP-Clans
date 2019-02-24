@@ -1,22 +1,20 @@
 package net.betterpvp.clans.worldevents.types.bosses;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.classes.events.CustomDamageEvent;
-import net.battleau.clans.client.ClientUtilities;
-import net.battleau.clans.client.PlayerStat;
-import net.battleau.clans.combat.throwables.ThrowableManager;
-import net.battleau.clans.combat.throwables.events.ThrowableCollideEntityEvent;
-import net.battleau.clans.combat.throwables.events.ThrowableHitGroundEvent;
-import net.battleau.clans.effects.EffectManager;
-import net.battleau.clans.effects.EffectType;
-import net.battleau.clans.events.UpdateEvent;
-import net.battleau.clans.events.UpdateEvent.UpdateType;
-import net.battleau.clans.gamer.combat.LogManager;
-import net.battleau.clans.module.BlockRestoreData;
-import net.battleau.clans.utility.*;
-import net.battleau.clans.worldevents.WEType;
-import net.battleau.clans.worldevents.types.Boss;
-import net.battleau.clans.worldevents.types.bosses.ads.*;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.worldevents.WEType;
+import net.betterpvp.clans.worldevents.types.Boss;
+import net.betterpvp.clans.worldevents.types.bosses.ads.*;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilMath;
+import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_8_R3.EntitySlime;
 import org.bukkit.Bukkit;
@@ -40,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class SlimeKing extends Boss{
+public class SlimeKing extends Boss {
 
 	private Slime fullSlime;
 	public List<SlimeBase> allSlimes = new ArrayList<>();
@@ -76,7 +74,7 @@ public class SlimeKing extends Boss{
 	
 	@EventHandler
 	public void checkFinished(UpdateEvent e){
-		if(e.getType() == UpdateType.SEC_30){
+		if(e.getType() == UpdateEvent.UpdateType.SEC_30){
 			if(allSlimes.isEmpty()){
 				rockets.clear();
 				setActive(false);
@@ -199,7 +197,7 @@ public class SlimeKing extends Boss{
 
 	@EventHandler
 	public void updateRockets(UpdateEvent e){
-		if(e.getType() == UpdateType.TICK){
+		if(e.getType() == UpdateEvent.UpdateType.TICK){
 			if(isActive() || !rockets.isEmpty()){
 
 				ListIterator<SlimeRocket> it = rockets.listIterator();
@@ -343,7 +341,7 @@ public class SlimeKing extends Boss{
 	@EventHandler
 	public void orbitSlimes(UpdateEvent e){
 		if(isActive()){
-			if(e.getType() == UpdateType.TICK){
+			if(e.getType() == UpdateEvent.UpdateType.TICK){
 
 				if(!isShieldActive()){
 					return;
@@ -361,13 +359,14 @@ public class SlimeKing extends Boss{
 						double oZ = Math.cos(s.getTicksLived()/10) * 12;
 						//s.teleport(getBoss().getLocation().add(oX, oY, oZ));
 
-						UtilVelocity.velocity(s, UtilVelocity.getTrajectory(s.getLocation(),  getBoss().getLocation().add(oX, oY, oZ)), 0.6, false, 0, 0.1, 1.5, true);
+						UtilVelocity.velocity(s, UtilVelocity.getTrajectory(s.getLocation(),
+								getBoss().getLocation().add(oX, oY, oZ)), 0.6, false, 0, 0.1, 1.5, true);
 					}
 				}
 
 
 
-			}else if(e.getType() == UpdateType.FASTEST){
+			}else if(e.getType() == UpdateEvent.UpdateType.FASTEST){
 				if(!UtilTime.elapsed(start, 10000)){
 
 					for(SlimeBase s : allSlimes){

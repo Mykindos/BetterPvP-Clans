@@ -2,11 +2,10 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.utility.UtilPlayer;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilPlayer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -46,7 +45,7 @@ public class HolyLight extends Skill {
 
 	@EventHandler
 	public void updateHolyLight(UpdateEvent event) {
-		if (event.getType() == UpdateType.FAST) {
+		if (event.getType() == UpdateEvent.UpdateType.FAST) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 
 

@@ -1,6 +1,6 @@
 package net.betterpvp.clans.worldevents.types.bosses.ads;
 
-import net.battleau.clans.worldevents.types.WorldEventMinion;
+import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.potion.PotionEffect;

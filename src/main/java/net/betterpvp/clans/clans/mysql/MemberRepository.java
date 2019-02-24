@@ -25,7 +25,7 @@ public class MemberRepository implements Repository<Clans>{
 			");";
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+		QueryFactory.runQuery(CREATE_CLANMEMBER_TABLE);
 
 	}
 

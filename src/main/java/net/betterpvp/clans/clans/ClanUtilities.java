@@ -6,7 +6,11 @@ import net.betterpvp.clans.clans.mysql.AllianceRepository;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.clans.clans.mysql.MemberRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
+import net.betterpvp.clans.skills.selector.skills.assassin.Mirage;
+import net.betterpvp.clans.skills.selector.skills.ranger.Agility;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
@@ -442,7 +446,7 @@ public class ClanUtilities {
 			return false;
 		}
 
-		for(MirageData md : Mirage.active.values()) {
+		for(Mirage.MirageData md : Mirage.active.values()) {
 			if(md.npc.getEntity() == target) {
 				return true;
 			}
@@ -476,9 +480,10 @@ public class ClanUtilities {
 
 
 
-		Client targetClient = ClientUtilities.getOnlineClient(target);
-		if(targetClient != null) {
-			if(!UtilTime.elapsed(targetClient.getGamer().getLastDamaged(), 15000)){
+		Gamer gamer = GamerManager.getOnlineGamer(target);
+
+		if(gamer != null) {
+			if(!UtilTime.elapsed(gamer.getLastDamaged(), 15000)){
 				return true;
 			}
 
@@ -491,7 +496,7 @@ public class ClanUtilities {
 					if(ac.isSafe()){
 						if(ac.getName().contains("Spawn")) {
 							if(target.getLocation().getY() < 100) {
-								return !UtilTime.elapsed(targetClient.getGamer().getLastDamaged(), 60000);
+								return !UtilTime.elapsed(gamer.getLastDamaged(), 60000);
 							}
 						}
 						return false;

@@ -1,6 +1,6 @@
 package net.betterpvp.clans.worldevents.types.bosses.ads;
 
-import net.battleau.clans.worldevents.types.WorldEventMinion;
+import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import org.bukkit.entity.Slime;
 
 public abstract class SlimeBase extends WorldEventMinion{

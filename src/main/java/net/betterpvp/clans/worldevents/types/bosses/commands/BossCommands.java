@@ -1,16 +1,16 @@
 package net.betterpvp.clans.worldevents.types.bosses.commands;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.client.Rank;
-import net.battleau.clans.command.Command;
-import net.battleau.clans.worldevents.WEManager;
-import net.battleau.clans.worldevents.WorldEvent;
-import net.battleau.clans.worldevents.types.Boss;
-import net.battleau.clans.worldevents.types.Environmental;
-import net.battleau.clans.worldevents.types.Timed;
-import net.battleau.clans.worldevents.types.WorldEventMinion;
-import net.battleau.clans.worldevents.types.bosses.SlimeKing;
-import net.battleau.clans.worldevents.types.bosses.ads.SlimeBase;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.client.Rank;
+import net.betterpvp.clans.command.Command;
+import net.betterpvp.clans.worldevents.WEManager;
+import net.betterpvp.clans.worldevents.WorldEvent;
+import net.betterpvp.clans.worldevents.types.Boss;
+import net.betterpvp.clans.worldevents.types.Environmental;
+import net.betterpvp.clans.worldevents.types.Timed;
+import net.betterpvp.clans.worldevents.types.WorldEventMinion;
+import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
+import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
 import net.betterpvp.mah.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;

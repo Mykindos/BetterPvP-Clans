@@ -1,12 +1,12 @@
 package net.betterpvp.clans.worldevents.types;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.events.UpdateEvent;
-import net.battleau.clans.events.UpdateEvent.UpdateType;
-import net.battleau.clans.utility.UtilMessage;
-import net.battleau.clans.utility.UtilTime;
-import net.battleau.clans.worldevents.WEType;
-import net.battleau.clans.worldevents.WorldEvent;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.events.UpdateEvent;
+import net.betterpvp.clans.events.UpdateEvent.UpdateType;
+import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.clans.utility.UtilTime;
+import net.betterpvp.clans.worldevents.WEType;
+import net.betterpvp.clans.worldevents.WorldEvent;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.event.EventHandler;
 
