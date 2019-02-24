@@ -180,7 +180,7 @@ public class UndeadCamp extends Timed{
 	@Override
 	public void spawn() {
 		setStartTime(System.currentTimeMillis());
-		UtilMessage.broadcast("World Event", "The " + C.cYellow + "Undead Camp" + C.cGray + " event has begun! ");
+		UtilMessage.broadcast("World Event", "The " + ChatColor.YELLOW + "Undead Camp" + ChatColor.GRAY + " event has begun! ");
 		lastChestOpened = System.currentTimeMillis() - 120000;
 		for(Location l : chestLocations){
 			if(!l.getChunk().isLoaded()) {
@@ -292,8 +292,8 @@ public class UndeadCamp extends Timed{
 	public void announceTimeRemaining(UpdateEvent e){
 		if(e.getType() == UpdateType.MIN_02){
 			if(isActive()){
-				UtilMessage.broadcast("World Event", "The " + C.cYellow + "Undead Camp" + C.cGray + " event has " + C.cGreen 
-						+ UtilTime.convert((getStartTime() + getLength()) - System.currentTimeMillis(), TimeUnit.MINUTES, 1) + " minutes " + C.cGray + "remaining! "
+				UtilMessage.broadcast("World Event", "The " + ChatColor.YELLOW + "Undead Camp" + ChatColor.GRAY + " event has " + C.cGreen
+						+ UtilTime.convert((getStartTime() + getLength()) - System.currentTimeMillis(), TimeUnit.MINUTES, 1) + " minutes " + ChatColor.GRAY + "remaining! "
 						);
 			}
 		}
@@ -305,7 +305,7 @@ public class UndeadCamp extends Timed{
 		if(e.getType() == UpdateType.SEC){
 			if(isActive()){
 				if(UtilTime.elapsed(getStartTime(), getLength())){
-					UtilMessage.broadcast("World Event", "The " + C.cYellow + "Undead Camp" + C.cGray + " event has finished!");
+					UtilMessage.broadcast("World Event", "The " + ChatColor.YELLOW + "Undead Camp" + ChatColor.GRAY + " event has finished!");
 					setActive(false);
 					for(WorldEventMinion wem : getMinions()){
 						wem.getEntity().remove();

@@ -104,8 +104,8 @@ public class WEManager extends BPVPListener<Clans> {
 					if(we.getType() == WEType.BOSS){
 						Boss b = (Boss) we;
 						if(b.getBoss() != null && !b.getBoss().isDead()){
-						//	UtilMessage.broadcast("World Event", C.cYellow + ChatColor.stripColor(b.getBossName()) + C.cGray
-									///+ " is near " + C.cYellow + UtilLocation.locationToString(b.getBoss().getLocation()));
+						//	UtilMessage.broadcast("World Event", ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()) + ChatColor.GRAY
+									///+ " is near " + ChatColor.YELLOW + UtilLocation.locationToString(b.getBoss().getLocation()));
 						}
 					}
 				}
@@ -239,18 +239,18 @@ public class WEManager extends BPVPListener<Clans> {
 				b.lastDamaged = System.currentTimeMillis();
 				Location loc = b.getSpawn();
 				if(loc != null && b.getBoss() != null){
-					UtilMessage.broadcast("World Event", C.cYellow + ChatColor.stripColor(b.getBossName()) + C.cGray + " has entered the world. ");
+					UtilMessage.broadcast("World Event", ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()) + ChatColor.GRAY + " has entered the world. ");
 					for (Player p : Bukkit.getOnlinePlayers()) {
-						Titles.sendTitle(p, 20, 20, 20, C.cYellow + ChatColor.stripColor(b.getBossName()), C.cGray + "Has entered the world.");
+						Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()), ChatColor.GRAY + "Has entered the world.");
 						p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 0.1F, 1F);
 					}
 				}
 			}else if(getActiveWorldEvent() instanceof Environmental) {
 				Environmental e = (Environmental) getActiveWorldEvent();
-				UtilMessage.broadcast("World Event", C.cYellow + ChatColor.stripColor(e.getDisplayName()) + C.cGray + " has started! ");
+				UtilMessage.broadcast("World Event", ChatColor.YELLOW + ChatColor.stripColor(e.getDisplayName()) + ChatColor.GRAY + " has started! ");
 				e.subAnnounce();
 				for (Player p : Bukkit.getOnlinePlayers()) {
-					Titles.sendTitle(p, 20, 20, 20, C.cYellow + ChatColor.stripColor(e.getDisplayName()), C.cGray + "has started!");
+					Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(e.getDisplayName()), ChatColor.GRAY + "has started!");
 					p.playSound(p.getLocation(), Sound.WOLF_HOWL, 1.5F, 1F);
 				}
 			}

@@ -143,12 +143,12 @@ public class Takedown extends Skill{
 	@Override
 	public boolean usageCheck(Player p) {
 		if(p.getLocation().getBlock().isLiquid()){
-			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + C.cGray + " in water.");
+			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + ChatColor.GRAY + " in water.");
 			return false;
 		}
 
 		if(UtilBlock.isGrounded(p)){
-			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + C.cGray + " while grounded.");
+			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + ChatColor.GRAY + " while grounded.");
 			return false;
 		}
 		// TODO Auto-generated method stub

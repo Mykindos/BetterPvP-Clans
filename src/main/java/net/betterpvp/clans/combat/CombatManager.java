@@ -6,6 +6,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -91,12 +92,13 @@ public class CombatManager extends BPVPListener<Clans> {
 		e.setDeathMessage(null);
 		if(e.getEntity() instanceof Player){
 			Player p = e.getEntity();
-			ClientUtilities.getOnlineClient(p).getGamer().setLastDamaged(0);
+			Gamer g = GamerManager.getOnlineGamer(p);
+			g.setLastDamaged(0);
 			if(LogManager.getKiller(p) != null){
 				LivingEntity ent = LogManager.getKiller(p).getDamager();
 				if(ent instanceof Player){
 					Player dam = (Player) ent;
-
+					Gamer damGamer = GamerManager.getOnlineGamer(dam);
 					if(ent != p){
 
 						Bukkit.getPluginManager().callEvent(new CustomDeathEvent(p, dam));
@@ -105,21 +107,10 @@ public class CombatManager extends BPVPListener<Clans> {
 						if(RechargeManager.getInstance().add(dam, "Player-" + p.getName(), 300, false, false)){
 							if(Role.getRole(p) != null){
 								double fragments = 2;
-								Client damClient = ClientUtilities.getOnlineClient(dam);
-
-								if(damClient.hasDonationRank(DonationRank.SAVIOR)){
-									fragments = fragments * 2.0;
-								}else if(damClient.hasDonationRank(DonationRank.LEGACY)){
-									fragments = fragments * 1.5;
-								}
-
-								if(damClient.getGamer().hasPerk(Perk.getPerk("FragmentBuff"))){
-									fragments = fragments * 1.5;
-								}
 
 
+								damGamer.addFragments(fragments);
 
-								damClient.getGamer().addFragments(fragments);
 								UtilMessage.message(dam, "Fragments", "You received " + ChatColor.GREEN +
 										(fragments) + ChatColor.GRAY + " fragments.");
 							}else{
@@ -142,12 +133,14 @@ public class CombatManager extends BPVPListener<Clans> {
 
 
 					for (Player online : Bukkit.getOnlinePlayers()) {
+
 						Client c = ClientUtilities.getOnlineClient(online);
 						if(!c.getSettings().getSettings().get("Killfeed") && !online.getName().equals(dam.getName()) && !ClanUtilities.isClanMember(dam, online)
 								&& !ClanUtilities.isClanMember(p, online)) continue;
 
-						String playerColour = ClanUtilities.getRelation(ClanUtilities.getClan(online), ClanUtilities.getClan(p)).getPrimary().toString();
-						String killerColour = ClanUtilities.getRelation(ClanUtilities.getClan(online), ClanUtilities.getClan(dam)).getPrimary().toString();
+						Clan clanA = ClanUtilities.getClan(online);
+						String playerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(p)).getPrimary().toString();
+						String killerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(dam)).getPrimary().toString();
 						if(MorphUtilities.isMorphed(dam)){
 							Morph morph = MorphUtilities.getMorph(dam);
 							if(morph instanceof Wolf){
@@ -176,25 +169,27 @@ public class CombatManager extends BPVPListener<Clans> {
 
 						}
 					}
-					Client pClient = ClientUtilities.getOnlineClient(p);
-					pClient.getGamer().setLastDamaged(0);
 
-					Client damClient = ClientUtilities.getOnlineClient(dam);
+					g.setLastDamaged(0);
+
+
 					if(Role.getRole(p) != null){
 
-						pClient.getGamer().addDeath();
-						damClient.getGamer().addKill();
+						g.addDeath();
+						damGamer.addKill();
 
 					}
 
-					int tax = (int) (pClient.getGamer().getCoins() * 0.10);
-					pClient.getGamer().removeCoins(tax);
+					int tax = (int) (g.getCoins() * 0.10);
 
-					damClient.getGamer().addCoins(tax);
+					g.removeCoins(tax);
+					damGamer.addCoins(tax);
 
 
-					UtilMessage.message(dam, "Coins", "You collected " + C.cYellow + "$" + UtilFormat.formatNumber(tax) +  C.cGray + " Coins");
-					UtilMessage.message(p, "Coins", "You lost " + C.cYellow + "$" + UtilFormat.formatNumber(tax) +  C.cGray + " Coins");
+					UtilMessage.message(dam, "Coins", "You collected " + ChatColor.YELLOW + "$"
+							+ UtilFormat.formatNumber(tax) +  ChatColor.GRAY + " Coins");
+					UtilMessage.message(p, "Coins", "You lost " + ChatColor.YELLOW + "$"
+							+ UtilFormat.formatNumber(tax) + ChatColor.GRAY + " Coins");
 
 					Clan killerClan = ClanUtilities.getClan(dam);
 					Clan deadClan = ClanUtilities.getClan(p);

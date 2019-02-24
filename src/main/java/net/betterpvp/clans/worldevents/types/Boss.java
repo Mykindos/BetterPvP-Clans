@@ -163,8 +163,8 @@ public abstract class Boss extends WorldEvent {
 
 		LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
 		if(killer != null){
-			UtilMessage.broadcast("World Event", C.cYellow + getBossName() + C.cGray
-					+ " has been killed by " + C.cYellow + killer.getName());
+			UtilMessage.broadcast("World Event", ChatColor.YELLOW + getBossName() + ChatColor.GRAY
+					+ " has been killed by " + ChatColor.YELLOW + killer.getName());
 			Log.write("World Event", killer.getName() + " killed " + getBossName());
 			if(killer instanceof Player){
 				Player p = (Player) killer;
@@ -206,7 +206,7 @@ public abstract class Boss extends WorldEvent {
 		Log.write("World Event", loot.getItemMeta().getDisplayName() + " dropped");
 		if (Weapon.getWeapon(loot) != null 
 				&& !(Weapon.getWeapon(loot) instanceof EnchantedWeapon)) {
-			UtilMessage.broadcast("Legendary Loot", C.cYellow + "A " + Weapon.getWeapon(loot).getName() + C.cYellow + " was dropped at the world event!");
+			UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " + Weapon.getWeapon(loot).getName() + ChatColor.YELLOW + " was dropped at the world event!");
 			Log.write("Legendary", Weapon.getWeapon(loot).getName() + " dropped from world event");
 		}
 
