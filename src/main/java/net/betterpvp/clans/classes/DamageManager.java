@@ -10,7 +10,6 @@ import net.betterpvp.clans.client.Client;
 import net.betterpvp.clans.client.ClientUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.skills.selector.skills.assassin.Mirage;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
