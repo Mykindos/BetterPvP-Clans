@@ -1,10 +1,10 @@
 package net.betterpvp.clans.combat.throwables;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Throwables {
 	

@@ -1,7 +1,13 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -9,14 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.combat.throwables.ThrowableManager;
-import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
-
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
 
 public class FireWalkers extends Weapon{
 

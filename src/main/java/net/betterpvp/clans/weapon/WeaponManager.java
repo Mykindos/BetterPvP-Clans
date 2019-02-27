@@ -5,17 +5,13 @@ import net.betterpvp.clans.weapon.weapons.*;
 import net.betterpvp.clans.weapon.weapons.legendaries.*;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilItem;
-import org.bukkit.Bukkit;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
-
-
-import net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

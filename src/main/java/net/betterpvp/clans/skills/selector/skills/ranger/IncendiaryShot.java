@@ -6,7 +6,7 @@ import net.betterpvp.clans.gamer.combat.LogManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;

@@ -1,6 +1,5 @@
 package net.betterpvp.clans.classes.roles;
 
-import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.classes.Role;
 import org.bukkit.Material;
 

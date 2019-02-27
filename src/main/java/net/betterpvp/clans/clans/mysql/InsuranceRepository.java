@@ -3,7 +3,6 @@ package net.betterpvp.clans.clans.mysql;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.core.database.*;

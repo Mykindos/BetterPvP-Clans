@@ -1,23 +1,17 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.WeakHashMap;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
-import org.bukkit.Chunk;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
@@ -28,11 +22,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.Clan;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.WeakHashMap;
 
 public class SupplyCrate extends Weapon{
 

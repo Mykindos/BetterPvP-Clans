@@ -4,15 +4,17 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.module.Recharge;
-import net.betterpvp.clans.module.RechargeManager;
+
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.Recharge;
+import net.betterpvp.core.utility.recharge.RechargeManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

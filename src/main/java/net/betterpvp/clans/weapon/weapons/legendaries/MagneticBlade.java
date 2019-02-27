@@ -1,18 +1,15 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -23,11 +20,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.classes.Energy;
-
-import net.betterpvp.clans.weapon.Weapon;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MagneticBlade extends Weapon {
 

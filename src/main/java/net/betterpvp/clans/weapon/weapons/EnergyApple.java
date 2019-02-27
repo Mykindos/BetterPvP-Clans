@@ -1,8 +1,12 @@
 package net.betterpvp.clans.weapon.weapons;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,11 +14,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.Energy;
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
 
 public class EnergyApple extends Weapon{
 

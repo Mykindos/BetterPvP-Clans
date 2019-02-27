@@ -6,7 +6,6 @@ import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilTime.TimeUnit;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

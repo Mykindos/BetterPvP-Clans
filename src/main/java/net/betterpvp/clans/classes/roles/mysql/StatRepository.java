@@ -2,7 +2,6 @@ package net.betterpvp.clans.classes.roles.mysql;
 
 
 import net.betterpvp.clans.Clans;
-
 import net.betterpvp.core.database.LoadPriority;
 import net.betterpvp.core.database.QueryFactory;
 import net.betterpvp.core.database.Repository;

@@ -1,8 +1,7 @@
 package net.betterpvp.clans.classes.roles;
 
-import org.bukkit.Material;
-
 import net.betterpvp.clans.classes.Role;
+import org.bukkit.Material;
 
 public class Gladiator extends Role {
 

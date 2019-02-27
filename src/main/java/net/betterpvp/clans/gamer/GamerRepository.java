@@ -1,10 +1,6 @@
 package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.mysql.ClanRepository;
-
-import net.betterpvp.clans.fields.mysql.FieldsRepository;
-
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;

@@ -1,6 +1,7 @@
 package net.betterpvp.clans.skills.events;
 
-import net.betterpvp.clans.skills.skills.Skill;
+
+import net.betterpvp.clans.skills.selector.skills.Skill;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -21,7 +22,7 @@ public class SkillEquipEvent extends Event{
 
 	private Player p;
 	private Skill s;
-	
+
 	public SkillEquipEvent(Player p, Skill s){
 		this.p = p;
 		this.s = s;

@@ -7,7 +7,6 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.Pillage;
-
 import net.betterpvp.clans.farming.FarmBlocks;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;

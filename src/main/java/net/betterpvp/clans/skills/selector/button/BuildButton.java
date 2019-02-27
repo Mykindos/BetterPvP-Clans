@@ -1,7 +1,7 @@
 package net.betterpvp.clans.skills.selector.button;
 
-import net.betterpvp.core.interfaces.Button;
 import net.betterpvp.clans.skills.selector.RoleBuild;
+import net.betterpvp.core.interfaces.Button;
 import org.bukkit.inventory.ItemStack;
 
 public class BuildButton extends Button {

@@ -1,7 +1,6 @@
 package net.betterpvp.clans.clans.commands.subcommands;
 
 import net.betterpvp.clans.clans.commands.IClanCommand;
-
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

@@ -2,13 +2,13 @@ package net.betterpvp.clans.worldevents.types.TimedEvents;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.format.C;
 import net.betterpvp.clans.gamer.combat.CombatLogs;
 import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.utility.*;
-import net.betterpvp.clans.utility.UtilTime.TimeUnit;
+import net.betterpvp.core.utility.*;
+import net.betterpvp.core.utility.UtilTime.TimeUnit;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Timed;

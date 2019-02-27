@@ -1,20 +1,19 @@
 package net.betterpvp.clans.weapon;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.weapon.weapons.legendaries.GlacialAxe;
 import net.betterpvp.clans.weapon.weapons.legendaries.HyperAxe;
 import net.betterpvp.core.utility.UtilItem;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Weapon implements Listener {
 
@@ -118,8 +117,7 @@ public class Weapon implements Listener {
 
 
 	protected boolean isThisWeapon(Player p){
-		return WeaponManager.isWeapon(p.getItemInHand())
-				&& WeaponManager.getWeapon(p.getItemInHand()).equals(this));
+		return WeaponManager.isWeapon(p.getItemInHand()) && WeaponManager.getWeapon(p.getItemInHand()).equals(this);
 	}
 
 }

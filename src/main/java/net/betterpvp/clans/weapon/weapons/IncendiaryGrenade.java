@@ -1,14 +1,13 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,11 +20,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.EnumParticle;
+import java.util.*;
 
 
 public class IncendiaryGrenade extends Weapon {

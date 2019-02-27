@@ -8,7 +8,6 @@ import net.betterpvp.clans.clans.menus.buttons.ClaimButton;
 import net.betterpvp.clans.clans.menus.buttons.EnergyMenuButton;
 import net.betterpvp.clans.clans.menus.buttons.LeaveButton;
 import net.betterpvp.clans.clans.menus.buttons.MemberButton;
-
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.interfaces.Button;

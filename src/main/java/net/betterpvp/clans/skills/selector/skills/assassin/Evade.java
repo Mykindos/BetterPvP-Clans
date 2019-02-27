@@ -3,14 +3,15 @@ package net.betterpvp.clans.skills.selector.skills.assassin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.utility.UtilBlock;
-import net.betterpvp.clans.utility.UtilMessage;
-import net.betterpvp.clans.utility.UtilTime;
-import net.betterpvp.clans.utility.UtilVelocity;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.UtilVelocity;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -175,7 +176,7 @@ public class Evade extends Skill{
 
 	@EventHandler
 	public void onUpdateEffect(UpdateEvent e) {
-		if(e.getType() == UpdateType.TICK_2) {
+		if(e.getType() == UpdateEvent.UpdateType.TICK_2) {
 			Iterator<Player> it = evading.iterator();
 			while(it.hasNext()){
 				Player p = it.next();

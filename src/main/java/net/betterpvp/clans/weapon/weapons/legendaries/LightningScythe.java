@@ -1,9 +1,15 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.clans.morphs.MorphUtilities;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.weapons.LightningScytheData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,16 +23,9 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.Energy;
-import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.module.RechargeManager;
-import net.betterpvp.clans.morphs.MorphUtilities;
-import net.betterpvp.clans.utility.UtilMessage;
-import net.betterpvp.clans.utility.UtilPlayer;
-import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.clans.weapon.weapons.LightningScytheData;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class LightningScythe extends Weapon{
 

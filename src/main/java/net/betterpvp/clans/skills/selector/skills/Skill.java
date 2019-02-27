@@ -4,21 +4,22 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.clans.module.BAUListener;
-import net.betterpvp.clans.module.RechargeManager;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.ISkill;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.BuildSkill;
 import net.betterpvp.clans.skills.selector.RoleBuild;
-import net.betterpvp.clans.utility.UtilBlock;
-import net.betterpvp.clans.utility.UtilItem;
-import net.betterpvp.clans.utility.UtilMessage;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -30,7 +31,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.Arrays;
 
-public abstract class Skill extends BAUListener implements ISkill {
+public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
 	private String name;
 	private Material[] items;
@@ -193,9 +194,8 @@ public abstract class Skill extends BAUListener implements ISkill {
 	 */
 	public int getLevel(Player p){
 		int level = 1;
-		Client c =  ClientUtilities.getOnlineClient(p);
-		if(c != null){
-			Gamer g = c.getGamer();
+		Gamer g = GamerManager.getOnlineGamer(p);
+
 			if(g != null) {
 				if(g.getActiveBuild(getClassType()) != null){
 					level = g.getActiveBuild(getClassType()).getBuildSkill(getType()).getLevel();
@@ -208,7 +208,7 @@ public abstract class Skill extends BAUListener implements ISkill {
 						}
 					}
 				}
-			}
+
 		}
 		if(getType() == Types.AXE || getType() == Types.SWORD){
 			if(p.getItemInHand().getType() == Material.DIAMOND_SWORD || p.getItemInHand().getType() == Material.DIAMOND_AXE){
@@ -234,28 +234,10 @@ public abstract class Skill extends BAUListener implements ISkill {
 	 * @return Returns true if the player has the skill in their active build
 	 */
 	public boolean hasSkill(Player p, Skill s){
-		Client c = ClientUtilities.getOnlineClient(p);
-		if(c == null){
-			c = ClientUtilities.getClient(p);
-		}
-		if(c != null){
-			return hasSkill(c, p, s);
+		Gamer g = GamerManager.getOnlineGamer(p);
 
-			/*
-			Gamer g = c.getGamer();
-			if(g != null){
-				if(g.getActiveBuild(getClassType()) != null){
-					if(g.getActiveBuild(getClassType()).getBuildSkill(getType()) != null){
-						Role r = Role.getRole(p);
-						if(r != null && r.getName().equals(s.getClassType())){
-							if(g.getActiveBuild(getClassType()).getBuildSkill(getType()).getSkill().equals(s)){
-								return true;
-							}
-						}
-					}
-				}
-			}
-			 */
+		if(g != null){
+			return hasSkill(g, p, s);
 		}
 
 		return false;
@@ -263,15 +245,14 @@ public abstract class Skill extends BAUListener implements ISkill {
 
 	/**
 	 * Check if a player has a skill in their active build
-	 * @param c The client to check
+	 * @param g The gamer to check
 	 * @param p Player to check
 	 * @param s Skill to check for
 	 * @return Returns true if the player has the skill in their active build
 	 */
-	public boolean hasSkill(Client c, Player p, Skill s){
+	public boolean hasSkill(Gamer g, Player p, Skill s){
 
-		if(c != null){
-			Gamer g = c.getGamer();
+
 			if(g != null){
 				if(g.getActiveBuild(getClassType()) != null){
 					if(g.getActiveBuild(getClassType()).getBuildSkill(getType()) != null){
@@ -282,7 +263,7 @@ public abstract class Skill extends BAUListener implements ISkill {
 					}
 				}
 			}
-		}
+
 
 		return false;
 	}
@@ -320,7 +301,7 @@ public abstract class Skill extends BAUListener implements ISkill {
 		if (getActions() != null) {
 			if (Arrays.asList(getActions()).contains(event.getAction())) {
 				if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
-					Weapon weapon = Weapon.getWeapon(player.getItemInHand());
+					Weapon weapon = WeaponManager.getWeapon(player.getItemInHand());
 
 					if(weapon == null || weapon != null && weapon instanceof EnchantedWeapon){
 						Role role = Role.getRole(player);
@@ -332,7 +313,7 @@ public abstract class Skill extends BAUListener implements ISkill {
 									
 								}
 								
-								Gamer gamer = ClientUtilities.getOnlineClient(player).getGamer();
+								Gamer gamer = GamerManager.getOnlineGamer(player);
 								RoleBuild rb = gamer.getActiveBuild(role.getName());
 								if(rb == null){
 									gamer.setActiveBuild(gamer.getBuild(Role.getRole(player).getName(), 1));
@@ -344,7 +325,7 @@ public abstract class Skill extends BAUListener implements ISkill {
 									Skill s = bs.getSkill();
 									if(s != null){
 										if(s.getName().equals(getName())){
-											if(!EffectManager.isSilenced(player)){
+											if(!EffectManager.hasEffect(player, EffectType.SILENCE)){
 												if(ClanUtilities.canCast(player)){
 													if (usageCheck(player)) {
 														if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK){

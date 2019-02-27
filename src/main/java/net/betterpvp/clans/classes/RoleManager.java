@@ -1,5 +1,19 @@
 package net.betterpvp.clans.classes;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.classes.events.RoleChangeEvent;
+import net.betterpvp.clans.classes.roles.*;
+import net.betterpvp.clans.classes.roles.mysql.StatRepository;
+import net.betterpvp.clans.client.Client;
+import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.clans.client.PlayerStat;
+import net.betterpvp.core.framework.ServerStartEvent;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.framework.BAUListener;
+import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -7,25 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.classes.events.RoleChangeEvent;
-import net.betterpvp.clans.classes.roles.Assassin;
-import net.betterpvp.clans.classes.roles.Gladiator;
-import net.betterpvp.clans.classes.roles.Knight;
-import net.betterpvp.clans.classes.roles.Paladin;
-import net.betterpvp.clans.classes.roles.Ranger;
-import net.betterpvp.clans.classes.roles.mysql.StatRepository;
-import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
-import net.betterpvp.clans.client.PlayerStat;
-import net.betterpvp.clans.events.ServerStartEvent;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
-import net.betterpvp.clans.module.BAUListener;
-import net.betterpvp.clans.module.RechargeManager;
-import net.betterpvp.clans.utility.UtilMessage;
 
 public class RoleManager extends BAUListener {
 

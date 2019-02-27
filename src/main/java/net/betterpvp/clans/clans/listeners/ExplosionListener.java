@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.Clan.DataType;
 import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
 import net.betterpvp.core.framework.BPVPListener;
@@ -24,7 +25,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import net.betterpvp.clans.clans.InsuranceType;
 
 public class ExplosionListener extends BPVPListener<Clans> {
 

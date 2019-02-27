@@ -1,11 +1,13 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.HashMap;
-import java.util.UUID;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilPlayer;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,12 +20,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.combat.throwables.ThrowableManager;
-import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
-
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class WaterBottle extends Weapon {
 

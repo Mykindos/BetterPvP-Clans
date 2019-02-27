@@ -1,8 +1,12 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.combat.throwables.Throwables;
+import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
@@ -19,13 +23,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.combat.throwables.ThrowableManager;
-import net.betterpvp.clans.combat.throwables.Throwables;
-import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
-import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
-import net.betterpvp.clans.weapon.Weapon;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Web extends Weapon {
 

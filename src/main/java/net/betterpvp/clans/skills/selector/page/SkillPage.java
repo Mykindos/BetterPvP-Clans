@@ -1,13 +1,13 @@
 package net.betterpvp.clans.skills.selector.page;
 
 import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.core.interfaces.Button;
-import net.betterpvp.core.interfaces.Menu;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.clans.skills.selector.button.SkillButton;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.interfaces.Button;
+import net.betterpvp.core.interfaces.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

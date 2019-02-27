@@ -1,30 +1,5 @@
 package net.betterpvp.clans.combat;
 
-import java.util.Iterator;
-
-import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.core.database.Log;
-import net.betterpvp.core.framework.BPVPListener;
-import net.betterpvp.core.utility.UtilFormat;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.recharge.Recharge;
-import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.ItemStack;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
@@ -33,23 +8,38 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.client.Client;
 import net.betterpvp.clans.client.ClientUtilities;
-import net.betterpvp.clans.client.DonationRank;
-import net.betterpvp.clans.donation.Perk;
-import net.betterpvp.clans.format.C;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.combat.CombatLogs;
 import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.module.Recharge;
-import net.betterpvp.clans.module.RechargeManager;
 import net.betterpvp.clans.morphs.Morph;
 import net.betterpvp.clans.morphs.MorphUtilities;
 import net.betterpvp.clans.morphs.types.Blaze;
 import net.betterpvp.clans.morphs.types.IronGolem;
 import net.betterpvp.clans.morphs.types.Spider;
 import net.betterpvp.clans.morphs.types.Wolf;
-import net.betterpvp.clans.mysql.Log;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
-import net.betterpvp.clans.utility.UtilFormat;
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.database.Log;
+import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.utility.UtilFormat;
+import net.betterpvp.core.utility.UtilMessage;
+import import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Iterator;
 
 
 public class CombatManager extends BPVPListener<Clans> {

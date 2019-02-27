@@ -2,9 +2,9 @@ package net.betterpvp.clans.worldevents.types.bosses.ads;
 
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.utility.UtilMath;
-import net.betterpvp.clans.utility.UtilPlayer;
-import net.betterpvp.clans.utility.UtilVelocity;
+import net.betterpvp.core.utility.UtilMath;
+import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.core.utility.UtilVelocity;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

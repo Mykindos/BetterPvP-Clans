@@ -5,12 +5,11 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
-import net.betterpvp.clans.module.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.utility.*;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.*;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -180,7 +179,7 @@ public class Blink extends Skill{
 
 	@EventHandler
 	public void onDetectGlass(UpdateEvent e) {
-		if(e.getType() == UpdateType.TICK_2) {
+		if(e.getType() == UpdateEvent.UpdateType.TICK_2) {
 			for(Player p : blinkTime.keySet()) {
 				if(!UtilTime.elapsed(blinkTime.get(p), 250)) {
 					for(double x = -0.3; x <= 0.3; x+=0.3){

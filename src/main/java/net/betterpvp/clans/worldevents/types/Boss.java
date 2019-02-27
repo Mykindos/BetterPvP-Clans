@@ -1,5 +1,6 @@
 package net.betterpvp.clans.worldevents.types;
 
+import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
@@ -10,18 +11,16 @@ import net.betterpvp.clans.client.DonationRank;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.client.mysql.PlayerStatRepository;
 import net.betterpvp.clans.donation.Perk;
-import net.betterpvp.clans.format.C;
 import net.betterpvp.clans.gamer.combat.LogManager;
 import net.betterpvp.clans.mysql.Log;
-import net.betterpvp.clans.utility.UtilTime;
+import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
-import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
-import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.WorldEvent;
+import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
+import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;

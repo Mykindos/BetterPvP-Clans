@@ -1,10 +1,10 @@
 package net.betterpvp.clans.worldevents.types;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
-import net.betterpvp.clans.utility.UtilMessage;
-import net.betterpvp.clans.utility.UtilTime;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.md_5.bungee.api.ChatColor;

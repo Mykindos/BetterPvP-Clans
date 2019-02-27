@@ -1,6 +1,8 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
-import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,10 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.weapon.Weapon;
 
 public class DwarvenPickaxe extends Weapon {
 

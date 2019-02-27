@@ -1,5 +1,8 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
@@ -15,11 +18,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
-import net.betterpvp.clans.weapon.Weapon;
 
 public class GlacialAxe extends Weapon{
 

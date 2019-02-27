@@ -1,11 +1,7 @@
 package net.betterpvp.clans.effects;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.framework.BPVPListener;
@@ -26,16 +22,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
-import net.betterpvp.clans.module.BAUListener;
-import net.betterpvp.clans.particles.ParticleEffect;
-import net.betterpvp.clans.utility.UtilMessage;
-import net.betterpvp.clans.utility.UtilTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class EffectManager extends BPVPListener<Clans> {
 
@@ -70,62 +59,23 @@ public class EffectManager extends BPVPListener<Clans> {
 		getEffects().add(new Effect(p.getUniqueId(), type, level, System.currentTimeMillis() + length));
 	}
 
-	public static boolean hasEffect(Player p, EffectType type){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType().equals(type)){
-				return true;
-			}
-		}
+	public static Effect getEffect(Player p, EffectType type){
+		return effects.stream().filter(e -> e.getPlayer().equals(p.getUniqueId())
+				&& e.getType() == type).findAny().orElse(null);
 
-		return false;
+	}
+
+
+	public static boolean hasEffect(Player p, EffectType type){
+		return getEffect(p, type) != null;
 	}
 
 	public static void removeEffect(Player p, EffectType type){
-		Iterator<Effect> it = effects.iterator();
-		while(it.hasNext()){
-			Effect next = it.next();
-			if(next.getPlayer().toString().equals(p.getUniqueId().toString())){
-				if(next.getType() == type){
-					it.remove();
-				}
-			}
-		}
+		effects.removeIf(e -> e.getPlayer().equals(p.getUniqueId()) && e.getType() == type);
 
 	}
 
-	public static boolean isSilenced(Player p){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType() == EffectType.INVULNERABILITY) {
-				return false;
-			}
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType() == EffectType.SILENCE){
-				
-				return true;
-			}
-		}
 
-		return false;
-	}
-
-	public static boolean isPvPLocked(Player p){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType() == EffectType.PVPLOCK){
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public static boolean isVulnerable(Player p){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType() == EffectType.VULNERABILITY){
-				return true;
-			}
-		}
-
-		return false;
-	}
 
 	public static double getShardBoost(Player p){
 		double d = 1.0;
@@ -145,9 +95,7 @@ public class EffectManager extends BPVPListener<Clans> {
 		return d;
 	}
 
-	public static boolean isStunned(Player p){
-		return hasEffect(p, EffectType.STUN);
-	}
+
 
 	public static boolean hasShardBoost(Effect type){
 		return type.getType() == EffectType.SHARD_50 || type.getType() == EffectType.SHARD_100;
@@ -167,61 +115,12 @@ public class EffectManager extends BPVPListener<Clans> {
 		}
 	}
 
-	public static boolean hasStrength(Player p){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType() == EffectType.STRENGTH){
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-
-
-	public static boolean hasNoFall(Player p){
-		return hasEffect(p, EffectType.NOFALL);
-	}
-
-
-	public int getStrengthLevel(Player p){
-
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType().equals(EffectType.STRENGTH)){
-				return e.getLevel();
-			}
-		}
-
-		return 0;
-	}
-
-	public int getResistanceLevel(Player p){
-
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType().equals(EffectType.RESISTANCE)){
-				return e.getLevel();
-			}
-		}
-
-		return 0;
-	}
-
-	public int getVulnerabilityLevel(Player p){
-		int level = 0;
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType().equals(EffectType.VULNERABILITY)){
-				return e.getLevel();
-			}
-		}
-
-		return level;
-	}
 
 	@EventHandler
 	public void onFall(EntityDamageEvent e){
 		if(e.getCause() == DamageCause.FALL){
 			if(e.getEntity() instanceof Player){
-				if(hasNoFall((Player) e.getEntity())){
+				if(hasEffect((Player) e.getEntity(), EffectType.NOFALL)){
 					e.setCancelled(true);
 				}
 			}
@@ -242,7 +141,6 @@ public class EffectManager extends BPVPListener<Clans> {
 				if(g != null){
 
 						if(!UtilTime.elapsed(g.getLastDamaged(), 15000)){
-
 							if(EffectManager.hasEffect(p, EffectType.INVISIBILITY)) continue;
 							ParticleEffect.VILLAGER_HAPPY.display(0.1F, 0, 0.1F, (float) 10, 1, p.getLocation().add(0, 4, 0), 30);
 						}
@@ -289,7 +187,7 @@ public class EffectManager extends BPVPListener<Clans> {
 	public void onMove(PlayerMoveEvent e){
 		if(e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ() 
 				|| e.getFrom().getY() != e.getTo().getY()){
-			if(isStunned(e.getPlayer())){
+			if(hasEffect(e.getPlayer(), EffectType.STUN)){
 				e.setCancelled(true);
 			}
 		}
@@ -311,12 +209,12 @@ public class EffectManager extends BPVPListener<Clans> {
 		if(e.getEntity() instanceof Player && e.getDamager() instanceof Player){
 			Player dam = (Player) e.getDamager();
 			Player p = (Player) e.getEntity();
-			if(hasProtection(p)){
+			if(hasEffect(p, EffectType.PROTECTION)){
 				UtilMessage.message(dam, "Protected", "This is a new player and has protection!");
 				e.setCancelled(true);
 			}
 
-			if(hasProtection(dam)){
+			if(hasEffect(dam, EffectType.PROTECTION)){
 				UtilMessage.message(dam, "Protected", "You cannot damage other players while you have protection!");
 				UtilMessage.message(dam, "Protected", "Type '/protection' to disable this permanentely.");
 				e.setCancelled(true);
@@ -329,33 +227,21 @@ public class EffectManager extends BPVPListener<Clans> {
 		if(e.getCause() != DamageCause.ENTITY_ATTACK) return;
 		if(e.getDamager() instanceof Player){
 			Player p = (Player) e.getDamager();
-			if(hasStrength(p)){
-				e.setDamage(e.getDamage() + (1.5 * getStrengthLevel(p)));
+			Effect effect = getEffect(p, EffectType.STRENGTH);
+			if(effect != null){
+				e.setDamage(e.getDamage() + (1.5 * effect.getLevel()));
 			}
 		}
 	}
-
-	public static Effect getEffect(Player p, EffectType type){
-		for(Effect e : effects){
-			if(e.getPlayer().equals(p.getUniqueId()) && e.getType().equals(type)){
-				return e;
-			}
-		}
-
-		return null;
-	}
-
-
-
-
 
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void onDamage(CustomDamageEvent e){
 		if(e.getDamagee() instanceof Player){
 			Player p = (Player) e.getDamagee();
-			if(isVulnerable(p)){
+			Effect effect = getEffect(p, EffectType.VULNERABILITY);
+			if(effect != null){
 				if(e.getCause() == DamageCause.LIGHTNING) return;
-				e.setDamage((e.getDamage() * (1.0 + (getVulnerabilityLevel(p) * 0.25))));
+				e.setDamage((e.getDamage() * (1.0 + (effect.getLevel() * 0.25))));
 
 			}
 		}
@@ -366,8 +252,9 @@ public class EffectManager extends BPVPListener<Clans> {
 		if(e.getDamagee() instanceof Player){
 
 			Player p = (Player) e.getDamagee();
-			if(hasEffect(p, EffectType.RESISTANCE)){
-				e.setDamage(e.getDamage() * (1.0 - (getResistanceLevel(p) * 20) * 0.01));
+			Effect effect = getEffect(p, EffectType.RESISTANCE);
+			if(effect != null){
+				e.setDamage(e.getDamage() * (1.0 - (effect.getLevel() * 20) * 0.01));
 
 			}
 		}

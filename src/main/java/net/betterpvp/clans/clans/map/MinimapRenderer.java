@@ -8,11 +8,9 @@ import net.betterpvp.clans.clans.map.NMS.MaterialMapColorInterface;
 import net.betterpvp.clans.clans.map.commands.MapCommand;
 import net.betterpvp.clans.clans.map.events.MinimapExtraCursorEvent;
 import net.betterpvp.clans.clans.map.events.MinimapPlayerCursorEvent;
-
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilLocation;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

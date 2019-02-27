@@ -21,7 +21,6 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
-
 import org.bukkit.*;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;

@@ -3,7 +3,7 @@ package net.betterpvp.clans.clans.menus.buttons.energybuttons;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.menus.buttons.ClanMenuButton;
-import net.betterpvp.clans.utility.UtilFormat;
+import net.betterpvp.core.utility.UtilFormat;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

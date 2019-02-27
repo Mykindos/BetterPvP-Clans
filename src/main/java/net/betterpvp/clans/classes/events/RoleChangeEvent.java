@@ -1,11 +1,10 @@
 package net.betterpvp.clans.classes.events;
 
+import net.betterpvp.clans.classes.Role;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import net.betterpvp.clans.classes.Role;
 
 public class RoleChangeEvent extends Event implements Cancellable {
 

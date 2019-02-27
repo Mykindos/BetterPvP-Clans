@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.skills.data;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.clans.module.RechargeManager;
+import net.betterpvp.core.framework.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

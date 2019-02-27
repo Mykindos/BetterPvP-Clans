@@ -1,7 +1,7 @@
 package net.betterpvp.clans.skills.selector.button;
 
-import net.betterpvp.core.interfaces.Button;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.interfaces.Button;
 
 public class SkillButton extends Button{
 

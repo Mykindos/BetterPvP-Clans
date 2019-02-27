@@ -1,34 +1,5 @@
 package net.betterpvp.clans.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-
-import org.bukkit.Bukkit;
-import org.bukkit.EntityEffect;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.FishHook;
-import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -37,19 +8,31 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.client.Client;
 import net.betterpvp.clans.client.ClientUtilities;
-import net.betterpvp.clans.events.UpdateEvent;
-import net.betterpvp.clans.events.UpdateEvent.UpdateType;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.shops.ShopManager;
 import net.betterpvp.clans.skills.skills.assassin.Mirage;
 import net.betterpvp.clans.skills.skills.assassin.Mirage.MirageData;
-import net.betterpvp.clans.utility.UtilItem;
-import net.betterpvp.clans.utility.UtilMath;
-import net.betterpvp.clans.utility.UtilPlayer;
-import net.betterpvp.clans.utility.UtilTime;
-import net.betterpvp.clans.utility.UtilVelocity;
+import net.betterpvp.core.utility.*;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.mah.MAH;
 import net.betterpvp.mah.mah.MAHManager;
+import org.bukkit.*;
+import org.bukkit.entity.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class DamageManager implements Listener{
 

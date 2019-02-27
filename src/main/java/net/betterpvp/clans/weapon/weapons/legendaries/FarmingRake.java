@@ -1,14 +1,12 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.ChatColor;
-import org.bukkit.CropState;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NetherWartsState;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,11 +14,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.NetherWarts;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.Energy;
-
-import net.betterpvp.clans.weapon.Weapon;
 
 public class FarmingRake extends Weapon{
 

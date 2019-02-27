@@ -19,8 +19,6 @@ import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneHourEnergy;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMessage;

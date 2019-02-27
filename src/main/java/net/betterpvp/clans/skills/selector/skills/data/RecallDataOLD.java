@@ -1,6 +1,6 @@
 package net.betterpvp.clans.skills.selector.skills.data;
 
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;

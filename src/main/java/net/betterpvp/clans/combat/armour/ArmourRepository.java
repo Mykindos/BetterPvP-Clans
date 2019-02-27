@@ -1,20 +1,16 @@
 package net.betterpvp.clans.combat.armour;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.weapon.EnchantedWeapon;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.database.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.mysql.Connect;
-import net.betterpvp.clans.mysql.Log;
-import net.betterpvp.clans.weapon.EnchantedWeapon;
-import net.betterpvp.clans.weapon.Weapon;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 public class ArmourRepository implements Repository<Clans> {
 	

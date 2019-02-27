@@ -1,10 +1,9 @@
 package net.betterpvp.clans.weapon;
 
-import org.bukkit.entity.Player;
-
 import net.betterpvp.clans.client.Rank;
 import net.betterpvp.clans.command.Command;
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.entity.Player;
 
 public class WeaponCommands extends Command{
 	public WeaponCommands() {

@@ -1,8 +1,7 @@
 package net.betterpvp.clans.weapon;
 
-import org.bukkit.Material;
-
 import net.betterpvp.clans.Clans;
+import org.bukkit.Material;
 
 public class EnchantedWeapon extends Weapon{
 	

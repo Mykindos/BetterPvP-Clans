@@ -1,19 +1,15 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,11 +18,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.classes.Energy;
-import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
-import net.betterpvp.clans.weapon.Weapon;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
 
 
 public class AlligatorsTooth extends Weapon {

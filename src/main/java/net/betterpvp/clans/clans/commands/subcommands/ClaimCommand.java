@@ -7,7 +7,6 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
-
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.utility.UtilFormat;

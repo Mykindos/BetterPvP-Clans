@@ -6,7 +6,6 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
-
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;

@@ -1,14 +1,16 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.AdminClan;
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,12 +25,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.AdminClan;
-import net.betterpvp.clans.clans.Clan;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class GravityGrenade extends Weapon{
 

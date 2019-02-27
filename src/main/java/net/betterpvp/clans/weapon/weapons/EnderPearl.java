@@ -1,16 +1,14 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
-import org.bukkit.Location;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -20,13 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.effects.EffectManager;
-import net.betterpvp.clans.effects.EffectType;
-
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
 
 
 public class EnderPearl extends Weapon {

@@ -1,10 +1,9 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
@@ -19,10 +18,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-
-import net.betterpvp.clans.weapon.Weapon;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MeteorBow extends Weapon {
 

@@ -1,16 +1,5 @@
 package net.betterpvp.clans.classes;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.client.Client;
 import net.betterpvp.clans.client.ClientUtilities;
@@ -18,6 +7,16 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.weapons.legendaries.FireWalkers;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public abstract class Role {
 

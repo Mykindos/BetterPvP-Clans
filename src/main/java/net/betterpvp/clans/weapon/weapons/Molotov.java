@@ -1,12 +1,15 @@
 package net.betterpvp.clans.weapon.weapons;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -19,14 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.combat.throwables.ThrowableManager;
-import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
-import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
-
-import net.betterpvp.clans.weapon.Weapon;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class Molotov extends Weapon {
