@@ -17,7 +17,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import java.util.HashSet;
 import java.util.WeakHashMap;
-import java.util.stream.Stream;
 
 public class RepeatedStrikes extends Skill {
 

@@ -171,7 +171,7 @@ public class Blink extends Skill{
 					Player player = (Player) e.getDamagee();
 					if(blinkTime.containsKey(player)) {
 						if(!UtilTime.elapsed(blinkTime.get(player), 500)) {
-							Deblink(player, true);
+							deblink(player, true);
 						}
 					}
 				}
@@ -191,7 +191,7 @@ public class Blink extends Skill{
 
 							if(loc.getBlock().getType().name().contains("GLASS") || loc.getBlock().getType().name().contains("DOOR")) {
 
-								Deblink(p, true);
+								deblink(p, true);
 							}
 						}
 					}
@@ -201,7 +201,7 @@ public class Blink extends Skill{
 		}
 	}
 
-	public void Deblink(Player player, boolean force)
+	public void deblink(Player player, boolean force)
 	{
 		if(!RechargeManager.getInstance().isCooling(player.getName(), "Deblink") || force){
 			if(ClanUtilities.canCast(player)){
@@ -276,7 +276,7 @@ public class Blink extends Skill{
 
 		if ((loc.containsKey(player)) && (blinkTime.containsKey(player)) && 
 				(!UtilTime.elapsed(blinkTime.get(player), 4000L))) {
-			Deblink(player, false);
+			deblink(player, false);
 			return false;
 		}
 		

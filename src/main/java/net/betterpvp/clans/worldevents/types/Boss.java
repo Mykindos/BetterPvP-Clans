@@ -6,7 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.client.DonationRank;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.client.mysql.PlayerStatRepository;

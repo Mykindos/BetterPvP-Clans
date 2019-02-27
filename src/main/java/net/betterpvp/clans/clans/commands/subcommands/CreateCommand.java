@@ -5,7 +5,6 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ClanCreateEvent;
 import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.utility.UtilInput;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -35,7 +34,7 @@ public class CreateCommand implements IClanCommand{
 		}
 
 		String name = args[1];
-		if (!ClientUtilities.getClient(player).isAdministrating()) {
+		if (!ClientUtilities.getOnlineClient(player).isAdministrating()) {
 			if (!UtilInput.valid(name)) {
 				UtilMessage.message(player, "Clans", "Invalid characters in Clan name.");
 				return;

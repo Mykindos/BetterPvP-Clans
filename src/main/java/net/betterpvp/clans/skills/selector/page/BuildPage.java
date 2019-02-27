@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.page;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;

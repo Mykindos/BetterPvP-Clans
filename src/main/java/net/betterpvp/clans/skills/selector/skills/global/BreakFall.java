@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.skills.global;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.md_5.bungee.api.ChatColor;

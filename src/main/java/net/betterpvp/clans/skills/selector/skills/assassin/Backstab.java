@@ -28,43 +28,14 @@ public class Backstab extends Skill{
 
 	}
 
-	/*
-	@EventHandler 
-	public void onEntDamage(EntityDamageByEntityEvent e){
-		if (e.getEntity() instanceof LivingEntity && e.getDamager() instanceof Player) {
-			Player dam = (Player) e.getDamager();
-			if (Role.getRole(dam) != null && Role.getRole(dam).getName().equals(getClassType())) {
-				if(hasSkill(dam, this)){
-					if(e.getEntity() instanceof Player){
-						if(!ClanUtilities.canHurt(dam, (Player) e.getEntity())){
-							return;
-						}
-					}
-
-					if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getItemInHand().getType())) {
-						
-							if(UtilMath.getAngle(dam.getLocation().getDirection(), e.getEntity().getLocation().getDirection()) < 90){
-								if(e.getEntity() instanceof Player){
-									PvPManager.addLog((Player) e.getEntity(), dam.getName(), "Backstab");
-								}
-								int level = getLevel(dam);
-								e.setDamage(e.getDamage() * (1.3 + (level * 0.1)));
-								dam.getWorld().playEffect(e.getEntity().getLocation().add(0, 1, 0), Effect.STEP_SOUND, 152);
-							}
-						
-					}
-				}
-			}
-		}
-	}
-	*/
 	
 	@EventHandler 
 	public void onEntDamage(CustomDamageEvent e){
 		if(e.getCause() != DamageCause.ENTITY_ATTACK) return;
 		if(e.getDamager() instanceof Player){
 			Player dam = (Player) e.getDamager();
-			if (Role.getRole(dam) != null && Role.getRole(dam).getName().equals(getClassType())) {
+			Role role = Role.getRole(dam);
+			if (role != null && role.getName().equals(getClassType())) {
 				if(hasSkill(dam, this)){
 					
 					if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getItemInHand().getType())) {

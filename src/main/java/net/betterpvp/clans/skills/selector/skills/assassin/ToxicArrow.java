@@ -121,7 +121,7 @@ public class ToxicArrow extends Skill{
 	}
 
 	@EventHandler
-	public void update(UpdateEvent e){
+	public void onUpdate(UpdateEvent e){
 		if(e.getType() == UpdateType.SEC){
 			ListIterator<Arrow> iterator = arrows.listIterator();
 			while(iterator.hasNext()){

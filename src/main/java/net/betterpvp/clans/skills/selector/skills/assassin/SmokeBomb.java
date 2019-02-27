@@ -11,12 +11,12 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilParticle;
 import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -223,7 +223,7 @@ public class SmokeBomb extends Skill {
 			return false;
 		}
 
-		if(EffectManager.isSilenced(player)){
+		if(EffectManager.hasEffect(player, EffectType.SILENCE)){
 			UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + " while silenced!");
 			return false;
 		}

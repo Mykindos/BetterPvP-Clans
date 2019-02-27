@@ -2,7 +2,7 @@ package net.betterpvp.clans.worldevents.types.bosses;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.core.framework.UpdateEvent;

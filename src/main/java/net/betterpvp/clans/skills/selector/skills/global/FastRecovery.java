@@ -4,7 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.RegenerateEnergyEvent;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.skills.Skill;

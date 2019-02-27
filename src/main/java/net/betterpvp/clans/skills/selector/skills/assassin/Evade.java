@@ -101,8 +101,10 @@ public class Evade extends Skill{
 
 	@Override
 	public boolean usageCheck(Player player) {
-		if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+		if (player.getLocation().getBlock().getType() == Material.WATER
+				|| player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN
+					+ getName() + ChatColor.GRAY + " in water.");
 			return false;
 		}
 		return true;

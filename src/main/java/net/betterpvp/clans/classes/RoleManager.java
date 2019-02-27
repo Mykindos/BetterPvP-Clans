@@ -6,7 +6,7 @@ import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.*;
 import net.betterpvp.clans.classes.roles.mysql.StatRepository;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.core.framework.ServerStartEvent;
 import net.betterpvp.core.framework.UpdateEvent;

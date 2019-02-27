@@ -12,65 +12,66 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class FeatherFalling extends Skill {
 
-	public FeatherFalling(Clans i) {
-		super(i, "Feather Falling", "Assassin",
-				noMaterials,
-				noActions, 3, true, false);
-	}
+    public FeatherFalling(Clans i) {
+        super(i, "Feather Falling", "Assassin",
+                noMaterials,
+                noActions, 3, true, false);
+    }
 
-	@EventHandler
-	public void onFallDamage(CustomDamageEvent event) {
-		if (event.getDamagee() instanceof Player) {
-			Player player = (Player) event.getDamagee();
-			if (Role.getRole(player) != null && Role.getRole(player).getName().equals(getClassType())) {
-				
-					if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-						event.setCancelled("Feather Falling");
-					}
-				
-			}
-		}
-	}
+    @EventHandler
+    public void onFallDamage(CustomDamageEvent event) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            if (event.getDamagee() instanceof Player) {
+                Player player = (Player) event.getDamagee();
 
-	@Override
-	public void activateSkill(Player player) {
+                Role r = Role.getRole(player);
+                if (r != null && r.getName().equals(getClassType())) {
+                    event.setCancelled("Feather Falling");
+                }
 
-	}
+            }
+        }
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		return true;
-	}
+    @Override
+    public void activateSkill(Player player) {
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {"Avoid fall damage",
-				"Prevent fall damage by: " + ChatColor.GREEN + (7+level) + "0%"};
-	}
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        return true;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"Avoid fall damage",
+                "Prevent fall damage by: " + ChatColor.GREEN + (7 + level) + "0%"};
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

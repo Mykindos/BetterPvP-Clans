@@ -2,7 +2,7 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;

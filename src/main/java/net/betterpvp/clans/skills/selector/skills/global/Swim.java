@@ -4,7 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.core.framework.UpdateEvent;

@@ -9,6 +9,7 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;

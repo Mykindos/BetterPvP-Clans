@@ -3,7 +3,6 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.ClientUtilities;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.md_5.bungee.api.ChatColor;

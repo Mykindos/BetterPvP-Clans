@@ -2,7 +2,7 @@ package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.weapon.Weapon;

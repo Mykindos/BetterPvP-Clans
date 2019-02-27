@@ -145,11 +145,6 @@ public class Flash extends Skill{
 							break;
 						}
 
-						/*
-			if(newTarget.getBlock().getType() != Material.AIR ||  newTarget.getBlock().getRelative(BlockFace.UP).getType() != Material.AIR){
-				break;
-			}
-						 */
 
 						for (Player cur : player.getWorld().getPlayers())
 						{
@@ -234,7 +229,7 @@ public class Flash extends Skill{
 					Player player = (Player) e.getDamagee();
 					if(blinkTime.containsKey(player)) {
 						if(!UtilTime.elapsed(blinkTime.get(player), 500)) {
-							Deblink(player, true);
+							deblink(player, true);
 						}
 					}
 				}
@@ -254,7 +249,7 @@ public class Flash extends Skill{
 
 							if(loc.getBlock().getType().name().contains("GLASS") || loc.getBlock().getType().name().contains("DOOR")) {
 
-								Deblink(p, true);
+								deblink(p, true);
 							}
 						}
 					}
@@ -264,7 +259,7 @@ public class Flash extends Skill{
 		}
 	}
 
-	public void Deblink(Player player, boolean force)
+	public void deblink(Player player, boolean force)
 	{
 
 		if(ClanUtilities.canCast(player)){
