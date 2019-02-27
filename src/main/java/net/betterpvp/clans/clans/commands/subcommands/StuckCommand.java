@@ -22,7 +22,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import java.util.*;
 import java.util.Map.Entry;
 
-<Clans>;
 
 public class StuckCommand extends BPVPListener<Clans> implements IClanCommand{
 

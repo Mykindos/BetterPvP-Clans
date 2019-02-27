@@ -8,6 +8,11 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.client.Client;
 import net.betterpvp.clans.client.ClientUtilities;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.skills.selector.skills.assassin.Mirage;
+import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.shops.ShopManager;
@@ -84,7 +89,7 @@ public class DamageManager implements Listener{
 				AdminClan adminClan = (AdminClan) c;
 				if(adminClan.isSafe()){
 					if(e.getEntity() instanceof Player){
-						if(UtilTime.elapsed(ClientUtilities.getOnlineClient((Player) e.getEntity()).getGamer().getLastDamaged(), 15000)){
+						if(UtilTime.elapsed(GamerManager.getOnlineGamer((Player) e.getEntity()).getLastDamaged(), 15000)){
 							e.setCancelled(true);
 						}
 					}else{
@@ -182,9 +187,9 @@ public class DamageManager implements Listener{
 
 		if(e.isCancelled()) return;
 		if(!(e.getDamager() instanceof Player) && e.getDamagee() instanceof Player) {
-			Client client = ClientUtilities.getClient((Player) e.getDamagee());
-			if(client != null) {
-				client.getGamer().setLastDamaged(System.currentTimeMillis());
+			Gamer gamer =  GamerManager.getOnlineGamer((Player) e.getDamagee());
+			if(gamer != null) {
+				gamer.setLastDamaged(System.currentTimeMillis());
 			}
 		}
 		if(e.getDamagee() instanceof Player && e.getDamager() instanceof Player){
@@ -192,26 +197,23 @@ public class DamageManager implements Listener{
 				return;
 			}
 			if(ClanUtilities.canHurt((Player) e.getDamager(), (Player) e.getDamagee())){
-				Client damager = ClientUtilities.getOnlineClient((Player) e.getDamager());
-				if(damager != null) {
-					damager.getGamer().setLastDamaged(System.currentTimeMillis());
-					if(MAH.getOptions().getMAHCheck() && MAHManager.isForced((Player) e.getDamager()) && !MAHManager.isAuthenticated((Player) e.getDamager())) {
-						e.setCancelled("Not Authenticated");
-						return;
-					}
+				Gamer gamer = GamerManager.getOnlineGamer((Player) e.getDamager());
+				if(gamer != null) {
+					gamer.setLastDamaged(System.currentTimeMillis());
+
 				}
 
 				boolean clone = false;
-				for(MirageData mr : Mirage.active.values()) {
+				for(Mirage.MirageData mr : Mirage.active.values()) {
 					if(mr.npc.getEntity() == e.getDamagee()) {
 						clone = true;
 					}
 				}
 
 				if(!clone) {
-					Client xClient = ClientUtilities.getOnlineClient((Player) e.getDamagee());
-					if(xClient != null) {
-						xClient.getGamer().setLastDamaged(System.currentTimeMillis());
+					Gamer xGamer = GamerManager.getOnlineGamer((Player) e.getDamagee());
+					if(xGamer != null) {
+						xGamer.setLastDamaged(System.currentTimeMillis());
 					}
 
 				}
@@ -265,27 +267,15 @@ public class DamageManager implements Listener{
 
 			if(e.getDamagee().getHealth() > 0){
 				if(e.getDamage() >= 0){
-					if(e.getCause() == DamageCause.FALL ){
-						//e.setDamage(e.getDamage() * 1.5);
-
-					}
-
-
-
 
 					delays.add(new DamageData(e.getDamagee().getUniqueId().toString(), e.getCause(), e.getDamageDelay()));
 
-
-
 					if(e.getKnockback()){
-
 						if(e.getDamager() != null){
 							CustomKnockbackEvent cke = new CustomKnockbackEvent(e.getDamagee(), e.getDamager(), e.getDamage(), e);
 							Bukkit.getPluginManager().callEvent(cke);
-
 						}
 					}
-
 
 					double damage = e.isIgnoreArmour() ? e.getDamage() : UtilPlayer.getDamageReduced(e.getDamage(), e.getDamagee());
 					if(e.getCause() == DamageCause.POISON){
@@ -305,12 +295,9 @@ public class DamageManager implements Listener{
 								return;
 							}
 
-							for(MirageData mr : Mirage.active.values()) {
-
+							for(Mirage.MirageData mr : Mirage.active.values()) {
 								if(mr.npc.getEntity() == e.getDamagee()) {
-
 									return;
-
 								}
 							}
 
@@ -332,7 +319,7 @@ public class DamageManager implements Listener{
 						}else{
 							if(e.getDamagee() instanceof Player) {
 
-								for(MirageData mr : Mirage.active.values()) {
+								for(Mirage.MirageData mr : Mirage.active.values()) {
 
 									if(mr.npc.getEntity() == e.getDamagee()) {
 
@@ -431,8 +418,6 @@ public class DamageManager implements Listener{
 							
 							if(armour.getType().name().contains("LEATHER")) {
 								double rand = UtilMath.randomInt(1,  7);
-								
-							
 								if(rand == 6) {
 									takeDura = true;
 								}
@@ -496,7 +481,7 @@ public class DamageManager implements Listener{
 							p.updateInventory();
 						}else {
 							
-							Weapon w = Weapon.getWeapon(hand);
+							Weapon w = WeaponManager.getWeapon(hand);
 							if(w != null && w.isLegendary()) {
 								return;
 							}

@@ -3,6 +3,7 @@ package net.betterpvp.clans.combat.armour;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.database.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -64,7 +65,7 @@ public class ArmourRepository implements Repository<Clans> {
 
 	public static double getArmour(ItemStack item){
 
-		Weapon w = Weapon.getWeapon(item);
+		Weapon w = WeaponManager.getWeapon(item);
 		if(w != null){
 			
 			if(w instanceof EnchantedWeapon){
