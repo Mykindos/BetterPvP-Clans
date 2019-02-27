@@ -8,8 +8,9 @@ import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.combat.LogManager;
-import import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.recharge.Recharge;
+import  net.betterpvp.core.utility.recharge.RechargeManager;
+
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;

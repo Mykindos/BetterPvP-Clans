@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class HuntersThrillData {
 
-    public static List<HuntersThrillData> data = new ArrayList<HuntersThrillData>();
+
 
     private UUID uuid;
     private int charge;
@@ -16,7 +16,7 @@ public class HuntersThrillData {
         this.uuid = uuid;
         this.charge = 0;
         this.lastHit = System.currentTimeMillis();
-        data.add(this);
+
     }
 
     public UUID getUUID() {
@@ -47,12 +47,5 @@ public class HuntersThrillData {
         this.lastHit = lastHit;
     }
 
-    public static HuntersThrillData getHuntersThrillData(UUID uuid) {
-        for (HuntersThrillData hunter : data) {
-            if (hunter.getUUID().equals(uuid)) {
-                return hunter;
-            }
-        }
-        return null;
-    }
+
 }

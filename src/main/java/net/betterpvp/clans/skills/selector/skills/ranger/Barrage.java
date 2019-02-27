@@ -28,8 +28,8 @@ import org.bukkit.util.Vector;
 import java.util.*;
 
 public class Barrage extends Skill {
-
-	public static List<Arrow> arrows = new ArrayList<Arrow>();
+	public List<ChargeData> data = new ArrayList<>();
+	public static List<Arrow> arrows = new ArrayList<>();
 	private WeakHashMap<Player, Long> charging = new WeakHashMap<>();
 
 	public Barrage(Clans i) {
@@ -74,6 +74,15 @@ public class Barrage extends Skill {
 		return false;
 	}
 
+	public  ChargeData getData(UUID uuid) {
+		for (ChargeData barrage : data) {
+			if (barrage.getUUID() == barrage.getUUID()) {
+				return barrage;
+			}
+		}
+		return null;
+	}
+
 	@EventHandler
 	public void onBarrageActivate(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -113,13 +122,13 @@ public class Barrage extends Skill {
 		Role r = Role.getRole(player);
 		if(r != null && r.getName().equals(getClassType())){
 			if(hasSkill(player, this)){
-				final ChargeData data = ChargeData.getData(player.getUniqueId());
+				final ChargeData d = getData(player.getUniqueId());
 
-				if (data != null) {
+				if (d != null) {
 					Bukkit.getScheduler().runTaskTimer(getInstance(), new Runnable() {
 						public void run() {
-							if (data.getCharge() <= 0) {
-								ChargeData.data.remove(data);
+							if (d.getCharge() <= 0) {
+								data.remove(d);
 								return;
 							}
 
@@ -127,7 +136,7 @@ public class Barrage extends Skill {
 							Arrow arrow = player.launchProjectile(Arrow.class);
 							arrow.setVelocity(player.getLocation().getDirection().add(random).multiply(3));
 							player.getWorld().playSound(player.getLocation(), Sound.SHOOT_ARROW, 1.0F, 1.0F);
-							data.setCharge(data.getCharge() - 1);
+							d.setCharge(d.getCharge() - 1);
 							arrows.add(arrow);
 						}
 					}, 0, 1L);
@@ -148,7 +157,7 @@ public class Barrage extends Skill {
 	public void updateBarrage(UpdateEvent event) {
 		if (event.getType() == UpdateType.TICK) {
 
-			Iterator<ChargeData> iterator = ChargeData.data.iterator();
+			Iterator<ChargeData> iterator = data.iterator();
 			while (iterator.hasNext()) {
 				ChargeData data = iterator.next();
 				Player player = Bukkit.getPlayer(data.getUUID());

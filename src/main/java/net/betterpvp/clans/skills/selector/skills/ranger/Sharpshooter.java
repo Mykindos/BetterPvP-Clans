@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.ClientUtilities;
+
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
@@ -15,9 +15,14 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 public class Sharpshooter extends Skill {
+
+	public List<SharpshooterData> data = new ArrayList<>();
 
 	public Sharpshooter(Clans i) {
 		super(i, "Sharpshooter", "Ranger",
@@ -32,6 +37,15 @@ public class Sharpshooter extends Skill {
 				ChatColor.GREEN.toString() + (level * 0.75) + ChatColor.GRAY + " additional damage per charge"};
 	}
 
+	public SharpshooterData getSharpshooterData(UUID uuid) {
+		for (SharpshooterData hunter : data) {
+			if (hunter.getUUID().equals(uuid)) {
+				return hunter;
+			}
+		}
+		return null;
+	}
+
 	@EventHandler
 	public void onArrowHit(CustomDamageEvent event) {
 		if (event.getProjectile() instanceof Arrow) {
@@ -44,15 +58,15 @@ public class Sharpshooter extends Skill {
 						return;
 					}
 
+					Role r = Role.getRole(player);
+					if (r != null && r.getName().equals(getClassType())) {
 
-					if (Role.getRole(player) != null && Role.getRole(player).getName().equals(getClassType())) {
-						if(ClientUtilities.getClient(player) != null){
 							if(hasSkill(player, this)){
-								if (SharpshooterData.getSharpshooterData(player.getUniqueId()) == null) {
-									new SharpshooterData(player.getUniqueId());
+								if (getSharpshooterData(player.getUniqueId()) == null) {
+									data.add(new SharpshooterData(player.getUniqueId()));
 								}
 
-								SharpshooterData data = SharpshooterData.getSharpshooterData(player.getUniqueId());
+								SharpshooterData data = getSharpshooterData(player.getUniqueId());
 
 								if (data.getCharge() < 4) {
 									data.addCharge();
@@ -62,7 +76,7 @@ public class Sharpshooter extends Skill {
 							}
 						}
 
-					}
+
 				}
 			}
 		}
@@ -73,7 +87,7 @@ public class Sharpshooter extends Skill {
 	@EventHandler
 	public void updateSharpshooterData(UpdateEvent event) {
 		if (event.getType() == UpdateType.TICK) {
-			Iterator<SharpshooterData> iterator = SharpshooterData.data.iterator();
+			Iterator<SharpshooterData> iterator = data.iterator();
 			while (iterator.hasNext()) {
 				SharpshooterData data = iterator.next();
 

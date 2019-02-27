@@ -86,17 +86,17 @@ public class RepeatedStrikes extends Skill {
     }
 
     @EventHandler
-    public void update(UpdateEvent event) {
+    public void onUpdate(UpdateEvent event) {
         if (event.getType() == UpdateType.FAST) {
-
 
             HashSet<Player> remove = new HashSet<>();
 
             for (Player p : repeat.keySet()) {
-                if (UtilTime.elapsed(last.get(p), 2000L)) {
+                if (UtilTime.elapsed(last.get(p), 2000)) {
                     remove.add(p);
                 }
             }
+
             for (Player p : remove) {
                 repeat.remove(p);
                 last.remove(p);

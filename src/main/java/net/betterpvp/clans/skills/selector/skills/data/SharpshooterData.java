@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class SharpshooterData {
 
-    public static List<SharpshooterData> data = new ArrayList<SharpshooterData>();
+
 
     private UUID uuid;
     private int charge;
@@ -16,7 +16,6 @@ public class SharpshooterData {
         this.uuid = uuid;
         this.charge = 0;
         this.lastHit = System.currentTimeMillis();
-        data.add(this);
     }
 
     public UUID getUUID() {
@@ -47,12 +46,5 @@ public class SharpshooterData {
         this.lastHit = lastHit;
     }
 
-    public static SharpshooterData getSharpshooterData(UUID uuid) {
-        for (SharpshooterData hunter : data) {
-            if (hunter.getUUID().equals(uuid)) {
-                return hunter;
-            }
-        }
-        return null;
-    }
+
 }

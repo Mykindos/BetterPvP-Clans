@@ -20,7 +20,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public final class ClaimCommand implements IClanCommand{
+public  class ClaimCommand implements IClanCommand{
 
 
 
@@ -46,7 +46,7 @@ public final class ClaimCommand implements IClanCommand{
 			return;
 		}
         
-        if(player.getWorld().getEnvironment().equals(Environment.NETHER) && !ClientUtilities.getClient(player).isAdministrating()){
+        if(player.getWorld().getEnvironment().equals(Environment.NETHER) && !ClientUtilities.getOnlineClient(player).isAdministrating()){
         	UtilMessage.message(player, "Clans", "You cannot claim land in the nether.");
         	return;
         }

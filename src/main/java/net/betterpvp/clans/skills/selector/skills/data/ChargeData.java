@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class ChargeData {
 
-    public static List<ChargeData> data = new ArrayList<ChargeData>();
+
 
     private UUID uuid;
     private int charge;
@@ -20,7 +20,7 @@ public class ChargeData {
         this.lastCharge = System.currentTimeMillis();
         this.increment = increment;
         this.maxCharge = maxCharge;
-        data.add(this);
+
     }
 
     public UUID getUUID() {
@@ -69,13 +69,6 @@ public class ChargeData {
         this.increment = increment;
     }
 
-    public static ChargeData getData(UUID uuid) {
-        for (ChargeData barrage : data) {
-            if (barrage.getUUID() == barrage.getUUID()) {
-                return barrage;
-            }
-        }
-        return null;
-    }
+
 
 }

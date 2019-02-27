@@ -109,7 +109,7 @@ public class DamageManager implements Listener{
 				if ((e instanceof EntityDamageByEntityEvent)) {
 					EntityDamageByEntityEvent ev = (EntityDamageByEntityEvent) e;
 					if(ev.getDamager() instanceof Player){
-						if(ClientUtilities.getClient((Player) ev.getDamager()).isAdministrating()){
+						if(ClientUtilities.getOnlineClient((Player) ev.getDamager()).isAdministrating()){
 							return;
 						}
 					}

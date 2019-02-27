@@ -14,81 +14,82 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Entangle extends Skill{
+public class Entangle extends Skill {
 
-	public Entangle(Clans i) {
-		super(i, "Entangle", "Ranger", noMaterials, noActions, 3,
-				false, false);
-		// TODO Auto-generated constructor stub
-	}
+    public Entangle(Clans i) {
+        super(i, "Entangle", "Ranger", noMaterials, noActions, 3,
+                false, false);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{"Your arrows apply Slowness 2",
-				"to any damageable target for " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " seconds"};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"Your arrows apply Slowness 2",
+                "to any damageable target for " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " seconds"};
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 
-	@EventHandler (priority = EventPriority.HIGHEST)
-	public void onSlow(CustomDamageEvent e){
-		if(e.isCancelled()){
-			return;
-		}
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onSlow(CustomDamageEvent e) {
+        if (e.isCancelled()) {
+            return;
+        }
 
-		if(e.getProjectile() != null){
+        if (e.getProjectile() != null) {
 
-			LivingEntity ent = e.getDamagee();
+            LivingEntity ent = e.getDamagee();
 
-			if(e.getDamager() instanceof Player){
-				Player p = (Player) e.getDamager();
-						if(Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())){
-							if(hasSkill(p, this)){
-								
-									LogManager.addLog( ent, p, "Entangle");
-								
-								ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 0.5) * 20), 1));
-							}
-						}
+            if (e.getDamager() instanceof Player) {
+                Player p = (Player) e.getDamager();
+                Role r = Role.getRole(p);
+                if (r != null && r.getName().equals(getClassType())) {
+                    if (hasSkill(p, this)) {
 
-			}
-		}
+                        LogManager.addLog(ent, p, "Entangle");
 
-	}
+                        ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 0.5) * 20), 1));
+                    }
+                }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+            }
+        }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

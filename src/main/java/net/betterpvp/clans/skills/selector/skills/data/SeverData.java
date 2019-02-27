@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.skills.data;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,8 @@ public class SeverData implements Listener{
 					if(damagee != null){
 						if(damager != null){
 							if(RechargeManager.getInstance().add(damagee, "Sever-Damage", 0.75, false)){
-								Bukkit.getPluginManager().callEvent(new CustomDamageEvent(damagee, damager, null, DamageCause.CUSTOM, 1.5, false, "Sever"));
+								Bukkit.getPluginManager().callEvent(new CustomDamageEvent(damagee, damager, null,
+										DamageCause.CUSTOM, 1.5, false, "Sever"));
 								LogManager.addLog(damagee, damager, "Sever");
 							}
 						}

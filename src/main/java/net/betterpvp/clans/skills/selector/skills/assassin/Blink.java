@@ -67,7 +67,8 @@ public class Blink extends Skill{
 		double curRange = 0.0D;
 		while (curRange <= maxRange)
 		{
-			Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D)).add(player.getLocation().getDirection().multiply(curRange));
+			Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D))
+					.add(player.getLocation().getDirection().multiply(curRange));
 
 			if(newTarget.getBlock().getType() == Material.IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR){
 				player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0,0.1,0)));
@@ -111,7 +112,8 @@ public class Blink extends Skill{
 						player.teleport(UtilWorld.locMerge(player.getLocation(), target));
 
 
-						UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
+						UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName()
+								+ " " + getLevel(player) + ChatColor.GRAY + ".");
 
 
 						player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0);

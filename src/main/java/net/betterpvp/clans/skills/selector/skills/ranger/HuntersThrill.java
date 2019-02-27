@@ -3,7 +3,6 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
@@ -17,117 +16,130 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 public class HuntersThrill extends Skill {
 
-	public HuntersThrill(Clans i) {
-		super(i, "Hunters Thrill", "Ranger",
-				noMaterials, noActions,5, true, false);
-	}
+    private List<HuntersThrillData> data = new ArrayList<>();
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {"For each consecutive hit within " + ChatColor.GREEN + (8 + level) + ChatColor.GRAY + " seconds of each other",
-		"you gain increased movement speed"};
-	}
+    public HuntersThrill(Clans i) {
+        super(i, "Hunters Thrill", "Ranger",
+                noMaterials, noActions, 5, true, false);
+    }
 
-	@EventHandler
-	public void onArrowHit(CustomDamageEvent event) {
-		if (event.getProjectile() != null) {
-			
-			if(event.getProjectile() instanceof Arrow){
-				if(event.getDamager() instanceof Player){
-					Player player = (Player) event.getDamager();
-					if (event.getDamagee() instanceof Player) {
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"For each consecutive hit within " + ChatColor.GREEN + (8 + level) + ChatColor.GRAY + " seconds of each other",
+                "you gain increased movement speed"};
+    }
 
-						Player entity = (Player) event.getDamagee();
-						if (player == entity) {
-							return;
-						}
+    public HuntersThrillData getHuntersThrillData(UUID uuid) {
+        for (HuntersThrillData hunter : data) {
+            if (hunter.getUUID().equals(uuid)) {
+                return hunter;
+            }
+        }
+        return null;
+    }
 
-						
-							if (Role.getRole(player) != null && Role.getRole(player).getName().equals(getClassType())) {
-								if(ClientUtilities.getClient(player) != null){
-									if(hasSkill(player, this)){
+    @EventHandler
+    public void onArrowHit(CustomDamageEvent event) {
+        if (event.getProjectile() != null) {
 
-										if (HuntersThrillData.getHuntersThrillData(player.getUniqueId()) == null) {
-											new HuntersThrillData(player.getUniqueId());
-										}
+            if (event.getProjectile() instanceof Arrow) {
+                if (event.getDamager() instanceof Player) {
+                    Player player = (Player) event.getDamager();
+                    if (event.getDamagee() instanceof Player) {
 
-										HuntersThrillData data = HuntersThrillData.getHuntersThrillData(player.getUniqueId());
+                        Player entity = (Player) event.getDamagee();
+                        if (player == entity) {
+                            return;
+                        }
 
-										if (data.getCharge() < 4) {
-											data.addCharge();
-											data.setLastHit(System.currentTimeMillis());
-											player.removePotionEffect(PotionEffectType.SPEED);
-											player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, data.getCharge() - 1));
-										}
-									}
-								}
-							}
-						}
-					
-				}
-			}
-		}
-	}
+                        Role r = Role.getRole(player);
+                        if (r != null && r.getName().equals(getClassType())) {
+
+                            if (hasSkill(player, this)) {
 
 
+                                if (getHuntersThrillData(player.getUniqueId()) == null) {
+                                    data.add(new HuntersThrillData(player.getUniqueId()));
+                                }
 
-	@EventHandler
-	public void updateHuntersThrillData(UpdateEvent event) {
-		if (event.getType() == UpdateType.TICK) {
-			Iterator<HuntersThrillData> iterator = HuntersThrillData.data.iterator();
-			while (iterator.hasNext()) {
-				HuntersThrillData data = iterator.next();
+                                HuntersThrillData data = getHuntersThrillData(player.getUniqueId());
 
-				Player player = Bukkit.getPlayer(data.getUUID());
+                                if (data.getCharge() < 4) {
+                                    data.addCharge();
+                                    data.setLastHit(System.currentTimeMillis());
+                                    player.removePotionEffect(PotionEffectType.SPEED);
+                                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, data.getCharge() - 1));
+                                }
+                            }
+                        }
 
-				if (player != null) {
-					if (System.currentTimeMillis() >= data.getLastHit() + (8000 + (getLevel(player) * 1000))) {
-						iterator.remove();
-					}
-				}
-			}
-		}
-	}
+                    }
 
-	@Override
-	public void activateSkill(Player player) {
-
-	}
-
-	@Override
-	public boolean usageCheck(Player player) {
-		return true;
-	}
+                }
+            }
+        }
+    }
 
 
+    @EventHandler
+    public void updateHuntersThrillData(UpdateEvent event) {
+        if (event.getType() == UpdateType.TICK) {
+            Iterator<HuntersThrillData> iterator = data.iterator();
+            while (iterator.hasNext()) {
+                HuntersThrillData data = iterator.next();
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_B;
-	}
+                Player player = Bukkit.getPlayer(data.getUUID());
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+                if (player != null) {
+                    if (System.currentTimeMillis() >= data.getLastHit() + (8000 + (getLevel(player) * 1000))) {
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void activateSkill(Player player) {
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
+
+    @Override
+    public boolean usageCheck(Player player) {
+        return true;
+    }
+
+
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_B;
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

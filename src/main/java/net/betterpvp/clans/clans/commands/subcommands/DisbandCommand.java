@@ -22,7 +22,7 @@ public final class DisbandCommand implements IClanCommand{
 			return;
 		}
 
-		if (!ClientUtilities.getClient(player).isAdministrating()) {
+		if (!ClientUtilities.getOnlineClient(player).isAdministrating()) {
 			if (!clan.getLeader().equals(player.getUniqueId())) {
 				UtilMessage.message(player, "Clans", "Only the Clan Leader can disband the Clan.");
 				return;

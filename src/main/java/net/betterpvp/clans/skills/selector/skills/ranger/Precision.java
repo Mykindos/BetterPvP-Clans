@@ -51,13 +51,13 @@ public class Precision extends Skill{
 				
 				if(e.getDamager() instanceof Player){
 					Player p = (Player) e.getDamager();
-					if(Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())){
-						if(ClientUtilities.getClient(p) != null){
-							if(hasSkill(p, this)){
-									e.setDamage(e.getDamage() + (getLevel(p) * 0.5));
-								}
-							}
+					Role r = Role.getRole(p);
+					if(r != null && r.getName().equals(getClassType())) {
+
+						if (hasSkill(p, this)) {
+							e.setDamage(e.getDamage() + (getLevel(p) * 0.5));
 						}
+					}
 					
 				}
 			}

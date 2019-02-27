@@ -27,6 +27,7 @@ import java.util.*;
 
 public class Overcharge extends Skill {
 
+	private  List<OverChargeData> data = new ArrayList<OverChargeData>();
 	public static List<Arrow> arrows = new ArrayList<Arrow>();
 	private Set<UUID> charging = new HashSet<>();
 
@@ -63,6 +64,15 @@ public class Overcharge extends Skill {
 		return false;
 	}
 
+	public  OverChargeData getData(UUID uuid) {
+		for (OverChargeData barrage : data) {
+			if (barrage.getUUID() == barrage.getUUID()) {
+				return barrage;
+			}
+		}
+		return null;
+	}
+
 	@EventHandler
 	public void onBarrageActivate(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -75,7 +85,7 @@ public class Overcharge extends Skill {
 						if(ClanUtilities.canCast(player)){
 							if(player.getInventory().contains(Material.ARROW)){
 								if(!charging.contains(player.getUniqueId())){
-									new OverChargeData(player.getUniqueId(), 2, (1 + getLevel(player)));
+									data.add(new OverChargeData(player.getUniqueId(), 2, (1 + getLevel(player))));
 									charging.add(player.getUniqueId());
 								}
 							}
@@ -103,9 +113,10 @@ public class Overcharge extends Skill {
 		}
 
 		final Player player = (Player) event.getEntity();
-		if(Role.getRole(player) != null && Role.getRole(player).getName().equals(getClassType())){
+		Role r = Role.getRole(player);
+		if(r != null && r.getName().equals(getClassType())){
 			if(hasSkill(player, this)){
-				final OverChargeData data = OverChargeData.getData(player.getUniqueId());
+				final OverChargeData data = getData(player.getUniqueId());
 
 				if (data != null) {
 					bonus.put((Arrow) event.getProjectile(), data.getCharge());
@@ -148,7 +159,7 @@ public class Overcharge extends Skill {
 	public void updateOvercharge(UpdateEvent event) {
 		if (event.getType() == UpdateType.TICK) {
 
-			Iterator<OverChargeData> iterator = OverChargeData.data.iterator();
+			Iterator<OverChargeData> iterator = data.iterator();
 			while (iterator.hasNext()) {
 				OverChargeData data = iterator.next();
 				Player player = Bukkit.getPlayer(data.getUUID());

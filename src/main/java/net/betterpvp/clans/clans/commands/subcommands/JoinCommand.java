@@ -30,7 +30,7 @@ public class JoinCommand implements IClanCommand{
 
 	public void run(Player player, String[] args) {
 		Clan clan = ClanUtilities.getClan(player);
-		if (!ClientUtilities.getClient(player.getUniqueId()).isAdministrating()) {
+		if (!ClientUtilities.getOnlineClient(player.getUniqueId()).isAdministrating()) {
 			if (clan != null) {
 				UtilMessage.message(player, "Clans", "You are already in a Clan.");
 				return;
