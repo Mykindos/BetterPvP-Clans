@@ -8,6 +8,7 @@ Created using the [Spigot API](https://www.spigotmc.org/) for Minecraft servers.
 # Features
 - Clans
 - Classes
+- Economy / Shops
 - Skills
 - World Events
 - And more
