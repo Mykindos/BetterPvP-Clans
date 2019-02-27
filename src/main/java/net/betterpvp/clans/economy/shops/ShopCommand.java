@@ -57,86 +57,6 @@ public class ShopCommand extends Command implements Listener {
     }
 
 
-    public void spawnShop(Player p, String str) {
-        switch (str.toLowerCase()) {
-            case "armour":
-                ShopSkeleton as = new ShopSkeleton(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Skeleton armour = as.spawn(p.getLocation());
-
-                armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
-                //Skeleton  armour = (Skeleton) createShop(ChatColor.GREEN + "Armour", p.getp.getLocation()ation(), EntityType.SKELETON);
-
-                //armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-                break;
-            case "weapons":
-                //ShopZombie  weapons = (ShopZombie) createShop(ChatColor.GREEN + "Tools / Weapons", p.getp.getLocation()ation(), EntityType.ZOMBIE);
-                ShopZombie wz = new ShopZombie(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Zombie weapons = wz.spawn(p.getLocation());
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Weapons / Tools", weapons);
-
-                break;
-            case "farmer":
-                ShopVillager fv = new ShopVillager(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Villager farmer = fv.spawn(p.getLocation());
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Farmer", farmer);
-                break;
-            case "building":
-                ShopVillager bv = new ShopVillager(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Villager builder = bv.spawn(p.getLocation());
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Building", builder);
-
-                break;
-            case "resources":
-                ShopVillager rv = new ShopVillager(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Villager resources = rv.spawn(p.getLocation());
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Resources", resources);
-                //createShop(ChatColor.GREEN + "Resources", p.getp.getLocation()ation(), EntityType.VILLAGER);
-
-                break;
-            case "fragment":
-                ShopSkeleton bs = new ShopSkeleton(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Skeleton battle = bs.spawn(p.getLocation());
-                battle.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Fragment Vendor", battle);
-
-                break;
-
-            case "disc":
-                ShopVillager dv = new ShopVillager(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Villager disc = dv.spawn(p.getLocation());
-
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Disc", disc);
-
-                break;
-            case "travel":
-                ShopVillager tv = new ShopVillager(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Villager travel = tv.spawn(p.getLocation());
-
-                createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Travel Hub", travel);
-
-                break;
-            case "boss":
-                ShopZombie sv = new ShopZombie(((CraftWorld) p.getLocation().getWorld()).getHandle());
-                Zombie boss = sv.spawn(p.getLocation());
-
-                createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
-
-                break;
-
-        }
-
-    }
-
-    private LivingEntity createShop(String name, LivingEntity ent) {
-        ent.setCustomName(name);
-        ent.setCustomNameVisible(true);
-        ent.setRemoveWhenFarAway(false);
-        ent.setCanPickupItems(false);
-
-        return ent;
-    }
-
 
 
     @EventHandler
@@ -190,7 +110,7 @@ public class ShopCommand extends Command implements Listener {
                     if (ClientUtilities.getOnlineClient(p).hasRank(Rank.ADMIN, true)) {
                         if (args.length == 2) {
                             if (args[0].equalsIgnoreCase("create")) {
-                                spawnShop(p, args[1]);
+                                ShopManager.spawnShop(i, p, args[1]);
                                 ShopKeeperRepository.addKeeper(args[1], p.getLocation());
                             }
                         }

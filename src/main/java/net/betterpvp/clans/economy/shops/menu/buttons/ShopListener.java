@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.insurance.InsuranceManager;
+import net.betterpvp.clans.economy.shops.menu.ShopMenu;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
@@ -26,26 +27,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-import net.battleau.clans.Clans;
-import net.battleau.clans.clans.Clan;
-import net.battleau.clans.clans.ClanUtilities;
-import net.battleau.clans.clans.InsuranceManager;
-import net.battleau.clans.client.ClientUtilities;
-import net.battleau.clans.client.DonationRank;
-import net.battleau.clans.dailies.perks.QuestPerkManager;
-import net.battleau.clans.donation.Perk;
-import net.battleau.clans.format.C;
-import net.battleau.clans.gamer.Gamer;
-import net.battleau.clans.menu.Menu;
-import net.battleau.clans.menu.events.ButtonClickEvent;
-import net.battleau.clans.mysql.Log;
-import net.battleau.clans.shops.menu.ShopMenu;
-import net.battleau.clans.utility.UtilFormat;
-import net.battleau.clans.utility.UtilItem;
-import net.battleau.clans.utility.UtilMessage;
-import net.battleau.clans.utility.UtilTime;
-import net.battleau.clans.utility.UtilTime.TimeUnit;
-import net.battleau.clans.weapon.Weapon;
 import net.md_5.bungee.api.ChatColor;
 
 public class ShopListener extends BPVPListener<Clans> {
@@ -311,7 +292,7 @@ public class ShopListener extends BPVPListener<Clans> {
                 p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
                 return;
             }
-            
+
             UtilItem.insert(p, k);
             p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
         } else {

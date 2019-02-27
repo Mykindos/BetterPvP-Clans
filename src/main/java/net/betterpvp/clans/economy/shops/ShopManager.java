@@ -71,17 +71,18 @@ public class ShopManager implements Listener {
     }
 
 
-	/*
-		for(Shop s : getShops()){
-			String name = ChatColor.stripColor(s.getName().split(" ")[0]);
-			double x = ConfigManager.get(Configs.SHOP).getDouble("Shop." + name + ".X");
-			double y = ConfigManager.get(Configs.SHOP).getDouble("Shop." + name + ".Y");
-			double z = ConfigManager.get(Configs.SHOP).getDouble("Shop." + name + ".Z");
-			Location loc = new Location(Bukkit.getWorld("world"), x,y,z);
 
+    public static List<Shop> getShops() {
+        return shops;
+    }
 
-			spawnShop(loc, name);
-	 */
+    public static List<ShopItem> getShopItems() {
+        return shopItems;
+    }
+
+    public static void addShop(String name) {
+        shops.add(new Shop(name));
+    }
 
 
     @EventHandler
@@ -129,17 +130,15 @@ public class ShopManager implements Listener {
                 }
                 switch (str.toLowerCase()) {
                     case "armour":
+
                         ShopSkeleton as = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
                         Skeleton armour = as.spawn(loc);
-
                         armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
                         createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
-                        //Skeleton  armour = (Skeleton) createShop(ChatColor.GREEN + "Armour", p.getLocation(), EntityType.SKELETON);
 
-                        //armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
                         break;
                     case "weapons":
-                        //ShopZombie  weapons = (ShopZombie) createShop(ChatColor.GREEN + "Tools / Weapons", p.getLocation(), EntityType.ZOMBIE);
+
                         ShopZombie wz = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
                         Zombie weapons = wz.spawn(loc);
                         createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Weapons / Tools", weapons);
@@ -160,7 +159,7 @@ public class ShopManager implements Listener {
                         ShopVillager rv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
                         Villager resources = rv.spawn(loc);
                         createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Resources", resources);
-                        //createShop(ChatColor.GREEN + "Resources", p.getLocation(), EntityType.VILLAGER);
+
 
                         break;
                     case "fragment":
@@ -223,17 +222,6 @@ public class ShopManager implements Listener {
         return ent;
     }
 
-    public static List<Shop> getShops() {
-        return shops;
-    }
-
-    public static List<ShopItem> getShopItems() {
-        return shopItems;
-    }
-
-    public static void addShop(String name) {
-        shops.add(new Shop(name));
-    }
 
     public static void addShops(String... names) {
         for (String str : names) {

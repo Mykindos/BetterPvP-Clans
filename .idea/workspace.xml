@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="faa414e0-4fce-484a-8e34-a552e23623ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/BetterPvP_Economy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/Shop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopEntities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/PortableShopMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/ShopMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/TravelHubMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/DynamicShopItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/NormalShopItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/QuestShopItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/mysql/ShopKeeperRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/mysql/ShopRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/ShopSkeleton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/ShopVillager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/ShopZombie.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/UtilShop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/DamageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/DamageManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/RoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/RoleManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Takedown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Takedown.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Rupture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Rupture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/TimedEvents/UndeadCamp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/TimedEvents/UndeadCamp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,24 +31,24 @@
         <counts>
           <entry key="ClanCreateEvent" value="2" />
           <entry key="class" value="8" />
-          <entry key="java" value="357" />
+          <entry key="java" value="359" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="8" />
-          <entry key="JAVA" value="359" />
+          <entry key="JAVA" value="361" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="ClanCreateEvent" value="148" />
-          <entry key="java" value="10821" />
+          <entry key="java" value="10858" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10969" />
+          <entry key="JAVA" value="11006" />
         </counts>
       </usages-collector>
     </session>
@@ -127,20 +103,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="313" column="12" lean-forward="true" selection-start-line="313" selection-start-column="12" selection-end-line="313" selection-end-column="12" />
+            <state relative-caret-position="102">
+              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/DamageManager.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="297" column="34" lean-forward="true" selection-start-line="297" selection-start-column="34" selection-end-line="297" selection-end-column="34" />
+            <state relative-caret-position="340">
+              <caret line="112" column="48" lean-forward="true" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4951#8476#0" expanded="true" />
+                <element signature="e#8475#8476#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,15 +159,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/effects/commands/ProtectionCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -294,23 +278,23 @@
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/ShopVillager.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopItemOLD.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/TravelHubMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/PortableShopMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/mysql/ShopRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/mysql/ShopKeeperRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/ShopMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/BetterPvP_Economy.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/DynamicShopItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="162" />
+    <option name="x" value="139" />
+    <option name="y" value="105" />
     <option name="width" value="1612" />
     <option name="height" value="865" />
   </component>
@@ -503,7 +487,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551299110714" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551299878830" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../dependencies/spigot-1.8.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -884,26 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="216" column="42" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/Clans.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -960,13 +924,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/NormalShopItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -991,10 +948,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/NormalShopItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="313" column="12" lean-forward="true" selection-start-line="313" selection-start-column="12" selection-end-line="313" selection-end-column="12" />
+        <state relative-caret-position="102">
+          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="112" column="48" lean-forward="true" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4951#8476#0" expanded="true" />
+            <element signature="e#8475#8476#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
