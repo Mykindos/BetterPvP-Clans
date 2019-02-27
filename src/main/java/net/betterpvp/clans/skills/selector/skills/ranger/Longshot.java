@@ -8,7 +8,7 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;

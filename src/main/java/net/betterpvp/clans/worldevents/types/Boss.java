@@ -11,7 +11,7 @@ import net.betterpvp.clans.client.DonationRank;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.client.mysql.PlayerStatRepository;
 import net.betterpvp.clans.donation.Perk;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.mysql.Log;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.clans.weapon.EnchantedWeapon;

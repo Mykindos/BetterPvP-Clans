@@ -7,7 +7,7 @@ import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.core.framework.BlockRestoreData;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.clans.worldevents.WEType;

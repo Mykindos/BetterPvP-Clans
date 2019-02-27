@@ -8,7 +8,7 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;

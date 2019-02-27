@@ -3,13 +3,13 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.gamer.combat.LogManager;
-import net.betterpvp.core.framework.RechargeManager;
-import net.betterpvp.clans.morphs.MorphUtilities;
+import net.betterpvp.clans.combat.LogManager;
+
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.weapons.LightningScytheData;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -59,13 +59,9 @@ public class LightningScythe extends Weapon{
 
 		if(e.getPlayer().getItemInHand() == null) return;
 		if(e.getPlayer().getItemInHand().getType() != Material.DIAMOND_HOE) return;
-		if(MorphUtilities.isMorphed(e.getPlayer())){
-			return;
-		}
-
 
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-			if (isWeapon(e.getPlayer().getItemInHand()) && getWeapon(e.getPlayer().getItemInHand()).equals(this)) {
+			if (isThisWeapon(e.getPlayer())) {
 				skill(e.getPlayer());
 			}
 

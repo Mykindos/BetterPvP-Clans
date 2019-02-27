@@ -6,7 +6,7 @@ import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.format.C;
 import net.betterpvp.clans.gamer.combat.CombatLogs;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.UtilTime.TimeUnit;
 import net.betterpvp.clans.worldevents.WEManager;

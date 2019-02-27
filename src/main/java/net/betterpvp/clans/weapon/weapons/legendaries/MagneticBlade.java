@@ -76,7 +76,7 @@ public class MagneticBlade extends Weapon {
 	}
 
 	@EventHandler
-	public void Energy(UpdateEvent e) {
+	public void energy(UpdateEvent e) {
 		if (e.getType() == UpdateEvent.UpdateType.TICK) {
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if(active.contains(p.getName())){

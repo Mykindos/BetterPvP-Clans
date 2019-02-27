@@ -34,3 +34,4 @@ SkillSelector.java
 ScoreboardManager.java
 *.xml
 .idea/workspace.xml
+src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Mirage.java
