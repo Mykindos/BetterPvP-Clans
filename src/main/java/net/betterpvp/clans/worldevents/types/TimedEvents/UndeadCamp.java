@@ -292,7 +292,7 @@ public class UndeadCamp extends Timed{
 	public void announceTimeRemaining(UpdateEvent e){
 		if(e.getType() == UpdateType.MIN_02){
 			if(isActive()){
-				UtilMessage.broadcast("World Event", "The " + ChatColor.YELLOW + "Undead Camp" + ChatColor.GRAY + " event has " + C.cGreen
+				UtilMessage.broadcast("World Event", "The " + ChatColor.YELLOW + "Undead Camp" + ChatColor.GRAY + " event has " + ChatColor.GREEN
 						+ UtilTime.convert((getStartTime() + getLength()) - System.currentTimeMillis(), TimeUnit.MINUTES, 1) + " minutes " + ChatColor.GRAY + "remaining! "
 						);
 			}

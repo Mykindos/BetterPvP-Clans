@@ -75,7 +75,7 @@ public class Takedown extends Skill{
 		UtilVelocity.velocity(p, vec, 1.8D, false, 0.0D, 0.4D, 0.6D, false);
 
 		active.put(p, System.currentTimeMillis());
-		UtilMessage.message(p, getClassType(), "You used " + C.cGreen + getName() + " " + getLevel(p));
+		UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(p));
 
 	}
 
@@ -141,12 +141,12 @@ public class Takedown extends Skill{
 	@Override
 	public boolean usageCheck(Player p) {
 		if(p.getLocation().getBlock().isLiquid()){
-			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + ChatColor.GRAY + " in water.");
+			UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
 			return false;
 		}
 
 		if(UtilBlock.isGrounded(p)){
-			UtilMessage.message(p, getClassType(), "You cannot use " + C.cGreen + getName() + ChatColor.GRAY + " while grounded.");
+			UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while grounded.");
 			return false;
 		}
 		// TODO Auto-generated method stub

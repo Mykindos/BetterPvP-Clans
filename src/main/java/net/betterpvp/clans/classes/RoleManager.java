@@ -5,15 +5,16 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.*;
 import net.betterpvp.clans.classes.roles.mysql.StatRepository;
-import net.betterpvp.clans.client.Client;
+
 import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.clans.client.PlayerStat;
-import net.betterpvp.core.framework.ServerStartEvent;
+
+import net.betterpvp.core.framework.BPVPListener;
+
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.framework.BAUListener;
-import net.betterpvp.core.framework.RechargeManager;
+
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -22,7 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RoleManager extends BAUListener {
+public class RoleManager extends BPVPListener<Clans> {
 
 	public RoleManager(Clans i){
 		super(i);
@@ -37,7 +38,7 @@ public class RoleManager extends BAUListener {
 	public void setRoles(UpdateEvent event) {
 		if (event.getType() == UpdateType.FAST) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				Role.doEquipt(player);
+				Role.doEquip(player);
 			}
 		}
 	}
@@ -77,23 +78,6 @@ public class RoleManager extends BAUListener {
 			if(player.getWorld().getName().equals("tutorial")) return;
 			UtilMessage.message(player, "Class", "Armor Class: " + ChatColor.GREEN + role.getName());
 			UtilMessage.message(player, "Skills", "Listing " + role.getName() + " Skills: ");
-			Client client = ClientUtilities.getOnlineClient(player);
-			if(client != null){
-				PlayerStat stat =  client.getStats();
-				if(stat != null){
-					if(role instanceof Assassin){
-						stat.assassin = stat.assassin+1;
-					}else if(role instanceof Knight){
-						stat.knight = stat.knight+1;
-					}else if(role instanceof Paladin){
-						stat.paladin = stat.paladin+1;
-					}else if(role instanceof Gladiator){
-						stat.gladiator = stat.gladiator+1;
-					}else if(role instanceof Ranger){
-						stat.ranger = stat.ranger+1;
-					}
-				}
-			}
 			
 			UtilMessage.message(player, role.equipMessage(player));
 			StatRepository.addClassStat(role.getName());
@@ -148,8 +132,4 @@ public class RoleManager extends BAUListener {
 		}
 	}
 
-	@EventHandler
-	public void loadArmorClasses(ServerStartEvent event) {
-
-	}
 }

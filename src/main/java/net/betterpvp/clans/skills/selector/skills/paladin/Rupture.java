@@ -58,8 +58,8 @@ public class Rupture extends Skill{
 				"you are facing, damaging, knocking up",
 				"and slowing any enemies hit.",
 				"",
-				"Cooldown: " + C.cGreen + getRecharge(level),
-				"Energy: " + C.cGreen + getEnergy(level)
+				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
+				"Energy: " + ChatColor.GREEN + getEnergy(level)
 
 		};
 	}

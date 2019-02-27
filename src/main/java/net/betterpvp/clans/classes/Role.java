@@ -2,6 +2,7 @@ package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.client.Client;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.selector.RoleBuild;
@@ -142,7 +143,7 @@ public abstract class Role {
 		Bukkit.getServer().getPluginManager().callEvent(new RoleChangeEvent(player, role));
 	}
 
-	public static void doEquipt(Player player) {
+	public static void doEquip(Player player) {
 		for (Role role : roles) {
 			for (ItemStack armor : player.getEquipment().getArmorContents()) {
 
@@ -153,14 +154,15 @@ public abstract class Role {
 
 			}
 
-
+			Weapon fireWalkers = WeaponManager.getWeapon(player.getEquipment().getBoots());
 
 			if (player.getEquipment().getHelmet().getType() == role.getHelmet() 
 					&& (player.getEquipment().getChestplate().getType() == role.getChestplate())
 					&& player.getEquipment().getLeggings().getType() == role.getLeggings()
 					&& (player.getEquipment().getBoots().getType() == role.getBoots()
-					|| (Weapon.getWeapon(player.getEquipment().getBoots()) != null 
-					&& Weapon.getWeapon(player.getEquipment().getBoots()) instanceof FireWalkers))) {
+
+					// FireWalkers complete any set
+					|| (fireWalkers != null && fireWalkers instanceof FireWalkers))) {
 				setRole(player, role);
 				return;
 			}
