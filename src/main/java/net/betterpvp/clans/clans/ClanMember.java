@@ -8,7 +8,7 @@ public class ClanMember {
 
     private UUID uuid;
     private Role role;
- 
+
 
     public ClanMember(UUID uuid, Role role) {
         this.uuid = uuid;
@@ -19,7 +19,6 @@ public class ClanMember {
     public UUID getUUID() {
         return uuid;
     }
-    
 
 
     public void setUUID(UUID uuid) {

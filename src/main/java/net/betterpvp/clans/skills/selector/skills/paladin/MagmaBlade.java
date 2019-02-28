@@ -14,77 +14,79 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import java.util.Arrays;
 
-public class MagmaBlade extends Skill{
+public class MagmaBlade extends Skill {
 
-	public MagmaBlade(Clans i) {
-		super(i, "Magma Blade", "Paladin", getSwords,
-				noActions, 3, false, false);
-	}
-	// TODO Auto-generated constructor stub
+    public MagmaBlade(Clans i) {
+        super(i, "Magma Blade", "Paladin", getSwords,
+                noActions, 3, false, false);
+    }
+    // TODO Auto-generated constructor stub
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {
-				"Your sword scorches opponents,", 
-				"dealing an additional " + ChatColor.GREEN + ((level * 1.0)) + ChatColor.GRAY + " damage", 
-				"to players who are on fire." };
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Your sword scorches opponents,",
+                "dealing an additional " + ChatColor.GREEN + ((level * 1.0)) + ChatColor.GRAY + " damage",
+                "to players who are on fire."};
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
 
-	@EventHandler (priority = EventPriority.HIGH)
-	public void onDamage(CustomDamageEvent e){
-		if(e.getCause() != DamageCause.ENTITY_ATTACK) return;
-		if(e.getDamager() instanceof Player){
-			
-				Player p = (Player) e.getDamager();
-				LivingEntity ent = (LivingEntity) e.getDamagee();
-				if(Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())){
-					if(Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())){
-						if(hasSkill(p, this)){
-							if(ent.getFireTicks() > 0){
-								e.setDamage(e.getDamage() + ((getLevel(p) * 1.0)));
-							}
-						}
-					}
-				}
-			
-		}
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getCause() != DamageCause.ENTITY_ATTACK) return;
+        if (e.getDamager() instanceof Player) {
 
-	}
+            Player p = (Player) e.getDamager();
+            LivingEntity ent = (LivingEntity) e.getDamagee();
+            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                    if (hasSkill(p, this)) {
+                        if (ent.getFireTicks() > 0) {
+                            e.setDamage(e.getDamage() + ((getLevel(p) * 1.0)));
+                        }
+                    }
+                }
+            }
 
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
+        }
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
+
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
 

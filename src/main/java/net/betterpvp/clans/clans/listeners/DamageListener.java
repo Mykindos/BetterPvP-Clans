@@ -18,75 +18,75 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 public class DamageListener extends BPVPListener<Clans> {
-	
-	public DamageListener(Clans i){
-		super(i);
-	}
 
-	@EventHandler
-	public void onPlayerDamage(EntityDamageByEntityEvent e) {
-		if(e.getDamager().getType() == EntityType.FISHING_HOOK){
-			if(ClanUtilities.getClan(e.getEntity().getLocation()) != null){
-				if(ClanUtilities.getClan(e.getEntity().getLocation()) instanceof AdminClan){
-					AdminClan a = (AdminClan) ClanUtilities.getClan(e.getEntity().getLocation());
-					if(a.isSafe()){
-						e.setCancelled(true);
-					}
-				}
-			}
-			return;
-		}
-		if (e.getEntity() instanceof Player) {
-			if (UtilPlayer.getPlayer(e.getDamager()) != null) {
-				Player damaged = (Player) e.getEntity();
-				Player damager = UtilPlayer.getPlayer(e.getDamager());
-				Clan damagedClan = ClanUtilities.getClan(damaged);
-				Clan damagerClan = ClanUtilities.getClan(damager);
+    public DamageListener(Clans i) {
+        super(i);
+    }
 
-				if (!ClanUtilities.canHurt(damager, damaged)) {
-					UtilMessage.message(damager, "Clan", "You cannot harm "
-							+ ClanUtilities.getRelation(damagedClan, damagerClan).getPrimary() + damaged.getName() + ChatColor.GRAY + ".");
-					e.setCancelled(true);
-				}
-			} else if (e.getDamager() instanceof Projectile) {
-				Projectile damager = (Projectile) e.getDamager();
+    @EventHandler
+    public void onPlayerDamage(EntityDamageByEntityEvent e) {
+        if (e.getDamager().getType() == EntityType.FISHING_HOOK) {
+            if (ClanUtilities.getClan(e.getEntity().getLocation()) != null) {
+                if (ClanUtilities.getClan(e.getEntity().getLocation()) instanceof AdminClan) {
+                    AdminClan a = (AdminClan) ClanUtilities.getClan(e.getEntity().getLocation());
+                    if (a.isSafe()) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+            return;
+        }
+        if (e.getEntity() instanceof Player) {
+            if (UtilPlayer.getPlayer(e.getDamager()) != null) {
+                Player damaged = (Player) e.getEntity();
+                Player damager = UtilPlayer.getPlayer(e.getDamager());
+                Clan damagedClan = ClanUtilities.getClan(damaged);
+                Clan damagerClan = ClanUtilities.getClan(damager);
 
-				if (damager.getShooter() instanceof Player) {
-					Player shooter = (Player) damager.getShooter();
-					Player damaged = (Player) e.getEntity();
-					Clan damagedClan = ClanUtilities.getClan(damaged);
-					Clan damagerClan = ClanUtilities.getClan(shooter);
+                if (!ClanUtilities.canHurt(damager, damaged)) {
+                    UtilMessage.message(damager, "Clan", "You cannot harm "
+                            + ClanUtilities.getRelation(damagedClan, damagerClan).getPrimary() + damaged.getName() + ChatColor.GRAY + ".");
+                    e.setCancelled(true);
+                }
+            } else if (e.getDamager() instanceof Projectile) {
+                Projectile damager = (Projectile) e.getDamager();
 
-					if (ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.SELF
-							|| ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.ALLY
-							|| ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.ALLY_TRUST) {
-						UtilMessage.message(shooter, "Clan", "You cannot harm "
-								+ ClanUtilities.getRelation(damagedClan, damagerClan).getPrimary() + damaged.getName() + ChatColor.GRAY + ".");
-						e.setCancelled(true);
-					}
-				}
-			}
-		}
-	}
+                if (damager.getShooter() instanceof Player) {
+                    Player shooter = (Player) damager.getShooter();
+                    Player damaged = (Player) e.getEntity();
+                    Clan damagedClan = ClanUtilities.getClan(damaged);
+                    Clan damagerClan = ClanUtilities.getClan(shooter);
 
-	@EventHandler
-	public void onSafeZoneDamage(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Player) {
+                    if (ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.SELF
+                            || ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.ALLY
+                            || ClanUtilities.getRelation(damagedClan, damagerClan) == ClanRelation.ALLY_TRUST) {
+                        UtilMessage.message(shooter, "Clan", "You cannot harm "
+                                + ClanUtilities.getRelation(damagedClan, damagerClan).getPrimary() + damaged.getName() + ChatColor.GRAY + ".");
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
-			Player p = (Player) e.getEntity();
+    @EventHandler
+    public void onSafeZoneDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
 
-			Clan clan = ClanUtilities.getClan(p.getLocation());
-			if (clan instanceof AdminClan) {
-				AdminClan admin = (AdminClan) clan;
+            Player p = (Player) e.getEntity();
 
-				if (admin.isSafe() ) {
-					if(e.getCause() == DamageCause.DROWNING || e.getCause() == DamageCause.FALL){
+            Clan clan = ClanUtilities.getClan(p.getLocation());
+            if (clan instanceof AdminClan) {
+                AdminClan admin = (AdminClan) clan;
 
-						e.setCancelled(true);
-					}
-				}
-			}
-		}
-	}
+                if (admin.isSafe()) {
+                    if (e.getCause() == DamageCause.DROWNING || e.getCause() == DamageCause.FALL) {
+
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
 }

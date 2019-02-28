@@ -11,15 +11,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class EnemyCommand implements IClanCommand{
+public class EnemyCommand implements IClanCommand {
 
- 
+
     public void run(Player player, String[] args) {
-    	
-    	if(!Clans.getOptions().isEnemySystemEnabled()) {
-    		UtilMessage.message(player, "Clans", "You cannot enemy this clan until the second day of the season.");
-    		return;
-    	}
+
+        if (!Clans.getOptions().isEnemySystemEnabled()) {
+            UtilMessage.message(player, "Clans", "You cannot enemy this clan until the second day of the season.");
+            return;
+        }
         Clan clan = ClanUtilities.getClan(player);
         if (clan == null) {
             UtilMessage.message(player, "Clans", "You are not in a Clan.");
@@ -41,36 +41,36 @@ public class EnemyCommand implements IClanCommand{
             ClanUtilities.searchClan(player, args[1], true);
             return;
         }
-        
-        if(target instanceof AdminClan) {
-        	UtilMessage.message(player, "Clans", "You cannot enemy this clan.");
-        	return;
+
+        if (target instanceof AdminClan) {
+            UtilMessage.message(player, "Clans", "You cannot enemy this clan.");
+            return;
         }
-        
+
         int hours = 0;
-        for(ClanMember mem : clan.getMembers()) {
-        	Client client = ClientUtilities.getClient(mem.getUUID());
-        	hours += client.getTimePlayed();
+        for (ClanMember mem : clan.getMembers()) {
+            Client client = ClientUtilities.getClient(mem.getUUID());
+            hours += client.getTimePlayed();
         }
-        
-        if(hours < 24) {
-        	UtilMessage.message(player, "Clans", "Your clan has under 24 hours of total play time. You may not enemy anybody.");
-        	return;
+
+        if (hours < 24) {
+            UtilMessage.message(player, "Clans", "Your clan has under 24 hours of total play time. You may not enemy anybody.");
+            return;
         }
-        
+
         hours = 0;
-        for(ClanMember mem : target.getMembers()) {
-        	Client client = ClientUtilities.getClient(mem.getUUID());
-        	hours += client.getTimePlayed();
+        for (ClanMember mem : target.getMembers()) {
+            Client client = ClientUtilities.getClient(mem.getUUID());
+            hours += client.getTimePlayed();
         }
-        
-        if(hours < 24) {
-        	UtilMessage.message(player, "Clans", target.getName() + " has under 24 hours total play time.");
-        	UtilMessage.message(player, "Clans", "This stat is never reset, and only exists to protect new players.");
-        	return;
+
+        if (hours < 24) {
+            UtilMessage.message(player, "Clans", target.getName() + " has under 24 hours total play time.");
+            UtilMessage.message(player, "Clans", "This stat is never reset, and only exists to protect new players.");
+            return;
         }
-        
-        
+
+
         if (clan.equals(target)) {
             UtilMessage.message(player, "Clans", "You cannot enemy yourself.");
             return;
@@ -80,21 +80,19 @@ public class EnemyCommand implements IClanCommand{
             return;
         }
 
-        if(Pillage.isPillaging(clan, target)){
-        	UtilMessage.message(player, "Clans", "You cannot enemy a clan that you are currently pillaging!");
-        	return;
+        if (Pillage.isPillaging(clan, target)) {
+            UtilMessage.message(player, "Clans", "You cannot enemy a clan that you are currently pillaging!");
+            return;
         }
 
         Bukkit.getPluginManager().callEvent(new ClanEnemyClanEvent(player, clan, target));
 
 
-
-
     }
 
-	@Override
-	public String getName() {
-		
-		return "Enemy";
-	}
+    @Override
+    public String getName() {
+
+        return "Enemy";
+    }
 }

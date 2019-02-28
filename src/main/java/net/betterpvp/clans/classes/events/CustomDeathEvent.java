@@ -4,31 +4,31 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class CustomDeathEvent extends Event{
+public class CustomDeathEvent extends Event {
 
-	private static final HandlerList handlers = new HandlerList();
+    private static final HandlerList handlers = new HandlerList();
 
-	private Player killed, killer;
+    private Player killed, killer;
 
-	public CustomDeathEvent(Player killed, Player killer){
-		this.killed = killed;
-		this.killer = killer;
-	}
+    public CustomDeathEvent(Player killed, Player killer) {
+        this.killed = killed;
+        this.killer = killer;
+    }
 
-	public Player getKilled(){
-		return killed;
-	}
+    public Player getKilled() {
+        return killed;
+    }
 
-	public Player getKiller(){
-		return killer;
-	}
-	
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    public Player getKiller() {
+        return killer;
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 }

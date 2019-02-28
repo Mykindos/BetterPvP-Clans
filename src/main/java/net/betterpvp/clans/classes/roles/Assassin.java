@@ -7,7 +7,7 @@ public class Assassin extends Role {
 
     public Assassin() {
         super("Assassin");
-  
+
     }
 
     @Override

@@ -25,40 +25,40 @@ import java.util.UUID;
 
 public class WaterBottle extends Weapon {
 
-	public static HashMap<UUID, Item> items = new HashMap<UUID, Item>();
+    public static HashMap<UUID, Item> items = new HashMap<UUID, Item>();
 
-	public WaterBottle(Clans i) {
-		super(i, Material.POTION, (byte) 0, ChatColor.YELLOW + "Water Bottle", new String[]{
-				ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
-				ChatColor.GRAY + "  " + "Douses Players",
-				ChatColor.GRAY + "  " + "Douses Fires",
-				"",
-				ChatColor.GRAY + "Right-Click: " + ChatColor.YELLOW + "Drink",
-				ChatColor.GRAY + "  " + "Douses Self",
-				ChatColor.GRAY + "  " + "Fire Resistance I for 4 Seconds"}, false, 0);
-	}
+    public WaterBottle(Clans i) {
+        super(i, Material.POTION, (byte) 0, ChatColor.YELLOW + "Water Bottle", new String[]{
+                ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
+                ChatColor.GRAY + "  " + "Douses Players",
+                ChatColor.GRAY + "  " + "Douses Fires",
+                "",
+                ChatColor.GRAY + "Right-Click: " + ChatColor.YELLOW + "Drink",
+                ChatColor.GRAY + "  " + "Douses Self",
+                ChatColor.GRAY + "  " + "Fire Resistance I for 4 Seconds"}, false, 0);
+    }
 
-	@EventHandler
-	public void onWaterDouse(PlayerInteractEvent event) {
-		final Player player = event.getPlayer();
+    @EventHandler
+    public void onWaterDouse(PlayerInteractEvent event) {
+        final Player player = event.getPlayer();
 
-		if(player.getItemInHand() == null) return;
-		if(player.getItemInHand().getType() != Material.POTION) return;
-		if (isThisWeapon(player)) {
-			if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-				UtilItem.remove(player, Material.POTION, (byte) 0, 1);
-				Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.POTION));
-				UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
-				item.setPickupDelay(Integer.MAX_VALUE);
-				item.setVelocity(player.getLocation().getDirection().multiply(1.8));
-				ThrowableManager.addThrowable(item, player, "Water bottle", 30000);
-				items.put(player.getUniqueId(), item);
-			} else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-				UtilItem.remove(player, Material.POTION, (byte) 0, 1);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
-				player.getWorld().playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.WATER);
-				player.getWorld().playSound(player.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
-			}
+        if (player.getItemInHand() == null) return;
+        if (player.getItemInHand().getType() != Material.POTION) return;
+        if (isThisWeapon(player)) {
+            if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                UtilItem.remove(player, Material.POTION, (byte) 0, 1);
+                Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.POTION));
+                UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
+                item.setPickupDelay(Integer.MAX_VALUE);
+                item.setVelocity(player.getLocation().getDirection().multiply(1.8));
+                ThrowableManager.addThrowable(item, player, "Water bottle", 30000);
+                items.put(player.getUniqueId(), item);
+            } else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                UtilItem.remove(player, Material.POTION, (byte) 0, 1);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
+                player.getWorld().playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.WATER);
+                player.getWorld().playSound(player.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+            }
 
 			/*
 			new BukkitRunnable(){
@@ -77,22 +77,22 @@ public class WaterBottle extends Weapon {
 				}
 			}.runTaskLater(getInstance(), 3);
 			 */
-		}
-	}
+        }
+    }
 
-	@EventHandler
-	public void onCollide(ThrowableHitGroundEvent e){
-		if(e.getThrowable().getSkillName().equals("Water bottle")){
-			for(Player p : UtilPlayer.getInRadius(e.getThrowable().getItem().getLocation(), 3.0)){
-				p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
-				p.setFireTicks(0);
-				p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.WATER);
-				p.getLocation().getWorld().playSound(p.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
-			}
-			e.getThrowable().getItem().getWorld().playEffect(e.getThrowable().getItem().getLocation(), Effect.STEP_SOUND, Material.WATER);
-			e.getThrowable().getItem().getLocation().getWorld().playSound(e.getThrowable().getItem().getLocation(), Sound.SPLASH, 1.0F, 1.0F);
-			e.getThrowable().getItem().remove();
-		}
-	}
+    @EventHandler
+    public void onCollide(ThrowableHitGroundEvent e) {
+        if (e.getThrowable().getSkillName().equals("Water bottle")) {
+            for (Player p : UtilPlayer.getInRadius(e.getThrowable().getItem().getLocation(), 3.0)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
+                p.setFireTicks(0);
+                p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.WATER);
+                p.getLocation().getWorld().playSound(p.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+            }
+            e.getThrowable().getItem().getWorld().playEffect(e.getThrowable().getItem().getLocation(), Effect.STEP_SOUND, Material.WATER);
+            e.getThrowable().getItem().getLocation().getWorld().playSound(e.getThrowable().getItem().getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+            e.getThrowable().getItem().remove();
+        }
+    }
 
 }

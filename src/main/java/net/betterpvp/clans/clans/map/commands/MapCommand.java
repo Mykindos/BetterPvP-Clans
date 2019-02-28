@@ -19,17 +19,18 @@ public class MapCommand extends Command {
      *
      */
     private MinimapRenderer renderer;
+
     public MapCommand(MinimapRenderer renderer) {
-        super("map", new String[] {}, Rank.PLAYER);
+        super("map", new String[]{}, Rank.PLAYER);
         // TODO Auto-generated constructor stub
         this.renderer = renderer;
     }
 
     @Override
     public void execute(Player player, String[] args) {
-        if(args == null) {
-            if(!player.getInventory().contains(Material.MAP)) {
-                if(player.getInventory().firstEmpty() != -1) {
+        if (args == null) {
+            if (!player.getInventory().contains(Material.MAP)) {
+                if (player.getInventory().firstEmpty() != -1) {
                     UtilMessage.message(player, "Map", "A map was added to your inventory");
                     UtilMessage.message(player, "Map", "If your map is stuck, you can fix it with '" + ChatColor.WHITE + "/map fix" + ChatColor.GRAY + "'");
 					/*
@@ -42,17 +43,17 @@ public class MapCommand extends Command {
 					 */
                     player.getInventory().addItem(new ItemStack(Material.MAP));
                 }
-            }else {
+            } else {
                 UtilMessage.message(player, "Map", "You already have a map");
             }
-        }else {
-            if(args.length == 1) {
-                if(args[0].equalsIgnoreCase("fix")) {
-                    if(RechargeManager.getInstance().add(player, "MapFix", 120, false)) {
+        } else {
+            if (args.length == 1) {
+                if (args[0].equalsIgnoreCase("fix")) {
+                    if (RechargeManager.getInstance().add(player, "MapFix", 120, false)) {
                         MinimapRenderer.PlayerMapData data = renderer.usedMaps.get(player);
-                        for(short s : renderer.used) {
+                        for (short s : renderer.used) {
 
-                            if(!data.used.contains(s)) {
+                            if (!data.used.contains(s)) {
                                 data.current = s;
                                 data.used.add(s);
                                 break;
@@ -60,38 +61,38 @@ public class MapCommand extends Command {
                         }
 
 
-                        MapView map2 = Bukkit.getMap((short) (data.current +1));
-                        if(map2 == null) {
+                        MapView map2 = Bukkit.getMap((short) (data.current + 1));
+                        if (map2 == null) {
                             MapView newMap = Bukkit.createMap(player.getWorld());
-                            if(!data.used.contains(newMap.getId())) {
+                            if (!data.used.contains(newMap.getId())) {
                                 newMap.setScale(Bukkit.getMap((short) 0).getScale());
                                 if (!(newMap.getRenderers().get(0) instanceof MinimapRenderer)) {
-                                    for (final MapRenderer r :newMap.getRenderers()) {
+                                    for (final MapRenderer r : newMap.getRenderers()) {
                                         newMap.removeRenderer(r);
                                     }
 
-                                    newMap.addRenderer( renderer);
+                                    newMap.addRenderer(renderer);
 
                                 }
 
                                 player.sendMap(newMap);
-                                if(!renderer.used.contains(newMap.getId())) {
+                                if (!renderer.used.contains(newMap.getId())) {
                                     renderer.used.add(newMap.getId());
                                 }
 
                                 data.current = newMap.getId();
                                 data.used.add(newMap.getId());
                             }
-                        }else {
+                        } else {
                             data.current = map2.getId();
 
-                            if(!renderer.used.contains(map2.getId())) {
+                            if (!renderer.used.contains(map2.getId())) {
                                 renderer.used.add(map2.getId());
                             }
-                            if(!data.used.contains(map2.getId())) {
+                            if (!data.used.contains(map2.getId())) {
                                 data.used.add(map2.getId());
                             }
-                            if(!map2.getRenderers().contains(renderer)) {
+                            if (!map2.getRenderers().contains(renderer)) {
                                 map2.addRenderer(renderer);
                             }
                         }
@@ -100,7 +101,6 @@ public class MapCommand extends Command {
             }
         }
     }
-
 
 
     @Override

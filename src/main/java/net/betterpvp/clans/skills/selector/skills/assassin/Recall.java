@@ -8,16 +8,16 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.effects.EffectManager;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.RecallData;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
-import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,173 +30,171 @@ import java.util.WeakHashMap;
 
 public class Recall extends Skill {
 
-	public WeakHashMap<Player, RecallData> data = new WeakHashMap<>();
+    public WeakHashMap<Player, RecallData> data = new WeakHashMap<>();
 
-	public Recall(Clans i) {
-		super(i, "Recall", "Assassin",
-				getSwordsAndAxes,
-				noActions, 5, true, false);
+    public Recall(Clans i) {
+        super(i, "Recall", "Assassin",
+                getSwordsAndAxes,
+                noActions, 5, true, false);
 
-	}
-
-	
-	@EventHandler
-	public void onRoleChange(RoleChangeEvent e) {
-		data.remove(e.getPlayer());
-	}
+    }
 
 
-
-	@EventHandler
-	public void onRecall(PlayerDropItemEvent event) {
-		Player player = event.getPlayer();
-		InventoryView iv = player.getOpenInventory();
-
-
-		if(iv.getType() != InventoryType.CRAFTING){
-			return;
-		}
-
-		if(Weapon.getWeapon(event.getItemDrop().getItemStack()) != null){
-			return;
-		}
+    @EventHandler
+    public void onRoleChange(RoleChangeEvent e) {
+        data.remove(e.getPlayer());
+    }
 
 
-		if(!hasSkill(player, this)){
-			return;
-		}
-
-		
-
-		if (Arrays.asList(getMaterials()).contains(event.getItemDrop().getItemStack().getType())) {
-			event.setCancelled(true);
-			if (usageCheck(player)) {
-				if(data.containsKey(player)){
-					if(data.get(player).getLocation() != null){
-						if(player.getWorld() == data.get(player).getLocation().getWorld()){
-							if(RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)){
-								RecallData d = data.get(player);
-								player.getWorld().playSound(player.getLocation(), Sound.ZOMBIE_UNFECT, 2.0F, 2.0F);
-								player.teleport(d.getLocation());
-								player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + (d.getHealth() / 4)));
-								
-								player.getWorld().playEffect(data.get(player).getLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK);
-								UtilMessage.message(player, getName(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
-
-							}
-						}
-					}
-				}
-
-			}
-		}
-
-	}
+    @EventHandler
+    public void onRecall(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        InventoryView iv = player.getOpenInventory();
 
 
-	@EventHandler
-	public void updateRecallData(UpdateEvent event) {
-		if (event.getType() == UpdateType.FAST) {
+        if (iv.getType() != InventoryType.CRAFTING) {
+            return;
+        }
 
-			for(Player p : Bukkit.getOnlinePlayers()){
-				Role r = Role.getRole(p);
-				if(r != null && r instanceof Assassin){
-					if(hasSkill(p, this)){
-						if(data.containsKey(p)){
-							RecallData rd = data.get(p);
-							if(UtilTime.elapsed(rd.getTime(), 1000)){
-								rd.addLocation(p.getLocation(), p.getHealth());
-								rd.setTime(System.currentTimeMillis());
-							}
-						}else{
-							data.put(p, new RecallData());
-							data.get(p).addLocation(p.getLocation(), p.getHealth());
-						}
-					}
-				}
-			}
-		}
-	}
+        if (Weapon.getWeapon(event.getItemDrop().getItemStack()) != null) {
+            return;
+        }
 
 
-	@Override
-	public void activateSkill(Player player) {
-
-	}
-
-	@Override
-	public boolean usageCheck(Player player) {
-		
-		if(player.getLocation().getBlock().isLiquid()) {
-			UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while in liquid!");
-			return false;
-		}
+        if (!hasSkill(player, this)) {
+            return;
+        }
 
 
-		if(EffectManager.isSilenced(player)){
-			UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + " while silenced!");
-			return false;
-		}
+        if (Arrays.asList(getMaterials()).contains(event.getItemDrop().getItemStack().getType())) {
+            event.setCancelled(true);
+            if (usageCheck(player)) {
+                if (data.containsKey(player)) {
+                    if (data.get(player).getLocation() != null) {
+                        if (player.getWorld() == data.get(player).getLocation().getWorld()) {
+                            if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
+                                RecallData d = data.get(player);
+                                player.getWorld().playSound(player.getLocation(), Sound.ZOMBIE_UNFECT, 2.0F, 2.0F);
+                                player.teleport(d.getLocation());
+                                player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + (d.getHealth() / 4)));
 
-		Clan clan = ClanUtilities.getClan(player.getLocation());
-		if (clan != null) {
-			if (clan instanceof AdminClan) {
-				AdminClan adminClan = (AdminClan) clan;
+                                player.getWorld().playEffect(data.get(player).getLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK);
+                                UtilMessage.message(player, getName(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
 
-				if (adminClan.isSafe()) {
+                            }
+                        }
+                    }
+                }
 
-					UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in Safe Zones.");
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+            }
+        }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {"Drop Sword / Axe to Activate",
-				"",
-				"Teleports you back to where you ",
-				"were located 3 seconds ago",
-				"Increases health by 1/4 of the health you had",
-				"3 seconds ago",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)};
-	}
-	
-	@EventHandler
-	public void onEquip(SkillEquipEvent e){
-		if(e.getSkill() == this){
-			if(data.containsKey(e.getPlayer())){
-				data.get(e.getPlayer()).locs.clear();
-			}
-		}
-	}
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_B;
-	}
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 30 - ((level-1) *2);
-	}
+    @EventHandler
+    public void updateRecallData(UpdateEvent event) {
+        if (event.getType() == UpdateType.FAST) {
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return (float)80 - ((level -1) * 5);
-	}
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                Role r = Role.getRole(p);
+                if (r != null && r instanceof Assassin) {
+                    if (hasSkill(p, this)) {
+                        if (data.containsKey(p)) {
+                            RecallData rd = data.get(p);
+                            if (UtilTime.elapsed(rd.getTime(), 1000)) {
+                                rd.addLocation(p.getLocation(), p.getHealth());
+                                rd.setTime(System.currentTimeMillis());
+                            }
+                        } else {
+                            data.put(p, new RecallData());
+                            data.get(p).addLocation(p.getLocation(), p.getHealth());
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
+    @Override
+    public void activateSkill(Player player) {
+
+    }
+
+    @Override
+    public boolean usageCheck(Player player) {
+
+        if (player.getLocation().getBlock().isLiquid()) {
+            UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while in liquid!");
+            return false;
+        }
+
+
+        if (EffectManager.isSilenced(player)) {
+            UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + " while silenced!");
+            return false;
+        }
+
+        Clan clan = ClanUtilities.getClan(player.getLocation());
+        if (clan != null) {
+            if (clan instanceof AdminClan) {
+                AdminClan adminClan = (AdminClan) clan;
+
+                if (adminClan.isSafe()) {
+
+                    UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in Safe Zones.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"Drop Sword / Axe to Activate",
+                "",
+                "Teleports you back to where you ",
+                "were located 3 seconds ago",
+                "Increases health by 1/4 of the health you had",
+                "3 seconds ago",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+    }
+
+    @EventHandler
+    public void onEquip(SkillEquipEvent e) {
+        if (e.getSkill() == this) {
+            if (data.containsKey(e.getPlayer())) {
+                data.get(e.getPlayer()).locs.clear();
+            }
+        }
+    }
+
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_B;
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 30 - ((level - 1) * 2);
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return (float) 80 - ((level - 1) * 5);
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

@@ -5,22 +5,22 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 
-public class ThrowableHitGroundEvent  extends Event {
+public class ThrowableHitGroundEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
-   
+
     private Throwables throwable;
-    
-    public ThrowableHitGroundEvent(Throwables t){
-    	this.throwable = t;
+
+    public ThrowableHitGroundEvent(Throwables t) {
+        this.throwable = t;
 
     }
-    
-    public Throwables getThrowable(){
-    	return throwable;
+
+    public Throwables getThrowable() {
+        return throwable;
     }
-    
-    
+
+
     public HandlerList getHandlers() {
         return handlers;
     }

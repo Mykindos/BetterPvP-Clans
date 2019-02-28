@@ -12,89 +12,88 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AllianceRepository implements Repository<Clans>{
-	
-	public static final String TABLE_NAME = "kitmap_alliances";
+public class AllianceRepository implements Repository<Clans> {
 
-	public static String CREATE_ALLY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-			+ "(Clan VARCHAR(16), "
-			+ "Other VARCHAR(16), "
-			+ "Trusted TINYINT); ";
+    public static final String TABLE_NAME = "kitmap_alliances";
 
-	@Override
-	public void initialize() {
-		QueryFactory.runQuery(CREATE_ALLY_TABLE);
-	}
+    public static String CREATE_ALLY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+            + "(Clan VARCHAR(16), "
+            + "Other VARCHAR(16), "
+            + "Trusted TINYINT); ";
 
-
-
-	@Override
-	public void load(Clans i) {
-		new BukkitRunnable(){
-
-			@Override
-			public void run() {
-				int count = 0;
-				try {
-					PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
-					ResultSet result = statement.executeQuery();
-
-					while (result.next()) {
-						Clan clan = ClanUtilities.getClan(result.getString(1));
-						Clan target = ClanUtilities.getClan(result.getString(2));
-						boolean trusted = result.getBoolean(3);
-
-						if(clan != null && target != null){
-							clan.getAlliances().add(new Alliance(target, trusted));
-							count++;
-						}
-					}
-
-					statement.close();
-					result.close();
-
-					Log.debug("MySQL", "Linked " + count + " alliances to Clans");
-
-				} catch (SQLException ex) {
-					Log.debug("Connection", "Could not load Clan Alliances (Connection Error), ");
-					ex.printStackTrace();
-				}
-			}
+    @Override
+    public void initialize() {
+        QueryFactory.runQuery(CREATE_ALLY_TABLE);
+    }
 
 
-		}.runTaskAsynchronously(i);
+    @Override
+    public void load(Clans i) {
+        new BukkitRunnable() {
 
-	}
+            @Override
+            public void run() {
+                int count = 0;
+                try {
+                    PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
+                    ResultSet result = statement.executeQuery();
 
-	public static void saveAlly(Clan clan, Clan other, boolean trusted) {
-		String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Trusted) VALUES "
-				+ "('" + clan.getName() + "', "
-				+ "'" + other.getName() + "', "
-				+ "'" + UtilFormat.toTinyInt(trusted) + "') ";
-		QueryFactory.runQuery(query);
-	}
+                    while (result.next()) {
+                        Clan clan = ClanUtilities.getClan(result.getString(1));
+                        Clan target = ClanUtilities.getClan(result.getString(2));
+                        boolean trusted = result.getBoolean(3);
 
-	public static void updateAlly(Clan clan, Clan other) {
-		String query = "UPDATE " + TABLE_NAME + " SET Trusted='" + UtilFormat.toTinyInt(clan.hasTrust(other)) + "' WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "'";
-		QueryFactory.runQuery(query);
-	}
+                        if (clan != null && target != null) {
+                            clan.getAlliances().add(new Alliance(target, trusted));
+                            count++;
+                        }
+                    }
 
-	public static void deleteAlly(Clan clan, Clan other) {
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "' OR "
-				+ "Clan='" + other.getName() + "' AND Other='" + clan.getName() + "'";
-		QueryFactory.runQuery(query);
-	}
-	
-	public static void wipe(){
-		String query = "TRUNCATE TABLE " + TABLE_NAME;
-		QueryFactory.runQuery(query);
-	}
+                    statement.close();
+                    result.close();
 
-	@Override
-	public LoadPriority getLoadPriority() {
-		// TODO Auto-generated method stub
-		return LoadPriority.HIGHEST;
-	}
+                    Log.debug("MySQL", "Linked " + count + " alliances to Clans");
+
+                } catch (SQLException ex) {
+                    Log.debug("Connection", "Could not load Clan Alliances (Connection Error), ");
+                    ex.printStackTrace();
+                }
+            }
+
+
+        }.runTaskAsynchronously(i);
+
+    }
+
+    public static void saveAlly(Clan clan, Clan other, boolean trusted) {
+        String query = "REPLACE INTO " + TABLE_NAME + " (Clan, Other, Trusted) VALUES "
+                + "('" + clan.getName() + "', "
+                + "'" + other.getName() + "', "
+                + "'" + UtilFormat.toTinyInt(trusted) + "') ";
+        QueryFactory.runQuery(query);
+    }
+
+    public static void updateAlly(Clan clan, Clan other) {
+        String query = "UPDATE " + TABLE_NAME + " SET Trusted='" + UtilFormat.toTinyInt(clan.hasTrust(other)) + "' WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "'";
+        QueryFactory.runQuery(query);
+    }
+
+    public static void deleteAlly(Clan clan, Clan other) {
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + clan.getName() + "' AND Other='" + other.getName() + "' OR "
+                + "Clan='" + other.getName() + "' AND Other='" + clan.getName() + "'";
+        QueryFactory.runQuery(query);
+    }
+
+    public static void wipe() {
+        String query = "TRUNCATE TABLE " + TABLE_NAME;
+        QueryFactory.runQuery(query);
+    }
+
+    @Override
+    public LoadPriority getLoadPriority() {
+        // TODO Auto-generated method stub
+        return LoadPriority.HIGHEST;
+    }
 
 
 }

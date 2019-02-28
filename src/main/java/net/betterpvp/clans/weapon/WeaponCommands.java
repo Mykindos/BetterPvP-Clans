@@ -8,26 +8,27 @@ import org.bukkit.entity.Player;
 
 public class WeaponCommands extends Command {
 
-	public WeaponCommands() {
-		super("legendaryset", new String[]{}, Rank.ADMIN);
-	}
+    public WeaponCommands() {
+        super("legendaryset", new String[]{}, Rank.ADMIN);
+    }
 
-	@Override
-	public void execute(Player player, String[] args) {
+    @Override
+    public void execute(Player player, String[] args) {
 
-		for(Weapon weapon : WeaponManager.weapons){
-			if(weapon.isLegendary()){
-				player.getInventory().addItem(weapon.createWeapon());
-			}
-		}
+        for (Weapon weapon : WeaponManager.weapons) {
+            if (weapon.isLegendary()) {
+                player.getInventory().addItem(weapon.createWeapon());
+            }
+        }
 
-		UtilMessage.message(player, "Legendaries", "All legendaries have been added to your inventory");
+        UtilMessage.message(player, "Legendaries", "All legendaries have been added to your inventory");
 
 
-	}
+    }
 
-	@Override
-	public void help(Player player) {}
+    @Override
+    public void help(Player player) {
+    }
 
 
 }

@@ -15,9 +15,9 @@ public class BuildSkill {
     public Skill getSkill() {
         return skill;
     }
-    
-    public String getString(){
-    	return skill.getName() + " " + getLevel();
+
+    public String getString() {
+        return skill.getName() + " " + getLevel();
     }
 
     public void setSkill(Skill skill) {

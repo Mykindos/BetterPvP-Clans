@@ -22,148 +22,149 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class Volley extends Skill{
+public class Volley extends Skill {
 
-	private Set<UUID> volleys = new HashSet<UUID>();
-	private Clans i;
-	public Volley(Clans i) {
-		super(i, "Volley", "Ranger", getBow,
-				leftClick, 5,
-				true, true);
-		this.i = i;
-	}
+    private Set<UUID> volleys = new HashSet<UUID>();
+    private Clans i;
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Left click with Bow to Prepare",
-				"Your next shot is instant, and shoots",
-				"a volley of arrows in the direction you are facing",
-				"",
-				"Upon hitting a target, the arrow will deal 5 hearts",
-				"of damage to a naked player",
-				"",
-				"Cooldown: " + ChatColor.GREEN +  getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
+    public Volley(Clans i) {
+        super(i, "Volley", "Ranger", getBow,
+                leftClick, 5,
+                true, true);
+        this.i = i;
+    }
 
-	@EventHandler
-	public void onDequip(SkillDequipEvent e){
-		if(e.getSkill() == this){
-			volleys.remove(e.getPlayer().getUniqueId());
-		}
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Left click with Bow to Prepare",
+                "Your next shot is instant, and shoots",
+                "a volley of arrows in the direction you are facing",
+                "",
+                "Upon hitting a target, the arrow will deal 5 hearts",
+                "of damage to a naked player",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.BOW;
-	}
+    @EventHandler
+    public void onDequip(SkillDequipEvent e) {
+        if (e.getSkill() == this) {
+            volleys.remove(e.getPlayer().getUniqueId());
+        }
+    }
 
-	private List<Arrow> arrows = new ArrayList<>();
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.BOW;
+    }
 
-	@EventHandler
-	public void onShoot(final EntityShootBowEvent e){
-		if(e.getEntity() instanceof Player){
-			Player p = (Player) e.getEntity();
-			if(ClanUtilities.canCast(p)) {
-				if(hasSkill(p, this)){
-					if(volleys.contains(p.getUniqueId())){
-						Location c = p.getLocation();
-						new BukkitRunnable(){
+    private List<Arrow> arrows = new ArrayList<>();
 
-							@Override
-							public void run() {
-								if(e.getProjectile() instanceof Arrow){
-									Arrow j = (Arrow) e.getProjectile();
-									Longshot.getArrows().remove(j);
-									j.remove();
-								}
-							}
+    @EventHandler
+    public void onShoot(final EntityShootBowEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player p = (Player) e.getEntity();
+            if (ClanUtilities.canCast(p)) {
+                if (hasSkill(p, this)) {
+                    if (volleys.contains(p.getUniqueId())) {
+                        Location c = p.getLocation();
+                        new BukkitRunnable() {
 
-
-						}.runTaskLater(i, 1);
+                            @Override
+                            public void run() {
+                                if (e.getProjectile() instanceof Arrow) {
+                                    Arrow j = (Arrow) e.getProjectile();
+                                    Longshot.getArrows().remove(j);
+                                    j.remove();
+                                }
+                            }
 
 
-						Vector v;
-						for(int i = 0; i < 10; i+=2){
-							Arrow n = p.launchProjectile(Arrow.class);
-							n.setShooter(p);
-							c.setYaw(c.getYaw() + i);
-							v = c.getDirection();
-							n.setVelocity(v.multiply(2));
-							arrows.add(n);
-						}
-						c = p.getLocation();
-						for(int i = 0; i < 10; i+=2){
-							Arrow n = p.launchProjectile(Arrow.class);
-							n.setShooter(p);
-							c.setYaw(c.getYaw() - i);
-							v = c.getDirection();
-							n.setVelocity(v.multiply(2));
-							arrows.add(n);
-						}
+                        }.runTaskLater(i, 1);
 
-						p.getWorld().playSound(p.getLocation(), Sound.PISTON_EXTEND, 3F, 1F);
-						volleys.remove(p.getUniqueId());
-					}
-				}
-			}
-		}
-	}
 
-	@EventHandler
-	public void onHit(CustomDamageEvent e){
+                        Vector v;
+                        for (int i = 0; i < 10; i += 2) {
+                            Arrow n = p.launchProjectile(Arrow.class);
+                            n.setShooter(p);
+                            c.setYaw(c.getYaw() + i);
+                            v = c.getDirection();
+                            n.setVelocity(v.multiply(2));
+                            arrows.add(n);
+                        }
+                        c = p.getLocation();
+                        for (int i = 0; i < 10; i += 2) {
+                            Arrow n = p.launchProjectile(Arrow.class);
+                            n.setShooter(p);
+                            c.setYaw(c.getYaw() - i);
+                            v = c.getDirection();
+                            n.setVelocity(v.multiply(2));
+                            arrows.add(n);
+                        }
 
-		if(e.getProjectile() instanceof Arrow){
-			Arrow a = (Arrow) e.getProjectile();
-			LivingEntity p =  e.getDamagee();
+                        p.getWorld().playSound(p.getLocation(), Sound.PISTON_EXTEND, 3F, 1F);
+                        volleys.remove(p.getUniqueId());
+                    }
+                }
+            }
+        }
+    }
 
-			if(arrows.contains(a)){
-				if(a.getShooter() instanceof LivingEntity){
-					e.setDamage(8);
-					LogManager.addLog(p, (LivingEntity) a.getShooter(), "Volley");
-				}
-			}
-		}
+    @EventHandler
+    public void onHit(CustomDamageEvent e) {
 
-	}
+        if (e.getProjectile() instanceof Arrow) {
+            Arrow a = (Arrow) e.getProjectile();
+            LivingEntity p = e.getDamagee();
 
-	@Override
-	public void activateSkill(Player player) {
-		volleys.remove(player.getUniqueId());
-		volleys.add(player.getUniqueId());
-		UtilMessage.message(player, getClassType(), "You prepared " + getName());
+            if (arrows.contains(a)) {
+                if (a.getShooter() instanceof LivingEntity) {
+                    e.setDamage(8);
+                    LogManager.addLog(p, (LivingEntity) a.getShooter(), "Volley");
+                }
+            }
+        }
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public void activateSkill(Player player) {
+        volleys.remove(player.getUniqueId());
+        volleys.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + getName());
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 15 - ((level -1) * 2);
-	}
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 30 - ((level -1) * 3);
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 15 - ((level - 1) * 2);
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 30 - ((level - 1) * 3);
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

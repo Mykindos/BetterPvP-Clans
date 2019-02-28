@@ -8,215 +8,217 @@ import java.util.ArrayList;
 
 public class RoleBuild {
 
-	private boolean active;
-	private String role;
-	private String name;
-	private BuildSkill sword;
-	private BuildSkill axe;
-	private BuildSkill passiveA, passiveB, global;
-	private BuildSkill bow;
-	private int id;
-	private int points = 12;
+    private boolean active;
+    private String role;
+    private String name;
+    private BuildSkill sword;
+    private BuildSkill axe;
+    private BuildSkill passiveA, passiveB, global;
+    private BuildSkill bow;
+    private int id;
+    private int points = 12;
 
-	public RoleBuild(String role, int id) {
-		this.role = role;
-		this.id = id;
-	}
+    public RoleBuild(String role, int id) {
+        this.role = role;
+        this.id = id;
+    }
 
-	public void deleteBuild(){
-		sword = null;
-		axe = null;
-		passiveA = null;
-		passiveB = null;
-		global = null;
-		bow = null;
-		points = 12;
-	
-	}
-	
-	public void setActive(boolean b){
-		this.active = b;
-	}
-	
-	public boolean isActive(){
-		return active;
-	}
+    public void deleteBuild() {
+        sword = null;
+        axe = null;
+        passiveA = null;
+        passiveB = null;
+        global = null;
+        bow = null;
+        points = 12;
 
-	public int getPoints(){
-		return points;
-	}
-	
-	public void addPoint(){
-		points ++;
-	}
-	
-	public void takePoint(){
-		points --;
-	}
-	
-	public void takePoints(int amount){
-		points -= amount;
-	}
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setActive(boolean b) {
+        this.active = b;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getPoints() {
+        return points;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void addPoint() {
+        points++;
+    }
 
-	public BuildSkill getSword() {
-		return sword;
-	}
+    public void takePoint() {
+        points--;
+    }
 
-	public void setSword(BuildSkill sword) {
-		this.sword = sword;
-	}
+    public void takePoints(int amount) {
+        points -= amount;
+    }
 
-	public BuildSkill getAxe() {
-		return axe;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public void setAxe(BuildSkill axe) {
-		this.axe = axe;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setBow(BuildSkill bow) {
-		this.bow = bow;
-	}
-	public BuildSkill getBow() {
-		return bow;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setGlobal(BuildSkill global) {
-		this.global = global;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public BuildSkill getGlobal() {
-		return global;
-	}
+    public BuildSkill getSword() {
+        return sword;
+    }
 
-	public BuildSkill getPassiveA() {
-		return passiveA;
-	}
-	public BuildSkill getPassiveB() {
-		return passiveB;
-	}
+    public void setSword(BuildSkill sword) {
+        this.sword = sword;
+    }
 
-	public void setPassiveA(BuildSkill passive) {
-		this.passiveA = passive;
-	}
+    public BuildSkill getAxe() {
+        return axe;
+    }
 
-	public void setPassiveB(BuildSkill passive) {
-		this.passiveB = passive;
-	}
+    public void setAxe(BuildSkill axe) {
+        this.axe = axe;
+    }
 
-	public int getID() {
-		return id;
-	}
+    public void setBow(BuildSkill bow) {
+        this.bow = bow;
+    }
 
-	public void setID(int id) {
-		this.id = id;
-	}
+    public BuildSkill getBow() {
+        return bow;
+    }
 
-	public ArrayList<Skill> getActiveSkills(){
-		ArrayList<Skill> skills = new ArrayList<>();
-		if(getSword() != null){
-			skills.add(getSword().getSkill());
-		}
-		if(getAxe() != null){
-			skills.add(getAxe().getSkill());
-		}
-		if(getBow() != null){
-			skills.add(getBow().getSkill());
-		}
-		if(getPassiveA() != null){
-			skills.add(getPassiveA().getSkill());
-		}
-		if(getPassiveB() != null){
-			skills.add(getPassiveB().getSkill());
-		}
-		if(getGlobal() != null){
-			skills.add(getGlobal().getSkill());
-		}
-		return skills;
-	}
+    public void setGlobal(BuildSkill global) {
+        this.global = global;
+    }
 
-	public BuildSkill getBuildSkill(Types type) {
-		switch (type) {
-		case SWORD:
-			return getSword();
-		case AXE:
-			return getAxe();
-		case PASSIVE_A:
-			return getPassiveA();
-		case BOW:
-			return getBow();
-		case GLOBAL:
-			return getGlobal();
-		case PASSIVE_B:
-			return getPassiveB();
-		}
+    public BuildSkill getGlobal() {
+        return global;
+    }
 
-		return null;
-	}
+    public BuildSkill getPassiveA() {
+        return passiveA;
+    }
 
-	public void setSkill(Types type, Skill skill, int level) {
-		switch (type) {
-		case SWORD:
-			setSword(new BuildSkill(skill, level));
-			break;
-		case AXE:
-			setAxe(new BuildSkill(skill, level));
-			break;
-		case PASSIVE_A:
-			setPassiveA(new BuildSkill(skill, level));
-			break;
-		case BOW:
-			setBow(new BuildSkill(skill, level));
-			break;
-		case GLOBAL:
-			setGlobal(new BuildSkill(skill, level));
-			break;
-		case PASSIVE_B:
-			setPassiveB(new BuildSkill(skill, level));
-			break;
-		}
-		
-	}
+    public BuildSkill getPassiveB() {
+        return passiveB;
+    }
 
-	public void setSkill(Types type, BuildSkill skill) {
-		switch (type) {
-		case SWORD:
-			setSword(skill);
-			break;
-		case AXE:
-			setAxe(skill);
-			break;
-		case PASSIVE_A:
-			setPassiveA(skill);
-			break;
-		case BOW:
-			setBow(skill);
-			break;
-		case GLOBAL:
-			setGlobal(skill);
-			break;
-		case PASSIVE_B:
-			setPassiveB(skill);
-			break;
+    public void setPassiveA(BuildSkill passive) {
+        this.passiveA = passive;
+    }
 
-		}
-	
-	}
+    public void setPassiveB(BuildSkill passive) {
+        this.passiveB = passive;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Skill> getActiveSkills() {
+        ArrayList<Skill> skills = new ArrayList<>();
+        if (getSword() != null) {
+            skills.add(getSword().getSkill());
+        }
+        if (getAxe() != null) {
+            skills.add(getAxe().getSkill());
+        }
+        if (getBow() != null) {
+            skills.add(getBow().getSkill());
+        }
+        if (getPassiveA() != null) {
+            skills.add(getPassiveA().getSkill());
+        }
+        if (getPassiveB() != null) {
+            skills.add(getPassiveB().getSkill());
+        }
+        if (getGlobal() != null) {
+            skills.add(getGlobal().getSkill());
+        }
+        return skills;
+    }
+
+    public BuildSkill getBuildSkill(Types type) {
+        switch (type) {
+            case SWORD:
+                return getSword();
+            case AXE:
+                return getAxe();
+            case PASSIVE_A:
+                return getPassiveA();
+            case BOW:
+                return getBow();
+            case GLOBAL:
+                return getGlobal();
+            case PASSIVE_B:
+                return getPassiveB();
+        }
+
+        return null;
+    }
+
+    public void setSkill(Types type, Skill skill, int level) {
+        switch (type) {
+            case SWORD:
+                setSword(new BuildSkill(skill, level));
+                break;
+            case AXE:
+                setAxe(new BuildSkill(skill, level));
+                break;
+            case PASSIVE_A:
+                setPassiveA(new BuildSkill(skill, level));
+                break;
+            case BOW:
+                setBow(new BuildSkill(skill, level));
+                break;
+            case GLOBAL:
+                setGlobal(new BuildSkill(skill, level));
+                break;
+            case PASSIVE_B:
+                setPassiveB(new BuildSkill(skill, level));
+                break;
+        }
+
+    }
+
+    public void setSkill(Types type, BuildSkill skill) {
+        switch (type) {
+            case SWORD:
+                setSword(skill);
+                break;
+            case AXE:
+                setAxe(skill);
+                break;
+            case PASSIVE_A:
+                setPassiveA(skill);
+                break;
+            case BOW:
+                setBow(skill);
+                break;
+            case GLOBAL:
+                setGlobal(skill);
+                break;
+            case PASSIVE_B:
+                setPassiveB(skill);
+                break;
+
+        }
+
+    }
 
 }

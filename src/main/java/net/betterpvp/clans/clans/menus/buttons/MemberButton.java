@@ -3,15 +3,13 @@ package net.betterpvp.clans.clans.menus.buttons;
 import net.betterpvp.clans.clans.Clan;
 import org.bukkit.inventory.ItemStack;
 
-public class MemberButton extends ClanMenuButton{
+public class MemberButton extends ClanMenuButton {
 
-	public MemberButton(Clan clan, int slot, ItemStack item, String name,
-			String... lore) {
-		super(clan, slot, item, name, lore);
-		// TODO Auto-generated constructor stub
-	}
+    public MemberButton(Clan clan, int slot, ItemStack item, String name,
+                        String... lore) {
+        super(clan, slot, item, name, lore);
+        // TODO Auto-generated constructor stub
+    }
 
-
-	
 
 }

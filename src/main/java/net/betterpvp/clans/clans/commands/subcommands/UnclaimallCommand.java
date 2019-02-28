@@ -15,53 +15,51 @@ import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
-public class UnclaimallCommand implements IClanCommand{
+public class UnclaimallCommand implements IClanCommand {
 
-	private Clans i;
-	public UnclaimallCommand(Clans i) {
-		
-		this.i = i;
-	
-	}
+    private Clans i;
 
-	public void run(Player player, String[] args) {
-		Clan clan = ClanUtilities.getClan(player);
+    public UnclaimallCommand(Clans i) {
 
-		if (clan == null) {
-			UtilMessage.message(player, "Clans", "You are not in a Clan.");
-			return;
-		}
+        this.i = i;
+
+    }
+
+    public void run(Player player, String[] args) {
+        Clan clan = ClanUtilities.getClan(player);
+
+        if (clan == null) {
+            UtilMessage.message(player, "Clans", "You are not in a Clan.");
+            return;
+        }
 
 
+        if (!clan.getMember(player.getUniqueId()).hasRole(ClanMember.Role.ADMIN)) {
+            UtilMessage.message(player, "Clans", "Only the Clan Leader and Admins can unclaim Territory.");
+            return;
+        }
+
+        for (String s : clan.getTerritory()) {
+            Chunk c = UtilFormat.stringToChunk(s);
+            if (c != null) {
+                Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(c));
+            }
+        }
 
 
-		if (!clan.getMember(player.getUniqueId()).hasRole(ClanMember.Role.ADMIN)) {
-			UtilMessage.message(player, "Clans", "Only the Clan Leader and Admins can unclaim Territory.");
-			return;
-		}
-		
-			for(String s : clan.getTerritory()) {
-				Chunk c = UtilFormat.stringToChunk(s);
-				if(c != null) {
-					Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(c));
-				}
-			}
-			
-		
-		
-		clan.getTerritory().clear();
+        clan.getTerritory().clear();
 
-	
-		clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " unclaimed all Territory.", player.getUniqueId(), true);
-		UtilMessage.message(player, "Clans", "You unclaimed all Territory.");
-		Log.write("Clans", "[" + player.getName() + "] unclaimed all territory.");
-		ClanRepository.updateClaims(clan);
-		//ClanRepository.updateDynmap(i, clan);
-	}
 
-	@Override
-	public String getName() {
-		
-		return "Unclaimall";
-	}
+        clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " unclaimed all Territory.", player.getUniqueId(), true);
+        UtilMessage.message(player, "Clans", "You unclaimed all Territory.");
+        Log.write("Clans", "[" + player.getName() + "] unclaimed all territory.");
+        ClanRepository.updateClaims(clan);
+        //ClanRepository.updateDynmap(i, clan);
+    }
+
+    @Override
+    public String getName() {
+
+        return "Unclaimall";
+    }
 }

@@ -27,22 +27,23 @@ public class ClanKickMemberEvent extends Event implements Cancellable {
     private Client target;
     private Clan clan;
 
-    public ClanKickMemberEvent(Player p, Client target, Clan clan){
+    public ClanKickMemberEvent(Player p, Client target, Clan clan) {
         this.p = p;
         this.target = target;
         this.clan = clan;
     }
 
-    public Clan getClan(){ return clan; }
+    public Clan getClan() {
+        return clan;
+    }
 
-    public Client getTarget(){
+    public Client getTarget() {
         return target;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return p;
     }
-
 
 
     @Override

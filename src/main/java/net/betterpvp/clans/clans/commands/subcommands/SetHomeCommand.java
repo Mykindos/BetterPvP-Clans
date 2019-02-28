@@ -12,8 +12,7 @@ import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class SetHomeCommand implements IClanCommand{
-
+public class SetHomeCommand implements IClanCommand {
 
 
     public void run(Player player, String[] args) {
@@ -43,9 +42,9 @@ public class SetHomeCommand implements IClanCommand{
         Log.write("Clans", player.getName() + " set [" + clan.getName() + "] home at [" + UtilFormat.locationToFile(clan.getHome()) + "]");
     }
 
-	@Override
-	public String getName() {
-		
-		return "SetHome";
-	}
+    @Override
+    public String getName() {
+
+        return "SetHome";
+    }
 }

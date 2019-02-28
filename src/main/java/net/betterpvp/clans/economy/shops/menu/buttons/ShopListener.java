@@ -18,16 +18,13 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
-import org.bukkit.Bukkit;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class ShopListener extends BPVPListener<Clans> {
 
@@ -220,52 +217,54 @@ public class ShopListener extends BPVPListener<Clans> {
                 }
 
 
-                if (g.hasCoins((int) cost)) {
-                    g.removeCoins(cost);
-                    if (k.getType() == Material.TNT) {
-                        Log.write("TNT Purchase", p.getName() + " purchased 1 tnt");
-                        ClientUtilities.messageStaff("TNT Purchase", ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " purchased 1 TnT!");
-                    }
-
-
-                    if (item instanceof DynamicShopItem) {
-                        DynamicShopItem di = (DynamicShopItem) item;
-                        int newStock = di.getCurrentStock() - amount;
-                        if (newStock < di.getMinStock()) {
-                            newStock = di.getMinStock();
-                            di.setCurrentStock(newStock);
-                        } else {
-                            di.setCurrentStock(newStock);
-                        }
-
-                        Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p);
-                        if (m != null) {
-                            if (m.getButtons().contains(di)) {
-                                m.getButtons().remove(di);
-                                di.updateItem();
-                                m.getButtons().add(di);
-                                m.construct();
-                            }
-                        }
-                        for (Menu menus : Menu.menus) {
-                            if (menus instanceof ShopMenu) {
-                                menus.construct();
-                            }
-                        }
-                        p.updateInventory();
-
-
-                    }
-
-                    UtilMessage.message(p, "Shop", "You have purchased " + ChatColor.YELLOW + amount + " " + item.getItemName() +
-                            ChatColor.GRAY + " for " + ChatColor.GREEN + "$" + UtilFormat.formatNumber((int) cost));
-                    Log.write("Shop", p.getName() + " " + "purchased " + +amount + " " + item.getItemName() +
-                            " for " + "$" + UtilFormat.formatNumber((int) cost));
-                } else {
+                if (!g.hasCoins((int) cost)) {
                     UtilMessage.message(p, "Shop", "You have insufficient funds to purchase this item.");
                     p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
                     return;
                 }
+
+
+                g.removeCoins(cost);
+                if (k.getType() == Material.TNT) {
+                    Log.write("TNT Purchase", p.getName() + " purchased 1 tnt");
+                    ClientUtilities.messageStaff("TNT Purchase", ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " purchased 1 TnT!");
+                }
+
+
+                if (item instanceof DynamicShopItem) {
+                    DynamicShopItem di = (DynamicShopItem) item;
+                    int newStock = di.getCurrentStock() - amount;
+                    if (newStock < di.getMinStock()) {
+                        newStock = di.getMinStock();
+                        di.setCurrentStock(newStock);
+                    } else {
+                        di.setCurrentStock(newStock);
+                    }
+
+                    Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p);
+                    if (m != null) {
+                        if (m.getButtons().contains(di)) {
+                            m.getButtons().remove(di);
+                            di.updateItem();
+                            m.getButtons().add(di);
+                            m.construct();
+                        }
+                    }
+                    for (Menu menus : Menu.menus) {
+                        if (menus instanceof ShopMenu) {
+                            menus.construct();
+                        }
+                    }
+                    p.updateInventory();
+
+
+                }
+
+                UtilMessage.message(p, "Shop", "You have purchased " + ChatColor.YELLOW + amount + " " + item.getItemName() +
+                        ChatColor.GRAY + " for " + ChatColor.GREEN + "$" + UtilFormat.formatNumber((int) cost));
+                Log.write("Shop", p.getName() + " " + "purchased " + +amount + " " + item.getItemName() +
+                        " for " + "$" + UtilFormat.formatNumber((int) cost));
+
             }
 
             if (item.getItemName().equalsIgnoreCase("Clan Recovery")) {

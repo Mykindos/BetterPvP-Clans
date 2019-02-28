@@ -6,10 +6,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnergyMenuButton extends Button {
 
-	public EnergyMenuButton(int slot, ItemStack item, String name,
-			String... lore) {
-		super(slot, item, name, lore);
-		// TODO Auto-generated constructor stub
-	}
+    public EnergyMenuButton(int slot, ItemStack item, String name,
+                            String... lore) {
+        super(slot, item, name, lore);
+        // TODO Auto-generated constructor stub
+    }
 
 }

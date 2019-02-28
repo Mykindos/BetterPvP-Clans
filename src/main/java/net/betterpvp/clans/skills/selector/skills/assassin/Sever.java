@@ -4,12 +4,12 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.SeverData;
-import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,110 +20,110 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Sever extends Skill{
+public class Sever extends Skill {
 
-	private Set<UUID> active = new HashSet<>();
+    private Set<UUID> active = new HashSet<>();
 
-	public Sever(Clans i) {
-		super(i, "Sever", "Assassin", getSwords, 
-				rightClick,
-				3, true, true);
-		// TODO Auto-generated constructor stub
-	}
+    public Sever(Clans i) {
+        super(i, "Sever", "Assassin", getSwords,
+                rightClick,
+                3, true, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Right click with Sword to activate",
-				"",
-				"Your next hit applies a " + ChatColor.GREEN + (level) + ChatColor.GRAY + " second bleed",
-				"dealing 1 heart per second",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Right click with Sword to activate",
+                "",
+                "Your next hit applies a " + ChatColor.GREEN + (level) + ChatColor.GRAY + " second bleed",
+                "dealing 1 heart per second",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.SWORD;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.SWORD;
+    }
 
-	@Override
-	public void activateSkill(Player player) {
-		active.add(player.getUniqueId());
+    @Override
+    public void activateSkill(Player player) {
+        active.add(player.getUniqueId());
 
-		UtilMessage.message(player, getClassType(), "You prepared " +ChatColor.GREEN + getName(getLevel(player)));
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(player)));
 
 
-	}
+    }
 
-	@EventHandler
-	public void onChange(RoleChangeEvent e){
-		active.remove(e.getPlayer().getUniqueId());
-	}
+    @EventHandler
+    public void onChange(RoleChangeEvent e) {
+        active.remove(e.getPlayer().getUniqueId());
+    }
 
-	@EventHandler
-	public void onDamage(CustomDamageEvent e){
-		if(e.getDamager() instanceof Player){
-			if(e.getDamagee() instanceof Player){
-				if(e.getCause() == DamageCause.ENTITY_ATTACK){
-					Player ent = (Player) e.getDamagee();
-					Player p = (Player) e.getDamager();
-					if(ClanUtilities.canHurt(ent, p)){
-						if(usageCheck(p)){
-							if(Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())){
-								if(active.contains(p.getUniqueId())){
-									Weapon w = Weapon.getWeapon(p.getItemInHand());
-									if(w != null) {
-										if(w.isLegendary()) {
-											return;
-										}
-									}
-									
-									
-									int level = getLevel(p);
-									new SeverData(getInstance(), ent, p,  (level));
-									UtilMessage.message(p, getClassType(), "You severed " + ChatColor.GREEN +  ent.getName() + ChatColor.GRAY + ".");
-									UtilMessage.message(ent, getClassType(), "You have been severed by " +  ChatColor.GREEN + p.getName() + ChatColor.GRAY + ".");
-									active.remove(p.getUniqueId());
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getDamager() instanceof Player) {
+            if (e.getDamagee() instanceof Player) {
+                if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+                    Player ent = (Player) e.getDamagee();
+                    Player p = (Player) e.getDamager();
+                    if (ClanUtilities.canHurt(ent, p)) {
+                        if (usageCheck(p)) {
+                            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                                if (active.contains(p.getUniqueId())) {
+                                    Weapon w = Weapon.getWeapon(p.getItemInHand());
+                                    if (w != null) {
+                                        if (w.isLegendary()) {
+                                            return;
+                                        }
+                                    }
 
-									RechargeManager.getInstance().removeCooldown(p.getName(), getName(), true);
-									if (RechargeManager.getInstance().add(p, getName(), getRecharge(level), showRecharge())) {
 
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                                    int level = getLevel(p);
+                                    new SeverData(getInstance(), ent, p, (level));
+                                    UtilMessage.message(p, getClassType(), "You severed " + ChatColor.GREEN + ent.getName() + ChatColor.GRAY + ".");
+                                    UtilMessage.message(ent, getClassType(), "You have been severed by " + ChatColor.GREEN + p.getName() + ChatColor.GRAY + ".");
+                                    active.remove(p.getUniqueId());
 
-	@Override
-	public boolean usageCheck(Player player) {
-		return hasSkill(player, this);
-	}
+                                    RechargeManager.getInstance().removeCooldown(p.getName(), getName(), true);
+                                    if (RechargeManager.getInstance().add(p, getName(), getRecharge(level), showRecharge())) {
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 20;
-	}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 20;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        return hasSkill(player, this);
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 20;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 20;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

@@ -12,12 +12,11 @@ import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 
-public final class MapCommand implements IClanCommand{
+public final class MapCommand implements IClanCommand {
 
     public int height = 6;
     public int width = 8;
 
-   
 
     public void run(Player player, String[] args) {
         if (args.length == 1) {
@@ -27,30 +26,28 @@ public final class MapCommand implements IClanCommand{
     }
 
     public String getMapIcon(Player player, Clan clan, Chunk found) {
-    	
-    	if(player.getLocation().getChunk() == found){
-        	return "+";
+
+        if (player.getLocation().getChunk() == found) {
+            return "+";
         }
-    	
-    
-    	
-    	
+
+
         if (ClanUtilities.getClan(found) == null) {
             return ChatColor.WHITE + "-";
         }
 
         if (ClanUtilities.getClan(found) != null) {
             Clan target = ClanUtilities.getClan(found);
-            
-            if(target instanceof AdminClan){
-            	AdminClan ac = (AdminClan) target;
-            	if(ac.isSafe()){
-            		return ChatColor.DARK_GREEN + "#";
-            	}else{
-            		return ChatColor.GOLD + "#";
-            	}
+
+            if (target instanceof AdminClan) {
+                AdminClan ac = (AdminClan) target;
+                if (ac.isSafe()) {
+                    return ChatColor.DARK_GREEN + "#";
+                } else {
+                    return ChatColor.GOLD + "#";
+                }
             }
-            
+
             if (ClanUtilities.getRelation(clan, target).equals(ClanRelation.SELF)) {
                 if (clan.getHome() != null) {
                     if (clan.getHome().getChunk().equals(found)) {
@@ -112,9 +109,9 @@ public final class MapCommand implements IClanCommand{
         }
     }
 
-	@Override
-	public String getName() {
-		
-		return "Map";
-	}
+    @Override
+    public String getName() {
+
+        return "Map";
+    }
 }

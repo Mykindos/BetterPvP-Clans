@@ -4,8 +4,8 @@ import org.bukkit.entity.Player;
 
 public interface IClanCommand {
 
-	void run(Player p, String[] args);
-	
-	String getName();
+    void run(Player p, String[] args);
+
+    String getName();
 
 }

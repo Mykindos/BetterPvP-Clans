@@ -21,124 +21,122 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PinDown extends Skill{
+public class PinDown extends Skill {
 
-	public PinDown(Clans i) {
-		super(i, "Pin Down", "Ranger", getBow, leftClick, 5, true, true);
-		// TODO Auto-generated constructor stub
-	}
+    public PinDown(Clans i) {
+        super(i, "Pin Down", "Ranger", getBow, leftClick, 5, true, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	private List<Arrow> active = new ArrayList<>();
+    private List<Arrow> active = new ArrayList<>();
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Left click with bow to instantly fire",
-				"an arrow, which gives anybody hit ",
-				"Slowness IV for " + ChatColor.GREEN + (level * 1.5) + ChatColor.GRAY + " seconds.",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Left click with bow to instantly fire",
+                "an arrow, which gives anybody hit ",
+                "Slowness IV for " + ChatColor.GREEN + (level * 1.5) + ChatColor.GRAY + " seconds.",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@EventHandler
-	public void onDequip(SkillDequipEvent e){
-		if(e.getSkill() == this){
-			if(active.contains(e.getPlayer().getUniqueId())){
-				active.remove(e.getPlayer().getUniqueId());
-			}
-		}
-	}
+    @EventHandler
+    public void onDequip(SkillDequipEvent e) {
+        if (e.getSkill() == this) {
+            if (active.contains(e.getPlayer().getUniqueId())) {
+                active.remove(e.getPlayer().getUniqueId());
+            }
+        }
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.BOW;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.BOW;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 13 - ((level -1) * 1.5);
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 13 - ((level - 1) * 1.5);
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 35 - ((level -1));
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 35 - ((level - 1));
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		UtilItem.remove(p, Material.ARROW, (byte)0, 1);
-
-
-		Arrow proj = p.launchProjectile(Arrow.class);
-		active.add(proj);
+    @Override
+    public void activateSkill(Player p) {
+        UtilItem.remove(p, Material.ARROW, (byte) 0, 1);
 
 
-		proj.setVelocity(p.getLocation().getDirection().multiply(1.6D));
+        Arrow proj = p.launchProjectile(Arrow.class);
+        active.add(proj);
 
 
-		UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
+        proj.setVelocity(p.getLocation().getDirection().multiply(1.6D));
 
 
-		p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
-		p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
-
-	}
-
-	@EventHandler
-	public void onDamage(CustomDamageEvent e){
-		if(e.getProjectile() != null){
-			if(e.getProjectile() instanceof Arrow){
-				Arrow a = (Arrow) e.getProjectile();
-				if(e.getDamager() instanceof Player){
-					Player p = (Player) e.getDamager();
-					if(hasSkill(p, this)){
-						if(active.contains(a)){
-							active.remove(a);
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
 
 
-							LivingEntity ent = e.getDamagee();
+        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
+        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
+
+    }
+
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getProjectile() != null) {
+            if (e.getProjectile() instanceof Arrow) {
+                Arrow a = (Arrow) e.getProjectile();
+                if (e.getDamager() instanceof Player) {
+                    Player p = (Player) e.getDamager();
+                    if (hasSkill(p, this)) {
+                        if (active.contains(a)) {
+                            active.remove(a);
 
 
-							LogManager.addLog(e.getDamagee(), p, "Pin Down");
+                            LivingEntity ent = e.getDamagee();
 
 
-							ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 1.5) * 20), 3));
-						}
-
-					}
-				}
-			}
-		}
-	}
+                            LogManager.addLog(e.getDamagee(), p, "Pin Down");
 
 
+                            ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 1.5) * 20), 3));
+                        }
 
-	@Override
-	public boolean usageCheck(Player p) {
-		if(p.getLocation().getBlock().isLiquid()){
-			UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
-			return false;
-		}
+                    }
+                }
+            }
+        }
+    }
 
-		if(!p.getInventory().contains(Material.ARROW, 1)){
-			UtilMessage.message(p, getClassType(), "You need atleast 1 Arrow to use " + ChatColor.GREEN + getName());
-			return false;
-		}
-		return true;
-	}
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player p) {
+        if (p.getLocation().getBlock().isLiquid()) {
+            UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
+        }
 
+        if (!p.getInventory().contains(Material.ARROW, 1)) {
+            UtilMessage.message(p, getClassType(), "You need atleast 1 Arrow to use " + ChatColor.GREEN + getName());
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 
 }

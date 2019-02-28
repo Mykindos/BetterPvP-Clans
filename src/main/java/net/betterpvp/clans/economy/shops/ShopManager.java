@@ -1,8 +1,5 @@
 package net.betterpvp.clans.economy.shops;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -20,23 +17,18 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Environmental;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityCombustEvent;
@@ -44,7 +36,8 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopManager implements Listener {
 
@@ -69,7 +62,6 @@ public class ShopManager implements Listener {
                 new Location(world, -15.5, 45, 23.5),
                 new Location(world, -52.5, 44.5, 26.5)};
     }
-
 
 
     public static List<Shop> getShops() {

@@ -44,6 +44,6 @@ public class RoleChangeEvent extends Event implements Cancellable {
     @Override
     public void setCancelled(boolean arg0) {
         this.isCancelled = arg0;
-        
+
     }
 }

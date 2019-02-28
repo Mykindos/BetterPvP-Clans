@@ -9,29 +9,29 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public class FireAxe extends Weapon{
+public class FireAxe extends Weapon {
 
-	public FireAxe(Clans i){
-		super(i, Material.GOLD_AXE, (byte) 0, ChatColor.LIGHT_PURPLE + "Fire Axe", new String[]{
-				ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "5",
-				ChatColor.GRAY + "Ignites players on hit"
-		}, false, 0);
-	}
+    public FireAxe(Clans i) {
+        super(i, Material.GOLD_AXE, (byte) 0, ChatColor.LIGHT_PURPLE + "Fire Axe", new String[]{
+                ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "5",
+                ChatColor.GRAY + "Ignites players on hit"
+        }, false, 0);
+    }
 
-	@EventHandler
-	public void damage(CustomDamageEvent e){
-		if(e.getCause() != DamageCause.ENTITY_ATTACK) return;
-		if(e.getDamager().getEquipment() == null) return;
-		if(e.getDamager().getEquipment().getItemInHand() == null) return;
-		if(e.getDamager().getEquipment().getItemInHand().getType() != Material.GOLD_AXE) return;
+    @EventHandler
+    public void damage(CustomDamageEvent e) {
+        if (e.getCause() != DamageCause.ENTITY_ATTACK) return;
+        if (e.getDamager().getEquipment() == null) return;
+        if (e.getDamager().getEquipment().getItemInHand() == null) return;
+        if (e.getDamager().getEquipment().getItemInHand().getType() != Material.GOLD_AXE) return;
 
-		Weapon w = WeaponManager.getWeapon(e.getDamager().getEquipment().getItemInHand());
-		if(w != null && w.equals(this)){
+        Weapon w = WeaponManager.getWeapon(e.getDamager().getEquipment().getItemInHand());
+        if (w != null && w.equals(this)) {
 
 
-			e.getDamagee().setFireTicks(40);
-		}
-	}
+            e.getDamagee().setFireTicks(40);
+        }
+    }
 
 }
 

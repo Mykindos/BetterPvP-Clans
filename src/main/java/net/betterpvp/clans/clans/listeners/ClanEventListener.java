@@ -21,7 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
 
-
 public class ClanEventListener extends BPVPListener<Clans> {
 
     public ClanEventListener(Clans instance) {
@@ -31,12 +30,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a Clan is created
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onClanCreate(ClanCreateEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanCreate(ClanCreateEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -54,7 +54,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                     + " formed " + ChatColor.YELLOW + "Admin Clan " + e.getClanName() + ChatColor.GRAY + ".");
 
         } else {
-            if(RechargeManager.getInstance().add(player, "Create Clan", 120, true)){
+            if (RechargeManager.getInstance().add(player, "Create Clan", 120, true)) {
                 Clan clan = new Clan(e.getClanName());
                 clan.setLeader(player.getUniqueId());
                 clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.LEADER));
@@ -63,7 +63,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 ScoreboardManager.addPlayer(player.getName());
 
                 UtilMessage.broadcast("Clans", ChatColor.YELLOW + player.getName() + ChatColor.GRAY
-                        + " formed " + ChatColor.YELLOW + "Clan " +  e.getClanName() + ChatColor.GRAY + ".");
+                        + " formed " + ChatColor.YELLOW + "Clan " + e.getClanName() + ChatColor.GRAY + ".");
                 Log.write("Clans", player.getName() + " formed Clan " + e.getClanName());
             }
         }
@@ -72,12 +72,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a Clan is deleted
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onClanDelete(ClanDeleteEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanDelete(ClanDeleteEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -87,12 +88,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a player leaves a clan
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onMemberLeaveClan(MemberLeaveClanEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onMemberLeaveClan(MemberLeaveClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -113,12 +115,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a player joins a clan
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onMemberJoinClan(MemberJoinClanEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onMemberJoinClan(MemberJoinClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -126,7 +129,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
         Clan clan = e.getClan();
 
         // Make sure they aren't already in the clan, just incase they are for whatever reason.
-        if(clan.getMember(player.getUniqueId()) == null) {
+        if (clan.getMember(player.getUniqueId()) == null) {
 
             clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY
                     + " has joined your Clan.", player.getUniqueId(), true);
@@ -145,19 +148,19 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a clan kicks a player
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onClanKickMember(ClanKickMemberEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanKickMember(ClanKickMemberEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
         Player player = e.getPlayer();
         Client target = e.getTarget();
         Clan clan = e.getClan();
-
 
 
         // Check if player is online so we can tell them they were kicked
@@ -183,12 +186,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a clan requests an alliance with another clan
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onClanAllyClan(ClanAllyClanEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanAllyClan(ClanAllyClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -216,12 +220,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a clan requests trust with an allied clan
      * Is cancellable
+     *
      * @param e The event
      */
     @EventHandler
-    public void onClanTrustClan(ClanTrustClanEvent e){
+    public void onClanTrustClan(ClanTrustClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -247,12 +252,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a clan declares another clan as an enemy
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onClanEnemyClan(ClanEnemyClanEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanEnemyClan(ClanEnemyClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -289,12 +295,13 @@ public class ClanEventListener extends BPVPListener<Clans> {
     /**
      * Called whenever a clan requests to be neutral with another clan
      * Is cancellable
+     *
      * @param e The event
      */
-    @EventHandler (priority =  EventPriority.MONITOR)
-    public void onClanNeutralClan(ClanNeutralClanEvent e){
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onClanNeutralClan(ClanNeutralClanEvent e) {
 
-        if(e.isCancelled()){
+        if (e.isCancelled()) {
             return;
         }
 
@@ -315,7 +322,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
             ScoreboardManager.updateRelation();
             Log.write("Clans", "[" + clan.getName() + "] revoked alliance with [" + target.getName() + "]");
         } else if (relation == ClanUtilities.ClanRelation.ENEMY) {
-            if(InviteHandler.isInvited(clan, target)){
+            if (InviteHandler.isInvited(clan, target)) {
                 UtilMessage.message(player, "Clans", "You have already requested neutral with "
                         + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
                 return;
@@ -327,7 +334,6 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " accepted neutral with "
                         + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".", player.getUniqueId(), true);
                 target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has accepted neutral with you.", null, true);
-
 
 
                 Dominance dom = clan.getDominance(target);

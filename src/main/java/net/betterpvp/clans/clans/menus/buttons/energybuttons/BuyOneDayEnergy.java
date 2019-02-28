@@ -9,21 +9,20 @@ import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
 
-public class BuyOneDayEnergy extends ClanMenuButton{
+public class BuyOneDayEnergy extends ClanMenuButton {
 
 
-	public BuyOneDayEnergy(Clan clan) {
-		super(clan, 4, new ItemStack(Material.EMERALD), ChatColor.GREEN + "Buy 1 Day of Energy",
-				"",
-				ChatColor.GRAY + "Buy " + ChatColor.GREEN + ((clan.getTerritory().size() * 25) * 24)
-				+ ChatColor.GRAY + " energy for " + ChatColor.YELLOW + "$" 
-				+ NumberFormat.getInstance().format((((clan.getTerritory().size() * 25) * Clans.getOptions().getCostPerEnergy()) * 24))
-				+ ChatColor.YELLOW + " coins.",
-				"",
-				ChatColor.GREEN + "Left-Click: " + ChatColor.GRAY + "Confirm");
+    public BuyOneDayEnergy(Clan clan) {
+        super(clan, 4, new ItemStack(Material.EMERALD), ChatColor.GREEN + "Buy 1 Day of Energy",
+                "",
+                ChatColor.GRAY + "Buy " + ChatColor.GREEN + ((clan.getTerritory().size() * 25) * 24)
+                        + ChatColor.GRAY + " energy for " + ChatColor.YELLOW + "$"
+                        + NumberFormat.getInstance().format((((clan.getTerritory().size() * 25) * Clans.getOptions().getCostPerEnergy()) * 24))
+                        + ChatColor.YELLOW + " coins.",
+                "",
+                ChatColor.GREEN + "Left-Click: " + ChatColor.GRAY + "Confirm");
 
-	}
-	
-	
+    }
+
 
 }

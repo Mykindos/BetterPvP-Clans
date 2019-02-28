@@ -4,9 +4,9 @@ import org.bukkit.Material;
 
 public class FarmBlocks {
 
-    public static boolean isCultivation(Material b){
+    public static boolean isCultivation(Material b) {
         return b == Material.PUMPKIN_SEEDS || b == Material.MELON_SEEDS
-                || b == Material.SEEDS|| b == Material.SUGAR_CANE
+                || b == Material.SEEDS || b == Material.SUGAR_CANE
                 || b == Material.SUGAR_CANE_BLOCK
                 || b == Material.POTATO_ITEM
                 || b == Material.POTATO
@@ -22,9 +22,9 @@ public class FarmBlocks {
     }
 
 
-    public static boolean isSeed(Material b){
+    public static boolean isSeed(Material b) {
         return b == Material.PUMPKIN_SEEDS || b == Material.MELON_SEEDS
-                || b == Material.SEEDS|| b == Material.SUGAR_CANE
+                || b == Material.SEEDS || b == Material.SUGAR_CANE
                 || b == Material.SUGAR_CANE_BLOCK
                 || b == Material.POTATO
                 || b == Material.CROPS

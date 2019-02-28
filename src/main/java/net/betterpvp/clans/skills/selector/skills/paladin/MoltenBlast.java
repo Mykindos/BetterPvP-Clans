@@ -3,12 +3,12 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,59 +24,59 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class MoltenBlast extends Skill{
+public class MoltenBlast extends Skill {
 
-	public  List<LargeFireball> fireballs = new ArrayList<>();
-
-
-	public MoltenBlast(Clans i) {
-		super(i, "Molten Blast", "Paladin",
-				getAxes,
-				rightClick, 5, true, true);
-		
-	}
-
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {
-				"Right click with an Axe to Activate",
-				"",
-				"Shoot a large fireball that deals",
-				"area of effect damage, and igniting any players hit",
-				"for " + ChatColor.GREEN + ((level * 0.5)) + ChatColor.GRAY + " seconds",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
-
-	@EventHandler
-	public void update(UpdateEvent e){
-		if(e.getType() == UpdateType.TICK){
-			Iterator<LargeFireball> it = fireballs.iterator();
-			while(it.hasNext()){
-				LargeFireball f = it.next();
-				if(f == null || f.isDead()){
-					it.remove();
-					continue;
-				}
-				if( f.getLocation().getY() < 255 || !f.isDead()){
-					ParticleEffect.LAVA.display(0, 0, 0, 0, 5, f.getLocation(), 50);
-				}else{
-					it.remove();
-				}
-			}
-		}
-	}
+    public List<LargeFireball> fireballs = new ArrayList<>();
 
 
-	@EventHandler
-	public void onProjectileHit(ProjectileHitEvent e){
-		if(e.getEntity() instanceof LargeFireball){
-			fireballs.remove(e.getEntity());
-		}
-	}
+    public MoltenBlast(Clans i) {
+        super(i, "Molten Blast", "Paladin",
+                getAxes,
+                rightClick, 5, true, true);
+
+    }
+
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Right click with an Axe to Activate",
+                "",
+                "Shoot a large fireball that deals",
+                "area of effect damage, and igniting any players hit",
+                "for " + ChatColor.GREEN + ((level * 0.5)) + ChatColor.GRAY + " seconds",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
+
+    @EventHandler
+    public void update(UpdateEvent e) {
+        if (e.getType() == UpdateType.TICK) {
+            Iterator<LargeFireball> it = fireballs.iterator();
+            while (it.hasNext()) {
+                LargeFireball f = it.next();
+                if (f == null || f.isDead()) {
+                    it.remove();
+                    continue;
+                }
+                if (f.getLocation().getY() < 255 || !f.isDead()) {
+                    ParticleEffect.LAVA.display(0, 0, 0, 0, 5, f.getLocation(), 50);
+                } else {
+                    it.remove();
+                }
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onProjectileHit(ProjectileHitEvent e) {
+        if (e.getEntity() instanceof LargeFireball) {
+            fireballs.remove(e.getEntity());
+        }
+    }
 
 	/*
 	@EventHandler
@@ -108,60 +108,51 @@ public class MoltenBlast extends Skill{
 	}
 	 */
 
-	@EventHandler
-	public void onaDamage(CustomDamageEvent e){
+    @EventHandler
+    public void onaDamage(CustomDamageEvent e) {
 
-		if(e.getProjectile() != null){
-			Projectile j = e.getProjectile();
-			if(j instanceof LargeFireball && j.getShooter() instanceof Player){
-				Player player = (Player) j.getShooter();
+        if (e.getProjectile() != null) {
+            Projectile j = e.getProjectile();
+            if (j instanceof LargeFireball && j.getShooter() instanceof Player) {
+                Player player = (Player) j.getShooter();
 
-				LogManager.addLog(e.getDamagee(), player, "Molten Blast");
-				e.setKnockback(true);
-				e.setDamage(6);
-				e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
-			}
-
-
-		}
-	}
+                LogManager.addLog(e.getDamagee(), player, "Molten Blast");
+                e.setKnockback(true);
+                e.setDamage(6);
+                e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
+            }
 
 
+        }
+    }
 
 
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.AXE;
+    }
 
 
-
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.AXE;
-	}
-
-
-
-	@Override
-	public void activateSkill(final Player p) {
-		if (usageCheck(p)) {
-			LargeFireball f = p.launchProjectile(LargeFireball.class);
-			f.setYield(2.0F);
-			f.setVelocity(f.getVelocity().multiply(5));
-			f.setIsIncendiary(false);
-			fireballs.add(f);
-			UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
+    @Override
+    public void activateSkill(final Player p) {
+        if (usageCheck(p)) {
+            LargeFireball f = p.launchProjectile(LargeFireball.class);
+            f.setYield(2.0F);
+            f.setVelocity(f.getVelocity().multiply(5));
+            f.setIsIncendiary(false);
+            fireballs.add(f);
+            UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
 
 
+        }
 
 
-		}
+    }
 
 
-	}
-
-
-
-	@Override
-	public boolean usageCheck(Player player) {
+    @Override
+    public boolean usageCheck(Player player) {
 
 		/*
 		Location start = player.getEyeLocation();
@@ -186,48 +177,48 @@ public class MoltenBlast extends Skill{
 		 */
 
 
-		if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
-			return false;
-		}
+        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+            return false;
+        }
 
-		return ClanUtilities.canCast(player);
-	}
+        return ClanUtilities.canCast(player);
+    }
 
-	/*
-	 * Stops players from deflecting fireballs (Molten blast)
-	 */
-	@EventHandler
-	public void onDeflect(EntityDamageByEntityEvent e){	
+    /*
+     * Stops players from deflecting fireballs (Molten blast)
+     */
+    @EventHandler
+    public void onDeflect(EntityDamageByEntityEvent e) {
 
-		if(e.getEntity() instanceof Projectile){
-			Projectile p = (Projectile) e.getEntity();
-			if(p.getShooter() instanceof Player){
-				if(p instanceof LargeFireball){
-					if(e.getDamager() instanceof Player || e.getDamager() instanceof Projectile){
-						e.setCancelled(true);
-					}
-				}
-			}
-		}
-	}
+        if (e.getEntity() instanceof Projectile) {
+            Projectile p = (Projectile) e.getEntity();
+            if (p.getShooter() instanceof Player) {
+                if (p instanceof LargeFireball) {
+                    if (e.getDamager() instanceof Player || e.getDamager() instanceof Projectile) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 25 - ((level -1) * 2);
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 25 - ((level - 1) * 2);
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 50 - ((level -1) * 3);
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 50 - ((level - 1) * 3);
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

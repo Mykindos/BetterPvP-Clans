@@ -24,141 +24,137 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 
-public class HomeCommand extends BPVPListener<Clans> implements IClanCommand{
+public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
 
-	public HomeCommand(Clans instance) {
-		super(instance);
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	private WeakHashMap<Player, Long> teleports = new WeakHashMap<>();
+    public HomeCommand(Clans instance) {
+        super(instance);
+        // TODO Auto-generated constructor stub
+    }
 
 
-	public void run(Player player, String[] args) {
-		Clan clan = ClanUtilities.getClan(player);
-		if (clan == null) {
-			UtilMessage.message(player, "Clans", "You are not in a Clan.");
-			return;
-		}
-
-		if(RechargeManager.getInstance().add(player, "Clan-Home-Command", 30, true)) {
+    private WeakHashMap<Player, Long> teleports = new WeakHashMap<>();
 
 
+    public void run(Player player, String[] args) {
+        Clan clan = ClanUtilities.getClan(player);
+        if (clan == null) {
+            UtilMessage.message(player, "Clans", "You are not in a Clan.");
+            return;
+        }
 
-			if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) {
-				UtilMessage.message(player, "Clans", "You cant teleport home from here");
-				return;
-			}
-
-			if (clan.getHome() == null) {
-				UtilMessage.message(player, "Clans", "Your Clan has not set a Home.");
-				return;
-			}
-
-			Gamer gamer = GamerManager.getOnlineGamer(player);
-
-			Clan locationClan = ClanUtilities.getClan(player.getLocation());
-			if (locationClan != null) {
-				if(gamer.getClient().isAdministrating()){
-					UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
-					player.teleport(clan.getHome());
-					return;
-				}
-
-				if (locationClan.getName().equalsIgnoreCase("Blue Spawn")
-						|| locationClan.getName().equalsIgnoreCase("Red Spawn")) {
-					if(!UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
-						UtilMessage.message(player, "Clans", "Cannot teleport from spawn while in combat");
-						return;
-					}
-					//if(player.getLocation().getY() > 110){
-					Clan homeClan = ClanUtilities.getClan(clan.getHome());
-					if(homeClan != null && homeClan == ClanUtilities.getClan(player)){
-						UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
-						player.teleport(clan.getHome());
-					}
-					//}else{
-
-					//	UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
+        if (RechargeManager.getInstance().add(player, "Clan-Home-Command", 30, true)) {
 
 
+            if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                UtilMessage.message(player, "Clans", "You cant teleport home from here");
+                return;
+            }
 
-					//}
+            if (clan.getHome() == null) {
+                UtilMessage.message(player, "Clans", "Your Clan has not set a Home.");
+                return;
+            }
 
-				} else {
-					UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
-				}
-			} else {
-				if(!Clans.getOptions().canClanHomeFromWilderness()) {
-					UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
-					return;
-				}
+            Gamer gamer = GamerManager.getOnlineGamer(player);
 
+            Clan locationClan = ClanUtilities.getClan(player.getLocation());
+            if (locationClan != null) {
+                if (gamer.getClient().isAdministrating()) {
+                    UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
+                    player.teleport(clan.getHome());
+                    return;
+                }
 
-				if(teleports.containsKey(player)) {
-					UtilMessage.message(player, "Clans", "You already have a home teleport in progress.");
-					return;
-				}
+                if (locationClan.getName().equalsIgnoreCase("Blue Spawn")
+                        || locationClan.getName().equalsIgnoreCase("Red Spawn")) {
+                    if (!UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
+                        UtilMessage.message(player, "Clans", "Cannot teleport from spawn while in combat");
+                        return;
+                    }
+                    //if(player.getLocation().getY() > 110){
+                    Clan homeClan = ClanUtilities.getClan(clan.getHome());
+                    if (homeClan != null && homeClan == ClanUtilities.getClan(player)) {
+                        UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
+                        player.teleport(clan.getHome());
+                    }
+                    //}else{
 
-				teleports.put(player, System.currentTimeMillis());
-
-			}
-		}
-	}
-
-	@EventHandler
-	public void onUodate(UpdateEvent e) {
-		if(e.getType() == UpdateType.FASTEST) {
-			if(teleports.isEmpty()) return;
-			Iterator<Entry<Player, Long>> it = teleports.entrySet().iterator();
-			while(it.hasNext()) {
-				Entry<Player, Long> next = it.next();
-
-				Titles.sendTitle(next.getKey(), 0, 20, 20, "", ChatColor.YELLOW + "Teleporting in " + ChatColor.GREEN +
-						Math.max(0, UtilTime.convert((next.getValue() + 30000) - System.currentTimeMillis(), TimeUnit.BEST, 1)) 
-				+ " " + UtilTime.getTimeUnit2(next.getValue() + 30000 - System.currentTimeMillis())) ;
-
-				if((next.getValue() + 30000) - System.currentTimeMillis() <= 0) {
-					UtilMessage.message(next.getKey(), "Clans", "You teleported to your Clan Home.");
-					next.getKey().teleport(ClanUtilities.getClan(next.getKey()).getHome());
-					it.remove();
+                    //	UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
 
 
-				}
-			}
-		}
-	}
+                    //}
 
-	@EventHandler
-	public void onDamage(CustomDamageEvent e) {
-		if(e.getDamagee() instanceof Player) {
-			Player player = (Player) e.getDamagee();
-			if(teleports.containsKey(player)) {
-				teleports.remove(player);
-				Titles.sendTitle(player, 0, 20, 20, "", ChatColor.RED + "Teleport cancelled");
-			}
-		}
-	}
-
-	@EventHandler
-	public void onMove(PlayerMoveEvent e) {
-		if(teleports.containsKey(e.getPlayer())) {
-			if(e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockY() != e.getTo().getBlockY()
-					|| e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
-				teleports.remove(e.getPlayer());
-				Titles.sendTitle(e.getPlayer(), 0, 20, 20, "", ChatColor.RED + "Teleport cancelled");
-			}
-		}
-	}
+                } else {
+                    UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
+                }
+            } else {
+                if (!Clans.getOptions().canClanHomeFromWilderness()) {
+                    UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
+                    return;
+                }
 
 
+                if (teleports.containsKey(player)) {
+                    UtilMessage.message(player, "Clans", "You already have a home teleport in progress.");
+                    return;
+                }
 
-	@Override
-	public String getName() {
+                teleports.put(player, System.currentTimeMillis());
 
-		return "Home";
-	}
+            }
+        }
+    }
+
+    @EventHandler
+    public void onUodate(UpdateEvent e) {
+        if (e.getType() == UpdateType.FASTEST) {
+            if (teleports.isEmpty()) return;
+            Iterator<Entry<Player, Long>> it = teleports.entrySet().iterator();
+            while (it.hasNext()) {
+                Entry<Player, Long> next = it.next();
+
+                Titles.sendTitle(next.getKey(), 0, 20, 20, "", ChatColor.YELLOW + "Teleporting in " + ChatColor.GREEN +
+                        Math.max(0, UtilTime.convert((next.getValue() + 30000) - System.currentTimeMillis(), TimeUnit.BEST, 1))
+                        + " " + UtilTime.getTimeUnit2(next.getValue() + 30000 - System.currentTimeMillis()));
+
+                if ((next.getValue() + 30000) - System.currentTimeMillis() <= 0) {
+                    UtilMessage.message(next.getKey(), "Clans", "You teleported to your Clan Home.");
+                    next.getKey().teleport(ClanUtilities.getClan(next.getKey()).getHome());
+                    it.remove();
+
+
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getDamagee() instanceof Player) {
+            Player player = (Player) e.getDamagee();
+            if (teleports.containsKey(player)) {
+                teleports.remove(player);
+                Titles.sendTitle(player, 0, 20, 20, "", ChatColor.RED + "Teleport cancelled");
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        if (teleports.containsKey(e.getPlayer())) {
+            if (e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockY() != e.getTo().getBlockY()
+                    || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
+                teleports.remove(e.getPlayer());
+                Titles.sendTitle(e.getPlayer(), 0, 20, 20, "", ChatColor.RED + "Teleport cancelled");
+            }
+        }
+    }
+
+
+    @Override
+    public String getName() {
+
+        return "Home";
+    }
 
 }

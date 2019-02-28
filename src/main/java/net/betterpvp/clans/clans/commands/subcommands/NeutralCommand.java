@@ -12,11 +12,11 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class NeutralCommand implements IClanCommand{
+public class NeutralCommand implements IClanCommand {
 
     public static HashMap<Clan, Clan> truce = new HashMap<Clan, Clan>();
 
- 
+
     public void run(Player player, String[] args) {
         Clan clan = ClanUtilities.getClan(player);
         if (clan == null) {
@@ -39,14 +39,13 @@ public class NeutralCommand implements IClanCommand{
             ClanUtilities.searchClan(player, args[1], true);
             return;
         }
-        
+
         if (clan.equals(target)) {
             UtilMessage.message(player, "Clans", "You cannot neutral yourself.");
             return;
         }
 
         Bukkit.getPluginManager().callEvent(new ClanNeutralClanEvent(player, clan, target));
-
 
 
     }
@@ -74,9 +73,9 @@ public class NeutralCommand implements IClanCommand{
         }
     }
 
-	@Override
-	public String getName() {
-		
-		return "Neutral";
-	}
+    @Override
+    public String getName() {
+
+        return "Neutral";
+    }
 }

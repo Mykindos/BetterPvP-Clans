@@ -1,31 +1,29 @@
 package net.betterpvp.clans.economy.shops;
 
+import net.battleau.clans.Clans;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-import net.battleau.clans.Clans;
-import net.md_5.bungee.api.ChatColor;
+public class ShopEntities implements Listener {
 
-public class ShopEntities implements Listener{
+    public ShopEntities(Clans i) {
+        i.getServer().getPluginManager().registerEvents(this, i);
 
-	public ShopEntities(Clans i){
-		i.getServer().getPluginManager().registerEvents(this, i);
+    }
 
-	}
+    @EventHandler
+    public void acquireTarget(EntityTargetEvent e) {
 
-	@EventHandler
-	public void acquireTarget(EntityTargetEvent e){
-	
-			if(e.getEntity().getCustomName() != null){
-				if(isShop(e.getEntity())){
-					e.setCancelled(true);
-				}
-			}
-		
-	}
+        if (e.getEntity().getCustomName() != null) {
+            if (isShop(e.getEntity())) {
+                e.setCancelled(true);
+            }
+        }
+
+    }
 
 	/*
 	@EventHandler
@@ -49,15 +47,13 @@ public class ShopEntities implements Listener{
 	 */
 
 
-
-
-	public static boolean isShop(Entity e){
-		return e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Armour")
-				|| e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Tools / Weapons")
-				|| e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "building")
-				|| e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "resources")
-				|| e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "food")
-				|| e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Beta");
-	}
+    public static boolean isShop(Entity e) {
+        return e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Armour")
+                || e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Tools / Weapons")
+                || e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "building")
+                || e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "resources")
+                || e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "food")
+                || e.getCustomName().equalsIgnoreCase(ChatColor.GREEN + "Beta");
+    }
 }
 

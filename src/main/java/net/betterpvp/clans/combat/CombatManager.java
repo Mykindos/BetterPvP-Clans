@@ -8,13 +8,11 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
-
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

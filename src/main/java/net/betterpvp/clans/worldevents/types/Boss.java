@@ -5,18 +5,11 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.client.DonationRank;
 import net.betterpvp.clans.client.PlayerStat;
 import net.betterpvp.clans.client.mysql.PlayerStatRepository;
-import net.betterpvp.clans.donation.Perk;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.mysql.Log;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.database.Log;
-import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.clans.donation.Perk;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.worldevents.WEManager;
@@ -24,8 +17,12 @@ import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
 import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
+import net.betterpvp.core.client.Client;
+import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.mah.events.UpdateEvent.UpdateType;
 import net.md_5.bungee.api.ChatColor;
@@ -45,131 +42,133 @@ import java.util.List;
 
 public abstract class Boss extends WorldEvent {
 
-	private List<WorldEventMinion> minions;
+    private List<WorldEventMinion> minions;
 
-	public Boss(Clans i, String name, WEType type) {
-		super(i, name, type);
-		// TODO Auto-generated constructor stub
-		minions = new ArrayList<>();
-	}
+    public Boss(Clans i, String name, WEType type) {
+        super(i, name, type);
+        // TODO Auto-generated constructor stub
+        minions = new ArrayList<>();
+    }
 
-	private ItemStack loot;
-
-
-	public abstract double getBaseDamage();
-	public abstract String getBossName();
-	public abstract EntityType getEntityType();
-	public abstract double getMaxHealth();
-	public abstract LivingEntity getBoss();
-	public long lastDamaged;
-
-	public List<WorldEventMinion> getMinions(){
-		return minions;
-	}
-
-	public WorldEventMinion getMinion(LivingEntity ent){
-		for(WorldEventMinion bm : getMinions()){
-			if(bm.getEntity() == ent){
-				return bm;
-			}
-		}
-		return null;
-	}
-
-	@EventHandler
-	public void minionKiller(EntityDeathEvent e){
-		if(isMinion(e.getEntity())){
-			WorldEventMinion remove = null;
-			for(WorldEventMinion bm : getMinions()){
-				if(bm.getEntity().equals(e.getEntity())){
-					remove = bm;
-				}
-			}
-
-			if(remove != null){
-				getMinions().remove(remove);
-			}
-		}
-	}
-
-	
-	@EventHandler
-	public void onDamageTeleport(CustomDamageEvent e) {
-		if(isActive()) {
-			if(getBoss() != null && !getBoss().isDead()) {
-				if(e.getDamagee() == getBoss()) {
-					if(e.getDamager() instanceof Player) {
-						lastDamaged = System.currentTimeMillis();
-					}
-			
-				}
-			}
-		}
-	}
+    private ItemStack loot;
 
 
-	@EventHandler
-	public void checkLava(UpdateEvent e) {
-		if(e.getType() == UpdateEvent.UpdateType.FASTER) {
-			if(isActive()) {
-				if(getBoss() != null && !getBoss().isDead()) {
-					Block b = getBoss().getLocation().getBlock();
+    public abstract double getBaseDamage();
 
-					if(b.getType() == Material.STATIONARY_LAVA || b.getType() == Material.LAVA) {
-						new BlockRestoreData(b, b.getTypeId(), (byte) 0, 180000);
-						b.setType(Material.OBSIDIAN);
-						
+    public abstract String getBossName();
 
-						getBoss().teleport(getBoss().getLocation().add(0, 1, 0));
-					}
-				}
-			}
-		}
-	}
-	
-	
+    public abstract EntityType getEntityType();
+
+    public abstract double getMaxHealth();
+
+    public abstract LivingEntity getBoss();
+
+    public long lastDamaged;
+
+    public List<WorldEventMinion> getMinions() {
+        return minions;
+    }
+
+    public WorldEventMinion getMinion(LivingEntity ent) {
+        for (WorldEventMinion bm : getMinions()) {
+            if (bm.getEntity() == ent) {
+                return bm;
+            }
+        }
+        return null;
+    }
+
+    @EventHandler
+    public void minionKiller(EntityDeathEvent e) {
+        if (isMinion(e.getEntity())) {
+            WorldEventMinion remove = null;
+            for (WorldEventMinion bm : getMinions()) {
+                if (bm.getEntity().equals(e.getEntity())) {
+                    remove = bm;
+                }
+            }
+
+            if (remove != null) {
+                getMinions().remove(remove);
+            }
+        }
+    }
 
 
+    @EventHandler
+    public void onDamageTeleport(CustomDamageEvent e) {
+        if (isActive()) {
+            if (getBoss() != null && !getBoss().isDead()) {
+                if (e.getDamagee() == getBoss()) {
+                    if (e.getDamager() instanceof Player) {
+                        lastDamaged = System.currentTimeMillis();
+                    }
 
-	@EventHandler
-	public void onSafeDamage(CustomDamageEvent e) {
-		if(isActive()) {
-			if(e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.PROJECTILE) {
-				if(e.getDamagee() == getBoss() || isMinion(e.getDamagee())) {
-					if(e.getDamager() != null && !e.getDamager().isDead()) {
-						Clan clan = ClanUtilities.getClan(
-								e.getDamager()
-								.getLocation());
-						if(clan != null) {
-							if(clan instanceof AdminClan) {
-								AdminClan adminClan = (AdminClan) clan;
-								if(adminClan.isSafe()) {
-									e.setCancelled("Cant damage boss in safezone");
-								}
-							}
+                }
+            }
+        }
+    }
 
-						}
-					}
-				}
-			}
-		}
-	}
 
-	public void announceDeath(EntityDeathEvent e){
-		for(WorldEventMinion bm : getMinions()){
-			bm.getEntity().remove();
-		}
-		getMinions().clear();
+    @EventHandler
+    public void checkLava(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.FASTER) {
+            if (isActive()) {
+                if (getBoss() != null && !getBoss().isDead()) {
+                    Block b = getBoss().getLocation().getBlock();
 
-		loot = WEManager.getRandomItem();
+                    if (b.getType() == Material.STATIONARY_LAVA || b.getType() == Material.LAVA) {
+                        new BlockRestoreData(b, b.getTypeId(), (byte) 0, 180000);
+                        b.setType(Material.OBSIDIAN);
 
-		LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
-		if(killer != null){
-			UtilMessage.broadcast("World Event", ChatColor.YELLOW + getBossName() + ChatColor.GRAY
-					+ " has been killed by " + ChatColor.YELLOW + killer.getName());
-			Log.write("World Event", killer.getName() + " killed " + getBossName());
-			if(killer instanceof Player){
-				Player p = (Player) killer;
+
+                        getBoss().teleport(getBoss().getLocation().add(0, 1, 0));
+                    }
+                }
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onSafeDamage(CustomDamageEvent e) {
+        if (isActive()) {
+            if (e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.PROJECTILE) {
+                if (e.getDamagee() == getBoss() || isMinion(e.getDamagee())) {
+                    if (e.getDamager() != null && !e.getDamager().isDead()) {
+                        Clan clan = ClanUtilities.getClan(
+                                e.getDamager()
+                                        .getLocation());
+                        if (clan != null) {
+                            if (clan instanceof AdminClan) {
+                                AdminClan adminClan = (AdminClan) clan;
+                                if (adminClan.isSafe()) {
+                                    e.setCancelled("Cant damage boss in safezone");
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void announceDeath(EntityDeathEvent e) {
+        for (WorldEventMinion bm : getMinions()) {
+            bm.getEntity().remove();
+        }
+        getMinions().clear();
+
+        loot = WEManager.getRandomItem();
+
+        LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
+        if (killer != null) {
+            UtilMessage.broadcast("World Event", ChatColor.YELLOW + getBossName() + ChatColor.GRAY
+                    + " has been killed by " + ChatColor.YELLOW + killer.getName());
+            Log.write("World Event", killer.getName() + " killed " + getBossName());
+            if (killer instanceof Player) {
+                Player p = (Player) killer;
 				
 				/*
 				Clan c = ClanUtilities.getClan(p);
@@ -179,129 +178,129 @@ public abstract class Boss extends WorldEvent {
 					UtilMessage.broadcast("World Event", ChatColor.YELLOW + c.getName() + ChatColor.GRAY + " received " + ChatColor.GREEN + "2" + ChatColor.GRAY + " clan points.");
 				}
 				*/
-				Client killerClient = ClientUtilities.getClient(p);
+                Client killerClient = ClientUtilities.getClient(p);
 
-				double fragments = 5;
-
-
-				if(killerClient.hasDonationRank(DonationRank.SAVIOR)){
-					fragments *= 2;
-				}else if(killerClient.hasDonationRank(DonationRank.LEGACY)){
-					fragments *= 1.5;
-				}
-
-				if(killerClient.getGamer().hasPerk(Perk.getPerk("FragmentBuff"))){
-					fragments *= 1.5;
-				}
-
-				killerClient.getGamer().addCoins(50000);
-				killerClient.getGamer().addFragments(fragments);
-
-				giveBonus(killerClient, getBossName());
-
-				UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
-						+ ChatColor.GREEN + fragments + " fragments");
-
-			}
-		}
-
-		Log.write("World Event", loot.getItemMeta().getDisplayName() + " dropped");
-		if (Weapon.getWeapon(loot) != null 
-				&& !(Weapon.getWeapon(loot) instanceof EnchantedWeapon)) {
-			UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " + Weapon.getWeapon(loot).getName() + ChatColor.YELLOW + " was dropped at the world event!");
-			Log.write("Legendary", Weapon.getWeapon(loot).getName() + " dropped from world event");
-		}
-
-		e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), loot);
+                double fragments = 5;
 
 
-		setActive(false);
-	}
+                if (killerClient.hasDonationRank(DonationRank.SAVIOR)) {
+                    fragments *= 2;
+                } else if (killerClient.hasDonationRank(DonationRank.LEGACY)) {
+                    fragments *= 1.5;
+                }
 
-	private void giveBonus(Client client, String boss){
-		PlayerStat stat = client.getStats();
-		switch(ChatColor.stripColor(boss)){
-		case "Slime King":
-			stat.slimeKing = stat.slimeKing + 1;
-			break;
-		case "Skeleton King":
-			stat.skeletonKing = stat.skeletonKing + 1;
-			break;
-		case "Broodmother":
-			stat.broodmother = stat.broodmother + 1;
-			break;
-		case "Charles Witherton":
-			stat.witherton = stat.witherton + 1;
-			break;
-		}
+                if (killerClient.getGamer().hasPerk(Perk.getPerk("FragmentBuff"))) {
+                    fragments *= 1.5;
+                }
 
-		PlayerStatRepository.updateStats(client);
+                killerClient.getGamer().addCoins(50000);
+                killerClient.getGamer().addFragments(fragments);
 
-	}
+                giveBonus(killerClient, getBossName());
 
-	protected void heal(double amount){
+                UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
+                        + ChatColor.GREEN + fragments + " fragments");
 
-		getBoss().setHealth(Math.min(getBoss().getMaxHealth(), getBoss().getHealth() + amount));
+            }
+        }
 
-		getBoss().setCustomName(getBossName() + "  " + ChatColor.GREEN + (int) getBoss().getHealth() + ChatColor.YELLOW + "/" + ChatColor.GREEN + (int) getBoss().getMaxHealth());
+        Log.write("World Event", loot.getItemMeta().getDisplayName() + " dropped");
+        if (Weapon.getWeapon(loot) != null
+                && !(Weapon.getWeapon(loot) instanceof EnchantedWeapon)) {
+            UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " + Weapon.getWeapon(loot).getName() + ChatColor.YELLOW + " was dropped at the world event!");
+            Log.write("Legendary", Weapon.getWeapon(loot).getName() + " dropped from world event");
+        }
 
-	}
+        e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), loot);
 
-	public boolean isMinion(LivingEntity ent){
-		if(ent == null) return false;
-		if(ent.isDead()) return false;
 
-		for(WorldEventMinion b : getMinions()){
-			if(b == null) continue;
-			if(b.getEntity() == null) continue;
-			if(b.getEntity().isDead()) continue;
-			if(b.getEntity().getUniqueId().toString().equalsIgnoreCase(ent.getUniqueId().toString())){
-				return true;
-			}
-		}
-		return false;
-	}
+        setActive(false);
+    }
 
-	@EventHandler (priority = EventPriority.LOWEST)
-	public void onSuffocate(CustomDamageEvent e) {
-		if(isActive()) {
-			if(e.getDamagee() != null) {
-				if(getBoss() == e.getDamagee()) {
-					if(e.getCause() == DamageCause.SUFFOCATION || e.getCause() == DamageCause.DROWNING) {
-						e.setCancelled("Bosses cant suffocate or drown");
-					}
-				}
-			}
-		}
-	}
+    private void giveBonus(Client client, String boss) {
+        PlayerStat stat = client.getStats();
+        switch (ChatColor.stripColor(boss)) {
+            case "Slime King":
+                stat.slimeKing = stat.slimeKing + 1;
+                break;
+            case "Skeleton King":
+                stat.skeletonKing = stat.skeletonKing + 1;
+                break;
+            case "Broodmother":
+                stat.broodmother = stat.broodmother + 1;
+                break;
+            case "Charles Witherton":
+                stat.witherton = stat.witherton + 1;
+                break;
+        }
 
-	@EventHandler
-	public void onExpire(UpdateEvent e) {
-		if(e.getType() == UpdateType.SEC) {
-			if(isActive()) {
-				if(UtilTime.elapsed(lastDamaged, 60000 * 15)) {
-					setActive(false);
+        PlayerStatRepository.updateStats(client);
 
-					getBoss().remove();
+    }
 
-					for(WorldEventMinion wem : getMinions()) {
-						wem.getEntity().remove();
-					}
+    protected void heal(double amount) {
 
-					getMinions().clear();
+        getBoss().setHealth(Math.min(getBoss().getMaxHealth(), getBoss().getHealth() + amount));
 
-					if(this instanceof SlimeKing) {
-						SlimeKing slimeKing = (SlimeKing) this;
-						for(SlimeBase bem : slimeKing.allSlimes) {
-							bem.getEntity().remove();
-						}
+        getBoss().setCustomName(getBossName() + "  " + ChatColor.GREEN + (int) getBoss().getHealth() + ChatColor.YELLOW + "/" + ChatColor.GREEN + (int) getBoss().getMaxHealth());
 
-						slimeKing.allSlimes.clear();
-					}
-				}
-			}
-		}
-	}
+    }
+
+    public boolean isMinion(LivingEntity ent) {
+        if (ent == null) return false;
+        if (ent.isDead()) return false;
+
+        for (WorldEventMinion b : getMinions()) {
+            if (b == null) continue;
+            if (b.getEntity() == null) continue;
+            if (b.getEntity().isDead()) continue;
+            if (b.getEntity().getUniqueId().toString().equalsIgnoreCase(ent.getUniqueId().toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSuffocate(CustomDamageEvent e) {
+        if (isActive()) {
+            if (e.getDamagee() != null) {
+                if (getBoss() == e.getDamagee()) {
+                    if (e.getCause() == DamageCause.SUFFOCATION || e.getCause() == DamageCause.DROWNING) {
+                        e.setCancelled("Bosses cant suffocate or drown");
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onExpire(UpdateEvent e) {
+        if (e.getType() == UpdateType.SEC) {
+            if (isActive()) {
+                if (UtilTime.elapsed(lastDamaged, 60000 * 15)) {
+                    setActive(false);
+
+                    getBoss().remove();
+
+                    for (WorldEventMinion wem : getMinions()) {
+                        wem.getEntity().remove();
+                    }
+
+                    getMinions().clear();
+
+                    if (this instanceof SlimeKing) {
+                        SlimeKing slimeKing = (SlimeKing) this;
+                        for (SlimeBase bem : slimeKing.allSlimes) {
+                            bem.getEntity().remove();
+                        }
+
+                        slimeKing.allSlimes.clear();
+                    }
+                }
+            }
+        }
+    }
 
 
 }

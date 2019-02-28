@@ -5,10 +5,10 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -25,79 +25,79 @@ import java.util.List;
 
 public class BattleTaunt extends Skill {
 
-	private List<String> active = new ArrayList<String>();
+    private List<String> active = new ArrayList<String>();
 
-	public BattleTaunt(Clans i) {
-		super(i, "Battle Taunt", "Gladiator", getSwords, rightClick, 5, false, true);
-	}
+    public BattleTaunt(Clans i) {
+        super(i, "Battle Taunt", "Gladiator", getSwords, rightClick, 5, false, true);
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {"Hold Block with Sword to Channel.",
-				"",
-				"While channelling, any enemies within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks",
-				"are slowly pulled in towards you",
-				"",
-				"Energy / Second: " + ChatColor.GREEN + getEnergy(level)};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"Hold Block with Sword to Channel.",
+                "",
+                "While channelling, any enemies within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks",
+                "are slowly pulled in towards you",
+                "",
+                "Energy / Second: " + ChatColor.GREEN + getEnergy(level)};
+    }
 
-	private final PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, 5, 2);
+    private final PotionEffect slow = new PotionEffect(PotionEffectType.SLOW, 5, 2);
 
-	@EventHandler
-	public void Energy(UpdateEvent e) {
-		if (e.getType() == UpdateType.TICK) {
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if(active.contains(p.getName())){
-					
-					if(p.isBlocking()){
-						if(!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)){
-							active.remove(p.getName());
-						}else if(!hasSkill(p, this)){
-							active.remove(p.getName());
-						}else if(!hasSwordInMainHand(p)){
-							active.remove(p.getName());
-						}else{
+    @EventHandler
+    public void Energy(UpdateEvent e) {
+        if (e.getType() == UpdateType.TICK) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (active.contains(p.getName())) {
 
-							p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
+                    if (p.isBlocking()) {
+                        if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
+                            active.remove(p.getName());
+                        } else if (!hasSkill(p, this)) {
+                            active.remove(p.getName());
+                        } else if (!hasSwordInMainHand(p)) {
+                            active.remove(p.getName());
+                        } else {
+
+                            p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
 
 
-					 	for (int i = 0; i <= (2 + getLevel(p)); i++) {
-								Pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
-							}
-						}
-					}
+                            for (int i = 0; i <= (2 + getLevel(p)); i++) {
+                                Pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
+                            }
+                        }
+                    }
 
-				}
-			}
-		}
+                }
+            }
+        }
 
-	}
+    }
 
-	public void Pull(Player p, Location loc) {
-		for (LivingEntity other : UtilPlayer.getInRadius(loc, 2.0)) {
-			if (other instanceof Player) {
-				Player target = (Player) other;
-				if (!p.equals(target)) {
-					if (ClanUtilities.canHurt(p, target)) {
-						if (UtilMath.offset(p.getLocation(), other.getLocation()) >= 2.0D) {
-							UtilVelocity.velocity(other, UtilVelocity.getTrajectory(target, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
-						}
-					}
-				}
-			} else {
-				UtilVelocity.velocity(other, UtilVelocity.getTrajectory(other, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
-			}
-		}
-	}
+    public void Pull(Player p, Location loc) {
+        for (LivingEntity other : UtilPlayer.getInRadius(loc, 2.0)) {
+            if (other instanceof Player) {
+                Player target = (Player) other;
+                if (!p.equals(target)) {
+                    if (ClanUtilities.canHurt(p, target)) {
+                        if (UtilMath.offset(p.getLocation(), other.getLocation()) >= 2.0D) {
+                            UtilVelocity.velocity(other, UtilVelocity.getTrajectory(target, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
+                        }
+                    }
+                }
+            } else {
+                UtilVelocity.velocity(other, UtilVelocity.getTrajectory(other, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
+            }
+        }
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		if(hasSkill(p, this)){
-			if(!active.contains(p.getName())){
-				active.add(p.getName());
-			}
-		}
+    @Override
+    public void activateSkill(Player p) {
+        if (hasSkill(p, this)) {
+            if (!active.contains(p.getName())) {
+                active.add(p.getName());
+            }
+        }
 		/*
 		if (active.contains(p.getName())) {
 			UtilMessage.message(p, getClassType(), "Battle Taunt: " + ChatColor.RED + "OFF");
@@ -110,47 +110,46 @@ public class BattleTaunt extends Skill {
 
 		}
 		 */
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player p) {
-		Clan clan = ClanUtilities.getClan(p.getLocation());
-		if (clan != null) {
-			if (clan instanceof AdminClan) {
-				AdminClan adminClan = (AdminClan) clan;
+    @Override
+    public boolean usageCheck(Player p) {
+        Clan clan = ClanUtilities.getClan(p.getLocation());
+        if (clan != null) {
+            if (clan instanceof AdminClan) {
+                AdminClan adminClan = (AdminClan) clan;
 
-				if (adminClan.isSafe()) {
-					UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in Safe Zones.");
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+                if (adminClan.isSafe()) {
+                    UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in Safe Zones.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.SWORD;
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.SWORD;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0.5;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0.5;
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 15 - ((level - 1));
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 15 - ((level -1));
-	}
-
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 }

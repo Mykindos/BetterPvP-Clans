@@ -13,38 +13,35 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 public class GiantsBroadsword extends Weapon {
 
 
-	public GiantsBroadsword(Clans i) {
-		super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Giants Broadsword",
-				new String[] {"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "9",
-						ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Bonus Damage",
-						ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
-						ChatColor.WHITE + "You deal massive damage, however you ",
-						ChatColor.WHITE + "attack slower than usual", "" }, true, 2);
+    public GiantsBroadsword(Clans i) {
+        super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Giants Broadsword",
+                new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "9",
+                        ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Bonus Damage",
+                        ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
+                        ChatColor.WHITE + "You deal massive damage, however you ",
+                        ChatColor.WHITE + "attack slower than usual", ""}, true, 2);
 
 
-	}
+    }
 
 
+    @EventHandler(priority = EventPriority.LOW)
+    public void onEntityDamage(CustomDamageEvent event) {
+        if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
+        if (event.getDamager() instanceof Player) {
+
+            Player player = (Player) event.getDamager();
+            if (player.getItemInHand() == null) return;
+            if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+            if (isThisWeapon(player)) {
+
+                event.setDamage(9);
+
+                event.setDamageDelay(600);
+
+            }
+        }
 
 
-	@EventHandler (priority = EventPriority.LOW)
-	public void onEntityDamage(CustomDamageEvent event) {
-		if(event.getCause() != DamageCause.ENTITY_ATTACK) return;
-		if (event.getDamager() instanceof Player) {
-
-			Player player = (Player) event.getDamager();
-			if(player.getItemInHand() == null) return;
-			if(player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
-			if (isThisWeapon(player)) {
-
-				event.setDamage(9);
-
-				event.setDamageDelay(600);
-
-			}
-		}
-
-
-
-	}
+    }
 }

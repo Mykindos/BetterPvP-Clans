@@ -24,16 +24,16 @@ public class ClanCreateEvent extends Event implements Cancellable {
     private Player p;
     private String clanName;
 
-    public ClanCreateEvent(Player p, String clanName){
+    public ClanCreateEvent(Player p, String clanName) {
         this.p = p;
         this.clanName = clanName;
     }
 
-    public String getClanName(){
+    public String getClanName() {
         return clanName;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return p;
     }
 

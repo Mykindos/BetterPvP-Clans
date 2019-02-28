@@ -21,7 +21,7 @@ public class Alliance {
     public boolean hasTrust() {
         return trust;
     }
-    
+
     public void setTrust(boolean trust) {
         this.trust = trust;
     }

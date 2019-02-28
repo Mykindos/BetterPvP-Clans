@@ -15,74 +15,72 @@ import org.bukkit.potion.PotionEffectType;
 
 public class HolyLight extends Skill {
 
-	public HolyLight(Clans i) {
-		super(i, "Holy Light", "Paladin", noMaterials, noActions,5, true, true);
-	}
+    public HolyLight(Clans i) {
+        super(i, "Holy Light", "Paladin", noMaterials, noActions, 5, true, true);
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {
-				"Create an aura that gives", "yourself and all allies within",
-				ChatColor.GREEN.toString() + (8 + level) + ChatColor.GRAY + " blocks extra regeneration"};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Create an aura that gives", "yourself and all allies within",
+                ChatColor.GREEN.toString() + (8 + level) + ChatColor.GRAY + " blocks extra regeneration"};
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 0));
-		int level = getLevel(p);
-		for (Player cur : UtilPlayer.getNearby(p.getLocation(), (8 + level))) {
-			if (!ClanUtilities.canHurt(p, cur)) {
-				cur.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40, 0));
-			}
-		}
-	}
+    @Override
+    public void activateSkill(Player p) {
+        p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 0));
+        int level = getLevel(p);
+        for (Player cur : UtilPlayer.getNearby(p.getLocation(), (8 + level))) {
+            if (!ClanUtilities.canHurt(p, cur)) {
+                cur.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40, 0));
+            }
+        }
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		return true;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        return true;
+    }
 
-	@EventHandler
-	public void updateHolyLight(UpdateEvent event) {
-		if (event.getType() == UpdateEvent.UpdateType.FAST) {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-
-
-				if(hasSkill(player, this)){
-					activateSkill(player);
-				}
+    @EventHandler
+    public void updateHolyLight(UpdateEvent event) {
+        if (event.getType() == UpdateEvent.UpdateType.FAST) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
 
 
-
-			}
-		}
-	}
-
+                if (hasSkill(player, this)) {
+                    activateSkill(player);
+                }
 
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+            }
+        }
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

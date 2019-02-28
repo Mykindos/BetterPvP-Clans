@@ -16,94 +16,94 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import java.util.WeakHashMap;
 
-public class Thorns extends Skill{
+public class Thorns extends Skill {
 
-	private WeakHashMap<Player, Long> cd = new WeakHashMap<>();
+    private WeakHashMap<Player, Long> cd = new WeakHashMap<>();
 
-	public Thorns(Clans i) {
-		super(i, "Thorns", "Knight", noMaterials, noActions, 3, false, false);
-		// TODO Auto-generated constructor stub
-	}
+    public Thorns(Clans i) {
+        super(i, "Thorns", "Knight", noMaterials, noActions, 3, false, false);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Enemies take " + ChatColor.GREEN + (level) + ChatColor.GRAY + " damage when",
-				"they hit you using a melee attack."
-		};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Enemies take " + ChatColor.GREEN + (level) + ChatColor.GRAY + " damage when",
+                "they hit you using a melee attack."
+        };
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		// TODO Auto-generated method stub
+    @Override
+    public void activateSkill(Player p) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player p) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@EventHandler
-	public void onDamage(CustomDamageEvent e){
-		if(e.getDamagee() instanceof Player){
-			if(e.getCause() == DamageCause.ENTITY_ATTACK){
-				Player p = (Player) e.getDamagee();
-				if(hasSkill(p, this)){
-					if(e.getDamager() instanceof Player){
-						Player d = (Player) e.getDamager();
-						if(ClanUtilities.canHurt(p, d)){
-							if(!cd.containsKey(d)){
-								cd.put(d, System.currentTimeMillis());
-							}
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getDamagee() instanceof Player) {
+            if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+                Player p = (Player) e.getDamagee();
+                if (hasSkill(p, this)) {
+                    if (e.getDamager() instanceof Player) {
+                        Player d = (Player) e.getDamager();
+                        if (ClanUtilities.canHurt(p, d)) {
+                            if (!cd.containsKey(d)) {
+                                cd.put(d, System.currentTimeMillis());
+                            }
 
-							if(UtilTime.elapsed(cd.get(d), 2000)){
-								
-								Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, getLevel(p) * 0.80, false));
-								LogManager.addLog(d, p, "Thorns");
-								cd.put(d, System.currentTimeMillis());
-								return;
-							}
-						}else{
-							return;
-						}
+                            if (UtilTime.elapsed(cd.get(d), 2000)) {
 
-						return;
-					}
-					LivingEntity ent = (LivingEntity) e.getDamager();
-					LogManager.addLog(ent, p, "Thorns");
-					ent.damage(getLevel(p));
-				}
+                                Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, getLevel(p) * 0.80, false));
+                                LogManager.addLog(d, p, "Thorns");
+                                cd.put(d, System.currentTimeMillis());
+                                return;
+                            }
+                        } else {
+                            return;
+                        }
 
-			}
-		}
+                        return;
+                    }
+                    LivingEntity ent = (LivingEntity) e.getDamager();
+                    LogManager.addLog(ent, p, "Thorns");
+                    ent.damage(getLevel(p));
+                }
 
-	}
+            }
+        }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

@@ -4,13 +4,13 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.effects.EffectManager;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
@@ -24,119 +24,120 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import java.util.Iterator;
 import java.util.WeakHashMap;
 
-public class Swim extends Skill{
+public class Swim extends Skill {
 
-	WeakHashMap<Player, Long> swim = new WeakHashMap<>();
-	public Swim(Clans i) {
-		super(i, "Swim", "Global", noMaterials, noActions, 5,
-				false, true);
-		// TODO Auto-generated constructor stub
-	}
+    WeakHashMap<Player, Long> swim = new WeakHashMap<>();
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return  new String[] {
-		"Tap Crouch to Swim forwards.",
-		"",
-		"Energy: " + ChatColor.GREEN + getEnergy(level)};
-	}
+    public Swim(Clans i) {
+        super(i, "Swim", "Global", noMaterials, noActions, 5,
+                false, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.GLOBAL;
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Tap Crouch to Swim forwards.",
+                "",
+                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+    }
 
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.GLOBAL;
+    }
 
-	}
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	@EventHandler
-	public void onSwim(PlayerToggleSneakEvent e){
-		if(Clans.getOptions().isFNG()){
-			return;
-		}
-		Player p = e.getPlayer();
-		if (p.getLocation().getBlock().getType() != Material.WATER && 
-				p.getLocation().getBlock().getType() != Material.STATIONARY_WATER) {
-			return;
-		}
-		
-		if(EffectManager.isSilenced(p)){
-			UtilMessage.message(p, getName(), "You cannot use Swim while silenced!");
-			return;
-		}
-		
-		if(Role.getRole(p) != null){
-			Role r = Role.getRole(p);
-			Client c = ClientUtilities.getOnlineClient(p);
-			
-			if(c != null){
-				if(c.getGamer().getActiveBuild(r.getName()).getGlobal() != null){
-					if(c.getGamer().getActiveBuild(r.getName()).getGlobal().getSkill().equals(this)){
-						if(!swim.containsKey(p)){
-							if(Energy.use(p, getName(), getEnergy(getLevel(p)), true)){
-								UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
-								p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
-								swim.put(p, System.currentTimeMillis());
-								return;
-							}
-						}
-					}
-				}
-			}
-		}
-		if(QuestPerkManager.hasPerk(p, "Swim")){
-			if(!swim.containsKey(p)){
-				if(Energy.use(p, getName(), getEnergy(3), true)){
-					UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
-					p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
-					swim.put(p, System.currentTimeMillis());
-				}
-			}
-			return;
-		}
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@EventHandler
-	public void swimRemove(UpdateEvent e){
-		if(e.getType() == UpdateType.FAST){
-			Iterator<Long> iterator = swim.values().iterator();
-			while(iterator.hasNext()){
-				Long next = iterator.next();
-				if(UtilTime.elapsed(next, 350)){
-					iterator.remove();
-				}
-			}
-		}
-	}
+    @EventHandler
+    public void onSwim(PlayerToggleSneakEvent e) {
+        if (Clans.getOptions().isFNG()) {
+            return;
+        }
+        Player p = e.getPlayer();
+        if (p.getLocation().getBlock().getType() != Material.WATER &&
+                p.getLocation().getBlock().getType() != Material.STATIONARY_WATER) {
+            return;
+        }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+        if (EffectManager.isSilenced(p)) {
+            UtilMessage.message(p, getName(), "You cannot use Swim while silenced!");
+            return;
+        }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 10 - ((level -1) * 2);
-	}
+        if (Role.getRole(p) != null) {
+            Role r = Role.getRole(p);
+            Client c = ClientUtilities.getOnlineClient(p);
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+            if (c != null) {
+                if (c.getGamer().getActiveBuild(r.getName()).getGlobal() != null) {
+                    if (c.getGamer().getActiveBuild(r.getName()).getGlobal().getSkill().equals(this)) {
+                        if (!swim.containsKey(p)) {
+                            if (Energy.use(p, getName(), getEnergy(getLevel(p)), true)) {
+                                UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
+                                p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
+                                swim.put(p, System.currentTimeMillis());
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (QuestPerkManager.hasPerk(p, "Swim")) {
+            if (!swim.containsKey(p)) {
+                if (Energy.use(p, getName(), getEnergy(3), true)) {
+                    UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
+                    p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
+                    swim.put(p, System.currentTimeMillis());
+                }
+            }
+            return;
+        }
+    }
+
+    @EventHandler
+    public void swimRemove(UpdateEvent e) {
+        if (e.getType() == UpdateType.FAST) {
+            Iterator<Long> iterator = swim.values().iterator();
+            while (iterator.hasNext()) {
+                Long next = iterator.next();
+                if (UtilTime.elapsed(next, 350)) {
+                    iterator.remove();
+                }
+            }
+        }
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 10 - ((level - 1) * 2);
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
 
 

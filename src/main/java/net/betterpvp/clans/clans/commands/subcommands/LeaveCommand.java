@@ -14,61 +14,62 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class LeaveCommand implements IClanCommand{
+public class LeaveCommand implements IClanCommand {
 
 
-	private Clans i;
-	public LeaveCommand(Clans i) {
-		
-		this.i = i;
-		
-	}
+    private Clans i;
 
-	public void run(Player player, String[] args) {
-		Clan clan = ClanUtilities.getClan(player);
+    public LeaveCommand(Clans i) {
+
+        this.i = i;
+
+    }
+
+    public void run(Player player, String[] args) {
+        Clan clan = ClanUtilities.getClan(player);
 
 
-		if (clan == null) {
-			UtilMessage.message(player, "Clans", "You are not in a Clan.");
-			return;
-		}
+        if (clan == null) {
+            UtilMessage.message(player, "Clans", "You are not in a Clan.");
+            return;
+        }
 
-		if (!(clan instanceof AdminClan)) {
-			if (clan.getLeader().equals(player.getUniqueId()) && clan.getMembers().size() > 1) {
-				UtilMessage.message(player, "Clans", "You must pass on " + ChatColor.GREEN + "Leadership" + ChatColor.GRAY + " before leaving.");
-				return;
-			}
+        if (!(clan instanceof AdminClan)) {
+            if (clan.getLeader().equals(player.getUniqueId()) && clan.getMembers().size() > 1) {
+                UtilMessage.message(player, "Clans", "You must pass on " + ChatColor.GREEN + "Leadership" + ChatColor.GRAY + " before leaving.");
+                return;
+            }
 
-			if (clan.getLeader().equals(player.getUniqueId()) && clan.getMembers().size() == 1) {
+            if (clan.getLeader().equals(player.getUniqueId()) && clan.getMembers().size() == 1) {
 
-				Bukkit.getPluginManager().callEvent(new ClanDeleteEvent(player, clan));
+                Bukkit.getPluginManager().callEvent(new ClanDeleteEvent(player, clan));
 
-				return;
-			}
-		}
+                return;
+            }
+        }
         UtilInvite.invites.remove(player.getUniqueId());
-		//clan.getTeam().removeEntry(ClientUtilities.getClient(player.getUniqueId()).getName());
-		Clan xx = ClanUtilities.getClan(player.getLocation());
-		if(xx != null){
-			if(clan.isEnemy(xx)){
-				UtilMessage.message(player, "Clans", "You cannot leave your clan while in enemy territory!");
-				return;
-			}
-		}
-		
-		if(System.currentTimeMillis() < clan.getLastTnted()){
-			UtilMessage.message(player, "Clans", "You cannot leave your clan for " 
-					+ChatColor.GREEN + UtilTime.getTime(clan.getLastTnted() - System.currentTimeMillis(), UtilTime.TimeUnit.BEST, 1));
-			return;
-		}
-		
-		Bukkit.getPluginManager().callEvent(new MemberLeaveClanEvent(player, clan));
-		//ClanRepository.updateDynmap(i, clan);
-	}
+        //clan.getTeam().removeEntry(ClientUtilities.getClient(player.getUniqueId()).getName());
+        Clan xx = ClanUtilities.getClan(player.getLocation());
+        if (xx != null) {
+            if (clan.isEnemy(xx)) {
+                UtilMessage.message(player, "Clans", "You cannot leave your clan while in enemy territory!");
+                return;
+            }
+        }
 
-	@Override
-	public String getName() {
-		
-		return "Leave";
-	}
+        if (System.currentTimeMillis() < clan.getLastTnted()) {
+            UtilMessage.message(player, "Clans", "You cannot leave your clan for "
+                    + ChatColor.GREEN + UtilTime.getTime(clan.getLastTnted() - System.currentTimeMillis(), UtilTime.TimeUnit.BEST, 1));
+            return;
+        }
+
+        Bukkit.getPluginManager().callEvent(new MemberLeaveClanEvent(player, clan));
+        //ClanRepository.updateDynmap(i, clan);
+    }
+
+    @Override
+    public String getName() {
+
+        return "Leave";
+    }
 }

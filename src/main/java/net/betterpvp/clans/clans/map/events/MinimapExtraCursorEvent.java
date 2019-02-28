@@ -10,46 +10,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinimapExtraCursorEvent
-extends Event
-{
-	private static final HandlerList handlers = new HandlerList();
-	private final Player player;
-	private MapCursorCollection cursors;
-	private int scale;
-	private List<ExtraCursor> cursor = new ArrayList<>();
+        extends Event {
+    private static final HandlerList handlers = new HandlerList();
+    private final Player player;
+    private MapCursorCollection cursors;
+    private int scale;
+    private List<ExtraCursor> cursor = new ArrayList<>();
 
-	public MinimapExtraCursorEvent(Player player, MapCursorCollection cursors, int scale)
-	{
-		this.player = player;
-		this.cursors = cursors;
-		this.scale = scale;
-	}
-	
-	public int getScale() {
-		return scale;
-	}
-	
-	public MapCursorCollection getCursorCollection() {
-		return cursors;
-	}
+    public MinimapExtraCursorEvent(Player player, MapCursorCollection cursors, int scale) {
+        this.player = player;
+        this.cursors = cursors;
+        this.scale = scale;
+    }
 
-	public List<ExtraCursor> getCursors()
-	{
-		return this.cursor;
-	}
+    public int getScale() {
+        return scale;
+    }
 
-	public Player getPlayer()
-	{
-		return this.player;
-	}
+    public MapCursorCollection getCursorCollection() {
+        return cursors;
+    }
 
-	public HandlerList getHandlers()
-	{
-		return handlers;
-	}
+    public List<ExtraCursor> getCursors() {
+        return this.cursor;
+    }
 
-	public static HandlerList getHandlerList()
-	{
-		return handlers;
-	}
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

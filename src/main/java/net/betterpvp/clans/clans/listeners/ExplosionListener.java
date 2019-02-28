@@ -28,278 +28,274 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class ExplosionListener extends BPVPListener<Clans> {
 
-	public ExplosionListener(Clans i){
-		super(i);
-	}
+    public ExplosionListener(Clans i) {
+        super(i);
+    }
 
-	@EventHandler
-	public void updateClanTNTProtection(UpdateEvent e) {
-		if (e.getType() == UpdateEvent.UpdateType.SEC) {
-			for (Clan clan : ClanUtilities.clans) {
+    @EventHandler
+    public void updateClanTNTProtection(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
+            for (Clan clan : ClanUtilities.clans) {
 
-				for (ClanMember member : clan.getMembers()) {
+                for (ClanMember member : clan.getMembers()) {
 
-					if (Bukkit.getPlayer(member.getUUID()) != null) {
-						clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() + (600000));
-						clan.setVulnerable(true);
-					}
-				}
+                    if (Bukkit.getPlayer(member.getUUID()) != null) {
+                        clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() + (600000));
+                        clan.setVulnerable(true);
+                    }
+                }
 
-				if (clan.getData().containsKey(DataType.PROTECTION)) {
-					Long time = (Long) clan.getData().get(DataType.PROTECTION);
-					if (time - System.currentTimeMillis() <= 0) {
-						clan.setVulnerable(false);
-						clan.getData().remove(DataType.PROTECTION);
-					}
-				}
-			}
-		}
-	}
+                if (clan.getData().containsKey(DataType.PROTECTION)) {
+                    Long time = (Long) clan.getData().get(DataType.PROTECTION);
+                    if (time - System.currentTimeMillis() <= 0) {
+                        clan.setVulnerable(false);
+                        clan.getData().remove(DataType.PROTECTION);
+                    }
+                }
+            }
+        }
+    }
 
-	@EventHandler
-	public void onPlace(BlockPlaceEvent e){
-		Clan c = ClanUtilities.getClan(e.getPlayer());
-		Clan d = ClanUtilities.getClan(e.getBlock().getLocation());
-		if(c != null && d != null){
-			if(c == d){
-				if(System.currentTimeMillis() < c.getLastTnted()){
-					UtilMessage.message(e.getPlayer(), "Clans", "You cannot place blocks for "
-							+ ChatColor.GREEN + UtilTime.getTime(c.getLastTnted() - System.currentTimeMillis(), UtilTime.TimeUnit.BEST, 1));
-					e.setCancelled(true);
-				}
-			}
-		}
-	}
+    @EventHandler
+    public void onPlace(BlockPlaceEvent e) {
+        Clan c = ClanUtilities.getClan(e.getPlayer());
+        Clan d = ClanUtilities.getClan(e.getBlock().getLocation());
+        if (c != null && d != null) {
+            if (c == d) {
+                if (System.currentTimeMillis() < c.getLastTnted()) {
+                    UtilMessage.message(e.getPlayer(), "Clans", "You cannot place blocks for "
+                            + ChatColor.GREEN + UtilTime.getTime(c.getLastTnted() - System.currentTimeMillis(), UtilTime.TimeUnit.BEST, 1));
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
 
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onTNTExplode(EntityExplodeEvent e) {
-		if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
-
-
-			boolean clear = false;
-			for (Block block : e.blockList()) {
-				Clan clan = ClanUtilities.getClan(block.getLocation());
-
-				if(clan != null){
-
-					if (!clan.isVulnerable()) {
-						if(!Clans.getOptions().isLastDay()){
-							clear = true;
-
-						}else{
-							clan.setLastTnted(System.currentTimeMillis() + 300000);
-						}
-					} else {
-						clan.setLastTnted(System.currentTimeMillis() + 300000);
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onTNTExplode(EntityExplodeEvent e) {
+        if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
 
 
-						if(clan.isOnline()){
-							clan.messageClan("YOUR TERRITORY IS UNDER ATTACK!", null, true);
+            boolean clear = false;
+            for (Block block : e.blockList()) {
+                Clan clan = ClanUtilities.getClan(block.getLocation());
 
-							for (ClanMember member : clan.getMembers()) {
-								if (Bukkit.getPlayer(member.getUUID()) != null) {
-									Player d = Bukkit.getPlayer(member.getUUID());
-									d.playSound(d.getLocation(), Sound.NOTE_PLING, 1.0F, 1.0F);
-									return;
-								}
-							}
-						}
+                if (clan != null) {
 
-					}
-				}
+                    if (!clan.isVulnerable()) {
+                        if (!Clans.getOptions().isLastDay()) {
+                            clear = true;
 
-			}
-
-			if(clear){
-				e.blockList().clear();
-				e.setCancelled(true);
-			}
-		}
-	}
+                        } else {
+                            clan.setLastTnted(System.currentTimeMillis() + 300000);
+                        }
+                    } else {
+                        clan.setLastTnted(System.currentTimeMillis() + 300000);
 
 
+                        if (clan.isOnline()) {
+                            clan.messageClan("YOUR TERRITORY IS UNDER ATTACK!", null, true);
 
-	@SuppressWarnings("deprecation")
-	@EventHandler (priority = EventPriority.HIGHEST)
-	public void onEntityExplode(EntityExplodeEvent e) {
-		e.setCancelled(true);
+                            for (ClanMember member : clan.getMembers()) {
+                                if (Bukkit.getPlayer(member.getUUID()) != null) {
+                                    Player d = Bukkit.getPlayer(member.getUUID());
+                                    d.playSound(d.getLocation(), Sound.NOTE_PLING, 1.0F, 1.0F);
+                                    return;
+                                }
+                            }
+                        }
 
+                    }
+                }
 
+            }
 
-
-		if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
-
-			for (Block block : UtilBlock.getInRadius(e.getLocation().add(0,1,0), 6).keySet()) {
-				if(block.getType() == Material.BEDROCK){
-					continue;
-				}
-
-				if(block.getType() == Material.BEACON){
-					continue;
-				}
-
-				if(block.getType() == Material.IRON_BLOCK){
-					if(BlockRestoreData.isRestoredBlock(block)){
-						continue;
-					}
-				}
+            if (clear) {
+                e.blockList().clear();
+                e.setCancelled(true);
+            }
+        }
+    }
 
 
-				Clan c = ClanUtilities.getClan(block.getLocation());
-				if(c != null){
-					if(block.getType() == Material.AIR){
-						continue;
-					}
-					if(BlockRestoreData.isRestoredBlock(block)){
-						continue;
-					}
-					if(!Clans.getOptions().isFNG()){
-						Insurance i = new Insurance(block.getLocation(), block.getType(), block.getData(), InsuranceType.BREAK, System.currentTimeMillis());
-						InsuranceRepository.saveInsurance(c, i);
-						c.getInsurance().add(i);
-					}
-				}else {
-					if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
-							|| block.getType() == Material.SAND || block.getType() == Material.COBBLESTONE) {
-						//new BlockRestoreData(block, (int) block.getData(), (byte) 0, 60000 * 5L);
-					}
-				}
-
-				if (block.isLiquid()) {
-					Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
-					block.setType(Material.AIR);
-
-				}
-				if(block.getType() == Material.ENCHANTMENT_TABLE){
-					Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
-					block.breakNaturally();
+    @SuppressWarnings("deprecation")
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onEntityExplode(EntityExplodeEvent e) {
+        e.setCancelled(true);
 
 
-				}
+        if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
 
-				if(block.getTypeId() == 44 && block.getLocation().distance(e.getEntity().getLocation()) < 4){
-					Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
-					block.breakNaturally();
-				}
+            for (Block block : UtilBlock.getInRadius(e.getLocation().add(0, 1, 0), 6).keySet()) {
+                if (block.getType() == Material.BEDROCK) {
+                    continue;
+                }
 
+                if (block.getType() == Material.BEACON) {
+                    continue;
+                }
 
-
-			}
-
-			for(Block x : UtilBlock.getInRadius(e.getLocation(), 4).keySet()){
-
-
-				if(x.getType() == Material.BEDROCK){
-					continue;
-				}
-
-
-				if(x.getType() != Material.CHEST && x.getType() != Material.TRAPPED_CHEST && !x.getType().name().contains("DOOR")){
-					if(!e.blockList().contains(x)){
-						e.blockList().add(x);
-					}
-				}
-			}
+                if (block.getType() == Material.IRON_BLOCK) {
+                    if (BlockRestoreData.isRestoredBlock(block)) {
+                        continue;
+                    }
+                }
 
 
-			for (Block b : e.blockList()) {
-				Clans.getCoreProtect().logRemoval("TNT", b.getLocation(), b.getType(), b.getData());
-				Clan c = ClanUtilities.getClan(b.getLocation());
-				if(c != null){
-					if(!c.isVulnerable()){
-						continue;
-					}
+                Clan c = ClanUtilities.getClan(block.getLocation());
+                if (c != null) {
+                    if (block.getType() == Material.AIR) {
+                        continue;
+                    }
+                    if (BlockRestoreData.isRestoredBlock(block)) {
+                        continue;
+                    }
+                    if (!Clans.getOptions().isFNG()) {
+                        Insurance i = new Insurance(block.getLocation(), block.getType(), block.getData(), InsuranceType.BREAK, System.currentTimeMillis());
+                        InsuranceRepository.saveInsurance(c, i);
+                        c.getInsurance().add(i);
+                    }
+                } else {
+                    if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
+                            || block.getType() == Material.SAND || block.getType() == Material.COBBLESTONE) {
+                        //new BlockRestoreData(block, (int) block.getData(), (byte) 0, 60000 * 5L);
+                    }
+                }
 
-					Insurance i = new Insurance(b.getLocation(), b.getType(), b.getData(), InsuranceType.BREAK, System.currentTimeMillis());
-					if(i.getMaterial() != Material.AIR){
-						if(BlockRestoreData.isRestoredBlock(b)){
-							continue;
-						}
-						if(!Clans.getOptions().isFNG()){
-							InsuranceRepository.saveInsurance(c, i);
-							c.getInsurance().add(i);
-						}
-					}
-				}else {
-					if(b.getType() == Material.DIRT || b.getType() == Material.GRASS || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
-							|| b.getType() == Material.SAND || b.getType() == Material.COBBLESTONE) {
-					//	new BlockRestoreData(b, (int) b.getData(), (byte) 0, 60000 * 5L);
-					}
-				}
+                if (block.isLiquid()) {
+                    Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
+                    block.setType(Material.AIR);
 
-
-				if(b.getType() == Material.BEACON){
-					continue;
-				}
-
-				if(b.getType() == Material.IRON_BLOCK){
-					if(BlockRestoreData.isRestoredBlock(b)){
-						continue;
-					}
-				}
+                }
+                if (block.getType() == Material.ENCHANTMENT_TABLE) {
+                    Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
+                    block.breakNaturally();
 
 
-				if(b.getType() == Material.NETHER_BRICK){
-					b.setType(Material.NETHERRACK);
-					continue;
-				}else if(b.getType() == Material.NETHERRACK){
-					b.breakNaturally();
-					continue;
-				}
+                }
+
+                if (block.getTypeId() == 44 && block.getLocation().distance(e.getEntity().getLocation()) < 4) {
+                    Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
+                    block.breakNaturally();
+                }
 
 
-				if(b.getType() == Material.PRISMARINE && b.getData() == (byte) 2){
-					b.setTypeIdAndData(168, (byte) 1, true);
-					continue;
-				}else if(b.getType() == Material.PRISMARINE && b.getData() == (byte) 1){
-					b.setTypeIdAndData(168, (byte) 0, true);
-					continue;
-				}else if(b.getType() == Material.PRISMARINE){
-					b.breakNaturally();
-					continue;
-				}
+            }
+
+            for (Block x : UtilBlock.getInRadius(e.getLocation(), 4).keySet()) {
 
 
-				if(b.getType() == Material.QUARTZ_BLOCK && b.getData() == (byte) 1){
-					b.breakNaturally();
-					continue;
-				}else if(b.getType() == Material.QUARTZ_BLOCK){
-					b.setTypeIdAndData(155, (byte) 1, true);
-					continue;
-				}
+                if (x.getType() == Material.BEDROCK) {
+                    continue;
+                }
 
-				if(b.getType() == Material.RED_SANDSTONE && b.getData() == (byte) 2){
-					b.setTypeIdAndData(179, (byte)0, true);
-					continue;
-				}else if(b.getType() == Material.RED_SANDSTONE){
-					b.breakNaturally();
-					continue;
-				}
 
-				if(b.getType() == Material.SANDSTONE && b.getData() == (byte) 2){
-					b.setTypeIdAndData(24, (byte)0, true);
-					continue;
-				}else if(b.getType() == Material.SANDSTONE){
-					b.breakNaturally();
-					continue;
-				}
+                if (x.getType() != Material.CHEST && x.getType() != Material.TRAPPED_CHEST && !x.getType().name().contains("DOOR")) {
+                    if (!e.blockList().contains(x)) {
+                        e.blockList().add(x);
+                    }
+                }
+            }
 
-				if (b.getType() == Material.SMOOTH_BRICK && b.getData() == (byte) 2) {
-					b.breakNaturally();
-					continue;
-				} else if (b.getType() == Material.SMOOTH_BRICK) {
-					b.setTypeIdAndData(98, (byte) 2, true);
-					continue;
-				} else if (b.getType() == Material.TRAPPED_CHEST || b.getType() == Material.CHEST
-						|| b.getType() == Material.ENDER_CHEST
-						|| b.getType() == Material.ANVIL) {
-					b.breakNaturally();
 
-				} else if(b.isLiquid()) {
-					b.setTypeIdAndData(0, (byte) 0, true);
-				}
+            for (Block b : e.blockList()) {
+                Clans.getCoreProtect().logRemoval("TNT", b.getLocation(), b.getType(), b.getData());
+                Clan c = ClanUtilities.getClan(b.getLocation());
+                if (c != null) {
+                    if (!c.isVulnerable()) {
+                        continue;
+                    }
 
-				b.breakNaturally();
+                    Insurance i = new Insurance(b.getLocation(), b.getType(), b.getData(), InsuranceType.BREAK, System.currentTimeMillis());
+                    if (i.getMaterial() != Material.AIR) {
+                        if (BlockRestoreData.isRestoredBlock(b)) {
+                            continue;
+                        }
+                        if (!Clans.getOptions().isFNG()) {
+                            InsuranceRepository.saveInsurance(c, i);
+                            c.getInsurance().add(i);
+                        }
+                    }
+                } else {
+                    if (b.getType() == Material.DIRT || b.getType() == Material.GRASS || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
+                            || b.getType() == Material.SAND || b.getType() == Material.COBBLESTONE) {
+                        //	new BlockRestoreData(b, (int) b.getData(), (byte) 0, 60000 * 5L);
+                    }
+                }
+
+
+                if (b.getType() == Material.BEACON) {
+                    continue;
+                }
+
+                if (b.getType() == Material.IRON_BLOCK) {
+                    if (BlockRestoreData.isRestoredBlock(b)) {
+                        continue;
+                    }
+                }
+
+
+                if (b.getType() == Material.NETHER_BRICK) {
+                    b.setType(Material.NETHERRACK);
+                    continue;
+                } else if (b.getType() == Material.NETHERRACK) {
+                    b.breakNaturally();
+                    continue;
+                }
+
+
+                if (b.getType() == Material.PRISMARINE && b.getData() == (byte) 2) {
+                    b.setTypeIdAndData(168, (byte) 1, true);
+                    continue;
+                } else if (b.getType() == Material.PRISMARINE && b.getData() == (byte) 1) {
+                    b.setTypeIdAndData(168, (byte) 0, true);
+                    continue;
+                } else if (b.getType() == Material.PRISMARINE) {
+                    b.breakNaturally();
+                    continue;
+                }
+
+
+                if (b.getType() == Material.QUARTZ_BLOCK && b.getData() == (byte) 1) {
+                    b.breakNaturally();
+                    continue;
+                } else if (b.getType() == Material.QUARTZ_BLOCK) {
+                    b.setTypeIdAndData(155, (byte) 1, true);
+                    continue;
+                }
+
+                if (b.getType() == Material.RED_SANDSTONE && b.getData() == (byte) 2) {
+                    b.setTypeIdAndData(179, (byte) 0, true);
+                    continue;
+                } else if (b.getType() == Material.RED_SANDSTONE) {
+                    b.breakNaturally();
+                    continue;
+                }
+
+                if (b.getType() == Material.SANDSTONE && b.getData() == (byte) 2) {
+                    b.setTypeIdAndData(24, (byte) 0, true);
+                    continue;
+                } else if (b.getType() == Material.SANDSTONE) {
+                    b.breakNaturally();
+                    continue;
+                }
+
+                if (b.getType() == Material.SMOOTH_BRICK && b.getData() == (byte) 2) {
+                    b.breakNaturally();
+                    continue;
+                } else if (b.getType() == Material.SMOOTH_BRICK) {
+                    b.setTypeIdAndData(98, (byte) 2, true);
+                    continue;
+                } else if (b.getType() == Material.TRAPPED_CHEST || b.getType() == Material.CHEST
+                        || b.getType() == Material.ENDER_CHEST
+                        || b.getType() == Material.ANVIL) {
+                    b.breakNaturally();
+
+                } else if (b.isLiquid()) {
+                    b.setTypeIdAndData(0, (byte) 0, true);
+                }
+
+                b.breakNaturally();
 				/*
 
                 FallingBlock fb = b.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
@@ -313,15 +309,15 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
                 new Debris(fb, Regen.TEMPORARY);
 				 */
-			}
-		}
-	}
+            }
+        }
+    }
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void ExplosionBlocks(EntityExplodeEvent e) {
-		if (e.getEntity() == null) {
-			e.blockList().clear();
-		}
-	}
+    @EventHandler(priority = EventPriority.LOW)
+    public void ExplosionBlocks(EntityExplodeEvent e) {
+        if (e.getEntity() == null) {
+            e.blockList().clear();
+        }
+    }
 
 }

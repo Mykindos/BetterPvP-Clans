@@ -6,27 +6,26 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 
-
 public class ThrowableCollideEntityEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
-   
+
     private Throwables throwable;
     private LivingEntity collide;
-    
-    public ThrowableCollideEntityEvent(Throwables t, LivingEntity collide){
-    	this.throwable = t;
-    	this.collide = collide;
+
+    public ThrowableCollideEntityEvent(Throwables t, LivingEntity collide) {
+        this.throwable = t;
+        this.collide = collide;
     }
-    
-    public Throwables getThrowable(){
-    	return throwable;
+
+    public Throwables getThrowable() {
+        return throwable;
     }
-    
-    public LivingEntity getCollision(){
-    	return collide;
+
+    public LivingEntity getCollision() {
+        return collide;
     }
-    
+
     public HandlerList getHandlers() {
         return handlers;
     }

@@ -6,26 +6,25 @@ import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.entity.Player;
 
-public class ReloadCommand extends Command{
-	
-	
+public class ReloadCommand extends Command {
 
-	public ReloadCommand() {
-		super("creload", new String[]{}, Rank.OWNER);
-		
-	}
 
-	@Override
-	public void execute(Player player, String[] args) {
-		UtilMessage.message(player, "Server", "Options reloaded.");
-		Clans.getOptions().reloadOptions();
-		
-	}
+    public ReloadCommand() {
+        super("creload", new String[]{}, Rank.OWNER);
 
-	@Override
-	public void help(Player player) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    @Override
+    public void execute(Player player, String[] args) {
+        UtilMessage.message(player, "Server", "Options reloaded.");
+        Clans.getOptions().reloadOptions();
+
+    }
+
+    @Override
+    public void help(Player player) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

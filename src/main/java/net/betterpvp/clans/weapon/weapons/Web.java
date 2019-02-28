@@ -28,84 +28,84 @@ import java.util.List;
 
 public class Web extends Weapon {
 
-	public static List<Item> items = new ArrayList<Item>();
+    public static List<Item> items = new ArrayList<Item>();
 
-	public Web(Clans i) {
-		super(i,Material.WEB, (byte) 0, ChatColor.YELLOW + "Throwing Web", new String[]{
-				ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
-				ChatColor.GRAY + "  " + "Creates a Web trap"}, false, 0);
-	}
+    public Web(Clans i) {
+        super(i, Material.WEB, (byte) 0, ChatColor.YELLOW + "Throwing Web", new String[]{
+                ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
+                ChatColor.GRAY + "  " + "Creates a Web trap"}, false, 0);
+    }
 
-	@EventHandler
-	public void onWebUse(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
+    @EventHandler
+    public void onWebUse(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
 
-		if(player.getItemInHand() == null) return;
-		if(player.getItemInHand().getType() != Material.WEB) return;
+        if (player.getItemInHand() == null) return;
+        if (player.getItemInHand().getType() != Material.WEB) return;
 
-		if (isThisWeapon(player)) {
-			if(ClanUtilities.canCast(player)){
-				if (event.getAction() == Action.LEFT_CLICK_AIR) {
-					if (RechargeManager.getInstance().add(player, "Throwing Web", 10, true)) {
-						Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.WEB));
-						Throwables thro = new Throwables(item, player, "Throwing Web", 10000);
-						thro.getImmunes().add(player);
-						ThrowableManager.getThrowables().add(thro);
-						UtilItem.remove(player, Material.WEB, (byte) 0, 1);
-						UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
-						item.setPickupDelay(Integer.MAX_VALUE);
-						item.setVelocity(player.getLocation().getDirection().multiply(1.8));
-						items.add(item);
-					}
-				}
-			}
-		}
-	}
+        if (isThisWeapon(player)) {
+            if (ClanUtilities.canCast(player)) {
+                if (event.getAction() == Action.LEFT_CLICK_AIR) {
+                    if (RechargeManager.getInstance().add(player, "Throwing Web", 10, true)) {
+                        Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.WEB));
+                        Throwables thro = new Throwables(item, player, "Throwing Web", 10000);
+                        thro.getImmunes().add(player);
+                        ThrowableManager.getThrowables().add(thro);
+                        UtilItem.remove(player, Material.WEB, (byte) 0, 1);
+                        UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
+                        item.setPickupDelay(Integer.MAX_VALUE);
+                        item.setVelocity(player.getLocation().getDirection().multiply(1.8));
+                        items.add(item);
+                    }
+                }
+            }
+        }
+    }
 
-	@EventHandler
-	public void onGroundCollide(ThrowableHitGroundEvent e){
-		if(e.getThrowable().getSkillName().equalsIgnoreCase("Throwing Web")){
-			for (int i = 0; i < 8; i++) {
-				e.getThrowable().getItem().getLocation().getWorld().playEffect(e.getThrowable().getItem().
-						getLocation(), Effect.TILE_BREAK, 30);
-			}
+    @EventHandler
+    public void onGroundCollide(ThrowableHitGroundEvent e) {
+        if (e.getThrowable().getSkillName().equalsIgnoreCase("Throwing Web")) {
+            for (int i = 0; i < 8; i++) {
+                e.getThrowable().getItem().getLocation().getWorld().playEffect(e.getThrowable().getItem().
+                        getLocation(), Effect.TILE_BREAK, 30);
+            }
 
-			if (UtilBlock.isGrounded(e.getThrowable().getItem())) {
-				for (Block block : UtilBlock.getInRadius(e.getThrowable().getItem().getLocation().getBlock(), 1).keySet()) {
-					if (UtilBlock.airFoliage(block)) {
-						if(!block.getType().name().contains("GATE") && !block.getType().name().contains("DOOR")) {
-							new BlockRestoreData(block, 30, (byte) 0, 3000L);
+            if (UtilBlock.isGrounded(e.getThrowable().getItem())) {
+                for (Block block : UtilBlock.getInRadius(e.getThrowable().getItem().getLocation().getBlock(), 1).keySet()) {
+                    if (UtilBlock.airFoliage(block)) {
+                        if (!block.getType().name().contains("GATE") && !block.getType().name().contains("DOOR")) {
+                            new BlockRestoreData(block, 30, (byte) 0, 3000L);
 
-						}
-					}
-				}
-			}
+                        }
+                    }
+                }
+            }
 
-			e.getThrowable().getItem().remove();
-		}
+            e.getThrowable().getItem().remove();
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onCollideEntity(ThrowableCollideEntityEvent e){
-		if(e.getThrowable().getSkillName().equalsIgnoreCase("Throwing Web")){
-			for (int i = 0; i < 8; i++) {
-				e.getThrowable().getItem().getLocation().getWorld().playEffect(e.getThrowable().getItem().
-						getLocation(), Effect.TILE_BREAK, 30);
-			}
+    @EventHandler
+    public void onCollideEntity(ThrowableCollideEntityEvent e) {
+        if (e.getThrowable().getSkillName().equalsIgnoreCase("Throwing Web")) {
+            for (int i = 0; i < 8; i++) {
+                e.getThrowable().getItem().getLocation().getWorld().playEffect(e.getThrowable().getItem().
+                        getLocation(), Effect.TILE_BREAK, 30);
+            }
 
 
-			for (Block block : UtilBlock.getInRadius(e.getCollision().getLocation().getBlock(), 1).keySet()) {
-				if (UtilBlock.airFoliage(block) ) {
-					if(!block.getType().name().contains("GATE") && !block.getType().name().contains("DOOR")) {
-						new BlockRestoreData(block, 30, (byte) 0, 2500L);
-					}
-				}
-			}
+            for (Block block : UtilBlock.getInRadius(e.getCollision().getLocation().getBlock(), 1).keySet()) {
+                if (UtilBlock.airFoliage(block)) {
+                    if (!block.getType().name().contains("GATE") && !block.getType().name().contains("DOOR")) {
+                        new BlockRestoreData(block, 30, (byte) 0, 2500L);
+                    }
+                }
+            }
 
-			e.getThrowable().getItem().remove();
-		}
-	}
+            e.getThrowable().getItem().remove();
+        }
+    }
 
 	/*
 	@EventHandler

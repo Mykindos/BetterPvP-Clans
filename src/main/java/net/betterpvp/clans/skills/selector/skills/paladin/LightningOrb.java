@@ -3,11 +3,11 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
-import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
@@ -26,112 +26,110 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
-public class LightningOrb extends Skill{
+public class LightningOrb extends Skill {
 
-	public LightningOrb(Clans i) {
-		super(i, "Lightning Orb", "Paladin", getAxes, rightClick, 5, true, true);
-		// TODO Auto-generated constructor stub
-	}
+    public LightningOrb(Clans i) {
+        super(i, "Lightning Orb", "Paladin", getAxes, rightClick, 5, true, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
+    @Override
+    public String[] getDescription(int level) {
 
-		return new String[]{
-				"Launch a lightning orb. Directly hitting a player",
-				"will strike all enemies within " + ChatColor.GREEN + (3 + (level * 0.5)) + ChatColor.GRAY + " blocks",
-				"with lightning, giving them Slowness II for 4 seconds.",
-				"",
-				"Recharge: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
+        return new String[]{
+                "Launch a lightning orb. Directly hitting a player",
+                "will strike all enemies within " + ChatColor.GREEN + (3 + (level * 0.5)) + ChatColor.GRAY + " blocks",
+                "with lightning, giving them Slowness II for 4 seconds.",
+                "",
+                "Recharge: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@Override
-	public Types getType() {
+    @Override
+    public Types getType() {
 
-		return Types.AXE;
-	}
+        return Types.AXE;
+    }
 
-	@Override
-	public double getRecharge(int level) {
+    @Override
+    public double getRecharge(int level) {
 
-		return 25 - ((level * 2));
-	}
+        return 25 - ((level * 2));
+    }
 
-	@Override
-	public float getEnergy(int level) {
+    @Override
+    public float getEnergy(int level) {
 
-		return 30 - (level * 2);
-	}
+        return 30 - (level * 2);
+    }
 
-	@Override
-	public boolean requiresShield() {
+    @Override
+    public boolean requiresShield() {
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
-		orb.setVelocity(p.getLocation().getDirection());
-		ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
+    @Override
+    public void activateSkill(Player p) {
+        Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
+        orb.setVelocity(p.getLocation().getDirection());
+        ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
 
-	}
+    }
 
-	//private WeakHashMap<Player, Long> lightningCooldown = new WeakHashMap<>();
-
-
-
-	@EventHandler
-	public void onCollide(ThrowableCollideEntityEvent e){
-		if(e.getThrowable().getSkillName().equals(getName())){
-			if(e.getThrowable().getThrower() instanceof Player){
+    //private WeakHashMap<Player, Long> lightningCooldown = new WeakHashMap<>();
 
 
-
-				Player thrower = (Player) e.getThrowable().getThrower();
-				if(thrower.equals(e.getCollision())){
-					return;
-				}
-				e.getThrowable().getItem().remove();
+    @EventHandler
+    public void onCollide(ThrowableCollideEntityEvent e) {
+        if (e.getThrowable().getSkillName().equals(getName())) {
+            if (e.getThrowable().getThrower() instanceof Player) {
 
 
-				int level = getLevel(thrower);
-				int count = 0;
-				for(LivingEntity ent : UtilPlayer.getAllInRadius(e.getThrowable().getItem().getLocation(), 3 + (0.5 * level))){
-					//if(lightningCooldown.containsKey(ent)) continue;
-					if(count >= 3) continue;
-					if(e.getThrowable().getImmunes().contains(ent)) continue;
-					e.getThrowable().getImmunes().add(ent);
-					if(ent instanceof Player){
-						Player p = (Player) ent;
-						if(ClanUtilities.canHurt(thrower, p)){
+                Player thrower = (Player) e.getThrowable().getThrower();
+                if (thrower.equals(e.getCollision())) {
+                    return;
+                }
+                e.getThrowable().getItem().remove();
 
-							EffectManager.addEffect(p, EffectType.SHOCK, 2000);
 
-							//	lightningCooldown.put(ent, System.currentTimeMillis());
-						}else{
-							continue;
-						}
+                int level = getLevel(thrower);
+                int count = 0;
+                for (LivingEntity ent : UtilPlayer.getAllInRadius(e.getThrowable().getItem().getLocation(), 3 + (0.5 * level))) {
+                    //if(lightningCooldown.containsKey(ent)) continue;
+                    if (count >= 3) continue;
+                    if (e.getThrowable().getImmunes().contains(ent)) continue;
+                    e.getThrowable().getImmunes().add(ent);
+                    if (ent instanceof Player) {
+                        Player p = (Player) ent;
+                        if (ClanUtilities.canHurt(thrower, p)) {
 
-					}
+                            EffectManager.addEffect(p, EffectType.SHOCK, 2000);
 
-					LogManager.addLog(ent, thrower, "Lightning Orb");
-					ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1));
-					
-					thrower.getLocation().getWorld().spigot().strikeLightning(ent.getLocation(), true);
-					Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false));
-					
+                            //	lightningCooldown.put(ent, System.currentTimeMillis());
+                        } else {
+                            continue;
+                        }
 
-					ent.getWorld().playSound(ent.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
-					count++;
-				}
+                    }
 
-			}
+                    LogManager.addLog(ent, thrower, "Lightning Orb");
+                    ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1));
 
-			//ThrowableManager.getThrowables().remove(e.getThrowable());
-		}
-	}
+                    thrower.getLocation().getWorld().spigot().strikeLightning(ent.getLocation(), true);
+                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false));
+
+
+                    ent.getWorld().playSound(ent.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    count++;
+                }
+
+            }
+
+            //ThrowableManager.getThrowables().remove(e.getThrowable());
+        }
+    }
 
 	/*
 	@EventHandler
@@ -148,13 +146,13 @@ public class LightningOrb extends Skill{
 	}
 	 */
 
-	@Override
-	public boolean usageCheck(Player p) {
-		if(p.getLocation().getBlock().isLiquid()){
-			UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water");
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean usageCheck(Player p) {
+        if (p.getLocation().getBlock().isLiquid()) {
+            UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water");
+            return false;
+        }
+        return true;
+    }
 
 }

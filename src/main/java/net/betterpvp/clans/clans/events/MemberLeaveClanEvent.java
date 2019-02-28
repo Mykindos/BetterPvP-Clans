@@ -25,14 +25,16 @@ public class MemberLeaveClanEvent extends Event implements Cancellable {
     private Player p;
     private Clan clan;
 
-    public MemberLeaveClanEvent(Player p, Clan clan){
+    public MemberLeaveClanEvent(Player p, Clan clan) {
         this.p = p;
         this.clan = clan;
     }
 
-    public Clan getClan(){ return clan; }
+    public Clan getClan() {
+        return clan;
+    }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return p;
     }
 

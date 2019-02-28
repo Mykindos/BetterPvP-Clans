@@ -3,9 +3,9 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.md_5.bungee.api.ChatColor;
@@ -24,129 +24,123 @@ import org.bukkit.util.Vector;
 
 import java.util.Arrays;
 
-public class RootingAxe extends Skill{
+public class RootingAxe extends Skill {
 
-	public RootingAxe(Clans i) {
-		super(i, "Rooting Axe", "Paladin", getAxes, noActions, 3, false, false);
-		// TODO Auto-generated constructor stub
-	}
-
-
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Your axe rips players downward into",
-				"the earth disrupting their movement,",
-				"and stops them from jumping for 2 seconds",
-				"",
-				"Internal Cooldown: " + ChatColor.GREEN + getRecharge(level)
+    public RootingAxe(Clans i) {
+        super(i, "Rooting Axe", "Paladin", getAxes, noActions, 3, false, false);
+        // TODO Auto-generated constructor stub
+    }
 
 
-		};
-	}
-
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onDamage(CustomDamageEvent e){
-		if(e.getDamager() instanceof Player){
-
-			Player p = (Player) e.getDamager();
-			if(Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())){
-				if(hasSkill(p, this)){
-					if(Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())){
-						if(e.getCause() == DamageCause.ENTITY_ATTACK){
-
-							if(e.getDamagee() instanceof Wither) {
-								return;
-							}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Your axe rips players downward into",
+                "the earth disrupting their movement,",
+                "and stops them from jumping for 2 seconds",
+                "",
+                "Internal Cooldown: " + ChatColor.GREEN + getRecharge(level)
 
 
+        };
+    }
+
+    @SuppressWarnings("deprecation")
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getDamager() instanceof Player) {
+
+            Player p = (Player) e.getDamager();
+            if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                if (hasSkill(p, this)) {
+                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                        if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+
+                            if (e.getDamagee() instanceof Wither) {
+                                return;
+                            }
 
 
+                            Block b1 = e.getDamagee().getLocation().getBlock().getRelative(0, -1, 0);
+
+                            if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.STONE_SLAB2
+                                    || b1.getType() == Material.STEP || b1.getType() == Material.WOOD_STEP
+                                    || b1.getType().name().contains("STAIR")) {
+                                return;
+                            }
+
+                            Block b2 = e.getDamagee().getLocation().getBlock().getRelative(0, -2, 0);
+                            if (b2.getType().name().contains("LADDER") || b2.getType().name().contains("GATE")) {
+                                return;
+                            }
+                            Block b3 = e.getDamagee().getEyeLocation().getBlock().getRelative(0, -1, 0);
+                            if (UtilBlock.airFoliage(b3)) {
+                                if (!UtilBlock.airFoliage(b2)) {
+                                    if (!UtilBlock.airFoliage(b1)) {
+                                        if (!b1.isLiquid()) {
+                                            if (!b2.isLiquid()) {
+                                                if (UtilBlock.isGrounded(e.getDamagee())) {
+                                                    if (RechargeManager.getInstance().add(p, getName(), 11 - (getLevel(p) * 1.5), false)) {
+                                                        e.getDamagee().teleport(e.getDamagee().getLocation().add(0, -0.9, 0));
+                                                        e.getDamagee().getWorld().playEffect(e.getDamagee().getLocation(), Effect.STEP_SOUND, e.getDamagee().getLocation().getBlock().getTypeId());
+                                                        ((LivingEntity) e.getDamagee()).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 40, -5));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        } else {
+                            UtilVelocity.velocity(e.getDamagee(), new Vector(0, -1, 0), 0.5, false, 0, 0, 10, false);
+
+                        }
+                    }
+                }
 
 
-							Block b1 = e.getDamagee().getLocation().getBlock().getRelative(0, -1, 0);
-
-							if(p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.STONE_SLAB2
-									|| b1.getType() == Material.STEP || b1.getType() == Material.WOOD_STEP
-									|| b1.getType().name().contains("STAIR")) {
-								return;
-							}
-
-							Block b2 = e.getDamagee().getLocation().getBlock().getRelative(0, -2, 0);
-							if(b2.getType().name().contains("LADDER") || b2.getType().name().contains("GATE")) {
-								return;
-							}
-							Block b3 = e.getDamagee().getEyeLocation().getBlock().getRelative(0, -1, 0);
-							if(UtilBlock.airFoliage(b3)) {
-								if(!UtilBlock.airFoliage(b2)){
-									if(!UtilBlock.airFoliage(b1)){
-										if(!b1.isLiquid()){
-											if(!b2.isLiquid()){
-												if(UtilBlock.isGrounded(e.getDamagee())) {
-													if(RechargeManager.getInstance().add(p, getName(), 11 - (getLevel(p) * 1.5), false)){
-														e.getDamagee().teleport(e.getDamagee().getLocation().add(0, -0.9, 0));
-														e.getDamagee().getWorld().playEffect(e.getDamagee().getLocation(), Effect.STEP_SOUND, e.getDamagee().getLocation().getBlock().getTypeId());
-														((LivingEntity) e.getDamagee()).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 40, -5));
-													}
-												}
-											}
-										}
-									}
-								}
-
-							}
-						}else{
-							UtilVelocity.velocity(e.getDamagee(), new Vector(0, -1, 0), 0.5, false, 0,0, 10, false);
-
-						}
-					}
-				}
+            }
+        }
+    }
 
 
-			}
-		}
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 8 - ((level - 1) * 2);
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 
-
-
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
-
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 8 - ((level -1) * 2);
-	}
-
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

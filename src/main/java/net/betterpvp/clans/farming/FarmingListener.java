@@ -19,10 +19,10 @@ public class FarmingListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e){
+    public void onBlockPlace(BlockPlaceEvent e) {
         Block b = e.getBlock();
 
-        if(ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+        if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
             return;
         }
 
@@ -35,8 +35,8 @@ public class FarmingListener extends BPVPListener<Clans> {
 		}
 		*/
 
-        if(e.getBlock().getType() == Material.PISTON_BASE) {
-            if(b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()){
+        if (e.getBlock().getType() == Material.PISTON_BASE) {
+            if (b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()) {
                 UtilMessage.message(e.getPlayer(), "Farming", "You cannot place regular pistons within the farming levels.");
                 e.setCancelled(true);
                 return;
@@ -44,9 +44,9 @@ public class FarmingListener extends BPVPListener<Clans> {
             }
         }
 
-        if(FarmBlocks.isSeed(b.getType())){
+        if (FarmBlocks.isSeed(b.getType())) {
 
-            if(b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || b.getLocation().getY() < Clans.getOptions().getFarmingMinY()){
+            if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || b.getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
                 UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y.");
                 e.setCancelled(true);
 
@@ -55,20 +55,20 @@ public class FarmingListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent e){
+    public void onInteract(PlayerInteractEvent e) {
 
-        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if(c != null){
-                if(c.isAdministrating()){
+            if (c != null) {
+                if (c.isAdministrating()) {
                     return;
                 }
             }
 
 
-            if(FarmBlocks.isSeed(e.getPlayer().getItemInHand().getType())){
-                if(e.getClickedBlock().getLocation().getY() > Clans.getOptions().getFarmingMaxY()
-                        || e.getClickedBlock().getLocation().getY() < Clans.getOptions().getFarmingMinY()){
+            if (FarmBlocks.isSeed(e.getPlayer().getItemInHand().getType())) {
+                if (e.getClickedBlock().getLocation().getY() > Clans.getOptions().getFarmingMaxY()
+                        || e.getClickedBlock().getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
                     UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y");
                     e.setCancelled(true);
 

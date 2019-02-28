@@ -9,25 +9,24 @@ import java.util.UUID;
 public class Scoreboard {
 
 
-	
-	private Player player;
-	private org.bukkit.scoreboard.Scoreboard sb;
+    private Player player;
+    private org.bukkit.scoreboard.Scoreboard sb;
 
-	public Scoreboard(Player player){
-		this.player = player;
-		this.sb = Bukkit.getScoreboardManager().getNewScoreboard();
-		player.setScoreboard(this.sb);
-	
-	}
+    public Scoreboard(Player player) {
+        this.player = player;
+        this.sb = Bukkit.getScoreboardManager().getNewScoreboard();
+        player.setScoreboard(this.sb);
+
+    }
 
 
-	public UUID getUUID(){
-		return player.getUniqueId();
-	}
-	
-	public org.bukkit.scoreboard.Scoreboard getScoreboard(){
-		return sb;
-	}
+    public UUID getUUID() {
+        return player.getUniqueId();
+    }
+
+    public org.bukkit.scoreboard.Scoreboard getScoreboard() {
+        return sb;
+    }
 
 
 }

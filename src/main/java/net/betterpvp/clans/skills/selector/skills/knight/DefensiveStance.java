@@ -5,10 +5,10 @@ import net.betterpvp.clans.classes.DamageManager;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
@@ -26,149 +26,149 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-public class DefensiveStance extends Skill{
+public class DefensiveStance extends Skill {
 
-	private Set<UUID> active = new HashSet<>();
-	private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
+    private Set<UUID> active = new HashSet<>();
+    private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
 
-	public DefensiveStance(Clans i) {
-		super(i, "Defensive Stance", "Knight", getSwords
-				, rightClick, 5, false, true);
-		// TODO Auto-generated constructor stub
-	}
+    public DefensiveStance(Clans i) {
+        super(i, "Defensive Stance", "Knight", getSwords
+                , rightClick, 5, false, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[] {
-				"Hold Block with Sword to Channel.",
-				"",
-				"While active, you are immune to all", 
-				"melee damage from attacks infront of you.",
-				"",
-				"Players who attack you receive damage,",
-				"and get knocked back.",
-				"",
-				"Energy / Second: " + ChatColor.GREEN + getEnergy(level)};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Hold Block with Sword to Channel.",
+                "",
+                "While active, you are immune to all",
+                "melee damage from attacks infront of you.",
+                "",
+                "Players who attack you receive damage,",
+                "and get knocked back.",
+                "",
+                "Energy / Second: " + ChatColor.GREEN + getEnergy(level)};
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.SWORD;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.SWORD;
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		if(hasSkill(p, this)){
-			if(!active.contains(p.getUniqueId())){
-				if(Energy.use(p, getName(), 5, true)) {
-					active.add(p.getUniqueId());
-					gap.put(p, System.currentTimeMillis());
-				}
-			}
-		}
+    @Override
+    public void activateSkill(Player p) {
+        if (hasSkill(p, this)) {
+            if (!active.contains(p.getUniqueId())) {
+                if (Energy.use(p, getName(), 5, true)) {
+                    active.add(p.getUniqueId());
+                    gap.put(p, System.currentTimeMillis());
+                }
+            }
+        }
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		if(player.getLocation().getBlock().isLiquid()){
-			UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water!");
-			return false;
-		}
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        if (player.getLocation().getBlock().isLiquid()) {
+            UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water!");
+            return false;
+        }
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	@EventHandler
-	public void onDamage(CustomDamageEvent e){
-		if(e.getCause() == DamageCause.ENTITY_ATTACK){
-			if(e.getDamagee() instanceof Player){
-				Player p = (Player) e.getDamagee();
-				if(active.contains(p.getUniqueId())){
-					if(Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())){
-						if(p.isBlocking()){
-							if(hasSkill(p, this)){
-								Vector look = p.getLocation().getDirection();
-								look.setY(0);
-								look.normalize();
+    @EventHandler
+    public void onDamage(CustomDamageEvent e) {
+        if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+            if (e.getDamagee() instanceof Player) {
+                Player p = (Player) e.getDamagee();
+                if (active.contains(p.getUniqueId())) {
+                    if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                        if (p.isBlocking()) {
+                            if (hasSkill(p, this)) {
+                                Vector look = p.getLocation().getDirection();
+                                look.setY(0);
+                                look.normalize();
 
-								Vector from = UtilVelocity.getTrajectory(p, e.getDamager());
-								from.normalize();
-								if (p.getLocation().getDirection().subtract(from).length() > 0.6D) {
-									return;
-								}
+                                Vector from = UtilVelocity.getTrajectory(p, e.getDamager());
+                                from.normalize();
+                                if (p.getLocation().getDirection().subtract(from).length() > 0.6D) {
+                                    return;
+                                }
 
-								if(!DamageManager.hasDamageData(e.getDamager().getUniqueId().toString(), DamageCause.ENTITY_ATTACK)){
-									e.getDamager().setVelocity(e.getDamagee().getEyeLocation().getDirection().add(new Vector(0, 0.5, 0)).multiply(1));
+                                if (!DamageManager.hasDamageData(e.getDamager().getUniqueId().toString(), DamageCause.ENTITY_ATTACK)) {
+                                    e.getDamager().setVelocity(e.getDamagee().getEyeLocation().getDirection().add(new Vector(0, 0.5, 0)).multiply(1));
 
 
-									CustomDamageEvent ev = new CustomDamageEvent(e.getDamager(), e.getDamagee(), null, DamageCause.ENTITY_ATTACK, 2, false);
-									ev.setIgnoreArmour(false);
-									Bukkit.getPluginManager().callEvent(
-											ev);
-								}
-								e.setCancelled("Skill Defensive Stance");
+                                    CustomDamageEvent ev = new CustomDamageEvent(e.getDamager(), e.getDamagee(), null, DamageCause.ENTITY_ATTACK, 2, false);
+                                    ev.setIgnoreArmour(false);
+                                    Bukkit.getPluginManager().callEvent(
+                                            ev);
+                                }
+                                e.setCancelled("Skill Defensive Stance");
 
-								p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOODBREAK, 1.0F, 2.0F);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                                p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOODBREAK, 1.0F, 2.0F);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	@EventHandler
-	public void Energy(UpdateEvent event){
-		if (event.getType() != UpdateType.TICK) {
-			return;
-		}
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (active.contains(p.getUniqueId())){
+    @EventHandler
+    public void Energy(UpdateEvent event) {
+        if (event.getType() != UpdateType.TICK) {
+            return;
+        }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (active.contains(p.getUniqueId())) {
 
-				if(p.isBlocking()){
+                if (p.isBlocking()) {
 
-					if(!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)){
-						active.remove(p.getUniqueId());
-					}else if(!hasSkill(p, this)){
-						active.remove(p.getUniqueId());
-					}else if(!hasSwordInMainHand(p)){
-						active.remove(p.getUniqueId());
-					}else{
-						p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, 20);
-					}
+                    if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
+                        active.remove(p.getUniqueId());
+                    } else if (!hasSkill(p, this)) {
+                        active.remove(p.getUniqueId());
+                    } else if (!hasSwordInMainHand(p)) {
+                        active.remove(p.getUniqueId());
+                    } else {
+                        p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, 20);
+                    }
 
-				}else{
-					if(gap.containsKey(p)){
-						if(UtilTime.elapsed(gap.get(p), 250)){
-							active.remove(p.getUniqueId());
-							gap.remove(p);
-						}
-					}
-				}
+                } else {
+                    if (gap.containsKey(p)) {
+                        if (UtilTime.elapsed(gap.get(p), 250)) {
+                            active.remove(p.getUniqueId());
+                            gap.remove(p);
+                        }
+                    }
+                }
 
-			}
-		}
-	}
+            }
+        }
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return (float) 7 - ((level -1));
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return (float) 7 - ((level - 1));
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
 }

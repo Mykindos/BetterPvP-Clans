@@ -40,7 +40,7 @@ public class ClanChatCommand extends Command {
 
             AllyChatCommand.enabled.remove(player.getName());
             StaffChatCommand.enabled.remove(player.getName());
-            
+
             return;
         }
 
@@ -50,7 +50,7 @@ public class ClanChatCommand extends Command {
                 UtilMessage.message(player, "Clans", "You are not in a Clan.");
                 return;
             }
-          
+
             String msg = UtilMessage.getFinalArg(args, 0);
             clan.messageClan(ChatColor.AQUA + player.getName() + " " + ChatColor.DARK_AQUA + msg, null, false);
         }

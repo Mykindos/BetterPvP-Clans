@@ -20,35 +20,33 @@ import org.bukkit.World.Environment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public  class ClaimCommand implements IClanCommand{
-
+public class ClaimCommand implements IClanCommand {
 
 
     public ClaimCommand() {
-       
-        
-        
+
+
     }
 
     public void run(Player player, String[] args) {
-    	if(player.getWorld().getName().equalsIgnoreCase("tutorial")) return;
-    	if(player.getWorld().getName().equalsIgnoreCase("bossworld2")) return;
-    	
+        if (player.getWorld().getName().equalsIgnoreCase("tutorial")) return;
+        if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) return;
+
         Clan clan = ClanUtilities.getClan(player);
         if (clan == null) {
             UtilMessage.message(player, "Clans", "You are not in a Clan.");
             return;
         }
-        
-        
+
+
         if (!clan.getMember(player.getUniqueId()).hasRole(Role.ADMIN)) {
-			UtilMessage.message(player, "Clans", "You need to be a clan admin to claim land");
-			return;
-		}
-        
-        if(player.getWorld().getEnvironment().equals(Environment.NETHER) && !ClientUtilities.getOnlineClient(player).isAdministrating()){
-        	UtilMessage.message(player, "Clans", "You cannot claim land in the nether.");
-        	return;
+            UtilMessage.message(player, "Clans", "You need to be a clan admin to claim land");
+            return;
+        }
+
+        if (player.getWorld().getEnvironment().equals(Environment.NETHER) && !ClientUtilities.getOnlineClient(player).isAdministrating()) {
+            UtilMessage.message(player, "Clans", "You cannot claim land in the nether.");
+            return;
         }
 
         if (!(clan instanceof AdminClan)) {
@@ -116,30 +114,30 @@ public  class ClaimCommand implements IClanCommand{
                 }
             }
         }
-        
-        if(clan instanceof AdminClan){
-        	 UtilMessage.message(player, "Clans", "You claimed Territory " + ChatColor.YELLOW
-                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
 
-             clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " claimed Territory " + ChatColor.YELLOW
-                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".", player.getUniqueId(), true);
-              clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
-             UtilLocation.outlineChunk(player.getLocation().getChunk());
-             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
-             ClanRepository.updateClaims(clan);
-             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+        if (clan instanceof AdminClan) {
+            UtilMessage.message(player, "Clans", "You claimed Territory " + ChatColor.YELLOW
+                    + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
+
+            clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " claimed Territory " + ChatColor.YELLOW
+                    + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".", player.getUniqueId(), true);
+            clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
+            UtilLocation.outlineChunk(player.getLocation().getChunk());
+            Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
+            ClanRepository.updateClaims(clan);
+            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
             // ClanRepository.updateDynmap(i, clan);
-             return;
+            return;
         }
 
         if (clan.getTerritory().size() > 0) {
-        	
+
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
                     Chunk testedChunk = world.getChunkAt(chunk.getX() + x, chunk.getZ() + z);
                     for (Clan clans : ClanUtilities.clans) {
                         if (clans.getTerritory().contains(UtilFormat.chunkToFile(testedChunk))) {
-			
+
                             clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
                             UtilLocation.outlineChunk(player.getLocation().getChunk());
                             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
@@ -154,12 +152,12 @@ public  class ClaimCommand implements IClanCommand{
                             ClanRepository.updateClaims(clan);
                             //ClanRepository.updateDynmap(i, clan);
                             return;
-                            
+
                         }
                     }
                 }
             }
-            
+
         } else {
 
             /*
@@ -170,7 +168,7 @@ public  class ClaimCommand implements IClanCommand{
 
             clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " claimed Territory " + ChatColor.YELLOW
                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".", player.getUniqueId(), true);
-             clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
+            clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
             UtilLocation.outlineChunk(player.getLocation().getChunk());
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
@@ -179,12 +177,12 @@ public  class ClaimCommand implements IClanCommand{
             return;
         }
 
-       UtilMessage.message(player, "Clans", "You need to claim next to your territory.");
+        UtilMessage.message(player, "Clans", "You need to claim next to your territory.");
     }
 
-	@Override
-	public String getName() {
-		
-		return "Claim";
-	}
+    @Override
+    public String getName() {
+
+        return "Claim";
+    }
 }

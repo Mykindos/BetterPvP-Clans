@@ -27,190 +27,189 @@ import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 
-public class ClanMenuListener extends BPVPListener<Clans>{
+public class ClanMenuListener extends BPVPListener<Clans> {
 
-	public ClanMenuListener(Clans instance) {
-		super(instance);
-		// TODO Auto-generated constructor stub
-	}
+    public ClanMenuListener(Clans instance) {
+        super(instance);
+        // TODO Auto-generated constructor stub
+    }
 
-	@EventHandler
-	public void onEnergyMenuClick(ButtonClickEvent e){
-		if(e.getMenu() instanceof ClanMenu){
-			
-			if(e.getButton() instanceof EnergyMenuButton){
+    @EventHandler
+    public void onEnergyMenuClick(ButtonClickEvent e) {
+        if (e.getMenu() instanceof ClanMenu) {
 
-				e.getPlayer().openInventory(new EnergyMenu(e.getPlayer()).getInventory());
-			}
-			
-		
-		}
-	}
+            if (e.getButton() instanceof EnergyMenuButton) {
 
-	@EventHandler
-	public void onEnergyBuy(ButtonClickEvent e){
-		if(e.getMenu() instanceof EnergyMenu){
-			int cost = 0;
-			int energy = 0;
-			Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
-
-			Clan c = ClanUtilities.getClan(e.getPlayer());
-			if(c.getEnergy() >= c.getTerritory().size() * 5000) {
-				UtilMessage.message(e.getPlayer(), "Clans", "You cannot purchase any more energy. (5000 per claim)");
-				return;
-			}
-			
-			if(e.getButton() instanceof Buy1KEnergy){
-
-				Buy1KEnergy buy1kEnergy = (Buy1KEnergy) e.getButton();
-				cost = 1000 * Clans.getOptions().getCostPerEnergy();
-				if(gamer.hasCoins(cost)){
-					gamer.removeCoins(cost);
-					energy =  1000;
-					buy1kEnergy.getClan().setEnergy( buy1kEnergy.getClan().getEnergy() + energy);
-					UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy 
-							+ ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
-					ClanRepository.updateEnergy(buy1kEnergy.getClan());
-					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-					return;
-				}
-			}else if(e.getButton() instanceof BuyOneDayEnergy){
-				BuyOneDayEnergy buyOneDayEnergy = (BuyOneDayEnergy) e.getButton();
-				cost = (((buyOneDayEnergy.getClan().getTerritory().size() * 25)) * Clans.getOptions().getCostPerEnergy() * 24);
-				if(gamer.hasCoins(cost)){
-					gamer.removeCoins(cost);
-					energy = ((buyOneDayEnergy.getClan().getTerritory().size() * 25) * 24);
-					buyOneDayEnergy.getClan().setEnergy( buyOneDayEnergy.getClan().getEnergy() 
-							+  energy);
-					ClanRepository.updateEnergy(buyOneDayEnergy.getClan());
-					UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy 
-							+ ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
-					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-					return;
-				}
-			}else if(e.getButton() instanceof BuyOneHourEnergy){
-				BuyOneHourEnergy buyOneHourEnergy = (BuyOneHourEnergy) e.getButton();
-				cost = ((buyOneHourEnergy.getClan().getTerritory().size() * 25) * Clans.getOptions().getCostPerEnergy());
-				if(gamer.hasCoins(cost)){
-					gamer.removeCoins(cost);
-					energy = ((buyOneHourEnergy.getClan().getTerritory().size() * 25));
-					buyOneHourEnergy.getClan().setEnergy(buyOneHourEnergy.getClan().getEnergy() 
-							+ energy);
-					ClanRepository.updateEnergy(buyOneHourEnergy.getClan());
-					UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy 
-							+ ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
-					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-					return;
-				}
-			}
-
-			e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                e.getPlayer().openInventory(new EnergyMenu(e.getPlayer()).getInventory());
+            }
 
 
+        }
+    }
 
-		}
-	}
-	
-	@EventHandler
-	public void onMemberButton(ButtonClickEvent e){
-		if(e.getMenu() instanceof ClanMenu){
-			
-			ClanMenu clanMenu = (ClanMenu) e.getMenu();
-			if(e.getButton() instanceof MemberButton){
-				MemberButton memberButton = (MemberButton) e.getButton();
-				
-				if(e.getClickType() == ClickType.SHIFT_LEFT){
-					IClanCommand com = ClanCommand.getCommand("Promote");
-					if(com != null){
-						com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
-						clanMenu.fillPage();
-						clanMenu.construct();
-					}
-					
-					
-				}else if(e.getClickType() == ClickType.RIGHT){
+    @EventHandler
+    public void onEnergyBuy(ButtonClickEvent e) {
+        if (e.getMenu() instanceof EnergyMenu) {
+            int cost = 0;
+            int energy = 0;
+            Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
-					IClanCommand com = ClanCommand.getCommand("Demote");
-					if(com != null){
-						com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
-						clanMenu.fillPage();
-						clanMenu.construct();
-					}
-				}else if(e.getClickType() == ClickType.SHIFT_RIGHT){
-					IClanCommand com = ClanCommand.getCommand("Kick");
-					if(com != null){
-						com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
-						clanMenu.fillPage();
-						clanMenu.construct();
-					}
-				}
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onLeaveButton(ButtonClickEvent e){
-		if(e.getMenu() instanceof ClanMenu){
-			if(e.getButton() instanceof LeaveButton){
-				if(e.getClickType() == ClickType.SHIFT_LEFT){
-					IClanCommand com = ClanCommand.getCommand("Leave");
-					if(com != null){
-						com.run(e.getPlayer(), new String[]{""});
-						e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
-						e.getPlayer().closeInventory();
-					}
-					
-				}else if(e.getClickType() == ClickType.SHIFT_RIGHT){
-					IClanCommand com = ClanCommand.getCommand("Disband");
-					if(com != null){
-						com.run(e.getPlayer(), new String[]{""});
-						e.getPlayer().closeInventory();
-					}
-				
-					
-				}
-			}
-		}
-	}
+            Clan c = ClanUtilities.getClan(e.getPlayer());
+            if (c.getEnergy() >= c.getTerritory().size() * 5000) {
+                UtilMessage.message(e.getPlayer(), "Clans", "You cannot purchase any more energy. (5000 per claim)");
+                return;
+            }
 
-	@EventHandler
-	public void onClaimButton(ButtonClickEvent e){
-		if(e.getMenu() instanceof ClanMenu){
-			
-			ClanMenu clanMenu = (ClanMenu) e.getMenu();
-			if(e.getButton() instanceof ClaimButton){
-				ClaimButton claimButton = (ClaimButton) e.getButton();
-				ClanMember member = claimButton.getClan().getMember(e.getPlayer().getUniqueId());
-				if(member != null){
-					if(member.hasRole(Role.ADMIN)){
-						if(e.getClickType() == ClickType.SHIFT_LEFT){
-							IClanCommand com = ClanCommand.getCommand("Claim");
-							if(com != null){
-								com.run(e.getPlayer(), new String[]{""});
-								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-								clanMenu.fillPage();
-								clanMenu.construct();
-							}
-							
-							
-						}else if(e.getClickType() == ClickType.SHIFT_RIGHT){
-							IClanCommand com = ClanCommand.getCommand("Unclaim");
-							if(com != null){
-								com.run(e.getPlayer(), new String[]{""});
-								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-								clanMenu.fillPage();
-								clanMenu.construct();
-							}
-						}
+            if (e.getButton() instanceof Buy1KEnergy) {
 
-					}
+                Buy1KEnergy buy1kEnergy = (Buy1KEnergy) e.getButton();
+                cost = 1000 * Clans.getOptions().getCostPerEnergy();
+                if (gamer.hasCoins(cost)) {
+                    gamer.removeCoins(cost);
+                    energy = 1000;
+                    buy1kEnergy.getClan().setEnergy(buy1kEnergy.getClan().getEnergy() + energy);
+                    UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
+                            + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
+                    ClanRepository.updateEnergy(buy1kEnergy.getClan());
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    return;
+                }
+            } else if (e.getButton() instanceof BuyOneDayEnergy) {
+                BuyOneDayEnergy buyOneDayEnergy = (BuyOneDayEnergy) e.getButton();
+                cost = (((buyOneDayEnergy.getClan().getTerritory().size() * 25)) * Clans.getOptions().getCostPerEnergy() * 24);
+                if (gamer.hasCoins(cost)) {
+                    gamer.removeCoins(cost);
+                    energy = ((buyOneDayEnergy.getClan().getTerritory().size() * 25) * 24);
+                    buyOneDayEnergy.getClan().setEnergy(buyOneDayEnergy.getClan().getEnergy()
+                            + energy);
+                    ClanRepository.updateEnergy(buyOneDayEnergy.getClan());
+                    UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
+                            + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    return;
+                }
+            } else if (e.getButton() instanceof BuyOneHourEnergy) {
+                BuyOneHourEnergy buyOneHourEnergy = (BuyOneHourEnergy) e.getButton();
+                cost = ((buyOneHourEnergy.getClan().getTerritory().size() * 25) * Clans.getOptions().getCostPerEnergy());
+                if (gamer.hasCoins(cost)) {
+                    gamer.removeCoins(cost);
+                    energy = ((buyOneHourEnergy.getClan().getTerritory().size() * 25));
+                    buyOneHourEnergy.getClan().setEnergy(buyOneHourEnergy.getClan().getEnergy()
+                            + energy);
+                    ClanRepository.updateEnergy(buyOneHourEnergy.getClan());
+                    UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
+                            + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    return;
+                }
+            }
 
-				}
-			}
-		}
-	}
+            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+
+
+        }
+    }
+
+    @EventHandler
+    public void onMemberButton(ButtonClickEvent e) {
+        if (e.getMenu() instanceof ClanMenu) {
+
+            ClanMenu clanMenu = (ClanMenu) e.getMenu();
+            if (e.getButton() instanceof MemberButton) {
+                MemberButton memberButton = (MemberButton) e.getButton();
+
+                if (e.getClickType() == ClickType.SHIFT_LEFT) {
+                    IClanCommand com = ClanCommand.getCommand("Promote");
+                    if (com != null) {
+                        com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        clanMenu.fillPage();
+                        clanMenu.construct();
+                    }
+
+
+                } else if (e.getClickType() == ClickType.RIGHT) {
+
+                    IClanCommand com = ClanCommand.getCommand("Demote");
+                    if (com != null) {
+                        com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        clanMenu.fillPage();
+                        clanMenu.construct();
+                    }
+                } else if (e.getClickType() == ClickType.SHIFT_RIGHT) {
+                    IClanCommand com = ClanCommand.getCommand("Kick");
+                    if (com != null) {
+                        com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        clanMenu.fillPage();
+                        clanMenu.construct();
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onLeaveButton(ButtonClickEvent e) {
+        if (e.getMenu() instanceof ClanMenu) {
+            if (e.getButton() instanceof LeaveButton) {
+                if (e.getClickType() == ClickType.SHIFT_LEFT) {
+                    IClanCommand com = ClanCommand.getCommand("Leave");
+                    if (com != null) {
+                        com.run(e.getPlayer(), new String[]{""});
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        e.getPlayer().closeInventory();
+                    }
+
+                } else if (e.getClickType() == ClickType.SHIFT_RIGHT) {
+                    IClanCommand com = ClanCommand.getCommand("Disband");
+                    if (com != null) {
+                        com.run(e.getPlayer(), new String[]{""});
+                        e.getPlayer().closeInventory();
+                    }
+
+
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClaimButton(ButtonClickEvent e) {
+        if (e.getMenu() instanceof ClanMenu) {
+
+            ClanMenu clanMenu = (ClanMenu) e.getMenu();
+            if (e.getButton() instanceof ClaimButton) {
+                ClaimButton claimButton = (ClaimButton) e.getButton();
+                ClanMember member = claimButton.getClan().getMember(e.getPlayer().getUniqueId());
+                if (member != null) {
+                    if (member.hasRole(Role.ADMIN)) {
+                        if (e.getClickType() == ClickType.SHIFT_LEFT) {
+                            IClanCommand com = ClanCommand.getCommand("Claim");
+                            if (com != null) {
+                                com.run(e.getPlayer(), new String[]{""});
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                                clanMenu.fillPage();
+                                clanMenu.construct();
+                            }
+
+
+                        } else if (e.getClickType() == ClickType.SHIFT_RIGHT) {
+                            IClanCommand com = ClanCommand.getCommand("Unclaim");
+                            if (com != null) {
+                                com.run(e.getPlayer(), new String[]{""});
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                                clanMenu.fillPage();
+                                clanMenu.construct();
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
 
 }

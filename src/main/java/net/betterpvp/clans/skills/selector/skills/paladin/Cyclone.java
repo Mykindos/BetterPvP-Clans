@@ -17,92 +17,91 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class Cyclone extends Skill{
+public class Cyclone extends Skill {
 
 
-	public Cyclone(Clans i) {
-		super(i, "Cyclone", "Paladin", getSwords,
-				rightClick, 5, true, true);
-		
-	}
+    public Cyclone(Clans i) {
+        super(i, "Cyclone", "Paladin", getSwords,
+                rightClick, 5, true, true);
+
+    }
 
 
-	@Override
-	public String[] getDescription(int level) {
+    @Override
+    public String[] getDescription(int level) {
 
-		return new String[] {
-				"Right click with Sword to Activate.",
-				"",
-				"Pulls all enemies within",
-				ChatColor.GREEN.toString() + (7 + level) + ChatColor.GRAY + " blocks towards you",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-				};
-	}
+        return new String[]{
+                "Right click with Sword to Activate.",
+                "",
+                "Pulls all enemies within",
+                ChatColor.GREEN.toString() + (7 + level) + ChatColor.GRAY + " blocks towards you",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@Override
-	public Types getType() {
-		return Types.SWORD;
-	}
+    @Override
+    public Types getType() {
+        return Types.SWORD;
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		
-		Vector x = p.getLocation().toVector();
-		x.setY(x.getY() + 2);
-		
-		int level = getLevel(p);
-		UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
-		for(LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))){
-			if(target instanceof ArmorStand) continue;
-			if(!target.getName().equalsIgnoreCase(p.getName())){
-				if(target instanceof Player){
-					if(!ClanUtilities.canHurt(p, (Player) target)) continue;
-					UtilMessage.message(target, "Cyclone",  ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
-				
-				}
-				Vector v = target.getLocation().toVector().subtract(x).normalize().multiply(-1);
-				LogManager.addLog(target, p, "Cyclone");
-				UtilVelocity.velocity(target, v, 0.5D, false, 0.0D, 0.7D, 7.0D, true);
-				
-				
+    @Override
+    public void activateSkill(Player p) {
 
-			}
-		}
-		p.getWorld().playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 0.6F);
+        Vector x = p.getLocation().toVector();
+        x.setY(x.getY() + 2);
+
+        int level = getLevel(p);
+        UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
+        for (LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))) {
+            if (target instanceof ArmorStand) continue;
+            if (!target.getName().equalsIgnoreCase(p.getName())) {
+                if (target instanceof Player) {
+                    if (!ClanUtilities.canHurt(p, (Player) target)) continue;
+                    UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
+
+                }
+                Vector v = target.getLocation().toVector().subtract(x).normalize().multiply(-1);
+                LogManager.addLog(target, p, "Cyclone");
+                UtilVelocity.velocity(target, v, 0.5D, false, 0.0D, 0.7D, 7.0D, true);
 
 
-	}
-
-	@Override
-	public boolean usageCheck(Player player) {
-		if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
-			return false;
-		}
-
-		return true;
-	}
+            }
+        }
+        p.getWorld().playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 0.6F);
 
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 12 - ((level -1) * 1);
-	}
+    }
+
+    @Override
+    public boolean usageCheck(Player player) {
+        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
+        }
+
+        return true;
+    }
 
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 40 - ((level -1) * 5);
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 12 - ((level - 1) * 1);
+    }
 
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 40 - ((level - 1) * 5);
+    }
+
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

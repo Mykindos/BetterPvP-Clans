@@ -17,95 +17,92 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import java.util.Arrays;
 
-public class Cleave extends Skill{
+public class Cleave extends Skill {
 
-	public Cleave(Clans i) {
-		super(i, "Cleave", "Knight", getAxes, noActions, 3, false, false);
-		// TODO Auto-generated constructor stub
-	}
+    public Cleave(Clans i) {
+        super(i, "Cleave", "Knight", getAxes, noActions, 3, false, false);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Your attacks hit all opponents",
-				"within " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " blocks of your target.",
-				"",
-				"Only applies to axes."
-		};
-	}
-
-
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Your attacks hit all opponents",
+                "within " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " blocks of your target.",
+                "",
+                "Only applies to axes."
+        };
+    }
 
 
-	@EventHandler
-	public void onDamage(EntityDamageByEntityEvent e){
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e) {
 
-		if(e.getDamager() instanceof Player){
-			Player p = (Player) e.getDamager();
+        if (e.getDamager() instanceof Player) {
+            Player p = (Player) e.getDamager();
 
-				if(hasSkill(p, this)){
-					if(Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())){
-						if(ClanUtilities.canCast(p)){
-							
-							if(e.getEntity() instanceof Player) {
-								Player dam = (Player) e.getEntity();
-								
-								if(!ClanUtilities.canHurt(p, dam)) {
-									return;
-								}
-							}
+            if (hasSkill(p, this)) {
+                if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (ClanUtilities.canCast(p)) {
 
-							for(LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), getLevel(p))){
-								if(ent.equals(p)) continue;
-								if(ent.equals(e.getEntity())) continue;
+                        if (e.getEntity() instanceof Player) {
+                            Player dam = (Player) e.getEntity();
+
+                            if (!ClanUtilities.canHurt(p, dam)) {
+                                return;
+                            }
+                        }
+
+                        for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), getLevel(p))) {
+                            if (ent.equals(p)) continue;
+                            if (ent.equals(e.getEntity())) continue;
 
 
+                            LogManager.addLog(ent, p, "Cleave");
+                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (3 + getLevel(p)), true));
+                        }
+                    }
+                }
+            }
+        }
 
-								LogManager.addLog(ent, p, "Cleave");
-								Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (3 + getLevel(p)), true));
-							}
-						}
-					}
-				}
-			}
-		
-	}
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

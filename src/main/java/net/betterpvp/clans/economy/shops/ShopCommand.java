@@ -1,47 +1,28 @@
 package net.betterpvp.clans.economy.shops;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.UUID;
-
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.Clan;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.clans.Dominance;
-import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.economy.shops.mysql.ShopKeeperRepository;
 import net.betterpvp.clans.economy.shops.mysql.ShopRepository;
-import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
-import net.betterpvp.clans.economy.shops.nms.ShopVillager;
-import net.betterpvp.clans.economy.shops.nms.ShopZombie;
-import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
-import net.betterpvp.core.configs.ConfigManager;
-import net.betterpvp.core.configs.Configs;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 
 public class ShopCommand extends Command implements Listener {
@@ -55,8 +36,6 @@ public class ShopCommand extends Command implements Listener {
         this.i = i;
         // TODO Auto-generated constructor stub
     }
-
-
 
 
     @EventHandler

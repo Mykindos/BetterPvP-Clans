@@ -15,87 +15,86 @@ import java.util.HashMap;
 
 
 public class FieldsRepository implements Repository<Clans> {
-	
-	public static final String TABLE_NAME = "kitmap_fields";
 
-	public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
-			"  `ID` int(10)," +
-			"  `X` double(10, 0)," +
-			"  `Y` double(10, 0)," +
-			"  `Z` double(10, 0)" +
-			");";
+    public static final String TABLE_NAME = "kitmap_fields";
 
-	private static World world = Bukkit.getWorld("world");
-	
-	public static HashMap<Location, Integer> blocks = new HashMap<>();
+    public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
+            "  `ID` int(10)," +
+            "  `X` double(10, 0)," +
+            "  `Y` double(10, 0)," +
+            "  `Z` double(10, 0)" +
+            ");";
 
-	@Override
-	public void initialize() {
-		QueryFactory.runQuery(CREATE_FIELDS_TABLE);
-	}
+    private static World world = Bukkit.getWorld("world");
 
-	@Override
-	public void load(Clans clans) {
-		new BukkitRunnable(){
+    public static HashMap<Location, Integer> blocks = new HashMap<>();
 
-			@Override
-			public void run() {
-				int count = 0;
-				try {
-					PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
-					ResultSet result = statement.executeQuery();
+    @Override
+    public void initialize() {
+        QueryFactory.runQuery(CREATE_FIELDS_TABLE);
+    }
 
-					while (result.next()) {
-						int id = result.getInt(1);
-						double x = result.getDouble(2);
-						double y = result.getDouble(3);
-						double z = result.getDouble(4);
-						Location loc = new Location(world, x,y,z);
-						loc.getBlock().setTypeId(id);
+    @Override
+    public void load(Clans clans) {
+        new BukkitRunnable() {
 
-						blocks.put(loc, id);
-						count++;
-					}
+            @Override
+            public void run() {
+                int count = 0;
+                try {
+                    PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
+                    ResultSet result = statement.executeQuery();
 
-					statement.close();
-					result.close();
+                    while (result.next()) {
+                        int id = result.getInt(1);
+                        double x = result.getDouble(2);
+                        double y = result.getDouble(3);
+                        double z = result.getDouble(4);
+                        Location loc = new Location(world, x, y, z);
+                        loc.getBlock().setTypeId(id);
 
+                        blocks.put(loc, id);
+                        count++;
+                    }
 
-
-					Log.debug("MySQL", "Loaded " + count + " ores");
-
-				} catch (SQLException ex) {
-					Log.debug("Connection", "Could not load Ores (Connection Error), ");
-					ex.printStackTrace();
-				}
-			}
+                    statement.close();
+                    result.close();
 
 
-		}.runTask(clans);
-	}
+                    Log.debug("MySQL", "Loaded " + count + " ores");
 
-	@Override
-	public LoadPriority getLoadPriority() {
-		return LoadPriority.HIGHEST;
-	}
+                } catch (SQLException ex) {
+                    Log.debug("Connection", "Could not load Ores (Connection Error), ");
+                    ex.printStackTrace();
+                }
+            }
 
 
-	public static void saveOre(Block b) {
+        }.runTask(clans);
+    }
 
-		String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
-				+ "('" + b.getTypeId() + "', "
-				+ "'" + b.getLocation().getX() + "', "
-				+ "'" + b.getLocation().getY() + "', "
-				+ "'" + b.getLocation().getZ() + "')";
+    @Override
+    public LoadPriority getLoadPriority() {
+        return LoadPriority.HIGHEST;
+    }
 
-		QueryFactory.runQuery(query);
-	}
 
-	public static void deleteOre(Block b){
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='"
-				+ b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
-		QueryFactory.runQuery(query);
+    public static void saveOre(Block b) {
 
-	}
+        String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
+                + "('" + b.getTypeId() + "', "
+                + "'" + b.getLocation().getX() + "', "
+                + "'" + b.getLocation().getY() + "', "
+                + "'" + b.getLocation().getZ() + "')";
+
+        QueryFactory.runQuery(query);
+    }
+
+    public static void deleteOre(Block b) {
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='"
+                + b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
+        QueryFactory.runQuery(query);
+
+    }
 
 }

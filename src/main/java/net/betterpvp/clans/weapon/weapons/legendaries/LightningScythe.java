@@ -4,11 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.weapons.LightningScytheData;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,92 +26,85 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class LightningScythe extends Weapon{
+public class LightningScythe extends Weapon {
 
-	public LightningScythe(Clans i){
-		super(i, Material.DIAMOND_HOE, (byte) 0, ChatColor.RED + "Lightning Scythe",
-				new String[]{"",
-						ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "10 (AoE)",
-						ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Lightning Strike",
-						"",
-						ChatColor.RESET + "This mysterious weapon is believed",
-						ChatColor.RESET + "to call the power of the gods",
-						ChatColor.RESET + "and strike lightning on your enemies.",
-		""}, true, 2.0);
-	}
+    public LightningScythe(Clans i) {
+        super(i, Material.DIAMOND_HOE, (byte) 0, ChatColor.RED + "Lightning Scythe",
+                new String[]{"",
+                        ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "10 (AoE)",
+                        ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Lightning Strike",
+                        "",
+                        ChatColor.RESET + "This mysterious weapon is believed",
+                        ChatColor.RESET + "to call the power of the gods",
+                        ChatColor.RESET + "and strike lightning on your enemies.",
+                        ""}, true, 2.0);
+    }
 
-	private List<LightningScytheData> chargeData = new ArrayList<>();
-
-
-	public LightningScytheData getData(Player p){
-		for(LightningScytheData lsd : chargeData){
-			if(lsd.getPlayer().equals(p)){
-				return lsd;
-			}
-		}
-		return null;
-	}
+    private List<LightningScytheData> chargeData = new ArrayList<>();
 
 
-	@EventHandler
-	public void onInteract(PlayerInteractEvent e){
-
-		if(e.getPlayer().getItemInHand() == null) return;
-		if(e.getPlayer().getItemInHand().getType() != Material.DIAMOND_HOE) return;
-
-		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-			if (isThisWeapon(e.getPlayer())) {
-				skill(e.getPlayer());
-			}
+    public LightningScytheData getData(Player p) {
+        for (LightningScytheData lsd : chargeData) {
+            if (lsd.getPlayer().equals(p)) {
+                return lsd;
+            }
+        }
+        return null;
+    }
 
 
-		}
-	}
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+
+        if (e.getPlayer().getItemInHand() == null) return;
+        if (e.getPlayer().getItemInHand().getType() != Material.DIAMOND_HOE) return;
+
+        if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (isThisWeapon(e.getPlayer())) {
+                skill(e.getPlayer());
+            }
 
 
-	public void skill(Player p) {
+        }
+    }
 
 
-
-		
-		if(RechargeManager.getInstance().add(p, getName(), 7.5, true)) {
-			if (Energy.use(p, getName(), 40.0, true)) {
-				Block b = p.getTargetBlock((Set<Material>) null, 50);
-				if (b.getType() != null)
-				{
+    public void skill(Player p) {
 
 
-					b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
-					b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
-					for(LivingEntity z : UtilPlayer.getAllInRadius(b.getLocation(), 3)){
-						LogManager.addLog(z, p, "Lightning Strike");
-						Bukkit.getPluginManager().callEvent(new CustomDamageEvent(z, p, null, DamageCause.LIGHTNING, 15, false));
-						
-					}
-					p.playSound(p.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
-					for(Player d : UtilPlayer.getInRadius(b.getLocation(), 100)){
-						d.getWorld().playSound(d.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
-					}
+        if (RechargeManager.getInstance().add(p, getName(), 7.5, true)) {
+            if (Energy.use(p, getName(), 40.0, true)) {
+                Block b = p.getTargetBlock((Set<Material>) null, 50);
+                if (b.getType() != null) {
 
 
+                    b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
+                    b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
+                    for (LivingEntity z : UtilPlayer.getAllInRadius(b.getLocation(), 3)) {
+                        LogManager.addLog(z, p, "Lightning Strike");
+                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(z, p, null, DamageCause.LIGHTNING, 15, false));
+
+                    }
+                    p.playSound(p.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    for (Player d : UtilPlayer.getInRadius(b.getLocation(), 100)) {
+                        d.getWorld().playSound(d.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    }
 
 
+                    UtilMessage.message(p, "Lightning Scythe", "You used " + ChatColor.GREEN + "Lightning Strike");
+                    p.getItemInHand().setDurability(
+                            (short) (p.getItemInHand().getDurability() + 5));
+                    if (p.getItemInHand().getDurability() >= 1561) {
+                        p.getInventory().setItemInHand(new ItemStack(Material.AIR));
+                    }
 
 
-					UtilMessage.message(p, "Lightning Scythe", "You used " + ChatColor.GREEN + "Lightning Strike");
-					p.getItemInHand().setDurability(
-							(short)(p.getItemInHand().getDurability() + 5));
-					if (p.getItemInHand().getDurability() >= 1561) {
-						p.getInventory().setItemInHand(new ItemStack(Material.AIR));
-					}
+                }
 
+            }
+        }
 
-				}
-
-			}
-		}
-
-	}
+    }
 
 
 

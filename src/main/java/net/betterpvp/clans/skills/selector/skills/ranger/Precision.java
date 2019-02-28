@@ -10,74 +10,74 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
-public class Precision extends Skill{
+public class Precision extends Skill {
 
-	public Precision(Clans i) {
-		super(i, "Precision", "Ranger", noMaterials, noActions, 5,
-				false, false);
-		// TODO Auto-generated constructor stub
-	}
+    public Precision(Clans i) {
+        super(i, "Precision", "Ranger", noMaterials, noActions, 5,
+                false, false);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{"Your arrows deal " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " bonus damage on hit"};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{"Your arrows deal " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " bonus damage on hit"};
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.PASSIVE_A;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.PASSIVE_A;
+    }
 
-	@Override
-	public void activateSkill(Player player) {
-		// TODO Auto-generated method stub
+    @Override
+    public void activateSkill(Player player) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public boolean usageCheck(Player player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player player) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 
-	@EventHandler (priority = EventPriority.HIGHEST)
-	public void onSlow(CustomDamageEvent e){
-		if(e.getProjectile() != null){
-			
-				
-				if(e.getDamager() instanceof Player){
-					Player p = (Player) e.getDamager();
-					Role r = Role.getRole(p);
-					if(r != null && r.getName().equals(getClassType())) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onSlow(CustomDamageEvent e) {
+        if (e.getProjectile() != null) {
 
-						if (hasSkill(p, this)) {
-							e.setDamage(e.getDamage() + (getLevel(p) * 0.5));
-						}
-					}
-					
-				}
-			}
-		
-	}
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+            if (e.getDamager() instanceof Player) {
+                Player p = (Player) e.getDamager();
+                Role r = Role.getRole(p);
+                if (r != null && r.getName().equals(getClassType())) {
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+                    if (hasSkill(p, this)) {
+                        e.setDamage(e.getDamage() + (getLevel(p) * 0.5));
+                    }
+                }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+            }
+        }
+
+    }
+
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

@@ -12,43 +12,42 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 
-
 public class FieldsManager extends BPVPListener<Clans> {
 
-	public FieldsManager(Clans i){
-		super(i);
-	}
+    public FieldsManager(Clans i) {
+        super(i);
+    }
 
-	@EventHandler
-	public void onPlace(BlockPlaceEvent e){
-		if(ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
-			Clan c = ClanUtilities.getClan(e.getBlockPlaced().getLocation());
-			if(c != null){
-				if(c.getName().equals("Fields")){
-					Material m = e.getBlockPlaced().getType();
-					if(m == Material.GOLD_ORE || m == Material.DIAMOND_ORE || m == Material.IRON_ORE
-							|| m == Material.COAL_ORE || m == Material.LAPIS_ORE || m == Material.EMERALD_ORE
-							|| m == Material.REDSTONE_ORE || m == Material.GLOWING_REDSTONE_ORE
-							|| m == Material.ENDER_CHEST || m == Material.PUMPKIN || m == Material.MELON_BLOCK){
-						FieldsRepository.saveOre(e.getBlockPlaced());
-					}
-				}
-			}
+    @EventHandler
+    public void onPlace(BlockPlaceEvent e) {
+        if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
+            Clan c = ClanUtilities.getClan(e.getBlockPlaced().getLocation());
+            if (c != null) {
+                if (c.getName().equals("Fields")) {
+                    Material m = e.getBlockPlaced().getType();
+                    if (m == Material.GOLD_ORE || m == Material.DIAMOND_ORE || m == Material.IRON_ORE
+                            || m == Material.COAL_ORE || m == Material.LAPIS_ORE || m == Material.EMERALD_ORE
+                            || m == Material.REDSTONE_ORE || m == Material.GLOWING_REDSTONE_ORE
+                            || m == Material.ENDER_CHEST || m == Material.PUMPKIN || m == Material.MELON_BLOCK) {
+                        FieldsRepository.saveOre(e.getBlockPlaced());
+                    }
+                }
+            }
 
 
-		}
-	}
+        }
+    }
 
-	@EventHandler
-	public void onBreak(BlockBreakEvent e){
-		if(ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
-			Clan c = ClanUtilities.getClan(e.getBlock().getLocation());
-			if(c != null){
-				if(c.getName().equals("Fields")){
-					FieldsRepository.deleteOre(e.getBlock());
-				}
-			}
-		}
-	}
+    @EventHandler
+    public void onBreak(BlockBreakEvent e) {
+        if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
+            Clan c = ClanUtilities.getClan(e.getBlock().getLocation());
+            if (c != null) {
+                if (c.getName().equals("Fields")) {
+                    FieldsRepository.deleteOre(e.getBlock());
+                }
+            }
+        }
+    }
 
 }

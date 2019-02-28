@@ -25,21 +25,21 @@ public class ClanEnemyClanEvent extends Event implements Cancellable {
     private Player p;
     private Clan playersClan, targetClan;
 
-    public ClanEnemyClanEvent(Player p, Clan playersClan, Clan targetClan){
+    public ClanEnemyClanEvent(Player p, Clan playersClan, Clan targetClan) {
         this.p = p;
         this.playersClan = playersClan;
         this.targetClan = targetClan;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return p;
     }
 
-    public Clan getPlayersClan(){
+    public Clan getPlayersClan() {
         return playersClan;
     }
 
-    public Clan getTargetClan(){
+    public Clan getTargetClan() {
         return targetClan;
     }
 

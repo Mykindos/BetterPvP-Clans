@@ -12,21 +12,21 @@ public class GamerManager {
     private static List<Gamer> gamers = new ArrayList<>();
     private static List<Gamer> onlineGamers = new ArrayList<>();
 
-    public static List<Gamer> getGamers(){
+    public static List<Gamer> getGamers() {
         return gamers;
     }
 
-    public static List<Gamer> getOnlineGamers(){
+    public static List<Gamer> getOnlineGamers() {
         return onlineGamers;
     }
 
-    public static void addOnlineGamer(Gamer c){
+    public static void addOnlineGamer(Gamer c) {
         onlineGamers.add(c);
 
 
     }
 
-    public static Gamer getOnlineGamer(UUID uuid){
+    public static Gamer getOnlineGamer(UUID uuid) {
         for (Gamer gamer : onlineGamers) {
 
             if (gamer.getUUID().equals(uuid)) {
@@ -36,21 +36,21 @@ public class GamerManager {
         return null;
     }
 
-    public static Gamer getOnlineGamer(Player p){
+    public static Gamer getOnlineGamer(Player p) {
         return getOnlineGamer(p.getUniqueId());
     }
 
-    public static void addGamer(Gamer c){
+    public static void addGamer(Gamer c) {
         gamers.removeIf(x -> x.getUUID().toString().equalsIgnoreCase(c.getUUID().toString()));
         onlineGamers.removeIf(x -> x.getUUID().toString().equalsIgnoreCase(c.getUUID().toString()));
         gamers.add(c);
 
-        if(Bukkit.getPlayer(c.getUUID()) != null) {
+        if (Bukkit.getPlayer(c.getUUID()) != null) {
             onlineGamers.add(c);
         }
     }
 
-    public static void addGamerOnLoad(Gamer c){
+    public static void addGamerOnLoad(Gamer c) {
 
         gamers.add(c);
 
@@ -88,7 +88,7 @@ public class GamerManager {
 
     public static Gamer getGamer(Player player) {
         Gamer uuid = getGamer(player.getUniqueId());
-        if(uuid != null){
+        if (uuid != null) {
             return uuid;
         }
 

@@ -4,7 +4,6 @@ import net.betterpvp.clans.classes.Role;
 import org.bukkit.Material;
 
 
-
 public class Paladin extends Role {
 
     public Paladin() {
@@ -32,6 +31,5 @@ public class Paladin extends Role {
         return Material.GOLD_BOOTS;
     }
 
-    
 
 }

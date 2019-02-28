@@ -1,11 +1,8 @@
 package net.betterpvp.clans.skills.selector.skills.data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class OverChargeData {
-
 
 
     private UUID uuid;
@@ -68,7 +65,6 @@ public class OverChargeData {
     public void setIncrement(int increment) {
         this.increment = increment;
     }
-
 
 
 }

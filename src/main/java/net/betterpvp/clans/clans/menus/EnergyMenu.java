@@ -10,26 +10,26 @@ import net.betterpvp.core.interfaces.Menu;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
-public class EnergyMenu extends Menu{
+public class EnergyMenu extends Menu {
 
-	private Clan clan;
+    private Clan clan;
 
 
-	public EnergyMenu(Player player) {
-		super(player, 9, ChatColor.GREEN + "Buy Energy", new Button[]{});
-		this.clan = ClanUtilities.getClan(player);
-		fillPage();
-		construct();
-	}
+    public EnergyMenu(Player player) {
+        super(player, 9, ChatColor.GREEN + "Buy Energy", new Button[]{});
+        this.clan = ClanUtilities.getClan(player);
+        fillPage();
+        construct();
+    }
 
-	private void fillPage(){
-		if(clan != null){
-			addButton(new BuyOneHourEnergy(clan));
+    private void fillPage() {
+        if (clan != null) {
+            addButton(new BuyOneHourEnergy(clan));
 
-			addButton(new BuyOneDayEnergy(clan));
+            addButton(new BuyOneDayEnergy(clan));
 
-			addButton(new Buy1KEnergy(clan));
-		}
-	}
+            addButton(new Buy1KEnergy(clan));
+        }
+    }
 
 }

@@ -18,106 +18,105 @@ import java.util.List;
 public class Weapon implements Listener {
 
 
+    private Material material;
+    private byte data;
+    private String name;
+    private String[] lore;
+    private boolean legendary;
+    private Clans i;
+    private double chance;
 
-	private Material material;
-	private byte data;
-	private String name;
-	private String[] lore;
-	private boolean legendary;
-	private Clans i;
-	private double chance;
+    public Weapon(Clans i, Material material, byte data, String name, String[] lore, boolean legendary, double chance) {
+        Bukkit.getPluginManager().registerEvents(this, i);
+        this.material = material;
+        this.data = data;
+        this.name = name;
+        this.lore = lore;
+        this.legendary = legendary;
+        this.i = i;
+        this.chance = chance;
 
-	public Weapon(Clans i, Material material, byte data, String name, String[] lore, boolean legendary, double chance) {
-		Bukkit.getPluginManager().registerEvents(this, i);
-		this.material = material;
-		this.data = data;
-		this.name = name;
-		this.lore = lore;
-		this.legendary = legendary;
-		this.i = i;
-		this.chance = chance;
+    }
 
-	}
+    public List<String> getLoreWithPrice(int price) {
+        List<String> temp = new ArrayList<String>();
 
-	public List<String> getLoreWithPrice(int price){
-		List<String> temp = new ArrayList<String>();
+        temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price);
+        if (getLore() != null) {
+            temp.addAll(Arrays.asList(getLore()));
+        }
+        return temp;
 
-		temp.add( ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price);
-		if(getLore() != null){
-			temp.addAll(Arrays.asList(getLore()));
-		}
-		return temp;
+    }
 
-	}
+    public Clans getInstance() {
+        return i;
+    }
 
-	public Clans getInstance(){
-		return i;
-	}
+    public Material getMaterial() {
+        return material;
+    }
 
-	public Material getMaterial() {
-		return material;
-	}
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
 
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
+    public byte getData() {
+        return data;
+    }
 
-	public byte getData() {
-		return data;
-	}
+    public Double getChance() {
+        return chance;
+    }
 
-	public Double getChance(){
-		return chance;
-	}
+    public void setData(byte data) {
+        this.data = data;
+    }
 
-	public void setData(byte data) {
-		this.data = data;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String[] getLore() {
+        return lore;
+    }
 
-	public String[] getLore() {
-		return lore;
-	}
+    public void setLore(String[] lore) {
+        this.lore = lore;
+    }
 
-	public void setLore(String[] lore) {
-		this.lore = lore;
-	}
+    public boolean isLegendary() {
+        return legendary;
+    }
 
-	public boolean isLegendary() {
-		return legendary;
-	}
+    public void setLegendary(boolean legendary) {
+        this.legendary = legendary;
+    }
 
-	public void setLegendary(boolean legendary) {
-		this.legendary = legendary;
-	}
+    public ItemStack createWeaponNoGlow() {
+        @SuppressWarnings("deprecation")
+        ItemStack item = new ItemStack(getMaterial(), 1, (short) 0, getData());
+        return UtilItem.setItemNameAndLore(item, getName(), getLore());
+    }
 
-	public ItemStack createWeaponNoGlow() {
-		@SuppressWarnings("deprecation")
-		ItemStack item = new ItemStack(getMaterial(), 1, (short) 0, getData());
-		return UtilItem.setItemNameAndLore(item, getName(), getLore());
-	}
-
-	@SuppressWarnings("deprecation")
-	public ItemStack createWeapon() {
-		ItemStack item = null;
-		if(this instanceof GlacialAxe || this instanceof HyperAxe) {
-			item = new ItemStack(getMaterial(), 1, (short) 0, getData());
-		}else {
-			item = UtilItem.addGlow(new ItemStack(getMaterial(), 1, (short) 0, getData()));
-		}
-		return UtilItem.setItemNameAndLore(item, getName(), getLore());
-	}
+    @SuppressWarnings("deprecation")
+    public ItemStack createWeapon() {
+        ItemStack item = null;
+        if (this instanceof GlacialAxe || this instanceof HyperAxe) {
+            item = new ItemStack(getMaterial(), 1, (short) 0, getData());
+        } else {
+            item = UtilItem.addGlow(new ItemStack(getMaterial(), 1, (short) 0, getData()));
+        }
+        return UtilItem.setItemNameAndLore(item, getName(), getLore());
+    }
 
 
-	protected boolean isThisWeapon(Player p){
-		return WeaponManager.isWeapon(p.getItemInHand()) && WeaponManager.getWeapon(p.getItemInHand()).equals(this);
-	}
+    protected boolean isThisWeapon(Player p) {
+        return WeaponManager.isWeapon(p.getItemInHand()) && WeaponManager.getWeapon(p.getItemInHand()).equals(this);
+    }
 
 }
