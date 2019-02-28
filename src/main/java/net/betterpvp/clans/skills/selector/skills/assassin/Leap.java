@@ -2,7 +2,6 @@ package net.betterpvp.clans.skills.selector.skills.assassin;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
@@ -155,7 +154,8 @@ public class Leap extends Skill {
 			return false;
 		}
 
-		if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+		if (player.getLocation().getBlock().getType() == Material.WATER
+				|| player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
 			UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
 			return false;
 		}

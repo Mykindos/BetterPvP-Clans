@@ -92,7 +92,8 @@ public class FieldsRepository implements Repository<Clans> {
 	}
 
 	public static void deleteOre(Block b){
-		String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='" + b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
+		String query = "DELETE FROM " + TABLE_NAME + " WHERE X='" + b.getLocation().getX() + "' AND Y='"
+				+ b.getLocation().getY() + "' AND Z='" + b.getLocation().getZ() + "'";
 		QueryFactory.runQuery(query);
 
 	}

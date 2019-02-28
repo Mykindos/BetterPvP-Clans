@@ -26,9 +26,10 @@ public class FieldsManager extends BPVPListener<Clans> {
 			if(c != null){
 				if(c.getName().equals("Fields")){
 					Material m = e.getBlockPlaced().getType();
-					if(m == Material.GOLD_ORE || m == Material.DIAMOND_ORE || m == Material.IRON_ORE || m == Material.COAL_ORE || m == Material.LAPIS_ORE
-							|| m == Material.EMERALD_ORE || m == Material.REDSTONE_ORE || m == Material.GLOWING_REDSTONE_ORE || m == Material.ENDER_CHEST
-							|| m == Material.PUMPKIN || m == Material.MELON_BLOCK){
+					if(m == Material.GOLD_ORE || m == Material.DIAMOND_ORE || m == Material.IRON_ORE
+							|| m == Material.COAL_ORE || m == Material.LAPIS_ORE || m == Material.EMERALD_ORE
+							|| m == Material.REDSTONE_ORE || m == Material.GLOWING_REDSTONE_ORE
+							|| m == Material.ENDER_CHEST || m == Material.PUMPKIN || m == Material.MELON_BLOCK){
 						FieldsRepository.saveOre(e.getBlockPlaced());
 					}
 				}

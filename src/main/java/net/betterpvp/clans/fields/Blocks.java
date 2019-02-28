@@ -22,7 +22,7 @@ public enum Blocks {
 	private ItemStack drop;
 
 	
-	private Blocks(Material mat, ItemStack drop){
+	Blocks(Material mat, ItemStack drop){
 		this.mat = mat;
 		this.drop = drop;
 	

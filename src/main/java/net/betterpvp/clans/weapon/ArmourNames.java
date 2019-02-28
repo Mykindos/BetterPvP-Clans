@@ -28,7 +28,7 @@ public enum ArmourNames {
 	private Material m;
 	private String n;
 	
-	private ArmourNames(Material m, String n){
+	ArmourNames(Material m, String n){
 		this.m = m;
 		this.n = n;
 	}

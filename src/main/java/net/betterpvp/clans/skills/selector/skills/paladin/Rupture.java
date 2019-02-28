@@ -5,7 +5,6 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.clans.format.C;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
@@ -100,10 +99,8 @@ public class Rupture extends Skill{
 					loc.add(0.0D, -1.0D, 0.0D);
 				}
 
-				for (int i = 0; i < 3; i++)
-				{	
-					//loc.add(UtilMath.randDouble(-1.5D, 1.5D), 0, UtilMath.randDouble(-1.5D, 1.5D));
-					//loc.add(v);
+				for (int i = 0; i < 3; i++) {
+
 					final EntityArmorStand as = new EntityArmorStand(((CraftWorld)p.getWorld()).getHandle());
 					as.setInvisible(true);
 					as.setSmall(true);
@@ -113,14 +110,12 @@ public class Rupture extends Skill{
 					as.setHeadPose(new Vector3f(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
 					loc.add(v);
 					p.getWorld().playEffect(loc, Effect.STEP_SOUND, 174);
-					as.setLocation(loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75, loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D), 0.0F, 0.0F);
-					for (Player player : p.getWorld().getPlayers())
-					{
+					as.setLocation(loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75,
+							loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D), 0.0F, 0.0F);
+					for (Player player : p.getWorld().getPlayers()) {
 						UtilPacket.send(player, new PacketPlayOutSpawnEntityLiving(as));
-						//Location block = new Location(loc.getWorld(), loc.getX(), loc.getY() - 1, loc.getZ());
-						// p.getWorld().playEffect(loc, Effect.STEP_SOUND, 174);
-
-						UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), 4, CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
+						UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), 4,
+								CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
 
 					}
 					stands.put(as, System.currentTimeMillis() + 4000);

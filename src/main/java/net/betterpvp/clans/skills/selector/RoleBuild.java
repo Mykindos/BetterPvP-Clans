@@ -218,40 +218,5 @@ public class RoleBuild {
 		}
 	
 	}
-	/*
-    public int getMaxTokens() {
-        return points;
-    }
-
-    /*
-    public int getRemainingTokens() {
-        int tokens = getMaxTokens();
-        if (getBuildSkill(Type.SWORD) != null) {
-            tokens = tokens - getBuildSkill(Type.SWORD).getLevel();
-        } else if (getBuildSkill(Type.AXE) != null) {
-            tokens = tokens - getBuildSkill(Type.AXE).getLevel();
-        } else if (getBuildSkill(Type.BOW) != null) {
-            tokens = tokens - getBuildSkill(Type.BOW).getLevel();
-        } else if (getBuildSkill(Type.PASSIVE_A) != null) {
-            tokens = tokens - getBuildSkill(Type.PASSIVE_A).getLevel();
-        }
-
-        return tokens;
-    }
-	 */
-
-	/*
-    public String[] getBuildLore() {
-        return new String[]{
-            "",
-            ChatColor.DARK_GREEN + "Sword: " + ChatColor.WHITE + (getBuildSkill(Type.SWORD) == null ? "None" : getBuildSkill(Type.SWORD).getSkill().getName() + " " + getBuildSkill(Type.SWORD).getLevel()),
-            ChatColor.DARK_GREEN + "Axe: " + ChatColor.WHITE + (getBuildSkill(Type.AXE) == null ? "None" : getBuildSkill(Type.AXE).getSkill().getName() + " " + getBuildSkill(Type.AXE).getLevel()),
-            ChatColor.DARK_GREEN + "Bow: " + ChatColor.WHITE + (getBuildSkill(Type.BOW) == null ? "None" : getBuildSkill(Type.BOW).getSkill().getName() + " " + getBuildSkill(Type.BOW).getLevel()),
-            ChatColor.DARK_GREEN + "Passive A: " + ChatColor.WHITE + (getBuildSkill(Type.PASSIVE_A) == null ? "None" : getBuildSkill(Type.PASSIVE_A).getSkill().getName() + " " + getBuildSkill(Type.PASSIVE_A).getLevel()),
-            ChatColor.DARK_GREEN + "Passive B: " + ChatColor.WHITE + (getBuildSkill(Type.PASSIVE_B) == null ? "None" : getBuildSkill(Type.PASSIVE_B).getSkill().getName() + " " + getBuildSkill(Type.PASSIVE_B).getLevel()),
-            ChatColor.DARK_GREEN + "Passive C: " + ChatColor.WHITE + (getBuildSkill(Type.GLOBAL) == null ? "None" : getBuildSkill(Type.GLOBAL).getSkill().getName() + " " + getBuildSkill(Type.GLOBAL).getLevel())
-        };
-    }
-	 */
 
 }

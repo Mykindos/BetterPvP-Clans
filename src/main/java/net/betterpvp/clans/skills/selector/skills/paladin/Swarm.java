@@ -28,6 +28,13 @@ import java.util.Map.Entry;
 
 public class Swarm extends Skill{
 
+	private WeakHashMap<Player, Long> batCD = new WeakHashMap<>();
+	private WeakHashMap<Player, ArrayList<BatData>> batData = new WeakHashMap<>();
+	private List<UUID> current = new ArrayList<>();
+
+
+
+
 	public Swarm(Clans i) {
 		super(i, "Swarm", "Paladin", getSwords, rightClick, 5, true, true);
 		// TODO Auto-generated constructor stub
@@ -66,10 +73,6 @@ public class Swarm extends Skill{
 		return 10 - ((level -1) * 1);
 	}
 
-	private List<UUID> current = new ArrayList<>();
-
-	private WeakHashMap<Player, ArrayList<BatData>> batData = new WeakHashMap<>();
-
 	@Override
 	public void activateSkill(Player p) {
 		if(hasSkill(p, this)){
@@ -83,23 +86,21 @@ public class Swarm extends Skill{
 			}
 
 		}
-
-
-
-
 	}
 
 	public boolean hitPlayer(Location loc, LivingEntity player) {
-		if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation().add(0, -player.getLocation().getY(), 0).toVector()).length() < 0.8D) {
+		if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation()
+				.add(0, -player.getLocation().getY(), 0).toVector()).length() < 0.8D) {
 			return true;
 		}
-		if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation().add(0, -player.getLocation().getY(), 0).toVector()).length() < 1.2) {
+		if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation()
+				.add(0, -player.getLocation().getY(), 0).toVector()).length() < 1.2) {
 			return (loc.getY() > player.getLocation().getY()) && (loc.getY() < player.getEyeLocation().getY());
 		}
 		return false;
 	}
 
-	private WeakHashMap<Player, Long> batCD = new WeakHashMap<>();
+
 
 	@EventHandler
 	public void Update(UpdateEvent event)

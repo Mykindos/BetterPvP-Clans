@@ -65,6 +65,7 @@ public class RoleManager extends BPVPListener<Clans> {
 			
 			for (PotionEffect effect : player.getActivePotionEffects()) {
 
+				// Prevent player from removing negative effects by re-equipping a set
 				if(effect.getType().getName().equals("POISON")
 						|| effect.getType().getName().equals("CONFUSION")
 						|| effect.getType().getName().equals("BLINDNESS")){

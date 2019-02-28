@@ -49,7 +49,8 @@ public class WeaponManager extends BPVPListener<Clans> {
 		for(Qualities q : Qualities.values()){
 			for(ArmourNames an : ArmourNames.values()){
 				new EnchantedWeapon(i, an.getMaterial(), (byte) 0, q.getQuality() + ChatColor.YELLOW +  an.getName(),
-						new String[] {ChatColor.WHITE + "Bonus Damage Reduction: " + ChatColor.YELLOW + (q.getBonus() * 2) + "%"} , q.getBonus() * 2, q.getChance());
+						new String[] {ChatColor.WHITE + "Bonus Damage Reduction: " + ChatColor.YELLOW
+								+ (q.getBonus() * 2) + "%"} , q.getBonus() * 2, q.getChance());
 
 			}
 
@@ -137,7 +138,7 @@ public class WeaponManager extends BPVPListener<Clans> {
 		ItemStack item = event.getInventory().getResult();
 
 		for (Weapon weapon : weapons) {
-			if (!weapon.isLegendary()&& !(weapon instanceof EnchantedWeapon)) {
+			if (!weapon.isLegendary() && !(weapon instanceof EnchantedWeapon)) {
 				if(item != null){
 					if(!(weapon instanceof FireAxe)){
 						if (item.getType() == weapon.getMaterial()) {

@@ -32,6 +32,13 @@ public class Fields extends BPVPListener<Clans> {
 
 
 	private static HashMap<BlockData, Long> blocks = new HashMap<>();
+	private final static ItemStack[] ENDERCHEST_ITEMS = new ItemStack[] {new ItemStack(Material.GOLD_SWORD, 1),
+			new ItemStack(Material.IRON_PICKAXE, 1), new ItemStack(Material.DIAMOND_SPADE, 1),
+			new ItemStack(Material.SPONGE, 1), new ItemStack(Material.LAPIS_BLOCK, 2),
+			new ItemStack(Material.DIAMOND_SPADE, 1), new ItemStack(Material.DIAMOND_PICKAXE, 1),
+			new ItemStack(Material.FISHING_ROD, 1), new ItemStack(Material.ARROW, 16),
+			new ItemStack(Material.DIAMOND_SWORD, 1), new ItemStack(Material.GOLD_AXE, 1),
+			new ItemStack(Material.ENDER_PEARL, 3)};
 
 	public Fields(Clans i){
 		super(i);
@@ -109,12 +116,9 @@ public class Fields extends BPVPListener<Clans> {
 					b.getWorld().dropItemNaturally(b.getLocation(), dye.toItemStack(3));
 				}else if(b.getType() == Blocks.ENDERCHEST.getMaterial()){
 					e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.LEATHER, UtilMath.randomInt(10)));
-					ItemStack[] rand = {new ItemStack(Material.GOLD_SWORD, 1), new ItemStack(Material.IRON_PICKAXE, 1), new ItemStack(Material.DIAMOND_SPADE, 1)
-							, new ItemStack(Material.SPONGE, 1), new ItemStack(Material.LAPIS_BLOCK, 2),
-							new ItemStack(Material.DIAMOND_SPADE, 1), new ItemStack(Material.DIAMOND_PICKAXE, 1),
-							new ItemStack(Material.FISHING_ROD, 1), new ItemStack(Material.ARROW, 16), new ItemStack(Material.DIAMOND_SWORD, 1), 
-							new ItemStack(Material.GOLD_AXE, 1),new ItemStack(Material.ENDER_PEARL, 3)};
-					e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), rand[UtilMath.randomInt(rand.length -1)]);
+
+					e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),
+							ENDERCHEST_ITEMS[UtilMath.randomInt(ENDERCHEST_ITEMS.length -1)].clone());
 				}else{
 					ItemStack clone = bc.getDrop().clone();
 					if(doubleIt) {

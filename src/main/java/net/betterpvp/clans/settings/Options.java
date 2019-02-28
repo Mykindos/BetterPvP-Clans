@@ -52,6 +52,7 @@ public class Options {
 	
 	
 	public void reloadOptions(){
+
 		world = i.getConfigManager().get(Configs.MAIN).getString("World");
 		maxClanMembers = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxMembers");
 		maxClanAllies = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxAllies");

@@ -12,7 +12,7 @@ public enum Qualities {
 	private double bonus;
 	private double chance;
 	
-	private Qualities(String quality, double bonus, double chance){
+	Qualities(String quality, double bonus, double chance){
 		this.quality = quality;
 		this.bonus = bonus;
 		this.chance = chance;
