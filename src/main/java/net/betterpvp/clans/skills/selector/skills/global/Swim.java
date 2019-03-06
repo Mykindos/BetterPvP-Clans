@@ -31,12 +31,12 @@ public class Swim extends Skill {
     public Swim(Clans i) {
         super(i, "Swim", "Global", noMaterials, noActions, 5,
                 false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Tap Crouch to Swim forwards.",
                 "",
@@ -45,19 +45,19 @@ public class Swim extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.GLOBAL;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -123,19 +123,19 @@ public class Swim extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 10 - ((level - 1) * 2);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

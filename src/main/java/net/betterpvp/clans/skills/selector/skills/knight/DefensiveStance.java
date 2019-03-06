@@ -34,12 +34,12 @@ public class DefensiveStance extends Skill {
     public DefensiveStance(Clans i) {
         super(i, "Defensive Stance", "Knight", getSwords
                 , rightClick, 5, false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hold Block with Sword to Channel.",
                 "",
@@ -54,7 +54,7 @@ public class DefensiveStance extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
@@ -77,7 +77,7 @@ public class DefensiveStance extends Skill {
             UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water!");
             return false;
         }
-        // TODO Auto-generated method stub
+
         return true;
     }
 
@@ -155,19 +155,19 @@ public class DefensiveStance extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) 7 - ((level - 1));
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 

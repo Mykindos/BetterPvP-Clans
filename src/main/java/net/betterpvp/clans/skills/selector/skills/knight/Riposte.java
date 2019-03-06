@@ -168,7 +168,7 @@ public class Riposte extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Block an incoming attack to parry,",
                 "then quickly return the attack ",
@@ -184,25 +184,25 @@ public class Riposte extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 14;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

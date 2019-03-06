@@ -46,7 +46,7 @@ public abstract class Boss extends WorldEvent {
 
     public Boss(Clans i, String name, WEType type) {
         super(i, name, type);
-        // TODO Auto-generated constructor stub
+
         minions = new ArrayList<>();
     }
 

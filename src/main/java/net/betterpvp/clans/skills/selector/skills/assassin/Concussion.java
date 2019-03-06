@@ -26,12 +26,12 @@ public class Concussion extends Skill {
 
     public Concussion(Clans i) {
         super(i, "Concussion", "Assassin", getSwords, rightClick, 3, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to Activate.",
                 "",
@@ -53,19 +53,19 @@ public class Concussion extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 16 - ((level - 1) * 3);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 5);
     }
 
@@ -121,7 +121,7 @@ public class Concussion extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

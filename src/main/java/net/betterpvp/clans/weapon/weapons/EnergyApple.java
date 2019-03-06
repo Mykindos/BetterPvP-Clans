@@ -23,7 +23,7 @@ public class EnergyApple extends Weapon {
                 ChatColor.GRAY + "  " + "Instantly restores 50 energy",
                 "",
                 ChatColor.GRAY + "Cooldown: " + ChatColor.GREEN + 10 + ChatColor.GRAY + " seconds"}, false, 0);
-        // TODO Auto-generated constructor stub
+
     }
 
 

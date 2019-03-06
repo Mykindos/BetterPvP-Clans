@@ -33,7 +33,7 @@ public class BattleTaunt extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{"Hold Block with Sword to Channel.",
                 "",
                 "While channelling, any enemies within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks",
@@ -131,25 +131,25 @@ public class BattleTaunt extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0.5;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 15 - ((level - 1));
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 }

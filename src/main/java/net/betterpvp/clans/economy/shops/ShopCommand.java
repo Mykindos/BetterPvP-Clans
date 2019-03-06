@@ -34,7 +34,7 @@ public class ShopCommand extends Command implements Listener {
         super("shop", new String[]{"shops"}, Rank.PLAYER);
         Bukkit.getPluginManager().registerEvents(this, i);
         this.i = i;
-        // TODO Auto-generated constructor stub
+
     }
 
 
@@ -126,7 +126,7 @@ public class ShopCommand extends Command implements Listener {
 
     @Override
     public void help(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 

@@ -21,6 +21,25 @@ public class BuildRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_builds";
 
+    private static final String CREATE_BUILDS_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+            "  `UUID` varchar(255) DEFAULT NULL," +
+            "  `Role` varchar(255) DEFAULT NULL," +
+            "  `ID` int(25) DEFAULT NULL," +
+            "  `Sword` varchar(255) DEFAULT NULL," +
+            "  `Axe` varchar(255) DEFAULT NULL," +
+            "  `Bow` varchar(255) DEFAULT NULL," +
+            "  `PassiveA` varchar(255) DEFAULT NULL," +
+            "  `PassiveB` varchar(255) DEFAULT NULL," +
+            "  `Global` varchar(255) DEFAULT NULL," +
+            "  `Active` tinyint(1) DEFAULT NULL" +
+            ")";
+
+    @Override
+    public void initialize() {
+        QueryFactory.runQuery(CREATE_BUILDS_TABLE);
+    }
+
+
     public static synchronized void loadBuilds(Clans i, final UUID uuid) {
         new BukkitRunnable() {
 
@@ -123,10 +142,6 @@ public class BuildRepository implements Repository<Clans> {
         }
     }
 
-    @Override
-    public void initialize() {
-
-    }
 
     @Override
     public void load(Clans clans) {

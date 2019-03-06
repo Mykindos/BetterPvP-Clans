@@ -27,7 +27,7 @@ public class OldRiposte extends Skill {
 
     public OldRiposte(Clans i) {
         super(i, "Riposte", "Knight", getSwords, rightClick, 3,
-                true, true);        // TODO Auto-generated constructor stub
+                true, true);
     }
 
     public HashMap<String, Long> prepare = new HashMap<String, Long>();
@@ -161,7 +161,7 @@ public class OldRiposte extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to Activate.",
                 "",
@@ -175,25 +175,25 @@ public class OldRiposte extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 20 - ((level - 1) * 1.5);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 60 - ((level - 1) * 3);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

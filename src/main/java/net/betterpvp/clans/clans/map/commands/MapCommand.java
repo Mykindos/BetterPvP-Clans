@@ -22,7 +22,7 @@ public class MapCommand extends Command {
 
     public MapCommand(MinimapRenderer renderer) {
         super("map", new String[]{}, Rank.PLAYER);
-        // TODO Auto-generated constructor stub
+
         this.renderer = renderer;
     }
 

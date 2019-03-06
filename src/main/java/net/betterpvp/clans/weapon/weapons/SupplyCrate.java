@@ -41,7 +41,7 @@ public class SupplyCrate extends Weapon {
                 "",
                 ChatColor.GRAY + "This can only be placed in the wilderness."
         }, false, 0.0);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

@@ -24,12 +24,12 @@ public class GlacialPrison extends Skill {
 
     public GlacialPrison(Clans i) {
         super(i, "Glacial Prison", "Paladin", getSwords, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to Activate",
                 "",
@@ -54,19 +54,19 @@ public class GlacialPrison extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 25 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40 - ((level - 1) * 3);
     }
 
@@ -104,13 +104,13 @@ public class GlacialPrison extends Skill {
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

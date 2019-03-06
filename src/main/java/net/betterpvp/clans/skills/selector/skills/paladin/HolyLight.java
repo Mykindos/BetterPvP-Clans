@@ -21,7 +21,7 @@ public class HolyLight extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Create an aura that gives", "yourself and all allies within",
                 ChatColor.GREEN.toString() + (8 + level) + ChatColor.GRAY + " blocks extra regeneration"};
@@ -61,25 +61,25 @@ public class HolyLight extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

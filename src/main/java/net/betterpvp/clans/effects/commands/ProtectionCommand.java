@@ -11,7 +11,7 @@ public class ProtectionCommand extends Command {
 
     public ProtectionCommand() {
         super("protection", new String[]{"prot"}, Rank.PLAYER);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ProtectionCommand extends Command {
 
     @Override
     public void help(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 

@@ -53,7 +53,7 @@ public class Broodmother extends Boss {
 
     @Override
     public double getBaseDamage() {
-        // TODO Auto-generated method stub
+
         return 5;
     }
 
@@ -66,25 +66,25 @@ public class Broodmother extends Boss {
 
     @Override
     public String getBossName() {
-        // TODO Auto-generated method stub
+
         return ChatColor.RED.toString() + ChatColor.BOLD + "Broodmother";
     }
 
     @Override
     public EntityType getEntityType() {
-        // TODO Auto-generated method stub
+
         return EntityType.SPIDER;
     }
 
     @Override
     public double getMaxHealth() {
-        // TODO Auto-generated method stub
+
         return 1500;
     }
 
     @Override
     public LivingEntity getBoss() {
-        // TODO Auto-generated method stub
+
         return spider;
     }
 

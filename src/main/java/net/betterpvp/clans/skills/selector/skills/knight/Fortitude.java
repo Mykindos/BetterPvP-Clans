@@ -26,12 +26,12 @@ public class Fortitude extends Skill {
     public Fortitude(Clans i) {
         super(i, "Fortitude", "Knight", noMaterials, noActions, 3,
                 false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "After taking damage, you slowly",
                 "regenerate up to " + ChatColor.GREEN + (3 + (level - 1)) + ChatColor.GRAY + " health, at a",
@@ -43,19 +43,19 @@ public class Fortitude extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -103,19 +103,19 @@ public class Fortitude extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

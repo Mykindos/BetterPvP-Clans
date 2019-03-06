@@ -28,12 +28,12 @@ public class ToxicArrow extends Skill {
 
     public ToxicArrow(Clans i) {
         super(i, "Toxic Arrow", "Assassin", getBow, leftClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Your next arrow will give your",
                 "target confusion for " + ChatColor.GREEN + (15 + level) + ChatColor.GRAY + " seconds.",
@@ -53,19 +53,19 @@ public class ToxicArrow extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.BOW;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 14 - ((level - 1));
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
@@ -144,7 +144,7 @@ public class ToxicArrow extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

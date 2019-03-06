@@ -11,7 +11,7 @@ public class MiningMadness extends Environmental {
 
     public MiningMadness(Clans i) {
         super(i, "MiningMadness", WEType.ENVIRONMENTAL, 30);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

@@ -13,12 +13,12 @@ public class MoltenShield extends Skill {
 
     public MoltenShield(Clans i) {
         super(i, "Molten Shield", "Paladin", noMaterials, noActions, 1, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "You are immune to lava and fire damage."
         };
@@ -26,7 +26,7 @@ public class MoltenShield extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
@@ -44,31 +44,31 @@ public class MoltenShield extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

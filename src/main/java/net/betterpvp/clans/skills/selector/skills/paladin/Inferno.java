@@ -41,13 +41,13 @@ public class Inferno extends Skill {
     public Inferno(Clans i) {
         super(i, "Inferno", "Paladin", getSwords,
                 rightClick, 5, false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hold Block with Sword to Channel.",
                 "",
@@ -60,7 +60,7 @@ public class Inferno extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
@@ -78,7 +78,7 @@ public class Inferno extends Skill {
             UtilMessage.message(player, getName(), "You cannot use " + getName() + " in water.");
             return false;
         }
-        // TODO Auto-generated method stub
+
         return true;
     }
 
@@ -174,19 +174,19 @@ public class Inferno extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 9 - ((level - 1) * 1);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 }

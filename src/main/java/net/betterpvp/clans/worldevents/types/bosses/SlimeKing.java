@@ -493,26 +493,26 @@ public class SlimeKing extends Boss {
 
     @Override
     public double getBaseDamage() {
-        // TODO Auto-generated method stub
+
         return 10;
     }
 
     @Override
     public String getBossName() {
-        // TODO Auto-generated method stub
+
         return ChatColor.RED.toString() + ChatColor.BOLD + "Slime King";
     }
 
     @Override
     public EntityType getEntityType() {
-        // TODO Auto-generated method stub
+
         return EntityType.SLIME;
     }
 
 
     @Override
     public double getMaxHealth() {
-        // TODO Auto-generated method stub
+
         return 500;
     }
 
@@ -569,7 +569,7 @@ public class SlimeKing extends Boss {
 
 								@Override
 								public int compare(Location a, Location b) {
-									// TODO Auto-generated method stub
+
 									return (int) getBoss().getLocation().distance(a) - (int) getBoss().getLocation().distance(b);
 								}
 
@@ -631,7 +631,7 @@ public class SlimeKing extends Boss {
 
 											@Override
 											public int compare(Location a, Location b) {
-												// TODO Auto-generated method stub
+
 												return (int) 	wem.getEntity().getLocation().distance(a) - (int) 	wem.getEntity().getLocation().distance(b);
 											}
 

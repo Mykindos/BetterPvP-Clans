@@ -28,7 +28,7 @@ public class Leap extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -169,7 +169,7 @@ public class Leap extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
@@ -180,13 +180,13 @@ public class Leap extends Skill {
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 20 - (level - 1);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

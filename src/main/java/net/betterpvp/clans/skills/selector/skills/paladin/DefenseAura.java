@@ -23,7 +23,7 @@ public class DefenseAura extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate",
                 "",
@@ -36,7 +36,7 @@ public class DefenseAura extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
@@ -68,19 +68,19 @@ public class DefenseAura extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

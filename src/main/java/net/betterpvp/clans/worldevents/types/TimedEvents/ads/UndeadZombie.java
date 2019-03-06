@@ -20,7 +20,7 @@ public class UndeadZombie extends WorldEventMinion {
         ent.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1));
         ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

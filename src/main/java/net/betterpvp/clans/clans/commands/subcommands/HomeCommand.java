@@ -28,7 +28,7 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
 
     public HomeCommand(Clans instance) {
         super(instance);
-        // TODO Auto-generated constructor stub
+
     }
 
 

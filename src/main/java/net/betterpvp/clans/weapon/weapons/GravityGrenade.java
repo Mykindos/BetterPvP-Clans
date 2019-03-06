@@ -37,7 +37,7 @@ public class GravityGrenade extends Weapon {
         super(i, Material.STAINED_CLAY, (byte) 15, ChatColor.YELLOW + "Gravity Bomb", new String[]{
                 ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
                 ChatColor.GRAY + "  " + "Creates a field that disrupts all players caught inside"}, false, 10.0);
-        // TODO Auto-generated constructor stub
+
     }
 
 

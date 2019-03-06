@@ -24,14 +24,14 @@ public class Swordsmanship extends Skill {
 
     public Swordsmanship(Clans i) {
         super(i, "Swordsmanship", "Knight", getSwords, noActions, 3, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     private WeakHashMap<Player, Integer> charges = new WeakHashMap<>();
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Prepare a powerful sword attack,",
                 "You gain 1 charge every 3 seconds.",
@@ -47,31 +47,31 @@ public class Swordsmanship extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -125,7 +125,7 @@ public class Swordsmanship extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

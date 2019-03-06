@@ -37,12 +37,12 @@ public class ArcticArmour extends Skill {
         super(i, "Arctic Armour", "Paladin", getSwordsAndAxes,
                 noActions, 5,
                 false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Drop Axe/Sword to Toggle.",
                 "",
@@ -156,37 +156,37 @@ public class ArcticArmour extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) (3 - ((level - 1) * 0.5));
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

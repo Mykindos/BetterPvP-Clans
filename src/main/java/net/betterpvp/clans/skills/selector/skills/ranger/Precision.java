@@ -15,30 +15,30 @@ public class Precision extends Skill {
     public Precision(Clans i) {
         super(i, "Precision", "Ranger", noMaterials, noActions, 5,
                 false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{"Your arrows deal " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " bonus damage on hit"};
     }
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -65,19 +65,19 @@ public class Precision extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

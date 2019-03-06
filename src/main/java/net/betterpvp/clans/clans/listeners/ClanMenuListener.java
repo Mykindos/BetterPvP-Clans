@@ -31,7 +31,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
     public ClanMenuListener(Clans instance) {
         super(instance);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

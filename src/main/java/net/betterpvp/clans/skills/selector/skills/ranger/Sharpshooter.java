@@ -31,7 +31,7 @@ public class Sharpshooter extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{"For each consecutive hit,",
                 ChatColor.GREEN.toString() + (level * 0.75) + ChatColor.GRAY + " additional damage per charge"};
     }
@@ -114,25 +114,25 @@ public class Sharpshooter extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

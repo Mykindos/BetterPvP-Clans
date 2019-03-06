@@ -33,12 +33,12 @@ public class Polymorph extends Skill {
 
     public Polymorph(Clans i) {
         super(i, "Polymorph", "Paladin", getSwords, rightClick, 3, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to prepare.",
                 "",
@@ -113,19 +113,19 @@ public class Polymorph extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 45 - ((level - 1) * 7);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40 - ((level - 1) * 3);
     }
 
@@ -148,7 +148,7 @@ public class Polymorph extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

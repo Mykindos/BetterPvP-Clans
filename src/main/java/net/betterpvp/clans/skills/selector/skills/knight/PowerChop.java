@@ -25,12 +25,12 @@ public class PowerChop extends Skill {
 
     public PowerChop(Clans i) {
         super(i, "Power Chop", "Knight", getAxes, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Put more strength into your",
                 "next axe attack, causing it",
@@ -46,19 +46,19 @@ public class PowerChop extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 12 - ((level - 1) * 1.5);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 25 - ((level - 1) * 2);
     }
 
@@ -106,7 +106,7 @@ public class PowerChop extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

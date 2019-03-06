@@ -27,7 +27,7 @@ public class GlacialAxe extends Weapon {
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Walking",
                         ChatColor.WHITE + "When walking on water, a radius below",
                         ChatColor.WHITE + "you is temporarily transformed into ice", ""}, true, 6);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

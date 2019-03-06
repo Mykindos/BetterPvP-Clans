@@ -26,12 +26,12 @@ public class RepeatedStrikes extends Skill {
     public RepeatedStrikes(Clans i) {
         super(i, "Repeated Strikes", "Assassin", noMaterials, noActions, 3,
                 false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Each time you attack, your damage",
                 "increases by 1",
@@ -43,19 +43,19 @@ public class RepeatedStrikes extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -105,19 +105,19 @@ public class RepeatedStrikes extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

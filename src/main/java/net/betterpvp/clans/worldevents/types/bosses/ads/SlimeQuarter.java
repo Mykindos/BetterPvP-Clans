@@ -7,7 +7,7 @@ public class SlimeQuarter extends SlimeBase {
 
     public SlimeQuarter(Slime s) {
         super(s);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

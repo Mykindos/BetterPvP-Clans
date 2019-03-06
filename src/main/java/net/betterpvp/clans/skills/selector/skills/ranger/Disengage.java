@@ -33,12 +33,12 @@ public class Disengage extends Skill {
         super(i, "Disengage", "Ranger", getSwords,
                 rightClick, 5,
                 true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with sword to prepare",
                 "",
@@ -55,7 +55,7 @@ public class Disengage extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
@@ -120,19 +120,19 @@ public class Disengage extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 12;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

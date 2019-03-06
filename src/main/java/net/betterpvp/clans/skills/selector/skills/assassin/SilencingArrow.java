@@ -31,12 +31,12 @@ public class SilencingArrow extends Skill {
 
     public SilencingArrow(Clans i) {
         super(i, "Silencing Arrow", "Assassin", getBow, leftClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Your next arrow will silence your",
                 "target for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds.",
@@ -94,19 +94,19 @@ public class SilencingArrow extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.BOW;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 15 - ((level - 1) * 0.5);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
@@ -193,7 +193,7 @@ public class SilencingArrow extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

@@ -26,14 +26,14 @@ public class Deflection extends Skill {
 
     public Deflection(Clans i) {
         super(i, "Deflection", "Knight", noMaterials, noActions, 3, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     private WeakHashMap<Player, Integer> charges = new WeakHashMap<>();
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Prepare to deflect incoming attacks",
                 "You gain 1 charge every 3 seconds.",
@@ -47,31 +47,31 @@ public class Deflection extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -131,7 +131,7 @@ public class Deflection extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

@@ -36,12 +36,12 @@ public class Flash extends Skill {
         super(i, "Flash", "Assassin", getAxes,
                 rightClick, 5,
                 false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -57,7 +57,7 @@ public class Flash extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
@@ -348,19 +348,19 @@ public class Flash extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) (level < 1 ? 17 : 17 - (1.5 * (level - 1)));
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

@@ -19,12 +19,12 @@ public class SpiritOfTheBear extends Skill {
 
     public SpiritOfTheBear(Clans i) {
         super(i, "Spirit of the Bear", "Gladiator", getAxes, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -39,19 +39,19 @@ public class SpiritOfTheBear extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 20 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 50 - ((level - 1) * 3);
     }
 
@@ -73,13 +73,13 @@ public class SpiritOfTheBear extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

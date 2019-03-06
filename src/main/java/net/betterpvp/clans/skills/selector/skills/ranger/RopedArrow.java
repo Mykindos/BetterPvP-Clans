@@ -33,12 +33,12 @@ public class RopedArrow extends Skill {
 
     public RopedArrow(Clans i) {
         super(i, "Roped Arrow", "Ranger", getBow, leftClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Left click with Bow to prepare.",
                 "",
@@ -143,25 +143,25 @@ public class RopedArrow extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.BOW;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 17 - ((level - 1));
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

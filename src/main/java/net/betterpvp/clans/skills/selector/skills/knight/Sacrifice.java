@@ -14,12 +14,12 @@ public class Sacrifice extends Skill {
     public Sacrifice(Clans i) {
         super(i, "Sacrifice", "Knight", noMaterials, noActions, 3,
                 false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{"Deal an extra " + ChatColor.GREEN + level + 0 + "%" + ChatColor.GRAY + " damage",
                 "But you now also take",
                 ChatColor.GREEN.toString() + (1 + level) + "0%" + ChatColor.GRAY + " extra damage from melee attacks"
@@ -28,19 +28,19 @@ public class Sacrifice extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -73,19 +73,19 @@ public class Sacrifice extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

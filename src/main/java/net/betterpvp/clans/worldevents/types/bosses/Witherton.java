@@ -74,31 +74,31 @@ public class Witherton extends Boss {
 
     @Override
     public double getBaseDamage() {
-        // TODO Auto-generated method stub
+
         return 5;
     }
 
     @Override
     public String getBossName() {
-        // TODO Auto-generated method stub
+
         return ChatColor.RED.toString() + ChatColor.BOLD + "Charles Witherton";
     }
 
     @Override
     public EntityType getEntityType() {
-        // TODO Auto-generated method stub
+
         return EntityType.WITHER;
     }
 
     @Override
     public double getMaxHealth() {
-        // TODO Auto-generated method stub
+
         return 2000;
     }
 
     @Override
     public LivingEntity getBoss() {
-        // TODO Auto-generated method stub
+
         return wither;
     }
 

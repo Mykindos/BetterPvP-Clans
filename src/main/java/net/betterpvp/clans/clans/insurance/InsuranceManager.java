@@ -13,7 +13,7 @@ public class InsuranceManager {
 
             @Override
             public int compare(Insurance a, Insurance b) {
-                // TODO Auto-generated method stub
+
                 return (int) b.getTime() - (int) a.getTime();
             }
 

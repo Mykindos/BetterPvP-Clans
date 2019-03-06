@@ -30,12 +30,12 @@ public class Blizzard extends Skill {
 
     public Blizzard(Clans i) {
         super(i, "Blizzard", "Paladin", getSwords, rightClick, 5, false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hold Right click with Sword to Activate.",
                 "",
@@ -48,25 +48,25 @@ public class Blizzard extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 9 - ((level - 1) * 1);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
@@ -131,7 +131,7 @@ public class Blizzard extends Skill {
             UtilMessage.message(p, getClassType(), "You cannot use " + getName() + " in water.");
             return false;
         }
-        // TODO Auto-generated method stub
+
         return true;
     }
 

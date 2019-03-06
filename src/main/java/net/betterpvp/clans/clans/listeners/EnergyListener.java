@@ -23,7 +23,7 @@ public class EnergyListener extends BPVPListener<Clans> {
 
     public EnergyListener(Clans instance) {
         super(instance);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

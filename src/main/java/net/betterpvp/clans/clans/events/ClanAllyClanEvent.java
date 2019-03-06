@@ -14,7 +14,7 @@ public class ClanAllyClanEvent extends Event implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
-        // TODO Auto-generated method stub
+
         return handlers;
     }
 

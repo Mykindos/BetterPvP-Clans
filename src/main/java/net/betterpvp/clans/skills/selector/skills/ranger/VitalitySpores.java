@@ -19,12 +19,12 @@ public class VitalitySpores extends Skill {
 
     public VitalitySpores(Clans i) {
         super(i, "Vitality Spores", "Ranger", noMaterials, noActions, 5, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "After " + ChatColor.GREEN + (7 - level) + ChatColor.GRAY + " seconds of not taking damage,",
                 "forest spores surround you, giving",
@@ -50,37 +50,37 @@ public class VitalitySpores extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

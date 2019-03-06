@@ -23,7 +23,7 @@ public class SkeletonMinion extends WorldEventMinion {
         ent.setCustomNameVisible(true);
         ent.setRemoveWhenFarAway(false);
         ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

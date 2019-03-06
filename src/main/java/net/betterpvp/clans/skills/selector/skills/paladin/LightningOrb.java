@@ -30,7 +30,7 @@ public class LightningOrb extends Skill {
 
     public LightningOrb(Clans i) {
         super(i, "Lightning Orb", "Paladin", getAxes, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

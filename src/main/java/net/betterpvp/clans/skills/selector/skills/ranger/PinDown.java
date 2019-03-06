@@ -25,14 +25,14 @@ public class PinDown extends Skill {
 
     public PinDown(Clans i) {
         super(i, "Pin Down", "Ranger", getBow, leftClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     private List<Arrow> active = new ArrayList<>();
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Left click with bow to instantly fire",
                 "an arrow, which gives anybody hit ",
@@ -54,19 +54,19 @@ public class PinDown extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.BOW;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 13 - ((level - 1) * 1.5);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 35 - ((level - 1));
     }
 
@@ -134,7 +134,7 @@ public class PinDown extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

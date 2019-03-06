@@ -11,7 +11,7 @@ public class EnchantedWeapon extends Weapon {
                            String[] lore, double bonus, double chance) {
         super(i, material, data, name, lore, false, chance);
         this.bonus = bonus;
-        // TODO Auto-generated constructor stub
+
     }
 
     public double getBonus() {

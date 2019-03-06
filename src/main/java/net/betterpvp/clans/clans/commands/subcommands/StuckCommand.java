@@ -163,7 +163,7 @@ public class StuckCommand extends BPVPListener<Clans> implements IClanCommand {
 
                 @Override
                 public int compare(Location a, Location b) {
-                    // TODO Auto-generated method stub
+
                     return (int) p.getLocation().distance(a) - (int) p.getLocation().distance(b);
                 }
 

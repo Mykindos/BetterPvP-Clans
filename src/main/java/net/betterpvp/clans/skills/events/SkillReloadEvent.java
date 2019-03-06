@@ -8,7 +8,7 @@ public class SkillReloadEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
-        // TODO Auto-generated method stub
+
         return handlers;
     }
 

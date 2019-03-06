@@ -17,6 +17,8 @@ import java.util.HashMap;
 public class FieldsRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_fields";
+    public static HashMap<Location, Integer> blocks = new HashMap<>();
+    private static World world = Bukkit.getWorld("world");
 
     public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
             "  `ID` int(10)," +
@@ -25,9 +27,9 @@ public class FieldsRepository implements Repository<Clans> {
             "  `Z` double(10, 0)" +
             ");";
 
-    private static World world = Bukkit.getWorld("world");
 
-    public static HashMap<Location, Integer> blocks = new HashMap<>();
+
+
 
     @Override
     public void initialize() {

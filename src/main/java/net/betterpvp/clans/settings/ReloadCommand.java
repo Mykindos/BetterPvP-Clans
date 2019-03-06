@@ -23,7 +23,7 @@ public class ReloadCommand extends Command {
 
     @Override
     public void help(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 

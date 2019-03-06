@@ -24,7 +24,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
 
     public ClanScoreboardListener(Clans instance) {
         super(instance);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

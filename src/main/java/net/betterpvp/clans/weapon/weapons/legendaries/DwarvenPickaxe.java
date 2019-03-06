@@ -24,7 +24,7 @@ public class DwarvenPickaxe extends Weapon {
                         ChatColor.RESET + "break any stone related blocks. ",
                         ""}
                 , true, 8.0);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

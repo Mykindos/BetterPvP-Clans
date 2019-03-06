@@ -13,7 +13,7 @@ public class BossWitherSkull extends EntityWitherSkull {
     public BossWitherSkull(World world, ProjectileSource src) {
         super(world);
         this.projectileSource = src;
-        // TODO Auto-generated constructor stub
+
     }
 
     public BossWitherSkull(World world, EntityLiving entityliving, double d0, double d1, double d2, ProjectileSource src) {

@@ -12,7 +12,7 @@ public class CustomPlayer extends EntityPlayer {
                         WorldServer worldserver, GameProfile gameprofile,
                         PlayerInteractManager playerinteractmanager) {
         super(minecraftserver, worldserver, gameprofile, playerinteractmanager);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

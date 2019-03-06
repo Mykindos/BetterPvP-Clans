@@ -45,32 +45,32 @@ public class FeatherFalling extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{"Avoid fall damage",
                 "Prevent fall damage by: " + ChatColor.GREEN + (7 + level) + "0%"};
     }
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

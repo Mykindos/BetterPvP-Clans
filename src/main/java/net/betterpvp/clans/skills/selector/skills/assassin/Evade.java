@@ -41,7 +41,7 @@ public class Evade extends Skill {
         super(i, "Evade", "Assassin", getSwords,
                 rightClick, 3,
                 false, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler
@@ -56,7 +56,7 @@ public class Evade extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to toggle.",
                 "",
@@ -71,19 +71,19 @@ public class Evade extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 2;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) (6 - ((level - 1) * 1));
     }
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
@@ -315,7 +315,7 @@ public class Evade extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 

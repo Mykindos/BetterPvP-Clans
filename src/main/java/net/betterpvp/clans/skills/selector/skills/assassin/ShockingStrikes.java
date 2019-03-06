@@ -20,12 +20,12 @@ public class ShockingStrikes extends Skill {
 
     public ShockingStrikes(Clans i) {
         super(i, "Shocking Strikes", "Assassin", noMaterials, noActions, 3, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Your attacks shock targets for",
                 ChatColor.GREEN.toString() + (level) + ChatColor.GRAY + " second, giving them Slow I",
@@ -55,37 +55,37 @@ public class ShockingStrikes extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

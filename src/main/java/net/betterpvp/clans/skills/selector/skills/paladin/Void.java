@@ -25,14 +25,14 @@ public class Void extends Skill {
 
     public Void(Clans i) {
         super(i, "Void", "Paladin", getSwordsAndAxes, noActions, 5, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     private Set<UUID> active = new HashSet<>();
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Drop Axe/Sword to Toggle.",
                 "",
@@ -133,37 +133,37 @@ public class Void extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) (11 - ((level - 1) * 0.5));
     }
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

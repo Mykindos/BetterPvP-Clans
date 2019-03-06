@@ -34,12 +34,12 @@ public class Blink extends Skill {
         super(i, "Blink", "Assassin", getAxes,
                 rightClick, 5,
                 true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -55,7 +55,7 @@ public class Blink extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
@@ -288,19 +288,19 @@ public class Blink extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 13 - ((level - 1));
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return (float) (level < 1 ? 35 : 35 - (1.5 * (level - 1)));
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

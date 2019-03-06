@@ -22,12 +22,12 @@ public class Thorns extends Skill {
 
     public Thorns(Clans i) {
         super(i, "Thorns", "Knight", noMaterials, noActions, 3, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Enemies take " + ChatColor.GREEN + (level) + ChatColor.GRAY + " damage when",
                 "they hit you using a melee attack."
@@ -36,31 +36,31 @@ public class Thorns extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -102,7 +102,7 @@ public class Thorns extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

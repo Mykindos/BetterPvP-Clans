@@ -20,7 +20,7 @@ public class PortableShopMenu extends Menu {
             i++;
         }
         construct();
-        // TODO Auto-generated constructor stub
+
     }
 
 }

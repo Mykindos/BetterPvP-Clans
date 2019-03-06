@@ -29,12 +29,12 @@ public class SilencingStrikes extends Skill {
 
     public SilencingStrikes(Clans i) {
         super(i, "Silencing Strikes", "Assassin", noMaterials, noActions, 3, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hit a player 3 times within 2 seconds",
                 "to silence them for " + ChatColor.GREEN + (level) + ChatColor.GRAY + " seconds."
@@ -104,37 +104,37 @@ public class SilencingStrikes extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

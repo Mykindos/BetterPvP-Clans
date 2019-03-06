@@ -91,7 +91,7 @@ public class AllianceRepository implements Repository<Clans> {
 
     @Override
     public LoadPriority getLoadPriority() {
-        // TODO Auto-generated method stub
+
         return LoadPriority.HIGHEST;
     }
 

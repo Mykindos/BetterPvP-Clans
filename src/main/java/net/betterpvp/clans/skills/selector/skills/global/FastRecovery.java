@@ -17,7 +17,7 @@ public class FastRecovery extends Skill {
 
     public FastRecovery(Clans i) {
         super(i, "Fast Recovery", "Global", noMaterials, noActions, 5, false, false);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

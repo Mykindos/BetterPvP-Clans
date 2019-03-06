@@ -22,7 +22,7 @@ public class LegendaryShopItem extends ShopItem {
 
     @Override
     public int getSellPrice() {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 

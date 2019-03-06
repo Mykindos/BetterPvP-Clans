@@ -43,12 +43,12 @@ public class Rupture extends Skill {
     public Rupture(Clans i) {
         super(i, "Rupture", "Paladin", getAxes, rightClick, 5,
                 true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -64,7 +64,7 @@ public class Rupture extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
@@ -192,19 +192,19 @@ public class Rupture extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 14 - ((level - 1) * 1);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

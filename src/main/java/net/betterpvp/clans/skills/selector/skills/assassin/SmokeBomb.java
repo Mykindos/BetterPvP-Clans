@@ -196,7 +196,7 @@ public class SmokeBomb extends Skill {
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Instantly vanish before your foes for a",
                 "maximum of " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds",
@@ -210,7 +210,7 @@ public class SmokeBomb extends Skill {
 
     @Override
     public void activateSkill(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 
@@ -252,26 +252,26 @@ public class SmokeBomb extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_B;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 45 - ((level - 1) * 2.5);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 85 - ((level - 1) * 5);
     }
 
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

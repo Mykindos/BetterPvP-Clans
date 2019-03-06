@@ -15,12 +15,12 @@ public class ThreateningShout extends Skill {
 
     public ThreateningShout(Clans i) {
         super(i, "Threatening Shout", "Gladiator", getAxes, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Axe to Activate.",
                 "",
@@ -36,19 +36,19 @@ public class ThreateningShout extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.AXE;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 19 - ((level - 1));
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40 - ((level - 1) * 2);
     }
 
@@ -66,13 +66,13 @@ public class ThreateningShout extends Skill {
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

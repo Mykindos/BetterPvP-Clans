@@ -24,7 +24,7 @@ public class Backstab extends Skill {
         super(i, "Backstab", "Assassin",
                 getSwords,
                 noActions, 5, true, false);
-        // TODO Auto-generated constructor stub
+
 
     }
 
@@ -66,19 +66,19 @@ public class Backstab extends Skill {
 
     @Override
     public void activateSkill(Player p) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hitting an enemy from behind will increased",
                 "your damage dealt by " + ChatColor.GREEN + (2 + level) + "0%"};
@@ -86,25 +86,25 @@ public class Backstab extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.PASSIVE_A;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

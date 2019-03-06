@@ -32,12 +32,12 @@ public class MarkedForDeath extends Skill {
 
     public MarkedForDeath(Clans i) {
         super(i, "Marked for Death", "Assassin", getBow, leftClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Your next arrow will mark players",
                 "for death, giving them Vulnerability II",
@@ -60,19 +60,19 @@ public class MarkedForDeath extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.BOW;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 30 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 50 - ((level - 1) * 3);
     }
 
@@ -198,7 +198,7 @@ public class MarkedForDeath extends Skill {
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

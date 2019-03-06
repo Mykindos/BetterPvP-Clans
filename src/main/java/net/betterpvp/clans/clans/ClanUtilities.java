@@ -405,7 +405,7 @@ public class ClanUtilities {
 
             @Override
             public int compare(Clan a, Clan b) {
-                // TODO Auto-generated method stub
+
                 return b.getPoints() - a.getPoints();
             }
 

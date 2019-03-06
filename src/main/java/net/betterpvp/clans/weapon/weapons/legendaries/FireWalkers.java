@@ -27,7 +27,7 @@ public class FireWalkers extends Weapon {
                         ChatColor.WHITE + "forged from the volcano of Erebisa thousands of years ago",
                         "",
                         ChatColor.WHITE + "Wherever you may walk, fire shall shadow you."}, true, 4.0);
-        // TODO Auto-generated constructor stub
+
     }
 
     @EventHandler

@@ -7,7 +7,7 @@ public class SlimeShield extends SlimeBase {
 
     public SlimeShield(Slime s) {
         super(s);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override

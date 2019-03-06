@@ -27,12 +27,12 @@ public class Takedown extends Skill {
 
     public Takedown(Clans i) {
         super(i, "Takedown", "Gladiator", getSwords, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Right click with Sword to Activate.",
                 "",
@@ -50,19 +50,19 @@ public class Takedown extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 25 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40 - ((level - 1) * 3);
     }
 
@@ -145,13 +145,13 @@ public class Takedown extends Skill {
             UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while grounded.");
             return false;
         }
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

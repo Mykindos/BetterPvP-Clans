@@ -115,7 +115,7 @@ public class MemberRepository implements Repository<Clans> {
 
     @Override
     public LoadPriority getLoadPriority() {
-        // TODO Auto-generated method stub
+
         return LoadPriority.HIGHEST;
     }
 

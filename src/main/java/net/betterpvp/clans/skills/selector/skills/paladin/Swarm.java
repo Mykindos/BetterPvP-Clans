@@ -35,12 +35,12 @@ public class Swarm extends Skill {
 
     public Swarm(Clans i) {
         super(i, "Swarm", "Paladin", getSwords, rightClick, 5, true, true);
-        // TODO Auto-generated constructor stub
+
     }
 
     @Override
     public String[] getDescription(int level) {
-        // TODO Auto-generated method stub
+
         return new String[]{
                 "Hold Block with Sword to Channel",
                 "",
@@ -55,19 +55,19 @@ public class Swarm extends Skill {
 
     @Override
     public Types getType() {
-        // TODO Auto-generated method stub
+
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 10 - ((level - 1) * 1);
     }
 
@@ -235,13 +235,13 @@ public class Swarm extends Skill {
 
     @Override
     public boolean usageCheck(Player p) {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 

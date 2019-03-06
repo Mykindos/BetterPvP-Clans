@@ -114,7 +114,7 @@ public class BossCommands extends Command {
 
     @Override
     public void help(Player player) {
-        // TODO Auto-generated method stub
+
 
     }
 

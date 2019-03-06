@@ -87,21 +87,21 @@ public class Cyclone extends Skill {
 
     @Override
     public double getRecharge(int level) {
-        // TODO Auto-generated method stub
+
         return 12 - ((level - 1) * 1);
     }
 
 
     @Override
     public float getEnergy(int level) {
-        // TODO Auto-generated method stub
+
         return 40 - ((level - 1) * 5);
     }
 
 
     @Override
     public boolean requiresShield() {
-        // TODO Auto-generated method stub
+
         return false;
     }
 }

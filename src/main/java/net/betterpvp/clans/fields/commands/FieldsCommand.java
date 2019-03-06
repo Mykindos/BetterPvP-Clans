@@ -14,7 +14,7 @@ public class FieldsCommand extends Command {
 
     public FieldsCommand() {
         super("fields", new String[]{}, Rank.ADMIN);
-        // TODO Auto-generated constructor stub
+
     }
 
     @SuppressWarnings("deprecation")
