@@ -6,38 +6,38 @@ import org.bukkit.entity.CaveSpider;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Broodling extends WorldEventMinion{
+public class Broodling extends WorldEventMinion {
 
-	private long systemTime;
-	
-	public Broodling(CaveSpider ent, long systemTime) {
-		super(ent);
-		this.systemTime = systemTime;
-		ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-	}
+    private long systemTime;
 
-	@Override
-	public String getDisplayName() {
-		
-		return ChatColor.RED + "Broodling";
-	}
-	
-	public CaveSpider getSpider(){
-		return (CaveSpider) getEntity();
-	}
+    public Broodling(CaveSpider ent, long systemTime) {
+        super(ent);
+        this.systemTime = systemTime;
+        ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+    }
 
-	@Override
-	public double getMaxHealth() {
-		
-		return 5;
-	}
-	
-	public long getSystemTime(){
-		return systemTime;
-	}
-	
-	public void setSystemTime(long l){
-		this.systemTime = l;
-	}
+    @Override
+    public String getDisplayName() {
+
+        return ChatColor.RED + "Broodling";
+    }
+
+    public CaveSpider getSpider() {
+        return (CaveSpider) getEntity();
+    }
+
+    @Override
+    public double getMaxHealth() {
+
+        return 5;
+    }
+
+    public long getSystemTime() {
+        return systemTime;
+    }
+
+    public void setSystemTime(long l) {
+        this.systemTime = l;
+    }
 
 }

@@ -15,9 +15,16 @@ public class ShopKeeperRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_shopkeepers";
 
+    private static final String CREATE_SHOPKEEPER_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+            "  `Name` varchar(255)," +
+            "  `X` double(10,2)," +
+            "  `Y` double(10,2)," +
+            "  `Z` double(10,2)" +
+            ") ";
+
     @Override
     public void initialize() {
-
+        QueryFactory.runQuery(CREATE_SHOPKEEPER_TABLE);
     }
 
     @Override
@@ -70,6 +77,7 @@ public class ShopKeeperRepository implements Repository<Clans> {
 
     @Override
     public LoadPriority getLoadPriority() {
-        return null;
+
+        return LoadPriority.HIGHEST;
     }
 }

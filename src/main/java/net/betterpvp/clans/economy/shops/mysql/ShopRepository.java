@@ -13,7 +13,36 @@ import java.sql.SQLException;
 public class ShopRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_shops";
+    
+    private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXIST " + TABLE_NAME + " (" +
+            "  `Store` varchar(255)," +
+            "  `ItemID` int(5)," +
+            "  `Data` int(5)," +
+            "  `Slot` int(5)," +
+            "  `Amount` int(5)," +
+            "  `BuyPrice` int(255)," +
+            "  `SellPrice` int(255)," +
+            "  `ItemName` varchar(255)," +
+            "  `Legendary` tinyint(1)," +
+            "  `Glow` tinyint(1)," +
+            "  `Dynamic` tinyint(1)," +
+            "  `Quest` tinyint(1)," +
+            "  `MinSellPrice` int(255)," +
+            "  `BaseSellPrice` int(255)," +
+            "  `MaxSellPrice` int(255)," +
+            "  `MinBuyPrice` int(255)," +
+            "  `BaseBuyPrice` int(255)," +
+            "  `MaxBuyPrice` int(255)," +
+            "  `BaseStock` int(255)," +
+            "  `MaxStock` int(255)," +
+            "  `CurrentStock` int(255)" +
+            ")";
 
+
+    @Override
+    public void initialize() {
+        QueryFactory.runQuery(CREATE_SHOP_TABLE);
+    }
 
     public static void updateStock(DynamicShopItem s) {
         String query = "UPDATE " + TABLE_NAME + " set currentStock='" + s.getCurrentStock() + "' WHERE Store='" + s.getStore() + "' AND ItemName ='" + s.getItemName() + "'";
@@ -77,10 +106,6 @@ public class ShopRepository implements Repository<Clans> {
         }.runTaskAsynchronously(clans);
     }
 
-    @Override
-    public void initialize() {
-
-    }
 
     @Override
     public void load(Clans clans) {
@@ -90,6 +115,7 @@ public class ShopRepository implements Repository<Clans> {
 
     @Override
     public LoadPriority getLoadPriority() {
-        return null;
+
+        return LoadPriority.HIGH;
     }
 }

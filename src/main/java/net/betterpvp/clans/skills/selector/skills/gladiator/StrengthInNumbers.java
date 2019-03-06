@@ -12,72 +12,72 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-public class StrengthInNumbers extends Skill{
+public class StrengthInNumbers extends Skill {
 
-	public StrengthInNumbers(Clans i) {
-		super(i, "Strength in Numbers", "Gladiator", getAxes, rightClick, 5, true, true);
-		// TODO Auto-generated constructor stub
-	}
+    public StrengthInNumbers(Clans i) {
+        super(i, "Strength in Numbers", "Gladiator", getAxes, rightClick, 5, true, true);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public String[] getDescription(int level) {
-		// TODO Auto-generated method stub
-		return new String[]{
-				"Right click with Axe to Activate.",
-				"",
-				"Grant all allies within 6 blocks",
-				"Strength I for " + ChatColor.GREEN + (2 + level),
-				"seconds.",
-				"",
-				"This does not give you the buff.",
-				"",
-				"Cooldown: " + ChatColor.GREEN + getRecharge(level),
-				"Energy: " + ChatColor.GREEN + getEnergy(level)
-		};
-	}
+    @Override
+    public String[] getDescription(int level) {
+        // TODO Auto-generated method stub
+        return new String[]{
+                "Right click with Axe to Activate.",
+                "",
+                "Grant all allies within 6 blocks",
+                "Strength I for " + ChatColor.GREEN + (2 + level),
+                "seconds.",
+                "",
+                "This does not give you the buff.",
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
+                "Energy: " + ChatColor.GREEN + getEnergy(level)
+        };
+    }
 
-	@Override
-	public Types getType() {
-		// TODO Auto-generated method stub
-		return Types.AXE;
-	}
+    @Override
+    public Types getType() {
+        // TODO Auto-generated method stub
+        return Types.AXE;
+    }
 
-	@Override
-	public double getRecharge(int level) {
-		// TODO Auto-generated method stub
-		return 20 - ((level -1));
-	}
+    @Override
+    public double getRecharge(int level) {
+        // TODO Auto-generated method stub
+        return 20 - ((level - 1));
+    }
 
-	@Override
-	public float getEnergy(int level) {
-		// TODO Auto-generated method stub
-		return 30 - ((level -1) * 2);
-	}
+    @Override
+    public float getEnergy(int level) {
+        // TODO Auto-generated method stub
+        return 30 - ((level - 1) * 2);
+    }
 
-	@Override
-	public void activateSkill(Player p) {
-		UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
-		p.getWorld().playSound(p.getLocation(), Sound.WITHER_SPAWN, 1.0F, 2.0F);
+    @Override
+    public void activateSkill(Player p) {
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
+        p.getWorld().playSound(p.getLocation(), Sound.WITHER_SPAWN, 1.0F, 2.0F);
 
-		for(Player d : UtilPlayer.getInRadius(p.getLocation(), 10)){
-			if(d.equals(p)) continue;
-			if(!ClanUtilities.canHurt(p, d)){
-				EffectManager.addEffect(d, EffectType.STRENGTH, 1, (2 + getLevel(p)) * 1000);
-			}
-		}
-		
-	}
+        for (Player d : UtilPlayer.getInRadius(p.getLocation(), 10)) {
+            if (d.equals(p)) continue;
+            if (!ClanUtilities.canHurt(p, d)) {
+                EffectManager.addEffect(d, EffectType.STRENGTH, 1, (2 + getLevel(p)) * 1000);
+            }
+        }
 
-	@Override
-	public boolean usageCheck(Player p) {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    }
 
-	@Override
-	public boolean requiresShield() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean usageCheck(Player p) {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean requiresShield() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

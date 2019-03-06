@@ -9,33 +9,33 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class SkeletonMinion extends WorldEventMinion{
+public class SkeletonMinion extends WorldEventMinion {
 
 
-	public SkeletonMinion(Skeleton ent) {
-		super(ent);
-	
-		ent.setSkeletonType(SkeletonType.WITHER);
-		ent.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-		ent.setMaxHealth(getMaxHealth());
-		ent.setHealth(getMaxHealth());
-		ent.setCustomName(getDisplayName());
-		ent.setCustomNameVisible(true);
-		ent.setRemoveWhenFarAway(false);
-		ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-		// TODO Auto-generated constructor stub
-	}
+    public SkeletonMinion(Skeleton ent) {
+        super(ent);
 
-	@Override
-	public String getDisplayName() {
-		
-		return ChatColor.BLUE + "Skeleton King";
-	}
+        ent.setSkeletonType(SkeletonType.WITHER);
+        ent.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
+        ent.setMaxHealth(getMaxHealth());
+        ent.setHealth(getMaxHealth());
+        ent.setCustomName(getDisplayName());
+        ent.setCustomNameVisible(true);
+        ent.setRemoveWhenFarAway(false);
+        ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public double getMaxHealth() {
-		
-		return 200;
-	}
+    @Override
+    public String getDisplayName() {
+
+        return ChatColor.BLUE + "Skeleton King";
+    }
+
+    @Override
+    public double getMaxHealth() {
+
+        return 200;
+    }
 
 }

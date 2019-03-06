@@ -16,9 +16,6 @@ public class TravelHubMenu extends Menu {
 
         addButton(new Button(13, new ItemStack(Material.WOOL, 1, (byte) 11), ChatColor.AQUA + "Blue Spawn", ChatColor.WHITE + "Teleport to the Blue Spawn"));
         addButton(new Button(31, new ItemStack(Material.WOOL, 1, (byte) 14), ChatColor.RED + "Red Spawn", ChatColor.WHITE + "Teleport to the Red Spawn"));
-        // TODO Auto-generated constructor stub
-
-        // TODO Auto-generated constructor stub
 
         construct();
     }

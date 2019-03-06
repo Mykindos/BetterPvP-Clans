@@ -2,25 +2,25 @@ package net.betterpvp.clans.economy.shops.menu.buttons;
 
 import net.battleau.clans.dailies.perks.QuestPerkManager;
 
-public class QuestShopItem extends ShopItem{
-	
-	public QuestShopItem(String store, int itemID, byte data, int slot,
-			int amount, String itemName, int buyPrice) {
-		super(store, itemID, data, slot, amount, itemName, QuestPerkManager.getPerk(itemName).getDescription(buyPrice));
-		this.buyPrice = buyPrice;
-	}
+public class QuestShopItem extends ShopItem {
 
-	private int buyPrice;
+    public QuestShopItem(String store, int itemID, byte data, int slot,
+                         int amount, String itemName, int buyPrice) {
+        super(store, itemID, data, slot, amount, itemName, QuestPerkManager.getPerk(itemName).getDescription(buyPrice));
+        this.buyPrice = buyPrice;
+    }
 
-	
-	public int getBuyPrice(){
-		return buyPrice;
-	}
+    private int buyPrice;
 
-	@Override
-	public int getSellPrice() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+    public int getBuyPrice() {
+        return buyPrice;
+    }
+
+    @Override
+    public int getSellPrice() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

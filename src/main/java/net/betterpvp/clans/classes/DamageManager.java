@@ -6,10 +6,11 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.shops.ShopManager;
 import net.betterpvp.clans.skills.selector.skills.assassin.Mirage;
+import net.betterpvp.clans.utilities.UtilGamer;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -263,7 +264,7 @@ public class DamageManager implements Listener {
                         }
                     }
 
-                    double damage = e.isIgnoreArmour() ? e.getDamage() : UtilPlayer.getDamageReduced(e.getDamage(), e.getDamagee());
+                    double damage = e.isIgnoreArmour() ? e.getDamage() : UtilGamer.getDamageReduced(e.getDamage(), e.getDamagee());
                     if (e.getCause() == DamageCause.POISON) {
                         if (e.getDamagee().getHealth() < 2) {
                             return;
@@ -331,7 +332,7 @@ public class DamageManager implements Listener {
                     if (p.getItemInHand().getType() == Material.BOOK) {
                         p.sendMessage("");
                         p.sendMessage("Damage: " + e.getDamage());
-                        p.sendMessage("Damage Reduced: " + UtilPlayer.getDamageReduced(e.getDamage(), e.getDamagee()));
+                        p.sendMessage("Damage Reduced: " + UtilGamer.getDamageReduced(e.getDamage(), e.getDamagee()));
                         p.sendMessage("Delay: " + e.getDamageDelay());
                         p.sendMessage("Cause: " + e.getCause().name());
 

@@ -1,7 +1,9 @@
 package net.betterpvp.clans.economy;
 
-import net.battleau.clans.client.Client;
-import net.battleau.clans.client.ClientUtilities;
+
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import org.bukkit.OfflinePlayer;
@@ -93,10 +95,11 @@ public class BetterPvP_Economy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String arg0, double arg1) {
-        Client client = ClientUtilities.getClient(arg0);
-        if (client != null) {
-            client.getGamer().addCoins(arg1);
-            return new EconomyResponse(arg1, client.getGamer().getCoins(), ResponseType.SUCCESS, "");
+        Gamer gamer = GamerManager.getGamer(arg0);
+
+        if (gamer != null) {
+            gamer.addCoins(arg1);
+            return new EconomyResponse(arg1, gamer.getCoins(), ResponseType.SUCCESS, "");
         }
         return new EconomyResponse(0, 0, ResponseType.FAILURE, "Could not locate client");
     }
@@ -135,9 +138,9 @@ public class BetterPvP_Economy implements Economy {
 
     @Override
     public double getBalance(String arg0) {
-        Client client = ClientUtilities.getClient(arg0);
-        if (client != null) {
-            return client.getGamer().getCoins();
+        Gamer gamer = GamerManager.getGamer(arg0);
+        if (gamer != null) {
+            return gamer.getCoins();
         }
         return 0;
     }
@@ -173,9 +176,9 @@ public class BetterPvP_Economy implements Economy {
 
     @Override
     public boolean has(String arg0, double arg1) {
-        Client client = ClientUtilities.getClient(arg0);
-        if (client != null) {
-            return client.getGamer().hasCoins((int) arg1);
+        Gamer gamer = GamerManager.getGamer(arg0);
+        if (gamer != null) {
+            return gamer.hasCoins((int) arg1);
         }
 
         return false;
@@ -202,9 +205,9 @@ public class BetterPvP_Economy implements Economy {
 
     @Override
     public boolean hasAccount(String arg0) {
-        Client client = ClientUtilities.getClient(arg0);
+        Gamer gamer = GamerManager.getOnlineGamer(arg0);
 
-        return client != null;
+        return gamer != null;
     }
 
     @Override
@@ -263,10 +266,10 @@ public class BetterPvP_Economy implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String arg0, double arg1) {
-        Client client = ClientUtilities.getClient(arg0);
-        if (client != null) {
-            client.getGamer().removeCoins(arg1);
-            return new EconomyResponse(arg1, client.getGamer().getCoins(), ResponseType.SUCCESS, "");
+        Gamer gamer = GamerManager.getGamer(arg0);
+        if (gamer != null) {
+            gamer.removeCoins(arg1);
+            return new EconomyResponse(arg1, gamer.getCoins(), ResponseType.SUCCESS, "");
         }
         return new EconomyResponse(0, 0, ResponseType.FAILURE, "Could not locate client");
     }
