@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.menu.buttons;
 
-import net.battleau.clans.dailies.perks.QuestPerkManager;
+import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 
 public class QuestShopItem extends ShopItem {
 

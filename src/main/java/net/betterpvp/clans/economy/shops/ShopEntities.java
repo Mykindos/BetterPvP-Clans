@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops;
 
-import net.battleau.clans.Clans;
+import net.betterpvp.clans.Clans;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;

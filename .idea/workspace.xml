@@ -2,149 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="faa414e0-4fce-484a-8e34-a552e23623ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/ClanUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/ClanUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/ClanReloadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/ClanReloadCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/HomeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/HomeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/StuckCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/commands/subcommands/StuckCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanAllyClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanAllyClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanCreateEvent" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanCreateEvent" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanDeleteEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanDeleteEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanEnemyClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanEnemyClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanKickMemberEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanKickMemberEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanNeutralClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanNeutralClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanTrustClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/ClanTrustClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/MemberJoinClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/MemberJoinClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/MemberLeaveClanEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/events/MemberLeaveClanEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/insurance/InsuranceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/insurance/InsuranceManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/ClanMenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/ClanMenuListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/ClanScoreboardListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/ClanScoreboardListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/EnergyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/listeners/EnergyListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/map/commands/MapCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/map/commands/MapCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/ClaimButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/ClaimButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/EnergyMenuButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/EnergyMenuButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/LeaveButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/LeaveButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/MemberButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/menus/buttons/MemberButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/AllianceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/AllianceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/InsuranceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/InsuranceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/clans/mysql/MemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/PortableShopMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/PortableShopMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/Quest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/QuestManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/commands/DailyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/menus/QuestMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/mysql/QuestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/BaseFishing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerkManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/ShopDiscount5.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/Swim.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/Progress.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/types/GeneralProgression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/General.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill20Pigmen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill3Assassins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill3Gladiators.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill3Knights.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill3Paladins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill3Rangers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill5Skeletons.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill5Spiders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill5Zombies.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillAGhast.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillPlayers15.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillsAsAssassin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillsAsGladiator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillsAsKnight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillsAsPaladin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/KillsAsRanger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsCoalOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsDiamondOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsEmeraldOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsGoldOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsIronOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/FieldsRedstoneOre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Carrot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Netherwarts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Potato.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Wheat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/LakeCatchFish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/ShopEntities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/QuestShopItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/QuestShopItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/effects/commands/ProtectionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/effects/commands/ProtectionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/commands/FieldsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/commands/FieldsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/mysql/FieldsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/mysql/FieldsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/settings/ReloadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/settings/ReloadCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillDequipEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillDequipEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillEquipEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillEquipEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillReloadEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillReloadEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/mysql/BuildRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/mysql/BuildRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Backstab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Backstab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Blink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Blink.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Concussion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Concussion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Evade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Evade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/FeatherFalling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/FeatherFalling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Flash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Flash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Leap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Leap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/MarkedForDeath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/MarkedForDeath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Mirage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Mirage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Recall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Recall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/RepeatedStrikes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/RepeatedStrikes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Sever.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Sever.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/ShockingStrikes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/ShockingStrikes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SilencingArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SilencingArrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SilencingStrikes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SilencingStrikes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SmokeBomb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SmokeBomb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/ToxicArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/ToxicArrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/BattleTaunt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/BattleTaunt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Bloodlust.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Bloodlust.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Colossus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Colossus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/CripplingBlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/CripplingBlow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/FleshHook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/FleshHook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Overwhelm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Overwhelm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Resistance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Resistance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SeismicSlam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SeismicSlam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SpiritOfTheBear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SpiritOfTheBear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SpiritOfTheWolf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/SpiritOfTheWolf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Stampede.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Stampede.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/StrengthInNumbers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/StrengthInNumbers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Takedown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/Takedown.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/ThreateningShout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/gladiator/ThreateningShout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/BreakFall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/BreakFall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/FastRecovery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/FastRecovery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/Swim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/global/Swim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/BullsCharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/BullsCharge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Cleave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Cleave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/DefensiveStance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/DefensiveStance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Deflection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Deflection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Fortitude.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Fortitude.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Fury.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Fury.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/HiltSmash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/HiltSmash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/HoldPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/HoldPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/OldRiposte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/OldRiposte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/PowerChop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/PowerChop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Riposte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Riposte.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Sacrifice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Sacrifice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Swordsmanship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Swordsmanship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Thorns.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/knight/Thorns.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/ArcticArmour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/ArcticArmour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Blizzard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Blizzard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Cyclone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Cyclone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/DefenseAura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/DefenseAura.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/GlacialPrison.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/GlacialPrison.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/HolyLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/HolyLight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Immolate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Immolate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Inferno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Inferno.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/LightningOrb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/LightningOrb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MagmaBlade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MagmaBlade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MoltenBlast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MoltenBlast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MoltenShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/MoltenShield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/NullBlade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/NullBlade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Polymorph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Polymorph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Repel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Repel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/RootingAxe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/RootingAxe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Rupture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Rupture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Swarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Swarm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Void.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Void.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Agility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Agility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Barrage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Barrage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Disengage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Disengage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Entangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Entangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/HuntersThrill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/HuntersThrill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/IncendiaryShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/IncendiaryShot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Longshot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Longshot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Overcharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Overcharge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/PinDown.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/PinDown.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Precision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Precision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/RopedArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/RopedArrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Sharpshooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Sharpshooter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/StunningShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/StunningShot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/VitalitySpores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/VitalitySpores.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Volley.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/Volley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/WolfsFury.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/ranger/WolfsFury.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/EnchantedWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/EnchantedWeapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/EnergyApple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/EnergyApple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/GravityGrenade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/GravityGrenade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/SupplyCrate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/SupplyCrate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/DwarvenPickaxe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/DwarvenPickaxe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/FireWalkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/FireWalkers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/GlacialAxe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/weapons/legendaries/GlacialAxe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/WEManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/WEManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/Boss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/Boss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/TimedEvents/ads/UndeadZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/TimedEvents/ads/UndeadZombie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/Broodmother.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/Broodmother.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/SkeletonKing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/SkeletonKing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/SlimeKing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/SlimeKing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/Witherton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/Witherton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SkeletonMinion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SkeletonMinion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeHalf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeHalf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeQuarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeQuarter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/ads/SlimeShield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/commands/BossCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/bosses/commands/BossCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/environmental/FishingFrenzy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/environmental/FishingFrenzy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/environmental/MiningMadness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/environmental/MiningMadness.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/nms/BossWitherSkull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/nms/BossWitherSkull.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/nms/CustomPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/types/nms/CustomPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/UtilShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/UtilShop.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -172,28 +73,28 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="ClanCreateEvent" value="2" />
-          <entry key="class" value="10" />
-          <entry key="java" value="428" />
+          <entry key="class" value="11" />
+          <entry key="java" value="447" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="10" />
-          <entry key="JAVA" value="430" />
+          <entry key="CLASS" value="11" />
+          <entry key="JAVA" value="449" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="ClanCreateEvent" value="148" />
-          <entry key="java" value="12225" />
+          <entry key="java" value="12475" />
           <entry key="xml" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="12373" />
+          <entry key="JAVA" value="12623" />
           <entry key="XML" value="10" />
         </counts>
       </usages-collector>
@@ -202,42 +103,21 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillEquipEvent.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/QuestManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="1477">
+              <caret line="101" column="17" lean-forward="true" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
               <folding>
-                <element signature="e#369#370#0" expanded="true" />
-                <element signature="e#400#401#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3392#3702#0" expanded="true" />
+                <element signature="e#3701#3702#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/events/SkillReloadEvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/mysql/BuildRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="32" column="53" lean-forward="true" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
-              <folding>
-                <element signature="e#1426#1427#0" expanded="true" />
-                <element signature="e#1484#1485#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/BuildSkill.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/BaseFishing.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
@@ -246,59 +126,86 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/WEManager.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerk.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+            <state relative-caret-position="34">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerkManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/ShopDiscount5.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/Swim.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/../Output/BetterPvP-Core.jar!/net/betterpvp/core/configs/ConfigManager.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-442">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/mysql/QuestRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="80" column="13" lean-forward="true" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
               <folding>
-                <element signature="e#8266#8267#0" expanded="true" />
-                <element signature="e#8318#8319#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1718#1719#0" expanded="true" />
+                <element signature="e#1748#1749#0" expanded="true" />
+                <element signature="e#2689#2690#0" expanded="true" />
+                <element signature="e#2707#2708#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/WeaponManager.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/menus/QuestMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="135" column="17" lean-forward="true" selection-start-line="135" selection-start-column="17" selection-end-line="135" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/Weapon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/Qualities.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+            <state relative-caret-position="32">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/EnchantedWeapon.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/commands/DailyCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/RoleBuild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2554">
-              <caret line="208" column="22" lean-forward="true" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
+            <state relative-caret-position="372">
+              <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -315,11 +222,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cGray</find>
-      <find>new Query(query)</find>
-      <find>new Query(query);</find>
-      <find>new Query</find>
-      <find>import net.battleau.clans</find>
       <find>C.cWhite</find>
       <find>getEffect</find>
       <find>import net.betterpvp.clans</find>
@@ -344,6 +246,11 @@
       <find>ShopKeeper</find>
       <find>DEFAULT NULL,\n</find>
       <find>// TODO Auto-generated method stub</find>
+      <find>import net.battleau.clans.client.Rank;</find>
+      <find>import net.battleau.clans.command.Command</find>
+      <find>import net.battleau.clans.dailies.menus.QuestMenu;</find>
+      <find>net.battleau.clans</find>
+      <find>new Query</find>
       <find>// TODO Auto-generated constructor stub</find>
     </findStrings>
     <replaceStrings>
@@ -352,7 +259,6 @@
       <replace>import net.betterpvp.clans.clans.insurance.Insurance;</replace>
       <replace>import net.betterpvp.core.interfaces.Button;</replace>
       <replace>QueryFactory.runQuery(query)</replace>
-      <replace>QueryFactory.runQuery</replace>
       <replace>import net.betterpvp.clans</replace>
       <replace>ChatColor.GRAY</replace>
       <replace>ChatColor.WHITE</replace>
@@ -367,10 +273,16 @@
       <replace>ChatColor.GREEN</replace>
       <replace>GRAY</replace>
       <replace>,</replace>
+      <replace>import net.betterpvp.core.client.Rank;</replace>
+      <replace>import net.betterpvp.core.command.Command</replace>
+      <replace>import net.betterpvp.clans.dailies.menus.QuestMenu;</replace>
+      <replace>net.betterpvp.clans</replace>
+      <replace>QueryFactory.runQuery</replace>
       <replace />
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src</dir>
+      <dir>C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -379,19 +291,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/combat/CombatManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/RepeatedStrikes.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Backstab.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Evade.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/FeatherFalling.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Flash.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Blink.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/SmokeBomb.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/ToxicArrow.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/Role.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/Economy.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/nms/ShopVillager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopItemOLD.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/PortableShopMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/LegendaryShopItem.java" />
@@ -430,6 +329,19 @@
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/mysql/BuildRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/WEManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/EnchantedWeapon.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/quests/Quest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/Quest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Wheat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/types/GeneralProgression.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/General.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill5Zombies.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/menus/QuestMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/Progress.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/QuestManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerkManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/mysql/QuestRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/commands/DailyCommand.java" />
       </list>
     </option>
   </component>
@@ -441,10 +353,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="169" />
+    <option name="y" value="66" />
+    <option name="width" value="1612" />
+    <option name="height" value="865" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -513,7 +425,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clans" type="462c0819:PsiDirectoryNode" />
-              <item name="economy" type="462c0819:PsiDirectoryNode" />
+              <item name="dailies" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
@@ -522,8 +434,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clans" type="462c0819:PsiDirectoryNode" />
-              <item name="economy" type="462c0819:PsiDirectoryNode" />
-              <item name="shops" type="462c0819:PsiDirectoryNode" />
+              <item name="dailies" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
@@ -532,9 +444,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clans" type="462c0819:PsiDirectoryNode" />
-              <item name="economy" type="462c0819:PsiDirectoryNode" />
-              <item name="shops" type="462c0819:PsiDirectoryNode" />
-              <item name="menu" type="462c0819:PsiDirectoryNode" />
+              <item name="dailies" type="462c0819:PsiDirectoryNode" />
+              <item name="menus" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
@@ -543,21 +454,37 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clans" type="462c0819:PsiDirectoryNode" />
-              <item name="economy" type="462c0819:PsiDirectoryNode" />
-              <item name="shops" type="462c0819:PsiDirectoryNode" />
-              <item name="menu" type="462c0819:PsiDirectoryNode" />
-              <item name="buttons" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Clans" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="clans" type="462c0819:PsiDirectoryNode" />
-              <item name="economy" type="462c0819:PsiDirectoryNode" />
-              <item name="shops" type="462c0819:PsiDirectoryNode" />
+              <item name="dailies" type="462c0819:PsiDirectoryNode" />
               <item name="mysql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clans" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="clans" type="462c0819:PsiDirectoryNode" />
+              <item name="dailies" type="462c0819:PsiDirectoryNode" />
+              <item name="perks" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clans" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="clans" type="462c0819:PsiDirectoryNode" />
+              <item name="economy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clans" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="clans" type="462c0819:PsiDirectoryNode" />
+              <item name="economy" type="462c0819:PsiDirectoryNode" />
+              <item name="shops" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Clans" type="b2602c69:ProjectViewProjectNode" />
@@ -690,7 +617,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551893398259" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551894785107" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../dependencies/spigot-1.8.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -703,11 +630,11 @@
       <recent name="net.betterpvp.clans.clans.events" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\economy\shops\menu\buttons" />
-      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\economy\shops\menu" />
-      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\economy\shops\mysql" />
-      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\economy\shops\nms" />
-      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\economy\shops" />
+      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\dailies\commands" />
+      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\dailies\menus" />
+      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\dailies\mysql" />
+      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\dailies\perks" />
+      <recent name="C:\Users\tomho\Dropbox\BetterPvP Workspace\Clans\src\main\java\net\betterpvp\clans\dailies\progression\types" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -770,131 +697,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/RoleManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="67" column="86" selection-start-line="67" selection-start-column="86" selection-end-line="67" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/management/FieldsManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="28" column="100" lean-forward="true" selection-start-line="28" selection-start-column="100" selection-end-line="28" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/fields/commands/FieldsCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/ArmourNames.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/WeaponCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/SelectorManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4729">
-          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/settings/Options.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-527">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/combat/throwables/ThrowableManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-527">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/combat/throwables/events/ThrowableCollideEntityEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/combat/throwables/events/ThrowableHitGroundEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/classes/DamageData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/ShopListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3332">
-          <caret line="222" column="27" selection-start-line="222" selection-start-column="27" selection-end-line="222" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Leap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="47" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Flash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5457">
-          <caret line="344" column="23" selection-start-line="344" selection-start-column="23" selection-end-line="344" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/FeatherFalling.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/assassin/Evade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1615">
-          <caret line="123" column="26" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/Skill.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5253">
-          <caret line="356" column="73" selection-start-line="356" selection-start-column="73" selection-end-line="356" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/skills/paladin/Swarm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
@@ -1102,7 +904,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/mysql/BuildRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="32" column="53" lean-forward="true" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+          <caret line="32" column="53" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
           <folding>
             <element signature="e#1426#1427#0" expanded="true" />
             <element signature="e#1484#1485#0" expanded="true" />
@@ -1113,7 +915,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/skills/selector/RoleBuild.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2554">
-          <caret line="208" column="22" lean-forward="true" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
+          <caret line="208" column="22" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1127,7 +929,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/worldevents/WEManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
-          <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+          <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
           <folding>
             <element signature="e#8266#8267#0" expanded="true" />
             <element signature="e#8318#8319#0" expanded="true" />
@@ -1138,7 +940,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/WeaponManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
-          <caret line="135" column="17" lean-forward="true" selection-start-line="135" selection-start-column="17" selection-end-line="135" selection-end-column="17" />
+          <caret line="135" column="17" selection-start-line="135" selection-start-column="17" selection-end-line="135" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1152,14 +954,147 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/Qualities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+          <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/weapon/EnchantedWeapon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/economy/shops/menu/buttons/QuestShopItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="70" selection-start-line="8" selection-start-column="70" selection-end-line="8" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/gather/Harvest30Wheat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/types/GeneralProgression.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/General.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-223">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/quests/fighting/Kill5Zombies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/Quest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-291">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/progression/Progress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../Output/BetterPvP-Core.jar!/net/betterpvp/core/configs/ConfigManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/QuestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1477">
+          <caret line="101" column="17" lean-forward="true" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3392#3702#0" expanded="true" />
+            <element signature="e#3701#3702#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/BaseFishing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/Swim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/ShopDiscount5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerkManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/perks/QuestPerk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/mysql/QuestRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="80" column="13" lean-forward="true" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1718#1719#0" expanded="true" />
+            <element signature="e#1748#1749#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2707#2708#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/menus/QuestMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/betterpvp/clans/dailies/commands/DailyCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
