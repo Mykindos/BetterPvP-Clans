@@ -92,11 +92,6 @@ public class Blink extends Skill {
                 break;
             }
 
-			/*
-			if(newTarget.getBlock().getType() != Material.AIR ||  newTarget.getBlock().getRelative(BlockFace.UP).getType() != Material.AIR){
-				break;
-			}
-			 */
 
             for (Player cur : player.getWorld().getPlayers()) {
                 if (!cur.equals(player)) {

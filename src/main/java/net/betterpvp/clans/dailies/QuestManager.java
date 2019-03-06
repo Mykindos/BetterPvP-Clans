@@ -97,7 +97,7 @@ public class QuestManager {
 				if(UtilTime.elapsed(Clans.getOptions().getDailyResetTime(), 86400000)) {
 					loadQuests();
 					Clans.getOptions().setDailyResetTime();
-					ConfigManager.get(Configs.MAIN).set("Daily-Reset-Time", System.currentTimeMillis());
+					i.getConfigManager().get(Configs.MAIN).set("Daily-Reset-Time", System.currentTimeMillis());
 					
 				}
 			}
