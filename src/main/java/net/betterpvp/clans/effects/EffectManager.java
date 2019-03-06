@@ -4,10 +4,13 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilParticle;
 import net.betterpvp.core.utility.UtilTime;
+import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.Sound;
@@ -140,6 +143,7 @@ public class EffectManager extends BPVPListener<Clans> {
 
                     if (!UtilTime.elapsed(g.getLastDamaged(), 15000)) {
                         if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) continue;
+
                         ParticleEffect.VILLAGER_HAPPY.display(0.1F, 0, 0.1F, (float) 10, 1, p.getLocation().add(0, 4, 0), 30);
                     }
                 }
