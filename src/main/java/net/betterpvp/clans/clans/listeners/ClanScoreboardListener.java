@@ -3,9 +3,11 @@ package net.betterpvp.clans.clans.listeners;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
+
+import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -14,7 +16,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.world.WorldEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -37,15 +38,17 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         Scoreboard scoreboard = p.getScoreboard();
                         if (scoreboard != null) {
-                            Client client = ClientUtilities.getOnlineClient(p);
+
+                            Gamer gamer = GamerManager.getOnlineGamer(p);
+
 
                             if (scoreboard.getObjective(DisplaySlot.SIDEBAR) != null) {
                                 scoreboard.getObjective(DisplaySlot.SIDEBAR).unregister();
                             }
 
 
-                            if (client != null) {
-                                if (client.getSettings().getSettings().get("Sidebar")) {
+                            if (gamer != null) {
+                                if (gamer.getClient().getSettingAsBoolean("Sidebar")) {
                                     Objective side = scoreboard.registerNewObjective("BetterPvP", "dummy");
                                     side.setDisplaySlot(DisplaySlot.SIDEBAR);
                                     side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  Clans Season 2  ");
@@ -68,7 +71,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
 
 
                                     side.getScore(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Coins").setScore(9);
-                                    side.getScore(ChatColor.GOLD.toString() + ChatColor.BOLD + UtilFormat.formatNumber(client.getGamer().getCoins())).setScore(8);
+                                    side.getScore(ChatColor.GOLD.toString() + ChatColor.BOLD + UtilFormat.formatNumber(gamer.getCoins())).setScore(8);
 
                                     side.getScore("§r§r§r").setScore(7);
                                     side.getScore(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Territory").setScore(6);

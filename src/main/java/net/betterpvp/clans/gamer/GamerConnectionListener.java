@@ -1,12 +1,15 @@
 package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
+import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.framework.BPVPListener;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
@@ -31,6 +34,16 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
             GamerManager.addOnlineGamer(gamer);
             BuildRepository.loadBuilds(getInstance(), gamer.getUUID());
+        }
+
+        gamer.setScoreboard(new Scoreboard(e.getClient().getPlayer()));
+    }
+
+    @EventHandler
+    public void onClientQuit(ClientQuitEvent e){
+        Gamer g = GamerManager.getOnlineGamer(e.getClient().getUUID());
+        if(g != null){
+            g.setScoreboard(null);
         }
     }
 

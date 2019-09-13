@@ -293,24 +293,23 @@ public class SelectorManager extends BPVPListener<Clans> {
                     }
                 } else if (event.getClickType() == ClickType.RIGHT) {
                     if (build.getPoints() < 12) {
-                        if (button.getSkill().getType() != null) {
-                            if (build.getBuildSkill(button.getSkill().getType()) != null) {
-                                if (build.getBuildSkill(button.getSkill().getType()).getSkill() == button.getSkill()) {
-                                    build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), build.getBuildSkill(button.getSkill().getType()).getLevel() - 1));
-                                    event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
-                                    build.addPoint();
+                        if (button.getSkill().getType() == null) return;
+                        if (build.getBuildSkill(button.getSkill().getType()) == null) return;
+                        if (build.getBuildSkill(button.getSkill().getType()).getSkill() == button.getSkill()) {
+
+                            build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), build.getBuildSkill(button.getSkill().getType()).getLevel() - 1));
+                            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                            build.addPoint();
+
+                            if (build.getBuildSkill(button.getSkill().getType()).getLevel() == 0) {
+                                build.setSkill(button.getSkill().getType(), null);
+                                Bukkit.getPluginManager().callEvent(new SkillDequipEvent(event.getPlayer(), button.getSkill()));
 
 
-                                    if (build.getBuildSkill(button.getSkill().getType()).getLevel() == 0) {
-                                        build.setSkill(button.getSkill().getType(), null);
-                                        Bukkit.getPluginManager().callEvent(new SkillDequipEvent(event.getPlayer(), button.getSkill()));
-
-
-                                    }
-                                    BuildRepository.updateBuild(event.getPlayer().getUniqueId(), build);
-                                }
                             }
+                            BuildRepository.updateBuild(event.getPlayer().getUniqueId(), build);
                         }
+
 
                     } else {
                         event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
@@ -321,6 +320,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                 page.construct();
             }
         }
+
     }
 
     @EventHandler
@@ -335,10 +335,12 @@ public class SelectorManager extends BPVPListener<Clans> {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                Client client = ClientUtilities.getOnlineClient(p);
 
-                                if (client.getSettings().getSettings().get("RechargeBar")) {
-                                    RoleBuild b = client.getGamer().getActiveBuild(role.getName());
+                                Gamer gamer = GamerManager.getOnlineGamer(p);
+
+
+                                if (gamer.getClient().getSettingAsBoolean("RechargeBar")) {
+                                    RoleBuild b = gamer.getActiveBuild(role.getName());
 
                                     if (b != null) {
                                         if (UtilItem.isAxe(p.getItemInHand().getType())) {

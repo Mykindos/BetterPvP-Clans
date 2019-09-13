@@ -2,6 +2,8 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.client.ClientUtilities;
@@ -37,9 +39,12 @@ public class VitalitySpores extends Skill {
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateType.FAST) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
-                    if (hasSkill(p, this)) {
-                        if (UtilTime.elapsed(ClientUtilities.getOnlineClient(p).getGamer().getLastDamaged(), (7 - getLevel(p)) * 1000)) {
+                Role r = Role.getRole(p);
+                if (r != null && r.getName().equals(getClassType())) {
+                    Gamer g = GamerManager.getOnlineGamer(p);
+                    if (hasSkill(g, p, this)) {
+
+                        if (UtilTime.elapsed(g.getLastDamaged(), (7 - getLevel(p)) * 1000)) {
                             p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, 0));
                         }
                     }

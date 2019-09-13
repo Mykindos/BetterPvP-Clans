@@ -2,12 +2,13 @@ package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
-import net.betterpvp.clans.client.DonationRank;
+
 import net.betterpvp.clans.dailies.perks.QuestPerk;
-import net.betterpvp.clans.donation.Donation;
-import net.betterpvp.clans.donation.Perk;
+
+import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.core.client.Client;
+import net.betterpvp.core.donation.Donation;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class Gamer implements Invitable {
     private boolean safeLogged;
     private Location home;
     private boolean filter;
+    private Scoreboard scoreboard;
 
     //private HashMap<Enum, Object> data;
 
@@ -50,6 +52,8 @@ public class Gamer implements Invitable {
         questPerks = new ArrayList<>();
         builds = new ArrayList<>();
         filter = false;
+
+
 
 
         //this.data = new HashMap<>();
@@ -307,6 +311,14 @@ public class Gamer implements Invitable {
             }
         }
         return false;
+    }
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
+    }
+
+    public void setScoreboard(Scoreboard scoreboard) {
+        this.scoreboard = scoreboard;
     }
 
 

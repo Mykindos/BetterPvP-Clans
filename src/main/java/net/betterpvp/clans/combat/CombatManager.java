@@ -13,6 +13,7 @@ import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -113,8 +114,10 @@ public class CombatManager extends BPVPListener<Clans> {
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
 
-                        Client c = ClientUtilities.getOnlineClient(online);
-                        if (!c.getSettings().getSettings().get("Killfeed") && !online.getName().equals(dam.getName()) && !ClanUtilities.isClanMember(dam, online)
+                        Gamer onlineGamer = GamerManager.getOnlineGamer(online);
+
+                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed") && !online.getName().equals(dam.getName())
+                                && !ClanUtilities.isClanMember(dam, online)
                                 && !ClanUtilities.isClanMember(p, online)) continue;
 
                         Clan clanA = ClanUtilities.getClan(online);
@@ -323,9 +326,7 @@ public class CombatManager extends BPVPListener<Clans> {
             if (e.getDamager() instanceof LivingEntity) {
 
                 dam = (LivingEntity) e.getDamager();
-
                 LogManager.addLog(p, dam, null);
-
 
             } else if (e.getDamager() instanceof Projectile) {
                 Projectile j = (Projectile) e.getDamager();

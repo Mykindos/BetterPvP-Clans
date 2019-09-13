@@ -9,11 +9,12 @@ import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.skills.selector.skills.assassin.Mirage;
+
 import net.betterpvp.clans.utilities.UtilGamer;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
@@ -34,10 +35,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class DamageManager implements Listener {
+public class DamageManager extends BPVPListener<Clans> {
 
     public DamageManager(Clans i) {
-        Bukkit.getPluginManager().registerEvents(this, i);
+        super(i);
+
     }
 
     private static List<DamageData> delays = new ArrayList<>();
@@ -193,20 +195,13 @@ public class DamageManager implements Listener {
 
                 }
 
-                boolean clone = false;
-                for (Mirage.MirageData mr : Mirage.active.values()) {
-                    if (mr.npc.getEntity() == e.getDamagee()) {
-                        clone = true;
-                    }
+
+                Gamer xGamer = GamerManager.getOnlineGamer((Player) e.getDamagee());
+                if (xGamer != null) {
+                    xGamer.setLastDamaged(System.currentTimeMillis());
                 }
 
-                if (!clone) {
-                    Gamer xGamer = GamerManager.getOnlineGamer((Player) e.getDamagee());
-                    if (xGamer != null) {
-                        xGamer.setLastDamaged(System.currentTimeMillis());
-                    }
 
-                }
             } else {
                 return;
             }
@@ -282,11 +277,6 @@ public class DamageManager implements Listener {
                                 return;
                             }
 
-                            for (Mirage.MirageData mr : Mirage.active.values()) {
-                                if (mr.npc.getEntity() == e.getDamagee()) {
-                                    return;
-                                }
-                            }
 
                             e.getDamagee().setHealth(0);
                             // Fixed in spigot version
@@ -304,20 +294,6 @@ public class DamageManager implements Listener {
                             }
 
                         } else {
-                            if (e.getDamagee() instanceof Player) {
-
-                                for (Mirage.MirageData mr : Mirage.active.values()) {
-
-                                    if (mr.npc.getEntity() == e.getDamagee()) {
-
-
-                                        damage = 0;
-                                        return;
-
-                                    }
-                                }
-                            }
-
 
                             e.getDamagee().setHealth(e.getDamagee().getHealth() - damage);
                         }

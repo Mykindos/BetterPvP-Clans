@@ -11,8 +11,9 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
-import net.betterpvp.core.client.commands.ChatToggle;
-import net.betterpvp.core.client.commands.StaffChatCommand;
+
+import net.betterpvp.core.client.commands.admin.ChatToggle;
+import net.betterpvp.core.client.commands.admin.StaffChatCommand;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.UtilMessage;
@@ -110,7 +111,7 @@ public class ChatListener extends BPVPListener<Clans> {
                     }
 
 				/*
-					if(onlineClient.getSettings().getSettings().get("ChatFilter")){
+					if(onlineClient.getSettingsAsBoolean("ChatFilter")){
 
 						String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
 						for(String s : filter){
