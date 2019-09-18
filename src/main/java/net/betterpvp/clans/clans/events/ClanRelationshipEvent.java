@@ -1,12 +1,13 @@
 package net.betterpvp.clans.clans.events;
 
+import net.betterpvp.clans.clans.Clan;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 
-public class ClanCreateEvent extends Event implements Cancellable {
+public class ClanRelationshipEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
@@ -21,20 +22,20 @@ public class ClanCreateEvent extends Event implements Cancellable {
         return handlers;
     }
 
-    private Player p;
-    private String clanName;
+    private Clan clanA, clanB;
 
-    public ClanCreateEvent(Player p, String clanName) {
-        this.p = p;
-        this.clanName = clanName;
+    public ClanRelationshipEvent(Clan clanA, Clan clanB) {
+        this.clanA = clanA;
+        this.clanB = clanB;
     }
 
-    public String getClanName() {
-        return clanName;
+
+    public Clan getClanA() {
+        return clanA;
     }
 
-    public Player getPlayer() {
-        return p;
+    public Clan getClanB() {
+        return clanB;
     }
 
 

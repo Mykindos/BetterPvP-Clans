@@ -41,7 +41,6 @@ public class Clans extends JavaPlugin implements Listener {
         QueryFactory.loadRepositories("net.betterpvp.clans", this);
         CommandManager.registerCommands("net.betterpvp.clans", this);
 
-        new ScoreboardManager();
     }
 
     private static Plugin plugin = Bukkit.getPluginManager().getPlugin("CoreProtect");

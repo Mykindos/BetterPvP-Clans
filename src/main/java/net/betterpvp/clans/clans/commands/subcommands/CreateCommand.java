@@ -35,7 +35,7 @@ public class CreateCommand implements IClanCommand {
 
         String name = args[1];
         if (!ClientUtilities.getOnlineClient(player).isAdministrating()) {
-            if (!UtilInput.valid(name)) {
+            if (!name.matches("[a-zA-Z0-9]")) {
                 UtilMessage.message(player, "Clans", "Invalid characters in Clan name.");
                 return;
             }

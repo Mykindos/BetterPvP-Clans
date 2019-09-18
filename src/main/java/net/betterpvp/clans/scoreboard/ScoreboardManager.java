@@ -4,21 +4,36 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ClanAllyClanEvent;
+import net.betterpvp.clans.clans.events.ClanCreateEvent;
+import net.betterpvp.clans.clans.events.ClanDeleteEvent;
+import net.betterpvp.clans.clans.events.ClanRelationshipEvent;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.client.listeners.ClientLoginEvent;
+import net.betterpvp.core.client.listeners.ClientQuitEvent;
+import net.betterpvp.core.framework.BPVPListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.scoreboard.Team;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Set;
 
 
-public class ScoreboardManager {
+public class ScoreboardManager extends BPVPListener<Clans> {
 
     private static Set<Scoreboard> scoreboards = new HashSet<>();
 
-    public ScoreboardManager() {
+
+    public ScoreboardManager(Clans i) {
+        super(i);
         scoreboards.clear();
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
@@ -26,8 +41,98 @@ public class ScoreboardManager {
         }
     }
 
+    @EventHandler
+    public void onClientLogin(ClientLoginEvent e) {
 
-    public static void addPlayer(String name) {
+        Clan clan = ClanUtilities.getClan(e.getClient().getUUID());
+        for (Gamer g : GamerManager.getOnlineGamers()) {
+            if (g.getScoreboard())
+        }
+    }
+
+    @EventHandler
+    public void onClientQuit(ClientQuitEvent e) {
+        Clan c = ClanUtilities.getClan(e.getClient().getUUID());
+        for (Gamer g : GamerManager.getOnlineGamers()) {
+            if (c != null) {
+                Scoreboard s = g.getScoreboard();
+                if (s == null) continue;
+                removePlayer(s, e.getClient().getName(), c);
+
+            }
+
+        }
+    }
+
+    @EventHandler
+    public void onClanCreate(ClanCreateEvent e){
+        for(Gamer g : GamerManager.getOnlineGamers()){
+            Scoreboard s = g.getScoreboard();
+
+            addClan(s, e.getClanName());
+        }
+    }
+
+    @EventHandler
+    public void onClanDisband(ClanDeleteEvent e){
+
+        for(Gamer g : GamerManager.getOnlineGamers()){
+            Scoreboard s = g.getScoreboard();
+
+            removeClan(s, e.getClan().getName());
+
+
+        }
+    }
+
+    @EventHandler
+    public void onClanRelationshipChange(ClanRelationshipEvent e){
+
+    }
+
+    private void removePlayer(Scoreboard s, String name, Clan c) {
+        Iterator<Team> teams = s.getScoreboard().getTeams().iterator();
+        while (teams.hasNext()) {
+            Team t = teams.next();
+            if (t.getName().equals(c.getName())) {
+                if (t.hasEntry(name)) {
+                    t.removeEntry(name);
+                }
+
+                if (!c.isOnline()) {
+                    t.unregister();
+                }
+            }
+        }
+
+        addNone(s, name);
+    }
+
+    private void addNone(Scoreboard s, String name) {
+
+        Team noTeam = s.getScoreboard().getTeam("None");
+        if (noTeam == null) {
+            s.getScoreboard().registerNewTeam("None");
+            s.getScoreboard().getTeam("None").setPrefix(ChatColor.YELLOW.toString());
+        }
+        if (!s.getScoreboard().getTeam("None").hasEntry(name)) {
+            s.getScoreboard().getTeam("None").addEntry(name);
+        }
+
+    }
+
+    public static void addPlayer(Gamer gamer) {
+        Clan clan = ClanUtilities.getClan(gamer.getUUID());
+
+        if (clan != null) {
+            for (Gamer g : GamerManager.getOnlineGamers()) {
+                Gamer clan
+            }
+        }
+    }
+
+
+    public void addPlayer(String name) {
 
         Clan c = ClanUtilities.getClan(Bukkit.getPlayer(name));
         if (getScoreboard(Bukkit.getPlayer(name)) == null) {
@@ -137,32 +242,8 @@ public class ScoreboardManager {
         scoreboards.remove(s);
     }
 
-    public static void addNone(String name) {
-        for (Scoreboard s : getScoreboards()) {
-            Team noTeam = s.getScoreboard().getTeam("None");
-            if (noTeam == null) {
-                s.getScoreboard().registerNewTeam("None");
-                s.getScoreboard().getTeam("None").setPrefix(ChatColor.YELLOW.toString());
-            }
-            if (!s.getScoreboard().getTeam("None").hasEntry(name)) {
-                s.getScoreboard().getTeam("None").addEntry(name);
-            }
-        }
-    }
 
-    public static void addNone(Scoreboard z, String name) {
-
-        if (z.getScoreboard().getTeam("None") == null) {
-            z.getScoreboard().registerNewTeam("None");
-            z.getScoreboard().getTeam("None").setPrefix(ChatColor.YELLOW.toString());
-        }
-        if (!z.getScoreboard().getTeam("None").hasEntry(name)) {
-            z.getScoreboard().getTeam("None").addEntry(name);
-        }
-
-    }
-
-    public static void updateRelation() {
+    public void updateRelation() {
         for (Scoreboard s : getScoreboards()) {
 
             Player p = Bukkit.getPlayer(s.getUUID());
@@ -213,8 +294,8 @@ public class ScoreboardManager {
     }
 
 
-    public static void removeClan(String name) {
-        for (Scoreboard s : getScoreboards()) {
+    public void removeClan(Scoreboard s, String name) {
+
             Iterator<Team> iterator = s.getScoreboard().getTeams().iterator();
             while (iterator.hasNext()) {
                 Team team = iterator.next();
@@ -226,11 +307,11 @@ public class ScoreboardManager {
                     }
                 }
             }
-        }
+
 
     }
 
-    public static void addClan(Scoreboard s, String name) {
+    public void addClan(Scoreboard s, String name) {
 
         if (!isTeam(s, name)) {
             Team team = s.getScoreboard().registerNewTeam(name);
@@ -243,7 +324,7 @@ public class ScoreboardManager {
 
     }
 
-    public static boolean isTeam(Scoreboard s, String name) {
+    public boolean isTeam(Scoreboard s, String name) {
         for (Team team : s.getScoreboard().getTeams()) {
             if (team.getName().equals(name)) {
                 return true;
@@ -311,35 +392,8 @@ public class ScoreboardManager {
         addNone(name);
     }
 
-    public static void removePlayerOnQuit(String name) {
-        Clan c = ClanUtilities.getClan(Bukkit.getPlayer(name));
-        if (c != null) {
-            if (getScoreboard(Bukkit.getPlayer(name)) != null) {
-                removeScoreboard(getScoreboard(Bukkit.getPlayer(name)));
 
-            }
-            for (Scoreboard s : getScoreboards()) {
-                Iterator<Team> iterator = s.getScoreboard().getTeams().iterator();
-                while (iterator.hasNext()) {
-                    Team team = iterator.next();
-                    if (team.getName().equals(c.getName())) {
-                        if (team.getEntries().contains(name)) {
-                            team.removeEntry(name);
-                            if (!c.isOnline()) {
-                                iterator.remove();
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-
-    }
-
-
-    public static void setPrefix(Team team, Clan c, Clan d) {
+    private void setPrefix(Team team, Clan c, Clan d) {
         if (Clans.getOptions().isFNG()) {
             team.setPrefix(ChatColor.YELLOW + "");
             team.setSuffix("");

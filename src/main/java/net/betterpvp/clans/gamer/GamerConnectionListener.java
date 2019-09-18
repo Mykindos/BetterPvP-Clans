@@ -11,6 +11,7 @@ import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
@@ -18,7 +19,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         super(instance);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onClientLogin(ClientLoginEvent e) {
         Gamer gamer = GamerManager.getGamer(e.getClient().getUUID());
         if (gamer == null) {
@@ -39,7 +40,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         gamer.setScoreboard(new Scoreboard(e.getClient().getPlayer()));
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onClientQuit(ClientQuitEvent e){
         Gamer g = GamerManager.getOnlineGamer(e.getClient().getUUID());
         if(g != null){
