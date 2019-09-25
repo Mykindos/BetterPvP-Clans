@@ -63,7 +63,7 @@ public class BattleTaunt extends Skill {
 
 
                             for (int i = 0; i <= (2 + getLevel(p)); i++) {
-                                Pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
+                                pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
                             }
                         }
                     }
@@ -74,7 +74,7 @@ public class BattleTaunt extends Skill {
 
     }
 
-    public void Pull(Player p, Location loc) {
+    private void pull(Player p, Location loc) {
         for (LivingEntity other : UtilPlayer.getInRadius(loc, 2.0)) {
             if (other instanceof Player) {
                 Player target = (Player) other;
@@ -98,18 +98,7 @@ public class BattleTaunt extends Skill {
                 active.add(p.getName());
             }
         }
-		/*
-		if (active.contains(p.getName())) {
-			UtilMessage.message(p, getClassType(), "Battle Taunt: " + ChatColor.RED + "OFF");
-			active.remove(p.getName());
-		} else {
 
-				UtilMessage.message(p, getClassType(), "Battle Taunt: " + ChatColor.GREEN + "ON");
-				active.add(p.getName());
-				p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10, 2));
-
-		}
-		 */
     }
 
     @Override
@@ -147,9 +136,4 @@ public class BattleTaunt extends Skill {
         return 15 - ((level - 1));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
 }

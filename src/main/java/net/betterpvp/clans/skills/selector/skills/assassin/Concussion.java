@@ -119,10 +119,4 @@ public class Concussion extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

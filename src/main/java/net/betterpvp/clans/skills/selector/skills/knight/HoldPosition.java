@@ -88,11 +88,5 @@ public class HoldPosition extends Skill {
         return 60 - ((level - 1) * 5);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

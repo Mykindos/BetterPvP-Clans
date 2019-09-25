@@ -99,10 +99,4 @@ public class Cleave extends Skill {
         return false;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

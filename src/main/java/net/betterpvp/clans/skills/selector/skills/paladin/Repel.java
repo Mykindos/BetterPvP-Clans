@@ -194,10 +194,4 @@ public class Repel extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

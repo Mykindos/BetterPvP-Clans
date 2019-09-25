@@ -313,11 +313,5 @@ public class Evade extends Skill {
         return lastValid;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
-
 
 }

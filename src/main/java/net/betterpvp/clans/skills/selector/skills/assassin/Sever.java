@@ -8,8 +8,9 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.SeverData;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -67,38 +68,35 @@ public class Sever extends Skill {
 
     @EventHandler
     public void onDamage(CustomDamageEvent e) {
-        if (e.getDamager() instanceof Player) {
-            if (e.getDamagee() instanceof Player) {
-                if (e.getCause() == DamageCause.ENTITY_ATTACK) {
-                    Player ent = (Player) e.getDamagee();
-                    Player p = (Player) e.getDamager();
-                    if (ClanUtilities.canHurt(ent, p)) {
-                        if (usageCheck(p)) {
-                            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
-                                if (active.contains(p.getUniqueId())) {
-                                    Weapon w = Weapon.getWeapon(p.getItemInHand());
-                                    if (w != null) {
-                                        if (w.isLegendary()) {
-                                            return;
-                                        }
-                                    }
+        if (!(e.getDamager() instanceof Player)) return;
+        if (!(e.getDamagee() instanceof Player)) return;
+
+        if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+            Player ent = (Player) e.getDamagee();
+            Player p = (Player) e.getDamager();
+            if (ClanUtilities.canHurt(ent, p)) {
+                if (usageCheck(p)) {
+                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                        if (active.contains(p.getUniqueId())) {
+                            Weapon w = WeaponManager.getWeapon(p.getItemInHand());
+                            if (w == null) return;
+                            if (w.isLegendary()) return;
 
 
-                                    int level = getLevel(p);
-                                    new SeverData(getInstance(), ent, p, (level));
-                                    UtilMessage.message(p, getClassType(), "You severed " + ChatColor.GREEN + ent.getName() + ChatColor.GRAY + ".");
-                                    UtilMessage.message(ent, getClassType(), "You have been severed by " + ChatColor.GREEN + p.getName() + ChatColor.GRAY + ".");
-                                    active.remove(p.getUniqueId());
+                            int level = getLevel(p);
+                            new SeverData(getInstance(), ent, p, (level));
+                            UtilMessage.message(p, getClassType(), "You severed " + ChatColor.GREEN + ent.getName() + ChatColor.GRAY + ".");
+                            UtilMessage.message(ent, getClassType(), "You have been severed by " + ChatColor.GREEN + p.getName() + ChatColor.GRAY + ".");
+                            active.remove(p.getUniqueId());
 
-                                    RechargeManager.getInstance().removeCooldown(p.getName(), getName(), true);
-                                    if (RechargeManager.getInstance().add(p, getName(), getRecharge(level), showRecharge())) {
+                            RechargeManager.getInstance().removeCooldown(p.getName(), getName(), true);
+                            if (RechargeManager.getInstance().add(p, getName(), getRecharge(level), showRecharge())) {
 
-                                    }
-                                }
                             }
                         }
                     }
                 }
+
             }
         }
     }
@@ -118,12 +116,6 @@ public class Sever extends Skill {
     public float getEnergy(int level) {
 
         return 20;
-    }
-
-    @Override
-    public boolean requiresShield() {
-
-        return false;
     }
 
 }

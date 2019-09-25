@@ -65,12 +65,6 @@ public class Blizzard extends Skill {
     }
 
     @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
-
-    @Override
     public void activateSkill(Player p) {
         if (!active.contains(p.getName())) {
             active.add(p.getName());

@@ -104,10 +104,4 @@ public class PowerChop extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

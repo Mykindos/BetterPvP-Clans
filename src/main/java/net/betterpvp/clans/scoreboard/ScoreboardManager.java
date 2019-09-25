@@ -90,6 +90,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
     }
 
+
     private void removePlayer(Scoreboard s, String name, Clan c) {
         Iterator<Team> teams = s.getScoreboard().getTeams().iterator();
         while (teams.hasNext()) {

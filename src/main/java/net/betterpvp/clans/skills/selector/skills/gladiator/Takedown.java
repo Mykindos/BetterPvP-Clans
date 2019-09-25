@@ -149,10 +149,4 @@ public class Takedown extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

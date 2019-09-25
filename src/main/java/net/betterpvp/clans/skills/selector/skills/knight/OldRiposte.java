@@ -191,10 +191,4 @@ public class OldRiposte extends Skill {
         return 60 - ((level - 1) * 3);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

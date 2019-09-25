@@ -73,11 +73,5 @@ public class SpiritOfTheWolf extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

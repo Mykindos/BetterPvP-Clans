@@ -191,10 +191,4 @@ public class SilencingArrow extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

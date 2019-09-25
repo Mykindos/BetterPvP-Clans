@@ -77,11 +77,5 @@ public class SpiritOfTheBear extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

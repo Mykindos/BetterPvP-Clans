@@ -103,7 +103,7 @@ public class ShopListener extends BPVPListener<Clans> {
 
 
                     if (i.hasItemMeta()) {
-                        Weapon wep = WeaponManager.getWeapon(ChatColor.stripColor(i.getItemMeta().getDisplayName()))
+                        Weapon wep = WeaponManager.getWeapon(ChatColor.stripColor(i.getItemMeta().getDisplayName()));
                         if (wep != null) {
                             if (wep.isLegendary()) {
                                 continue;

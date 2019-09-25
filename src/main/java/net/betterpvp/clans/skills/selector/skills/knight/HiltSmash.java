@@ -138,10 +138,4 @@ public class HiltSmash extends Skill {
         return 25;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

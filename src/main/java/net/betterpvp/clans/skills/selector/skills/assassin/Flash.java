@@ -358,10 +358,4 @@ public class Flash extends Skill {
         return (float) (level < 1 ? 17 : 17 - (1.5 * (level - 1)));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

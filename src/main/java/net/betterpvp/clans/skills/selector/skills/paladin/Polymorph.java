@@ -146,10 +146,4 @@ public class Polymorph extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

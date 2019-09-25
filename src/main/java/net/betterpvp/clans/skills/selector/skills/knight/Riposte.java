@@ -200,10 +200,4 @@ public class Riposte extends Skill {
         return 40;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

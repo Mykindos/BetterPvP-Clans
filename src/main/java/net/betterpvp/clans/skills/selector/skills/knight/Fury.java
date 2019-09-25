@@ -75,10 +75,5 @@ public class Fury extends Skill {
         return 0;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }
 

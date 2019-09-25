@@ -65,12 +65,6 @@ public class LightningOrb extends Skill {
     }
 
     @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
-    @Override
     public void activateSkill(Player p) {
         Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
         orb.setVelocity(p.getLocation().getDirection());

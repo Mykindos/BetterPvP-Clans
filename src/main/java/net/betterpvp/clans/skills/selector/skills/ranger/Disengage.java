@@ -130,10 +130,4 @@ public class Disengage extends Skill {
         return 30;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -117,10 +117,4 @@ public class WolfsFury extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -83,10 +83,4 @@ public class ShockingStrikes extends Skill {
         return false;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

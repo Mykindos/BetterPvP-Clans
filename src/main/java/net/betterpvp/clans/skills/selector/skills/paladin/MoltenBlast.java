@@ -216,9 +216,4 @@ public class MoltenBlast extends Skill {
         return 50 - ((level - 1) * 3);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }

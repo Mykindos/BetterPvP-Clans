@@ -3,12 +3,16 @@ package net.betterpvp.clans.skills.selector.skills.global;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.client.Client;
+
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.BuildSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.client.ClientUtilities;
+
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
@@ -72,18 +76,19 @@ public class Swim extends Skill {
             return;
         }
 
-        if (EffectManager.isSilenced(p)) {
+        if (EffectManager.hasEffect(p, EffectType.SILENCE)) {
             UtilMessage.message(p, getName(), "You cannot use Swim while silenced!");
             return;
         }
 
         if (Role.getRole(p) != null) {
             Role r = Role.getRole(p);
-            Client c = ClientUtilities.getOnlineClient(p);
 
-            if (c != null) {
-                if (c.getGamer().getActiveBuild(r.getName()).getGlobal() != null) {
-                    if (c.getGamer().getActiveBuild(r.getName()).getGlobal().getSkill().equals(this)) {
+            Gamer g = GamerManager.getOnlineGamer(p);
+            if (g != null) {
+                BuildSkill globalSkill = g.getActiveBuild(r.getName()).getGlobal();
+                if (globalSkill != null) {
+                    if (globalSkill.getSkill().equals(this)) {
                         if (!swim.containsKey(p)) {
                             if (Energy.use(p, getName(), getEnergy(getLevel(p)), true)) {
                                 UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
@@ -133,11 +138,6 @@ public class Swim extends Skill {
         return 10 - ((level - 1) * 2);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }
 
 

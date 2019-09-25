@@ -143,10 +143,4 @@ public class StunningShot extends Skill {
     }
 
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

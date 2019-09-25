@@ -293,10 +293,4 @@ public class Blink extends Skill {
         return (float) (level < 1 ? 35 : 35 - (1.5 * (level - 1)));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

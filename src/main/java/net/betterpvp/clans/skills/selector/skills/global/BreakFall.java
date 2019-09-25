@@ -2,10 +2,11 @@ package net.betterpvp.clans.skills.selector.skills.global;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.client.Client;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.client.ClientUtilities;
+
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -52,14 +53,16 @@ public class BreakFall extends Skill {
         if (e.getEntity() instanceof Player) {
             if (e.getCause() == DamageCause.FALL) {
                 Player p = (Player) e.getEntity();
-                if (Role.getRole(p) != null) {
-                    Role r = Role.getRole(p);
-                    Client c = ClientUtilities.getOnlineClient(p);
-                    if (c != null) {
+                Role r = Role.getRole(p);
+                if (r != null) {
 
-                        if (c.getGamer().getActiveBuild(r.getName()) != null) {
-                            if (c.getGamer().getActiveBuild(r.getName()).getGlobal() != null) {
-                                if (c.getGamer().getActiveBuild(r.getName()).getGlobal().getSkill().equals(this)) {
+                    Gamer g = GamerManager.getOnlineGamer(p);
+
+                    if (g != null) {
+
+                        if (g.getActiveBuild(r.getName()) != null) {
+                            if (g.getActiveBuild(r.getName()).getGlobal() != null) {
+                                if (g.getActiveBuild(r.getName()).getGlobal().getSkill().equals(this)) {
                                     e.setDamage(e.getDamage() - (3 + getLevel(p)));
                                 }
                             }
@@ -81,12 +84,6 @@ public class BreakFall extends Skill {
     public float getEnergy(int level) {
 
         return 0;
-    }
-
-    @Override
-    public boolean requiresShield() {
-
-        return false;
     }
 
 }

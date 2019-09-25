@@ -74,10 +74,4 @@ public class StrengthInNumbers extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -161,10 +161,4 @@ public class Volley extends Skill {
         return 30 - ((level - 1) * 3);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -214,11 +214,5 @@ public class Immolate extends Skill {
         return 8 - ((level - 1));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

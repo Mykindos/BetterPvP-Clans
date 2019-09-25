@@ -184,11 +184,5 @@ public class ArcticArmour extends Skill {
         return (float) (3 - ((level - 1) * 0.5));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

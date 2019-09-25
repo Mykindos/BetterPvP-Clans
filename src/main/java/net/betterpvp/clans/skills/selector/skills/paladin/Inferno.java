@@ -184,9 +184,4 @@ public class Inferno extends Skill {
         return 9 - ((level - 1) * 1);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
 }

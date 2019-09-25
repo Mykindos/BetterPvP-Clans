@@ -8,16 +8,17 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.RecallData;
-import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,7 +57,7 @@ public class Recall extends Skill {
             return;
         }
 
-        if (Weapon.getWeapon(event.getItemDrop().getItemStack()) != null) {
+        if (WeaponManager.getWeapon(event.getItemDrop().getItemStack()) != null) {
             return;
         }
 
@@ -131,7 +132,7 @@ public class Recall extends Skill {
         }
 
 
-        if (EffectManager.isSilenced(player)) {
+        if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + " while silenced!");
             return false;
         }
@@ -192,9 +193,4 @@ public class Recall extends Skill {
         return (float) 80 - ((level - 1) * 5);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }

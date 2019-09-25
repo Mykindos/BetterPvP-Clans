@@ -121,12 +121,6 @@ public class SilencingStrikes extends Skill {
     }
 
     @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
-    @Override
     public void activateSkill(Player p) {
 
 

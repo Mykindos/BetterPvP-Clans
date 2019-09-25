@@ -92,10 +92,4 @@ public class CripplingBlow extends Skill {
         return false;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

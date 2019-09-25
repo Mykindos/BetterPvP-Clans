@@ -99,9 +99,4 @@ public class Cyclone extends Skill {
     }
 
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }

@@ -100,10 +100,4 @@ public class Thorns extends Skill {
 
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

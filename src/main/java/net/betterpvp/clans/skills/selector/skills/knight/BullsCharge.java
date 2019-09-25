@@ -159,9 +159,4 @@ public class BullsCharge extends Skill {
         return (float) 35 - ((level - 1) * 5);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }

@@ -123,11 +123,5 @@ public class Swordsmanship extends Skill {
         }
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

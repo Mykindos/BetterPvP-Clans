@@ -173,15 +173,6 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
     public abstract float getEnergy(int level);
 
     /**
-     * 1.9+ Support
-     * Skills that used sword blocking in 1.8.9 could use a shield in 1.9+ to accomplish
-     * the same result
-     *
-     * @return Returns true if a shield is required to cast the skill
-     */
-    public abstract boolean requiresShield();
-
-    /**
      * The method used to perform a skill
      *
      * @param p The player casting the skill

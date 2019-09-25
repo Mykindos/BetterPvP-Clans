@@ -137,10 +137,4 @@ public class RootingAxe extends Skill {
     }
 
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

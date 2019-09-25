@@ -161,10 +161,4 @@ public class Void extends Skill {
         return false;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -250,12 +250,6 @@ public class Pestilence extends Skill {
     }
 
     @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
-    @Override
     public void activateSkill(Player p) {
         UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
         active.add(p.getUniqueId());

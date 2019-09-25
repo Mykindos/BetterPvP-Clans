@@ -4,15 +4,16 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Knight;
-import net.betterpvp.clans.client.Client;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.framework.RechargeManager;
+
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -98,41 +99,35 @@ public class Deflection extends Skill {
 
             for (Player cur : Bukkit.getOnlinePlayers()) {
                 Role r = Role.getRole(cur);
-                if (r != null) {
-                    if (r instanceof Knight) {
-                        Client c = ClientUtilities.getOnlineClient(cur);
 
+                if (r == null) continue;
+                if (!(r instanceof Knight)) continue;
 
-                        if (hasSkill(c, cur, this)) {
-                            if (charges.containsKey(cur)) {
-                                if (UtilTime.elapsed(c.getGamer().getLastDamaged(), 2000)) {
-                                    if (RechargeManager.getInstance().add(cur, getName(), 3, false)) {
-                                        if (charges.get(cur) < getLevel(cur)) {
-                                            int charge = 1;
+                Gamer g = GamerManager.getOnlineGamer(cur);
 
-                                            charge += charges.get(cur);
+                if (hasSkill(g, cur, this)) {
+                    if (charges.containsKey(cur)) {
+                        if (UtilTime.elapsed(g.getLastDamaged(), 2000)) {
+                            if (RechargeManager.getInstance().add(cur, getName(), 3, false)) {
+                                if (charges.get(cur) < getLevel(cur)) {
+                                    int charge = 1;
 
-                                            charge = Math.min((getLevel(cur)), charge);
-                                            UtilMessage.message(cur, getClassType(), "Deflection charge: " + ChatColor.YELLOW + charge);
-                                            charges.put(cur, charge);
-                                        }
-                                    }
+                                    charge += charges.get(cur);
+
+                                    charge = Math.min((getLevel(cur)), charge);
+                                    UtilMessage.message(cur, getClassType(), "Deflection charge: " + ChatColor.YELLOW + charge);
+                                    charges.put(cur, charge);
                                 }
-                            } else {
-                                charges.put(cur, 0);
                             }
                         }
+                    } else {
+                        charges.put(cur, 0);
                     }
                 }
 
+
             }
         }
-    }
-
-    @Override
-    public boolean requiresShield() {
-
-        return false;
     }
 
 }

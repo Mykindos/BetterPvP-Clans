@@ -55,12 +55,6 @@ public class MoltenShield extends Skill {
     }
 
     @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
-    @Override
     public void activateSkill(Player p) {
 
 

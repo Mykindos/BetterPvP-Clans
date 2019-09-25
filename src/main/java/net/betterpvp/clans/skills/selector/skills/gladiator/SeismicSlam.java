@@ -241,10 +241,4 @@ public class SeismicSlam extends Skill {
         return 50 - ((level - 1) * 5);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

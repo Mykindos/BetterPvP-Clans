@@ -239,12 +239,6 @@ public class Swarm extends Skill {
         return true;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
-
 
     private class BatData {
 

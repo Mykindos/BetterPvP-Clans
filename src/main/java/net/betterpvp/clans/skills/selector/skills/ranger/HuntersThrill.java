@@ -136,10 +136,4 @@ public class HuntersThrill extends Skill {
         return 0;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

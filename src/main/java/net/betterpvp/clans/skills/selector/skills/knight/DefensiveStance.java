@@ -165,10 +165,4 @@ public class DefensiveStance extends Skill {
         return (float) 7 - ((level - 1));
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return true;
-    }
-
 }

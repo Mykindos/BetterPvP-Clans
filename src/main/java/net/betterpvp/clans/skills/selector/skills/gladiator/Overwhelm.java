@@ -80,10 +80,4 @@ public class Overwhelm extends Skill {
         return false;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

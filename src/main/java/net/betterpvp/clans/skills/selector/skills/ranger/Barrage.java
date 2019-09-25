@@ -232,10 +232,4 @@ public class Barrage extends Skill {
         return 40;
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 }

@@ -159,11 +159,5 @@ public class RopedArrow extends Skill {
         return 30 - ((level - 1) * 2);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
-
 
 }

@@ -184,9 +184,4 @@ public class Leap extends Skill {
         return 20 - (level - 1);
     }
 
-    @Override
-    public boolean requiresShield() {
-
-        return false;
-    }
 }

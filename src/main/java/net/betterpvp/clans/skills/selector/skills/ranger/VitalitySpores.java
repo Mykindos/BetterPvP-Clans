@@ -6,7 +6,6 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilTime;
@@ -79,12 +78,6 @@ public class VitalitySpores extends Skill {
 
     @Override
     public boolean usageCheck(Player p) {
-
-        return false;
-    }
-
-    @Override
-    public boolean requiresShield() {
 
         return false;
     }
