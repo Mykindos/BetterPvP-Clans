@@ -1,6 +1,7 @@
 package net.betterpvp.clans;
 
 
+import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.listeners.*;
 import net.betterpvp.clans.clans.map.MinimapRenderer;
 import net.betterpvp.clans.clans.map.NMS.INMSHandler;
@@ -102,6 +103,8 @@ public class Clans extends JavaPlugin implements Listener {
         new WorldListener(this);
 
 
+
+        getCommand("clan").setExecutor(new ClanCommand(this));
     }
 
     @EventHandler

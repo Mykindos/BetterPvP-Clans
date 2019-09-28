@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -57,6 +58,18 @@ public class WorldListener extends BPVPListener<Clans> {
     public void onWeatherChange(WeatherChangeEvent e) {
         if (!e.getWorld().hasStorm() && !e.getWorld().isThundering()) {
             e.setCancelled(true);
+        }
+    }
+
+    /**
+     * Prevent players from losing hunger, because its annoying and negatively affects pvp
+     * @param e
+     */
+    @EventHandler
+    public void onHungerDrain(FoodLevelChangeEvent e){
+        e.setCancelled(true);
+        if(e.getFoodLevel() < 20) {
+            e.setFoodLevel(20);
         }
     }
 }
