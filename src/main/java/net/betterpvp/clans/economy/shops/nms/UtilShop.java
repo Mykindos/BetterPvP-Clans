@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.betterpvp.clans.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilMessage;
 import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.EntityInsentient;
 import net.minecraft.server.v1_8_R3.EntityTypes;

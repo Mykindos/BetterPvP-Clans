@@ -29,6 +29,7 @@ import java.util.Set;
 
 public class ScoreboardManager extends BPVPListener<Clans> {
 
+
     private static Set<Scoreboard> scoreboards = new HashSet<>();
 
 
@@ -46,7 +47,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
         Clan clan = ClanUtilities.getClan(e.getClient().getUUID());
         for (Gamer g : GamerManager.getOnlineGamers()) {
-            if (g.getScoreboard())
+
         }
     }
 
@@ -127,7 +128,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
         if (clan != null) {
             for (Gamer g : GamerManager.getOnlineGamers()) {
-                Gamer clan
+              //  Gamer clan
             }
         }
     }
@@ -202,7 +203,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
             if (c != null) {
 
-                addClan(s, c.getName());
+               // addClan(s, c.getName());
 
                 for (Team team : s.getScoreboard().getTeams()) {
                     if (team.getName().equals(c.getName())) {
@@ -273,7 +274,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                         team.setPrefix(ChatColor.YELLOW.toString());
                         continue;
                     }
-                    setPrefix(team, a, ClanUtilities.getClan(team.getName()));
+                 //   setPrefix(team, a, ClanUtilities.getClan(team.getName()));
                 }
             }
         }
@@ -287,7 +288,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                         team.setPrefix(ChatColor.YELLOW.toString());
                         continue;
                     }
-                    setPrefix(team, b, ClanUtilities.getClan(team.getName()));
+                   // setPrefix(team, b, ClanUtilities.getClan(team.getName()));
                 }
             }
         }
@@ -347,7 +348,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
             for (Clan d : ClanUtilities.clans) {
                 if (d.isOnline()) {
-                    addClan(z, d.getName());
+                  //  addClan(z, d.getName());
                     Team team = z.getScoreboard().getTeam(d.getName());
                     for (ClanMember member : d.getMembers()) {
                         if (Bukkit.getPlayer(member.getUUID()) != null) {
@@ -363,7 +364,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (ClanUtilities.getClan(p) == null) {
-                    addNone(z, p.getName());
+                  //  addNone(z, p.getName());
                 }
             }
         }
@@ -390,7 +391,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
             }
 
         }
-        addNone(name);
+       // addNone(name);
     }
 
 

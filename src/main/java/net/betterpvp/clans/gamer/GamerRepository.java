@@ -19,14 +19,14 @@ public class GamerRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_gamers";
 
-    public static String CREATE_GAMER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-            + "(UUID VARCHAR(64), "
+    public static String CREATE_GAMER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "` ("
+            + "UUID VARCHAR(64), "
             + "Coins INT,"
             + "Kills bigint(255),"
             + "Deaths bigint(255),"
             + "Votes INT(10),"
             + "Fragments bigint(255),"
-            + "BattleCoins bitint(255),"
+            + "BattleCoins bigint(255),"
             + "Filter tinyint(1)); ";
 
 

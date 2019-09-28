@@ -1,6 +1,8 @@
 package net.betterpvp.clans.worldevents.types.bosses;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
@@ -454,6 +456,7 @@ public class SlimeKing extends Boss {
 
     }
 
+    /*
     @EventHandler(priority = EventPriority.HIGHEST)
     public void bonusDamage(CustomDamageEvent e) {
         if (isActive()) {
@@ -480,6 +483,9 @@ public class SlimeKing extends Boss {
             }
         }
     }
+
+
+     */
 
 
     @EventHandler

@@ -2,9 +2,11 @@ package net.betterpvp.clans.skills.selector.page;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.client.Client;
+
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
-import net.betterpvp.core.client.ClientUtilities;
+
 import net.betterpvp.core.interfaces.Button;
 import net.betterpvp.core.interfaces.Menu;
 import net.betterpvp.core.utility.UtilItem;
@@ -37,22 +39,22 @@ public class BuildPage extends Menu {
         addButton(new Button(27, new ItemStack(r.getChestplate()), ChatColor.GREEN.toString() + ChatColor.BOLD + role + " Chestplate"));
         addButton(new Button(36, new ItemStack(r.getLeggings()), ChatColor.GREEN.toString() + ChatColor.BOLD + role + " Leggings"));
         addButton(new Button(45, new ItemStack(r.getBoots()), ChatColor.GREEN.toString() + ChatColor.BOLD + role + " Boots"));
-        Client c = ClientUtilities.getOnlineClient(p);
-        if (c != null) {
+        Gamer g = GamerManager.getOnlineGamer(p);
+        if (g != null) {
             for (int i = 0; i < 4; i++) {
 
-                if (c.getGamer().getActiveBuild(role) == null) {
+                if (g.getActiveBuild(role) == null) {
                     try {
-                        c.getGamer().getBuild(role, 1).setActive(true);
-                        c.getGamer().setActiveBuild(ClientUtilities.getClient(p).getGamer().getBuild(role, 1));
-                        BuildRepository.updateBuild(c.getUUID(), c.getGamer().getBuild(role, 1));
+                        g.getBuild(role, 1).setActive(true);
+                        g.setActiveBuild(g.getBuild(role, 1));
+                        BuildRepository.updateBuild(g.getUUID(), g.getBuild(role, 1));
                     } catch (Exception e) {
                         UtilMessage.message(p, "Build", "Your builds appear to be bugged! Try reopening the window");
                         BuildRepository.loadBuilds(x, p.getUniqueId());
                         return;
                     }
                 }
-                if (c.getGamer().getActiveBuild(role).getID() == i + 1) {
+                if (g.getActiveBuild(role).getID() == i + 1) {
                     addButton(new Button(slot + 11, UtilItem.addGlow(new ItemStack(Material.INK_SACK, 1, (byte) i)), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));
                 } else {
                     addButton(new Button(slot + 11, new ItemStack(Material.INK_SACK, 1, (byte) i), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));

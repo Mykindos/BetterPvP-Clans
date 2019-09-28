@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;

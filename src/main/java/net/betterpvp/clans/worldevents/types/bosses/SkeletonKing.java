@@ -2,7 +2,7 @@ package net.betterpvp.clans.worldevents.types.bosses;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.PlayerStat;
+
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
@@ -172,6 +172,7 @@ public class SkeletonKing extends Boss {
     }
 
 
+    /*
     @EventHandler(priority = EventPriority.HIGHEST)
     public void bonusDamage(CustomDamageEvent e) {
         if (isActive()) {
@@ -198,6 +199,8 @@ public class SkeletonKing extends Boss {
             }
         }
     }
+
+     */
 
     @EventHandler
     public void onCollide(ThrowableCollideEntityEvent e) {

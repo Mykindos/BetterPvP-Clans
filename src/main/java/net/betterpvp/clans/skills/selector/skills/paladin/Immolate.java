@@ -8,6 +8,7 @@ import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -166,7 +167,7 @@ public class Immolate extends Skill {
                     UtilMessage.message(cur, getClassType(), "Immolate: " + ChatColor.RED + "Off");
                 } else if (cur == null) {
                     iterator.remove();
-                } else if (EffectManager.isSilenced(cur)) {
+                } else if (EffectManager.hasEffect(cur, EffectType.SILENCE)) {
                     iterator.remove();
                     UtilMessage.message(cur, getClassType(), "Immolate: " + ChatColor.RED + "Off");
                 } else if (Role.getRole(cur) == null || Role.getRole(cur) != null && !Role.getRole(cur).getName().equals(getClassType())) {

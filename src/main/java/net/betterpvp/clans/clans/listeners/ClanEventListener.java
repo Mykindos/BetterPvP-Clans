@@ -46,7 +46,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
 
             clan.setLeader(player.getUniqueId());
             clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.LEADER));
-            ScoreboardManager.addPlayer(player.getName());
+           // ScoreboardManager.addPlayer(player.getName());
             clan.setSafe(true);
             ClanUtilities.addClan(clan);
             ClanRepository.saveClan(clan);
@@ -60,7 +60,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.LEADER));
                 ClanRepository.saveClan(clan);
                 ClanUtilities.addClan(clan);
-                ScoreboardManager.addPlayer(player.getName());
+               // ScoreboardManager.addPlayer(player.getName());
 
                 UtilMessage.broadcast("Clans", ChatColor.YELLOW + player.getName() + ChatColor.GRAY
                         + " formed " + ChatColor.YELLOW + "Clan " + e.getClanName() + ChatColor.GRAY + ".");
@@ -136,7 +136,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
 
             clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.RECRUIT));
             MemberRepository.saveMember(clan, new ClanMember(player.getUniqueId(), ClanMember.Role.RECRUIT));
-            ScoreboardManager.addPlayer(player.getName());
+          //  ScoreboardManager.addPlayer(player.getName());
 
             Log.write("Clans", "Added [" + player.getUniqueId() + "] to Clan [" + clan.getName() + "]");
             UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
@@ -197,14 +197,14 @@ public class ClanEventListener extends BPVPListener<Clans> {
         }
 
         Player player = e.getPlayer();
-        Clan clan = e.getPlayersClan();
-        Clan target = e.getTargetClan();
+        Clan clan = e.getClanA();
+        Clan target = e.getClanB();
 
         clan.getAlliances().add(new Alliance(target, false));
         target.getAlliances().add(new Alliance(clan, false));
         AllianceRepository.saveAlly(clan, target, false);
         AllianceRepository.saveAlly(target, clan, false);
-        ScoreboardManager.updateRelation();
+       // ScoreboardManager.updateRelation();
 
         InviteHandler.removeInvite(target, clan);
 
@@ -231,15 +231,15 @@ public class ClanEventListener extends BPVPListener<Clans> {
         }
 
         Player player = e.getPlayer();
-        Clan clan = e.getPlayersClan();
-        Clan target = e.getTargetClan();
+        Clan clan = e.getClanA();
+        Clan target = e.getClanB();
 
 
         clan.getAlliance(target).setTrust(true);
         target.getAlliance(clan).setTrust(true);
         AllianceRepository.updateAlly(clan, target);
         AllianceRepository.updateAlly(target, clan);
-        ScoreboardManager.updateRelation();
+        //ScoreboardManager.updateRelation();
         InviteHandler.removeInvite(clan, target);
 
         UtilMessage.message(player, "Clans", "You accepted trust with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
@@ -263,8 +263,8 @@ public class ClanEventListener extends BPVPListener<Clans> {
         }
 
         Player player = e.getPlayer();
-        Clan clan = e.getPlayersClan();
-        Clan target = e.getTargetClan();
+        Clan clan = e.getClanA();
+        Clan target = e.getClanB();
 
         if (clan.isAllied(target)) {
             clan.getAlliances().remove(clan.getAlliance(target));
@@ -279,7 +279,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
         EnemyRepository.saveDominance(new Dominance(target, clan, 0));
         EnemyRepository.saveDominance(new Dominance(clan, target, 0));
 
-        ScoreboardManager.updateRelation();
+       // ScoreboardManager.updateRelation();
 
 
         Log.write("Clans", "[" + clan.getName() + "] waged war with [" + target.getName() + "]");
@@ -306,8 +306,8 @@ public class ClanEventListener extends BPVPListener<Clans> {
         }
 
         Player player = e.getPlayer();
-        Clan clan = e.getPlayersClan();
-        Clan target = e.getTargetClan();
+        Clan clan = e.getClanA();
+        Clan target = e.getClanB();
 
         ClanUtilities.ClanRelation relation = ClanUtilities.getRelation(clan, target);
         if (relation == ClanUtilities.ClanRelation.ALLY || relation == ClanUtilities.ClanRelation.ALLY_TRUST) {
@@ -319,7 +319,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
             clan.getAlliances().remove(clan.getAlliance(target));
             target.getAlliances().remove(target.getAlliance(clan));
             AllianceRepository.deleteAlly(clan, target);
-            ScoreboardManager.updateRelation();
+           //ScoreboardManager.updateRelation();
             Log.write("Clans", "[" + clan.getName() + "] revoked alliance with [" + target.getName() + "]");
         } else if (relation == ClanUtilities.ClanRelation.ENEMY) {
             if (InviteHandler.isInvited(clan, target)) {
@@ -343,7 +343,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 EnemyRepository.deleteEnemy(dom);
                 clan.getEnemies().remove(dom);
                 target.getEnemies().remove(tarDom);
-                ScoreboardManager.updateRelation();
+               // ScoreboardManager.updateRelation();
                 InviteHandler.removeInvite(clan, target);
                 return;
             }

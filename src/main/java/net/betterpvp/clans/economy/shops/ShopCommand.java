@@ -89,7 +89,7 @@ public class ShopCommand extends Command implements Listener {
                     if (ClientUtilities.getOnlineClient(p).hasRank(Rank.ADMIN, true)) {
                         if (args.length == 2) {
                             if (args[0].equalsIgnoreCase("create")) {
-                                ShopManager.spawnShop(i, p, args[1]);
+                                ShopManager.spawnShop(i, p.getLocation(), args[1]);
                                 ShopKeeperRepository.addKeeper(args[1], p.getLocation());
                             }
                         }

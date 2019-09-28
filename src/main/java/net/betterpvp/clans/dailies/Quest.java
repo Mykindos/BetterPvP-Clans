@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import net.betterpvp.core.framework.BPVPListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.dailies.progression.Progress;
 
-public class Quest implements Listener{
+public class Quest extends BPVPListener<Clans> {
 	
 	private Clans instance;
 	private boolean active;
@@ -19,7 +20,7 @@ public class Quest implements Listener{
 	private List<Progress> progression;
 	
 	public Quest(Clans i, String questName, String[] description){
-		Bukkit.getPluginManager().registerEvents(this, i);
+		super(i);
 		this.instance = i;
 		this.questName = questName;
 		this.description = description;

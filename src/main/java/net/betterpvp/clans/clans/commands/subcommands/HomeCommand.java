@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.framework.BPVPListener;

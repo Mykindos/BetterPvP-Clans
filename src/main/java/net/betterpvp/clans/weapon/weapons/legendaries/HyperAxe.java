@@ -2,8 +2,9 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.morphs.MorphUtilities;
+
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,10 +36,10 @@ public class HyperAxe extends Weapon {
 
             if (player.getItemInHand() == null) return;
             if (player.getItemInHand().getType() != Material.RECORD_7) return;
-            if (MorphUtilities.isMorphed(player)) {
-                return;
-            }
-            if (isWeapon(player.getItemInHand()) && getWeapon(player.getItemInHand()).equals(this)) {
+
+
+            Weapon weapon = WeaponManager.getWeapon(player.getItemInHand());
+            if (weapon != null && weapon.equals(this)) {
 
                 event.setDamage(4);
                 event.setKnockback(false);

@@ -1,8 +1,7 @@
 package net.betterpvp.clans.worldevents.types.bosses.commands;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.client.Rank;
-import net.betterpvp.clans.command.Command;
+
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Boss;
@@ -11,14 +10,17 @@ import net.betterpvp.clans.worldevents.types.Timed;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
 import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
-import net.betterpvp.mah.utility.UtilMessage;
+import net.betterpvp.core.client.Rank;
+import net.betterpvp.core.command.Command;
+import net.betterpvp.core.utility.UtilMessage;
+
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 
 public class BossCommands extends Command {
 
-    public BossCommands(Clans c) {
+    public BossCommands() {
         super("boss", new String[]{}, Rank.ADMIN);
     }
 

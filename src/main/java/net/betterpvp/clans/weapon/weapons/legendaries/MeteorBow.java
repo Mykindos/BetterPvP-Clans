@@ -2,7 +2,9 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilGamer;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -72,7 +74,7 @@ public class MeteorBow extends Weapon {
                 if (ClanUtilities.canHurt(damager, p)) {
                     if (p.getHealth() > 0) {
                         LogManager.addLog(p, damager, "Explosive Arrow");
-                        p.damage(UtilPlayer.getDamageReduced(5, p));
+                        p.damage(UtilGamer.getDamageReduced(5, p));
                         GamerManager.getOnlineGamer(p).setLastDamaged(System.currentTimeMillis());
 
                     }

@@ -11,7 +11,8 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
@@ -55,12 +56,12 @@ public class HiltSmash extends Skill {
 
         if (hasSkill(p, this)) {
             if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
-                Weapon weapon = Weapon.getWeapon(p.getItemInHand());
+                Weapon weapon = WeaponManager.getWeapon(p.getItemInHand());
                 if (weapon == null || weapon instanceof EnchantedWeapon) {
 
                     if (ClanUtilities.canCast(p)) {
 
-                        if (EffectManager.isSilenced(p)) {
+                        if (EffectManager.hasEffect(p, EffectType.SILENCE)) {
                             UtilMessage.message(p, getName(), "You cannot use " + getName() + " while silenced!");
                             return;
                         }

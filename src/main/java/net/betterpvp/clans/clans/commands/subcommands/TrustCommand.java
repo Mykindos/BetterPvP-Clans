@@ -57,7 +57,7 @@ public class TrustCommand implements IClanCommand {
             target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has revoked trust to you.", null, true);
             clan.getAlliance(target).setTrust(false);
             target.getAlliance(clan).setTrust(false);
-            ScoreboardManager.updateRelation();
+           // ScoreboardManager.updateRelation();
             return;
         }
 

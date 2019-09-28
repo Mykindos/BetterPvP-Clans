@@ -1,8 +1,9 @@
 package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
-import net.betterpvp.clans.client.Client;
+
 import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -51,9 +52,8 @@ public abstract class Role {
     public abstract Material getBoots();
 
     public String[] equipMessage(Player p) {
-        Client client = ClientUtilities.getOnlineClient(p);
-        if (client == null) return new String[]{};
-        Gamer g = client.getGamer();
+        Gamer g = GamerManager.getOnlineGamer(p);
+
         if (g == null) return new String[]{};
 
         RoleBuild build = g.getActiveBuild(getName());

@@ -5,7 +5,7 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.PlayerStat;
+
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
@@ -16,16 +16,13 @@ import net.betterpvp.clans.worldevents.types.Boss;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossWither;
 import net.betterpvp.clans.worldevents.types.nms.BossWitherSkull;
-import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.framework.BlockRestoreData;
-import net.betterpvp.core.framework.RechargeManager;
+
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.utility.UtilBlock;
-import net.betterpvp.core.utility.UtilMath;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilVelocity;
-import net.betterpvp.mah.utility.UtilTime;
+import net.betterpvp.core.utility.*;
+import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
+
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_8_R3.EntityLiving;
 import org.bukkit.*;
@@ -148,6 +145,7 @@ public class Witherton extends Boss {
         }
     }
 
+    /*
     @EventHandler(priority = EventPriority.HIGHEST)
     public void bonusDamage(CustomDamageEvent e) {
         if (isActive()) {
@@ -168,6 +166,8 @@ public class Witherton extends Boss {
             }
         }
     }
+
+     */
 
     @EventHandler
     public void onDamageBySkullWitherton(CustomDamageEvent e) {

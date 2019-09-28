@@ -1,14 +1,19 @@
 package net.betterpvp.clans;
 
+
 import net.betterpvp.clans.clans.map.MinimapRenderer;
 import net.betterpvp.clans.clans.map.NMS.INMSHandler;
 import net.betterpvp.clans.clans.map.NMS.NMSHandler;
 import net.betterpvp.clans.clans.map.OneHandedRenderer;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
+import net.betterpvp.clans.clans.mysql.TestRepository;
+import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.settings.Options;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.QueryFactory;
+import net.betterpvp.core.database.Repository;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
 import org.bukkit.Bukkit;
@@ -17,9 +22,21 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
+
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 
 public class Clans extends JavaPlugin implements Listener {
 
@@ -29,8 +46,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        options = new Options(this);
+
         config = new ConfigManager(this);
+        options = new Options(this);
         Bukkit.getPluginManager().registerEvents(this, this);
 
 
@@ -38,8 +56,9 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
     private void load() {
-        QueryFactory.loadRepositories("net.betterpvp.clans", this);
-        CommandManager.registerCommands("net.betterpvp.clans", this);
+
+        ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
+        ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
 
     }
 
@@ -108,6 +127,40 @@ public class Clans extends JavaPlugin implements Listener {
         }
         folder.delete();
     }
+
+    public static void loadRepositories(String packageName, JavaPlugin instance) {
+
+        Reflections reflections = new Reflections(packageName);
+
+        Set<Class<? extends Repository>> classes = reflections.getSubTypesOf(Repository.class);
+        System.out.println("Repositories: " + classes.size());
+        List<Repository> temp = new ArrayList<>();
+        for (Class<? extends Repository> r : classes) {
+            try {
+                Repository repo = r.newInstance();
+                QueryFactory.addRepository(repo);
+                temp.add(repo);
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        temp.sort(Comparator.comparingInt(r2 -> r2.getLoadPriority().getPriority()));
+
+        temp.forEach(r -> {
+
+            r.initialize();
+            r.load(instance);
+
+        });
+
+
+
+
+
+
+    }
+
 
     public INMSHandler getNMSHandler() {
         return this.nms;

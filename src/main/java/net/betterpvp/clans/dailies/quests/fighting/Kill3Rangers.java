@@ -1,5 +1,7 @@
 package net.betterpvp.clans.dailies.quests.fighting;
 
+import net.betterpvp.clans.combat.CombatLogs;
+import net.betterpvp.clans.combat.LogManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
@@ -8,8 +10,7 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
 import net.betterpvp.clans.dailies.quests.General;
-import net.betterpvp.clans.gamer.combat.CombatLogs;
-import net.betterpvp.clans.gamer.combat.LogManager;
+
 import net.md_5.bungee.api.ChatColor;
 
 public class Kill3Rangers extends General{

@@ -3,7 +3,7 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.framework.BlockRestoreData;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMath;

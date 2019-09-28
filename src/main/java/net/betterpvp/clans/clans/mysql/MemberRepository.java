@@ -18,7 +18,7 @@ public class MemberRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_clanmembers";
 
-    public static final String CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS '" + TABLE_NAME + "'  (" +
+    public static final String CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "`  (" +
             "  `Clan` varchar(255)," +
             "  `UUID` varchar(255)," +
             "  `Role` varchar(255)" +

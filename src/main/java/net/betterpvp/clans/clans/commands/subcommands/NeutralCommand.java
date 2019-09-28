@@ -59,14 +59,14 @@ public class NeutralCommand implements IClanCommand {
             if (truce.get(sender) != null) {
                 if (truce.get(sender).equals(accepting)) {
                     truce.remove(sender);
-                    ScoreboardManager.updateRelation();
+                    //ScoreboardManager.updateRelation();
                 }
             }
         } else if (truce.containsKey(sender)) {
             if (truce.get(accepting) != null) {
                 if (truce.get(accepting).equals(sender)) {
                     truce.remove(accepting);
-                    ScoreboardManager.updateRelation();
+                   // ScoreboardManager.updateRelation();
                 }
             }
 

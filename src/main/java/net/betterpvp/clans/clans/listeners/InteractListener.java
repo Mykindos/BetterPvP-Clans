@@ -39,6 +39,10 @@ public class InteractListener extends BPVPListener<Clans> {
         super(i);
     }
 
+    /**
+     * Prevent players from placing redstone on the outer edges of peoples base that arent in a claim
+     * @param e
+     */
     @EventHandler
     public void onPlaceRedstoneStuff(BlockPlaceEvent e) {
         Clan c = ClanUtilities.getClan(e.getBlock().getLocation());
@@ -61,6 +65,10 @@ public class InteractListener extends BPVPListener<Clans> {
         }
     }
 
+    /**
+     * Prevent players from placing redstone on the outer edges of peoples base that arent in a claim
+     * @param e
+     */
     @EventHandler
     public void onOuterRedstone(PlayerInteractEvent e) {
         if (e.getAction() == Action.PHYSICAL) {

@@ -3,7 +3,8 @@ package net.betterpvp.clans.clans.commands;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.core.client.Rank;
-import net.betterpvp.core.client.commands.StaffChatCommand;
+
+import net.betterpvp.core.client.commands.admin.StaffChatCommand;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;

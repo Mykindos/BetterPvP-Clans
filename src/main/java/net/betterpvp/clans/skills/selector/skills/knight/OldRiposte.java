@@ -3,10 +3,12 @@ package net.betterpvp.clans.skills.selector.skills.knight;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilTime.TimeUnit;
@@ -58,8 +60,8 @@ public class OldRiposte extends Skill {
     public void interact(PlayerInteractEntityEvent e) {
         final Player player = e.getPlayer();
         if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
-            if (Weapon.getWeapon(player.getItemInHand()) == null) {
-                if (EffectManager.isSilenced(player)) {
+            if (WeaponManager.getWeapon(player.getItemInHand()) == null) {
+                if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
                     UtilMessage.message(player, getName(), "You are silenced!");
                     return;
                 }

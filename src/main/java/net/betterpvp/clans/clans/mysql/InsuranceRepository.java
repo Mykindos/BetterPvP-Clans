@@ -20,6 +20,18 @@ public class InsuranceRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_insurance";
 
+
+    private static final String CREATE_INSURANCE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+            "  `Clan` varchar(255)," +
+            "  `InsuranceType` varchar(255)," +
+            "  `Material` varchar(255)," +
+            "  `Data` int(10)," +
+            "  `Time` bigint(100)," +
+            "  `X` double(10,2)," +
+            "  `Y` double(10,2)," +
+            "  `Z` double(10,2)" +
+            ") ";
+
     public static void removeInsurance() {
         String query = "DELETE FROM " + TABLE_NAME + " WHERE ((Time+86400000)-" + System.currentTimeMillis() + ") < 0";
 		/*String query = "DELETE FROM insurance WHERE Type='" + i.getType().toString() 
@@ -35,7 +47,7 @@ public class InsuranceRepository implements Repository<Clans> {
     @Override
     public void initialize() {
 
-
+        QueryFactory.runQuery(CREATE_INSURANCE_TABLE);
     }
 
     @Override

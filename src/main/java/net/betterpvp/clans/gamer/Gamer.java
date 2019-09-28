@@ -72,7 +72,7 @@ public class Gamer implements Invitable {
         int max = 2000000;
 
 
-        if (getClient() != null) {
+      /*  if (getClient() != null) {
             if (getClient().hasDonationRank(DonationRank.GUARDIAN)) {
                 max = 50000000;
             } else if (getClient().hasDonationRank(DonationRank.DIVINE)) {
@@ -82,7 +82,7 @@ public class Gamer implements Invitable {
             } else if (getClient().hasDonationRank(DonationRank.LEGACY)) {
                 max = 20000000;
             }
-        }
+        }*/
 
         return max;
     }
@@ -286,6 +286,7 @@ public class Gamer implements Invitable {
         this.donations = donations;
     }
 
+    /*
     public Donation getDonation(Perk perk) {
         for (Donation donation : getDonations()) {
             if (donation.getPerk().getName().equals(perk.getName())) {
@@ -312,6 +313,8 @@ public class Gamer implements Invitable {
         }
         return false;
     }
+
+     */
 
     public Scoreboard getScoreboard() {
         return scoreboard;

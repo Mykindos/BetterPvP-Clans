@@ -100,9 +100,9 @@ public class LogManager {
                 return true;
             }
 
-            if (UtilItem.hasValuables(p)) {
-                return false;
-            }
+         //   if (UtilItem.hasValuables(p)) {
+          //      return false;
+          //  }
 
             Clan pc = ClanUtilities.getClan(p);
             if (pc != null) {

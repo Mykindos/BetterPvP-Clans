@@ -14,7 +14,7 @@ public class ShopRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "kitmap_shops";
     
-    private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXIST " + TABLE_NAME + " (" +
+    private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
             "  `Store` varchar(255)," +
             "  `ItemID` int(5)," +
             "  `Data` int(5)," +

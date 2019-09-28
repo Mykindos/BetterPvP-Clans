@@ -12,11 +12,11 @@ import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.ChargeData;
-import net.betterpvp.core.framework.RechargeManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
@@ -30,16 +30,18 @@ import java.util.*;
 
 public class FleshHook extends Skill {
 
+    private WeakHashMap<Player, List<LivingEntity>> immune;
+    private List<ChargeData> charges = new ArrayList<>();
+    public HashMap<UUID, Item> hooks = new HashMap<UUID, Item>();
+    public WeakHashMap<Player, Long> delay = new WeakHashMap<>();
+
+
+
     public FleshHook(Clans i) {
         super(i, "Flesh Hook", "Gladiator", getSwords, rightClick, 5, true, true);
 
         immune = new WeakHashMap<>();
     }
-
-    private WeakHashMap<Player, List<LivingEntity>> immune;
-
-    public HashMap<UUID, Item> hooks = new HashMap<UUID, Item>();
-    public WeakHashMap<Player, Long> delay = new WeakHashMap<>();
 
 
     @Override
@@ -58,7 +60,7 @@ public class FleshHook extends Skill {
     @Override
     public void activateSkill(Player player) {
 
-        new ChargeData(player.getUniqueId(), 25, 100);
+        charges.add(new ChargeData(player.getUniqueId(), 25, 100));
         delay.put(player, System.currentTimeMillis());
 
     }
@@ -77,7 +79,7 @@ public class FleshHook extends Skill {
     @EventHandler
     public synchronized void updateFleshHook(UpdateEvent event) {
         if (event.getType() == UpdateEvent.UpdateType.TICK) {
-            ListIterator<ChargeData> iterator = ChargeData.data.listIterator();
+            ListIterator<ChargeData> iterator = charges.listIterator();
             while (iterator.hasNext()) {
                 ChargeData data = iterator.next();
                 Player player = Bukkit.getPlayer(data.getUUID());

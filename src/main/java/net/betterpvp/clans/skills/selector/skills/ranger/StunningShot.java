@@ -8,7 +8,7 @@ import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

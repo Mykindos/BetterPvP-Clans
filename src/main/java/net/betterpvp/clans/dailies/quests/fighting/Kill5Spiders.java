@@ -9,8 +9,8 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
 import net.betterpvp.clans.dailies.quests.General;
-import net.betterpvp.clans.gamer.combat.CombatLogs;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.CombatLogs;
+import net.betterpvp.clans.combat.LogManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class Kill5Spiders extends General{

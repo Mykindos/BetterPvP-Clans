@@ -26,14 +26,6 @@ public class FarmingListener extends BPVPListener<Clans> {
             return;
         }
 
-		/*
-		if(e.getBlock().getWorld().getEnvironment() == Environment.NORMAL){
-			if(e.getBlock().getType() == Material.NETHER_STALK || e.getBlock().getType() == Material.NETHER_WARTS){
-				UtilMessage.message(e.getPlayer(), "Agriculture", "You can only plant netherwarts in the nether!");
-				e.setCancelled(true);
-			}
-		}
-		*/
 
         if (e.getBlock().getType() == Material.PISTON_BASE) {
             if (b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()) {

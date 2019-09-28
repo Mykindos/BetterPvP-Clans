@@ -5,26 +5,26 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.client.DonationRank;
-import net.betterpvp.clans.client.PlayerStat;
-import net.betterpvp.clans.client.mysql.PlayerStatRepository;
+
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.donation.Perk;
+
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
 import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
+
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
-import net.betterpvp.mah.events.UpdateEvent.UpdateType;
+
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -178,11 +178,14 @@ public abstract class Boss extends WorldEvent {
 					UtilMessage.broadcast("World Event", ChatColor.YELLOW + c.getName() + ChatColor.GRAY + " received " + ChatColor.GREEN + "2" + ChatColor.GRAY + " clan points.");
 				}
 				*/
-                Client killerClient = ClientUtilities.getClient(p);
 
-                double fragments = 5;
+                Gamer killerGamer = GamerManager.getOnlineGamer(p);
+                if (killerGamer != null) {
+
+                    double fragments = 5;
 
 
+                /*
                 if (killerClient.hasDonationRank(DonationRank.SAVIOR)) {
                     fragments *= 2;
                 } else if (killerClient.hasDonationRank(DonationRank.LEGACY)) {
@@ -193,22 +196,26 @@ public abstract class Boss extends WorldEvent {
                     fragments *= 1.5;
                 }
 
-                killerClient.getGamer().addCoins(50000);
-                killerClient.getGamer().addFragments(fragments);
+                 */
 
-                giveBonus(killerClient, getBossName());
+                    killerGamer.addCoins(50000);
+                    killerGamer.addFragments(fragments);
 
-                UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
-                        + ChatColor.GREEN + fragments + " fragments");
+                    //giveBonus(killerGamer, getBossName());
 
+                    UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
+                            + ChatColor.GREEN + fragments + " fragments");
+
+                }
             }
         }
 
         Log.write("World Event", loot.getItemMeta().getDisplayName() + " dropped");
-        if (Weapon.getWeapon(loot) != null
-                && !(Weapon.getWeapon(loot) instanceof EnchantedWeapon)) {
-            UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " + Weapon.getWeapon(loot).getName() + ChatColor.YELLOW + " was dropped at the world event!");
-            Log.write("Legendary", Weapon.getWeapon(loot).getName() + " dropped from world event");
+        Weapon wep = WeaponManager.getWeapon(loot);
+        if (wep != null
+                && !(wep instanceof EnchantedWeapon)) {
+            UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " +wep.getName() + ChatColor.YELLOW + " was dropped at the world event!");
+            Log.write("Legendary", wep.getName() + " dropped from world event");
         }
 
         e.getEntity().getWorld().dropItem(e.getEntity().getLocation(), loot);
@@ -217,7 +224,7 @@ public abstract class Boss extends WorldEvent {
         setActive(false);
     }
 
-    private void giveBonus(Client client, String boss) {
+   /* private void giveBonus(Client client, String boss) {
         PlayerStat stat = client.getStats();
         switch (ChatColor.stripColor(boss)) {
             case "Slime King":
@@ -236,7 +243,7 @@ public abstract class Boss extends WorldEvent {
 
         PlayerStatRepository.updateStats(client);
 
-    }
+    }*/
 
     protected void heal(double amount) {
 
@@ -276,7 +283,7 @@ public abstract class Boss extends WorldEvent {
 
     @EventHandler
     public void onExpire(UpdateEvent e) {
-        if (e.getType() == UpdateType.SEC) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
             if (isActive()) {
                 if (UtilTime.elapsed(lastDamaged, 60000 * 15)) {
                     setActive(false);

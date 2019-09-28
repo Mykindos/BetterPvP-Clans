@@ -27,24 +27,21 @@ public class InsuranceListener extends BPVPListener<Clans> {
     @EventHandler
     public void removeOld(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.MIN_32) {
-            new Thread() {
-                @Override
-                public void run() {
-                    for (Clan c : ClanUtilities.clans) {
-                        ListIterator<Insurance> it = c.getInsurance().listIterator();
-                        while (it.hasNext()) {
-                            Insurance i = it.next();
-                            if (i != null) {
-                                if (UtilTime.elapsed(i.getTime(), 86400000)) {
+            new Thread(() -> {
+                for (Clan c : ClanUtilities.clans) {
+                    ListIterator<Insurance> it = c.getInsurance().listIterator();
+                    while (it.hasNext()) {
+                        Insurance i = it.next();
+                        if (i != null) {
+                            if (UtilTime.elapsed(i.getTime(), 86400000)) {
 
-                                    it.remove();
-                                }
+                                it.remove();
                             }
                         }
-                        InsuranceRepository.removeInsurance();
                     }
+                    InsuranceRepository.removeInsurance();
                 }
-            }.start();
+            }).start();
 
         }
     }

@@ -6,6 +6,8 @@ import net.betterpvp.clans.clans.mysql.AllianceRepository;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.clans.clans.mysql.MemberRepository;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
@@ -317,7 +319,7 @@ public class ClanUtilities {
         }
 
         //ClanRepository.removeDynmap(clan);
-        ScoreboardManager.removeClan(clan.getName());
+      //  ScoreboardManager.removeClan(clan.getName());
         ClanRepository.deleteClan(clan);
 
         ClanUtilities.getClans().remove(clan);
@@ -370,7 +372,7 @@ public class ClanUtilities {
         }
 
         //ClanRepository.removeDynmap(clan);
-        ScoreboardManager.removeClan(clan.getName());
+       // ScoreboardManager.removeClan(clan.getName());
         ClanRepository.deleteClan(clan);
     }
 
@@ -437,11 +439,6 @@ public class ClanUtilities {
             return false;
         }
 
-        for (Mirage.MirageData md : Mirage.active.values()) {
-            if (md.npc.getEntity() == target) {
-                return true;
-            }
-        }
 
         if (PunishManager.getPunish(player.getUniqueId(), PunishType.PVPLock) != null) {
             return false;
@@ -457,7 +454,8 @@ public class ClanUtilities {
         }
 
 
-        if (EffectManager.hasProtection(target) || EffectManager.hasProtection(player)) {
+
+        if (EffectManager.hasEffect(target, EffectType.PROTECTION) || EffectManager.hasEffect(player, EffectType.PROTECTION)) {
             return false;
         }
 

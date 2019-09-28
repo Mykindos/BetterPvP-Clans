@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+
 import net.betterpvp.core.database.*;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilLocation;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@TestRepository
 public class ClanRepository implements Repository<Clans> {
 
 

@@ -1,0 +1,7 @@
+author: Mykindos
+main: net.betterpvp.clans.Clans
+name: Clans
+startup: postworld
+version: '1.0'
+depend: [Core, ProtocolLib]
+commands:

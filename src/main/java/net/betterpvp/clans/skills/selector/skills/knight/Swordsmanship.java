@@ -2,10 +2,11 @@ package net.betterpvp.clans.skills.selector.skills.knight;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.framework.RechargeManager;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
@@ -101,7 +102,7 @@ public class Swordsmanship extends Skill {
             for (Player cur : Bukkit.getOnlinePlayers()) {
                 if (hasSkill(cur, this)) {
                     if (charges.containsKey(cur)) {
-                        if (UtilTime.elapsed(ClientUtilities.getOnlineClient(cur).getGamer().getLastDamaged(), 2500)) {
+                        if (UtilTime.elapsed(GamerManager.getOnlineGamer(cur).getLastDamaged(), 2500)) {
                             if (RechargeManager.getInstance().add(cur, getName(), 3, false)) {
                                 if (charges.get(cur) < getLevel(cur)) {
                                     int charge = 1;

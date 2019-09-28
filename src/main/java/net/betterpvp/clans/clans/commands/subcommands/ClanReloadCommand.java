@@ -27,7 +27,7 @@ public class ClanReloadCommand extends Command {
         }
         ClanUtilities.getClans().clear();
 
-        ClanRepository.loadClans(i);
+       // ClanRepository.loadClans(i);
 
     }
 

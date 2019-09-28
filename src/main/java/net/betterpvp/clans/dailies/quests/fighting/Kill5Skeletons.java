@@ -8,7 +8,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
 import net.betterpvp.clans.dailies.quests.General;
-import net.betterpvp.clans.gamer.combat.LogManager;
+import net.betterpvp.clans.combat.LogManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class Kill5Skeletons extends General{

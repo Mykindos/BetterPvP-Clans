@@ -8,7 +8,7 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.core.framework.BlockRestoreData;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
@@ -115,7 +115,7 @@ public class ArcticArmour extends Skill {
 
                 } else if (Role.getRole(cur) == null || Role.getRole(cur) != null && !Role.getRole(cur).getName().equals(getClassType())) {
                     iterator.remove();
-                } else if (EffectManager.isSilenced(cur)) {
+                } else if (EffectManager.hasEffect(cur, EffectType.SILENCE)) {
                     iterator.remove();
                 } else {
 

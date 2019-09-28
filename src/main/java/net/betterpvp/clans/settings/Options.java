@@ -43,9 +43,11 @@ public class Options {
     private Clans i;
 
     public Options(Clans i) {
+        this.i = i;
+
         checkDefaults();
         reloadOptions();
-        this.i = i;
+
 
     }
 
