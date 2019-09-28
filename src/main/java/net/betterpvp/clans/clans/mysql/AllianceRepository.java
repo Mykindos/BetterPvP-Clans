@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class AllianceRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_alliances";
+    public static final String TABLE_NAME = "clans_alliances";
 
     public static String CREATE_ALLY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
             + "(Clan VARCHAR(16), "

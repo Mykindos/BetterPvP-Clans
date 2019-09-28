@@ -22,7 +22,7 @@ import java.util.UUID;
 public class ClanRepository implements Repository<Clans> {
 
 
-    public static final String TABLE_NAME = "kitmap_clans";
+    public static final String TABLE_NAME = "clans_clans";
 
     public static String CREATE_CLANS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
             + "(Name VARCHAR(14), "
@@ -180,7 +180,7 @@ public class ClanRepository implements Repository<Clans> {
             public void run() {
                 int count = 0;
                 try {
-                    PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + "kitmap_raidhistory");
+                    PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + "clans_raidhistory");
                     ResultSet result = statement.executeQuery();
 
                     while (result.next()) {
@@ -219,11 +219,11 @@ public class ClanRepository implements Repository<Clans> {
     public static void updateRaidHistory(Clan a, Clan raided) {
         if (a.getRaids().containsKey(raided)) {
             a.getRaids().put(raided, a.getRaids().get(raided) + 1);
-            String query = "UPDATE kitmap_raidhistory SET Times = '" + a.getRaids().get(raided) + "' WHERE Clan ='" + a.getName() + "' AND Raided ='" + raided.getName() + "'";
+            String query = "UPDATE clans_raidhistory SET Times = '" + a.getRaids().get(raided) + "' WHERE Clan ='" + a.getName() + "' AND Raided ='" + raided.getName() + "'";
             QueryFactory.runQuery(query);
         } else {
             a.getRaids().put(raided, 1);
-            String query2 = "INSERT INTO kitmap_raidhistory (Clan, Raided, Times) VALUES ('" + a.getName() + "', '"
+            String query2 = "INSERT INTO clans_raidhistory (Clan, Raided, Times) VALUES ('" + a.getName() + "', '"
                     + raided.getName() + "', '" + a.getRaids().get(raided) + "')";
             QueryFactory.runQuery(query2);
 

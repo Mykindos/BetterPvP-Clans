@@ -1,22 +1,38 @@
 package net.betterpvp.clans;
 
 
+import net.betterpvp.clans.clans.listeners.*;
 import net.betterpvp.clans.clans.map.MinimapRenderer;
 import net.betterpvp.clans.clans.map.NMS.INMSHandler;
 import net.betterpvp.clans.clans.map.NMS.NMSHandler;
 import net.betterpvp.clans.clans.map.OneHandedRenderer;
 import net.betterpvp.clans.clans.mysql.TestRepository;
+import net.betterpvp.clans.classes.DamageManager;
+import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.classes.RoleManager;
+import net.betterpvp.clans.combat.CombatManager;
+import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.gamer.GamerConnectionListener;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.settings.Options;
+import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.QueryFactory;
 import net.betterpvp.core.database.Repository;
+import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
+import net.minecraft.server.v1_8_R3.Explosion;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
@@ -52,7 +68,7 @@ public class Clans extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
 
-        load();
+
     }
 
     private void load() {
@@ -60,6 +76,38 @@ public class Clans extends JavaPlugin implements Listener {
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
 
+        new SelectorManager(this);
+        new DamageManager(this);
+        new RoleManager(this);
+        new CombatManager(this);
+        new WeaponManager(this);
+        new WEManager(this);
+        new GamerConnectionListener(this);
+        new EffectManager(this);
+        new ThrowableManager(this);
+        new ChatListener(this);
+        new ClanEventListener(this);
+        new ClanMenuListener(this);
+       // new ClanScoreboardListener(this);
+        new DamageListener(this);
+        new EnergyListener(this);
+        new ExplosionListener(this);
+        new InsuranceListener(this);
+        new InteractListener(this);
+        new InviteHandler(this);
+        new MovementListener(this);
+        new PillageListener(this);
+        new Energy(this);
+
+        new WorldListener(this);
+
+
+    }
+
+    @EventHandler
+    public void onLoad(CoreLoadedEvent e){
+        System.out.println("Core loaded, beginning Clans load.");
+        load();
     }
 
     private static Plugin plugin = Bukkit.getPluginManager().getPlugin("CoreProtect");
@@ -128,38 +176,6 @@ public class Clans extends JavaPlugin implements Listener {
         folder.delete();
     }
 
-    public static void loadRepositories(String packageName, JavaPlugin instance) {
-
-        Reflections reflections = new Reflections(packageName);
-
-        Set<Class<? extends Repository>> classes = reflections.getSubTypesOf(Repository.class);
-        System.out.println("Repositories: " + classes.size());
-        List<Repository> temp = new ArrayList<>();
-        for (Class<? extends Repository> r : classes) {
-            try {
-                Repository repo = r.newInstance();
-                QueryFactory.addRepository(repo);
-                temp.add(repo);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-
-        temp.sort(Comparator.comparingInt(r2 -> r2.getLoadPriority().getPriority()));
-
-        temp.forEach(r -> {
-
-            r.initialize();
-            r.load(instance);
-
-        });
-
-
-
-
-
-
-    }
 
 
     public INMSHandler getNMSHandler() {

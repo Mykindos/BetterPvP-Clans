@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ShopRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_shops";
+    public static final String TABLE_NAME = "clans_shops";
     
     private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
             "  `Store` varchar(255)," +

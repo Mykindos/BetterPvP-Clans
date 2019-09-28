@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class ArmourRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_armour";
+    public static final String TABLE_NAME = "clans_armour";
     public static String CREATE_ARMOUR_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (Item VARCHAR(255), Armour double); ";
 
     @Override

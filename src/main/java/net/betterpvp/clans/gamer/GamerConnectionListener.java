@@ -19,12 +19,14 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         super(instance);
     }
 
-    @EventHandler (priority = EventPriority.LOWEST)
+    @EventHandler (priority = EventPriority.LOW)
     public void onClientLogin(ClientLoginEvent e) {
         Gamer gamer = GamerManager.getGamer(e.getClient().getUUID());
         if (gamer == null) {
-            gamer = new Gamer(e.getClient().getUUID());
 
+
+            gamer = new Gamer(e.getClient().getUUID());
+            gamer.setClient(e.getClient());
 
             GamerRepository.saveGamer(gamer);
             GamerManager.getGamers().add(gamer);
@@ -35,6 +37,10 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
             GamerManager.addOnlineGamer(gamer);
             BuildRepository.loadBuilds(getInstance(), gamer.getUUID());
+
+            if(gamer.getClient() == null){
+                gamer.setClient(e.getClient());
+            }
         }
 
         gamer.setScoreboard(new Scoreboard(e.getClient().getPlayer()));

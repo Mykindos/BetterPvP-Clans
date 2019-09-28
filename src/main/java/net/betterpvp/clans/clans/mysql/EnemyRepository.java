@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class EnemyRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_dominance";
+    public static final String TABLE_NAME = "clans_dominance";
 
     public static String CREATE_ENEMY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
             + "(Clan VARCHAR(16), "

@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class BuildRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_builds";
+    public static final String TABLE_NAME = "clans_builds";
 
     private static final String CREATE_BUILDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
             "  `UUID` varchar(255) DEFAULT NULL," +

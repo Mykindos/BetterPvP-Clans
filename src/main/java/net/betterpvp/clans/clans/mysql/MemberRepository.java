@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class MemberRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_clanmembers";
+    public static final String TABLE_NAME = "clans_clanmembers";
 
     public static final String CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "`  (" +
             "  `Clan` varchar(255)," +

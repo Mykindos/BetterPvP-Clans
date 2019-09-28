@@ -18,7 +18,7 @@ import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 
 public class QuestRepository implements Repository<Clans> {
 
-	public static final String TABLE_NAME = "kitmap_questperks";
+	public static final String TABLE_NAME = "clans_questperks";
 	private static final String CREATE_QUESTPERK_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
 			"  `UUID` varchar(255) DEFAULT NULL," +
 			"  `Perk` varchar(255) DEFAULT NULL" +

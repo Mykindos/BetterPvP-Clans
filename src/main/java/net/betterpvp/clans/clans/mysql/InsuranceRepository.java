@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class InsuranceRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_insurance";
+    public static final String TABLE_NAME = "clans_insurance";
 
 
     private static final String CREATE_INSURANCE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +

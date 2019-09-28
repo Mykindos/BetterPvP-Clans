@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class FieldsRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_fields";
+    public static final String TABLE_NAME = "clans_fields";
     public static HashMap<Location, Integer> blocks = new HashMap<>();
     private static World world = Bukkit.getWorld("world");
 

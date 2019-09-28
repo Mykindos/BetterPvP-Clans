@@ -339,7 +339,10 @@ public class SelectorManager extends BPVPListener<Clans> {
                                 Gamer gamer = GamerManager.getOnlineGamer(p);
 
 
-                                if (gamer.getClient().getSettingAsBoolean("RechargeBar")) {
+                                if(gamer.getClient() == null) {System.out.println("lol"); return;}
+                                if(gamer != null){
+                                if (gamer.getClient()
+                                        .getSettingAsBoolean("RechargeBar")) {
                                     RoleBuild b = gamer.getActiveBuild(role.getName());
 
                                     if (b != null) {
@@ -372,6 +375,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                             }
                                         }
                                     }
+                                }
                                 }
                             }
                         }.runTaskAsynchronously(getInstance());

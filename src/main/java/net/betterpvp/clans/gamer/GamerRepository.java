@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class GamerRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "kitmap_gamers";
+    public static final String TABLE_NAME = "clans_gamers";
 
     public static String CREATE_GAMER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "` ("
             + "UUID VARCHAR(64), "
@@ -27,7 +27,8 @@ public class GamerRepository implements Repository<Clans> {
             + "Votes INT(10),"
             + "Fragments bigint(255),"
             + "BattleCoins bigint(255),"
-            + "Filter tinyint(1)); ";
+            + "Filter tinyint(1),"
+            + "PRIMARY KEY(UUID)); ";
 
 
     @Override
@@ -37,66 +38,64 @@ public class GamerRepository implements Repository<Clans> {
 
     @Override
     public void load(Clans clans) {
-        new BukkitRunnable() {
 
-            @Override
-            public void run() {
-                int count = 0;
-                try {
-                    PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
-                    ResultSet result = statement.executeQuery();
+        int count = 0;
+        try {
+            PreparedStatement statement = Connect.getConnection().prepareStatement("SELECT * FROM " + TABLE_NAME);
+            ResultSet result = statement.executeQuery();
 
-                    while (result.next()) {
-                        UUID uuid = UUID.fromString(result.getString(1));
-                        int coins = result.getInt(2);
+            while (result.next()) {
+                UUID uuid = UUID.fromString(result.getString(1));
+                int coins = result.getInt(2);
 
-                        int kills = result.getInt(3);
-                        int deaths = result.getInt(4);
-                        int votes = result.getInt(5);
-                        int fragments = result.getInt(6);
-                        int battlecoins = result.getInt(7);
-                        boolean filter = result.getBoolean(8);
+                int kills = result.getInt(3);
+                int deaths = result.getInt(4);
+                int votes = result.getInt(5);
+                int fragments = result.getInt(6);
+                int battlecoins = result.getInt(7);
+                boolean filter = result.getBoolean(8);
 
 
-                        Client client = ClientUtilities.getClient(uuid);
-                        Gamer gamer = new Gamer(uuid);
-
-                        if (gamer != null && client != null) {
-                            gamer.setCoins(coins);
-                            gamer.setKills(kills);
-                            gamer.setDeaths(deaths);
-                            gamer.setVotes(votes);
-                            gamer.setFragments(fragments);
-                            gamer.setBattleCoins(battlecoins);
-                            gamer.setFilter(filter);
-
-                            gamer.setClient(client);
+                Gamer gamer = new Gamer(uuid);
+                Client client = ClientUtilities.getClient(uuid);
 
 
-                        }
+                if (gamer != null && client != null) {
+                    gamer.setCoins(coins);
+                    gamer.setKills(kills);
+                    gamer.setDeaths(deaths);
+                    gamer.setVotes(votes);
+                    gamer.setFragments(fragments);
+                    gamer.setBattleCoins(battlecoins);
+                    gamer.setFilter(filter);
 
-                        count++;
-                    }
-                    statement.close();
-                    result.close();
+                    gamer.setClient(client);
 
-                    Log.debug("MySQL", "Hooked " + count + " Gamers to Clients");
 
-                } catch (SQLException ex) {
-                    Log.debug("Connection", "Could not load Gamers (Connection Error), ");
-                    ex.printStackTrace();
-                }
-                for (Player p : Bukkit.getOnlinePlayers()) {
-
-                    BuildRepository.loadBuilds(clans, p.getUniqueId());
-
+                    GamerManager.getGamers().add(gamer);
+                    count++;
                 }
 
 
             }
+            statement.close();
+            result.close();
 
-        }.runTaskAsynchronously(clans);
+            Log.debug("MySQL", "Hooked " + count + " Gamers to Clients");
+
+        } catch (SQLException ex) {
+            Log.debug("Connection", "Could not load Gamers (Connection Error), ");
+            ex.printStackTrace();
+        }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+
+            BuildRepository.loadBuilds(clans, p.getUniqueId());
+
+        }
+
+
     }
+
 
     @Override
     public LoadPriority getLoadPriority() {
@@ -104,7 +103,7 @@ public class GamerRepository implements Repository<Clans> {
     }
 
     public static void saveGamer(Gamer gamer) {
-        String query = "INSERT INTO " + TABLE_NAME + " (UUID, Coins, Kills, Deaths, Votes, Fragments, BattleCoins, Filter) VALUES "
+        String query = "INSERT IGNORE INTO " + TABLE_NAME + " (UUID, Coins, Kills, Deaths, Votes, Fragments, BattleCoins, Filter) VALUES "
                 + "('" + gamer.getUUID().toString() + "', "
                 + "'" + gamer.getCoins() + "',"
                 + "'" + gamer.getKills() + "', "
