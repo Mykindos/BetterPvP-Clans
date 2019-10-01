@@ -100,7 +100,7 @@ public class LogManager {
                 return true;
             }
 
-         //   if (UtilItem.hasValuables(p)) {
+         //   if (UtilClans.hasValuables(p)) {
           //      return false;
           //  }
 

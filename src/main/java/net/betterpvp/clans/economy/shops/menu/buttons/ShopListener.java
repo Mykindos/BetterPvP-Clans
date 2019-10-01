@@ -193,7 +193,7 @@ public class ShopListener extends BPVPListener<Clans> {
                 }
 
             } else {
-                k = UtilItem.updateNames(new ItemStack(item.getItemStack().getType(), amount, item.getData()));
+                k = UtilClans.updateNames(new ItemStack(item.getItemStack().getType(), amount, item.getData()));
                 k.getItemMeta().setLore(null);
             }
 
@@ -309,7 +309,7 @@ public class ShopListener extends BPVPListener<Clans> {
         if (p.getInventory().firstEmpty() != -1) {
 
             ItemStack k;
-            k = UtilItem.updateNames(new ItemStack(item.getItemStack().getType(), amount, item.getData()));
+            k = UtilClans.updateNames(new ItemStack(item.getItemStack().getType(), amount, item.getData()));
             k.getItemMeta().setLore(null);
 
 

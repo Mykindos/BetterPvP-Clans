@@ -201,7 +201,7 @@ public class SupplyCrate extends Weapon {
                                     if (UtilMath.randomInt(1000) > 998) {
                                         chest.getInventory().addItem(new ItemStack(Material.TNT, 5));
                                     } else if (UtilMath.randomInt(1000) < 2.5) {
-                                        chest.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.RECORD_11)));
+                                        chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.RECORD_11)));
                                     }
                                 } else {
 

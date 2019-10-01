@@ -62,7 +62,7 @@ public class FarmingRake extends Weapon {
                                     if (p.getInventory().firstEmpty() == -1) {
                                         p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.POTATO_ITEM, UtilMath.randomInt(1, 3)));
                                     } else {
-                                        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.POTATO_ITEM, UtilMath.randomInt(1, 3))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.POTATO_ITEM, UtilMath.randomInt(1, 3))));
                                     }
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
@@ -75,7 +75,7 @@ public class FarmingRake extends Weapon {
                                     if (p.getInventory().firstEmpty() == -1) {
                                         p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.CARROT_ITEM, UtilMath.randomInt(1, 3)));
                                     } else {
-                                        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.CARROT_ITEM, UtilMath.randomInt(1, 3))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CARROT_ITEM, UtilMath.randomInt(1, 3))));
                                     }
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
@@ -86,8 +86,8 @@ public class FarmingRake extends Weapon {
 
                             } else if (b.getType() == Material.CROPS) {
                                 if (b.getData() == CropState.RIPE.getData()) {
-                                    p.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.WHEAT, 1)));
-                                    p.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.SEEDS, UtilMath.randomInt(1, 3))));
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.WHEAT, 1)));
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.SEEDS, UtilMath.randomInt(1, 3))));
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
@@ -100,7 +100,7 @@ public class FarmingRake extends Weapon {
                                     if (p.getInventory().firstEmpty() == -1) {
                                         p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.NETHER_STALK, UtilMath.randomInt(2, 4)));
                                     } else {
-                                        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(Material.NETHER_STALK, UtilMath.randomInt(2, 4))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_STALK, UtilMath.randomInt(2, 4))));
                                     }
 
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
