@@ -8,6 +8,7 @@ import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.menu.ShopMenu;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;

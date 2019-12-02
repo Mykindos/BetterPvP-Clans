@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;

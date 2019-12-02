@@ -18,6 +18,7 @@ import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.commands.admin.OfflineCommand;
 import net.betterpvp.core.client.mysql.ClientRepository;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.*;
@@ -186,8 +187,8 @@ public class WorldListener extends BPVPListener<Clans> {
         Player player = event.getPlayer();
         Block block = event.getBlock();
 
-        PlayerStat stat = ClientUtilities.getOnlineClient(player).getStats();
-        stat.blocksPlaced = stat.blocksPlaced+ 1;
+       // PlayerStat stat = ClientUtilities.getOnlineClient(player).getStats();
+      //  stat.blocksPlaced = stat.blocksPlaced+ 1;
 
         if(block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.FURNACE || block.getType() == Material.HOPPER
                 || block.getType() == Material.DROPPER || block.getType() == Material.DISPENSER){
@@ -284,7 +285,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
 
     @EventHandler
-    public void clearArmourStands(ServerStartEvent e){
+    public void clearArmourStands(CoreLoadedEvent e){
         for (World world : Bukkit.getWorlds()) {
             for (Entity entity : world.getEntities()) {
                 if (entity instanceof ArmorStand) {

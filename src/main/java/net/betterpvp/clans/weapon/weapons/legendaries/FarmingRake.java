@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;

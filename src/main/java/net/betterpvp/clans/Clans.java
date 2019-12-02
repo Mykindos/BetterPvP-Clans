@@ -60,6 +60,7 @@ public class Clans extends JavaPlugin implements Listener {
     private static Options options = null;
     private ConfigManager config;
     private INMSHandler nms = new NMSHandler();
+    private boolean hasStarted;
 
     @Override
     public void onEnable() {
@@ -105,6 +106,8 @@ public class Clans extends JavaPlugin implements Listener {
 
 
         getCommand("clan").setExecutor(new ClanCommand(this));
+
+        hasStarted = true;
     }
 
     @EventHandler
@@ -191,5 +194,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     public ConfigManager getConfigManager() {
         return config;
+    }
+
+    public boolean hasStarted(){
+        return hasStarted;
     }
 }

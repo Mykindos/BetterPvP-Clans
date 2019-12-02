@@ -1,0 +1,163 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.betterpvp</groupId>
+    <artifactId>Clans</artifactId>
+    <version>1.0.1</version>
+
+    <name>Clans</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <version>3.8.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.reflections</pattern>
+                            <shadedPattern>net.betterpvp.clans.reflections</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <artifactSet>
+
+                        <excludes>
+                            <exclude>*guava*</exclude>
+                            <exclude>junit:junit</exclude>
+                            <exclude>*comphenix*</exclude>
+                            <exclude>*cglib*</exclude>
+                            <exclude>jmock:*</exclude>
+                            <exclude>*:xml-apis</exclude>
+                            <exclude>org.apache.maven:lib:tests</exclude>
+                            <exclude>log4j:log4j:jar:</exclude>
+                            <exclude>*net.betterpvp:core*</exclude>
+                            <exclude>*LibsDisguises*</exclude>
+                            <exclude>*CoreProtect*</exclude>
+
+                        </excludes>
+                    </artifactSet>
+                    <outputFile>F:\BetterPvP\Output\BetterPvP-Clans.jar</outputFile>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+        </repository>
+
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.10</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>LibsDisguises</groupId>
+            <artifactId>LibsDisguises</artifactId>
+            <version>8.6.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>CoreProtect</groupId>
+            <artifactId>CoreProtect</artifactId>
+            <version>2.13.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--Spigot API-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
+        <!--Bukkit API-->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.betterpvp</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0</version>
+
+        </dependency>
+    </dependencies>
+</project>
