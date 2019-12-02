@@ -205,7 +205,7 @@ public class SupplyCrate extends Weapon {
                                         chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.RECORD_11)));
                                     }
                                 } else {
-
+ 
                                     for (Weapon w : WeaponManager.weapons) {
                                         if (w.isLegendary()) {
                                             if (Math.random() > 0.50) {
