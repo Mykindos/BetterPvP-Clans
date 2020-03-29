@@ -4,6 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
@@ -324,6 +327,92 @@ public class WorldListener extends BPVPListener<Clans> {
                 }
             }
         }
+    }
+
+    /*
+     * Sets the damage for all tools
+     * Removes knockback from assassins
+     * Increases the durability of Assassin and Paladin Sets by having a chance
+     * to add 1 durability back
+     */
+    @EventHandler (priority = EventPriority.LOWEST)
+    public void onSwordDamage(CustomDamageEvent e){
+
+
+        if(e.getDamagee() instanceof Player){
+            Player d = (Player) e.getDamagee();
+            Role r = Role.getRole(d);
+            if(r != null){
+                if(r instanceof Assassin){
+                    if(!Clans.getOptions().isAssassinKnockbackEnabled()) {
+                        e.setKnockback(false);
+                    }
+
+
+                }
+
+            }
+        }
+        if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
+        if(e.getDamager() instanceof Player){
+            Player p = (Player) e.getDamager();
+            Role r = Role.getRole(p);
+            if(r == null){
+                e.setDamage(e.getDamage() * 0.80);
+            }else {
+                if(r instanceof Assassin) {
+                    if(!Clans.getOptions().isAssassinDealKb()) {
+                        e.setKnockback(false);
+                    }
+                }
+            }
+            if(p.getItemInHand() != null){
+                Material m = p.getItemInHand().getType();
+                if(UtilItem.isSword(m)){
+
+                    if(m == Material.DIAMOND_SWORD){
+                        e.setDamage(5);
+                    }else if(m == Material.GOLD_SWORD){
+                        e.setDamage(6);
+                    }else if(m == Material.IRON_SWORD){
+                        e.setDamage(4.5);
+
+                        Weapon w = WeaponManager.getWeapon(p.getItemInHand());
+                        if(w != null){
+                            if(w instanceof EnchantedWeapon){
+                                EnchantedWeapon enchantedWeapon = (EnchantedWeapon) w;
+
+                                e.setDamage(e.getDamage() + enchantedWeapon.getBonus());
+
+                            }
+                        }
+                    }else if(m == Material.STONE_SWORD){
+                        e.setDamage(3);
+                    }else if(m == Material.WOOD_SWORD){
+                        e.setDamage(2);
+                    }
+
+                }else if(UtilItem.isAxe(m)){
+                    if(m == Material.DIAMOND_AXE){
+                        e.setDamage(4);
+                    }else if(m == Material.GOLD_AXE){
+                        e.setDamage(5);
+                    }else if(m == Material.IRON_AXE){
+                        e.setDamage(3);
+                    }else if(m == Material.STONE_AXE){
+                        e.setDamage(2);
+                    }else if( m == Material.WOOD_AXE){
+                        e.setDamage(1);
+                    }
+
+                }else{
+                    e.setDamage(e.getDamage() * 0.75);
+                }
+            }else{
+                e.setDamage(1);
+            }
+        }
+
     }
 
 
