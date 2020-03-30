@@ -1,16 +1,17 @@
 package net.betterpvp.clans.economy.shops;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.core.framework.BPVPListener;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-public class ShopEntities implements Listener {
+public class ShopEntities extends BPVPListener<Clans> {
 
     public ShopEntities(Clans i) {
-        i.getServer().getPluginManager().registerEvents(this, i);
+       super(i);
 
     }
 

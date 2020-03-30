@@ -943,5 +943,14 @@ public class WorldListener extends BPVPListener<Clans> {
 
     }
 
+    @EventHandler
+    public void onSpawn(CreatureSpawnEvent e){
+        if(e.getEntity().getWorld().getLivingEntities().size() > 500){
+            if(e.getEntity().getCustomName() != null){
+                e.setCancelled(true);
+            }
+        }
+    }
+
 
 }

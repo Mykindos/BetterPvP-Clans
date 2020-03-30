@@ -19,6 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 
 
 public class ClanEventListener extends BPVPListener<Clans> {
@@ -355,6 +356,24 @@ public class ClanEventListener extends BPVPListener<Clans> {
             target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has requested neutral with you.", null, true);
             InviteHandler.createInvite(clan, target, 10);
 
+
+        }
+    }
+
+    /*
+     * Disables mobs spawning in clan territory
+     */
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL
+                || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER
+                || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BREEDING) {
+            Clan clan = ClanUtilities.getClan(event.getEntity().getLocation());
+
+            if (clan != null) {
+
+                event.setCancelled(true);
+            }
 
         }
     }

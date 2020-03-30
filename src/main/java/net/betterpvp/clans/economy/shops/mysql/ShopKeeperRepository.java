@@ -16,6 +16,7 @@ public class ShopKeeperRepository implements Repository<Clans> {
     public static final String TABLE_NAME = "clans_shopkeepers";
 
     private static final String CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+            "  `World` varchar(255)," +
             "  `Name` varchar(255)," +
             "  `X` double(10,2)," +
             "  `Y` double(10,2)," +

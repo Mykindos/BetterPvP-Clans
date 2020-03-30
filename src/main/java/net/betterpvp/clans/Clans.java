@@ -14,7 +14,16 @@ import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.economy.shops.ShopCommand;
+import net.betterpvp.clans.economy.shops.ShopEntities;
+import net.betterpvp.clans.economy.shops.ShopManager;
+import net.betterpvp.clans.economy.shops.menu.buttons.ShopListener;
+import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
+import net.betterpvp.clans.economy.shops.nms.ShopVillager;
+import net.betterpvp.clans.economy.shops.nms.ShopZombie;
+import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.fun.BounceListener;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.general.WorldListener;
@@ -24,6 +33,7 @@ import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
+import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.QueryFactory;
@@ -31,7 +41,7 @@ import net.betterpvp.core.database.Repository;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
-import net.minecraft.server.v1_8_R3.Explosion;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -75,6 +85,15 @@ public class Clans extends JavaPlugin implements Listener {
 
     private void load() {
 
+        UtilShop.registerEntity("Zombie",  54, EntityZombie.class, ShopZombie.class);
+        UtilShop.registerEntity("Spider",  52, EntitySpider.class, BossSpider.class);
+        UtilShop.registerEntity("CaveSpider",  59, EntityCaveSpider.class, BossCaveSpider.class);
+        UtilShop.registerEntity("Skeleton",  51, EntitySkeleton.class, ShopSkeleton.class);
+        UtilShop.registerEntity("Zombie",  54, EntityZombie.class, BossZombie.class);
+        UtilShop.registerEntity("Wither",  64, EntityWither.class, BossWither.class);
+        UtilShop.registerEntity("Skeleton",  51, EntitySkeleton.class, BossSkeleton.class);
+        UtilShop.registerEntity("Villager",  120, EntityVillager.class, ShopVillager.class);
+
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
 
@@ -85,6 +104,7 @@ public class Clans extends JavaPlugin implements Listener {
         new WeaponManager(this);
         new WEManager(this);
         new GamerConnectionListener(this);
+
         new EffectManager(this);
         new ThrowableManager(this);
         new ChatListener(this);
@@ -100,10 +120,13 @@ public class Clans extends JavaPlugin implements Listener {
         new MovementListener(this);
         new PillageListener(this);
         new Energy(this);
-
+        new BounceListener(this);
         new WorldListener(this);
+        new ShopEntities(this);
+        new ShopListener(this);
+        new ShopManager(this);
 
-
+        CommandManager.addCommand(new ShopCommand(this));
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 

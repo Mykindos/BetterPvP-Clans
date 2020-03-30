@@ -116,9 +116,11 @@ public class CombatManager extends BPVPListener<Clans> {
 
                         Gamer onlineGamer = GamerManager.getOnlineGamer(online);
 
-                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed") && !online.getName().equals(dam.getName())
-                                && !ClanUtilities.isClanMember(dam, online)
-                                && !ClanUtilities.isClanMember(p, online)) continue;
+                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed")
+                                && !online.getName().equals(dam.getName()) && !online.getName().equals(p.getName())
+                                && !ClanUtilities.isClanMember(dam, online) && !ClanUtilities.isClanMember(p, online)) {
+                            continue;
+                        }
 
                         Clan clanA = ClanUtilities.getClan(online);
                         String playerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(p)).getPrimary().toString();
