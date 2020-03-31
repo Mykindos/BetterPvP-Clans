@@ -2,6 +2,7 @@ package net.betterpvp.clans.clans;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
+import net.betterpvp.clans.clans.events.ClanDeleteEvent;
 import net.betterpvp.clans.clans.mysql.AllianceRepository;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
@@ -270,6 +271,7 @@ public class ClanUtilities {
     }
 
     public static void disbandClan(Player player, Clan clan) {
+
         UtilMessage.broadcast("Clans", ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " disbanded "
                 + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
 
@@ -307,9 +309,6 @@ public class ClanUtilities {
         while (members.hasNext()) {
             ClanMember next = members.next();
             if (Bukkit.getPlayer(next.getUUID()) != null) {
-                ScoreboardManager.removePlayer(Bukkit.getPlayer(next.getUUID()).getName());
-                ScoreboardManager.updatePlayer(Bukkit.getPlayer(next.getUUID()).getName());
-
                 RechargeManager.getInstance().add(Bukkit.getPlayer(next.getUUID()), "Create Clan", 300, true, false);
             }
             MemberRepository.deleteMember(next);
@@ -317,6 +316,7 @@ public class ClanUtilities {
 
 
         }
+
 
         //ClanRepository.removeDynmap(clan);
       //  ScoreboardManager.removeClan(clan.getName());
@@ -360,8 +360,6 @@ public class ClanUtilities {
         while (members.hasNext()) {
             ClanMember next = members.next();
             if (Bukkit.getPlayer(next.getUUID()) != null) {
-                ScoreboardManager.removePlayer(Bukkit.getPlayer(next.getUUID()).getName());
-                ScoreboardManager.updatePlayer(Bukkit.getPlayer(next.getUUID()).getName());
 
                 RechargeManager.getInstance().add(Bukkit.getPlayer(next.getUUID()), "Create Clan", 300, true, false);
             }

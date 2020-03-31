@@ -1,6 +1,7 @@
 package net.betterpvp.clans.clans.events;
 
 import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.core.client.Client;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -22,11 +23,11 @@ public class MemberLeaveClanEvent extends Event implements Cancellable {
         return handlers;
     }
 
-    private Player p;
+    private Client client;
     private Clan clan;
 
-    public MemberLeaveClanEvent(Player p, Clan clan) {
-        this.p = p;
+    public MemberLeaveClanEvent(Client client, Clan clan) {
+        this.client = client;
         this.clan = clan;
     }
 
@@ -34,8 +35,8 @@ public class MemberLeaveClanEvent extends Event implements Cancellable {
         return clan;
     }
 
-    public Player getPlayer() {
-        return p;
+    public Client getClient() {
+        return client;
     }
 
 

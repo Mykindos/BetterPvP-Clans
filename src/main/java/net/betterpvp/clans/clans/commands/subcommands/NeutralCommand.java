@@ -5,9 +5,11 @@ import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ClanNeutralClanEvent;
+import net.betterpvp.clans.clans.listeners.InviteHandler;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -42,6 +44,12 @@ public class NeutralCommand implements IClanCommand {
 
         if (clan.equals(target)) {
             UtilMessage.message(player, "Clans", "You cannot neutral yourself.");
+            return;
+        }
+
+        if (InviteHandler.isInvited(target, clan, "Neutral")) {
+            UtilMessage.message(player, "Clans", "You have already requested neutral with "
+                    + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
             return;
         }
 

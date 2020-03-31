@@ -14,6 +14,8 @@ import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.dailies.perks.QuestPerk;
+import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
@@ -23,11 +25,13 @@ import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
 import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.fields.management.FieldsManager;
 import net.betterpvp.clans.fun.BounceListener;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
+import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
 import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.clans.weapon.Weapon;
@@ -125,6 +129,9 @@ public class Clans extends JavaPlugin implements Listener {
         new ShopEntities(this);
         new ShopListener(this);
         new ShopManager(this);
+        new QuestPerkManager();
+        new FieldsManager(this);
+        new ScoreboardManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
 

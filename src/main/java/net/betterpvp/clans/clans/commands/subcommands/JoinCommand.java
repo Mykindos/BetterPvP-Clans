@@ -60,7 +60,7 @@ public class JoinCommand implements IClanCommand {
             }
 
 
-            if (!InviteHandler.isInvited(tGamer, target)) {
+            if (!InviteHandler.isInvited(tGamer, target, "Invite")) {
                 UtilMessage.message(player, "Clans", "You are not invited to " + ChatColor.YELLOW + "Clan "
                         + target.getName() + ChatColor.GRAY + ".");
                 return;

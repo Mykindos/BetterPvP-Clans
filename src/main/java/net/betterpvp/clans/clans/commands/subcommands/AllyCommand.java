@@ -80,12 +80,12 @@ public class AllyCommand implements IClanCommand {
         }
 
 
-        if (InviteHandler.isInvited(target, clan)) {
+        if (InviteHandler.isInvited(target, clan, "Ally")) {
             UtilMessage.message(player, "Clans", "You have already requested alliance with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
             return;
         }
 
-        if (InviteHandler.isInvited(clan, target)) {
+        if (InviteHandler.isInvited(clan, target, "Ally")) {
 
             Bukkit.getPluginManager().callEvent(new ClanAllyClanEvent(player, clan, target));
 
@@ -97,7 +97,7 @@ public class AllyCommand implements IClanCommand {
                 + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".", player.getUniqueId(), true);
 
         target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has requested alliance with you.", null, true);
-        InviteHandler.createInvite(clan, target, 20);
+        InviteHandler.createInvite(clan, target, "Ally", 20);
 
 
     }

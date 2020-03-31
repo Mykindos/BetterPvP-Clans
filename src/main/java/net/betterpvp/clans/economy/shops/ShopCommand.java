@@ -81,8 +81,10 @@ public class ShopCommand extends Command {
 
                                 }
                             }
-                            ShopRepository.loadShops(i);
+
                         }
+                        ShopRepository.loadShops(i);
+                        ShopKeeperRepository.loadShopKeepers(i);
                     }
                 } else if (args.length > 0) {
                     if (ClientUtilities.getOnlineClient(p).hasRank(Rank.ADMIN, true)) {

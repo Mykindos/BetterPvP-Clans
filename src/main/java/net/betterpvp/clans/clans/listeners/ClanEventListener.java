@@ -34,7 +34,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanCreate(ClanCreateEvent e) {
 
         if (e.isCancelled()) {
@@ -47,7 +47,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
 
             clan.setLeader(player.getUniqueId());
             clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.LEADER));
-           // ScoreboardManager.addPlayer(player.getName());
+            // ScoreboardManager.addPlayer(player.getName());
             clan.setSafe(true);
             ClanUtilities.addClan(clan);
             ClanRepository.saveClan(clan);
@@ -61,7 +61,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.LEADER));
                 ClanRepository.saveClan(clan);
                 ClanUtilities.addClan(clan);
-               // ScoreboardManager.addPlayer(player.getName());
+                // ScoreboardManager.addPlayer(player.getName());
 
                 UtilMessage.broadcast("Clans", ChatColor.YELLOW + player.getName() + ChatColor.GRAY
                         + " formed " + ChatColor.YELLOW + "Clan " + e.getClanName() + ChatColor.GRAY + ".");
@@ -76,14 +76,19 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanDelete(ClanDeleteEvent e) {
 
         if (e.isCancelled()) {
             return;
         }
 
-        ClanUtilities.disbandClan(e.getPlayer(), e.getClan());
+        if(e.getPlayer() != null){
+            ClanUtilities.disbandClan(e.getPlayer(), e.getClan());
+        }else{
+            ClanUtilities.disbandClan(e.getClan());
+        }
+
     }
 
     /**
@@ -92,25 +97,25 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onMemberLeaveClan(MemberLeaveClanEvent e) {
 
         if (e.isCancelled()) {
             return;
         }
 
-        Player player = e.getPlayer();
         Clan clan = e.getClan();
 
-        ScoreboardManager.removePlayer(player.getName());
-        MemberRepository.deleteMember(clan.getMember(player.getUniqueId()));
-        clan.getMembers().remove(clan.getMember(player.getUniqueId()));
-        ScoreboardManager.updatePlayer(player.getName());
+        MemberRepository.deleteMember(clan.getMember(e.getClient().getUUID()));
+        clan.getMembers().remove(clan.getMember(e.getClient().getUUID()));
 
 
-        Log.write("Clans", "[" + player.getName() + "] left [" + clan.getName() + "]");
-        UtilMessage.message(player, "Clans", "You left " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
-        clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " left your Clan.", player.getUniqueId(), true);
+        Player player = Bukkit.getPlayer(e.getClient().getUUID());
+        if (player != null) {
+            Log.write("Clans", "[" + player.getName() + "] left [" + clan.getName() + "]");
+            UtilMessage.message(player, "Clans", "You left " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
+            clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " left your Clan.", player.getUniqueId(), true);
+        }
     }
 
     /**
@@ -119,7 +124,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onMemberJoinClan(MemberJoinClanEvent e) {
 
         if (e.isCancelled()) {
@@ -137,7 +142,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
 
             clan.getMembers().add(new ClanMember(player.getUniqueId(), ClanMember.Role.RECRUIT));
             MemberRepository.saveMember(clan, new ClanMember(player.getUniqueId(), ClanMember.Role.RECRUIT));
-          //  ScoreboardManager.addPlayer(player.getName());
+            //  ScoreboardManager.addPlayer(player.getName());
 
             Log.write("Clans", "Added [" + player.getUniqueId() + "] to Clan [" + clan.getName() + "]");
             UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
@@ -152,7 +157,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanKickMember(ClanKickMemberEvent e) {
 
         if (e.isCancelled()) {
@@ -170,12 +175,12 @@ public class ClanEventListener extends BPVPListener<Clans> {
             UtilMessage.message(Bukkit.getPlayer(target.getUUID()), "Clans", ChatColor.YELLOW
                     + player.getName() + ChatColor.GRAY + " kicked you from "
                     + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
-            ScoreboardManager.updatePlayer(temp.getName());
+
         }
 
         MemberRepository.deleteMember(clan.getMember(target.getUUID()));
         clan.getMembers().remove(clan.getMember(target.getUUID()));
-        ScoreboardManager.removePlayer(target.getName());
+
 
         clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " kicked " + ChatColor.YELLOW
                 + target.getName() + ChatColor.GRAY + " from your Clan.", player.getUniqueId(), true);
@@ -190,7 +195,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanAllyClan(ClanAllyClanEvent e) {
 
         if (e.isCancelled()) {
@@ -205,9 +210,11 @@ public class ClanEventListener extends BPVPListener<Clans> {
         target.getAlliances().add(new Alliance(clan, false));
         AllianceRepository.saveAlly(clan, target, false);
         AllianceRepository.saveAlly(target, clan, false);
-       // ScoreboardManager.updateRelation();
+        // ScoreboardManager.updateRelation();
 
-        InviteHandler.removeInvite(target, clan);
+        Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
+
+        InviteHandler.removeInvite(target, clan, "Ally");
 
         UtilMessage.message(player, "Clans", "You accepted alliance with " + ChatColor.YELLOW
                 + "Clan " + target.getName() + ChatColor.GRAY + ".");
@@ -241,7 +248,9 @@ public class ClanEventListener extends BPVPListener<Clans> {
         AllianceRepository.updateAlly(clan, target);
         AllianceRepository.updateAlly(target, clan);
         //ScoreboardManager.updateRelation();
-        InviteHandler.removeInvite(clan, target);
+        InviteHandler.removeInvite(clan, target, "Trust");
+
+        Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
 
         UtilMessage.message(player, "Clans", "You accepted trust with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
         clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " accepted trust with "
@@ -256,7 +265,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanEnemyClan(ClanEnemyClanEvent e) {
 
         if (e.isCancelled()) {
@@ -280,7 +289,8 @@ public class ClanEventListener extends BPVPListener<Clans> {
         EnemyRepository.saveDominance(new Dominance(target, clan, 0));
         EnemyRepository.saveDominance(new Dominance(clan, target, 0));
 
-       // ScoreboardManager.updateRelation();
+        Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
+        // ScoreboardManager.updateRelation();
 
 
         Log.write("Clans", "[" + clan.getName() + "] waged war with [" + target.getName() + "]");
@@ -299,7 +309,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onClanNeutralClan(ClanNeutralClanEvent e) {
 
         if (e.isCancelled()) {
@@ -320,17 +330,15 @@ public class ClanEventListener extends BPVPListener<Clans> {
             clan.getAlliances().remove(clan.getAlliance(target));
             target.getAlliances().remove(target.getAlliance(clan));
             AllianceRepository.deleteAlly(clan, target);
-           //ScoreboardManager.updateRelation();
+
+            Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
+
             Log.write("Clans", "[" + clan.getName() + "] revoked alliance with [" + target.getName() + "]");
         } else if (relation == ClanUtilities.ClanRelation.ENEMY) {
-            if (InviteHandler.isInvited(clan, target)) {
-                UtilMessage.message(player, "Clans", "You have already requested neutral with "
-                        + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
-                return;
-            }
 
 
-            if (InviteHandler.isInvited(target, clan)) {
+
+            if (InviteHandler.isInvited(clan, target, "Neutral")) {
                 UtilMessage.message(player, "Clans", "You accepted neutral with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
                 clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " accepted neutral with "
                         + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".", player.getUniqueId(), true);
@@ -344,17 +352,22 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 EnemyRepository.deleteEnemy(dom);
                 clan.getEnemies().remove(dom);
                 target.getEnemies().remove(tarDom);
-               // ScoreboardManager.updateRelation();
-                InviteHandler.removeInvite(clan, target);
+                // ScoreboardManager.updateRelation();
+                InviteHandler.removeInvite(clan, target, "Neutral");
+
+                Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
                 return;
             }
+
+
+
 
             UtilMessage.message(player, "Clans", "You requested neutral with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
             clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY + " requested neutral with "
                     + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".", player.getUniqueId(), true);
 
             target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has requested neutral with you.", null, true);
-            InviteHandler.createInvite(clan, target, 10);
+            InviteHandler.createInvite(clan, target,"Neutral", 10);
 
 
         }
