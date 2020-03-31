@@ -159,7 +159,6 @@ public class ShopManager extends BPVPListener<Clans> {
 
                         break;
                     case "fragment":
-                        Bukkit.broadcastMessage("Meme");
                         ShopSkeleton bs = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
                         Skeleton battle = bs.spawn(loc);
                         battle.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
