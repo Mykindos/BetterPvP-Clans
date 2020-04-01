@@ -55,7 +55,8 @@ public class InviteHandler extends BPVPListener<Clans> {
      * @return Returns true if a valid invite exists
      */
     public static boolean isInvited(Invitable invitee, Invitable inviter, String type) {
-        return invites.stream().filter(i -> i.invitee.equals(invitee) && i.inviter.equals(inviter) && i.type.equals(type)).findAny().isPresent();
+        if(invitee == null || inviter == null) return false;
+        return invites.stream().anyMatch(i -> i.invitee.equals(invitee) && i.inviter.equals(inviter) && i.type.equals(type));
     }
 
 

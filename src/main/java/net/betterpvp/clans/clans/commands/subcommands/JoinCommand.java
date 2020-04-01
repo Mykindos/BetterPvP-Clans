@@ -55,7 +55,7 @@ public class JoinCommand implements IClanCommand {
                 target.getMembers().add(new ClanMember(player.getUniqueId(), Role.LEADER));
              //   ScoreboardManager.addPlayer(player.getName());
                 UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
-                Bukkit.getPluginManager().callEvent(new MemberJoinClanEvent(player, clan));
+                Bukkit.getPluginManager().callEvent(new MemberJoinClanEvent(player, target));
                 return;
             }
 
@@ -79,7 +79,7 @@ public class JoinCommand implements IClanCommand {
             }
 
 
-            Bukkit.getPluginManager().callEvent(new MemberJoinClanEvent(player, clan));
+            Bukkit.getPluginManager().callEvent(new MemberJoinClanEvent(player, target));
 
 
         }

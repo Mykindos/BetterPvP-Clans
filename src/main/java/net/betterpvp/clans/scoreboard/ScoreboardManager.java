@@ -116,6 +116,14 @@ public class ScoreboardManager extends BPVPListener<Clans> {
         updateRelation(e.getClanB());
     }
 
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void onMemberJoin(MemberJoinClanEvent e){
+        scoreboards.forEach(s -> {
+            removePlayer(s, e.getPlayer().getName(), null);
+            addPlayer(ClientUtilities.getOnlineClient(e.getPlayer()));
+        });
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMemberLeaveClan(MemberLeaveClanEvent e) {
         scoreboards.forEach(s -> {
@@ -148,6 +156,12 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
                     if (!c.isOnline()) {
                         t.unregister();
+                    }
+                }
+            }else{
+                if(t.getName().equals("None")) {
+                    if (t.hasEntry(name)) {
+                        t.removeEntry(name);
                     }
                 }
             }
