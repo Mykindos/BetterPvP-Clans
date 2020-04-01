@@ -268,11 +268,17 @@ public class ScoreboardManager extends BPVPListener<Clans> {
         while (iterator.hasNext()) {
             Team team = iterator.next();
             if (team.getName().equals(name)) {
-                team.unregister();
-                for (ClanMember c : ClanUtilities.getClan(name).getMembers()) {
-                    addNone(s, Bukkit.getPlayer(c.getUUID()).getName());
+
+
+                for(String entry : team.getEntries()){
+                    Player player = Bukkit.getPlayer(entry);
+                    if(entry != null){
+                        addNone(s, player.getName());
+                    }
 
                 }
+                team.unregister();
+
             }
         }
 

@@ -31,7 +31,10 @@ public class ClanRepository implements Repository<Clans> {
             + "Territory BLOB, "
             + "Admin TINYINT, "
             + "Safe TINYINT, "
-            + "LastLogin BIGINT(255)); ";
+            + "LastLogin BIGINT(255),"
+            + "Energy INT,"
+            + "Points INT,"
+            + "Cooldown LONG)";
 
     @Override
     public void initialize() {

@@ -28,8 +28,10 @@ import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.fields.management.FieldsManager;
 import net.betterpvp.clans.fun.BounceListener;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.gamer.GamerRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
@@ -44,10 +46,12 @@ import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.QueryFactory;
 import net.betterpvp.core.database.Repository;
 import net.betterpvp.core.framework.CoreLoadedEvent;
+import net.betterpvp.core.punish.PunishManager;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.map.MapRenderer;
@@ -101,6 +105,8 @@ public class Clans extends JavaPlugin implements Listener {
 
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
+
+        startTimers();
 
         new SelectorManager(this);
         new DamageManager(this);
@@ -211,6 +217,29 @@ public class Clans extends JavaPlugin implements Listener {
             }
         }
         folder.delete();
+    }
+
+    private void startTimers(){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+
+                LogManager.processLogs();
+
+            }
+        }.runTaskTimerAsynchronously(this, 0L, 2L);
+
+        new BukkitRunnable(){
+            @Override
+            public void run(){
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    Gamer gamer = GamerManager.getOnlineGamer(p);
+                    GamerRepository.updateGamer(gamer);
+
+                }
+                System.out.println("Updated player data!");
+            }
+        }.runTaskTimerAsynchronously(this, 6000L, 6000L);
     }
 
 
