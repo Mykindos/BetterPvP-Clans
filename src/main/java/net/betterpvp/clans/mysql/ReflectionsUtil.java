@@ -1,5 +1,6 @@
 package net.betterpvp.clans.mysql;
 
+import net.betterpvp.clans.recipes.CustomRecipe;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;
@@ -56,13 +57,13 @@ public class ReflectionsUtil {
 
     }
 
-    public static void instantiateTypes(String packageName, Class subType) {
+    public static void loadRecipes(String packageName) {
 
         Reflections reflections = new Reflections(packageName);
 
-        Set<Class<? extends subType>> classes = reflections.getSubTypesOf(subType);
+        Set<Class<? extends CustomRecipe>> classes = reflections.getSubTypesOf(CustomRecipe.class);
 
-        for (Class<? extends subType> r : classes) {
+        for (Class<? extends CustomRecipe> r : classes) {
             try {
                 r.newInstance();
 

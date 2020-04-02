@@ -110,7 +110,7 @@ public class Clans extends JavaPlugin implements Listener {
 
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
-        ReflectionsUtil.instantiateTypes("net.betterpvp.clans", CustomRecipe.class);
+        ReflectionsUtil.loadRecipes("net.betterpvp.clans");
 
         startTimers();
 
@@ -155,7 +155,10 @@ public class Clans extends JavaPlugin implements Listener {
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 
+        loadMap();
+
         hasStarted = true;
+
     }
 
     @EventHandler

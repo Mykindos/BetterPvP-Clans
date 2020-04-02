@@ -74,6 +74,6 @@ public class FishRepository implements Repository<Clans> {
 
     @Override
     public LoadPriority getLoadPriority() {
-        return null;
+        return LoadPriority.HIGHEST;
     }
 }
