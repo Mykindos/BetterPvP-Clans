@@ -56,6 +56,23 @@ public class ReflectionsUtil {
 
     }
 
+    public static void instantiateTypes(String packageName, Class subType) {
+
+        Reflections reflections = new Reflections(packageName);
+
+        Set<Class<? extends subType>> classes = reflections.getSubTypesOf(subType);
+
+        for (Class<? extends subType> r : classes) {
+            try {
+                r.newInstance();
+
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     public static void registerCommands(String packageName, Plugin instance) {
         int count = 0;
         Reflections reflections = new Reflections(packageName);

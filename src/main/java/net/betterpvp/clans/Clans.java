@@ -15,6 +15,7 @@ import net.betterpvp.clans.classes.menu.KitListener;
 import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
@@ -26,14 +27,18 @@ import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
 import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.farming.FarmingListener;
 import net.betterpvp.clans.fields.management.FieldsManager;
+import net.betterpvp.clans.fishing.FishingListener;
 import net.betterpvp.clans.fun.BounceListener;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.GamerRepository;
 import net.betterpvp.clans.general.WorldListener;
+import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
+import net.betterpvp.clans.recipes.CustomRecipe;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
 import net.betterpvp.clans.skills.selector.SelectorManager;
@@ -105,6 +110,7 @@ public class Clans extends JavaPlugin implements Listener {
 
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
+        ReflectionsUtil.instantiateTypes("net.betterpvp.clans", CustomRecipe.class);
 
         startTimers();
 
@@ -140,6 +146,11 @@ public class Clans extends JavaPlugin implements Listener {
         new FieldsManager(this);
         new ScoreboardManager(this);
         new KitListener(this);
+        new QuestManager(this);
+        new FishingListener(this);
+        new FarmingListener(this);
+        new KOTHManager(this);
+
         CommandManager.addCommand(new ShopCommand(this));
 
         getCommand("clan").setExecutor(new ClanCommand(this));
