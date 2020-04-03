@@ -1,15 +1,20 @@
 package net.betterpvp.clans.utilities;
 
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UtilClans {
@@ -151,5 +156,78 @@ public class UtilClans {
         }
 
         return false;
+    }
+
+    public static Location closestWilderness(Player p) {
+        List<Location> locs = new ArrayList<>();
+        for(int i = 0; i < 64; i++) {
+            Location loc = p.getLocation().clone().add(i, 0, 0);
+            Clan aClan = ClanUtilities.getClan(loc);
+            if(aClan == null) {
+                locs.add(loc);
+                break;
+            }
+        }
+
+        for(int i = 0; i > -64; i--) {
+            Location loc = p.getLocation().clone().add(i, 0, 0);
+            Clan bClan = ClanUtilities.getClan(loc);
+            if(bClan == null) {
+                locs.add(loc);
+                break;
+            }
+        }
+
+        for(int i = 0; i < 64; i++) {
+            Location loc = p.getLocation().clone().add(0, 0, i);
+            Clan cClan = ClanUtilities.getClan(loc);
+            if(cClan == null) {
+                locs.add(loc);
+                break;
+            }
+        }
+
+        for(int i = 0; i > -64; i--) {
+            Location loc = p.getLocation().clone().add(0, 0, i);
+            Clan dClan = ClanUtilities.getClan(loc);
+            if(dClan == null) {
+                locs.add(loc);
+                break;
+            }
+        }
+
+        if(locs.size() > 0) {
+
+            Collections.sort(locs, Comparator.comparingInt(a -> (int) p.getLocation().distance(a)));
+            return locs.get(0);
+
+        }
+        return null;
+
+
+    }
+
+    public static Location closestWildernessBackwards(Player p) {
+        List<Location> locs = new ArrayList<>();
+        for(int i = 0; i < 64; i++) {
+            Location loc = p.getLocation().add(p.getLocation().getDirection().multiply(i * -1));
+            Clan aClan = ClanUtilities.getClan(loc);
+            if(aClan == null) {
+                locs.add(loc);
+                break;
+            }
+        }
+
+
+
+        if(locs.size() > 0) {
+
+            Collections.sort(locs, Comparator.comparingInt(a -> (int) p.getLocation().distance(a)));
+            return locs.get(0);
+
+        }
+        return null;
+
+
     }
 }

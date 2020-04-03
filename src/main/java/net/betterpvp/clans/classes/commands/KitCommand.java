@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 public class KitCommand extends Command {
 
     public KitCommand() {
-        super("kit", new String[]{"class"}, Rank.ADMIN);
+        super("kit", new String[]{"class"}, Rank.PLAYER);
     }
 
     @Override

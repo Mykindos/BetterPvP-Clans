@@ -50,7 +50,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             }
         }
 
-        gamer.setScoreboard(new Scoreboard(e.getClient().getPlayer()));
+        gamer.setScoreboard(new Scoreboard(e.getClient()
+                .getPlayer()));
     }
 
     @EventHandler (priority = EventPriority.LOWEST)
