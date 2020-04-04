@@ -21,7 +21,6 @@ public class UtilShop {
                         @SuppressWarnings("unchecked")
                         Map<Class<? extends Entity>, Integer> map = (Map<Class<? extends Entity>, Integer>) f.get(null);
                         map.put(customClass, id);
-                        UtilMessage.broadcast("A", "b");
                     }
                 }
             }

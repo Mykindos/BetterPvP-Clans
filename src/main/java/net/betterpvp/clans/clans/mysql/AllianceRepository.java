@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AllianceRepository implements Repository<Clans> {
+public class AllianceRepository {
 
     public static final String TABLE_NAME = "clans_alliances";
 
@@ -21,14 +21,15 @@ public class AllianceRepository implements Repository<Clans> {
             + "Other VARCHAR(16), "
             + "Trusted TINYINT); ";
 
-    @Override
-    public void initialize() {
+
+    private static void initialize() {
         QueryFactory.runQuery(CREATE_ALLY_TABLE);
     }
 
 
-    @Override
-    public void load(Clans i) {
+
+    public static void load(Clans i) {
+        initialize();
         new BukkitRunnable() {
 
             @Override
@@ -89,11 +90,6 @@ public class AllianceRepository implements Repository<Clans> {
         QueryFactory.runQuery(query);
     }
 
-    @Override
-    public LoadPriority getLoadPriority() {
-
-        return LoadPriority.HIGHEST;
-    }
 
 
 }

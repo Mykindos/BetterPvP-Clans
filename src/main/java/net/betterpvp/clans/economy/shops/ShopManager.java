@@ -12,17 +12,21 @@ import net.betterpvp.clans.economy.shops.mysql.ShopRepository;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
+import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Environmental;
+import net.betterpvp.clans.worldevents.types.nms.*;
+import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -39,7 +43,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopManager implements Listener {
+public class ShopManager extends BPVPListener<Clans> {
 
     private static List<ShopItem> shopItems = new ArrayList<>();
     private static List<Shop> shops = new ArrayList<>();
@@ -47,7 +51,8 @@ public class ShopManager implements Listener {
     private WorldEvent lastEvent;
 
     public ShopManager(Clans i) {
-        Bukkit.getPluginManager().registerEvents(this, i);
+        super(i);
+
 
         addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub", "Boss Teleport");
 
@@ -127,7 +132,6 @@ public class ShopManager implements Listener {
                         Skeleton armour = as.spawn(loc);
                         armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
                         createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
-
                         break;
                     case "weapons":
 

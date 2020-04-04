@@ -54,7 +54,7 @@ public class InviteCommand implements IClanCommand {
             return;
         }
 
-        if (InviteHandler.isInvited(tGamer, clan)) {
+        if (InviteHandler.isInvited(tGamer, clan,"Invite")) {
             UtilMessage.message(player, "Clans", ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " has already been invited.");
             return;
         }
@@ -81,7 +81,7 @@ public class InviteCommand implements IClanCommand {
         new FancyMessage(ChatColor.BLUE + "Clans> " + ChatColor.GOLD.toString() + ChatColor.UNDERLINE + "Click Here").command("/c join " + clan.getName()).then(ChatColor.GRAY + " or type '"
                 + ChatColor.YELLOW + "/c join " + clan.getName() + ChatColor.GRAY + "'" + ChatColor.GRAY + " to accept!").send(target);
 
-        InviteHandler.createInvite(clan, tGamer, 20);
+        InviteHandler.createInvite(clan, tGamer, "Invite", 20);
         //sendInvite(clan, target.getUniqueId());
     }
 

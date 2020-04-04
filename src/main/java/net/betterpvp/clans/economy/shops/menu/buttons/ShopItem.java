@@ -48,6 +48,7 @@ public abstract class ShopItem extends Button {
         this.slot = slot;
         this.amount = amount;
         this.itemName = itemName;
+        System.out.println(itemName);
     }
 
     public abstract int getBuyPrice();

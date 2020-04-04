@@ -1,8 +1,10 @@
 package net.betterpvp.clans.clans;
 
+import net.betterpvp.clans.clans.events.ClanRelationshipEvent;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class Dominance {
@@ -78,5 +80,7 @@ public class Dominance {
             Log.write("Conquer", getSelf().getName() + " has conquered " + getClan().getName());
             new Pillage(getSelf(), getClan());
         }
+
+        Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(getSelf(), getClan()));
     }
 }

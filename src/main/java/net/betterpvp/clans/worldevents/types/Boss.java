@@ -210,7 +210,7 @@ public abstract class Boss extends WorldEvent {
             }
         }
 
-        Log.write("World Event", loot.getItemMeta().getDisplayName() + " dropped");
+        Log.write("World Event", org.bukkit.ChatColor.stripColor(loot.getItemMeta().getDisplayName()) + " dropped");
         Weapon wep = WeaponManager.getWeapon(loot);
         if (wep != null
                 && !(wep instanceof EnchantedWeapon)) {

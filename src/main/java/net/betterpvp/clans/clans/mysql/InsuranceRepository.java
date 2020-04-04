@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InsuranceRepository implements Repository<Clans> {
+public class InsuranceRepository {
 
     public static final String TABLE_NAME = "clans_insurance";
 
@@ -44,14 +44,15 @@ public class InsuranceRepository implements Repository<Clans> {
         QueryFactory.runQuery(query);
     }
 
-    @Override
-    public void initialize() {
+
+    private static void initialize() {
 
         QueryFactory.runQuery(CREATE_INSURANCE_TABLE);
     }
 
-    @Override
-    public void load(Clans i) {
+
+    public static void load(Clans i) {
+        initialize();
         final World world = Bukkit.getWorld("world");
         new BukkitRunnable() {
 
@@ -119,11 +120,6 @@ public class InsuranceRepository implements Repository<Clans> {
         QueryFactory.runQuery(query);
     }
 
-    @Override
-    public LoadPriority getLoadPriority() {
-
-        return LoadPriority.HIGHEST;
-    }
 
 
 }

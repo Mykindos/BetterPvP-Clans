@@ -10,6 +10,7 @@ public class LegendaryShopItem extends ShopItem {
 
     public LegendaryShopItem(String store, int itemID, byte data, int slot,
                              int amount, int buyPrice, String itemName, boolean glow) {
+
         super(store, itemID, data, slot, amount, itemName,
                 glow ? WeaponManager.getWeapon(itemName).createWeapon() : WeaponManager.getWeapon(itemName).createWeaponNoGlow(),
                 WeaponManager.getWeapon(itemName).getLoreWithPrice(buyPrice));

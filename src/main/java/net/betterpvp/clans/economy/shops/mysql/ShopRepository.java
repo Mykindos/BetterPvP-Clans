@@ -93,7 +93,6 @@ public class ShopRepository implements Repository<Clans> {
 
 
                     Log.debug("MySQL", "Loaded " + count + " Shop Items");
-                    ShopKeeperRepository.loadShopKeepers(clans);
 
                 } catch (SQLException ex) {
                     Log.debug("Connection", "Could not load Shops (Connection Error), ");

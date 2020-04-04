@@ -7,19 +7,26 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
+import net.betterpvp.clans.classes.roles.Ranger;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.page.ClassSelectionPage;
+import net.betterpvp.clans.skills.selector.skills.ranger.Longshot;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.weapon.weapons.legendaries.MeteorBow;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.commands.admin.OfflineCommand;
 import net.betterpvp.core.client.mysql.ClientRepository;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -29,18 +36,18 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Gate;
 import org.bukkit.util.Vector;
 
 import java.util.*;
@@ -79,6 +86,17 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 e.getPlayer().openInventory(new ClassSelectionPage(e.getPlayer()).getInventory());
                 e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onGamemodeAdventure(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.SEC){
+            for(Player p : Bukkit.getOnlinePlayers()){
+                if(!p.isOp()){
+                    p.setGameMode(GameMode.ADVENTURE);
+                }
             }
         }
     }
@@ -258,6 +276,22 @@ public class WorldListener extends BPVPListener<Clans> {
 
             if (event.getInventory().getType() == InventoryType.ENCHANTING) {
                 event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryMove(InventoryMoveItemEvent e) {
+        if(e.getDestination().getType() == InventoryType.HOPPER) {
+
+            if(e.getDestination() == null) {
+                e.setCancelled(true);
+            }
+
+        }else if(e.getSource().getType() == InventoryType.HOPPER) {
+
+            if(e.getSource() == null) {
+                e.setCancelled(true);
             }
         }
     }
@@ -511,6 +545,44 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler
+    public void onBreakGate(PlayerInteractEvent e) {
+        if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
+            if(e.getClickedBlock().getType().name().contains("GATE")) {
+                Clan aClan = ClanUtilities.getClan(e.getPlayer());
+                Clan bClan = ClanUtilities.getClan(e.getClickedBlock().getLocation());
+
+                Gate g = (Gate) e.getClickedBlock().getState().getData();
+
+                if(bClan != null) {
+                    if(aClan == null || (aClan != null && !aClan.getName().equalsIgnoreCase(bClan.getName()))) {
+                        if(e.getPlayer().getLocation().distance(e.getClickedBlock().getLocation()) < 1.5) {
+
+                            Location loc = UtilClans.closestWildernessBackwards(e.getPlayer());
+                            if(loc != null) {
+                                UtilVelocity.velocity(e.getPlayer(), UtilVelocity.getTrajectory(e.getPlayer().getLocation(), loc),
+                                        0.5, true, 0.25, 0.25, 0.25, false);
+                            }
+                        }
+                    }
+                }
+
+
+
+
+            }
+        }
+    }
+
+    /*
+     * Stops potions from being brewed (via auto brew methods)
+     */
+    @EventHandler
+    public void onBrew(BrewEvent e){
+        e.setCancelled(true);
+    }
+
     /*
      * Stops players from breaking Item Frames in admin territory
      */
@@ -564,6 +636,27 @@ public class WorldListener extends BPVPListener<Clans> {
                         }
                     }
                     e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    /*
+     * Logs the location and player of chests that are opened in the wilderness
+     * Useful for catching xrayers.
+     */
+    @EventHandler
+    public void onInt(PlayerInteractEvent e){
+        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            Material m = e.getClickedBlock().getType();
+            if(m == Material.CHEST || m== Material.TRAPPED_CHEST
+                    || m == Material.FURNACE || m == Material.DROPPER || m == Material.CAULDRON){
+                if(ClanUtilities.getClan(e.getPlayer().getLocation()) == null){
+
+                    int x = (int) e.getClickedBlock().getLocation().getX();
+                    int y = (int) e.getClickedBlock().getLocation().getY();
+                    int z = (int) e.getClickedBlock().getLocation().getZ();
+                    Log.write("Trap Chest", e.getPlayer().getName() + " opened a chest at " + x + "," + y + "," + z);
                 }
             }
         }
@@ -726,6 +819,358 @@ public class WorldListener extends BPVPListener<Clans> {
         UtilClans.updateNames(e.getItem().getItemStack());
     }
 
+    @EventHandler
+    public void onTreeBreak(BlockBreakEvent e) {
+
+        if(e.getBlock().getType() == Material.LOG || e.getBlock().getType() == Material.LOG_2) {
+            Block down = e.getBlock().getRelative(BlockFace.DOWN);
+            if((down.getType() == Material.GRASS || down.getType() == Material.DIRT) && e.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+                return;
+            }
+
+            if(e.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+                return;
+            }
+
+
+			/*
+			for(Block b : getConnectedLogs(e.getBlock())) {
+				cutTree(b);
+			}
+			 */
+            cut(e.getBlock(), e.getPlayer());
+        }
+    }
+
+    private void cutTree(Block b) {
+        if(ClanUtilities.getClan(b.getLocation()) == null) {
+            for(int i = -3; i < 0; i++) {
+                Block down = b.getRelative(0, i, 0);
+                if(down.getType() == Material.LEAVES
+                        || down.getType() == Material.LEAVES_2) {
+                    down.setType(Material.AIR);
+                }
+            }
+
+            if(b.getRelative(BlockFace.DOWN).getType() != Material.DIRT
+                    && b.getRelative(BlockFace.DOWN).getType() != Material.GRASS) {
+                b.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+                b.setType(Material.AIR);
+            }
+        }
+    }
+
+    private ArrayList<Block> getConnectedLogs(Block block)
+    {
+        World world = block.getWorld();
+        Block[] adjacent = new Block[9];
+        ArrayList<Block> logs = new ArrayList<>();
+
+        if(!block.getRelative(BlockFace.UP).getType().name().contains("LOG")) {
+            return logs;
+        }
+
+        adjacent[0] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 0.0D, 0.0D, -1.0D));
+        adjacent[1] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 0.0D, 0.0D, 1.0D));
+        adjacent[2] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 1.0D, 0.0D, 0.0D));
+        adjacent[3] = world.getBlockAt(UtilLocation.offset(block.getLocation(), -1.0D, 0.0D, 0.0D));
+        adjacent[4] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 1.0D, 0.0D, -1.0D));
+        adjacent[5] = world.getBlockAt(UtilLocation.offset(block.getLocation(), -1.0D, 0.0D, -1.0D));
+        adjacent[6] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 1.0D, 0.0D, 1.0D));
+        adjacent[7] = world.getBlockAt(UtilLocation.offset(block.getLocation(), -1.0D, 0.0D, 1.0D));
+        adjacent[8] = world.getBlockAt(UtilLocation.offset(block.getLocation(), 0.0D, 1.0D, 0.0D));
+
+        for (int i = 0; i < adjacent.length; i++)
+        {
+
+            Block b = adjacent[i];
+            if ((b.getType() == Material.LOG) || (b.getType() == Material.LOG_2))
+            {
+                Block curBlock = b;
+                while ((curBlock.getType() == Material.LOG) || (curBlock.getType() == Material.LOG_2))
+                {
+                    if(!logs.contains(curBlock)) {
+                        logs.add(curBlock);
+                    }
+                    curBlock = world.getBlockAt(UtilLocation.offset(curBlock.getLocation(), 0.0D, 1.0D, 0.0D));
+
+                }
+            }
+
+
+
+
+        }
+        return logs;
+    }
+
+
+    public void cut(Block block, Player player)
+    {
+        if(ClanUtilities.getClan(block.getLocation()) == null) {
+            BlockFace[] arraySome = { BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST };
+            Block b3 = block;
+            List<Block> blocks2 = new LinkedList<>();
+            boolean found;
+            do
+            {
+                found = false;
+                BlockFace[] arrayOfBlockFace1;
+                int j = (arrayOfBlockFace1 = arraySome).length;
+                for (int i = 0; i < j; i++)
+                {
+                    BlockFace bf = arrayOfBlockFace1[i];
+                    if ((b3.getRelative(bf).getType() == Material.LOG) || (b3.getRelative(bf).getType() == Material.LOG_2))
+                    {
+                        b3 = b3.getRelative(bf);
+                        if ((!blocks2.contains(b3)) && (b3.getRelative(BlockFace.UP).getType() != Material.AIR))
+                        {
+                            blocks2.add(b3);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            } while (found);
+            ArrayList<Block> blocks = new ArrayList<>();
+            ArrayList<Block> leaves = new ArrayList<>();
+            getTree(block, blocks, leaves);
+            if (blocks2.isEmpty()) {
+                for (Block b : blocks) {
+                    if ((b.getType() == Material.LOG) || (b.getType() == Material.LOG_2))
+                    {
+                        if(ClanUtilities.getClan(block.getLocation()) == null) {
+                            for(int i = -3; i < 0; i++) {
+                                Block down = b.getRelative(0, i, 0);
+                                if(down.getType() == Material.LEAVES
+                                        || down.getType() == Material.LEAVES_2) {
+                                    down.setType(Material.AIR);
+                                }
+                            }
+
+                            if((b.getRelative(BlockFace.DOWN).getType() == Material.GRASS || b.getRelative(BlockFace.DOWN).getType() == Material.DIRT) ) {
+                                continue;
+                            }
+                            Material mat = b.getType();
+                            Byte data = Byte.valueOf(b.getData());
+                            Location loc = b.getLocation();
+                            b.setType(Material.AIR);
+                            FallingBlock ent = b.getWorld().spawnFallingBlock(loc.add(0.5D, 0.0D, 0.5D), mat, data.byteValue());
+                            ent.setDropItem(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void getTree(Block anchor, ArrayList<Block> logs, ArrayList<Block> leaves)
+    {
+        if (logs.size() > 500) {
+            return;
+        }
+        Block nextAnchor = null;
+
+        nextAnchor = anchor.getRelative(BlockFace.NORTH);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.NORTH_EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH_EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH_WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.NORTH_WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        anchor = anchor.getRelative(BlockFace.UP);
+
+        nextAnchor = anchor.getRelative(BlockFace.NORTH);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.NORTH_EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH_EAST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SOUTH_WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.NORTH_WEST);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+        nextAnchor = anchor.getRelative(BlockFace.SELF);
+        if (((nextAnchor.getType().equals(Material.LOG)) || (nextAnchor.getType().equals(Material.LOG_2))) && (!logs.contains(nextAnchor)))
+        {
+            logs.add(nextAnchor);
+            getTree(nextAnchor, logs, leaves);
+        }
+        else if (((nextAnchor.getType().equals(Material.LEAVES)) || (nextAnchor.getType().equals(Material.LEAVES_2))) && (!logs.contains(nextAnchor)))
+        {
+            leaves.add(nextAnchor);
+        }
+    }
+
+
+    private Block[] getAdjacents(Block b) {
+        Block[] adjacent = new Block[9];
+        World world2 = b.getWorld();
+        adjacent[0] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 0.0D, 0.0D, -1.0D));
+        adjacent[1] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 0.0D, 0.0D, 1.0D));
+        adjacent[2] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 1.0D, 0.0D, 0.0D));
+        adjacent[3] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), -1.0D, 0.0D, 0.0D));
+        adjacent[4] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 1.0D, 0.0D, -1.0D));
+        adjacent[5] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), -1.0D, 0.0D, -1.0D));
+        adjacent[6] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 1.0D, 0.0D, 1.0D));
+        adjacent[7] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), -1.0D, 0.0D, 1.0D));
+        adjacent[8] = world2.getBlockAt(UtilLocation.offset(b.getLocation(), 0.0D, 1.0D, 0.0D));
+        return adjacent;
+    }
+
+
+    /*
+     * Stops magma cubes from splitting
+     */
+    @EventHandler
+    public void onMagmaSplit(SlimeSplitEvent e){
+        if(e.getEntity() instanceof MagmaCube){
+            e.setCancelled(true);
+        }
+    }
 
     /*
      * Stops players from shooting bows in safe territory
@@ -745,7 +1190,43 @@ public class WorldListener extends BPVPListener<Clans> {
                 }
             }
 
+            if (p.getLocation().getBlock().getType() == Material.WATER || p.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+                UtilMessage.message(p, "Skill", "You cannot shoot bows in water!");
+                if(Longshot.getArrows().containsKey((Arrow) e.getProjectile())){
+                    Longshot.getArrows().remove((Arrow) e.getProjectile());
+                }
+                e.setCancelled(true);
+                return;
+            }
 
+            Role r = Role.getRole(p);
+            if(r != null) {
+                Weapon wep = WeaponManager.getWeapon(p.getItemInHand());
+                if(wep != null && wep instanceof MeteorBow) {
+                    return;
+
+                }
+
+                if(r instanceof Assassin || r instanceof Ranger) {
+                    return;
+                }
+                UtilMessage.message(p, "Bow", "Only Assassin's and Rangers can use bows!");
+                e.setCancelled(true);
+            }
+
+
+        }
+    }
+
+    /*
+     * Removes arrows when they hit the ground, or a player
+     * Keeps the entity count low (good for performance)
+     */
+    @EventHandler
+    public void onArrowHit(ProjectileHitEvent event){
+        if(event.getEntity() instanceof Arrow){
+            Arrow arrow = (Arrow) event.getEntity();
+            arrow.remove();
         }
     }
 
@@ -900,6 +1381,73 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    /*
+     * Gives players money when they kill animals and monsters
+     */
+    @EventHandler
+    public void onMobKillMoney(EntityDeathEvent e){
+        if(!(e.getEntity() instanceof Player)){
+            if(e.getEntity().getCustomName() != null) return;
+            if(LogManager.getKiller(e.getEntity()) != null){
+                if(LogManager.getKiller(e.getEntity()).getDamager() instanceof Player){
+                    Player killer = (Player) LogManager.getKiller(e.getEntity()).getDamager();
+                    Gamer gamer = GamerManager.getOnlineGamer(killer);
+
+                    if(e.getEntity() instanceof Animals){
+                        int amount = UtilMath.randomInt(50, 100);
+
+                        Client c = ClientUtilities.getOnlineClient(killer);
+
+                        UtilMessage.message(killer, "Reward", "You received " + ChatColor.GREEN + "$" + amount);
+
+                        gamer.addCoins(amount);
+                    }else if(e.getEntity() instanceof Monster){
+                        int amount = UtilMath.randomInt(100, 225);
+
+                        UtilMessage.message(killer, "Reward", "You received " + ChatColor.GREEN + "$" + amount);
+                        gamer.addCoins(amount);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMapDrop(PlayerDropItemEvent e) {
+        if(e.getItemDrop().getItemStack().getType() == Material.MAP) {
+            if(!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
+                e.getItemDrop().remove();
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onMapDeath(PlayerDeathEvent e){
+
+        Iterator<ItemStack> iterator = e.getDrops().iterator();
+        while(iterator.hasNext()){
+            ItemStack next = iterator.next();
+            if(next.getType() == Material.MAP){
+                iterator.remove();
+            }
+        }
+
+
+    }
+
+    @EventHandler
+    public void onMapTransfer(InventoryMoveItemEvent e) {
+        if(e.getItem().getType() == Material.MAP) {
+            if(e.getSource().getType() == InventoryType.PLAYER) {
+                if(e.getDestination() != null) {
+                    if(e.getDestination().getType() != InventoryType.PLAYER) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
     /*
      * Sets a players food level to max when they join the server
@@ -932,6 +1480,15 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
 
+    }
+
+    @EventHandler
+    public void onSpawn(CreatureSpawnEvent e){
+        if(e.getEntity().getWorld().getLivingEntities().size() > 500){
+            if(e.getEntity().getCustomName() != null){
+                e.setCancelled(true);
+            }
+        }
     }
 
 

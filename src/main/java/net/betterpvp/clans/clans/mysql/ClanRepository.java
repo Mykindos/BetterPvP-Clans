@@ -2,6 +2,7 @@ package net.betterpvp.clans.clans.mysql;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
+import net.betterpvp.clans.clans.Alliance;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 
@@ -31,7 +32,11 @@ public class ClanRepository implements Repository<Clans> {
             + "Territory BLOB, "
             + "Admin TINYINT, "
             + "Safe TINYINT, "
-            + "LastLogin BIGINT(255)); ";
+            + "LastLogin BIGINT(255),"
+            + "Energy INT,"
+            + "Points INT,"
+            + "Cooldown LONG," +
+            "PRIMARY KEY(Name))";
 
     @Override
     public void initialize() {
@@ -41,6 +46,7 @@ public class ClanRepository implements Repository<Clans> {
 
     @Override
     public void load(Clans i) {
+        System.out.println("Started loading clans");
         new BukkitRunnable() {
 
             @Override
@@ -115,7 +121,13 @@ public class ClanRepository implements Repository<Clans> {
                     result.close();
 
 
+
                     Log.debug("MySQL", "Loaded " + count + " Clans");
+
+                    AllianceRepository.load(i);
+                    MemberRepository.load(i);
+                    InsuranceRepository.load(i);
+                    EnemyRepository.load(i);
 
                 } catch (SQLException ex) {
                     Log.debug("Connection", "Could not load Clans (Connection Error), ");
@@ -211,7 +223,7 @@ public class ClanRepository implements Repository<Clans> {
 
             }
 
-        }.runTaskAsynchronously(i);
+        }.runTask(i);
 
     }
 

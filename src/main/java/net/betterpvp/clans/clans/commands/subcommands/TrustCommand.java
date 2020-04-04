@@ -61,12 +61,12 @@ public class TrustCommand implements IClanCommand {
             return;
         }
 
-        if (InviteHandler.isInvited(target, clan)) {
+        if (InviteHandler.isInvited(target, clan, "Trust")) {
             UtilMessage.message(player, "Clans", "You have already requested trust with " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
             return;
         }
 
-        if (InviteHandler.isInvited(clan, target)) {
+        if (InviteHandler.isInvited(clan, target, "Trust")) {
             Bukkit.getPluginManager().callEvent(new ClanTrustClanEvent(player, clan, target));
 
 
@@ -78,7 +78,7 @@ public class TrustCommand implements IClanCommand {
                 + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".", player.getUniqueId(), true);
 
         target.messageClan(ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + " has requested trust with you.", null, true);
-        InviteHandler.createInvite(clan, target, 20);
+        InviteHandler.createInvite(clan, target, "Trust", 20);
 
     }
 

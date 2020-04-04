@@ -139,9 +139,11 @@ public class WindBlade extends Weapon {
                             player.getWorld().playSound(player.getLocation(), Sound.FIZZ, 0.5F, 1.5F);
                         }
                     } else {
-                        if (UtilTime.elapsed(wait.get(player), 500)) {
-                            active.remove(player.getName());
-                            wait.remove(player);
+                        if(wait.containsKey(player)) {
+                            if (UtilTime.elapsed(wait.get(player), 500)) {
+                                active.remove(player.getName());
+                                wait.remove(player);
+                            }
                         }
                     }
                 }
