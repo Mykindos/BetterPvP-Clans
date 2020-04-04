@@ -60,13 +60,14 @@ public class WorldListener extends BPVPListener<Clans> {
 
     /**
      * Speeds up the night time
+     *
      * @param e
      */
     @EventHandler
     public void onTimeUpdate(UpdateEvent e) {
-        if(e.getType() == UpdateEvent.UpdateType.TICK_2){
+        if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             World world = Bukkit.getWorld("world");
-            if(world.getTime() > 13000){
+            if (world.getTime() > 13000) {
                 world.setTime(world.getTime() + 20);
             }
         }
@@ -74,6 +75,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
     /**
      * Opens the Build Management menu
+     *
      * @param e
      */
     @EventHandler
@@ -104,7 +106,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void stopLeafDecay(LeavesDecayEvent event) {
-        if(!getInstance().hasStarted()){
+        if (!getInstance().hasStarted()) {
             event.setCancelled(true);
             return;
         }
@@ -121,9 +123,9 @@ public class WorldListener extends BPVPListener<Clans> {
      * Prevents the weather changing, rain causes unnecessary fps drops, and looks bad.
      */
     @EventHandler
-    public void setSunny(WeatherChangeEvent e){
+    public void setSunny(WeatherChangeEvent e) {
         World world = e.getWorld();
-        if(!world.hasStorm()) e.setCancelled(true);
+        if (!world.hasStorm()) e.setCancelled(true);
 
     }
 
@@ -132,13 +134,13 @@ public class WorldListener extends BPVPListener<Clans> {
      * This is required, as previously, players could open the doors to an enemy base.
      */
     @EventHandler
-    public void onAttachablePlace(BlockPlaceEvent e){
-        if(e.getBlock().getType() == Material.LEVER || e.getBlock().getType() == Material.STONE_BUTTON || e.getBlock().getType() == Material.WOOD_BUTTON){
-            if(e.getBlockAgainst() != null){
+    public void onAttachablePlace(BlockPlaceEvent e) {
+        if (e.getBlock().getType() == Material.LEVER || e.getBlock().getType() == Material.STONE_BUTTON || e.getBlock().getType() == Material.WOOD_BUTTON) {
+            if (e.getBlockAgainst() != null) {
                 Clan c = ClanUtilities.getClan(e.getBlockAgainst().getLocation());
-                if(c != null){
+                if (c != null) {
                     Clan d = ClanUtilities.getClan(e.getPlayer());
-                    if(d != null && c == d){
+                    if (d != null && c == d) {
                         return;
                     }
 
@@ -174,10 +176,10 @@ public class WorldListener extends BPVPListener<Clans> {
         if (RechargeManager.getInstance().add(player, "Sponge", 0.8, false)) {
 
             player.setVelocity(new Vector(0.0D, 1.8D, 0.0D));
-            player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0,15);
-            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19,15);
-            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19,15);
-            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19,15);
+            player.getWorld().playEffect(player.getLocation(), Effect.BLAZE_SHOOT, 0, 15);
+            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19, 15);
+            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19, 15);
+            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 19, 15);
             event.setCancelled(true);
         }
     }
@@ -208,12 +210,12 @@ public class WorldListener extends BPVPListener<Clans> {
         Player player = event.getPlayer();
         Block block = event.getBlock();
 
-       // PlayerStat stat = ClientUtilities.getOnlineClient(player).getStats();
-      //  stat.blocksPlaced = stat.blocksPlaced+ 1;
+        // PlayerStat stat = ClientUtilities.getOnlineClient(player).getStats();
+        //  stat.blocksPlaced = stat.blocksPlaced+ 1;
 
-        if(block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.FURNACE || block.getType() == Material.HOPPER
-                || block.getType() == Material.DROPPER || block.getType() == Material.DISPENSER){
-            if(block.getLocation().getY() > 200){
+        if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.FURNACE || block.getType() == Material.HOPPER
+                || block.getType() == Material.DROPPER || block.getType() == Material.DISPENSER) {
+            if (block.getLocation().getY() > 200) {
                 UtilMessage.message(player, "Restriction", "You can only place chests lower than 200Y!");
                 event.setCancelled(true);
             }
@@ -245,14 +247,14 @@ public class WorldListener extends BPVPListener<Clans> {
      * Prevents players from igniting TNT in Admin Protected Areas
      */
     @EventHandler
-    public void preventTnTIgniting(PlayerInteractEvent e){
-        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+    public void preventTnTIgniting(PlayerInteractEvent e) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = e.getClickedBlock();
-            if(b.getType() == Material.TNT){
+            if (b.getType() == Material.TNT) {
                 Clan c = ClanUtilities.getClan(b.getLocation());
-                if(c != null){
-                    if(c instanceof AdminClan){
-                        if(!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+                if (c != null) {
+                    if (c instanceof AdminClan) {
+                        if (!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
                             e.setCancelled(true);
                         }
                     }
@@ -272,8 +274,7 @@ public class WorldListener extends BPVPListener<Clans> {
             Player player = (Player) event.getPlayer();
 
 
-
-            if(event.getInventory().getType() == InventoryType.ENCHANTING){
+            if (event.getInventory().getType() == InventoryType.ENCHANTING) {
                 event.setCancelled(true);
             }
         }
@@ -301,8 +302,8 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void soilChangePlayer(PlayerInteractEvent event) {
-        if (event.getAction() == Action.PHYSICAL){
-            if(event.getClickedBlock().getType() == Material.SOIL) {
+        if (event.getAction() == Action.PHYSICAL) {
+            if (event.getClickedBlock().getType() == Material.SOIL) {
                 event.setCancelled(true);
             }
         }
@@ -314,15 +315,15 @@ public class WorldListener extends BPVPListener<Clans> {
      * When we had the nether, people would pull the boss in.
      */
     @EventHandler
-    public void onPortal(EntityPortalEvent e){
-        if(!(e.getEntity() instanceof Player)){
+    public void onPortal(EntityPortalEvent e) {
+        if (!(e.getEntity() instanceof Player)) {
             e.setCancelled(true);
         }
     }
 
 
     @EventHandler
-    public void clearArmourStands(CoreLoadedEvent e){
+    public void clearArmourStands(CoreLoadedEvent e) {
         for (World world : Bukkit.getWorlds()) {
             for (Entity entity : world.getEntities()) {
                 if (entity instanceof ArmorStand) {
@@ -343,15 +344,15 @@ public class WorldListener extends BPVPListener<Clans> {
      * This fixes that.
      */
     @EventHandler
-    public void checkGlow(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.SLOWEST){
-            for(Player p : Bukkit.getOnlinePlayers()){
-                for(ItemStack i : p.getInventory().getContents()){
-                    if(i != null){
-                        if(i.hasItemMeta()){
+    public void checkGlow(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SLOWEST) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                for (ItemStack i : p.getInventory().getContents()) {
+                    if (i != null) {
+                        if (i.hasItemMeta()) {
                             Weapon w = WeaponManager.getWeapon(i);
-                            if(w != null){
-                                if(w.isLegendary() || w instanceof EnchantedWeapon){
+                            if (w != null) {
+                                if (w.isLegendary() || w instanceof EnchantedWeapon) {
 
                                     UtilItem.addGlow(i);
                                 }
@@ -369,16 +370,15 @@ public class WorldListener extends BPVPListener<Clans> {
      * Increases the durability of Assassin and Paladin Sets by having a chance
      * to add 1 durability back
      */
-    @EventHandler (priority = EventPriority.LOWEST)
-    public void onSwordDamage(CustomDamageEvent e){
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSwordDamage(CustomDamageEvent e) {
 
-
-        if(e.getDamagee() instanceof Player){
-            Player d = (Player) e.getDamagee();
-            Role r = Role.getRole(d);
-            if(r != null){
-                if(r instanceof Assassin){
-                    if(!Clans.getOptions().isAssassinKnockbackEnabled()) {
+        if (e.getDamagee() instanceof Player) {
+            Player damagee = (Player) e.getDamagee();
+            Role damageeRole = Role.getRole(damagee);
+            if (damageeRole != null) {
+                if (damageeRole instanceof Assassin) {
+                    if (!Clans.getOptions().isAssassinKnockbackEnabled()) {
                         e.setKnockback(false);
                     }
 
@@ -387,62 +387,62 @@ public class WorldListener extends BPVPListener<Clans> {
 
             }
         }
-        if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
-        if(e.getDamager() instanceof Player){
+        if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
+        if (e.getDamager() instanceof Player) {
             Player p = (Player) e.getDamager();
             Role r = Role.getRole(p);
-            if(r == null){
+            if (r == null) {
                 e.setDamage(e.getDamage() * 0.80);
-            }else {
-                if(r instanceof Assassin) {
-                    if(!Clans.getOptions().isAssassinDealKb()) {
+            } else {
+                if (r instanceof Assassin) {
+                    if (!Clans.getOptions().isAssassinDealKb()) {
                         e.setKnockback(false);
                     }
                 }
             }
-            if(p.getItemInHand() != null){
+            if (p.getItemInHand() != null) {
                 Material m = p.getItemInHand().getType();
-                if(UtilItem.isSword(m)){
+                if (UtilItem.isSword(m)) {
 
-                    if(m == Material.DIAMOND_SWORD){
+                    if (m == Material.DIAMOND_SWORD) {
                         e.setDamage(5);
-                    }else if(m == Material.GOLD_SWORD){
+                    } else if (m == Material.GOLD_SWORD) {
                         e.setDamage(6);
-                    }else if(m == Material.IRON_SWORD){
+                    } else if (m == Material.IRON_SWORD) {
                         e.setDamage(4.5);
 
                         Weapon w = WeaponManager.getWeapon(p.getItemInHand());
-                        if(w != null){
-                            if(w instanceof EnchantedWeapon){
+                        if (w != null) {
+                            if (w instanceof EnchantedWeapon) {
                                 EnchantedWeapon enchantedWeapon = (EnchantedWeapon) w;
 
                                 e.setDamage(e.getDamage() + enchantedWeapon.getBonus());
 
                             }
                         }
-                    }else if(m == Material.STONE_SWORD){
+                    } else if (m == Material.STONE_SWORD) {
                         e.setDamage(3);
-                    }else if(m == Material.WOOD_SWORD){
+                    } else if (m == Material.WOOD_SWORD) {
                         e.setDamage(2);
                     }
 
-                }else if(UtilItem.isAxe(m)){
-                    if(m == Material.DIAMOND_AXE){
+                } else if (UtilItem.isAxe(m)) {
+                    if (m == Material.DIAMOND_AXE) {
                         e.setDamage(4);
-                    }else if(m == Material.GOLD_AXE){
+                    } else if (m == Material.GOLD_AXE) {
                         e.setDamage(5);
-                    }else if(m == Material.IRON_AXE){
+                    } else if (m == Material.IRON_AXE) {
                         e.setDamage(3);
-                    }else if(m == Material.STONE_AXE){
+                    } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
-                    }else if( m == Material.WOOD_AXE){
+                    } else if (m == Material.WOOD_AXE) {
                         e.setDamage(1);
                     }
 
-                }else{
+                } else {
                     e.setDamage(e.getDamage() * 0.75);
                 }
-            }else{
+            } else {
                 e.setDamage(1);
             }
         }
@@ -457,7 +457,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onBlockCancelPlace(BlockPlaceEvent event) {
 
-        if(event.isCancelled()){
+        if (event.isCancelled()) {
             return;
         }
         Player player = event.getPlayer();
@@ -465,7 +465,7 @@ public class WorldListener extends BPVPListener<Clans> {
         Client c = ClientUtilities.getOnlineClient(player);
 
 
-        if(c != null){
+        if (c != null) {
             if (!c.isAdministrating()) {
                 if (block.getType() == Material.OBSIDIAN || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
                         || block.getType() == Material.MOB_SPAWNER || block.getType() == Material.WEB || block.getType() == Material.BREWING_STAND
@@ -478,7 +478,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 Clan clan = ClanUtilities.getClan(player);
 
-                if (ClanUtilities.getClan(block.getLocation()) != clan && ClanUtilities.getClan(block.getLocation()) != null){
+                if (ClanUtilities.getClan(block.getLocation()) != clan && ClanUtilities.getClan(block.getLocation()) != null) {
                     return;
                 }
 
@@ -506,13 +506,13 @@ public class WorldListener extends BPVPListener<Clans> {
      * admin territory
      */
     @EventHandler
-    public void onInteract(PlayerInteractEntityEvent e){
-        if(e.getRightClicked() instanceof ArmorStand || e.getRightClicked() instanceof ItemFrame){
+    public void onInteract(PlayerInteractEntityEvent e) {
+        if (e.getRightClicked() instanceof ArmorStand || e.getRightClicked() instanceof ItemFrame) {
 
             Clan c = ClanUtilities.getClan(e.getRightClicked().getLocation());
-            if(c != null){
-                if(c instanceof AdminClan){
-                    if(!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+            if (c != null) {
+                if (c instanceof AdminClan) {
+                    if (!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
 
                         e.setCancelled(true);
                     }
@@ -523,8 +523,8 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void updateTimePlayed(UpdateEvent e) {
-        if(e.getType() == UpdateEvent.UpdateType.MIN_60) {
-            for(Player p : Bukkit.getOnlinePlayers()) {
+        if (e.getType() == UpdateEvent.UpdateType.MIN_60) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
                 Client c = ClientUtilities.getOnlineClient(p);
 
                 c.setTimePlayed(c.getTimePlayed() + 1);
@@ -538,8 +538,8 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onPlaceTNT(BlockPlaceEvent e) {
-        if(e.getBlock().getType() == Material.TNT) {
-            if(EffectManager.hasEffect(e.getPlayer(), EffectType.PROTECTION)) {
+        if (e.getBlock().getType() == Material.TNT) {
+            if (EffectManager.hasEffect(e.getPlayer(), EffectType.PROTECTION)) {
                 EffectManager.removeEffect(e.getPlayer(), EffectType.PROTECTION);
             }
         }
@@ -587,12 +587,12 @@ public class WorldListener extends BPVPListener<Clans> {
      * Stops players from breaking Item Frames in admin territory
      */
     @EventHandler
-    public void onBreak(HangingBreakByEntityEvent e){
+    public void onBreak(HangingBreakByEntityEvent e) {
         Clan c = ClanUtilities.getClan(e.getEntity().getLocation());
-        if(c != null){
-            if(c instanceof AdminClan){
-                if(e.getRemover() instanceof Player){
-                    if(ClientUtilities.getOnlineClient((Player) e.getRemover()).isAdministrating()){
+        if (c != null) {
+            if (c instanceof AdminClan) {
+                if (e.getRemover() instanceof Player) {
+                    if (ClientUtilities.getOnlineClient((Player) e.getRemover()).isAdministrating()) {
                         return;
                     }
                 }
@@ -606,12 +606,12 @@ public class WorldListener extends BPVPListener<Clans> {
      * In the tutorial world, or in admin territory
      */
     @EventHandler
-    public void armorStand(PlayerArmorStandManipulateEvent e){
+    public void armorStand(PlayerArmorStandManipulateEvent e) {
 
         Clan c = ClanUtilities.getClan(e.getRightClicked().getLocation());
-        if(c != null){
-            if(c instanceof AdminClan){
-                if(!ClientUtilities.getClient(e.getPlayer()).isAdministrating()){
+        if (c != null) {
+            if (c instanceof AdminClan) {
+                if (!ClientUtilities.getClient(e.getPlayer()).isAdministrating()) {
                     e.setCancelled(true);
                 }
             }
@@ -624,14 +624,14 @@ public class WorldListener extends BPVPListener<Clans> {
      * or admin territory
      */
     @EventHandler
-    public void onArmorStandDeath(EntityDamageByEntityEvent e){
-        if(e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame){
+    public void onArmorStandDeath(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame) {
 
             Clan c = ClanUtilities.getClan(e.getEntity().getLocation());
-            if(c != null){
-                if(c instanceof AdminClan){
-                    if(e.getDamager() instanceof Player){
-                        if(ClientUtilities.getClient((Player) e.getDamager()).isAdministrating()){
+            if (c != null) {
+                if (c instanceof AdminClan) {
+                    if (e.getDamager() instanceof Player) {
+                        if (ClientUtilities.getClient((Player) e.getDamager()).isAdministrating()) {
                             return;
                         }
                     }
@@ -666,13 +666,13 @@ public class WorldListener extends BPVPListener<Clans> {
      * Stops players from interacting with item frames and armour stands (left click)
      */
     @EventHandler
-    public void onInteract(PlayerInteractEvent e){
-        if(e.getAction() == Action.LEFT_CLICK_BLOCK){
-            if(e.getClickedBlock().getType() == Material.ITEM_FRAME || e.getClickedBlock().getType() == Material.ARMOR_STAND){
+    public void onInteract(PlayerInteractEvent e) {
+        if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if (e.getClickedBlock().getType() == Material.ITEM_FRAME || e.getClickedBlock().getType() == Material.ARMOR_STAND) {
                 Clan c = ClanUtilities.getClan(e.getClickedBlock().getLocation());
-                if(c != null){
-                    if(c instanceof AdminClan){
-                        if(ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+                if (c != null) {
+                    if (c instanceof AdminClan) {
+                        if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
                             return;
                         }
 
@@ -686,8 +686,6 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
 
-
-
     /*
      * Modifies the drops for just about all mobs in minecraft
      */
@@ -698,7 +696,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
 
         List<ItemStack> drops = event.getDrops();
-        if(event.getEntity().getCustomName() == null){
+        if (event.getEntity().getCustomName() == null) {
             if (event.getEntityType() != EntityType.PLAYER) {
                 drops.clear();
             }
@@ -714,13 +712,13 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.add(new ItemStack(Material.RED_MUSHROOM, 2 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.OCELOT) {
                 int rand = UtilMath.randomInt(10);
-                if(rand == 0 || rand == 1 || rand == 2) {
+                if (rand == 0 || rand == 1 || rand == 2) {
                     drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
-                }else if(rand == 3 || rand == 4 || rand == 5) {
+                } else if (rand == 3 || rand == 4 || rand == 5) {
                     drops.add(new ItemStack(Material.RAW_FISH, 2 + UtilMath.randomInt(2)));
-                }else if(rand == 6 || rand == 7) {
+                } else if (rand == 6 || rand == 7) {
                     drops.add(new ItemStack(Material.COAL, 1 + UtilMath.randomInt(2)));
-                }else {
+                } else {
                     drops.add(new ItemStack(Material.RAW_FISH, 10 + UtilMath.randomInt(10)));
                 }
                 drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
@@ -758,18 +756,18 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.PIG_ZOMBIE) {
                 PigZombie z = (PigZombie) event.getEntity();
-                if(z.getEquipment().getItemInHand().getType() == Material.GOLD_AXE){
+                if (z.getEquipment().getItemInHand().getType() == Material.GOLD_AXE) {
                     drops.add(new ItemStack(Material.GOLD_AXE));
                 }
                 drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(2)));
-                if(UtilMath.randomInt(50) > 48){
+                if (UtilMath.randomInt(50) > 48) {
                     ItemStack[] temp = {new ItemStack(Material.CHAINMAIL_HELMET), new ItemStack(Material.CHAINMAIL_BOOTS),
                             new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS)};
-                    drops.add(temp[UtilMath.randomInt(temp.length -1)]);
+                    drops.add(temp[UtilMath.randomInt(temp.length - 1)]);
                 }
                 if (UtilMath.randomInt(100) > 90) {
                     drops.add(new ItemStack(Material.GOLD_PICKAXE));
-                }else if(UtilMath.randomInt(1000) > 990){
+                } else if (UtilMath.randomInt(1000) > 990) {
                     drops.add(new ItemStack(Material.GOLD_SWORD));
                 }
             } else if (event.getEntityType() == EntityType.SILVERFISH) {
@@ -795,8 +793,8 @@ public class WorldListener extends BPVPListener<Clans> {
         }
 
 
-        if(!(event.getEntity() instanceof Player)){
-            for(ItemStack t : drops){
+        if (!(event.getEntity() instanceof Player)) {
+            for (ItemStack t : drops) {
                 event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), t);
             }
 
@@ -804,17 +802,15 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
 
-
-
     /*
      * Updates the names of items that are picked up from the ground (sets there name to be yellow from wh ite)
      * Other than enchanted armour
      */
     @EventHandler
-    public void onPickup(PlayerPickupItemEvent e){
+    public void onPickup(PlayerPickupItemEvent e) {
         Weapon w = WeaponManager.getWeapon(e.getItem().getItemStack());
-        if(w != null){
-            if(w instanceof EnchantedWeapon){
+        if (w != null) {
+            if (w instanceof EnchantedWeapon) {
 
                 return;
             }
@@ -1176,20 +1172,19 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
-
     /*
      * Stops players from shooting bows in safe territory
      * Also stops players from shooting bows while in water
      */
-    @EventHandler (priority= EventPriority.HIGHEST)
-    public void onShoot(EntityShootBowEvent e){
-        if(e.getEntity() instanceof Player){
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onShoot(EntityShootBowEvent e) {
+        if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
 
             Clan c = ClanUtilities.getClan(p.getLocation());
-            if(c instanceof AdminClan){
+            if (c instanceof AdminClan) {
                 AdminClan ac = (AdminClan) c;
-                if(ac.isSafe()){
+                if (ac.isSafe()) {
                     e.setCancelled(true);
                     return;
                 }
@@ -1241,10 +1236,11 @@ public class WorldListener extends BPVPListener<Clans> {
      * Creates a blood splatter effect
      */
     public static HashMap<Item, Long> blood = new HashMap<>();
-    @EventHandler
-    public void onDeath(PlayerDeathEvent e){
 
-        for(int i = 0; i < 10; i++){
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+
+        for (int i = 0; i < 10; i++) {
             final Item item = e.getEntity().getWorld().dropItem(e.getEntity().getEyeLocation(), new ItemStack(Material.INK_SACK, 1, (byte) 1));
             item.setVelocity(new Vector((Math.random() - 0.5D) * 0.5, Math.random() * 0.5, (Math.random() - 0.5D) * 0.5));
             item.setPickupDelay(Integer.MAX_VALUE);
@@ -1257,15 +1253,15 @@ public class WorldListener extends BPVPListener<Clans> {
      * Makes sure the blood items get removed after 500 milliseconds
      */
     @EventHandler
-    public void blood(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.FASTEST){
-            if(blood.isEmpty()){
+    public void blood(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.FASTEST) {
+            if (blood.isEmpty()) {
                 return;
             }
             Iterator<Map.Entry<Item, Long>> it = blood.entrySet().iterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Map.Entry<Item, Long> next = it.next();
-                if(UtilTime.elapsed(next.getValue(), 500)){
+                if (UtilTime.elapsed(next.getValue(), 500)) {
                     next.getKey().remove();
                     it.remove();
                 }
@@ -1276,53 +1272,51 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onTravelHub(ButtonClickEvent e) {
-        if(e.getMenu() instanceof TravelHubMenu) {
-            if(e.getButton().getName().equals(ChatColor.RED + "Red Spawn")) {
+        if (e.getMenu() instanceof TravelHubMenu) {
+            if (e.getButton().getName().equals(ChatColor.RED + "Red Spawn")) {
                 Clan redSpawn = ClanUtilities.getClan("Red Spawn");
                 Clan myClan = ClanUtilities.getClan(e.getPlayer().getLocation());
 
-                if(myClan != null) {
-                    if(myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
+                if (myClan != null) {
+                    if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
-                    }else {
+                    } else {
                         e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -300.5, 130, -300.5));
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
-            }else if(e.getButton().getName().equals(ChatColor.AQUA + "Blue Spawn")) {
+            } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Spawn")) {
                 Clan blueSpawn = ClanUtilities.getClan("Blue Spawn");
                 Clan myClan = ClanUtilities.getClan(e.getPlayer().getLocation());
 
-                if(myClan != null) {
-                    if(myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
+                if (myClan != null) {
+                    if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
-                    }else {
+                    } else {
                         e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 300.5, 130, 300.5));
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
-            }else if(e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 224.5,70, -82.5 ));
+            } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
+                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 224.5, 70, -82.5));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
-            }else if(e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -159.5,74, 245.5 ));
+            } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
+                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -159.5, 74, 245.5));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
         }
     }
 
 
-
-
     /*
      * Stops admins who havent logged in yet from clicking in there inventory
      */
     @EventHandler
-    public void onInvOpen(InventoryClickEvent e){
+    public void onInvOpen(InventoryClickEvent e) {
         Client c = ClientUtilities.getOnlineClient(e.getWhoClicked().getUniqueId());
-        if(c != null) {
-            if(c.hasRank(Rank.ADMIN, false)){
-                if(!c.isLoggedIn()){
+        if (c != null) {
+            if (c.hasRank(Rank.ADMIN, false)) {
+                if (!c.isLoggedIn()) {
                     e.setCancelled(true);
                     e.getWhoClicked().closeInventory();
                 }
@@ -1332,8 +1326,8 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onTNTPlace(BlockPlaceEvent e) {
-        if(e.getBlock().getType() == Material.TNT) {
-            if(!Clans.getOptions().isTNTEnabled()) {
+        if (e.getBlock().getType() == Material.TNT) {
+            if (!Clans.getOptions().isTNTEnabled()) {
                 UtilMessage.message(e.getPlayer(), "TNT", "TNT is disabled for the first 3 days of each season.");
                 e.setCancelled(true);
             }
@@ -1344,13 +1338,13 @@ public class WorldListener extends BPVPListener<Clans> {
      * Stops admins who havent logged in yet from moving at all
      */
     @EventHandler
-    public void onMoveAdmin(PlayerMoveEvent e){
-        if(e.getFrom().getBlockX() != e.getTo().getBlockX()
+    public void onMoveAdmin(PlayerMoveEvent e) {
+        if (e.getFrom().getBlockX() != e.getTo().getBlockX()
                 || e.getFrom().getBlockY() != e.getTo().getBlockY()
-                || e.getFrom().getBlockZ() != e.getTo().getBlockZ()){
+                || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if(c.hasRank(Rank.ADMIN, false)){
-                if(!c.isLoggedIn()){
+            if (c.hasRank(Rank.ADMIN, false)) {
+                if (!c.isLoggedIn()) {
                     e.setCancelled(true);
                 }
             }
@@ -1358,16 +1352,15 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
 
-
     /*
      * Stops players from breaking other clans bases with pistons on the outside
      */
     @EventHandler
-    public void onPistonEvent(BlockPistonExtendEvent e){
-        for(Block b : e.getBlocks()){
+    public void onPistonEvent(BlockPistonExtendEvent e) {
+        for (Block b : e.getBlocks()) {
             Clan c = ClanUtilities.getClan(b.getLocation());
             Clan d = ClanUtilities.getClan(e.getBlock().getLocation());
-            if(c != null && d == null || d != c){
+            if (c != null && d == null || d != c) {
                 e.setCancelled(true);
             }
         }
@@ -1377,17 +1370,16 @@ public class WorldListener extends BPVPListener<Clans> {
      * Stops players from breaking other clans bases with pistons on the outside
      */
     @EventHandler
-    public void onPistonEvent(BlockPistonRetractEvent e){
-        for(Block b : e.getBlocks()){
+    public void onPistonEvent(BlockPistonRetractEvent e) {
+        for (Block b : e.getBlocks()) {
             Clan c = ClanUtilities.getClan(b.getLocation());
             Clan d = ClanUtilities.getClan(e.getBlock().getLocation());
-            if(c != null && d == null || d != c){
+            if (c != null && d == null || d != c) {
 
                 e.setCancelled(true);
             }
         }
     }
-
 
     /*
      * Gives players money when they kill animals and monsters
@@ -1457,13 +1449,12 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
-
     /*
      * Sets a players food level to max when they join the server
      */
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
-        if(e.getPlayer() != null){
+    public void onJoin(PlayerJoinEvent e) {
+        if (e.getPlayer() != null) {
             e.getPlayer().setFoodLevel(20);
         }
     }
@@ -1477,15 +1468,14 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
 
-
     /*
      * Hides players who are appearing offline (admins) from new players that join
      */
     @EventHandler
-    public void hideOffliners(PlayerJoinEvent e){
-        for(UUID p : OfflineCommand.offline){
+    public void hideOffliners(PlayerJoinEvent e) {
+        for (UUID p : OfflineCommand.offline) {
             Player d = Bukkit.getPlayer(p);
-            if(d != null){
+            if (d != null) {
                 e.getPlayer().hidePlayer(d);
             }
         }
