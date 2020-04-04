@@ -36,6 +36,7 @@ import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.GamerRepository;
 import net.betterpvp.clans.general.WorldListener;
+import net.betterpvp.clans.general.commands.FindCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.recipes.CustomRecipe;
@@ -52,10 +53,13 @@ import net.betterpvp.core.database.QueryFactory;
 import net.betterpvp.core.database.Repository;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.punish.PunishManager;
+import net.betterpvp.core.utility.UtilFormat;
+import net.betterpvp.core.utility.UtilMessage;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -150,8 +154,10 @@ public class Clans extends JavaPlugin implements Listener {
         new FishingListener(this);
         new FarmingListener(this);
         new KOTHManager(this);
+        new ClanScoreboardListener(this);
 
         CommandManager.addCommand(new ShopCommand(this));
+        CommandManager.addCommand(new FindCommand(this));
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 
@@ -190,6 +196,8 @@ public class Clans extends JavaPlugin implements Listener {
 
         return CoreProtect;
     }
+
+
 
 
     public void loadMap() {
@@ -254,6 +262,42 @@ public class Clans extends JavaPlugin implements Listener {
                 System.out.println("Updated player data!");
             }
         }.runTaskTimerAsynchronously(this, 6000L, 6000L);
+
+        new BukkitRunnable(){
+
+
+            @Override
+            public void run() {
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    Gamer gamer = GamerManager.getOnlineGamer(p);
+                    if(gamer != null){
+
+
+                        double add = 0;
+
+                        // TODO reimplement MAH bonus
+                       /* double multiplier = MAHManager.isAuthenticated(p) ? 3 : 1.0;
+                        if(MAHManager.isAuthenticated(p)) {
+                            add += 1000;
+                        }
+
+                        if(c.isDiscordLinked()) {
+                            add += 1000;
+                        }*/
+
+                        gamer.addCoins((getOptions().getOnlineReward() + add) / 2);
+
+                        gamer.addFragments(2);
+
+                        UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add) /2)) + ChatColor.GRAY + " Coins.");
+
+                        UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
+                    }
+                }
+
+            }
+        }.runTaskTimer(this, 72000 /2, 72000 /2);
     }
 
 

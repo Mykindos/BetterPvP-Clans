@@ -11,6 +11,7 @@ import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
+import net.betterpvp.core.client.mysql.SettingsRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,6 +41,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
             loadDefaults(gamer);
 
+
         } else {
 
             GamerManager.addOnlineGamer(gamer);
@@ -49,6 +51,13 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 gamer.setClient(e.getClient());
             }
         }
+
+
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "Sidebar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "RechargeBar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "Killfeed", 1);
+
+        SettingsRepository.loadSettings(getInstance(), gamer.getClient());
 
         gamer.setScoreboard(new Scoreboard(e.getClient()
                 .getPlayer()));

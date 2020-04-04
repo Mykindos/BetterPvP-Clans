@@ -14,24 +14,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-public class MemberRepository implements Repository<Clans> {
+public class MemberRepository{
 
     public static final String TABLE_NAME = "clans_clanmembers";
 
     public static final String CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "`  (" +
             "  `Clan` varchar(255)," +
             "  `UUID` varchar(255)," +
-            "  `Role` varchar(255)" +
-            ");";
+            "  `Role` varchar(255)," +
+            "PRIMARY KEY(UUID));";
 
-    @Override
-    public void initialize() {
+
+    private static void initialize() {
         QueryFactory.runQuery(CREATE_CLANMEMBER_TABLE);
 
     }
 
-    @Override
-    public void load(Clans i) {
+    public static void load(Clans i) {
+        initialize();
         new BukkitRunnable() {
 
             @Override
@@ -48,6 +48,7 @@ public class MemberRepository implements Repository<Clans> {
                         Role role = Role.valueOf(result.getString(3));
 
                         if (clan != null) {
+                            System.out.println("Added " + uuid + " to " + clan.getName());
                             clan.getMembers().add(new ClanMember(uuid, role));
 
                             //clan.getTeam().addEntry(ClientUtilities.getClient(uuid).getName());
@@ -111,12 +112,6 @@ public class MemberRepository implements Repository<Clans> {
     public static void wipe() {
         String query = "TRUNCATE TABLE " + TABLE_NAME;
         QueryFactory.runQuery(query);
-    }
-
-    @Override
-    public LoadPriority getLoadPriority() {
-
-        return LoadPriority.HIGHEST;
     }
 
 

@@ -89,7 +89,7 @@ public class Volley extends Skill {
 
 
                         Vector v;
-                        for (int i = 0; i < 10; i += 2) {
+                        for(int i = -10; i < 10; i+=2){
                             Arrow n = p.launchProjectile(Arrow.class);
                             n.setShooter(p);
                             c.setYaw(c.getYaw() + i);
@@ -97,15 +97,7 @@ public class Volley extends Skill {
                             n.setVelocity(v.multiply(2));
                             arrows.add(n);
                         }
-                        c = p.getLocation();
-                        for (int i = 0; i < 10; i += 2) {
-                            Arrow n = p.launchProjectile(Arrow.class);
-                            n.setShooter(p);
-                            c.setYaw(c.getYaw() - i);
-                            v = c.getDirection();
-                            n.setVelocity(v.multiply(2));
-                            arrows.add(n);
-                        }
+
 
                         p.getWorld().playSound(p.getLocation(), Sound.PISTON_EXTEND, 3F, 1F);
                         volleys.remove(p.getUniqueId());

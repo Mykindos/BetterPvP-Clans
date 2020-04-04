@@ -88,6 +88,17 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler
+    public void onGamemodeAdventure(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.SEC){
+            for(Player p : Bukkit.getOnlinePlayers()){
+                if(!p.isOp()){
+                    p.setGameMode(GameMode.ADVENTURE);
+                }
+            }
+        }
+    }
+
     /*
      * Stops leaf decay in admin clan territory
      */
