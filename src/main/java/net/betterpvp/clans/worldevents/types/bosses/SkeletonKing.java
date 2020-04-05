@@ -18,7 +18,7 @@ import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.event.EventHandler;
@@ -385,7 +385,7 @@ public class SkeletonKing extends Boss {
                         e.getDamagee().teleport(loc);
                         Skeleton s = (Skeleton) e.getDamagee();
                         s.setTarget(e.getDamager());
-                        e.getDamagee().getWorld().playSound(getBoss().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1F);
+                        e.getDamagee().getWorld().playSound(getBoss().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5F, 1F);
                     }
                 }
             }

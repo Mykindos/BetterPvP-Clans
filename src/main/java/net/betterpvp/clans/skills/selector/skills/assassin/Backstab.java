@@ -38,7 +38,7 @@ public class Backstab extends Skill {
             if (role != null && role.getName().equals(getClassType())) {
                 if (hasSkill(dam, this)) {
 
-                    if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getInventory().getItemInMainHand().getType())) {
 
                         if (UtilMath.getAngle(dam.getLocation().getDirection(), e.getDamagee().getLocation().getDirection()) < 60) {
 

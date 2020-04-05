@@ -1,5 +1,6 @@
 package net.betterpvp.clans.mysql;
 
+import net.betterpvp.clans.recipes.CustomRecipe;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;
@@ -56,6 +57,23 @@ public class ReflectionsUtil {
 
     }
 
+    public static void loadRecipes(String packageName) {
+
+        Reflections reflections = new Reflections(packageName);
+
+        Set<Class<? extends CustomRecipe>> classes = reflections.getSubTypesOf(CustomRecipe.class);
+
+        for (Class<? extends CustomRecipe> r : classes) {
+            try {
+                r.newInstance();
+
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     public static void registerCommands(String packageName, Plugin instance) {
         int count = 0;
         Reflections reflections = new Reflections(packageName);
@@ -63,6 +81,7 @@ public class ReflectionsUtil {
         for (Class<? extends Command> c : classes) {
             try {
 
+                Bukkit.broadcastMessage(c.getName());
                 if(c.getConstructors()[0].getParameterCount() > 0){
                     System.out.println("Skipped Command (Requires arguments): " + c.getName());
                     continue;

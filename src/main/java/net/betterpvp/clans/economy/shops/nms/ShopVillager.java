@@ -1,7 +1,8 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
@@ -10,7 +11,7 @@ public class ShopVillager extends EntityVillager {
 
 
     public ShopVillager(World world) {
-        super(world);
+        super(EntityTypes.VILLAGER, world);
         goalSelector.a(0, new PathfinderGoalFloat(this));
         goalSelector.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.6D));
         goalSelector.a(9, new PathfinderGoalInteract(this, EntityHuman.class, 3.0F, 1.0F));
@@ -33,9 +34,7 @@ public class ShopVillager extends EntityVillager {
     }
 
     @Override
-    public void move(double d0, double d1, double d2) {
-        return;
-    }
+    public void setPosition(double d0, double d1, double d2) {return;}
 
     @Override
     public void collide(Entity entity) {
@@ -48,23 +47,21 @@ public class ShopVillager extends EntityVillager {
     }
 
     @Override
-    public void g(double d0, double d1, double d2) {
-        return;
+    public void h(double d0, double d1, double d2){return;}
+
+    @Override
+    protected SoundEffect getSoundAmbient() {
+        return null;
     }
 
     @Override
-    protected String z() {
-        return "";
+    protected SoundEffect getSoundHurt(DamageSource damagesource) {
+        return null;
     }
 
     @Override
-    protected String bo() {
-        return "";
-    }
-
-    @Override
-    protected String bp() {
-        return "";
+    protected SoundEffect getSoundDeath() {
+        return null;
     }
 
 

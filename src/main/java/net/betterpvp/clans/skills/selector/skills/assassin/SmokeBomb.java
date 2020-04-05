@@ -13,11 +13,10 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilParticle;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,12 +63,11 @@ public class SmokeBomb extends Skill {
 
 
                         for (int i = 0; i < 3; i++) {
-                            p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 2.0F, 0.5F);
+
+                            p.getWorld().playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2.0F, 0.5F);
                         }
 
-                        UtilParticle.playParticle(EnumParticle.EXPLOSION_HUGE, p.getLocation(),
-                                (float) p.getLocation().getX(), (float) p.getLocation().getY(),
-                                (float) p.getLocation().getZ(), 0.0F, 0.0F, 0.0F, 0.0F, 1);
+                        ParticleEffect.EXPLOSION_HUGE.display(p.getLocation());
 
                         for (Player d : UtilPlayer.getInRadius(p.getLocation(), 2.5)) {
                             if (d == p) continue;
@@ -109,7 +107,8 @@ public class SmokeBomb extends Skill {
                 if (r != null && r instanceof Assassin) {
                     if (next.getValue() > 0) {
                         for (int i = 0; i < 5; i++) {
-                            next.getKey().getWorld().playEffect(next.getKey().getLocation(), Effect.SMOKE, 4);
+                            ParticleEffect.SMOKE_LARGE.display(next.getKey().getLocation());
+                            //next.getKey().getWorld().playEffect(next.getKey().getLocation(), Effect.SMOKE, 4);
                         }
                         next.setValue(next.getValue() - 1);
                     } else {
@@ -239,8 +238,7 @@ public class SmokeBomb extends Skill {
             }
         }
 
-        if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER
-                || player.getLocation().getBlock().getType() == Material.WATER) {
+        if ( player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, getClassType(),
                     "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;

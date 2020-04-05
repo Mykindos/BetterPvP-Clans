@@ -51,13 +51,13 @@ public class ClanMenu extends Menu {
 
         if (member.hasRole(Role.LEADER)) {
 
-            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR_ITEM),
+            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Leave Clan",
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Leave Clan",
                     ChatColor.GREEN + "Shift Right-Click: " + ChatColor.GRAY + "Disband Clan"));
         } else {
 
-            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR_ITEM),
+            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Leave Clan",
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Leave Clan"));
         }
@@ -88,7 +88,7 @@ public class ClanMenu extends Menu {
         for (ClanMember m : clan.getMembers()) {
 
 
-            ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+            ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1, (short) SkullType.PLAYER.ordinal());
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             Client client = ClientUtilities.getClient(m.getUUID());
             Player p = Bukkit.getPlayer(m.getUUID());

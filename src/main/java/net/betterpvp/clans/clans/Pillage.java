@@ -74,7 +74,7 @@ public class Pillage {
 
             ClanRepository.updateRaidHistory(pillager, pillaged);
 
-            ClientUtilities.messageStaffSound("Raid", pillaged.getName() + " has been conquered. Please spectate in /gamemode 3", Sound.NOTE_PLING, Rank.ADMIN);
+            ClientUtilities.messageStaffSound("Raid", pillaged.getName() + " has been conquered. Please spectate in /gamemode 3", Sound.BLOCK_NOTE_BLOCK_PLING, Rank.ADMIN);
             int raids = pillager.getRaids().get(pillaged);
             int pointsGained = (pillaged.getMembers().size() + bonus);
             int pointsLost = (pillaged.getMembers().size() + bonus);

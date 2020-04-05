@@ -30,7 +30,7 @@ public class Harvest30Netherwarts extends General{
 	@EventHandler
 	public void onBreak(BlockBreakEvent e){
 		if(isActive()){
-			if(e.getBlock().getType() == Material.NETHER_WARTS){
+			if(e.getBlock().getType() == Material.NETHER_WART_BLOCK){
 				NetherWarts n = (NetherWarts) e.getBlock().getState().getData();
 				if( n.getState() == NetherWartsState.RIPE){
 					Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());

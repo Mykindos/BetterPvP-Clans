@@ -15,15 +15,17 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
+import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.PacketPlayOutAnimation;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Openable;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,11 +49,11 @@ public class InteractListener extends BPVPListener<Clans> {
     public void onPlaceRedstoneStuff(BlockPlaceEvent e) {
         Clan c = ClanUtilities.getClan(e.getBlock().getLocation());
         if (c == null) {
-            if (e.getBlock().getType() == Material.WOOD_BUTTON) {
+            if (e.getBlock().getType() == Material.OAK_BUTTON) {
                 e.getBlock().setType(Material.STONE_BUTTON);
-            } else if (e.getBlock().getType() == Material.WOOD_PLATE) {
-                e.getBlock().setType(Material.STONE_PLATE);
-            } else if (e.getBlock().getType() == Material.REDSTONE_WIRE || e.getBlock().getType() == Material.DIODE) {
+            } else if (e.getBlock().getType() == Material.OAK_PRESSURE_PLATE) {
+                e.getBlock().setType(Material.STONE_PRESSURE_PLATE);
+            } else if (e.getBlock().getType() == Material.REDSTONE_WIRE || e.getBlock().getType() == Material.REPEATER) {
                 for (int x = -1; x <= 1; x++) {
                     for (int z = -1; z <= 1; z++) {
                         Clan d = ClanUtilities.getClan(e.getBlock().getLocation().add(x, 0, z));
@@ -74,7 +76,7 @@ public class InteractListener extends BPVPListener<Clans> {
         if (e.getAction() == Action.PHYSICAL) {
 
 
-            if (e.getClickedBlock().getType() == Material.STONE_PLATE || e.getClickedBlock().getType() == Material.WOOD_PLATE) {
+            if (e.getClickedBlock().getType() == Material.STONE_PRESSURE_PLATE || e.getClickedBlock().getType() == Material.OAK_PRESSURE_PLATE) {
                 Clan c = ClanUtilities.getClan(e.getClickedBlock().getLocation());
                 if (c == null) {
 
@@ -92,8 +94,7 @@ public class InteractListener extends BPVPListener<Clans> {
         } else {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 if (e.getClickedBlock() != null) {
-                    if (e.getClickedBlock().getType() == Material.WOOD_BUTTON
-                            || e.getClickedBlock().getType() == Material.STONE_BUTTON
+                    if (e.getClickedBlock().getType().name().contains("_BUTTON")
                             || e.getClickedBlock().getType() == Material.LEVER) {
                         Clan c = ClanUtilities.getClan(e.getClickedBlock().getLocation());
                         if (c == null) {
@@ -233,15 +234,14 @@ public class InteractListener extends BPVPListener<Clans> {
             if (bClan != null) {
                 if (bClan != clan) {
 
-                    if (bClan instanceof AdminClan && block.getType() == Material.ENCHANTMENT_TABLE) {
+                    if (bClan instanceof AdminClan && block.getType() == Material.ENCHANTING_TABLE) {
                         return;
                     }
 
-                    if (ClanUtilities.getRelation(clan, bClan) == ClanRelation.ALLY_TRUST && (block.getType() == Material.IRON_DOOR_BLOCK
+                    if (ClanUtilities.getRelation(clan, bClan) == ClanRelation.ALLY_TRUST && (block.getType() == Material.LEGACY_IRON_DOOR_BLOCK
                             || block.getType() == Material.IRON_DOOR
                             || block.getType() == Material.IRON_TRAPDOOR
-                            || block.getType() == Material.WOOD_BUTTON
-                            || block.getType() == Material.STONE_BUTTON
+                            || block.getType().name().contains("_BUTTON")
                             || block.getType() == Material.LEVER)) {
                         return;
 
@@ -255,13 +255,13 @@ public class InteractListener extends BPVPListener<Clans> {
                         return;
                     }
 
-                    if (block.getType() == Material.GLOWING_REDSTONE_ORE) {
+                    if (block.getType() == Material.REDSTONE_ORE) {
                         return;
                     }
 
                     if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.LEVER
-                            || block.getType() == Material.WOOD_BUTTON || block.getType() == Material.STONE_BUTTON || block.getType() == Material.FURNACE
-                            || block.getType() == Material.FENCE_GATE || block.getType() == Material.WORKBENCH || UtilBlock.usable(block)) {
+                            || block.getType().name().contains("_BUTTON") || block.getType() == Material.FURNACE
+                            || block.getType() == Material.OAK_FENCE_GATE || block.getType() == Material.CRAFTING_TABLE || UtilBlock.usable(block)) {
 
 						/*
 						if(KOTHManager.koth != null){
@@ -299,21 +299,21 @@ public class InteractListener extends BPVPListener<Clans> {
                     || ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
                 Block block = e.getClickedBlock();
 
-                if (block.getType() == Material.IRON_DOOR || block.getType() == Material.IRON_DOOR_BLOCK) {
+                if (block.getType() == Material.IRON_DOOR || block.getType() == Material.LEGACY_IRON_DOOR_BLOCK) {
 
+                    BlockData doorData = block.getBlockData();
+                    Openable door = (Openable) doorData;
 
-                    if (block.getData() >= 8) {
-                        block = block.getRelative(BlockFace.DOWN);
+                    if(door.isOpen()){
+                        door.setOpen(false);
+                        block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_CLOSE, 1f, 1f);
+                    }else{
+                        door.setOpen(true);
+                        block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
-                    if (block.getData() < 4) {
-                        block.setData((byte) (block.getData() + 4), true);
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        //block.getWorld().playEffect(block.getLocation(), Effect.DOOR_TOGGLE, 1);
 
-                    } else {
-                        block.setData((byte) (block.getData() - 4), true);
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                    }
+                    block.setBlockData(doorData);
+
 
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
                     PacketPlayOutAnimation packet = new PacketPlayOutAnimation(ep, 0);
@@ -321,60 +321,19 @@ public class InteractListener extends BPVPListener<Clans> {
                     e.setCancelled(true);
                 } else if (block.getType() == Material.IRON_TRAPDOOR) {
 
-                    block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                    block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                    byte data = block.getData();
-                    if (data == 11) {
-                        block.setData((byte) 15);
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                    } else if (data == 15) {
-                        block.setData((byte) 11);
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                    } else if (data == 3) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        block.setData((byte) 7);
-                    } else if (data == 7) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        block.setData((byte) 3);
-                    } else if (data == 5) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        block.setData((byte) 1);
-                    } else if (data == 1) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        block.setData((byte) 5);
-                    } else if (data == 9) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        block.setData((byte) 13);
-                    } else if (data == 13) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        block.setData((byte) 9);
-                    } else if (data == 10) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        block.setData((byte) 14);
 
-                    } else if (data == 14) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        block.setData((byte) 10);
-                    } else if (data == 6) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        setData(block, 2);
-                    } else if (data == 2) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        setData(block, 6);
-                    } else if (data == 0) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        setData(block, 4);
-                    } else if (data == 4) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        setData(block, 0);
-                    } else if (data == 8) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_OPEN, 1f, 1f);
-                        setData(block, 12);
-                    } else if (data == 12) {
-                        block.getWorld().playSound(block.getLocation(), Sound.DOOR_CLOSE, 1f, 1f);
-                        setData(block, 8);
+                    BlockData doorData = block.getBlockData();
+                    Openable door = (Openable) doorData;
+
+                    if(door.isOpen()){
+                        door.setOpen(false);
+                        block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_CLOSE, 1f, 1f);
+                    }else{
+                        door.setOpen(true);
+                        block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
 
+                    block.setBlockData(doorData);
 
                     //Bukkit.broadcastMessage(block.getData() + "");
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
@@ -388,11 +347,6 @@ public class InteractListener extends BPVPListener<Clans> {
     }
 
 
-    private void setData(Block b, int data) {
-        b.setData((byte) data);
-    }
-
-
     @EventHandler
     public static void doorKnock(PlayerInteractEvent e) {
 
@@ -400,9 +354,8 @@ public class InteractListener extends BPVPListener<Clans> {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             if (e.getClickedBlock().getType() == Material.IRON_DOOR
-                    || e.getClickedBlock().getType() == Material.IRON_DOOR_BLOCK
-                    || e.getClickedBlock().getType() == Material.TRAP_DOOR
-                    || e.getClickedBlock().getType() == Material.IRON_TRAPDOOR) {
+                    || e.getClickedBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK
+                    || e.getClickedBlock().getType().name().contains("TRA_DOOR")) {
 
                 Block block = e.getClickedBlock();
                 if (!ClanUtilities.hasAccess(e.getPlayer(), block.getLocation())) {

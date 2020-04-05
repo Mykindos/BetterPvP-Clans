@@ -10,10 +10,10 @@ public enum ArmourNames {
     IRON_CHESTPLATE(Material.IRON_CHESTPLATE, "Knight Chestplate"),
     IRON_HELMET(Material.IRON_HELMET, "Knight Helmet"),
 
-    GOLD_BOOTS(Material.GOLD_BOOTS, "Paladin Boots"),
-    GOLD_LEGGINGS(Material.GOLD_LEGGINGS, "Paladin Leggings"),
-    GOLD_CHESTPLATE(Material.GOLD_CHESTPLATE, "Paladin Chestplate"),
-    GOLD_HELMET(Material.GOLD_HELMET, "Paladin Helmet"),
+    GOLDEN_BOOTS(Material.GOLDEN_BOOTS, "Paladin Boots"),
+    GOLDEN_LEGGINGS(Material.GOLDEN_LEGGINGS, "Paladin Leggings"),
+    GOLDEN_CHESTPLATE(Material.GOLDEN_CHESTPLATE, "Paladin Chestplate"),
+    GOLDEN_HELMET(Material.GOLDEN_HELMET, "Paladin Helmet"),
 
     CHAINMAIL_BOOTS(Material.CHAINMAIL_BOOTS, "Ranger Boots"),
     CHAINMAIL_LEGGINGS(Material.CHAINMAIL_LEGGINGS, "Ranger Leggings"),

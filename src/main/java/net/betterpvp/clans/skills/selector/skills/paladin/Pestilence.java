@@ -4,13 +4,13 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData.PestilenceDamageData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.UtilTime;
@@ -172,7 +172,7 @@ public class Pestilence extends Skill {
                                 @Override
                                 public void run() {
 
-                                    ParticleEffect.VILLAGER_HAPPY.display(0.1F, 0, 0.1F, (float) 0, 1, p.getLocation().add(x, 1, z), 30);
+                                    ParticleEffect.VILLAGER_HAPPY.display(p.getLocation().add(x, 1, z));
                                 }
 
 

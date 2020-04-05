@@ -66,7 +66,7 @@ public class Polymorph extends Skill {
                 if (active.contains(p.getUniqueId())) {
                     e.setCancelled("Polymorph start");
                     DisguiseAPI.disguiseToAll(ent, new MobDisguise(DisguiseType.SHEEP));
-                    ent.getWorld().playSound(ent.getLocation(), Sound.SHEEP_IDLE, 2.0f, 1.0f);
+                    ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_SHEEP_AMBIENT, 2.0f, 1.0f);
                     polymorphed.put(ent, System.currentTimeMillis());
 
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 2));

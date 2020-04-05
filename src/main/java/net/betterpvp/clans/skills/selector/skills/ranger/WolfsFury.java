@@ -65,7 +65,7 @@ public class WolfsFury extends Skill {
 
     @Override
     public void activateSkill(Player p) {
-        p.getWorld().playSound(p.getLocation(), Sound.WOLF_HOWL, 1.0f, 1.0f);
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.0f, 1.0f);
         UtilMessage.message(p, getClassType(), "You activated " + ChatColor.GREEN + getName(getLevel(p)));
         active.put(p, System.currentTimeMillis());
         EffectManager.addEffect(p, EffectType.STRENGTH, 1, ((3 + getLevel(p)) * 1000));

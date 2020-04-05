@@ -107,7 +107,7 @@ public class Volley extends Skill {
                             arrows.add(n);
                         }
 
-                        p.getWorld().playSound(p.getLocation(), Sound.PISTON_EXTEND, 3F, 1F);
+                        p.getWorld().playSound(p.getLocation(), Sound.BLOCK_PISTON_EXTEND, 3F, 1F);
                         volleys.remove(p.getUniqueId());
                     }
                 }
@@ -142,7 +142,7 @@ public class Volley extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }

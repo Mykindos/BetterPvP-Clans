@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EnemyRepository implements Repository<Clans> {
+public class EnemyRepository {
 
     public static final String TABLE_NAME = "clans_dominance";
 
@@ -22,13 +22,14 @@ public class EnemyRepository implements Repository<Clans> {
             + "Time LONG); ";
 
 
-    @Override
-    public void initialize() {
+
+    private static void initialize() {
         QueryFactory.runQuery(CREATE_ENEMY_TABLE);
     }
 
-    @Override
-    public void load(Clans clans) {
+
+    public static void load(Clans clans) {
+        initialize();
         new BukkitRunnable() {
 
             @Override
@@ -73,11 +74,6 @@ public class EnemyRepository implements Repository<Clans> {
                 }
             }
         }.runTaskAsynchronously(clans);
-    }
-
-    @Override
-    public LoadPriority getLoadPriority() {
-        return LoadPriority.HIGHEST;
     }
 
 

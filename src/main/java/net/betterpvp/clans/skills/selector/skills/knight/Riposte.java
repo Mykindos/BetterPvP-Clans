@@ -62,7 +62,7 @@ public class Riposte extends Skill {
                             return;
                         }
                     }
-                    if (damagee.isBlocking()) {
+                    if (damagee.isHandRaised()) {
                         if (prepare.containsKey(damagee)) {
                             if (event.getDamager() instanceof LivingEntity) {
                                 LivingEntity damager = (LivingEntity) event.getDamager();
@@ -112,7 +112,7 @@ public class Riposte extends Skill {
                                 prepare.remove(damager);
                                 int level = getLevel(damager);
 
-                                damager.getWorld().playSound(damager.getLocation(), Sound.ZOMBIE_DEATH, 1.0F, 1.2F);
+                                damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_ZOMBIE_DEATH, 1.0F, 1.2F);
                                 ent.damage((1 + (level * 0.5)));
                                 UtilPlayer.health(damager, (1 + (level * 0.5)));
                                 Energy.regenerateEnergy(damager, 20.0);

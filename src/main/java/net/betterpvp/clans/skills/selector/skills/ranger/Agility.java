@@ -74,7 +74,7 @@ public class Agility extends Skill {
         if (!active.contains(player.getUniqueId())) {
             UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
             active.add(player.getUniqueId());
-            player.getWorld().playSound(player.getLocation(), Sound.NOTE_PLING, 0.5F, 0.5F);
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 0));
         }
 
@@ -107,7 +107,7 @@ public class Agility extends Skill {
                     if (active.contains(p.getUniqueId())) {
                         e.setCancelled("Agility");
                         UtilMessage.message(dam, getClassType(), p.getName() + " is using " + getName());
-                        p.getWorld().playSound(p.getLocation(), Sound.BLAZE_BREATH, 0.5F, 2.0F);
+                        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 0.5F, 2.0F);
                     }
                 }
 

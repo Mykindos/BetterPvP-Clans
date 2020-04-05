@@ -54,7 +54,7 @@ public class ThreateningShout extends Skill {
 
     @Override
     public void activateSkill(Player p) {
-        p.getWorld().playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 2.0F, 2.0F);
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 2.0F, 2.0F);
         int level = getLevel(p);
         for (Player d : UtilPlayer.getInRadius(p.getLocation(), (8 + level))) {
             if (ClanUtilities.canHurt(p, d)) {

@@ -92,7 +92,7 @@ public class Stampede extends Skill {
                             if (str < 2) {
                                 sprintStr.put(p, str + 1);
 
-                                p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_IDLE, 2.0F, 0.2F * str + 1.0F);
+                                p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_AMBIENT, 2.0F, 0.2F * str + 1.0F);
                             }
                         }
                     }

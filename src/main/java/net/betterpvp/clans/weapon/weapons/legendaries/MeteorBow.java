@@ -6,6 +6,7 @@ import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilGamer;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
@@ -68,8 +69,8 @@ public class MeteorBow extends Weapon {
         if (projectiles.contains(proj)) {
             Player damager = (Player) proj.getShooter();
 
-            proj.getWorld().playEffect(proj.getLocation(), Effect.EXPLOSION_LARGE, 1);
-            proj.getWorld().playSound(proj.getLocation(), Sound.EXPLODE, 0.8F, 1F);
+            ParticleEffect.EXPLOSION_LARGE.display(proj.getLocation());
+            proj.getWorld().playSound(proj.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 0.8F, 1F);
             for (Player p : UtilPlayer.getNearby(proj.getLocation(), 5)) {
                 if (ClanUtilities.canHurt(damager, p)) {
                     if (p.getHealth() > 0) {

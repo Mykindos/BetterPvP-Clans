@@ -66,7 +66,7 @@ public class Barrage extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -94,7 +94,7 @@ public class Barrage extends Skill {
         }
 
         if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
+            if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                 if (hasSkill(player, this)) {
                     if (ClanUtilities.canCast(player)) {
                         if (player.getInventory().contains(Material.ARROW)) {
@@ -135,7 +135,7 @@ public class Barrage extends Skill {
                             Vector random = new Vector((Math.random() - 0.5D) / 10.0D, (Math.random() - 0.5D) / 10.0D, (Math.random() - 0.5D) / 10.0D);
                             Arrow arrow = player.launchProjectile(Arrow.class);
                             arrow.setVelocity(player.getLocation().getDirection().add(random).multiply(3));
-                            player.getWorld().playSound(player.getLocation(), Sound.SHOOT_ARROW, 1.0F, 1.0F);
+                            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F);
                             d.setCharge(d.getCharge() - 1);
                             arrows.add(arrow);
                         }
@@ -175,7 +175,7 @@ public class Barrage extends Skill {
                             }
 
 
-                            if (player.getItemInHand().getType() != Material.BOW) {
+                            if (player.getInventory().getItemInMainHand().getType() != Material.BOW) {
                                 iterator.remove();
                                 continue;
                             }
@@ -194,7 +194,7 @@ public class Barrage extends Skill {
                                     data.addCharge();
                                     data.setLastCharge(System.currentTimeMillis() + 25);
                                     UtilMessage.message(player, getClassType(), getName() + ": " + ChatColor.YELLOW + "+ " + data.getCharge() + " Arrows");
-                                    player.playSound(player.getLocation(), Sound.CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
+                                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
                                 }
                             }
                         }

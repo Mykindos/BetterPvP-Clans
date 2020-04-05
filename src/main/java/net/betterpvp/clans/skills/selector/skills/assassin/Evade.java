@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -30,7 +31,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Evade extends Skill {
+public class Evade extends ChannelSkill {
 
     private Set<Player> evading = new HashSet<>();
     private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
@@ -100,8 +101,7 @@ public class Evade extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER
-                || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN
                     + getName() + ChatColor.GRAY + " in water.");
             return false;
@@ -178,7 +178,7 @@ public class Evade extends Skill {
             Iterator<Player> it = evading.iterator();
             while (it.hasNext()) {
                 Player p = it.next();
-                if (p.isBlocking()) {
+                if (p.isHandRaised()) {
                     p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, 7);
                 }
             }
@@ -191,7 +191,7 @@ public class Evade extends Skill {
             Iterator<Player> it = evading.iterator();
             while (it.hasNext()) {
                 Player p = it.next();
-                if (p.isBlocking()) {
+                if (p.isHandRaised()) {
                     if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
                         it.remove();
                     } else if (!hasSkill(p, this)) {

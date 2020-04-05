@@ -56,7 +56,7 @@ public class Overcharge extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -78,7 +78,7 @@ public class Overcharge extends Skill {
         Player player = event.getPlayer();
 
         if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
+            if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                 Role r = Role.getRole(player);
                 if (r != null && r.getName().equals(getClassType())) {
                     if (hasSkill(player, this)) {
@@ -171,7 +171,7 @@ public class Overcharge extends Skill {
                                 continue;
                             }
 
-                            if (player.getItemInHand().getType() != Material.BOW) {
+                            if (player.getInventory().getItemInMainHand().getType() != Material.BOW) {
                                 iterator.remove();
                                 continue;
                             }
@@ -186,7 +186,7 @@ public class Overcharge extends Skill {
                                     data.addCharge();
                                     data.setLastCharge(System.currentTimeMillis());
                                     UtilMessage.message(player, getClassType(), getName() + ": " + ChatColor.YELLOW + "+ " + data.getCharge() + " Bonus Damage");
-                                    player.playSound(player.getLocation(), Sound.CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
+                                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
                                 }
                             }
                         }

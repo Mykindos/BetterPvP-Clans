@@ -73,7 +73,7 @@ public class ToxicArrow extends Skill {
     public void activateSkill(Player player) {
         UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
         if (!active.contains(player.getUniqueId())) {
-            player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
             active.add(player.getUniqueId());
         }
     }

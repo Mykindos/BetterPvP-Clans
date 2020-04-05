@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 public class BossCommands extends Command {
 
     public BossCommands() {
+
         super("boss", new String[]{}, Rank.ADMIN);
     }
 

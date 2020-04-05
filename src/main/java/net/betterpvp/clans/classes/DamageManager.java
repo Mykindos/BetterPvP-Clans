@@ -305,7 +305,7 @@ public class DamageManager extends BPVPListener<Clans> {
 
                 if (e.getDamagee() instanceof Player) {
                     Player p = (Player) e.getDamagee();
-                    if (p.getItemInHand().getType() == Material.BOOK) {
+                    if (p.getInventory().getItemInMainHand().getType() == Material.BOOK) {
                         p.sendMessage("");
                         p.sendMessage("Damage: " + e.getDamage());
                         p.sendMessage("Damage Reduced: " + UtilGamer.getDamageReduced(e.getDamage(), e.getDamagee()));
@@ -353,8 +353,8 @@ public class DamageManager extends BPVPListener<Clans> {
             if (e.getDamager() instanceof Player) {
                 Player p = (Player) e.getDamager();
 
-                p.playSound(p.getLocation(), Sound.ORB_PICKUP, 1.5f, 0.7f);
-                e.getDamager().getWorld().playSound(e.getDamagee().getLocation(), Sound.ARROW_HIT, 0.5f, 1.0f);
+                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.5f, 0.7f);
+                e.getDamager().getWorld().playSound(e.getDamagee().getLocation(), Sound.ENTITY_ARROW_HIT, 0.5f, 1.0f);
 
             }
         } else {
@@ -425,14 +425,15 @@ public class DamageManager extends BPVPListener<Clans> {
         if (e.getDamager() instanceof Player) {
             if (e.getCause() == DamageCause.ENTITY_ATTACK) {
                 Player p = (Player) e.getDamager();
-                ItemStack hand = p.getItemInHand();
+                ItemStack hand = p.getInventory().getItemInMainHand();
                 if (hand != null) {
                     if (UtilItem.isAxe(hand.getType()) || UtilItem.isSword(hand.getType())
                             || UtilItem.isPickAxe(hand.getType()) || UtilItem.isHoe(hand.getType())
                             || UtilItem.isShovel(hand.getType())) {
 
 
-                        if (p.getItemInHand().getType() == Material.GOLD_SWORD) {
+
+                        if (p.getInventory().getItemInMainHand().getType() == Material.GOLDEN_SWORD) {
                             if (UtilMath.randomInt(10) > 6) {
                                 hand.setDurability((short) (hand.getDurability() + 1));
 
@@ -449,7 +450,7 @@ public class DamageManager extends BPVPListener<Clans> {
                         }
                         if (hand.getDurability() > hand.getType().getMaxDurability()) {
                             p.getInventory().setItemInHand(null);
-                            p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 1.0F);
+                            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
 
                         }
                     }
@@ -544,62 +545,62 @@ public class DamageManager extends BPVPListener<Clans> {
 
         switch (ent) {
             case PIG:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_PIG_HURT;
             case PIG_ZOMBIE:
-                return Sound.ZOMBIE_PIG_HURT;
+                return Sound.ENTITY_ZOMBIE_PIGMAN_HURT;
             case COW:
-                return Sound.COW_HURT;
+                return Sound.ENTITY_COW_HURT;
             case SHEEP:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SHEEP_HURT;
 
             case CHICKEN:
-                return Sound.CHICKEN_HURT;
+                return Sound.ENTITY_CHICKEN_HURT;
             case ZOMBIE:
-                return Sound.ZOMBIE_HURT;
+                return Sound.ENTITY_ZOMBIE_HURT;
             case VILLAGER:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_VILLAGER_HURT;
             case SKELETON:
-                return Sound.SKELETON_HURT;
+                return Sound.ENTITY_SKELETON_HURT;
             case SQUID:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SQUID_HURT;
             case SPIDER:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SPIDER_HURT;
             case CAVE_SPIDER:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SPIDER_HURT;
             case BAT:
-                return Sound.BAT_HURT;
+                return Sound.ENTITY_BAT_HURT;
             case RABBIT:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_RABBIT_HURT;
             case ENDERMAN:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_ENDERMAN_HURT;
             case BLAZE:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_BLAZE_HURT;
             case CREEPER:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_CREEPER_HURT;
             case GUARDIAN:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_GUARDIAN_HURT;
             case WOLF:
-                return Sound.WOLF_HURT;
+                return Sound.ENTITY_WOLF_HURT;
             case ENDERMITE:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_ENDERMITE_HURT;
             case GHAST:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_GHAST_HURT;
             case MAGMA_CUBE:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_MAGMA_CUBE_HURT;
             case SLIME:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SLIME_HURT;
             case HORSE:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_HORSE_HURT;
             case IRON_GOLEM:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_IRON_GOLEM_HURT;
             case SNOWMAN:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_SNOW_GOLEM_HURT;
             case ENDER_DRAGON:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_ENDER_DRAGON_HURT;
             case WITHER:
-                return Sound.WITHER_HURT;
+                return Sound.ENTITY_WITHER_HURT;
             default:
-                return Sound.HURT_FLESH;
+                return Sound.ENTITY_PLAYER_HURT;
         }
     }
 

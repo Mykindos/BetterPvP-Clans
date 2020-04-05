@@ -55,7 +55,7 @@ public class SpiritOfTheWolf extends Skill {
     @Override
     public void activateSkill(Player player) {
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.WOLF_HOWL, 0.5F, 1.0F);
+        player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.ENTITY_WOLF_HOWL, 0.5F, 1.0F);
         UtilPlayer.addPotionEffect(player, PotionEffectType.SPEED, 1, 140);
 
         for (Player p : UtilPlayer.getInRadius(player.getLocation(), (5 + getLevel(player)))) {

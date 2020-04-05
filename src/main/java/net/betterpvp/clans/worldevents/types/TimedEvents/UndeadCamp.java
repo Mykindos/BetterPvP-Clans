@@ -20,7 +20,7 @@ import net.betterpvp.core.utility.UtilTime.TimeUnit;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
@@ -187,7 +187,7 @@ public class UndeadCamp extends Timed {
             l.getBlock().setType(Material.ENDER_CHEST);
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 0.1F, 1F);
+            p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1F, 1F);
         }
 
         spawnMobs();
@@ -275,11 +275,11 @@ public class UndeadCamp extends Timed {
 
         double rand = Math.random();
         if (rand > 0.95) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.GOLD_RECORD));
+            world.dropItem(b.getLocation(), new ItemStack(Material.MUSIC_DISC_11));
         } else if (rand > 0.9) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_SWORD));
         } else if (rand > 0.8) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.GOLD_SWORD));
+            world.dropItem(b.getLocation(), new ItemStack(Material.GOLDEN_SWORD));
         } else if (rand > 0.7) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_AXE));
         }
@@ -366,7 +366,7 @@ public class UndeadCamp extends Timed {
                                         power, false, 0, 0.2, 0.8, true);
 
                                 //Effect
-                                z.getWorld().playSound(z.getLocation(), Sound.ZOMBIE_HURT, 1f, 2f);
+                                z.getWorld().playSound(z.getLocation(), Sound.ENTITY_ZOMBIE_HURT, 1f, 2f);
                             }
                         }
                     }

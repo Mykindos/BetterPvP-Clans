@@ -72,7 +72,7 @@ public class PinDown extends Skill {
 
     @Override
     public void activateSkill(Player p) {
-        UtilItem.remove(p, Material.ARROW, (byte) 0, 1);
+        UtilItem.remove(p, Material.ARROW, 1);
 
 
         Arrow proj = p.launchProjectile(Arrow.class);

@@ -62,12 +62,12 @@ public class RopedArrow extends Skill {
     public void activateSkill(Player player) {
         roped.add(player.getUniqueId());
         UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -117,7 +117,7 @@ public class RopedArrow extends Skill {
                     UtilVelocity.velocity(p, vec,
                             2.5D + mult, false, 0.4D, 0.3D * mult, 1.5D * mult, true);
 
-                    proj.getWorld().playSound(proj.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
+                    proj.getWorld().playSound(proj.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
                     arrows.remove(proj);
                     EffectManager.addEffect(p, EffectType.NOFALL, 5000);
                 }

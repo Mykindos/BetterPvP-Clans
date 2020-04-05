@@ -116,9 +116,11 @@ public class CombatManager extends BPVPListener<Clans> {
 
                         Gamer onlineGamer = GamerManager.getOnlineGamer(online);
 
-                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed") && !online.getName().equals(dam.getName())
-                                && !ClanUtilities.isClanMember(dam, online)
-                                && !ClanUtilities.isClanMember(p, online)) continue;
+                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed")
+                                && !online.getName().equals(dam.getName()) && !online.getName().equals(p.getName())
+                                && !ClanUtilities.isClanMember(dam, online) && !ClanUtilities.isClanMember(p, online)) {
+                            continue;
+                        }
 
                         Clan clanA = ClanUtilities.getClan(online);
                         String playerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(p)).getPrimary().toString();
@@ -126,7 +128,7 @@ public class CombatManager extends BPVPListener<Clans> {
 
                         if (killDetails.getCause().equals("")) {
                             UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
-                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getItemInHand()))));
+                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getInventory().getItemInMainHand()))));
                         } else {
 
                             UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
@@ -182,7 +184,7 @@ public class CombatManager extends BPVPListener<Clans> {
 
                             killerClan.getDominance(deadClan).addPoint();
                             dom = " (+1 Dom)";
-                            ScoreboardManager.updateRelation(deadClan, killerClan);
+                            //ScoreboardManager.updateRelation(deadClan, killerClan);
 
                         }
                     }
@@ -229,7 +231,7 @@ public class CombatManager extends BPVPListener<Clans> {
                             if (isOnline(enemy)) {
                                 if (self.getDominance(enemy).getPoints() < 15) {
                                     enemy.getDominance(self).addPoint();
-                                    ScoreboardManager.updateRelation(self, enemy);
+                                    //ScoreboardManager.updateRelation(self, enemy);
                                     Log.write("Kill", p.getName() + " gave " + enemy.getName() + " 1 dom but was not killed by a player!");
                                 }
                             }

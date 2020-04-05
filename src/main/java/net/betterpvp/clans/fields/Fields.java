@@ -30,12 +30,12 @@ public class Fields extends BPVPListener<Clans> {
 
 
     private static HashMap<BlockData, Long> blocks = new HashMap<>();
-    private final static ItemStack[] ENDERCHEST_ITEMS = new ItemStack[]{new ItemStack(Material.GOLD_SWORD, 1),
-            new ItemStack(Material.IRON_PICKAXE, 1), new ItemStack(Material.DIAMOND_SPADE, 1),
+    private final static ItemStack[] ENDERCHEST_ITEMS = new ItemStack[]{new ItemStack(Material.GOLDEN_SWORD, 1),
+            new ItemStack(Material.IRON_PICKAXE, 1), new ItemStack(Material.DIAMOND_SHOVEL, 1),
             new ItemStack(Material.SPONGE, 1), new ItemStack(Material.LAPIS_BLOCK, 2),
-            new ItemStack(Material.DIAMOND_SPADE, 1), new ItemStack(Material.DIAMOND_PICKAXE, 1),
+            new ItemStack(Material.DIAMOND_SHOVEL, 1), new ItemStack(Material.DIAMOND_PICKAXE, 1),
             new ItemStack(Material.FISHING_ROD, 1), new ItemStack(Material.ARROW, 16),
-            new ItemStack(Material.DIAMOND_SWORD, 1), new ItemStack(Material.GOLD_AXE, 1),
+            new ItemStack(Material.DIAMOND_SWORD, 1), new ItemStack(Material.GOLDEN_AXE, 1),
             new ItemStack(Material.ENDER_PEARL, 3)};
 
     public Fields(Clans i) {
@@ -94,10 +94,6 @@ public class Fields extends BPVPListener<Clans> {
         }
         if (!inFields(e.getBlock())) return;
 
-        if (e.getBlock().getType() == Material.GLOWING_REDSTONE_ORE) {
-            e.getBlock().setType(Material.REDSTONE_ORE);
-        }
-
         Block b = e.getBlock();
         Player p = e.getPlayer();
 
@@ -105,7 +101,7 @@ public class Fields extends BPVPListener<Clans> {
         e.setCancelled(true);
         if (p == null) return;
         for (Blocks bc : Blocks.values()) {
-            if (b.getType() == bc.getMaterial() || bc == Blocks.REDSTONE && b.getType() == Material.GLOWING_REDSTONE_ORE) {
+            if (b.getType() == bc.getMaterial() || bc == Blocks.REDSTONE) {
                 getMap().put(new BlockData(b.getLocation(), b.getType()), System.currentTimeMillis());
 
                 if (b.getType() == Blocks.LAPIS.getMaterial()) {

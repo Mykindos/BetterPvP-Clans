@@ -4,11 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -62,7 +62,7 @@ public class MoltenBlast extends Skill {
                     continue;
                 }
                 if (f.getLocation().getY() < 255 || !f.isDead()) {
-                    ParticleEffect.LAVA.display(0, 0, 0, 0, 5, f.getLocation(), 50);
+                    ParticleEffect.LAVA.display(f.getLocation());
                 } else {
                     it.remove();
                 }
@@ -141,6 +141,7 @@ public class MoltenBlast extends Skill {
             f.setYield(2.0F);
             f.setVelocity(f.getVelocity().multiply(5));
             f.setIsIncendiary(false);
+
             fireballs.add(f);
             UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
 
@@ -177,7 +178,7 @@ public class MoltenBlast extends Skill {
 		 */
 
 
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }

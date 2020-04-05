@@ -69,13 +69,13 @@ public class Blink extends Skill {
             Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D))
                     .add(player.getLocation().getDirection().multiply(curRange));
 
-            if (newTarget.getBlock().getType() == Material.IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
+            if (newTarget.getBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
                 player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
 
                 break;
             }
 
-            if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType() == Material.STAINED_GLASS) {
+            if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType().name().contains("STAINED_GLASS")) {
                 player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
 
                 break;

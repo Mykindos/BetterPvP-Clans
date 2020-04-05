@@ -42,11 +42,11 @@ public class WaterBottle extends Weapon {
     public void onWaterDouse(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.POTION) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.POTION) return;
         if (isThisWeapon(player)) {
             if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                UtilItem.remove(player, Material.POTION, (byte) 0, 1);
+                UtilItem.remove(player, Material.POTION, 1);
                 Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.POTION));
                 UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
                 item.setPickupDelay(Integer.MAX_VALUE);
@@ -54,19 +54,19 @@ public class WaterBottle extends Weapon {
                 ThrowableManager.addThrowable(item, player, "Water bottle", 30000);
                 items.put(player.getUniqueId(), item);
             } else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                UtilItem.remove(player, Material.POTION, (byte) 0, 1);
+                UtilItem.remove(player, Material.POTION, 1);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
                 player.getWorld().playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.WATER);
-                player.getWorld().playSound(player.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 1.0F, 1.0F);
             }
 
 			/*
 			new BukkitRunnable(){
 				@Override
 				public void run(){
-					if(player.getItemInHand() != null 
-							&& player.getItemInHand().getType() == Material.POTION){
-					if(player.getItemInHand().getAmount() != 1){
+					if(player.getInventory().getItemInMainHand() != null
+							&& player.getInventory().getItemInMainHand().getType() == Material.POTION){
+					if(player.getInventory().getItemInMainHand().getAmount() != 1){
 
 						return;
 					}
@@ -87,10 +87,10 @@ public class WaterBottle extends Weapon {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
                 p.setFireTicks(0);
                 p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.WATER);
-                p.getLocation().getWorld().playSound(p.getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+                p.getLocation().getWorld().playSound(p.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 1.0F, 1.0F);
             }
             e.getThrowable().getItem().getWorld().playEffect(e.getThrowable().getItem().getLocation(), Effect.STEP_SOUND, Material.WATER);
-            e.getThrowable().getItem().getLocation().getWorld().playSound(e.getThrowable().getItem().getLocation(), Sound.SPLASH, 1.0F, 1.0F);
+            e.getThrowable().getItem().getLocation().getWorld().playSound(e.getThrowable().getItem().getLocation(), Sound.ENTITY_GENERIC_SPLASH, 1.0F, 1.0F);
             e.getThrowable().getItem().remove();
         }
     }

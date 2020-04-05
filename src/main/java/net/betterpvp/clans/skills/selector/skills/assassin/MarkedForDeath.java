@@ -80,7 +80,7 @@ public class MarkedForDeath extends Skill {
     public void activateSkill(Player player) {
         active.add(player.getUniqueId());
         UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
 
     }
 
@@ -111,8 +111,8 @@ public class MarkedForDeath extends Skill {
                 UUID uuid = it.next();
                 Player p = Bukkit.getPlayer(uuid);
                 if (p != null) {
-                    if (p.getItemInHand() != null) {
-                        if (p.getItemInHand().getType() != Material.BOW) {
+                    if (p.getInventory().getItemInMainHand() != null) {
+                        if (p.getInventory().getItemInMainHand().getType() != Material.BOW) {
                             Recharge recharge = RechargeManager.getInstance().getAbilityRecharge(p.getName(), getName());
                             if (recharge != null) {
                                 if (recharge.isCancellable()) {

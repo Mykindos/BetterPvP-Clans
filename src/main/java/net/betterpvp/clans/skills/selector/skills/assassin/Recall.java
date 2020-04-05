@@ -75,7 +75,7 @@ public class Recall extends Skill {
                         if (player.getWorld() == data.get(player).getLocation().getWorld()) {
                             if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
                                 RecallData d = data.get(player);
-                                player.getWorld().playSound(player.getLocation(), Sound.ZOMBIE_UNFECT, 2.0F, 2.0F);
+                                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 2.0F, 2.0F);
                                 player.teleport(d.getLocation());
                                 player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + (d.getHealth() / 4)));
 

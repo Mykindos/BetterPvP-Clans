@@ -4,6 +4,7 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilItem;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 
 public class DynamicShopItem extends ShopItem {
 
@@ -13,11 +14,11 @@ public class DynamicShopItem extends ShopItem {
     private PolynomialFunctionLagrangeForm sellPolynomial;
 
 
-    public DynamicShopItem(String store, int itemID, byte data, int slot,
+    public DynamicShopItem(String store, Material mat, byte data, int slot,
                            int amount, String itemName, int minBuyPrice, int baseBuyPrice, int maxBuyPrice,
                            int minSellPrice, int baseSellPrice, int maxSellPrice,
                            int baseStock, int maxStock, int currentStock) {
-        super(store, itemID, data, slot, amount, itemName);
+        super(store, mat, data, slot, amount, itemName);
 
         this.minBuyPrice = minBuyPrice;
         this.baseBuyPrice = baseBuyPrice;

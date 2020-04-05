@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.economy.shops.menu.buttons.DynamicShopItem;
 import net.betterpvp.core.database.*;
+import org.bukkit.Material;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -63,7 +64,7 @@ public class ShopRepository implements Repository<Clans> {
 
                     while (result.next()) {
                         String store = result.getString(1);
-                        int ID = result.getInt(2);
+                        Material mat = Material.getMaterial(result.getString(2));
                         byte data = (byte) result.getInt(3);
                         int slot = result.getInt(4);
                         int amount = result.getInt(5);
@@ -83,7 +84,7 @@ public class ShopRepository implements Repository<Clans> {
                         int baseStock = result.getInt(19);
                         int maxStock = result.getInt(20);
                         int currentStock = result.getInt(21);
-                        ShopManager.addItem(store, itemName, ID, slot, data, amount, buyPrice, sellPrice, legendary,
+                        ShopManager.addItem(store, itemName, mat, slot, data, amount, buyPrice, sellPrice, legendary,
                                 glow, dynamic, quest, minSell, baseSell, maxSell, minBuy, baseBuy, maxBuy, baseStock, maxStock, currentStock);
                         count++;
                     }

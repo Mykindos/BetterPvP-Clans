@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -23,7 +24,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagneticBlade extends Weapon {
+public class MagneticBlade extends Weapon implements ChannelWeapon {
 
     public List<String> active = new ArrayList<String>();
 
@@ -43,7 +44,7 @@ public class MagneticBlade extends Weapon {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            if (WeaponManager.isWeapon(player.getItemInHand()) && WeaponManager.getWeapon(player.getItemInHand()).equals(this)) {
+            if (WeaponManager.isWeapon(player.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(player.getInventory().getItemInMainHand()).equals(this)) {
                 event.getEntity().getVelocity().multiply(-0.4D);
             }
         }
@@ -56,9 +57,9 @@ public class MagneticBlade extends Weapon {
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
-            if (WeaponManager.isWeapon(player.getItemInHand()) && WeaponManager.getWeapon(player.getItemInHand()).equals(this)) {
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+            if (WeaponManager.isWeapon(player.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(player.getInventory().getItemInMainHand()).equals(this)) {
                 if (player.getLocation().getBlock().isLiquid()) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + getName() + ChatColor.GRAY + " in water.");
                     return;
@@ -81,7 +82,7 @@ public class MagneticBlade extends Weapon {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (active.contains(p.getName())) {
 
-                    if (p.isBlocking()) {
+                    if (p.isHandRaised()) {
                         if (!Energy.use(p, getName(), 3, true)) {
                             active.remove(p.getName());
                         } else {

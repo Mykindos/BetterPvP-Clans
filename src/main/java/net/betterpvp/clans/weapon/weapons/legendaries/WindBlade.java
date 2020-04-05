@@ -7,8 +7,12 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
+import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.particles.data.color.ParticleColor;
+import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
@@ -28,7 +32,7 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 
-public class WindBlade extends Weapon {
+public class WindBlade extends Weapon implements ChannelWeapon {
 
     public List<String> active = new ArrayList<>();
     public WeakHashMap<Player, Long> wait = new WeakHashMap<>();
@@ -53,8 +57,8 @@ public class WindBlade extends Weapon {
             if (e.getCause() == DamageCause.FALL) {
                 Player player = (Player) e.getEntity();
 
-                if (player.getItemInHand() == null) return;
-                if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+                if (player.getInventory().getItemInMainHand() == null) return;
+                if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
                 if (isThisWeapon(player)) {
                     e.setCancelled(true);
                 }
@@ -66,8 +70,8 @@ public class WindBlade extends Weapon {
     public void onWindRiderUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
 
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -115,8 +119,8 @@ public class WindBlade extends Weapon {
                             }
                         }
                     }
-                    if (player.isBlocking()
-                            && player.getItemInHand().getType() != Material.BOW) { // .ct() for 1.9.4
+                    if (player.isHandRaised()
+                            && player.getInventory().getItemInMainHand().getType() != Material.BOW) { // .ct() for 1.9.4
 
                         if (player.getLocation().getBlock().isLiquid()) {
                             UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Wind Rider" + ChatColor.GRAY + " in water.");
@@ -124,10 +128,7 @@ public class WindBlade extends Weapon {
 
                         } else if (!Energy.use(player, "Wind Rider", 1.0, true)) {
                             active.remove(player.getName());
-                        } else if (Polymorph.polymorphed.containsKey(player)) {
-                            active.remove(player.getName());
                         } else {
-
 
                             if (!isThisWeapon(player)) {
                                 active.remove(player.getName());
@@ -135,8 +136,9 @@ public class WindBlade extends Weapon {
                             }
 
                             UtilVelocity.velocity(player, 0.6D, 0.11D, 1.0D, true);
-                            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
-                            player.getWorld().playSound(player.getLocation(), Sound.FIZZ, 0.5F, 1.5F);
+                            //player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
+                            ParticleEffect.SMOKE_NORMAL.display(player.getLocation(), new RegularColor(255, 255, 255));
+                            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 0.5F, 1.5F);
                         }
                     } else {
                         if (UtilTime.elapsed(wait.get(player), 500)) {
@@ -155,8 +157,8 @@ public class WindBlade extends Weapon {
         if (event.getCause() == DamageCause.ENTITY_ATTACK) {
             if (event.getDamager() instanceof Player) {
                 Player player = (Player) event.getDamager();
-                if (player.getItemInHand() == null) return;
-                if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+                if (player.getInventory().getItemInMainHand() == null) return;
+                if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
                 if (isThisWeapon(player)) {
 
                     event.setKnockback(false);

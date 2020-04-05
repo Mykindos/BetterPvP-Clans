@@ -105,18 +105,18 @@ public class Weapon implements Listener {
 
     @SuppressWarnings("deprecation")
     public ItemStack createWeapon() {
-        ItemStack item = null;
+        ItemStack item;
         if (this instanceof GlacialAxe || this instanceof HyperAxe) {
-            item = new ItemStack(getMaterial(), 1, (short) 0, getData());
+            item = new ItemStack(getMaterial(), 1);
         } else {
-            item = UtilItem.addGlow(new ItemStack(getMaterial(), 1, (short) 0, getData()));
+            item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
         }
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
 
     protected boolean isThisWeapon(Player p) {
-        return WeaponManager.isWeapon(p.getItemInHand()) && WeaponManager.getWeapon(p.getItemInHand()).equals(this);
+        return WeaponManager.isWeapon(p.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(p.getInventory().getItemInMainHand()).equals(this);
     }
 
 }

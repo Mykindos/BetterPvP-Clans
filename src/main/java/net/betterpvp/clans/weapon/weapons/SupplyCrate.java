@@ -100,7 +100,7 @@ public class SupplyCrate extends Weapon {
 
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
-                    new BlockRestoreData(e.getBlock().getLocation().add(x, -1, z).getBlock(), 42, (byte) 0, 70000);
+                    new BlockRestoreData(e.getBlock().getLocation().add(x, -1, z).getBlock(), Material.IRON_BLOCK, (byte) 0, 70000);
                 }
             }
         }
@@ -174,10 +174,10 @@ public class SupplyCrate extends Weapon {
                                             chest.getInventory().addItem(new ItemStack(Material.CHAINMAIL_BOOTS));
                                             break;
                                         case 3:
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_HELMET));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_CHESTPLATE));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_LEGGINGS));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_BOOTS));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_HELMET));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_CHESTPLATE));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_LEGGINGS));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_BOOTS));
                                             break;
                                         case 4:
                                             chest.getInventory().addItem(new ItemStack(Material.DIAMOND_HELMET));
@@ -202,7 +202,7 @@ public class SupplyCrate extends Weapon {
                                     if (UtilMath.randomInt(1000) > 998) {
                                         chest.getInventory().addItem(new ItemStack(Material.TNT, 5));
                                     } else if (UtilMath.randomInt(1000) < 2.5) {
-                                        chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.RECORD_11)));
+                                        chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.MUSIC_DISC_WAIT)));
                                     }
                                 } else {
  

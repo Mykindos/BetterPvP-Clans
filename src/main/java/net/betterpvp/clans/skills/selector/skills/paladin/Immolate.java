@@ -103,7 +103,7 @@ public class Immolate extends Skill {
             if (Bukkit.getPlayer(uuid) != null) {
                 Player cur = Bukkit.getPlayer(uuid);
 
-                cur.getWorld().playSound(cur.getLocation(), Sound.FIZZ, 0.3F, 0.0F);
+                cur.getWorld().playSound(cur.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 0.3F, 0.0F);
 
             }
         }

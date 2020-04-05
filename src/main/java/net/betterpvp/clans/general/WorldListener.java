@@ -10,8 +10,12 @@ import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.page.ClassSelectionPage;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -35,9 +39,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -75,7 +77,7 @@ public class WorldListener extends BPVPListener<Clans> {
     public void onOpenBuildManager(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = e.getClickedBlock();
-            if (b.getType() == Material.ENCHANTMENT_TABLE) {
+            if (b.getType() == Material.ENCHANTING_TABLE) {
 
                 e.getPlayer().openInventory(new ClassSelectionPage(e.getPlayer()).getInventory());
                 e.setCancelled(true);
@@ -117,7 +119,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void onAttachablePlace(BlockPlaceEvent e) {
-        if (e.getBlock().getType() == Material.LEVER || e.getBlock().getType() == Material.STONE_BUTTON || e.getBlock().getType() == Material.WOOD_BUTTON) {
+        if (e.getBlock().getType() == Material.LEVER || e.getBlock().getType().name().contains("_BUTTON")) {
             if (e.getBlockAgainst() != null) {
                 Clan c = ClanUtilities.getClan(e.getBlockAgainst().getLocation());
                 if (c != null) {
@@ -176,7 +178,7 @@ public class WorldListener extends BPVPListener<Clans> {
             final Player player = (Player) e.getEntity();
             if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 if (UtilBlock.getBlockUnder(player.getLocation()).getType() == Material.SPONGE
-                        || UtilBlock.getBlockUnder(player.getLocation()).getType() == Material.WOOL) {
+                        || UtilBlock.getBlockUnder(player.getLocation()).getType() == Material.WHITE_WOOL) {
                     e.setCancelled(true);
                 }
             }
@@ -269,7 +271,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void soilChangePlayer(PlayerInteractEvent event) {
         if (event.getAction() == Action.PHYSICAL) {
-            if (event.getClickedBlock().getType() == Material.SOIL) {
+            if (event.getClickedBlock().getType() == Material.FARMLAND) {
                 event.setCancelled(true);
             }
         }
@@ -366,18 +368,18 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
                 }
             }
-            if (p.getItemInHand() != null) {
-                Material m = p.getItemInHand().getType();
+            if (p.getInventory().getItemInMainHand() != null) {
+                Material m = p.getInventory().getItemInMainHand().getType();
                 if (UtilItem.isSword(m)) {
 
                     if (m == Material.DIAMOND_SWORD) {
                         e.setDamage(5);
-                    } else if (m == Material.GOLD_SWORD) {
+                    } else if (m == Material.GOLDEN_SWORD) {
                         e.setDamage(6);
                     } else if (m == Material.IRON_SWORD) {
                         e.setDamage(4.5);
 
-                        Weapon w = WeaponManager.getWeapon(p.getItemInHand());
+                        Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                         if (w != null) {
                             if (w instanceof EnchantedWeapon) {
                                 EnchantedWeapon enchantedWeapon = (EnchantedWeapon) w;
@@ -388,20 +390,20 @@ public class WorldListener extends BPVPListener<Clans> {
                         }
                     } else if (m == Material.STONE_SWORD) {
                         e.setDamage(3);
-                    } else if (m == Material.WOOD_SWORD) {
+                    } else if (m == Material.WOODEN_SWORD) {
                         e.setDamage(2);
                     }
 
                 } else if (UtilItem.isAxe(m)) {
                     if (m == Material.DIAMOND_AXE) {
                         e.setDamage(4);
-                    } else if (m == Material.GOLD_AXE) {
+                    } else if (m == Material.GOLDEN_AXE) {
                         e.setDamage(5);
                     } else if (m == Material.IRON_AXE) {
                         e.setDamage(3);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
-                    } else if (m == Material.WOOD_AXE) {
+                    } else if (m == Material.WOODEN_AXE) {
                         e.setDamage(1);
                     }
 
@@ -434,8 +436,8 @@ public class WorldListener extends BPVPListener<Clans> {
         if (c != null) {
             if (!c.isAdministrating()) {
                 if (block.getType() == Material.OBSIDIAN || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
-                        || block.getType() == Material.MOB_SPAWNER || block.getType() == Material.WEB || block.getType() == Material.BREWING_STAND
-                        || block.getType() == Material.BREWING_STAND_ITEM) {
+                        || block.getType() == Material.SPAWNER || block.getType() == Material.COBWEB || block.getType() == Material.BREWING_STAND
+                        || block.getType() == Material.BREWING_STAND) {
                     UtilMessage.message(player, "Server", "You cannot place " + ChatColor.YELLOW
                             + WordUtils.capitalizeFully(block.getType().toString()) + ChatColor.GRAY + ".");
                     event.setCancelled(true);
@@ -448,7 +450,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     return;
                 }
 
-                if (event.getBlock().getType() == Material.WOODEN_DOOR
+                if (event.getBlock().getType() == Material.OAK_DOOR
                         || event.getBlock().getType() == Material.ACACIA_DOOR
                         || event.getBlock().getType() == Material.SPRUCE_DOOR
                         || event.getBlock().getType() == Material.BIRCH_DOOR
@@ -457,7 +459,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     event.getBlock().setType(Material.AIR);
                     event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_DOOR));
                     UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Doors" + ChatColor.GRAY + " (You can right click to open them).");
-                } else if (event.getBlock().getType() == Material.TRAP_DOOR) {
+                } else if (event.getBlock().getType() == Material.OAK_TRAPDOOR) {
                     event.getBlock().setType(Material.AIR);
                     event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_TRAPDOOR));
                     UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Trap Doors" + ChatColor.GRAY + " (You can right click to open them).");
@@ -608,33 +610,33 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.clear();
             }
             if (event.getEntityType() == EntityType.CHICKEN) {
-                drops.add(new ItemStack(Material.RAW_CHICKEN, 1));
+                drops.add(new ItemStack(Material.CHICKEN, 1));
                 drops.add(new ItemStack(Material.FEATHER, 2 + UtilMath.randomInt(1)));
             } else if (event.getEntityType() == EntityType.COW) {
-                drops.add(new ItemStack(Material.RAW_BEEF, 1 + UtilMath.randomInt(3)));
+                drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
                 drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
             }
             if (event.getEntityType() == EntityType.MUSHROOM_COW) {
-                drops.add(new ItemStack(Material.RAW_BEEF, 1 + UtilMath.randomInt(3)));
+                drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
                 drops.add(new ItemStack(Material.RED_MUSHROOM, 2 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.OCELOT) {
                 int rand = UtilMath.randomInt(10);
                 if (rand == 0 || rand == 1 || rand == 2) {
                     drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
                 } else if (rand == 3 || rand == 4 || rand == 5) {
-                    drops.add(new ItemStack(Material.RAW_FISH, 2 + UtilMath.randomInt(2)));
+                    drops.add(new ItemStack(Material.COD, 2 + UtilMath.randomInt(2)));
                 } else if (rand == 6 || rand == 7) {
                     drops.add(new ItemStack(Material.COAL, 1 + UtilMath.randomInt(2)));
                 } else {
-                    drops.add(new ItemStack(Material.RAW_FISH, 10 + UtilMath.randomInt(10)));
+                    drops.add(new ItemStack(Material.COD, 10 + UtilMath.randomInt(10)));
                 }
                 drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
 
             } else if (event.getEntityType() == EntityType.PIG) {
-                drops.add(new ItemStack(Material.PORK, 1 + UtilMath.randomInt(2)));
+                drops.add(new ItemStack(Material.PORKCHOP, 1 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.SHEEP) {
-                drops.add(new ItemStack(Material.RAW_BEEF, 1 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.WOOL, 1 + UtilMath.randomInt(4)));
+                drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(3)));
+                drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(4)));
             } else if (event.getEntityType() == EntityType.VILLAGER) {
                 drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(3)));
             } else if (event.getEntityType() == EntityType.BLAZE) {
@@ -642,7 +644,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.add(new ItemStack(Material.BONE, 6 + UtilMath.randomInt(7)));
             } else if (event.getEntityType() == EntityType.CAVE_SPIDER) {
 
-                drops.add(new ItemStack(Material.WEB, 1));
+                drops.add(new ItemStack(Material.COBWEB, 1));
                 drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
                 drops.add(new ItemStack(Material.SPIDER_EYE, 1));
                 drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
@@ -663,8 +665,8 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.PIG_ZOMBIE) {
                 PigZombie z = (PigZombie) event.getEntity();
-                if (z.getEquipment().getItemInHand().getType() == Material.GOLD_AXE) {
-                    drops.add(new ItemStack(Material.GOLD_AXE));
+                if (z.getEquipment().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
+                    drops.add(new ItemStack(Material.GOLDEN_AXE));
                 }
                 drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(2)));
                 if (UtilMath.randomInt(50) > 48) {
@@ -673,9 +675,9 @@ public class WorldListener extends BPVPListener<Clans> {
                     drops.add(temp[UtilMath.randomInt(temp.length - 1)]);
                 }
                 if (UtilMath.randomInt(100) > 90) {
-                    drops.add(new ItemStack(Material.GOLD_PICKAXE));
+                    drops.add(new ItemStack(Material.GOLDEN_PICKAXE));
                 } else if (UtilMath.randomInt(1000) > 990) {
-                    drops.add(new ItemStack(Material.GOLD_SWORD));
+                    drops.add(new ItemStack(Material.GOLDEN_SWORD));
                 }
             } else if (event.getEntityType() == EntityType.SILVERFISH) {
                 drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
@@ -687,7 +689,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
             } else if (event.getEntityType() == EntityType.SPIDER) {
                 drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.WEB, 1));
+                drops.add(new ItemStack(Material.COBWEB, 1));
                 drops.add(new ItemStack(Material.SPIDER_EYE, 1));
                 drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
             } else if (event.getEntityType() == EntityType.ZOMBIE) {
@@ -760,12 +762,86 @@ public class WorldListener extends BPVPListener<Clans> {
     public void onDeath(PlayerDeathEvent e) {
 
         for (int i = 0; i < 10; i++) {
-            final Item item = e.getEntity().getWorld().dropItem(e.getEntity().getEyeLocation(), new ItemStack(Material.INK_SACK, 1, (byte) 1));
+            final Item item = e.getEntity().getWorld().dropItem(e.getEntity().getEyeLocation(), new ItemStack(Material.RED_DYE, 1));
             item.setVelocity(new Vector((Math.random() - 0.5D) * 0.5, Math.random() * 0.5, (Math.random() - 0.5D) * 0.5));
             item.setPickupDelay(Integer.MAX_VALUE);
             blood.put(item, System.currentTimeMillis());
         }
 
+    }
+
+    /**
+     * No hand swapping!
+     *
+     * @param e the event
+     */
+    @EventHandler
+    public void onSwapHand(PlayerSwapHandItemsEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemSwap(PlayerItemHeldEvent e) {
+        ItemStack item = e.getPlayer().getInventory().getItem(e.getNewSlot());
+        if (item != null) {
+            if (item.getType().name().contains("_SWORD")) {
+                if (e.getPlayer().getInventory().getItemInOffHand().getType() != Material.SHIELD) {
+                    Role role = Role.getRole(e.getPlayer());
+                    if (role != null) {
+                        Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+                        if (gamer != null) {
+                            if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s instanceof ChannelSkill)) {
+                                e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                return;
+                            }
+                        }
+                    }
+
+                    Weapon weapon = WeaponManager.getWeapon(item);
+                    if (weapon != null && weapon instanceof ChannelWeapon) {
+                        e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                    }
+
+                }
+            } else {
+                if (e.getPlayer().getInventory().getItemInOffHand().getType() == Material.SHIELD) {
+                    e.getPlayer().getInventory().setItemInOffHand(null);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClickOffhand(InventoryClickEvent e) {
+        if (e.getClickedInventory() != null) {
+            if (e.getSlot() == 40) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void removeOffhand(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                ItemStack offhand = player.getInventory().getItemInOffHand();
+                if (offhand != null) {
+                    if (offhand.getType() != Material.SHIELD && offhand.getType() != Material.AIR) {
+                        ItemStack temp = player.getInventory().getItemInOffHand().clone();
+                        player.getInventory().setItemInOffHand(null);
+                        UtilItem.insert(player, temp);
+                    }
+                }
+
+            });
+        }
+    }
+
+    @EventHandler
+    public void onDropOffhand(PlayerDropItemEvent e) {
+        if (e.getItemDrop().getItemStack().getType() == Material.SHIELD) {
+            e.setCancelled(true);
+        }
     }
 
     /*

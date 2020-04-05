@@ -138,7 +138,7 @@ public class ShopListener extends BPVPListener<Clans> {
 
                                 }
 
-                                Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p);
+                                Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p.getOpenInventory().getTitle(), p);
                                 if (m != null) {
                                     if (m.getButtons().contains(di)) {
                                         m.getButtons().remove(di);
@@ -157,7 +157,7 @@ public class ShopListener extends BPVPListener<Clans> {
                             }
 
                             g.addCoins(cost);
-                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                             UtilMessage.message(p, "Shop", "You sold " + ChatColor.YELLOW + amount + " "
                                     + item.getItemName() + ChatColor.GRAY + " for "
                                     + ChatColor.GREEN + "$" + UtilFormat.formatNumber(cost));
@@ -208,12 +208,12 @@ public class ShopListener extends BPVPListener<Clans> {
                             + item.getItemName() + " for " + UtilFormat.formatNumber((int) cost) + " fragments");
                 } else {
                     UtilMessage.message(p, "Shop", "You have insufficient funds to purchase this item.");
-                    p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                    p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                     return;
                 }
             } else {
                 if (QuestPerkManager.hasPerk(p, "5% Shop Discount")) {
-                    if (k.getTypeId() != 2257 && k.getTypeId() != 2256 && k.getTypeId() != 2266) {
+                    if (k.getType().getId() != 2257 && k.getType().getId() != 2256 && k.getType().getId() != 2266) {
                         cost = cost * 0.95;
                     }
                 }
@@ -221,7 +221,7 @@ public class ShopListener extends BPVPListener<Clans> {
 
                 if (!g.hasCoins((int) cost)) {
                     UtilMessage.message(p, "Shop", "You have insufficient funds to purchase this item.");
-                    p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                    p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                     return;
                 }
 
@@ -243,7 +243,7 @@ public class ShopListener extends BPVPListener<Clans> {
                         di.setCurrentStock(newStock);
                     }
 
-                    Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p);
+                    Menu m = Menu.getMenu(p.getOpenInventory().getTopInventory(), p.getOpenInventory().getTitle(), p);
                     if (m != null) {
                         if (m.getButtons().contains(di)) {
                             m.getButtons().remove(di);
@@ -277,7 +277,7 @@ public class ShopListener extends BPVPListener<Clans> {
                                 + UtilTime.getTime2((c.getLastTnted() + 900000) - System.currentTimeMillis(),
                                 UtilTime.TimeUnit.MINUTES, 2) + ChatColor.GRAY + ")");
                         g.addFragments(50);
-                        p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                         return;
                     }
                     if (c.getInsurance().size() > 0) {
@@ -290,15 +290,15 @@ public class ShopListener extends BPVPListener<Clans> {
                     UtilMessage.message(p, "Clan Recovery", "You need to be in a clan for this!");
                     g.addFragments(50);
                 }
-                p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                 return;
             }
 
             UtilItem.insert(p, k);
-            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
         } else {
             UtilMessage.message(p, "Shop", "Your inventory is currently too full to purchase this item.");
-            p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
 
         }
     }
@@ -331,10 +331,10 @@ public class ShopListener extends BPVPListener<Clans> {
                 Log.write("Shop", p.getName() + " " + "purchased " + +amount + " " + item.getItemName() + " for " + UtilFormat.formatNumber((int) cost) + " fragments");
             } else {
                 UtilMessage.message(p, "Shop", "You have insufficient funds to purchase this item.");
-                p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                 return;
             }
-            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
 
 
             if (QuestPerkManager.getPerk(unmod) != null) {
@@ -348,7 +348,7 @@ public class ShopListener extends BPVPListener<Clans> {
 
         } else {
             UtilMessage.message(p, "Shop", "Your inventory is currently too full to purchase this item.");
-            p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
 
         }
     }

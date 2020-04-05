@@ -87,7 +87,7 @@ public class EnergyListener extends BPVPListener<Clans> {
 
 
                     if (ClanUtilities.getHoursOfEnergy(clan) < 24) {
-                        clan.playSound(Sound.NOTE_PLING, 1.0F, 2.0F);
+                        clan.playSound(Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
 
                         for (ClanMember member : clan.getMembers()) {
                             Player p = Bukkit.getPlayer(member.getUUID());

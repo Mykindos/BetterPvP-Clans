@@ -9,11 +9,11 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.*;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -94,16 +94,16 @@ public class Rupture extends Skill {
 
                 }
                 if ((loc.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.AIR) &&
-                        (loc.clone().getBlock().getTypeId() != 43) && (loc.clone().getBlock().getTypeId() != 44)) {
+                        (loc.clone().getBlock().getType().getId() != 43) && (loc.clone().getBlock().getType().getId() != 44)) {
                     loc.add(0.0D, -1.0D, 0.0D);
                 }
 
                 for (int i = 0; i < 3; i++) {
 
-                    final EntityArmorStand as = new EntityArmorStand(((CraftWorld) p.getWorld()).getHandle());
+                    final EntityArmorStand as = new EntityArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) p.getWorld()).getHandle());
                     as.setInvisible(true);
                     as.setSmall(true);
-                    as.setGravity(true);
+                    //as.setGravity(true);
 
                     as.setArms(true);
                     as.setHeadPose(new Vector3f(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
@@ -113,8 +113,7 @@ public class Rupture extends Skill {
                             loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D), 0.0F, 0.0F);
                     for (Player player : p.getWorld().getPlayers()) {
                         UtilPacket.send(player, new PacketPlayOutSpawnEntityLiving(as));
-                        UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), 4,
-                                CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
+                        UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
 
                     }
                     stands.put(as, System.currentTimeMillis() + 4000);
@@ -182,7 +181,7 @@ public class Rupture extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }

@@ -22,7 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 public class GlacialAxe extends Weapon {
 
     public GlacialAxe(Clans i) {
-        super(i, Material.RECORD_6, (byte) 0, ChatColor.RED + "Glacial Axe",
+        super(i, Material.MUSIC_DISC_FAR, (byte) 0, ChatColor.RED + "Glacial Axe",
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "6",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Walking",
                         ChatColor.WHITE + "When walking on water, a radius below",
@@ -34,15 +34,15 @@ public class GlacialAxe extends Weapon {
     public void onMove(PlayerMoveEvent e) {
 
         if (e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
-            if (e.getPlayer().getItemInHand() != null) {
+            if (e.getPlayer().getInventory().getItemInMainHand() != null) {
                 if (isThisWeapon(e.getPlayer())) {
                     for (Block b : UtilBlock.getInRadius(e.getPlayer().getLocation(), 5, 2).keySet()) {
 
-                        if (b.getType() == Material.WATER || b.getType() == Material.STATIONARY_WATER) {
+                        if (b.getType() == Material.WATER) {
                             if (e.getPlayer().getLocation().getBlock().isLiquid()) continue;
                             if (b.getRelative(BlockFace.UP).getType() != Material.AIR) continue;
 
-                            new BlockRestoreData(b, b.getData(), (byte) 0, 2000L);
+                            new BlockRestoreData(b, b.getType(), (byte) 0, 2000L);
                             b.setType(Material.ICE);
                         }
                     }
@@ -56,8 +56,8 @@ public class GlacialAxe extends Weapon {
         if (event.getDamager() instanceof Player) {
 
             Player player = (Player) event.getDamager();
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.RECORD_6) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_FAR) return;
             if (isThisWeapon(player)) {
 
                 event.setDamage(6);
@@ -73,14 +73,14 @@ public class GlacialAxe extends Weapon {
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.FAST) {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.getItemInHand() != null) {
-                    if (p.getItemInHand().getType() == Material.RECORD_6) {
+                if (p.getInventory().getItemInMainHand() != null) {
+                    if (p.getInventory().getItemInMainHand().getType() == Material.MUSIC_DISC_FAR) {
                         if (isThisWeapon(p)) {
                             Location loc = p.getLocation().add(0, -1, 0);
 
-                            if (loc.getBlock().getType() == Material.STATIONARY_WATER || loc.getBlock().getType() == Material.WATER
+                            if (loc.getBlock().getType() == Material.WATER
                                     || loc.getBlock().getType() == Material.ICE) {
-                                new BlockRestoreData(loc.getBlock(), loc.getBlock().getTypeId(), (byte) 0, 1200L);
+                                new BlockRestoreData(loc.getBlock(), loc.getBlock().getType(), (byte) 0, 1200L);
                                 loc.getBlock().setType(Material.ICE);
                             }
                         }

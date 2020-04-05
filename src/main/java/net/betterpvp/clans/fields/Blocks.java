@@ -13,9 +13,9 @@ public enum Blocks {
     COAL(Material.COAL_ORE, new ItemStack(Material.COAL, 2)),
     EMERALD(Material.EMERALD_ORE, new ItemStack(Material.EMERALD, 2)),
     PUMPKIN(Material.PUMPKIN, new ItemStack(Material.PUMPKIN, 5)),
-    POTATO(Material.POTATO, new ItemStack(Material.POTATO_ITEM, 3)),
-    CARROT(Material.CARROT, new ItemStack(Material.CARROT_ITEM, 3)),
-    WATERMELON(Material.MELON_BLOCK, new ItemStack(Material.MELON_BLOCK, 2)),
+    POTATO(Material.POTATO, new ItemStack(Material.POTATO, 3)),
+    CARROT(Material.CARROT, new ItemStack(Material.CARROT, 3)),
+    WATERMELON(Material.MELON, new ItemStack(Material.MELON, 2)),
     ENDERCHEST(Material.ENDER_CHEST, new ItemStack(Material.DIAMOND, 1));
 
     private Material mat;

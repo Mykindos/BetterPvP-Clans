@@ -96,7 +96,7 @@ public class Energy extends BPVPListener<Clans> {
 
     @EventHandler
     public void handleRespawn(PlayerRespawnEvent event) {
-        setEnergy(event.getPlayer(), 150.0F);
+        setEnergy(event.getPlayer(), 99.0F);
     }
 
     @EventHandler

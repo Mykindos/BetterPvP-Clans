@@ -76,9 +76,9 @@ public class Sever extends Skill {
             Player p = (Player) e.getDamager();
             if (ClanUtilities.canHurt(ent, p)) {
                 if (usageCheck(p)) {
-                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (active.contains(p.getUniqueId())) {
-                            Weapon w = WeaponManager.getWeapon(p.getItemInHand());
+                            Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                             if (w == null) return;
                             if (w.isLegendary()) return;
 

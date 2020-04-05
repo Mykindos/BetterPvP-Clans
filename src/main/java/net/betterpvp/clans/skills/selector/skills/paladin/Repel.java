@@ -154,7 +154,7 @@ public class Repel extends Skill {
                             other.setVelocity(bat.getLocation().getDirection().add(new Vector(0, .4F, 0)));
 
 
-                            bat.getWorld().playSound(bat.getLocation(), Sound.BAT_HURT, 0.3F, 0.7F);
+                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.3F, 0.7F);
 
                             bat.remove();
 

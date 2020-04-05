@@ -42,15 +42,15 @@ public class EnderPearl extends Weapon {
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK
                 || event.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (player.getItemInHand() == null)
+            if (player.getInventory().getItemInMainHand() == null)
                 return;
-            if (player.getItemInHand().getType() != Material.ENDER_PEARL)
+            if (player.getInventory().getItemInMainHand().getType() != Material.ENDER_PEARL)
                 return;
             event.setCancelled(true);
             UtilMessage
                     .message(player, "Ethereal Pearl", "You removed all negative effects!");
             player.getWorld()
-                    .playSound(player.getLocation(), Sound.EAT, 2F, 1F);
+                    .playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
             EffectManager.addEffect(player, EffectType.INVULNERABILITY, 5000);
 
             for (PotionEffect pot : player.getActivePotionEffects()) {
@@ -71,13 +71,13 @@ public class EnderPearl extends Weapon {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (player.getItemInHand() != null) {
-                        if (player.getItemInHand()
+                    if (player.getInventory().getItemInMainHand() != null) {
+                        if (player.getInventory().getItemInMainHand()
                                 .getType() == Material.ENDER_PEARL) {
 
-                            if (player.getItemInHand().getAmount() != 1) {
+                            if (player.getInventory().getItemInMainHand().getAmount() != 1) {
 
-                                UtilItem.remove(player, Material.ENDER_PEARL, (byte) 0, 1);
+                                UtilItem.remove(player, Material.ENDER_PEARL, 1);
 
                                 return;
                             }

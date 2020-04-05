@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class Blizzard extends Skill {
+public class Blizzard extends ChannelSkill {
 
     private List<String> active = new ArrayList<>();
     private WeakHashMap<Snowball, Player> snow = new WeakHashMap<>();
@@ -97,7 +98,7 @@ public class Blizzard extends Skill {
         if (e.getType() == UpdateType.TICK) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (active.contains(p.getName())) {
-                    if (p.isBlocking()) {
+                    if (p.isHandRaised()) {
                         if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 4, true)) {
                             active.remove(p.getName());
                         } else if (!hasSkill(p, this)) {
@@ -108,7 +109,7 @@ public class Blizzard extends Skill {
                             Snowball s = p.launchProjectile(Snowball.class);
                             s.getLocation().add(0, 1, 0);
                             s.setVelocity(p.getLocation().getDirection().add(new Vector(UtilMath.randDouble(-0.3, 0.3), UtilMath.randDouble(-0.2, 0.4), UtilMath.randDouble(-0.3, 0.3))));
-                            p.getWorld().playSound(p.getLocation(), Sound.STEP_SNOW, 1f, 0.4f);
+                            p.getWorld().playSound(p.getLocation(), Sound.BLOCK_SNOW_STEP, 1f, 0.4f);
                             snow.put(s, p);
                         }
                     } else {

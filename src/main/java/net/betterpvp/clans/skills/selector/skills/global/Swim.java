@@ -71,8 +71,8 @@ public class Swim extends Skill {
             return;
         }
         Player p = e.getPlayer();
-        if (p.getLocation().getBlock().getType() != Material.WATER &&
-                p.getLocation().getBlock().getType() != Material.STATIONARY_WATER) {
+        
+        if (p.getLocation().getBlock().getType() != Material.WATER) {
             return;
         }
 
@@ -92,7 +92,7 @@ public class Swim extends Skill {
                         if (!swim.containsKey(p)) {
                             if (Energy.use(p, getName(), getEnergy(getLevel(p)), true)) {
                                 UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
-                                p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
+                                p.getWorld().playSound(p.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 0.3F, 2.0F);
                                 swim.put(p, System.currentTimeMillis());
                                 return;
                             }
@@ -105,7 +105,7 @@ public class Swim extends Skill {
             if (!swim.containsKey(p)) {
                 if (Energy.use(p, getName(), getEnergy(3), true)) {
                     UtilVelocity.velocity(p, 0.6D, 0.2D, 0.6D, false);
-                    p.getWorld().playSound(p.getLocation(), Sound.SPLASH, 0.3F, 2.0F);
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 0.3F, 2.0F);
                     swim.put(p, System.currentTimeMillis());
                 }
             }

@@ -46,7 +46,7 @@ public class FastRecovery extends Skill {
                 if (rb != null) {
                     if (rb.getGlobal() != null) {
                         if (rb.getGlobal().getSkill().equals(this)) {
-                            if (WeaponManager.getWeapon(p.getItemInHand()) != null) {
+                            if (WeaponManager.getWeapon(p.getInventory().getItemInMainHand()) != null) {
                                 return;
                             }
 

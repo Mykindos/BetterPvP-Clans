@@ -64,7 +64,7 @@ public class Bloodlust extends Skill {
                     EffectManager.addEffect(p, EffectType.STRENGTH, tempStr, (5 + getLevel(p)) * 1000);
                     p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (5 + getLevel(p)) * 20, tempStr));
                     UtilMessage.message(p, getClassType(), "You entered bloodlust at Level: " + ChatColor.YELLOW + tempStr + ChatColor.GRAY + ".");
-                    p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_PIG_ANGRY, 2.0F, 0.6F);
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_PIGMAN_ANGRY, 2.0F, 0.6F);
 
                 }
             }

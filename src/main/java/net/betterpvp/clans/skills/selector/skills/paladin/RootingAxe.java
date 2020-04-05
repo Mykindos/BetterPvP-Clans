@@ -54,7 +54,7 @@ public class RootingAxe extends Skill {
             Player p = (Player) e.getDamager();
             if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
                 if (hasSkill(p, this)) {
-                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (e.getCause() == DamageCause.ENTITY_ATTACK) {
 
                             if (e.getDamagee() instanceof Wither) {
@@ -64,8 +64,8 @@ public class RootingAxe extends Skill {
 
                             Block b1 = e.getDamagee().getLocation().getBlock().getRelative(0, -1, 0);
 
-                            if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.STONE_SLAB2
-                                    || b1.getType() == Material.STEP || b1.getType() == Material.WOOD_STEP
+                            if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().name().contains("_SLAB")
+                                    || b1.getType().name().contains("_STEP") || b1.getType() == Material.OAK_SLAB
                                     || b1.getType().name().contains("STAIR")) {
                                 return;
                             }
@@ -83,7 +83,7 @@ public class RootingAxe extends Skill {
                                                 if (UtilBlock.isGrounded(e.getDamagee())) {
                                                     if (RechargeManager.getInstance().add(p, getName(), 11 - (getLevel(p) * 1.5), false)) {
                                                         e.getDamagee().teleport(e.getDamagee().getLocation().add(0, -0.9, 0));
-                                                        e.getDamagee().getWorld().playEffect(e.getDamagee().getLocation(), Effect.STEP_SOUND, e.getDamagee().getLocation().getBlock().getTypeId());
+                                                        e.getDamagee().getWorld().playEffect(e.getDamagee().getLocation(), Effect.STEP_SOUND, e.getDamagee().getLocation().getBlock().getType());
                                                         ((LivingEntity) e.getDamagee()).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 40, -5));
                                                     }
                                                 }

@@ -115,7 +115,7 @@ public class LightningOrb extends Skill {
                     Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false));
 
 
-                    ent.getWorld().playSound(ent.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);
                     count++;
                 }
 

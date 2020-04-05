@@ -58,7 +58,7 @@ public class SpiritOfTheBear extends Skill {
     @Override
     public void activateSkill(Player player) {
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.ENDERDRAGON_GROWL, 1.8F, 2.5F);
+        player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.ENTITY_ENDER_DRAGON_GROWL, 1.8F, 2.5F);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1));
         EffectManager.addEffect(player, EffectType.RESISTANCE, 5000);
         for (Player p : UtilPlayer.getInRadius(player.getLocation(), (5 + getLevel(player)))) {

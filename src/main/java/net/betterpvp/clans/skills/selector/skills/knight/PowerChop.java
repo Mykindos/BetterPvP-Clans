@@ -75,7 +75,7 @@ public class PowerChop extends Skill {
             Player p = (Player) e.getDamager();
             if (hasSkill(p, this)) {
                 if (charge.containsKey(p)) {
-                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (!UtilTime.elapsed(charge.get(p), 1000)) {
                             if (e.getDamagee() instanceof Player) {
                                 if (!ClanUtilities.canHurt(p, (Player) e.getDamagee())) {
@@ -85,7 +85,7 @@ public class PowerChop extends Skill {
                             }
                             LogManager.addLog(e.getDamagee(), p, "Power Chop");
                             e.setDamage(e.getDamage() + ((Math.min(1, getLevel(p)) * 0.75)));
-                            p.getWorld().playSound(p.getLocation(), Sound.IRONGOLEM_HIT, 1.0F, 1.0F);
+                            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_IRON_GOLEM_HURT, 1.0F, 1.0F);
                             charge.remove(p);
                         }
                     }

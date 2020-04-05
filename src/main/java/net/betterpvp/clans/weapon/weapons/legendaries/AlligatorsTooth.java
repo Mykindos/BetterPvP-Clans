@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
+import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 
-public class AlligatorsTooth extends Weapon {
+public class AlligatorsTooth extends Weapon implements ChannelWeapon {
 
     public List<String> active = new ArrayList<>();
     public WeakHashMap<Player, Long> wait = new WeakHashMap<>();
@@ -49,8 +50,8 @@ public class AlligatorsTooth extends Weapon {
 
         Player player = event.getPlayer();
 
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(player)) {
@@ -76,7 +77,7 @@ public class AlligatorsTooth extends Weapon {
 
                 if (active.contains(player.getName())) {
 
-                    if (player.isBlocking()) {
+                    if (player.isHandRaised()) {
                         if (!isThisWeapon(player)) {
                             active.remove(player.getName());
                         } else if (!Energy.use(player, "Alligator Rush", 0.25, true)) {
@@ -91,7 +92,7 @@ public class AlligatorsTooth extends Weapon {
                         } else {
                             UtilVelocity.velocity(player, 1.0D, 0.11D, 1.0D, true);
                             player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 8);
-                            player.getWorld().playSound(player.getLocation(), Sound.SWIM, 0.8F, 1.5F);
+                            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FISH_SWIM, 0.8F, 1.5F);
                         }
                     } else {
                         if (UtilTime.elapsed(wait.get(player), 500)) {
@@ -109,8 +110,8 @@ public class AlligatorsTooth extends Weapon {
         if (e.getEntity() instanceof Player) {
             if (e.getCause() == DamageCause.DROWNING) {
                 Player p = (Player) e.getEntity();
-                if (p.getItemInHand() == null) return;
-                if (p.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+                if (p.getInventory().getItemInMainHand() == null) return;
+                if (p.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
                 if (isThisWeapon(p)) {
                     e.setCancelled(true);
                 }
@@ -123,8 +124,8 @@ public class AlligatorsTooth extends Weapon {
         if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
 
             if (isThisWeapon(player)) {
                 if (event.getDamager().getLocation().getBlock().isLiquid()) {

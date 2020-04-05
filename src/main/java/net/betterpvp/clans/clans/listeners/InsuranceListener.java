@@ -55,11 +55,10 @@ public class InsuranceListener extends BPVPListener<Clans> {
 
                 if (i.getMaterial() == Material.IRON_BLOCK
                         || i.getMaterial() == Material.DIAMOND_BLOCK || i.getMaterial() == Material.GOLD_BLOCK
-                        || i.getMaterial() == Material.TNT || i.getMaterial() == Material.ENCHANTMENT_TABLE
+                        || i.getMaterial() == Material.TNT || i.getMaterial() == Material.ENCHANTING_TABLE
                         || i.getMaterial() == Material.REDSTONE_BLOCK
                         || i.getMaterial() == Material.ICE
                         || i.getMaterial() == Material.WATER
-                        || i.getMaterial() == Material.STATIONARY_WATER
                         || i.getMaterial() == Material.AIR) {
                     return;
                 }
@@ -82,7 +81,6 @@ public class InsuranceListener extends BPVPListener<Clans> {
                     i.getLocation().getBlock().setType(Material.AIR);
                 } else if (i.getType() == InsuranceType.BREAK) {
                     i.getLocation().getBlock().setType(i.getMaterial());
-                    i.getLocation().getBlock().setData(i.getData());
                 }
             }
 

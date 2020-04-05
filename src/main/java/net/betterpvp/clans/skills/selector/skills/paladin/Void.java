@@ -77,8 +77,8 @@ public class Void extends Skill {
             if (Bukkit.getPlayer(uuid) != null) {
                 Player cur = Bukkit.getPlayer(uuid);
 
-                cur.getWorld().playSound(cur.getLocation(), Sound.BLAZE_BREATH, 2F, 0.5F);
-                cur.getWorld().playSound(cur.getLocation(), Sound.BLAZE_BREATH, 2F, 0.5F);
+                cur.getWorld().playSound(cur.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2F, 0.5F);
+                cur.getWorld().playSound(cur.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2F, 0.5F);
             }
         }
     }

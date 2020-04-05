@@ -56,8 +56,8 @@ public class LightningScythe extends Weapon {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
 
-        if (e.getPlayer().getItemInHand() == null) return;
-        if (e.getPlayer().getItemInHand().getType() != Material.DIAMOND_HOE) return;
+        if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
+        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.DIAMOND_HOE) return;
 
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(e.getPlayer())) {
@@ -85,16 +85,16 @@ public class LightningScythe extends Weapon {
                         Bukkit.getPluginManager().callEvent(new CustomDamageEvent(z, p, null, DamageCause.LIGHTNING, 15, false));
 
                     }
-                    p.playSound(p.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    p.playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);
                     for (Player d : UtilPlayer.getInRadius(b.getLocation(), 100)) {
-                        d.getWorld().playSound(d.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                        d.getWorld().playSound(d.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);
                     }
 
 
                     UtilMessage.message(p, "Lightning Scythe", "You used " + ChatColor.GREEN + "Lightning Strike");
-                    p.getItemInHand().setDurability(
-                            (short) (p.getItemInHand().getDurability() + 5));
-                    if (p.getItemInHand().getDurability() >= 1561) {
+                    p.getInventory().getItemInMainHand().setDurability(
+                            (short) (p.getInventory().getItemInMainHand().getDurability() + 5));
+                    if (p.getInventory().getItemInMainHand().getDurability() >= 1561) {
                         p.getInventory().setItemInHand(new ItemStack(Material.AIR));
                     }
 
@@ -120,7 +120,7 @@ public class LightningScythe extends Weapon {
 					it.remove();
 					return;
 				}
-				if(next.getPlayer().isBlocking()){
+				if(next.getPlayer().isHandRaised()){
 					if(UtilTime.elapsed(next.getLastCharge(), 1000)){
 						if(next.getCharge() < 100){
 

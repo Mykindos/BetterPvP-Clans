@@ -86,7 +86,7 @@ public class ArcticArmour extends Skill {
             for (UUID uuid : active) {
                 if (Bukkit.getPlayer(uuid) != null) {
                     Player cur = Bukkit.getPlayer(uuid);
-                    cur.getWorld().playSound(cur.getLocation(), Sound.AMBIENCE_RAIN, 0.3F, 0.0F);
+                    cur.getWorld().playSound(cur.getLocation(), Sound.WEATHER_RAIN, 0.3F, 0.0F);
                 }
             }
         }
@@ -136,7 +136,7 @@ public class ArcticArmour extends Skill {
                                     && block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
                                 if (block.getType() == Material.AIR) {
 
-                                    new BlockRestoreData(block, 79, (byte) 0, duration);
+                                    new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
 
 
                                     block.setType(Material.SNOW);

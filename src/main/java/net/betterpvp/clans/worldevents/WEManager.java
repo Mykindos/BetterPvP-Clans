@@ -129,49 +129,6 @@ public class WEManager extends BPVPListener<Clans> {
         }
     }
 
-    @EventHandler
-    public void onSignInteract(PlayerInteractEvent e) {
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST) {
-                Clan c = ClanUtilities.getClan(e.getClickedBlock().getLocation());
-                if (c != null) {
-                    if (c instanceof AdminClan) {
-                        Sign s = (Sign) e.getClickedBlock().getState();
-
-                        Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
-
-                        if (UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
-                            if (s.getLine(1).equalsIgnoreCase("[Boss]")) {
-
-                                e.getPlayer().teleport(bossLocs[UtilMath.randomInt(bossLocs.length)]);
-                                UtilMessage.message(e.getPlayer(), "World Event", "You teleported to the Boss Arena");
-
-                            } else if (s.getLine(1).equalsIgnoreCase("[Exit]")) {
-                                e.getPlayer().teleport(returnLocs[UtilMath.randomInt(returnLocs.length)]);
-                                UtilMessage.message(e.getPlayer(), "World Event", "You teleported back to Fields.");
-                            }
-                        } else {
-                            UtilMessage.message(e.getPlayer(), "World Event", "You cannot teleport while in combat.");
-                        }
-
-                    }
-                }
-
-
-            }
-        }
-    }
-
-    @EventHandler
-    public void onUnload(ChunkUnloadEvent e) {
-        for (Entity ent : e.getChunk().getEntities()) {
-            if (ent instanceof LivingEntity) {
-                if (ent.getCustomName() != null && !ent.getCustomName().equals("")) {
-                    e.setCancelled(true);
-                }
-            }
-        }
-    }
 
     public static List<WorldEvent> getWorldEvents() {
         return worldEvents;
@@ -248,7 +205,7 @@ public class WEManager extends BPVPListener<Clans> {
                     UtilMessage.broadcast("World Event", ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()) + ChatColor.GRAY + " has entered the world. ");
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()), ChatColor.GRAY + "Has entered the world.");
-                        p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 0.1F, 1F);
+                        p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1F, 1F);
                     }
                 }
             } else if (getActiveWorldEvent() instanceof Environmental) {
@@ -257,7 +214,7 @@ public class WEManager extends BPVPListener<Clans> {
                 e.subAnnounce();
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(e.getDisplayName()), ChatColor.GRAY + "has started!");
-                    p.playSound(p.getLocation(), Sound.WOLF_HOWL, 1.5F, 1F);
+                    p.playSound(p.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.5F, 1F);
                 }
             }
         }

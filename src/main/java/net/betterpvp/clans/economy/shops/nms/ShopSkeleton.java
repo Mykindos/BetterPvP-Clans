@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -9,7 +9,7 @@ public class ShopSkeleton extends EntitySkeleton {
 
 
     public ShopSkeleton(World world) {
-        super(world);
+        super(EntityTypes.SKELETON, world);
         goalSelector.a(0, new PathfinderGoalFloat(this));
         goalSelector.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.6D));
         goalSelector.a(9, new PathfinderGoalInteract(this, EntityHuman.class, 3.0F, 1.0F));
@@ -20,28 +20,11 @@ public class ShopSkeleton extends EntitySkeleton {
 
 
     @Override
-    public void move(double d0, double d1, double d2) {
-        return;
-
-    }
+    public void setPosition(double d0, double d1, double d2) {return;}
 
     @Override
     public void collide(Entity entity) {
-    }
-
-    @Override
-    protected String z() {
-        return "";
-    }
-
-    @Override
-    protected String bo() {
-        return "";
-    }
-
-    @Override
-    protected String bp() {
-        return "";
+        return;
     }
 
     @Override
@@ -50,8 +33,21 @@ public class ShopSkeleton extends EntitySkeleton {
     }
 
     @Override
-    public void g(double d0, double d1, double d2) {
-        return;
+    public void h(double d0, double d1, double d2){return;}
+
+    @Override
+    protected SoundEffect getSoundAmbient() {
+        return null;
+    }
+
+    @Override
+    protected SoundEffect getSoundHurt(DamageSource damagesource) {
+        return null;
+    }
+
+    @Override
+    protected SoundEffect getSoundDeath() {
+        return null;
     }
 
     public Skeleton spawn(Location loc) {

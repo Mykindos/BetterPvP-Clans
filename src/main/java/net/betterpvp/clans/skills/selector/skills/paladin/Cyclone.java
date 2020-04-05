@@ -69,14 +69,14 @@ public class Cyclone extends Skill {
 
             }
         }
-        p.getWorld().playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1F, 0.6F);
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 0.6F);
 
 
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }

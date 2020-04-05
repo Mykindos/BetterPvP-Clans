@@ -7,6 +7,8 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ClanDeleteEvent;
 import net.betterpvp.clans.clans.events.MemberLeaveClanEvent;
+import net.betterpvp.core.client.Client;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.utility.UtilInvite;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
@@ -27,7 +29,7 @@ public class LeaveCommand implements IClanCommand {
 
     public void run(Player player, String[] args) {
         Clan clan = ClanUtilities.getClan(player);
-
+        Client client = ClientUtilities.getOnlineClient(player);
 
         if (clan == null) {
             UtilMessage.message(player, "Clans", "You are not in a Clan.");
@@ -63,7 +65,7 @@ public class LeaveCommand implements IClanCommand {
             return;
         }
 
-        Bukkit.getPluginManager().callEvent(new MemberLeaveClanEvent(player, clan));
+        Bukkit.getPluginManager().callEvent(new MemberLeaveClanEvent(client, clan));
         //ClanRepository.updateDynmap(i, clan);
     }
 

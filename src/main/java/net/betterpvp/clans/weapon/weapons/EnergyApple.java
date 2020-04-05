@@ -31,8 +31,8 @@ public class EnergyApple extends Weapon {
     public void onAppleConsume(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.APPLE) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.APPLE) return;
             if (isThisWeapon(player)) {
 
 
@@ -45,13 +45,13 @@ public class EnergyApple extends Weapon {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            if (player.getItemInHand() != null) {
-                                if (player.getItemInHand().getType() == Material.APPLE) {
+                            if (player.getInventory().getItemInMainHand() != null) {
+                                if (player.getInventory().getItemInMainHand().getType() == Material.APPLE) {
 
 
-                                    if (player.getItemInHand().getAmount() != 1) {
+                                    if (player.getInventory().getItemInMainHand().getAmount() != 1) {
 
-                                        UtilItem.remove(player, Material.APPLE, (byte) 0, 1);
+                                        UtilItem.remove(player, Material.APPLE, 1);
 
                                         return;
                                     }

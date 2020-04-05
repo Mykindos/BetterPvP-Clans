@@ -27,7 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -221,16 +221,16 @@ public class ShopManager implements Listener {
         }
     }
 
-    public static void addItem(String store, String itemName, int ID, int slot, byte data, int amount, int buyPrice, int sellPrice, boolean legendary, boolean glow, boolean dynamic,
+    public static void addItem(String store, String itemName, Material mat, int slot, byte data, int amount, int buyPrice, int sellPrice, boolean legendary, boolean glow, boolean dynamic,
                                boolean quest, int minSell, int baseSell, int maxSell, int minBuy, int baseBuy, int maxBuy, int baseStock, int maxStock, int currentStock) {
         if (legendary) {
-            shopItems.add(new LegendaryShopItem(store, ID, data, slot, amount, buyPrice, itemName, glow));
+            shopItems.add(new LegendaryShopItem(store, mat, data, slot, amount, buyPrice, itemName, glow));
         } else if (quest) {
-            shopItems.add(new QuestShopItem(store, ID, data, slot, amount, itemName, buyPrice));
+            shopItems.add(new QuestShopItem(store, mat, data, slot, amount, itemName, buyPrice));
         } else if (dynamic) {
-            shopItems.add(new DynamicShopItem(store, ID, data, slot, amount, itemName, minBuy, baseBuy, maxBuy, minSell, baseSell, maxSell, baseStock, maxStock, currentStock));
+            shopItems.add(new DynamicShopItem(store, mat, data, slot, amount, itemName, minBuy, baseBuy, maxBuy, minSell, baseSell, maxSell, baseStock, maxStock, currentStock));
         } else {
-            shopItems.add(new NormalShopItem(store, ID, data, slot, amount, itemName, buyPrice, sellPrice));
+            shopItems.add(new NormalShopItem(store, mat, data, slot, amount, itemName, buyPrice, sellPrice));
         }
 
     }

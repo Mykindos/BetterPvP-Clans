@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -23,7 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleTaunt extends Skill {
+public class BattleTaunt extends ChannelSkill {
 
     private List<String> active = new ArrayList<String>();
 
@@ -50,7 +51,7 @@ public class BattleTaunt extends Skill {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (active.contains(p.getName())) {
 
-                    if (p.isBlocking()) {
+                    if (p.isHandRaised()) {
                         if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
                             active.remove(p.getName());
                         } else if (!hasSkill(p, this)) {

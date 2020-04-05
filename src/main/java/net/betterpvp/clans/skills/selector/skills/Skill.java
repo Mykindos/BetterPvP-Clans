@@ -216,7 +216,7 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
         }
         if (getType() == Types.AXE || getType() == Types.SWORD) {
-            if (p.getItemInHand().getType() == Material.DIAMOND_SWORD || p.getItemInHand().getType() == Material.DIAMOND_AXE) {
+            if (p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD || p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE) {
                 level++;
             }
         }
@@ -225,8 +225,8 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
 
     public boolean hasSwordInMainHand(Player p) {
-        if (p.getItemInHand() != null) {
-            return p.getItemInHand().getType().name().contains("SWORD");
+        if (p.getInventory().getItemInMainHand() != null) {
+            return p.getInventory().getItemInMainHand().getType().name().contains("SWORD");
         }
         return false;
     }
@@ -280,7 +280,7 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
         Player player = event.getPlayer();
 
-        if (player.getItemInHand() == null) {
+        if (player.getInventory().getItemInMainHand() == null) {
             return;
         }
 
@@ -291,14 +291,14 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
                 if (b.getLocation().getY() < player.getLocation().getY()) {
                     return;
                 }
-            } else if (b.getType() == Material.IRON_DOOR || b.getType() == Material.IRON_DOOR_BLOCK) {
+            } else if (b.getType() == Material.IRON_DOOR || b.getType() == Material.LEGACY_IRON_DOOR_BLOCK) {
                 return;
             }
         } else {
             if (event.getClickedBlock() != null) {
 
                 if (event.getClickedBlock().getType() == Material.IRON_DOOR
-                        || event.getClickedBlock().getType() == Material.IRON_DOOR_BLOCK) {
+                        || event.getClickedBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK) {
                     return;
                 }
             }
@@ -310,8 +310,8 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
         }
 
         if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
-                Weapon weapon = WeaponManager.getWeapon(player.getItemInHand());
+            if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
+                Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
 
                 if (weapon == null || weapon != null && weapon instanceof EnchantedWeapon) {
                     Role role = Role.getRole(player);

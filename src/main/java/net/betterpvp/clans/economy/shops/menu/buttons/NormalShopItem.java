@@ -1,6 +1,7 @@
 package net.betterpvp.clans.economy.shops.menu.buttons;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 
 import java.text.NumberFormat;
 
@@ -9,9 +10,9 @@ public class NormalShopItem extends ShopItem {
     private int buyPrice;
     private int sellPrice;
 
-    public NormalShopItem(String store, int itemID, byte data, int slot,
+    public NormalShopItem(String store, Material mat, byte data, int slot,
                           int amount, String itemName, int buyPrice, int sellPrice) {
-        super(store, itemID, data, slot, amount, itemName,
+        super(store, mat, data, slot, amount, itemName,
                 ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + NumberFormat.getInstance().format(buyPrice),
                 ChatColor.GRAY + "Sell Price: " + ChatColor.YELLOW + NumberFormat.getInstance().format(sellPrice),
                 "",

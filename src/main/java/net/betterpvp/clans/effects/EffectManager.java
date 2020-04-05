@@ -4,9 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
@@ -51,7 +51,7 @@ public class EffectManager extends BPVPListener<Clans> {
             p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) ((length / 1000) * 20), level - 1));
         }
         if (type == EffectType.SILENCE) {
-            p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_REMEDY, 1F, 1.5F);
+            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1F, 1.5F);
         }
 
         if (type == EffectType.VULNERABILITY) {
@@ -142,7 +142,7 @@ public class EffectManager extends BPVPListener<Clans> {
                     if (!UtilTime.elapsed(g.getLastDamaged(), 15000)) {
                         if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) continue;
 
-                        ParticleEffect.VILLAGER_HAPPY.display(0.1F, 0, 0.1F, (float) 10, 1, p.getLocation().add(0, 4, 0), 30);
+                        ParticleEffect.VILLAGER_HAPPY.display(p.getLocation().add(0, 4, 0));
                     }
                 }
             }

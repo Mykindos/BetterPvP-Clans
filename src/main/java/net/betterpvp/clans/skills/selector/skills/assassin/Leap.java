@@ -53,7 +53,7 @@ public class Leap extends Skill {
 
 
             player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
-            player.getWorld().playSound(player.getLocation(), Sound.BAT_TAKEOFF, 2.0F, 1.2F);
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 2.0F, 1.2F);
         }
     }
 
@@ -61,7 +61,7 @@ public class Leap extends Skill {
     public boolean wallKick(Player player) {
 
 
-        if (UtilItem.isAxe(player.getItemInHand().getType())) {
+        if (UtilItem.isAxe(player.getInventory().getItemInMainHand().getType())) {
             if (RechargeManager.getInstance().add(player, "Wall Kick", 0.15, false)) {
                 Vector vec = player.getLocation().getDirection();
 
@@ -151,8 +151,7 @@ public class Leap extends Skill {
             return false;
         }
 
-        if (player.getLocation().getBlock().getType() == Material.WATER
-                || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }

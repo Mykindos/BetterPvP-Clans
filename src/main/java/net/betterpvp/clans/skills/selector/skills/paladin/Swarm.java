@@ -8,6 +8,7 @@ import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +27,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Swarm extends Skill {
+public class Swarm extends ChannelSkill {
 
     private WeakHashMap<Player, Long> batCD = new WeakHashMap<>();
     private WeakHashMap<Player, ArrayList<BatData>> batData = new WeakHashMap<>();
@@ -106,7 +107,7 @@ public class Swarm extends Skill {
 
 
                 if (current.contains(cur.getUniqueId())) {
-                    if (cur.isBlocking()) {
+                    if (cur.isHandRaised()) {
                         if (!Energy.use(cur, getName(), getEnergy(getLevel(cur)) / 2, true)) {
                             current.remove(cur.getUniqueId());
                         } else if (!hasSkill(cur, this)) {
@@ -189,7 +190,7 @@ public class Swarm extends Skill {
                             other.setVelocity(bat.getLocation().getDirection().add(new Vector(0, .4F, 0)).multiply(0.50));
 
 
-                            bat.getWorld().playSound(bat.getLocation(), Sound.BAT_HURT, 0.2F, 0.7F);
+                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.2F, 0.7F);
 
                             bat.remove();
 

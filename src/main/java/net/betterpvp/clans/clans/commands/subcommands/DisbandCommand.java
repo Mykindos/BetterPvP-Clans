@@ -6,9 +6,11 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.clans.events.ClanDeleteEvent;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -48,7 +50,8 @@ public final class DisbandCommand implements IClanCommand {
         }
 
 
-        ClanUtilities.disbandClan(player, clan);
+        Bukkit.getPluginManager().callEvent(new ClanDeleteEvent(player, clan));
+
     }
 
     @Override

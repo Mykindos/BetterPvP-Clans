@@ -11,6 +11,7 @@ import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
@@ -120,13 +121,13 @@ public class Flash extends Skill {
                     while (curRange <= maxRange) {
                         Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D)).add(player.getLocation().getDirection().multiply(curRange));
 
-                        if (newTarget.getBlock().getType() == Material.IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
+                        if (newTarget.getBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
                             player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
 
                             break;
                         }
 
-                        if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType() == Material.STAINED_GLASS) {
+                        if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType().name().contains("STAINED_GLASS")) {
                             player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
 
                             break;
@@ -157,8 +158,8 @@ public class Flash extends Skill {
                                     UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
 
 
-                                    player.getWorld().playSound(player.getLocation(), Sound.WITHER_SHOOT, 0.4F, 1.2F);
-                                    player.getWorld().playSound(player.getLocation(), Sound.SILVERFISH_KILL, 1.0F, 1.6F);
+                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
+                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
                                     return;
                                 }
                             }
@@ -187,7 +188,7 @@ public class Flash extends Skill {
                         for (int i = 0; i < curRange; i++) {
                             Location particle = oldPos.add(player.getLocation().getDirection());
                             for (int x = 0; x < 3; x++) {
-                                particle.getWorld().spigot().playEffect(particle, Effect.FIREWORKS_SPARK, Effect.FIREWORKS_SPARK.getId(), 0, 0.0F, 0.0F, 0.0F, 0, 1, 100);
+                                ParticleEffect.FIREWORKS_SPARK.display(particle);
                             }
                         }
                         player.leaveVehicle();
@@ -204,8 +205,8 @@ public class Flash extends Skill {
                     UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
 
 
-                    player.getWorld().playSound(player.getLocation(), Sound.WITHER_SHOOT, 0.4F, 1.2F);
-                    player.getWorld().playSound(player.getLocation(), Sound.SILVERFISH_KILL, 1.0F, 1.6F);
+                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
+                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
 
                 }
             }

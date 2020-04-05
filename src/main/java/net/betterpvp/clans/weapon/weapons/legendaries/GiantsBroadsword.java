@@ -31,8 +31,8 @@ public class GiantsBroadsword extends Weapon {
         if (event.getDamager() instanceof Player) {
 
             Player player = (Player) event.getDamager();
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
             if (isThisWeapon(player)) {
 
                 event.setDamage(9);

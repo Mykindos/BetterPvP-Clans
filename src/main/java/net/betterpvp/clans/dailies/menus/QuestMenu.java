@@ -39,7 +39,7 @@ public class QuestMenu extends Menu {
 							+ ChatColor.BOLD + "YES" : ChatColor.RED.toString() + ChatColor.BOLD + "NO"));
 				}
 				
-				addButton(new Button(count, p.isComplete() ? new ItemStack(Material.WOOL, 1, (short) 5) : new ItemStack(Material.WOOL,  1, (short) 14), 
+				addButton(new Button(count, p.isComplete() ? new ItemStack(Material.GREEN_WOOL, 1) : new ItemStack(Material.RED_WOOL,  1),
 						p.isComplete() ? ChatColor.GREEN + q.getName() : ChatColor.RED + q.getName(),
 								desc
 								));

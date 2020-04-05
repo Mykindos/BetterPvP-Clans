@@ -71,7 +71,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Lightning Orb", new LightningOrb(i));
         skills.put("Blizzard", new Blizzard(i));
         skills.put("Molten Shield", new MoltenShield(i));
-        skills.put("Polymorph", new Polymorph(i));
+        //skills.put("Polymorph", new Polymorph(i));
         //skills.put("Fireball Thing", new FireballThing(i));
         skills.put("Glacial Prison", new GlacialPrison(i));
         //skills.put("Displacement", new Displacement(i));
@@ -210,7 +210,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
                 if (e.getButton().getName().contains("Back")) {
 
-                    p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                     p.openInventory(new ClassSelectionPage(p).getInventory());
                     return;
                 }
@@ -222,7 +222,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                     if (e.getButton().getName().contains("Edit & Save Build")) {
 
                         p.openInventory(new SkillPage(g, g.getBuild(role, build)).getInventory());
-                        p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                        p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                     } else if (e.getButton().getName().contains("Apply Build")) {
                         if (RechargeManager.getInstance().add(p, "Apply Build", 5, true)) {
 
@@ -235,7 +235,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                             active.setActive(true);
 
 
-                            p.playSound(p.getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                             p.openInventory(new BuildPage(getInstance(), p, role).getInventory());
 
 
@@ -246,7 +246,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                     } else if (e.getButton().getName().contains("Delete Build")) {
                         if (RechargeManager.getInstance().add(p, "Delete Build", 5, true)) {
                             g.getBuild(role, build).deleteBuild();
-                            p.playSound(p.getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                             BuildRepository.updateBuild(p.getUniqueId(), g.getBuild(role, build));
 
                         }
@@ -287,9 +287,9 @@ public class SelectorManager extends BPVPListener<Clans> {
                             }
 
                         }
-                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                     } else {
-                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                     }
                 } else if (event.getClickType() == ClickType.RIGHT) {
                     if (build.getPoints() < 12) {
@@ -298,7 +298,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                         if (build.getBuildSkill(button.getSkill().getType()).getSkill() == button.getSkill()) {
 
                             build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), build.getBuildSkill(button.getSkill().getType()).getLevel() - 1));
-                            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                             build.addPoint();
 
                             if (build.getBuildSkill(button.getSkill().getType()).getLevel() == 0) {
@@ -312,7 +312,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
 
                     } else {
-                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
                     }
                 }
 
@@ -329,7 +329,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         if (e.getType() == UpdateEvent.UpdateType.TICK) {
             for (Player p : Bukkit.getOnlinePlayers()) {
 
-                if (p.getItemInHand() != null) {
+                if (p.getInventory().getItemInMainHand() != null) {
                     Role role = Role.getRole(p);
                     if (role != null) {
                         new BukkitRunnable() {
@@ -345,7 +345,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                     RoleBuild b = gamer.getActiveBuild(role.getName());
 
                                     if (b != null) {
-                                        if (UtilItem.isAxe(p.getItemInHand().getType())) {
+                                        if (UtilItem.isAxe(p.getInventory().getItemInMainHand().getType())) {
                                             BuildSkill skill = b.getBuildSkill(Types.AXE);
                                             if (skill != null) {
 
@@ -357,7 +357,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                             }
 
 
-                                        } else if (UtilItem.isSword(p.getItemInHand().getType())) {
+                                        } else if (UtilItem.isSword(p.getInventory().getItemInMainHand().getType())) {
                                             BuildSkill skill = b.getBuildSkill(Types.SWORD);
                                             if (skill != null) {
                                                 if (!display(p, skill)) {
@@ -367,7 +367,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                                 showPassiveB(p, b);
                                             }
 
-                                        } else if (p.getItemInHand().getType() == Material.BOW) {
+                                        } else if (p.getInventory().getItemInMainHand().getType() == Material.BOW) {
                                             BuildSkill skill = b.getBuildSkill(Types.BOW);
                                             if (skill != null) {
                                                 display(p, skill);
@@ -381,17 +381,17 @@ public class SelectorManager extends BPVPListener<Clans> {
 
                     }
 
-                    if (p.getItemInHand().getType() == Material.ENDER_PEARL) {
+                    if (p.getInventory().getItemInMainHand().getType() == Material.ENDER_PEARL) {
                         display(p, "Ethereal Pearl");
-                    } else if (p.getItemInHand().getType() == Material.APPLE) {
+                    } else if (p.getInventory().getItemInMainHand().getType() == Material.APPLE) {
                         display(p, "Energy Apple");
-                    } else if (p.getItemInHand().getType() == Material.HARD_CLAY && p.getItemInHand().getData().getData() == (byte) 15) {
+                    } else if (p.getInventory().getItemInMainHand().getType() == Material.BLACK_TERRACOTTA) {
                         display(p, "Gravity Bomb");
-                    } else if (p.getItemInHand().getType() == Material.MAGMA_CREAM) {
+                    } else if (p.getInventory().getItemInMainHand().getType() == Material.MAGMA_CREAM) {
                         display(p, "Incendiary Grenade");
-                    } else if (p.getItemInHand().getType() == Material.EXP_BOTTLE) {
+                    } else if (p.getInventory().getItemInMainHand().getType() == Material.EXPERIENCE_BOTTLE) {
                         display(p, "Molotov");
-                    } else if (p.getItemInHand().getType() == Material.WEB) {
+                    } else if (p.getInventory().getItemInMainHand().getType() == Material.COBWEB) {
                         display(p, "Throwing Web");
                     }
                 }
@@ -401,7 +401,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
     private boolean display(Player p, BuildSkill s) {
 
-        if (s.getSkill().showRecharge()) {
+       /* if (s.getSkill().showRecharge()) {
 
 
             Recharge r = RechargeManager.getInstance().getAbilityRecharge(p.getName(), s.getSkill().getName());
@@ -433,6 +433,8 @@ public class SelectorManager extends BPVPListener<Clans> {
             }
         }
 
+
+        */
         return false;
     }
 
@@ -470,7 +472,7 @@ public class SelectorManager extends BPVPListener<Clans> {
     private void showPassiveB(Player p, RoleBuild b) {
         BuildSkill skill2 = b.getBuildSkill(Types.PASSIVE_B);
         if (skill2 != null) {
-            if (Arrays.asList(skill2.getSkill().getMaterials()).contains(p.getItemInHand().getType())) {
+            if (Arrays.asList(skill2.getSkill().getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                 display(p, skill2);
             }
 

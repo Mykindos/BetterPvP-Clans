@@ -52,7 +52,7 @@ public class BullsCharge extends Skill {
     @Override
     public void activateSkill(Player player) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
-        player.getWorld().playSound(player.getLocation(), Sound.ENDERMAN_SCREAM, 1.5F, 0.0F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
         player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 49);
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
         running.put(player.getName(), System.currentTimeMillis() + 4000L);
@@ -60,7 +60,7 @@ public class BullsCharge extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -108,8 +108,8 @@ public class BullsCharge extends Skill {
                     damagee.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 2));
                     damager.removePotionEffect(PotionEffectType.SPEED);
 
-                    damager.getWorld().playSound(damager.getLocation(), Sound.ENDERMAN_SCREAM, 1.5F, 0.0F);
-                    damager.getWorld().playSound(damager.getLocation(), Sound.ZOMBIE_METAL, 1.5F, 0.5F);
+                    damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
+                    damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1.5F, 0.5F);
 
                     if (event.getDamagee() instanceof Player) {
                         Player damaged = (Player) event.getDamagee();

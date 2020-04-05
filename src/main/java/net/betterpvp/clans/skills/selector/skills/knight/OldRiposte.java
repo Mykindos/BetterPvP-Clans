@@ -43,13 +43,13 @@ public class OldRiposte extends Skill {
     public void activateSkill(final Player player) {
         UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         prepare.put(player.getName(), System.currentTimeMillis());
-        player.getWorld().playSound(player.getLocation(), Sound.IRONGOLEM_HIT, 2.0f, 1.0f);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
             public void run() {
                 if (prepare.containsKey(player.getName())) {
                     UtilMessage.message(player, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-                    player.getWorld().playSound(player.getLocation(), Sound.NOTE_STICKS, 2.0f, 1.0f);
+                    player.getWorld().playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2.0f, 1.0f);
                     prepare.remove(player.getName());
                 }
             }
@@ -59,8 +59,8 @@ public class OldRiposte extends Skill {
     @EventHandler
     public void interact(PlayerInteractEntityEvent e) {
         final Player player = e.getPlayer();
-        if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
-            if (WeaponManager.getWeapon(player.getItemInHand()) == null) {
+        if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
+            if (WeaponManager.getWeapon(player.getInventory().getItemInMainHand()) == null) {
                 if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
                     UtilMessage.message(player, getName(), "You are silenced!");
                     return;
@@ -68,14 +68,14 @@ public class OldRiposte extends Skill {
                 if (hasSkill(player, this)) {
                     if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
                         UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
-                        player.getWorld().playSound(player.getLocation(), Sound.IRONGOLEM_HIT, 2.0f, 1.0f);
+                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
                         prepare.put(player.getName(), System.currentTimeMillis());
 
                         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
                             public void run() {
                                 if (prepare.containsKey(player.getName())) {
                                     UtilMessage.message(player, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-                                    player.getWorld().playSound(player.getLocation(), Sound.NOTE_STICKS, 2.0f, 1.0f);
+                                    player.getWorld().playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2.0f, 1.0f);
                                     prepare.remove(player.getName());
                                 }
                             }
@@ -111,7 +111,7 @@ public class OldRiposte extends Skill {
                                 + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
 
                     }
-                    target.getWorld().playSound(target.getPlayer().getLocation(), Sound.ZOMBIE_METAL, 1.0F, 1.0F);
+                    target.getWorld().playSound(target.getPlayer().getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1.0F, 1.0F);
                     god.put(target.getName(), (long) (System.currentTimeMillis() + ((getLevel(target) * 0.5)) * 1000));
                     event.setCancelled("Riposte");
 
@@ -119,7 +119,7 @@ public class OldRiposte extends Skill {
                 } else {
 
                     if (god.containsKey(target.getName())) {
-                        target.getWorld().playSound(target.getPlayer().getLocation(), Sound.ZOMBIE_METAL, 1.0F, 1.0F);
+                        target.getWorld().playSound(target.getPlayer().getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1.0F, 1.0F);
                         double remaining = UtilTime.convert(((god.get(target.getName())) - System.currentTimeMillis()),
                                 TimeUnit.SECONDS, 1);
 

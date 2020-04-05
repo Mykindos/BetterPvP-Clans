@@ -5,6 +5,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.*;
 import net.betterpvp.clans.classes.roles.mysql.StatRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -12,9 +15,11 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -56,6 +61,8 @@ public class RoleManager extends BPVPListener<Clans> {
                 player.removePotionEffect(effect.getType());
 
             }
+
+            player.getInventory().setItemInOffHand(null);
         } else {
 
             for (PotionEffect effect : player.getActivePotionEffects()) {
@@ -78,9 +85,16 @@ public class RoleManager extends BPVPListener<Clans> {
             UtilMessage.message(player, role.equipMessage(player));
             StatRepository.addClassStat(role.getName());
 
+            Gamer gamer = GamerManager.getOnlineGamer(player);
+            if(gamer != null){
+                if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s instanceof ChannelSkill)){
+                    player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                }
+            }
+
         }
 
-        player.getWorld().playSound(player.getLocation(), Sound.HORSE_ARMOR, 2.0F, 1.09F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 2.0F, 1.09F);
     }
 
     @EventHandler(ignoreCancelled = false)
@@ -96,15 +110,15 @@ public class RoleManager extends BPVPListener<Clans> {
                             Role role = Role.getRole(damaged);
 
                             if (role instanceof Knight) {
-                                damaged.getWorld().playSound(damaged.getLocation(), Sound.BLAZE_HIT, 1.0F, 0.7F);
+                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 0.7F);
                             } else if (role instanceof Assassin) {
-                                damaged.getWorld().playSound(damaged.getLocation(), Sound.SHOOT_ARROW, 1.0F, 2.0F);
+                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1.0F, 2.0F);
                             } else if (role instanceof Gladiator) {
-                                damaged.getWorld().playSound(damaged.getLocation(), Sound.BLAZE_HIT, 1.0F, 0.9F);
+                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 0.9F);
                             } else if (role instanceof Ranger) {
-                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ITEM_BREAK, 1.0F, 1.4F);
+                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.4F);
                             } else if (role instanceof Paladin) {
-                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ITEM_BREAK, 1.0F, 1.8F);
+                                damaged.getWorld().playSound(damaged.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.8F);
                             }
                         }
                     }

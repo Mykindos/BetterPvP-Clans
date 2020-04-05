@@ -117,8 +117,8 @@ public abstract class Boss extends WorldEvent {
                 if (getBoss() != null && !getBoss().isDead()) {
                     Block b = getBoss().getLocation().getBlock();
 
-                    if (b.getType() == Material.STATIONARY_LAVA || b.getType() == Material.LAVA) {
-                        new BlockRestoreData(b, b.getTypeId(), (byte) 0, 180000);
+                    if (b.getType() == Material.LAVA || b.getType() == Material.LAVA) {
+                        new BlockRestoreData(b, b.getType(), (byte) 0, 180000);
                         b.setType(Material.OBSIDIAN);
 
 

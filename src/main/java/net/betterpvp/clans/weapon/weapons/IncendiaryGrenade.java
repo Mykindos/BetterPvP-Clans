@@ -4,14 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.EnumParticle;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -38,8 +35,8 @@ public class IncendiaryGrenade extends Weapon {
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.MAGMA_CREAM) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.MAGMA_CREAM) return;
 
 
         if (isThisWeapon(player)) {
@@ -47,7 +44,7 @@ public class IncendiaryGrenade extends Weapon {
                 if (event.getAction() == Action.LEFT_CLICK_AIR) {
                     if (RechargeManager.getInstance().add(player, "Incendiary Grenade", 10, true)) {
                         Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.MAGMA_CREAM));
-                        UtilItem.remove(player, Material.MAGMA_CREAM, (byte) 0, 1);
+                        UtilItem.remove(player, Material.MAGMA_CREAM, 1);
                         UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
                         item.setPickupDelay(Integer.MAX_VALUE);
                         item.setVelocity(player.getLocation().getDirection().multiply(1.8));
@@ -66,12 +63,13 @@ public class IncendiaryGrenade extends Weapon {
                 Item item = iterator.next();
                 Location location = item.getLocation();
 
-                location.getWorld().playEffect(location, Effect.LAVA_POP, 8);
+                ParticleEffect.EXPLOSION_HUGE.display(location);
 
                 if (UtilBlock.getBlockUnder(item.getLocation()).getType() != Material.AIR) {
                     areas.put(location, System.currentTimeMillis() + 6000L);
-                    location.getWorld().playEffect(location, Effect.EXPLOSION_HUGE, 0);
-                    location.getWorld().playSound(location, Sound.EXPLODE, 1.0F, 1.0F);
+                    ParticleEffect.EXPLOSION_HUGE.display(location);
+
+                    location.getWorld().playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0F, 1.0F);
                     item.remove();
                     iterator.remove();
                 }
@@ -89,12 +87,13 @@ public class IncendiaryGrenade extends Weapon {
                 }
 
                 for (int i = 0; i < 16; i++) {
-                    UtilParticle.playParticle(EnumParticle.FLAME, location,
-                            (float) location.getX() + 0.5F, (float) (location.getY() + random.nextDouble() * 2.0F),
-                            (float) location.getZ(), (float) random.nextGaussian(), 0.0F, (float) random.nextGaussian(), 0.1F, 1);
+                    Location displayLocation = new Location(location.getWorld(), (float) location.getX() + 0.5F, (float) (location.getY() + random.nextDouble() * 2.0F),
+                            (float) location.getZ());
+                    ParticleEffect.FLAME.display(displayLocation, (float) random.nextGaussian(), 0.0F, (float) random.nextGaussian(), 0.1F, 1, null);
+
                 }
 
-                location.getWorld().playSound(location, Sound.DIG_GRASS, 0.6F, 0.0F);
+                location.getWorld().playSound(location, Sound.BLOCK_GRASS_BREAK, 0.6F, 0.0F);
 
                 for (LivingEntity entity : UtilPlayer.getInRadius(location, 2)) {
                     entity.setFireTicks(60);

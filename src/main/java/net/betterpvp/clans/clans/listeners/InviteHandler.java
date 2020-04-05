@@ -26,9 +26,9 @@ public class InviteHandler extends BPVPListener<Clans> {
      * @param expiry  Time in minutes until invite is no longer valid
      * @return true if invite does not already exist
      */
-    public static boolean createInvite(Invitable inviter, Invitable invitee, int expiry) {
+    public static boolean createInvite(Invitable inviter, Invitable invitee, String type, int expiry) {
 
-        Invite invite = new Invite(inviter, invitee, expiry);
+        Invite invite = new Invite(inviter, invitee, type, expiry);
         if (!invites.contains(invite)) {
             invites.add(invite);
             return true;
@@ -43,8 +43,8 @@ public class InviteHandler extends BPVPListener<Clans> {
      * @param invitee
      * @return Returns true if the invite was found and valid
      */
-    public static boolean removeInvite(Invitable inviter, Invitable invitee) {
-        return invites.removeIf(i -> i.inviter.equals(inviter) && i.invitee.equals(invitee));
+    public static boolean removeInvite(Invitable inviter, Invitable invitee, String type) {
+        return invites.removeIf(i -> i.inviter.equals(inviter) && i.invitee.equals(invitee) && i.type.equals(type));
     }
 
     /**
@@ -54,8 +54,9 @@ public class InviteHandler extends BPVPListener<Clans> {
      * @param inviter The inviter
      * @return Returns true if a valid invite exists
      */
-    public static boolean isInvited(Invitable invitee, Invitable inviter) {
-        return invites.stream().filter(i -> i.invitee.equals(invitee) && i.inviter.equals(inviter)).findAny().isPresent();
+    public static boolean isInvited(Invitable invitee, Invitable inviter, String type) {
+        if(invitee == null || inviter == null) return false;
+        return invites.stream().anyMatch(i -> i.invitee.equals(invitee) && i.inviter.equals(inviter) && i.type.equals(type));
     }
 
 
@@ -73,12 +74,14 @@ class Invite {
 
     public Invitable inviter;
     public Invitable invitee;
+    public String type;
     public long requestTime;
     public long expiry;
 
-    public Invite(Invitable inviter, Invitable invitee, int expiry) {
+    public Invite(Invitable inviter, Invitable invitee, String type, int expiry) {
         this.inviter = inviter;
         this.invitee = invitee;
+        this.type = type;
         this.requestTime = System.currentTimeMillis();
         this.expiry = this.requestTime + (expiry * 60000);
     }
@@ -89,7 +92,7 @@ class Invite {
 
         Invite invite = (Invite) i;
         return invite.inviter.equals(inviter) && invite.invitee.equals(invitee)
-                && invite.expiry == expiry;
+                && invite.expiry == expiry && type.equals(invite.type);
     }
 
 }

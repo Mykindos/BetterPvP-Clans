@@ -51,7 +51,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
                                 if (gamer.getClient().getSettingAsBoolean("Sidebar")) {
                                     Objective side = scoreboard.registerNewObjective("BetterPvP", "dummy");
                                     side.setDisplaySlot(DisplaySlot.SIDEBAR);
-                                    side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  Clans Season 2  ");
+                                    side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 1  ");
 
                                     Clan clan = ClanUtilities.getClan(p);
 

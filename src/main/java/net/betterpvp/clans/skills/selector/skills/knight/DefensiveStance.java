@@ -6,6 +6,7 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +27,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-public class DefensiveStance extends Skill {
+public class DefensiveStance extends ChannelSkill {
 
     private Set<UUID> active = new HashSet<>();
     private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
@@ -88,7 +89,7 @@ public class DefensiveStance extends Skill {
                 Player p = (Player) e.getDamagee();
                 if (active.contains(p.getUniqueId())) {
                     if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
-                        if (p.isBlocking()) {
+                        if (p.isHandRaised()) {
                             if (hasSkill(p, this)) {
                                 Vector look = p.getLocation().getDirection();
                                 look.setY(0);
@@ -111,7 +112,7 @@ public class DefensiveStance extends Skill {
                                 }
                                 e.setCancelled("Skill Defensive Stance");
 
-                                p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_WOODBREAK, 1.0F, 2.0F);
+                                p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 2.0F);
                             }
                         }
                     }
@@ -128,7 +129,7 @@ public class DefensiveStance extends Skill {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (active.contains(p.getUniqueId())) {
 
-                if (p.isBlocking()) {
+                if (p.isHandRaised()) {
 
                     if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
                         active.remove(p.getUniqueId());

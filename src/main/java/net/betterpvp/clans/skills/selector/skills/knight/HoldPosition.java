@@ -51,7 +51,7 @@ public class HoldPosition extends Skill {
         EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (100 + (((level - 1) * 0.5) * 20)), 3));
-        player.getWorld().playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 0.5F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1F, 0.5F);
     }
 
     @EventHandler
@@ -69,7 +69,7 @@ public class HoldPosition extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }

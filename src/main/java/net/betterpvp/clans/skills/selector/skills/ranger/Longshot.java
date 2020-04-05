@@ -6,14 +6,15 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMath;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -60,7 +61,8 @@ public class Longshot extends Skill {
                 } else if (next.isDead()) {
                     it.remove();
                 } else {
-                    ParticleEffect.FIREWORKS_SPARK.display(new Vector(0, 0.0, 0), 15, next.getLocation().add(new Vector(0, 0.25, 0)), 20);
+                    ParticleEffect.FIREWORKS_SPARK.display(next.getLocation().add(new Vector(0, 0.25, 0)));
+
                 }
             }
         }

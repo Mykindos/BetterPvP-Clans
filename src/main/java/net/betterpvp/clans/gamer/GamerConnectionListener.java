@@ -1,17 +1,25 @@
 package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.SelectorManager;
+import net.betterpvp.core.client.Client;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
+import net.betterpvp.core.client.mysql.SettingsRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
@@ -21,6 +29,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
     @EventHandler (priority = EventPriority.LOW)
     public void onClientLogin(ClientLoginEvent e) {
+
         Gamer gamer = GamerManager.getGamer(e.getClient().getUUID());
         if (gamer == null) {
 
@@ -33,6 +42,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             GamerManager.addOnlineGamer(gamer);
 
             loadDefaults(gamer);
+
+
         } else {
 
             GamerManager.addOnlineGamer(gamer);
@@ -43,7 +54,15 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             }
         }
 
-        gamer.setScoreboard(new Scoreboard(e.getClient().getPlayer()));
+
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "Sidebar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "RechargeBar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "Killfeed", 1);
+
+        SettingsRepository.loadSettings(getInstance(), gamer.getClient());
+
+        gamer.setScoreboard(new Scoreboard(e.getClient()
+                .getPlayer()));
     }
 
     @EventHandler (priority = EventPriority.LOWEST)
@@ -51,6 +70,31 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Gamer g = GamerManager.getOnlineGamer(e.getClient().getUUID());
         if(g != null){
             g.setScoreboard(null);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e){
+        e.getPlayer().setResourcePack("https://mykindos.me/betterpvp4.0.zip");
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+
+        if(String.valueOf(player.getLocation().getX()).equalsIgnoreCase("NaN")) {
+            player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+        }
+
+
+        Gamer gamer = GamerManager.getOnlineGamer(player);
+        if(gamer != null){
+            gamer.getClient().setLoggedIn(false);
+
+            GamerRepository.updateGamer(gamer);
+            gamer.getBuilds().clear();
+            String safe = LogManager.isSafe(player) ? ChatColor.GREEN + "Safe" + ChatColor.GRAY : ChatColor.RED + "Unsafe" + ChatColor.GRAY;
+            event.setQuitMessage(ChatColor.RED + "Leave> " + ChatColor.GRAY + player.getName() + " (" + safe + ")");
         }
     }
 

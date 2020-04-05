@@ -13,22 +13,22 @@ public class Paladin extends Role {
 
     @Override
     public Material getHelmet() {
-        return Material.GOLD_HELMET;
+        return Material.GOLDEN_HELMET;
     }
 
     @Override
     public Material getChestplate() {
-        return Material.GOLD_CHESTPLATE;
+        return Material.GOLDEN_CHESTPLATE;
     }
 
     @Override
     public Material getLeggings() {
-        return Material.GOLD_LEGGINGS;
+        return Material.GOLDEN_LEGGINGS;
     }
 
     @Override
     public Material getBoots() {
-        return Material.GOLD_BOOTS;
+        return Material.GOLDEN_BOOTS;
     }
 
 

@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.core.database.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,11 +18,11 @@ import java.util.HashMap;
 public class FieldsRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "clans_fields";
-    public static HashMap<Location, Integer> blocks = new HashMap<>();
+    public static HashMap<Location, Material> blocks = new HashMap<>();
     private static World world = Bukkit.getWorld("world");
 
     public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
-            "  `ID` int(10)," +
+            "  `Material` VARCHAR(255)," +
             "  `X` double(10, 0)," +
             "  `Y` double(10, 0)," +
             "  `Z` double(10, 0)" +
@@ -48,14 +49,15 @@ public class FieldsRepository implements Repository<Clans> {
                     ResultSet result = statement.executeQuery();
 
                     while (result.next()) {
-                        int id = result.getInt(1);
+                        String material = result.getString(1);
                         double x = result.getDouble(2);
                         double y = result.getDouble(3);
                         double z = result.getDouble(4);
                         Location loc = new Location(world, x, y, z);
-                        loc.getBlock().setTypeId(id);
+                        Material mat = Material.getMaterial(material);
+                        loc.getBlock().setType(mat);
 
-                        blocks.put(loc, id);
+                        blocks.put(loc, mat);
                         count++;
                     }
 
@@ -84,7 +86,7 @@ public class FieldsRepository implements Repository<Clans> {
     public static void saveOre(Block b) {
 
         String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
-                + "('" + b.getTypeId() + "', "
+                + "('" + b.getType().name() + "', "
                 + "'" + b.getLocation().getX() + "', "
                 + "'" + b.getLocation().getY() + "', "
                 + "'" + b.getLocation().getZ() + "')";

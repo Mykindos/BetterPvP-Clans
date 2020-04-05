@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -20,9 +20,7 @@ public class ShopZombie extends EntityZombie {
 
 
     @Override
-    public void move(double d0, double d1, double d2) {
-        return;
-    }
+    public void setPosition(double d0, double d1, double d2) {return;}
 
     @Override
     public void collide(Entity entity) {
@@ -35,23 +33,21 @@ public class ShopZombie extends EntityZombie {
     }
 
     @Override
-    public void g(double d0, double d1, double d2) {
-        return;
+    public void h(double d0, double d1, double d2){return;}
+
+    @Override
+    protected SoundEffect getSoundAmbient() {
+        return null;
     }
 
     @Override
-    protected String z() {
-        return "";
+    protected SoundEffect getSoundHurt(DamageSource damagesource) {
+        return null;
     }
 
     @Override
-    protected String bo() {
-        return "";
-    }
-
-    @Override
-    protected String bp() {
-        return "";
+    protected SoundEffect getSoundDeath() {
+        return null;
     }
 
 

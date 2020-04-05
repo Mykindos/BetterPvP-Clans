@@ -18,13 +18,13 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.EntitySlime;
+import net.minecraft.server.v1_15_R1.EntitySlime;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftSlime;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -422,13 +422,12 @@ public class SlimeKing extends Boss {
             if (isSlimeKing(e.getThrowable().getThrower())) {
 
                 Block b = e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock();
-                if (e.getThrowable().getItem().getLocation().getBlock().getType() == Material.LEAVES
-                        || e.getThrowable().getItem().getLocation().getBlock().getType() == Material.LEAVES_2
-                        || b.getType() == Material.LEAVES || b.getType() == Material.LEAVES_2) {
-                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getTypeId(), (byte) 0, 30000);
+                if (e.getThrowable().getItem().getLocation().getBlock().getType().name().contains("LEAVES")
+                        || b.getType().name().contains("LEAVES")) {
+                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getType(), (byte) 0, 30000);
                     b.setType(Material.AIR);
                 } else {
-                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getTypeId(), (byte) 0, 2000);
+                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getType(), (byte) 0, 2000);
                     b.setType(Material.SLIME_BLOCK);
                 }
 

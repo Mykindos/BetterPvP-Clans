@@ -27,7 +27,7 @@ public class FarmingListener extends BPVPListener<Clans> {
         }
 
 
-        if (e.getBlock().getType() == Material.PISTON_BASE) {
+        if (e.getBlock().getType() == Material.PISTON) {
             if (b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()) {
                 UtilMessage.message(e.getPlayer(), "Farming", "You cannot place regular pistons within the farming levels.");
                 e.setCancelled(true);
@@ -58,7 +58,7 @@ public class FarmingListener extends BPVPListener<Clans> {
             }
 
 
-            if (FarmBlocks.isSeed(e.getPlayer().getItemInHand().getType())) {
+            if (FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())) {
                 if (e.getClickedBlock().getLocation().getY() > Clans.getOptions().getFarmingMaxY()
                         || e.getClickedBlock().getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
                     UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y");

@@ -1,9 +1,9 @@
 package net.betterpvp.clans.economy.shops.nms;
 
 import net.betterpvp.core.utility.UtilMessage;
-import net.minecraft.server.v1_8_R3.Entity;
-import net.minecraft.server.v1_8_R3.EntityInsentient;
-import net.minecraft.server.v1_8_R3.EntityTypes;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityInsentient;
+import net.minecraft.server.v1_15_R1.EntityTypes;
 
 import java.lang.reflect.Field;
 import java.util.Map;

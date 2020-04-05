@@ -55,8 +55,8 @@ public class HiltSmash extends Skill {
         Player p = e.getPlayer();
 
         if (hasSkill(p, this)) {
-            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
-                Weapon weapon = WeaponManager.getWeapon(p.getItemInHand());
+            if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
+                Weapon weapon = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                 if (weapon == null || weapon instanceof EnchantedWeapon) {
 
                     if (ClanUtilities.canCast(p)) {
@@ -90,13 +90,13 @@ public class HiltSmash extends Skill {
                                         LogManager.addLog(ent, p, getName());
                                         Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + getLevel(p), false));
 
-                                        ent.getWorld().playSound(ent.getLocation(), Sound.ZOMBIE_WOODBREAK, 1.0F, 1.2F);
+                                        ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 1.2F);
                                         //ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 , 4));
 
 
                                     } else {
                                         UtilMessage.message(p, getClassType(), "You failed " + getName());
-                                        p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 1F, 0.1F);
+                                        p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1F, 0.1F);
                                     }
                                 }
                             }

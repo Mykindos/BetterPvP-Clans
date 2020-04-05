@@ -48,14 +48,14 @@ public class DwarvenPickaxe extends Weapon {
 
                 if (block.getType().toString().contains("STONE") && block.getType() != Material.GLOWSTONE ||
                         block.getType().toString().contains("ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
-                        || block.getType() == Material.SMOOTH_STAIRS
+                        || block.getType() == Material.STONE_BRICK_STAIRS
                         || block.getType().name().contains("STONE_SLAB")
-                        || block.getType() == Material.IRON_FENCE
+                        || block.getType() == Material.IRON_BARS
                         || block.getType() == Material.COAL_BLOCK
-                        || block.getType() == Material.STONE_SLAB2) {
+                        || block.getType().name().contains("_SLAB")) {
 
 
-                    player.getItemInHand().setDurability((short) 0);
+                    player.getInventory().getItemInMainHand().setDurability((short) 0);
 
 
                     Clans.getCoreProtect().logRemoval("Dwarven Pickaxe - " + player.getName(), block.getLocation(), block.getType(), block.getData());

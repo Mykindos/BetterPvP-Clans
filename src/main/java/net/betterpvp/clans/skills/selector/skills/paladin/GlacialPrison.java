@@ -90,7 +90,7 @@ public class GlacialPrison extends Skill {
                 if (i.isOnGround()) {
                     for (Location loc : UtilMath.sphere(i.getLocation(), 5, true)) {
                         if (loc.getBlock().getType() == Material.AIR) {
-                            new BlockRestoreData(loc.getBlock(), 30, (byte) 0, 5000L);
+                            new BlockRestoreData(loc.getBlock(), Material.ICE, (byte) 0, 5000L);
                             loc.getBlock().setType(Material.ICE);
                         }
                     }

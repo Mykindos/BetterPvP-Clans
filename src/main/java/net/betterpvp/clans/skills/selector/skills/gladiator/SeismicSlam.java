@@ -60,7 +60,7 @@ public class SeismicSlam extends Skill {
     @Override
     public void activateSkill(final Player player) {
         player.setVelocity(new Vector(0, 1.3, 0));
-        player.getWorld().playSound(player.getLocation(), Sound.ZOMBIE_WOOD, 1.5F, 0.2F);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.5F, 0.2F);
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
 
         new BukkitRunnable() {
@@ -116,7 +116,8 @@ public class SeismicSlam extends Skill {
                         ent.remove();
                     }
                 }
-                e.setCancelled(true);
+
+               // e.setCancelled(true);
             }
         }
     }
@@ -137,15 +138,15 @@ public class SeismicSlam extends Skill {
                 }
 
                 final Location loc = p.getLocation();
-                loc.getWorld().playSound(loc, Sound.EXPLODE, 2.0F, 1.0F);
+                loc.getWorld().playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 2.0F, 1.0F);
 
 
                 for (Block b : UtilBlock.getInRadius(p.getLocation().add(0, -1, 0), i, 3).keySet()) {
                     if (!blocks.contains(b.getLocation())) {
                         if ((b.getLocation().getBlockY() == loc.getBlockY() - 1) &&
-                                (b.getType() != Material.AIR) && (b.getType() != Material.SIGN_POST) && (b.getType() != Material.CHEST) && (b.getType() != Material.DROPPER) && (b.getType() != Material.TRAPPED_CHEST) && (b.getType() != Material.STONE_PLATE) && (b.getType() != Material.WOOD_PLATE)
-                                && (b.getType() != Material.WALL_SIGN) && (b.getType() != Material.WALL_BANNER) && (b.getType() != Material.STANDING_BANNER) && (b.getType() != Material.CROPS) && (b.getType() != Material.LONG_GRASS)
-                                && (b.getType() != Material.SAPLING) && (b.getType() != Material.DEAD_BUSH) && (!b.getType().name().toLowerCase().contains("fence")) && (b.getType() != Material.RED_ROSE) && (b.getType() != Material.RED_MUSHROOM) && (b.getType() != Material.BROWN_MUSHROOM) && (b.getType() != Material.TORCH) && (b.getType() != Material.LADDER) && (b.getType() != Material.VINE) && (b.getType() != Material.DOUBLE_PLANT) && (b.getType() != Material.PORTAL) && (b.getType() != Material.CACTUS) && (b.getType() != Material.WATER) && (b.getType() != Material.STATIONARY_WATER) && (b.getType() != Material.LAVA) && (b.getType() != Material.STATIONARY_LAVA &&
+                                (b.getType() != Material.AIR) && (!b.getType().name().contains("WALL_SIGN") && (b.getType() != Material.CHEST) && (b.getType() != Material.DROPPER) && (b.getType() != Material.TRAPPED_CHEST) && (b.getType() != Material.STONE_PRESSURE_PLATE) && (b.getType() != Material.OAK_PRESSURE_PLATE)
+                                && (!b.getType().name().contains("WALL_BANNER")) && (!b.getType().name().contains("_BANNER")) && (b.getType() != Material.WHEAT) && (b.getType() != Material.FERN)
+                                && (!b.getType().name().contains("SAPLING")) && (b.getType() != Material.DEAD_BUSH) && (!b.getType().name().toLowerCase().contains("fence")) && (b.getType() != Material.ALLIUM) && (b.getType() != Material.RED_MUSHROOM) && (b.getType() != Material.BROWN_MUSHROOM) && (b.getType() != Material.TORCH) && (b.getType() != Material.LADDER) && (b.getType() != Material.VINE) && (b.getType() != Material.LARGE_FERN) && (b.getType() != Material.NETHER_PORTAL) && (b.getType() != Material.CACTUS) && (b.getType() != Material.WATER)  && (b.getType() != Material.LAVA)  &&
                                 (b.getType().getId() != 43) && (b.getType().getId() != 44) && (b.getRelative(BlockFace.UP).getType() == Material.AIR) && !b.isLiquid())) {
                             FallingBlock fb = loc.getWorld().spawnFallingBlock(b.getLocation().clone().add(0.0D, 1.1, 0.0D), b.getType(), b.getData());
                             blocks.add(b.getLocation());
@@ -190,7 +191,7 @@ public class SeismicSlam extends Skill {
             event.setCancelled(true);
             fallingBlocks.remove(event.getEntity());
             FallingBlock fb = (FallingBlock) event.getEntity();
-            fb.getWorld().playSound(fb.getLocation(), Sound.STEP_STONE, 1.0F, 1.0F);
+            fb.getWorld().playSound(fb.getLocation(), Sound.BLOCK_STONE_STEP, 1.0F, 1.0F);
             event.getEntity().remove();
         }
     }
@@ -214,7 +215,7 @@ public class SeismicSlam extends Skill {
             }
         }
 
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
