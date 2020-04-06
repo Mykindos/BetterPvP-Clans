@@ -28,6 +28,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Arrays;
 
@@ -278,9 +279,14 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSkillActivate(PlayerInteractEvent event) {
 
+
         Player player = event.getPlayer();
 
         if (player.getInventory().getItemInMainHand() == null) {
+            return;
+        }
+
+        if(event.getHand() == EquipmentSlot.OFF_HAND){
             return;
         }
 

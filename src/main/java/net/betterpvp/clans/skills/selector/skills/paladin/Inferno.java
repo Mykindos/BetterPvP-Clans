@@ -12,6 +12,7 @@ import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
@@ -76,7 +77,7 @@ public class Inferno extends ChannelSkill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getName(), "You cannot use " + getName() + " in water.");
             return false;
         }

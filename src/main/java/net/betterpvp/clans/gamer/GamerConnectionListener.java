@@ -73,10 +73,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         }
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
-        e.getPlayer().setResourcePack("https://mykindos.me/betterpvp4.0.zip");
-    }
+
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {

@@ -790,7 +790,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (role != null) {
                         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
                         if (gamer != null) {
-                            if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s instanceof ChannelSkill)) {
+                            if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
                                 e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                                 return;
                             }
@@ -802,12 +802,26 @@ public class WorldListener extends BPVPListener<Clans> {
                         e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                     }
 
+                }else{
+                    // Remove if not a channel weapon
+                    Weapon weapon = WeaponManager.getWeapon(item);
+                    if (weapon != null && !(weapon instanceof ChannelWeapon)) {
+                        e.getPlayer().getInventory().setItemInOffHand(null);
+                    }
                 }
             } else {
                 if (e.getPlayer().getInventory().getItemInOffHand().getType() == Material.SHIELD) {
                     e.getPlayer().getInventory().setItemInOffHand(null);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onPickupShield(EntityPickupItemEvent e){
+        if(e.getItem().getItemStack().getType() == Material.SHIELD){
+            e.setCancelled(true);
+            e.getItem().remove();
         }
     }
 

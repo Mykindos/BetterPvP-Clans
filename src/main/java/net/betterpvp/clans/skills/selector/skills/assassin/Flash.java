@@ -312,7 +312,7 @@ public class Flash extends Skill {
             return false;
         }
 
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
             return false;
         }

@@ -223,7 +223,9 @@ public class ShopManager implements Listener {
 
     public static void addItem(String store, String itemName, Material mat, int slot, byte data, int amount, int buyPrice, int sellPrice, boolean legendary, boolean glow, boolean dynamic,
                                boolean quest, int minSell, int baseSell, int maxSell, int minBuy, int baseBuy, int maxBuy, int baseStock, int maxStock, int currentStock) {
+
         if (legendary) {
+
             shopItems.add(new LegendaryShopItem(store, mat, data, slot, amount, buyPrice, itemName, glow));
         } else if (quest) {
             shopItems.add(new QuestShopItem(store, mat, data, slot, amount, itemName, buyPrice));

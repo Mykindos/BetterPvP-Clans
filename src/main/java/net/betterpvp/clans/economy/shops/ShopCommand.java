@@ -25,20 +25,19 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 
-public class ShopCommand extends Command implements Listener {
+public class ShopCommand extends Command {
 
     private Clans i;
     private HashMap<UUID, Long> cd = new HashMap<>();
 
     public ShopCommand(Clans i) {
         super("shop", new String[]{"shops"}, Rank.PLAYER);
-        Bukkit.getPluginManager().registerEvents(this, i);
         this.i = i;
 
     }
 
 
-    @EventHandler
+ /*   @EventHandler
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
             Iterator<Entry<UUID, Long>> it = cd.entrySet().iterator();
@@ -56,7 +55,7 @@ public class ShopCommand extends Command implements Listener {
             }
         }
     }
-
+*/
 
     @Override
     public void execute(final Player p, String[] args) {
@@ -82,8 +81,10 @@ public class ShopCommand extends Command implements Listener {
 
                                 }
                             }
-                            ShopRepository.loadShops(i);
+
                         }
+                        ShopRepository.loadShops(i);
+                        ShopKeeperRepository.loadShopKeepers(i);
                     }
                 } else if (args.length > 0) {
                     if (ClientUtilities.getOnlineClient(p).hasRank(Rank.ADMIN, true)) {

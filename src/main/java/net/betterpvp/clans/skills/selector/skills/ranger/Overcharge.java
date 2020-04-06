@@ -10,6 +10,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.OverChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
@@ -176,7 +177,7 @@ public class Overcharge extends Skill {
                                 continue;
                             }
 
-                            if (player.getLocation().getBlock().isLiquid()) {
+                            if (UtilBlock.isInLiquid(player)) {
                                 iterator.remove();
                                 continue;
                             }

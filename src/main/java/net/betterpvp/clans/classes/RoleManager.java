@@ -87,7 +87,7 @@ public class RoleManager extends BPVPListener<Clans> {
 
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null){
-                if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s instanceof ChannelSkill)){
+                if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)){
                     player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                 }
             }

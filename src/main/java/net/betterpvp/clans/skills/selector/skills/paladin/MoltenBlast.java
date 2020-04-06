@@ -12,11 +12,13 @@ import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.LargeFireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 import java.util.ArrayList;
@@ -149,6 +151,14 @@ public class MoltenBlast extends Skill {
         }
 
 
+    }
+
+    @EventHandler
+    public void onExplode(EntityExplodeEvent e){
+        if(e.getEntity() instanceof LargeFireball){
+
+            e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 2.0f, 1.0f);
+        }
     }
 
 

@@ -13,11 +13,10 @@ public class ShopVillager extends EntityVillager {
     public ShopVillager(World world) {
         super(EntityTypes.VILLAGER, world);
         goalSelector.a(0, new PathfinderGoalFloat(this));
-        goalSelector.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.6D));
+        goalSelector.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.0D));
         goalSelector.a(9, new PathfinderGoalInteract(this, EntityHuman.class, 3.0F, 1.0F));
         goalSelector.a(9, new PathfinderGoalInteract(this, EntityVillager.class, 5.0F, 0.02F));
-        goalSelector.a(9, new PathfinderGoalRandomStroll(this, 0.6D));
-        goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
+        goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 16.0F));
 
 
     }
@@ -34,7 +33,16 @@ public class ShopVillager extends EntityVillager {
     }
 
     @Override
-    public void setPosition(double d0, double d1, double d2) {return;}
+    protected void initPathfinder() {
+
+        return;
+    }
+
+    @Override
+    public void a(NBTTagCompound nbttagcompound){return;};
+
+    @Override
+    public void setVillagerData(VillagerData villagerdata) {return;}
 
     @Override
     public void collide(Entity entity) {
@@ -42,12 +50,21 @@ public class ShopVillager extends EntityVillager {
     }
 
     @Override
+    public void h(double d0, double d1, double d2) { return;}
+
+
+    @Override
     public boolean damageEntity(DamageSource damagesource, float f) {
         return false;
     }
 
     @Override
-    public void h(double d0, double d1, double d2){return;}
+    public void f(double d0, double d1, double d2){return;}
+
+    @Override
+    public boolean a(double d0, double d1, double d2, boolean flag) {
+        return false;
+    }
 
     @Override
     protected SoundEffect getSoundAmbient() {

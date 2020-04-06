@@ -17,10 +17,7 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.minecraft.server.v1_15_R1.EntityPlayer;
 import net.minecraft.server.v1_15_R1.PacketPlayOutAnimation;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
@@ -33,6 +30,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 
 public class InteractListener extends BPVPListener<Clans> {
@@ -238,8 +236,7 @@ public class InteractListener extends BPVPListener<Clans> {
                         return;
                     }
 
-                    if (ClanUtilities.getRelation(clan, bClan) == ClanRelation.ALLY_TRUST && (block.getType() == Material.LEGACY_IRON_DOOR_BLOCK
-                            || block.getType() == Material.IRON_DOOR
+                    if (ClanUtilities.getRelation(clan, bClan) == ClanRelation.ALLY_TRUST && ( block.getType() == Material.IRON_DOOR
                             || block.getType() == Material.IRON_TRAPDOOR
                             || block.getType().name().contains("_BUTTON")
                             || block.getType() == Material.LEVER)) {
@@ -293,7 +290,9 @@ public class InteractListener extends BPVPListener<Clans> {
     @EventHandler
     public void onDoorInteract(PlayerInteractEvent e) {
 
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND){
+            return;
+        }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (ClanUtilities.hasAccess(e.getPlayer(), e.getClickedBlock().getLocation())
                     || ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
@@ -312,7 +311,10 @@ public class InteractListener extends BPVPListener<Clans> {
                         block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
 
+                    Bukkit.broadcastMessage("test1");
+
                     block.setBlockData(doorData);
+                    block.getState().update();
 
 
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
@@ -333,7 +335,11 @@ public class InteractListener extends BPVPListener<Clans> {
                         block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
 
+                    Bukkit.broadcastMessage("test2");
+
                     block.setBlockData(doorData);
+                    block.getState().update(true);
+                    block.getState().update();
 
                     //Bukkit.broadcastMessage(block.getData() + "");
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();

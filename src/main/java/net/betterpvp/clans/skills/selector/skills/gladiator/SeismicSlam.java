@@ -12,14 +12,12 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.*;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -146,9 +144,10 @@ public class SeismicSlam extends Skill {
                         if ((b.getLocation().getBlockY() == loc.getBlockY() - 1) &&
                                 (b.getType() != Material.AIR) && (!b.getType().name().contains("WALL_SIGN") && (b.getType() != Material.CHEST) && (b.getType() != Material.DROPPER) && (b.getType() != Material.TRAPPED_CHEST) && (b.getType() != Material.STONE_PRESSURE_PLATE) && (b.getType() != Material.OAK_PRESSURE_PLATE)
                                 && (!b.getType().name().contains("WALL_BANNER")) && (!b.getType().name().contains("_BANNER")) && (b.getType() != Material.WHEAT) && (b.getType() != Material.FERN)
-                                && (!b.getType().name().contains("SAPLING")) && (b.getType() != Material.DEAD_BUSH) && (!b.getType().name().toLowerCase().contains("fence")) && (b.getType() != Material.ALLIUM) && (b.getType() != Material.RED_MUSHROOM) && (b.getType() != Material.BROWN_MUSHROOM) && (b.getType() != Material.TORCH) && (b.getType() != Material.LADDER) && (b.getType() != Material.VINE) && (b.getType() != Material.LARGE_FERN) && (b.getType() != Material.NETHER_PORTAL) && (b.getType() != Material.CACTUS) && (b.getType() != Material.WATER)  && (b.getType() != Material.LAVA)  &&
-                                (b.getType().getId() != 43) && (b.getType().getId() != 44) && (b.getRelative(BlockFace.UP).getType() == Material.AIR) && !b.isLiquid())) {
-                            FallingBlock fb = loc.getWorld().spawnFallingBlock(b.getLocation().clone().add(0.0D, 1.1, 0.0D), b.getType(), b.getData());
+                                && (!b.getType().name().contains("SAPLING")) && (b.getType() != Material.DEAD_BUSH) && (!b.getType().name().toLowerCase().contains("fence")) && (b.getType() != Material.ALLIUM) && (b.getType() != Material.RED_MUSHROOM) && (b.getType() != Material.BROWN_MUSHROOM)
+                                && (b.getType() != Material.TORCH) && (b.getType() != Material.LADDER) && (b.getType() != Material.VINE) && (b.getType() != Material.LARGE_FERN) && (b.getType() != Material.NETHER_PORTAL) && (b.getType() != Material.CACTUS) && (b.getType() != Material.WATER)  && (b.getType() != Material.LAVA)
+                                && (!b.getType().name().contains("SLAB")) && (b.getRelative(BlockFace.UP).getType() == Material.AIR) && !b.isLiquid())) {
+                            FallingBlock fb = loc.getWorld().spawnFallingBlock(b.getLocation().clone().add(0.0D, 1.1, 0.0D), Bukkit.createBlockData(b.getType()));
                             blocks.add(b.getLocation());
                             lastSlam.put(b.getLocation().getChunk(), System.currentTimeMillis());
                             fb.setVelocity(new Vector(0.0F, 0.3F, 0.0F));
@@ -157,7 +156,6 @@ public class SeismicSlam extends Skill {
                         }
                     }
                 }
-
 
                 for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), 4)) {
                     if (ent.equals(p)) continue;

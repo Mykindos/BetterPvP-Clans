@@ -74,7 +74,7 @@ public class Rupture extends Skill {
         final Vector v = p.getLocation().getDirection().normalize().multiply(0.3D);
         v.setY(0);
         final Location loc = p.getLocation().subtract(0.0D, 1.0D, 0.0D).add(v);
-        cooldownJump.put(p, new ArrayList<LivingEntity>());
+        cooldownJump.put(p, new ArrayList<>());
         final BukkitTask runnable = new BukkitRunnable() {
 
             @SuppressWarnings("deprecation")
@@ -94,7 +94,7 @@ public class Rupture extends Skill {
 
                 }
                 if ((loc.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.AIR) &&
-                        (loc.clone().getBlock().getType().getId() != 43) && (loc.clone().getBlock().getType().getId() != 44)) {
+                        (loc.clone().getBlock().getType().name().contains("STEP"))) {
                     loc.add(0.0D, -1.0D, 0.0D);
                 }
 
@@ -104,15 +104,17 @@ public class Rupture extends Skill {
                     as.setInvisible(true);
                     as.setSmall(true);
                     //as.setGravity(true);
-
+                    as.setNoGravity(false);
                     as.setArms(true);
                     as.setHeadPose(new Vector3f(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
                     loc.add(v);
-                    p.getWorld().playEffect(loc, Effect.STEP_SOUND, 174);
+                    p.getWorld().playEffect(loc, Effect.STEP_SOUND, Material.PACKED_ICE);
                     as.setLocation(loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75,
                             loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D), 0.0F, 0.0F);
                     for (Player player : p.getWorld().getPlayers()) {
+
                         UtilPacket.send(player, new PacketPlayOutSpawnEntityLiving(as));
+                        UtilPacket.send(player, new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false));
                         UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
 
                     }

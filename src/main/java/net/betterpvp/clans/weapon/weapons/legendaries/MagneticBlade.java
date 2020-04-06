@@ -7,6 +7,7 @@ import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
@@ -60,7 +61,7 @@ public class MagneticBlade extends Weapon implements ChannelWeapon {
             if (player.getInventory().getItemInMainHand() == null) return;
             if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
             if (WeaponManager.isWeapon(player.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(player.getInventory().getItemInMainHand()).equals(this)) {
-                if (player.getLocation().getBlock().isLiquid()) {
+                if (UtilBlock.isInLiquid(player)) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + getName() + ChatColor.GRAY + " in water.");
                     return;
                 }

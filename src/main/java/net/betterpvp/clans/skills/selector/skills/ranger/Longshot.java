@@ -44,7 +44,7 @@ public class Longshot extends Skill {
         return new String[]{
                 "Shoot an arrow that gains additional",
                 "damage the further the target hit is",
-                "Caps out at " + ChatColor.GREEN + (13 + level) + ChatColor.GRAY + " damage",
+                "Caps out at " + ChatColor.GREEN + (16 + level) + ChatColor.GRAY + " damage",
                 "Cannot be used in own territory"};
     }
 

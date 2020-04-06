@@ -28,6 +28,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import static org.bukkit.Material.MUSIC_DISC_11;
+
 public class ShopListener extends BPVPListener<Clans> {
 
     public ShopListener(Clans i) {
@@ -213,7 +215,7 @@ public class ShopListener extends BPVPListener<Clans> {
                 }
             } else {
                 if (QuestPerkManager.hasPerk(p, "5% Shop Discount")) {
-                    if (k.getType().getId() != 2257 && k.getType().getId() != 2256 && k.getType().getId() != 2266) {
+                    if (k.getType() != Material.MUSIC_DISC_13 && k.getType() != MUSIC_DISC_11 && k.getType() != Material.MUSIC_DISC_WAIT) {
                         cost = cost * 0.95;
                     }
                 }

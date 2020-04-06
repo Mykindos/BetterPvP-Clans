@@ -58,6 +58,7 @@ public class StrengthInNumbers extends Skill {
     public void activateSkill(Player p) {
         UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
         p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1.0F, 2.0F);
+        EffectManager.addEffect(p, EffectType.STRENGTH, 1, (2 + getLevel(p)) * 1000);
 
         for (Player d : UtilPlayer.getInRadius(p.getLocation(), 10)) {
             if (d.equals(p)) continue;

@@ -14,11 +14,10 @@ import java.sql.SQLException;
 public class ShopRepository implements Repository<Clans> {
 
     public static final String TABLE_NAME = "clans_shops";
-    
+
     private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
             "  `Store` varchar(255)," +
-            "  `ItemID` int(5)," +
-            "  `Data` int(5)," +
+            "  `Material` VARCHAR(255)," +
             "  `Slot` int(5)," +
             "  `Amount` int(5)," +
             "  `BuyPrice` int(255)," +
@@ -65,6 +64,9 @@ public class ShopRepository implements Repository<Clans> {
                     while (result.next()) {
                         String store = result.getString(1);
                         Material mat = Material.getMaterial(result.getString(2));
+                        if(mat == null){
+                            System.out.println("Failed to load shop item " + result.getString(2));
+                        }
                         byte data = (byte) result.getInt(3);
                         int slot = result.getInt(4);
                         int amount = result.getInt(5);
@@ -94,7 +96,6 @@ public class ShopRepository implements Repository<Clans> {
 
 
                     Log.debug("MySQL", "Loaded " + count + " Shop Items");
-                    ShopKeeperRepository.loadShopKeepers(clans);
 
                 } catch (SQLException ex) {
                     Log.debug("Connection", "Could not load Shops (Connection Error), ");

@@ -79,8 +79,7 @@ public class Sever extends Skill {
                     if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (active.contains(p.getUniqueId())) {
                             Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
-                            if (w == null) return;
-                            if (w.isLegendary()) return;
+                            if (w != null && w.isLegendary()) return;
 
 
                             int level = getLevel(p);

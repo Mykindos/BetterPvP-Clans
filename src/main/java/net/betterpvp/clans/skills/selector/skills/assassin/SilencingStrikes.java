@@ -54,9 +54,9 @@ public class SilencingStrikes extends Skill {
                             data.add(new SilencingStrikesData(p.getUniqueId(), ent.getUniqueId(), 0));
                         }
 
-                        if (Polymorph.polymorphed.containsKey(p)) {
-                            return;
-                        }
+                        //if (Polymorph.polymorphed.containsKey(p)) {
+                       //     return;
+                       // }
 
                         SilencingStrikesData d = getSilencingStrikesData(p, ent);
                         d.addCount();

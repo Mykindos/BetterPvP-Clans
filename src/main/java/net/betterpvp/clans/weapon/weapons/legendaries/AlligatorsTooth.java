@@ -7,6 +7,8 @@ import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
 import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
@@ -55,7 +57,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon {
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(player)) {
-                if (!player.getLocation().getBlock().isLiquid()) {
+                if (!UtilBlock.isInLiquid(player)) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Alligator Rush" + ChatColor.GRAY + " out of water.");
                     return;
                 }
@@ -84,14 +86,13 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon {
 
                             active.remove(player.getName());
 
-                        } else if (!player.getLocation().getBlock().isLiquid()) {
+                        } else if (!UtilBlock.isInLiquid(player)) {
                             active.remove(player.getName());
                             UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Alligator Rush" + ChatColor.GRAY + " out of water.");
-                        } else if (Polymorph.polymorphed.containsKey(player)) {
-                            active.remove(player.getName());
                         } else {
                             UtilVelocity.velocity(player, 1.0D, 0.11D, 1.0D, true);
-                            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 8);
+                            ParticleEffect.WATER_WAKE.display(player.getLocation());
+                           // player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.WATER);
                             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FISH_SWIM, 0.8F, 1.5F);
                         }
                     } else {

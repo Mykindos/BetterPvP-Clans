@@ -13,10 +13,12 @@ import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.particles.data.color.ParticleColor;
 import net.betterpvp.core.particles.data.color.RegularColor;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
 import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +27,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -70,13 +73,15 @@ public class WindBlade extends Weapon implements ChannelWeapon {
     public void onWindRiderUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
+
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
 
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(player)) {
-                if (player.getLocation().getBlock().isLiquid()) {
+                if (UtilBlock.isInLiquid(player)) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Wind Rider" + ChatColor.GRAY + " in water.");
                     return;
                 }
@@ -122,7 +127,7 @@ public class WindBlade extends Weapon implements ChannelWeapon {
                     if (player.isHandRaised()
                             && player.getInventory().getItemInMainHand().getType() != Material.BOW) { // .ct() for 1.9.4
 
-                        if (player.getLocation().getBlock().isLiquid()) {
+                        if (UtilBlock.isInLiquid(player)) {
                             UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Wind Rider" + ChatColor.GRAY + " in water.");
                             active.remove(player.getName());
 
@@ -137,13 +142,16 @@ public class WindBlade extends Weapon implements ChannelWeapon {
 
                             UtilVelocity.velocity(player, 0.6D, 0.11D, 1.0D, true);
                             //player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
-                            ParticleEffect.SMOKE_NORMAL.display(player.getLocation(), new RegularColor(255, 255, 255));
+                            ParticleEffect.FIREWORKS_SPARK.display(player.getLocation());
+                            player.getWorld().spawnEntity(player.getLocation(), EntityType.LLAMA_SPIT);
                             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 0.5F, 1.5F);
                         }
                     } else {
-                        if (UtilTime.elapsed(wait.get(player), 500)) {
-                            active.remove(player.getName());
-                            wait.remove(player);
+                        if(wait.containsKey(player)) {
+                            if (UtilTime.elapsed(wait.get(player), 500)) {
+                                active.remove(player.getName());
+                                wait.remove(player);
+                            }
                         }
                     }
                 }

@@ -48,6 +48,7 @@ public class SmokeBomb extends Skill {
         Player p = e.getPlayer();
         if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
             if (hasSkill(p, this)) {
+
                 e.setCancelled(true);
                 if (usageCheck(p)) {
                     if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {

@@ -9,7 +9,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 public class BossSpider extends EntitySpider {
 
     public BossSpider(World world) {
-        super(EntityTypes.CAVE_SPIDER, world);
+        super(EntityTypes.SPIDER, world);
         this.goalSelector.a(1, new PathfinderGoalFloat(this));
         this.goalSelector.a(3, new PathfinderGoalLeapAtTarget(this, 0.4F));
         this.goalSelector.a(4, new PathfinderGoalMeleeAttack(this, 1.0D, false));

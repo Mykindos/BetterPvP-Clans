@@ -6,6 +6,7 @@ import net.betterpvp.clans.classes.events.RegenerateEnergyEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -72,10 +73,8 @@ public class Energy extends BPVPListener<Clans> {
         }
         double energy = 0.006D;
 
-        if (cur.isSprinting() || cur.getLocation().getBlock().isLiquid()) {
+        if (cur.isSprinting() || UtilBlock.isInLiquid(cur)) {
             energy = 0.0008D;
-
-
         }
 
         Bukkit.getPluginManager().callEvent(new RegenerateEnergyEvent(cur, energy));

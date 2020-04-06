@@ -180,7 +180,7 @@ public class Barrage extends Skill {
                                 continue;
                             }
 
-                            if (player.getLocation().getBlock().isLiquid()) {
+                            if (UtilBlock.isInLiquid(player)) {
                                 iterator.remove();
                                 continue;
                             }

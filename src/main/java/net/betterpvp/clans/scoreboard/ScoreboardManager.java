@@ -276,7 +276,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
 
                 for(String entry : team.getEntries()){
                     Player player = Bukkit.getPlayer(entry);
-                    if(entry != null){
+                    if(player != null){
                         addNone(s, player.getName());
                     }
 

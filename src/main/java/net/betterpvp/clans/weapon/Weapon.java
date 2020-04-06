@@ -98,8 +98,10 @@ public class Weapon implements Listener {
     }
 
     public ItemStack createWeaponNoGlow() {
-        @SuppressWarnings("deprecation")
-        ItemStack item = new ItemStack(getMaterial(), 1, (short) 0, getData());
+
+
+                System.out.println(getMaterial().name());
+        ItemStack item = new ItemStack(getMaterial(), 1);
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
