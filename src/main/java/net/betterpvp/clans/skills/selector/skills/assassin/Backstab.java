@@ -65,11 +65,6 @@ public class Backstab extends Skill {
         }
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

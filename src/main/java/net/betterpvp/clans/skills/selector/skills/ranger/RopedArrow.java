@@ -3,8 +3,10 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -27,7 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.UUID;
 
-public class RopedArrow extends Skill {
+public class RopedArrow extends Skill implements InteractSkill {
 
     private HashSet<Arrow> arrows = new HashSet<>();
     private HashSet<UUID> roped = new HashSet<>();
@@ -58,12 +60,6 @@ public class RopedArrow extends Skill {
         }
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        roped.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -161,4 +157,10 @@ public class RopedArrow extends Skill {
     }
 
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        roped.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+    }
 }

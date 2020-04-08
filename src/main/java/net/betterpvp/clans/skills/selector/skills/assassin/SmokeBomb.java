@@ -9,8 +9,10 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.particles.ParticleEffect;
@@ -32,7 +34,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 
-public class SmokeBomb extends Skill {
+public class SmokeBomb extends Skill implements ToggleSkill {
 
     public SmokeBomb(Clans i) {
         super(i, "Smoke Bomb", "Assassin", getSwordsAndAxes,
@@ -42,47 +44,6 @@ public class SmokeBomb extends Skill {
 
     //private WeakHashMap<Player, Long> timer = new WeakHashMap<>();
     private WeakHashMap<Player, Integer> smoked = new WeakHashMap<>();
-
-    @EventHandler
-    public void onActive(PlayerDropItemEvent e) {
-        Player p = e.getPlayer();
-        if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-            if (hasSkill(p, this)) {
-
-                e.setCancelled(true);
-                if (usageCheck(p)) {
-                    if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
-
-                        p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
-                        EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
-                        smoked.put(p, (3 + getLevel(p)) * 2);
-                        //timer.put(p, System.currentTimeMillis());
-                        for (Player player : Bukkit.getOnlinePlayers()) {
-                            player.hidePlayer(p);
-                        }
-                        UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
-
-
-                        for (int i = 0; i < 3; i++) {
-
-                            p.getWorld().playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2.0F, 0.5F);
-                        }
-
-                        ParticleEffect.EXPLOSION_HUGE.display(p.getLocation());
-
-                        for (Player d : UtilPlayer.getInRadius(p.getLocation(), 2.5)) {
-                            if (d == p) continue;
-                            if (ClanUtilities.canHurt(p, d)) {
-                                d.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 35, 1));
-                            }
-                        }
-                    }
-
-
-                }
-            }
-        }
-    }
 
     @EventHandler
     public void preventSmokeDamage(CustomDamageEvent e) {
@@ -207,13 +168,6 @@ public class SmokeBomb extends Skill {
                 "Energy: " + ChatColor.GREEN + getEnergy(level)};
     }
 
-
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
-
     @Override
     public boolean usageCheck(Player player) {
 
@@ -268,4 +222,33 @@ public class SmokeBomb extends Skill {
     }
 
 
+    @Override
+    public void activateToggle(Player p, Gamer gamer) {
+        if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
+
+            p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
+            EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
+            smoked.put(p, (3 + getLevel(p)) * 2);
+            //timer.put(p, System.currentTimeMillis());
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.hidePlayer(p);
+            }
+            UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
+
+
+            for (int i = 0; i < 3; i++) {
+
+                p.getWorld().playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2.0F, 0.5F);
+            }
+
+            ParticleEffect.EXPLOSION_HUGE.display(p.getLocation());
+
+            for (Player d : UtilPlayer.getInRadius(p.getLocation(), 2.5)) {
+                if (d == p) continue;
+                if (ClanUtilities.canHurt(p, d)) {
+                    d.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 35, 1));
+                }
+            }
+        }
+    }
 }

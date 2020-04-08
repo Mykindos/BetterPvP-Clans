@@ -4,10 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -23,14 +24,14 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
 
-public class ArcticArmour extends Skill {
+public class ArcticArmour extends Skill implements ToggleSkill {
 
     private Set<UUID> active = new HashSet<>();
 
@@ -57,29 +58,27 @@ public class ArcticArmour extends Skill {
         };
     }
 
+
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
+    public void onSwap(PlayerSwapHandItemsEvent e) {
         Player p = e.getPlayer();
-        if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+        Role role = Role.getRole(p);
+        if (role != null && role.getName().equals(getClassType())) {
             if (hasSkill(p, this)) {
-                if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-
-                    e.setCancelled(true);
-
-                    if (active.contains(p.getUniqueId())) {
-                        active.remove(p.getUniqueId());
-                        UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.RED + "Off");
-                    } else {
-                        if (ClanUtilities.canCast(p)) {
-                            active.add(p.getUniqueId());
-                            UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.GREEN + "On");
-                        }
-                    }
+                if (Arrays.asList(getMaterials()).contains(e.getMainHandItem().getType())) {
+                    activate(p);
                 }
             }
-
         }
     }
+
+
+
+    private void activate(Player p){
+
+    }
+
+
 
     @EventHandler
     public void audio(UpdateEvent event) {
@@ -135,8 +134,9 @@ public class ArcticArmour extends Skill {
                     }
                     for (Block block : blocks.keySet()) {
                         if (block.getLocation().getY() <= cur.getLocation().getY()) {
-                            if (block.getRelative(BlockFace.DOWN).getType() != Material.SNOW && UtilBlock.isGrounded(cur)
-                                    && block.getRelative(BlockFace.DOWN).getType() != Material.AIR && UtilBlock.solid(block)) {
+                            Block relDown = block.getRelative(BlockFace.DOWN);
+                            if (relDown.getType() != Material.SNOW && UtilBlock.isGrounded(cur)
+                                    && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)) {
                                 if (block.getType() == Material.AIR) {
                                     new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
                                     block.setType(Material.SNOW);
@@ -161,15 +161,9 @@ public class ArcticArmour extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
 
-        return false;
+        return true;
     }
 
     @Override
@@ -185,4 +179,16 @@ public class ArcticArmour extends Skill {
     }
 
 
+    @Override
+    public void activateToggle(Player p, Gamer gamer) {
+        if (active.contains(p.getUniqueId())) {
+            active.remove(p.getUniqueId());
+            UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.RED + "Off");
+        } else {
+            if (ClanUtilities.canCast(p)) {
+                active.add(p.getUniqueId());
+                UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.GREEN + "On");
+            }
+        }
+    }
 }

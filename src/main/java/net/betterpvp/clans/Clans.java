@@ -39,6 +39,7 @@ import net.betterpvp.clans.recipes.CustomRecipe;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
 import net.betterpvp.clans.skills.selector.SelectorManager;
+import net.betterpvp.clans.skills.selector.SkillListener;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
@@ -100,6 +101,7 @@ public class Clans extends JavaPlugin implements Listener {
 
         startTimers();
 
+        new SkillListener(this);
         new SelectorManager(this);
         new DamageManager(this);
         new RoleManager(this);

@@ -104,12 +104,6 @@ public class Bloodlust extends Skill {
     }
 
     @Override
-    public void activateSkill(Player p) {
-
-
-    }
-
-    @Override
     public boolean usageCheck(Player p) {
 
         return false;

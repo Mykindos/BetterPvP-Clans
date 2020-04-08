@@ -3,8 +3,10 @@ package net.betterpvp.clans.skills.selector.skills.assassin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -31,7 +33,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Evade extends ChannelSkill {
+public class Evade extends ChannelSkill implements InteractSkill {
 
     private Set<Player> evading = new HashSet<>();
     private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
@@ -87,17 +89,6 @@ public class Evade extends ChannelSkill {
 
         return Types.SWORD;
     }
-
-    @Override
-    public void activateSkill(Player p) {
-        if (!evading.contains(p)) {
-
-            evading.add(p);
-            gap.put(p, System.currentTimeMillis());
-
-        }
-    }
-
 
     @Override
     public boolean usageCheck(Player player) {
@@ -314,4 +305,13 @@ public class Evade extends ChannelSkill {
     }
 
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!evading.contains(player)) {
+
+            evading.add(player);
+            gap.put(player, System.currentTimeMillis());
+
+        }
+    }
 }

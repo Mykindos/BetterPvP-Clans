@@ -7,8 +7,10 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -27,7 +29,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Swarm extends ChannelSkill {
+public class Swarm extends ChannelSkill implements InteractSkill {
 
     private WeakHashMap<Player, Long> batCD = new WeakHashMap<>();
     private WeakHashMap<Player, ArrayList<BatData>> batData = new WeakHashMap<>();
@@ -72,20 +74,6 @@ public class Swarm extends ChannelSkill {
         return 10 - ((level - 1) * 1);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            if (Energy.use(p, getName(), 5.0, false)) {
-                if (!current.contains(p.getUniqueId())) {
-                    current.add(p.getUniqueId());
-                    if (!batData.containsKey(p)) {
-                        batData.put(p, new ArrayList<>());
-                    }
-                }
-            }
-
-        }
-    }
 
     public boolean hitPlayer(Location loc, LivingEntity player) {
         if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation()
@@ -238,6 +226,16 @@ public class Swarm extends ChannelSkill {
     public boolean usageCheck(Player p) {
 
         return true;
+    }
+
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (!current.contains(p.getUniqueId())) {
+            current.add(p.getUniqueId());
+            if (!batData.containsKey(p)) {
+                batData.put(p, new ArrayList<>());
+            }
+        }
     }
 
 

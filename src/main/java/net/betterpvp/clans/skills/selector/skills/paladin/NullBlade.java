@@ -67,11 +67,6 @@ public class NullBlade extends Skill {
         return 7 + ((level - 1) * 2);
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

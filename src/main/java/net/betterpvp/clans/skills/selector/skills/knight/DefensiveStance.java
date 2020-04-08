@@ -5,8 +5,10 @@ import net.betterpvp.clans.classes.DamageManager;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -28,7 +30,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-public class DefensiveStance extends ChannelSkill {
+public class DefensiveStance extends ChannelSkill implements InteractSkill {
 
     private Set<UUID> active = new HashSet<>();
     private WeakHashMap<Player, Long> gap = new WeakHashMap<>();
@@ -60,18 +62,6 @@ public class DefensiveStance extends ChannelSkill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            if (!active.contains(p.getUniqueId())) {
-                if (Energy.use(p, getName(), 5, true)) {
-                    active.add(p.getUniqueId());
-                    gap.put(p, System.currentTimeMillis());
-                }
-            }
-        }
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -167,4 +157,13 @@ public class DefensiveStance extends ChannelSkill {
         return (float) 7 - ((level - 1));
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (!active.contains(p.getUniqueId())) {
+            if (Energy.use(p, getName(), 5, true)) {
+                active.add(p.getUniqueId());
+                gap.put(p, System.currentTimeMillis());
+            }
+        }
+    }
 }

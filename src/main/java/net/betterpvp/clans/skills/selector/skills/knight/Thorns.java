@@ -52,11 +52,6 @@ public class Thorns extends Skill {
         return 0;
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {

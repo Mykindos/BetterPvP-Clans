@@ -2,7 +2,9 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -12,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class DefenseAura extends Skill {
+public class DefenseAura extends Skill implements InteractSkill {
 
 
     public DefenseAura(Clans i) {
@@ -40,21 +42,7 @@ public class DefenseAura extends Skill {
         return Types.AXE;
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (usageCheck(p)) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 1));
-            int level = getLevel(p);
-            for (Player cur : UtilPlayer.getNearby(p.getLocation(), (6 + level))) {
-                if (!ClanUtilities.canHurt(p, cur)) {
-                    cur.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 0));
-                    cur.setHealth(Math.min(cur.getHealth() + 6, cur.getMaxHealth()));
-                }
-            }
 
-        }
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -78,4 +66,15 @@ public class DefenseAura extends Skill {
         return 30 - ((level - 1) * 2);
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 1));
+        int level = getLevel(p);
+        for (Player cur : UtilPlayer.getNearby(p.getLocation(), (6 + level))) {
+            if (!ClanUtilities.canHurt(p, cur)) {
+                cur.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 0));
+                cur.setHealth(Math.min(cur.getHealth() + 6, cur.getMaxHealth()));
+            }
+        }
+    }
 }

@@ -5,8 +5,10 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -24,7 +26,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleTaunt extends ChannelSkill {
+public class BattleTaunt extends ChannelSkill implements InteractSkill {
 
     private List<String> active = new ArrayList<String>();
 
@@ -92,15 +94,6 @@ public class BattleTaunt extends ChannelSkill {
         }
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            if (!active.contains(p.getName())) {
-                active.add(p.getName());
-            }
-        }
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {
@@ -137,4 +130,12 @@ public class BattleTaunt extends ChannelSkill {
         return 15 - ((level - 1));
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (hasSkill(p, this)) {
+            if (!active.contains(p.getName())) {
+                active.add(p.getName());
+            }
+        }
+    }
 }

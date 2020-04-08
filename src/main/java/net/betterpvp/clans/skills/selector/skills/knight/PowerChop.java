@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
@@ -20,7 +22,7 @@ import java.util.Arrays;
 import java.util.WeakHashMap;
 
 
-public class PowerChop extends Skill {
+public class PowerChop extends Skill implements InteractSkill {
 
     private WeakHashMap<Player, Long> charge = new WeakHashMap<>();
 
@@ -63,11 +65,6 @@ public class PowerChop extends Skill {
         return 25 - ((level - 1) * 2);
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        charge.put(player, System.currentTimeMillis());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-    }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(CustomDamageEvent e) {
@@ -105,4 +102,9 @@ public class PowerChop extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        charge.put(player, System.currentTimeMillis());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+    }
 }

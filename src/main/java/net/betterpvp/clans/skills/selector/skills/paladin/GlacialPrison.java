@@ -1,8 +1,12 @@
 package net.betterpvp.clans.skills.selector.skills.paladin;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class GlacialPrison extends Skill {
+public class GlacialPrison extends Skill implements InteractSkill {
 
     public GlacialPrison(Clans i) {
         super(i, "Glacial Prison", "Paladin", getSwords, rightClick, 5, true, true);
@@ -72,14 +76,6 @@ public class GlacialPrison extends Skill {
 
     private List<Item> items = new ArrayList<>();
 
-    @Override
-    public void activateSkill(Player p) {
-        Item item = p.getWorld().dropItem(p.getEyeLocation(), new ItemStack(Material.ICE, 1, (byte) 15));
-        item.setPickupDelay(Integer.MAX_VALUE);
-        item.setVelocity(p.getLocation().getDirection().multiply(1.3));
-        items.add(item);
-
-    }
 
     @EventHandler
     public void onUpdate(UpdateEvent e) {
@@ -104,8 +100,18 @@ public class GlacialPrison extends Skill {
 
     @Override
     public boolean usageCheck(Player p) {
-
+        if(UtilBlock.isInLiquid(p)){
+            UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
+        }
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        Item item = p.getWorld().dropItem(p.getEyeLocation(), new ItemStack(Material.ICE, 1, (byte) 15));
+        item.setPickupDelay(Integer.MAX_VALUE);
+        item.setVelocity(p.getLocation().getDirection().multiply(1.3));
+        items.add(item);
+    }
 }

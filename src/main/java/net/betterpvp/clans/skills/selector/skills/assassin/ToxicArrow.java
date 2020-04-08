@@ -4,8 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -22,7 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-public class ToxicArrow extends Skill {
+public class ToxicArrow extends Skill implements InteractSkill {
 
     private List<Arrow> arrows = new ArrayList<>();
     private Set<UUID> active = new HashSet<>();
@@ -68,15 +70,6 @@ public class ToxicArrow extends Skill {
     public float getEnergy(int level) {
 
         return 30 - ((level - 1) * 2);
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        if (!active.contains(player.getUniqueId())) {
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
-            active.add(player.getUniqueId());
-        }
     }
 
     @EventHandler
@@ -143,4 +136,12 @@ public class ToxicArrow extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+        if (!active.contains(player.getUniqueId())) {
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+            active.add(player.getUniqueId());
+        }
+    }
 }

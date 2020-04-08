@@ -2,23 +2,23 @@ package net.betterpvp.clans.skills.selector.skills.assassin;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-public class Leap extends Skill {
+public class Leap extends Skill implements InteractSkill {
 
     public Leap(Clans i) {
         super(i, "Leap", "Assassin",
@@ -40,28 +40,25 @@ public class Leap extends Skill {
     }
 
     public void DoLeap(Player player, boolean wallkick) {
-        if (ClanUtilities.canCast(player)) {
-            if (!wallkick) {
-                UtilVelocity.velocity(player, 1.3D, 0.2D, 1.0D, true);
-                UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
-            } else {
-                Vector vec = player.getLocation().getDirection();
-                vec.setY(0);
-                UtilVelocity.velocity(player, vec, 0.9D, false, 0.0D, 0.8D, 2.0D, true);
-                UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + "Wall Kick" + ChatColor.GRAY + ".");
-            }
 
-
-            player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 2.0F, 1.2F);
+        if (!wallkick) {
+            UtilVelocity.velocity(player, 1.3D, 0.2D, 1.0D, true);
+            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
+        } else {
+            Vector vec = player.getLocation().getDirection();
+            vec.setY(0);
+            UtilVelocity.velocity(player, vec, 0.9D, false, 0.0D, 0.8D, 2.0D, true);
+            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + "Wall Kick" + ChatColor.GRAY + ".");
         }
+
+        player.getWorld().spawnEntity(player.getLocation(), EntityType.LLAMA_SPIT);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 2.0F, 1.2F);
     }
 
 
     public boolean wallKick(Player player) {
 
 
-        if (UtilItem.isAxe(player.getInventory().getItemInMainHand().getType())) {
             if (RechargeManager.getInstance().add(player, "Wall Kick", 0.15, false)) {
                 Vector vec = player.getLocation().getDirection();
 
@@ -123,7 +120,7 @@ public class Leap extends Skill {
                     }
                 }
             }
-        }
+
 
         /**
          *
@@ -133,23 +130,7 @@ public class Leap extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-        if (usageCheck(player)) {
-
-
-            if (!wallKick(player)) {
-                DoLeap(player, false);
-            }
-        }
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
-
-        if (!hasSkill(player, this)) {
-            return false;
-        }
 
         if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
@@ -165,10 +146,8 @@ public class Leap extends Skill {
 
     }
 
-
     @Override
     public Types getType() {
-
         return Types.AXE;
     }
 
@@ -183,4 +162,12 @@ public class Leap extends Skill {
         return 20 - (level - 1);
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        Bukkit.broadcastMessage("Activate leap");
+        if (!wallKick(player)) {
+            Bukkit.broadcastMessage("fucking leaping cunttt");
+            DoLeap(player, false);
+        }
+    }
 }

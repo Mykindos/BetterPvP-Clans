@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -33,7 +35,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 
-public class Rupture extends Skill {
+public class Rupture extends Skill implements InteractSkill {
 
 
     private WeakHashMap<Player, ArrayList<LivingEntity>> cooldownJump = new WeakHashMap<>();
@@ -68,8 +70,48 @@ public class Rupture extends Skill {
         return Types.AXE;
     }
 
+
+
+    @EventHandler
+    public void onUpdate(UpdateEvent e) {
+        if (e.getType() == UpdateType.TICK) {
+            Iterator<Entry<EntityArmorStand, Long>> it = stands.entrySet().iterator();
+            while (it.hasNext()) {
+                Entry<EntityArmorStand, Long> next = it.next();
+                if (next.getValue() - System.currentTimeMillis() <= 0) {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        UtilPacket.send(player, new PacketPlayOutEntityDestroy(new int[]{next.getKey().getId()}));
+                    }
+                    it.remove();
+                }
+            }
+        }
+    }
+
     @Override
-    public void activateSkill(final Player p) {
+    public boolean usageCheck(Player player) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+            return false;
+        }
+
+        return ClanUtilities.canCast(player);
+    }
+
+    @Override
+    public double getRecharge(int level) {
+
+        return 14 - ((level - 1) * 1);
+    }
+
+    @Override
+    public float getEnergy(int level) {
+
+        return 30 - ((level - 1) * 2);
+    }
+
+    @Override
+    public void activate(Player p, Gamer gamer) {
         UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
         final Vector v = p.getLocation().getDirection().normalize().multiply(0.3D);
         v.setY(0);
@@ -163,44 +205,4 @@ public class Rupture extends Skill {
         }.runTaskLater(getInstance(), 40);
 
     }
-
-
-    @EventHandler
-    public void onUpdate(UpdateEvent e) {
-        if (e.getType() == UpdateType.TICK) {
-            Iterator<Entry<EntityArmorStand, Long>> it = stands.entrySet().iterator();
-            while (it.hasNext()) {
-                Entry<EntityArmorStand, Long> next = it.next();
-                if (next.getValue() - System.currentTimeMillis() <= 0) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        UtilPacket.send(player, new PacketPlayOutEntityDestroy(new int[]{next.getKey().getId()}));
-                    }
-                    it.remove();
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER ) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
-            return false;
-        }
-
-        return ClanUtilities.canCast(player);
-    }
-
-    @Override
-    public double getRecharge(int level) {
-
-        return 14 - ((level - 1) * 1);
-    }
-
-    @Override
-    public float getEnergy(int level) {
-
-        return 30 - ((level - 1) * 2);
-    }
-
 }

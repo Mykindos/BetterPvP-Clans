@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -25,7 +27,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class OldRiposte extends Skill {
+public class OldRiposte extends Skill implements InteractSkill {
 
     public OldRiposte(Clans i) {
         super(i, "Riposte", "Knight", getSwords, rightClick, 3,
@@ -34,27 +36,6 @@ public class OldRiposte extends Skill {
 
     public HashMap<String, Long> prepare = new HashMap<String, Long>();
     public static HashMap<String, Long> god = new HashMap<String, Long>();
-
-
-    //public long godTime = 30L;
-    public double prepareTime = 1;
-
-    @Override
-    public void activateSkill(final Player player) {
-        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
-        prepare.put(player.getName(), System.currentTimeMillis());
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
-
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
-            public void run() {
-                if (prepare.containsKey(player.getName())) {
-                    UtilMessage.message(player, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-                    player.getWorld().playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2.0f, 1.0f);
-                    prepare.remove(player.getName());
-                }
-            }
-        }, 20);
-    }
 
     @EventHandler
     public void interact(PlayerInteractEntityEvent e) {
@@ -193,4 +174,20 @@ public class OldRiposte extends Skill {
         return 60 - ((level - 1) * 3);
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
+        prepare.put(player.getName(), System.currentTimeMillis());
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
+
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
+            public void run() {
+                if (prepare.containsKey(player.getName())) {
+                    UtilMessage.message(player, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
+                    player.getWorld().playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2.0f, 1.0f);
+                    prepare.remove(player.getName());
+                }
+            }
+        }, 20);
+    }
 }

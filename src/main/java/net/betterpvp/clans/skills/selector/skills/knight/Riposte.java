@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -24,7 +26,7 @@ import java.util.HashSet;
 import java.util.WeakHashMap;
 
 
-public class Riposte extends Skill {
+public class Riposte extends Skill implements InteractSkill {
 
     private WeakHashMap<Player, Long> prepare = new WeakHashMap<>();
     public static WeakHashMap<Player, LivingEntity> block = new WeakHashMap<>();
@@ -38,15 +40,6 @@ public class Riposte extends Skill {
     public long godTime = 30L;
     public double prepareTime = 1;
 
-    @Override
-    public void activateSkill(final Player player) {
-
-        prepare.put(player, System.currentTimeMillis() + 2000L);
-
-
-        UtilMessage.message(player, getClassType(), "You prepared to " + getName() + ".");
-
-    }
 
     @EventHandler(priority = EventPriority.LOW)
     public void onParry(EntityDamageByEntityEvent event) {
@@ -201,4 +194,9 @@ public class Riposte extends Skill {
         return 40;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        prepare.put(player, System.currentTimeMillis() + 2000L);
+        UtilMessage.message(player, getClassType(), "You prepared to " + getName() + ".");
+    }
 }

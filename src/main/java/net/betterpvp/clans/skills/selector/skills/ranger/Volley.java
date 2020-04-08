@@ -4,8 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
@@ -22,7 +24,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class Volley extends Skill {
+public class Volley extends Skill implements InteractSkill {
 
     private Set<UUID> volleys = new HashSet<UUID>();
     private Clans i;
@@ -132,13 +134,6 @@ public class Volley extends Skill {
 
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        volleys.remove(player.getUniqueId());
-        volleys.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You prepared " + getName());
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -161,4 +156,10 @@ public class Volley extends Skill {
         return 30 - ((level - 1) * 3);
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        volleys.remove(player.getUniqueId());
+        volleys.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + getName());
+    }
 }

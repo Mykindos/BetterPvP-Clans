@@ -7,9 +7,11 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
@@ -36,7 +38,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Inferno extends ChannelSkill {
+public class Inferno extends ChannelSkill implements ToggleSkill {
 
     private Set<String> active = new HashSet<String>();
 
@@ -68,12 +70,6 @@ public class Inferno extends ChannelSkill {
     }
 
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            active.add(p.getName());
-        }
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -187,4 +183,8 @@ public class Inferno extends ChannelSkill {
         return 9 - ((level - 1) * 1);
     }
 
+    @Override
+    public void activateToggle(Player player, Gamer gamer) {
+        active.add(player.getName());
+    }
 }

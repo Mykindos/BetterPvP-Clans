@@ -33,12 +33,6 @@ public class Sacrifice extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
 
         return false;

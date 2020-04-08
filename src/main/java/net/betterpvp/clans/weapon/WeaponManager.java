@@ -54,14 +54,14 @@ public class WeaponManager extends BPVPListener<Clans> {
 
         for (Qualities q : Qualities.values()) {
             for (ArmourNames an : ArmourNames.values()) {
-                new EnchantedWeapon(i, an.getMaterial(), (byte) 0, q.getQuality() + ChatColor.YELLOW + an.getName(),
+                addWeapon(new EnchantedWeapon(i, an.getMaterial(), (byte) 0, q.getQuality() + ChatColor.YELLOW + an.getName(),
                         new String[]{ChatColor.WHITE + "Bonus Damage Reduction: " + ChatColor.YELLOW
-                                + (q.getBonus() * 2) + "%"}, q.getBonus() * 2, q.getChance());
+                                + (q.getBonus() * 2) + "%"}, q.getBonus() * 2, q.getChance()));
 
             }
 
-            new EnchantedWeapon(i, Material.IRON_SWORD, (byte) 0, q.getQuality() + ChatColor.YELLOW + "Iron Sword",
-                    new String[]{ChatColor.WHITE + "Damage: " + ChatColor.YELLOW + (5 + q.getBonus())}, q.getBonus(), q.getChance());
+            addWeapon(new EnchantedWeapon(i, Material.IRON_SWORD, (byte) 0, q.getQuality() + ChatColor.YELLOW + "Iron Sword",
+                    new String[]{ChatColor.WHITE + "Damage: " + ChatColor.YELLOW + (5 + q.getBonus())}, q.getBonus(), q.getChance()));
         }
     }
 

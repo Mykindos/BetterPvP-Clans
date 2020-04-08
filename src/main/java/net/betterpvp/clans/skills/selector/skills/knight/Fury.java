@@ -34,11 +34,6 @@ public class Fury extends Skill {
         return Types.PASSIVE_A;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

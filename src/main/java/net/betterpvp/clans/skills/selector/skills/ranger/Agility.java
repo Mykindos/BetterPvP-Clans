@@ -2,7 +2,9 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -23,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Agility extends Skill {
+public class Agility extends Skill implements InteractSkill {
 
     private static Set<UUID> active = new HashSet<>();
 
@@ -70,16 +72,6 @@ public class Agility extends Skill {
         return 40 - ((level - 1) * 2);
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        if (!active.contains(player.getUniqueId())) {
-            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
-            active.add(player.getUniqueId());
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 0));
-        }
-
-    }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void endOnInteract(PlayerInteractEvent event) {
@@ -149,4 +141,13 @@ public class Agility extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!active.contains(player.getUniqueId())) {
+            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
+            active.add(player.getUniqueId());
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 0));
+        }
+    }
 }

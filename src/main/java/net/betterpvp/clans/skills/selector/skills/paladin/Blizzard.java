@@ -3,8 +3,10 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class Blizzard extends ChannelSkill {
+public class Blizzard extends ChannelSkill implements InteractSkill {
 
     private List<String> active = new ArrayList<>();
     private WeakHashMap<Snowball, Player> snow = new WeakHashMap<>();
@@ -65,13 +67,6 @@ public class Blizzard extends ChannelSkill {
         return 9 - ((level - 1) * 1);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (!active.contains(p.getName())) {
-            active.add(p.getName());
-        }
-
-    }
 
     @EventHandler
     public void onHit(CustomDamageEvent e) {
@@ -130,4 +125,10 @@ public class Blizzard extends ChannelSkill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (!active.contains(p.getName())) {
+            active.add(p.getName());
+        }
+    }
 }

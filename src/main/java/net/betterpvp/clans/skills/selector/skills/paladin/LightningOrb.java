@@ -8,7 +8,9 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -26,7 +28,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
-public class LightningOrb extends Skill {
+public class LightningOrb extends Skill implements InteractSkill {
 
     public LightningOrb(Clans i) {
         super(i, "Lightning Orb", "Paladin", getAxes, rightClick, 5, true, true);
@@ -63,17 +65,6 @@ public class LightningOrb extends Skill {
 
         return 30 - (level * 2);
     }
-
-    @Override
-    public void activateSkill(Player p) {
-        Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
-        orb.setVelocity(p.getLocation().getDirection());
-        ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
-
-    }
-
-    //private WeakHashMap<Player, Long> lightningCooldown = new WeakHashMap<>();
-
 
     @EventHandler
     public void onCollide(ThrowableCollideEntityEvent e) {
@@ -149,4 +140,10 @@ public class LightningOrb extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
+        orb.setVelocity(p.getLocation().getDirection());
+        ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
+    }
 }

@@ -1,5 +1,6 @@
 package net.betterpvp.clans.skills.selector.skills;
 
+import javafx.scene.control.Toggle;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
@@ -20,6 +21,7 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -27,7 +29,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Arrays;
@@ -173,12 +177,6 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
      */
     public abstract float getEnergy(int level);
 
-    /**
-     * The method used to perform a skill
-     *
-     * @param p The player casting the skill
-     */
-    public abstract void activateSkill(Player p);
 
     /**
      * Checks if a skill is currently usable
@@ -276,17 +274,18 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
         return false;
     }
 
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSkillActivate(PlayerInteractEvent event) {
 
-
+/*
         Player player = event.getPlayer();
 
         if (player.getInventory().getItemInMainHand() == null) {
             return;
         }
 
-        if(event.getHand() == EquipmentSlot.OFF_HAND){
+        if (event.getHand() == EquipmentSlot.OFF_HAND) {
             return;
         }
 
@@ -303,8 +302,7 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
         } else {
             if (event.getClickedBlock() != null) {
 
-                if (event.getClickedBlock().getType() == Material.IRON_DOOR
-                        || event.getClickedBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK) {
+                if (event.getClickedBlock().getType() == Material.IRON_DOOR) {
                     return;
                 }
             }
@@ -393,6 +391,8 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
                 }
             }
         }
+
+ */
 
     }
 

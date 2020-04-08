@@ -5,7 +5,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -21,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
-public class WolfsFury extends Skill {
+public class WolfsFury extends Skill implements InteractSkill {
 
     public WolfsFury(Clans i) {
         super(i, "Wolfs Fury", "Ranger", getAxes, rightClick, 5, true, true);
@@ -61,14 +63,6 @@ public class WolfsFury extends Skill {
     public float getEnergy(int level) {
 
         return 40 - ((level - 1) * 2);
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.0f, 1.0f);
-        UtilMessage.message(p, getClassType(), "You activated " + ChatColor.GREEN + getName(getLevel(p)));
-        active.put(p, System.currentTimeMillis());
-        EffectManager.addEffect(p, EffectType.STRENGTH, 1, ((3 + getLevel(p)) * 1000));
     }
 
     @EventHandler
@@ -117,4 +111,11 @@ public class WolfsFury extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.0f, 1.0f);
+        UtilMessage.message(p, getClassType(), "You activated " + ChatColor.GREEN + getName(getLevel(p)));
+        active.put(p, System.currentTimeMillis());
+        EffectManager.addEffect(p, EffectType.STRENGTH, 1, ((3 + getLevel(p)) * 1000));
+    }
 }

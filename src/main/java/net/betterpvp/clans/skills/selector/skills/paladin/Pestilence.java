@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData.PestilenceDamageData;
@@ -27,7 +29,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.UUID;
 
-public class Pestilence extends Skill {
+public class Pestilence extends Skill implements InteractSkill {
 
     private List<PestilenceData> data;
     private List<UUID> active;
@@ -36,6 +38,12 @@ public class Pestilence extends Skill {
         super(i, "Pestilence", "Paladin", getSwords, rightClick, 3, true, true);
         data = new ArrayList<>();
         active = new ArrayList<>();
+    }
+
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
+        active.add(p.getUniqueId());
     }
 
     private class TempData {
@@ -247,13 +255,6 @@ public class Pestilence extends Skill {
     public float getEnergy(int level) {
 
         return 25 - ((level - 1) * 5);
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
-        active.add(p.getUniqueId());
-
     }
 
     @Override

@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class MoltenBlast extends Skill {
+public class MoltenBlast extends Skill implements InteractSkill {
 
     public List<LargeFireball> fireballs = new ArrayList<>();
 
@@ -136,23 +138,6 @@ public class MoltenBlast extends Skill {
     }
 
 
-    @Override
-    public void activateSkill(final Player p) {
-        if (usageCheck(p)) {
-            LargeFireball f = p.launchProjectile(LargeFireball.class);
-            f.setYield(2.0F);
-            f.setVelocity(f.getVelocity().multiply(5));
-            f.setIsIncendiary(false);
-
-            fireballs.add(f);
-            UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
-
-
-        }
-
-
-    }
-
     @EventHandler
     public void onExplode(EntityExplodeEvent e){
         if(e.getEntity() instanceof LargeFireball){
@@ -227,4 +212,15 @@ public class MoltenBlast extends Skill {
         return 50 - ((level - 1) * 3);
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        LargeFireball f = p.launchProjectile(LargeFireball.class);
+        f.setYield(2.0F);
+        f.setVelocity(f.getVelocity().multiply(5));
+        f.setIsIncendiary(false);
+
+        fireballs.add(f);
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
+
+    }
 }

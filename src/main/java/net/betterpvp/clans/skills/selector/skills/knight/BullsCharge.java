@@ -3,7 +3,9 @@ package net.betterpvp.clans.skills.selector.skills.knight;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -24,7 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class BullsCharge extends Skill {
+public class BullsCharge extends Skill implements InteractSkill {
 
     private HashMap<String, Long> running = new HashMap<String, Long>();
 
@@ -47,15 +49,6 @@ public class BullsCharge extends Skill {
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
                 "Energy: " + ChatColor.GREEN + getEnergy(level)};
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
-        player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 49);
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-        running.put(player.getName(), System.currentTimeMillis() + 4000L);
     }
 
     @Override
@@ -159,4 +152,12 @@ public class BullsCharge extends Skill {
         return (float) 35 - ((level - 1) * 5);
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
+        player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 49);
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
+        running.put(player.getName(), System.currentTimeMillis() + 4000L);
+    }
 }

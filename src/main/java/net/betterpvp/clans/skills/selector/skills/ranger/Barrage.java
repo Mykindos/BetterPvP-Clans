@@ -52,10 +52,6 @@ public class Barrage extends Skill {
         };
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-    }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {

@@ -64,11 +64,6 @@ public class Swordsmanship extends Skill {
         return 0;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

@@ -5,8 +5,10 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.UtilMessage;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class StunningShot extends Skill {
+public class StunningShot extends Skill implements InteractSkill {
 
     public List<UUID> active = new ArrayList<>();
     private List<Arrow> arrows = new ArrayList<>();
@@ -106,15 +108,6 @@ public class StunningShot extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-        active.remove(player.getUniqueId());
-
-        active.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
         if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
@@ -143,4 +136,12 @@ public class StunningShot extends Skill {
     }
 
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.remove(player.getUniqueId());
+
+        active.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+    }
 }

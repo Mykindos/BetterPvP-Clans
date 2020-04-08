@@ -5,7 +5,9 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -25,7 +27,7 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Disengage extends Skill {
+public class Disengage extends Skill implements InteractSkill {
 
     private HashMap<UUID, Long> disengages = new HashMap<>();
 
@@ -57,15 +59,6 @@ public class Disengage extends Skill {
     public Types getType() {
 
         return Types.SWORD;
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        if (!disengages.containsKey(player.getUniqueId())) {
-            disengages.put(player.getUniqueId(), (long) (System.currentTimeMillis() + ((0 + (getLevel(player) * 0.5)) * 1000L)));
-            UtilMessage.message(player, getClassType(), "You prepared disengage");
-        }
-
     }
 
     @EventHandler
@@ -130,4 +123,11 @@ public class Disengage extends Skill {
         return 30;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!disengages.containsKey(player.getUniqueId())) {
+            disengages.put(player.getUniqueId(), (long) (System.currentTimeMillis() + ((0 + (getLevel(player) * 0.5)) * 1000L)));
+            UtilMessage.message(player, getClassType(), "You prepared disengage");
+        }
+    }
 }

@@ -4,8 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
@@ -21,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-public class Void extends Skill {
+public class Void extends Skill implements ToggleSkill {
 
     public Void(Clans i) {
         super(i, "Void", "Paladin", getSwordsAndAxes, noActions, 5, false, false);
@@ -46,27 +48,6 @@ public class Void extends Skill {
         };
     }
 
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        Player p = e.getPlayer();
-        if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
-            if (hasSkill(p, this)) {
-                if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-
-                    e.setCancelled(true);
-
-                    if (active.contains(p.getUniqueId())) {
-                        active.remove(p.getUniqueId());
-                        UtilMessage.message(p, getClassType(), "Void: " + ChatColor.RED + "Off");
-                    } else {
-                        active.add(p.getUniqueId());
-                        UtilMessage.message(p, getClassType(), "Void: " + ChatColor.GREEN + "On");
-                    }
-                }
-            }
-
-        }
-    }
 
     @EventHandler
     public void audio(UpdateEvent e) {
@@ -114,13 +95,7 @@ public class Void extends Skill {
 
             if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
                 if (hasSkill(p, this)) {
-                    if (active.contains(p.getUniqueId())) {
 
-                        e.setDamage(e.getDamage() - 5);
-                        Energy.degenerateEnergy(p, 0.20);
-
-                        e.setKnockback(false);
-                    }
                 }
             }
         }
@@ -149,11 +124,6 @@ public class Void extends Skill {
         return (float) (11 - ((level - 1) * 0.5));
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {
@@ -161,4 +131,14 @@ public class Void extends Skill {
         return false;
     }
 
+    @Override
+    public void activateToggle(Player player, Gamer gamer) {
+        if (active.contains(player.getUniqueId())) {
+            active.remove(player.getUniqueId());
+            UtilMessage.message(player, getClassType(), "Void: " + ChatColor.RED + "Off");
+        } else {
+            active.add(player.getUniqueId());
+            UtilMessage.message(player, getClassType(), "Void: " + ChatColor.GREEN + "On");
+        }
+    }
 }

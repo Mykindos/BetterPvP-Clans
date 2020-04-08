@@ -4,8 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Concussion extends Skill {
+public class Concussion extends Skill implements InteractSkill {
 
     private List<UUID> active = new ArrayList<>();
 
@@ -69,14 +71,6 @@ public class Concussion extends Skill {
         return 30 - ((level - 1) * 5);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
-        active.add(p.getUniqueId());
-
-    }
-
-
     @EventHandler
     public void onDamage(CustomDamageEvent e) {
         if (e.getCause() != DamageCause.ENTITY_ATTACK) return;
@@ -119,4 +113,9 @@ public class Concussion extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(player)));
+        active.add(player.getUniqueId());
+    }
 }

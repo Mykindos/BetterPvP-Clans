@@ -4,7 +4,9 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -17,7 +19,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class Cyclone extends Skill {
+public class Cyclone extends Skill implements InteractSkill {
 
 
     public Cyclone(Clans i) {
@@ -46,33 +48,6 @@ public class Cyclone extends Skill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-        Vector x = p.getLocation().toVector();
-        x.setY(x.getY() + 2);
-
-        int level = getLevel(p);
-        UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
-        for (LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))) {
-            if (target instanceof ArmorStand) continue;
-            if (!target.getName().equalsIgnoreCase(p.getName())) {
-                if (target instanceof Player) {
-                    if (!ClanUtilities.canHurt(p, (Player) target)) continue;
-                    UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
-
-                }
-                Vector v = target.getLocation().toVector().subtract(x).normalize().multiply(-1);
-                LogManager.addLog(target, p, "Cyclone");
-                UtilVelocity.velocity(target, v, 0.5D, false, 0.0D, 0.7D, 7.0D, true);
-
-
-            }
-        }
-        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 0.6F);
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -99,4 +74,29 @@ public class Cyclone extends Skill {
     }
 
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        Vector x = p.getLocation().toVector();
+        x.setY(x.getY() + 2);
+
+        int level = getLevel(p);
+        UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
+        for (LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))) {
+            if (target instanceof ArmorStand) continue;
+            if (!target.getName().equalsIgnoreCase(p.getName())) {
+                if (target instanceof Player) {
+                    if (!ClanUtilities.canHurt(p, (Player) target)) continue;
+                    UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
+
+                }
+                Vector v = target.getLocation().toVector().subtract(x).normalize().multiply(-1);
+                LogManager.addLog(target, p, "Cyclone");
+                UtilVelocity.velocity(target, v, 0.5D, false, 0.0D, 0.7D, 7.0D, true);
+
+
+            }
+        }
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 0.6F);
+
+    }
 }

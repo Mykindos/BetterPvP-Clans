@@ -2,7 +2,9 @@ package net.betterpvp.clans.skills.selector.skills.gladiator;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -11,7 +13,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-public class SpiritOfTheWolf extends Skill {
+public class SpiritOfTheWolf extends Skill implements InteractSkill {
 
 
     public SpiritOfTheWolf(Clans i) {
@@ -53,7 +55,14 @@ public class SpiritOfTheWolf extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
+    public boolean usageCheck(Player player) {
+
+        return true;
+    }
+
+
+    @Override
+    public void activate(Player player, Gamer gamer) {
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
         player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.ENTITY_WOLF_HOWL, 0.5F, 1.0F);
         UtilPlayer.addPotionEffect(player, PotionEffectType.SPEED, 1, 140);
@@ -64,14 +73,5 @@ public class SpiritOfTheWolf extends Skill {
                 UtilMessage.message(p, getClassType(), "You received the spirit of the wolf!");
             }
         }
-
     }
-
-    @Override
-    public boolean usageCheck(Player player) {
-
-        return true;
-    }
-
-
 }

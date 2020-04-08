@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.*;
@@ -21,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
-public class Takedown extends Skill {
+public class Takedown extends Skill implements InteractSkill {
 
     private WeakHashMap<Player, Long> active = new WeakHashMap<>();
 
@@ -66,16 +68,6 @@ public class Takedown extends Skill {
         return 40 - ((level - 1) * 3);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        Vector vec = p.getLocation().getDirection();
-
-        UtilVelocity.velocity(p, vec, 1.8D, false, 0.0D, 0.4D, 0.6D, false);
-
-        active.put(p, System.currentTimeMillis());
-        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(p));
-
-    }
 
     @EventHandler
     public void end(UpdateEvent event) {
@@ -149,4 +141,13 @@ public class Takedown extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        Vector vec = p.getLocation().getDirection();
+
+        UtilVelocity.velocity(p, vec, 1.8D, false, 0.0D, 0.4D, 0.6D, false);
+
+        active.put(p, System.currentTimeMillis());
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(p));
+    }
 }

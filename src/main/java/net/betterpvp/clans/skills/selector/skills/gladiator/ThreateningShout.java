@@ -4,14 +4,16 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-public class ThreateningShout extends Skill {
+public class ThreateningShout extends Skill implements InteractSkill {
 
     public ThreateningShout(Clans i) {
         super(i, "Threatening Shout", "Gladiator", getAxes, rightClick, 5, true, true);
@@ -52,17 +54,6 @@ public class ThreateningShout extends Skill {
         return 40 - ((level - 1) * 2);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 2.0F, 2.0F);
-        int level = getLevel(p);
-        for (Player d : UtilPlayer.getInRadius(p.getLocation(), (8 + level))) {
-            if (ClanUtilities.canHurt(p, d)) {
-                EffectManager.addEffect(d, EffectType.VULNERABILITY, (3 + getLevel(p)) * 1000);
-            }
-        }
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {
@@ -70,4 +61,14 @@ public class ThreateningShout extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 2.0F, 2.0F);
+        int level = getLevel(p);
+        for (Player d : UtilPlayer.getInRadius(p.getLocation(), (8 + level))) {
+            if (ClanUtilities.canHurt(p, d)) {
+                EffectManager.addEffect(d, EffectType.VULNERABILITY, (3 + getLevel(p)) * 1000);
+            }
+        }
+    }
 }

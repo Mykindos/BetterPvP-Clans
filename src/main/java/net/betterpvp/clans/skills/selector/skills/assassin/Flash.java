@@ -6,8 +6,10 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +28,7 @@ import org.bukkit.util.Vector;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Flash extends Skill {
+public class Flash extends Skill implements InteractSkill {
 
     private WeakHashMap<Player, Location> loc = new WeakHashMap<>();
     private WeakHashMap<Player, Integer> charges = new WeakHashMap<>();
@@ -102,116 +104,6 @@ public class Flash extends Skill {
                 }
             }
         }
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        Block lastSmoke = player.getLocation().getBlock();
-
-        Location oldPos = player.getLocation().clone();
-        Location newPos = null;
-
-        if (charges.containsKey(player)) {
-            if (charges.get(player) > 0) {
-
-                if (Energy.use(player, getName(), getEnergy(getLevel(player)), true)) {
-                    charges.put(player, charges.get(player) - 1);
-                    double maxRange = 8.0D;
-                    double curRange = 0.0D;
-                    while (curRange <= maxRange) {
-                        Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D)).add(player.getLocation().getDirection().multiply(curRange));
-
-                        if (newTarget.getBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
-                            player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
-
-                            break;
-                        }
-
-                        if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType().name().contains("STAINED_GLASS")) {
-                            player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
-
-                            break;
-                        }
-
-                        if ((!UtilBlock.airFoliage(newTarget.getBlock())) || (!UtilBlock.airFoliage(newTarget.getBlock().getRelative(BlockFace.UP)))) {
-
-                            break;
-                        }
-
-
-                        if (isWall(newTarget.getBlock().getRelative(BlockFace.UP))) {
-                            player.setVelocity(player.getLocation().getDirection().multiply(-1).add(new Vector(0, 0.1, 0)).multiply(0.25));
-                            break;
-                        }
-
-
-                        for (Player cur : player.getWorld().getPlayers()) {
-                            if (!cur.equals(player)) {
-
-                                if (UtilMath.offset(newTarget, cur.getLocation()) <= 0.5D) {
-
-
-                                    Location target = cur.getLocation().add(player.getLocation().subtract(cur.getLocation()).toVector().normalize());
-                                    player.teleport(UtilWorld.locMerge(player.getLocation(), target));
-
-
-                                    UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
-
-
-                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
-                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
-                                    return;
-                                }
-                            }
-                        }
-                        curRange += 0.1D;
-
-
-                        if (!lastSmoke.equals(newTarget.getBlock())) {
-                            //lastSmoke.getWorld().playEffect(lastSmoke.getLocation(), Effect.SMOKE, 4);
-                        }
-                        lastSmoke = newTarget.getBlock();
-                    }
-
-
-                    curRange -= 1D;
-                    if (curRange < 0.0D) {
-                        curRange = 0.0D;
-                    }
-
-                    Location loc = player.getLocation().add(player.getLocation().getDirection().multiply(curRange).add(new Vector(0.0D, 0.4D, 0.0D)));
-                    this.loc.put(player, player.getLocation());
-
-
-                    if (curRange > 0.0D) {
-                        blinkTime.put(player, System.currentTimeMillis());
-                        for (int i = 0; i < curRange; i++) {
-                            Location particle = oldPos.add(player.getLocation().getDirection());
-                            for (int x = 0; x < 3; x++) {
-                                ParticleEffect.FIREWORKS_SPARK.display(particle);
-                            }
-                        }
-                        player.leaveVehicle();
-                        player.teleport(loc);
-                        newPos = loc.clone();
-
-
-                    }
-
-
-                    player.setFallDistance(0.0F);
-
-
-                    UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
-
-
-                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
-                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
-
-                }
-            }
-        }
-
     }
 
     @EventHandler
@@ -359,4 +251,113 @@ public class Flash extends Skill {
         return (float) (level < 1 ? 17 : 17 - (1.5 * (level - 1)));
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        Block lastSmoke = player.getLocation().getBlock();
+
+        Location oldPos = player.getLocation().clone();
+        Location newPos = null;
+
+        if (charges.containsKey(player)) {
+            if (charges.get(player) > 0) {
+
+                if (Energy.use(player, getName(), getEnergy(getLevel(player)), true)) {
+                    charges.put(player, charges.get(player) - 1);
+                    double maxRange = 8.0D;
+                    double curRange = 0.0D;
+                    while (curRange <= maxRange) {
+                        Location newTarget = player.getLocation().add(new Vector(0.0D, 0.2D, 0.0D)).add(player.getLocation().getDirection().multiply(curRange));
+
+                        if (newTarget.getBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK || newTarget.getBlock().getType() == Material.IRON_DOOR) {
+                            player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
+
+                            break;
+                        }
+
+                        if (newTarget.getBlock().getType() == Material.GLASS || newTarget.getBlock().getType().name().contains("STAINED_GLASS")) {
+                            player.setVelocity(player.getLocation().getDirection().multiply(-0.25).add(new Vector(0, 0.1, 0)));
+
+                            break;
+                        }
+
+                        if ((!UtilBlock.airFoliage(newTarget.getBlock())) || (!UtilBlock.airFoliage(newTarget.getBlock().getRelative(BlockFace.UP)))) {
+
+                            break;
+                        }
+
+
+                        if (isWall(newTarget.getBlock().getRelative(BlockFace.UP))) {
+                            player.setVelocity(player.getLocation().getDirection().multiply(-1).add(new Vector(0, 0.1, 0)).multiply(0.25));
+                            break;
+                        }
+
+
+                        for (Player cur : player.getWorld().getPlayers()) {
+                            if (!cur.equals(player)) {
+
+                                if (UtilMath.offset(newTarget, cur.getLocation()) <= 0.5D) {
+
+
+                                    Location target = cur.getLocation().add(player.getLocation().subtract(cur.getLocation()).toVector().normalize());
+                                    player.teleport(UtilWorld.locMerge(player.getLocation(), target));
+
+
+                                    UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
+
+
+                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
+                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
+                                    return;
+                                }
+                            }
+                        }
+                        curRange += 0.1D;
+
+
+                        if (!lastSmoke.equals(newTarget.getBlock())) {
+                            //lastSmoke.getWorld().playEffect(lastSmoke.getLocation(), Effect.SMOKE, 4);
+                        }
+                        lastSmoke = newTarget.getBlock();
+                    }
+
+
+                    curRange -= 1D;
+                    if (curRange < 0.0D) {
+                        curRange = 0.0D;
+                    }
+
+                    Location loc = player.getLocation().add(player.getLocation().getDirection().multiply(curRange).add(new Vector(0.0D, 0.4D, 0.0D)));
+                    this.loc.put(player, player.getLocation());
+
+
+                    if (curRange > 0.0D) {
+                        blinkTime.put(player, System.currentTimeMillis());
+                        for (int i = 0; i < curRange; i++) {
+                            Location particle = oldPos.add(player.getLocation().getDirection());
+                            for (int x = 0; x < 3; x++) {
+                                ParticleEffect.FIREWORKS_SPARK.display(particle);
+                            }
+                        }
+                        player.leaveVehicle();
+                        player.teleport(loc);
+                        newPos = loc.clone();
+
+
+                    }
+
+
+                    player.setFallDistance(0.0F);
+
+
+                    UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
+
+
+                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.4F, 1.2F);
+                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SILVERFISH_DEATH, 1.0F, 1.6F);
+
+                }
+            }
+        }
+
+    }
 }

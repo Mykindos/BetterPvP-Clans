@@ -5,8 +5,10 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +28,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import java.util.*;
 
 
-public class MarkedForDeath extends Skill {
+public class MarkedForDeath extends Skill implements InteractSkill {
 
     private Set<UUID> active = new HashSet<>();
     private List<Arrow> arrows = new ArrayList<>();
@@ -77,13 +79,6 @@ public class MarkedForDeath extends Skill {
         return 50 - ((level - 1) * 3);
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        active.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
-
-    }
 
     @EventHandler
     public void onShoot(EntityShootBowEvent e) {
@@ -197,4 +192,10 @@ public class MarkedForDeath extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+    }
 }

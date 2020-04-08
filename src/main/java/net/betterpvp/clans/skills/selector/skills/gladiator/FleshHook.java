@@ -9,7 +9,10 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.Throwables;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.ChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -28,7 +31,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class FleshHook extends Skill {
+public class FleshHook extends ChannelSkill implements InteractSkill {
 
     private WeakHashMap<Player, List<LivingEntity>> immune;
     private List<ChargeData> charges = new ArrayList<>();
@@ -57,13 +60,6 @@ public class FleshHook extends Skill {
         };
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-        charges.add(new ChargeData(player.getUniqueId(), 25, 100));
-        delay.put(player, System.currentTimeMillis());
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -211,4 +207,9 @@ public class FleshHook extends Skill {
         return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        charges.add(new ChargeData(player.getUniqueId(), 25, 100));
+        delay.put(player, System.currentTimeMillis());
+    }
 }

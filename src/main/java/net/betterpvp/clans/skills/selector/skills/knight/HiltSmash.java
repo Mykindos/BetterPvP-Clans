@@ -7,7 +7,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
@@ -115,11 +117,6 @@ public class HiltSmash extends Skill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

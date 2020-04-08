@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
@@ -15,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class HoldPosition extends Skill {
+public class HoldPosition extends Skill implements InteractSkill {
 
 
     public HoldPosition(Clans i) {
@@ -42,16 +44,6 @@ public class HoldPosition extends Skill {
     public Types getType() {
 
         return Types.AXE;
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
-        int level = getLevel(player);
-        EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (100 + (((level - 1) * 0.5) * 20)), 3));
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1F, 0.5F);
     }
 
     @EventHandler
@@ -89,4 +81,13 @@ public class HoldPosition extends Skill {
     }
 
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
+        int level = getLevel(player);
+        EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (100 + (((level - 1) * 0.5) * 20)), 3));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1F, 0.5F);
+    }
 }

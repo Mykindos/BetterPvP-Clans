@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -14,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class SpiritOfTheBear extends Skill {
+public class SpiritOfTheBear extends Skill implements InteractSkill {
 
 
     public SpiritOfTheBear(Clans i) {
@@ -56,7 +58,14 @@ public class SpiritOfTheBear extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
+    public boolean usageCheck(Player player) {
+
+        return true;
+    }
+
+
+    @Override
+    public void activate(Player player, Gamer gamer) {
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
         player.getWorld().playSound(player.getLocation().add(0.0, -1.0, 0.0), Sound.ENTITY_ENDER_DRAGON_GROWL, 1.8F, 2.5F);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1));
@@ -68,14 +77,5 @@ public class SpiritOfTheBear extends Skill {
                 UtilMessage.message(p, getClassType(), "You received the spirit of the bear!");
             }
         }
-
     }
-
-    @Override
-    public boolean usageCheck(Player player) {
-
-        return true;
-    }
-
-
 }

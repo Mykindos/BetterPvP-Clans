@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.SeverData;
 import net.betterpvp.clans.weapon.Weapon;
@@ -21,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Sever extends Skill {
+public class Sever extends Skill implements InteractSkill {
 
     private Set<UUID> active = new HashSet<>();
 
@@ -52,14 +54,6 @@ public class Sever extends Skill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        active.add(player.getUniqueId());
-
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(player)));
-
-
-    }
 
     @EventHandler
     public void onChange(RoleChangeEvent e) {
@@ -117,4 +111,9 @@ public class Sever extends Skill {
         return 20;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(player)));
+    }
 }

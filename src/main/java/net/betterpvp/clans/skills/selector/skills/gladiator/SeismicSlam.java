@@ -8,7 +8,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -27,7 +29,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class SeismicSlam extends Skill {
+public class SeismicSlam extends Skill implements InteractSkill {
 
     private Set<UUID> active = new HashSet<>();
     private List<FallingBlock> fallingBlocks = new ArrayList<>();
@@ -53,29 +55,6 @@ public class SeismicSlam extends Skill {
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
                 "Energy: " + ChatColor.GREEN + getEnergy(level)
         };
-    }
-
-    @Override
-    public void activateSkill(final Player player) {
-        player.setVelocity(new Vector(0, 1.3, 0));
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.5F, 0.2F);
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
-
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                player.setVelocity(player.getLocation().getDirection().multiply(1).add(new Vector(0, -0.5, 0)));
-                //player.setVelocity(new Vector(0, -1.5, 0));
-                EffectManager.addEffect(player, EffectType.NOFALL, 5000);
-                height.put(player, player.getLocation().getY());
-                active.add(player.getUniqueId());
-                immune.put(player, new ArrayList<LivingEntity>());
-            }
-
-        }.runTaskLater(getInstance(), 15);
-
-
     }
 
     @EventHandler
@@ -240,4 +219,24 @@ public class SeismicSlam extends Skill {
         return 50 - ((level - 1) * 5);
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        player.setVelocity(new Vector(0, 1.3, 0));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.5F, 0.2F);
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                player.setVelocity(player.getLocation().getDirection().multiply(1).add(new Vector(0, -0.5, 0)));
+                //player.setVelocity(new Vector(0, -1.5, 0));
+                EffectManager.addEffect(player, EffectType.NOFALL, 5000);
+                height.put(player, player.getLocation().getY());
+                active.add(player.getUniqueId());
+                immune.put(player, new ArrayList<LivingEntity>());
+            }
+
+        }.runTaskLater(getInstance(), 15);
+    }
 }

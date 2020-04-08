@@ -9,8 +9,10 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
@@ -30,7 +32,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class Immolate extends Skill {
+public class Immolate extends Skill implements ToggleSkill {
 
     private Set<UUID> active = new HashSet<>();
 
@@ -56,31 +58,6 @@ public class Immolate extends Skill {
                 "Energy / Second: " + ChatColor.GREEN + getEnergy(level)
 
         };
-    }
-
-    @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        Player p = e.getPlayer();
-        if (hasSkill(p, this)) {
-            if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-
-                e.setCancelled(true);
-
-                if (active.contains(p.getUniqueId())) {
-                    active.remove(p.getUniqueId());
-                    UtilMessage.message(p, getClassType(), "Immolate: " + ChatColor.RED + "Off");
-                } else {
-                    if (ClanUtilities.canCast(p)) {
-                        if (Energy.use(p, getName(), 10, false)) {
-                            active.add(p.getUniqueId());
-                            UtilMessage.message(p, getClassType(), "Immolate: " + ChatColor.GREEN + "On");
-                        }
-                    }
-                }
-            }
-
-
-        }
     }
 
     @EventHandler
@@ -192,15 +169,9 @@ public class Immolate extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
 
-        return false;
+        return true;
     }
 
     @Override
@@ -216,4 +187,17 @@ public class Immolate extends Skill {
     }
 
 
+    @Override
+    public void activateToggle(Player player, Gamer gamer) {
+        if (active.contains(player.getUniqueId())) {
+            active.remove(player.getUniqueId());
+            UtilMessage.message(player, getClassType(), "Immolate: " + ChatColor.RED + "Off");
+        } else {
+            if (Energy.use(player, getName(), 10, false)) {
+                active.add(player.getUniqueId());
+                UtilMessage.message(player, getClassType(), "Immolate: " + ChatColor.GREEN + "On");
+            }
+
+        }
+    }
 }

@@ -51,11 +51,6 @@ public class Stampede extends Skill {
         return Types.PASSIVE_B;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
