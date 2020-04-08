@@ -20,6 +20,7 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -95,12 +96,12 @@ public class SkillListener extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSkillActivate(PlayerInteractEvent event) {
 
-
         Player player = event.getPlayer();
 
         if (player.getInventory().getItemInMainHand() == null) {
             return;
         }
+
 
         if (event.getHand() == EquipmentSlot.OFF_HAND) {
             return;
@@ -110,13 +111,12 @@ public class SkillListener extends BPVPListener<Clans> {
             return;
         }
 
-
-
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (UtilBlock.usable(event.getClickedBlock())) {
                 return;
             }
         }
+
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = event.getClickedBlock();
@@ -130,15 +130,13 @@ public class SkillListener extends BPVPListener<Clans> {
             }
         }
 
-
-
         Role role = Role.getRole(player);
         if (role != null) {
             Gamer gamer = GamerManager.getOnlineGamer(player);
             RoleBuild build = gamer.getActiveBuild(role.getName());
             if (build != null) {
-                Optional<Skill> skillOptional = build.getActiveSkills().stream().filter(s -> {
 
+                Optional<Skill> skillOptional = build.getActiveSkills().stream().filter(s -> {
                     if (s instanceof InteractSkill) {
                         if (s.getClassType().equals(role.getName())) {
                             if (Arrays.asList(s.getMaterials()).contains(player.getInventory().getItemInMainHand().getType())

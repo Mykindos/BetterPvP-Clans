@@ -177,6 +177,10 @@ public class DamageManager extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.MONITOR)
     public void damageEvent(CustomDamageEvent e) {
 
+        if(e.getDamagee() instanceof ArmorStand){
+            return;
+        }
+
         if (e.isCancelled()) return;
         if (!(e.getDamager() instanceof Player) && e.getDamagee() instanceof Player) {
             Gamer gamer = GamerManager.getOnlineGamer((Player) e.getDamagee());

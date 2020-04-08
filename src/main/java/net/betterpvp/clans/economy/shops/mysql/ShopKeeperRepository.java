@@ -1,10 +1,16 @@
 package net.betterpvp.clans.economy.shops.mysql;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.economy.shops.Shop;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.core.database.*;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -33,6 +39,25 @@ public class ShopKeeperRepository implements Repository<Clans> {
     }
 
     public static void loadShopKeepers(final Clans i) {
+
+        for (World w : Bukkit.getWorlds()) {
+            for (LivingEntity e : w.getLivingEntities()) {
+                if (e instanceof Player || e instanceof ArmorStand) continue;
+
+                for (Shop s : ShopManager.getShops()) {
+                    if (e.getCustomName() != null) {
+
+                        if (s.getName().equalsIgnoreCase(ChatColor.stripColor(e.getCustomName()))) {
+
+                            e.setHealth(0);
+                            e.remove();
+                        }
+                    }
+
+                }
+            }
+
+        }
         new BukkitRunnable() {
 
             @Override

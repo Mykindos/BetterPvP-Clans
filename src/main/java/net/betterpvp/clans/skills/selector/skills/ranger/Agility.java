@@ -18,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -76,14 +77,16 @@ public class Agility extends Skill implements InteractSkill {
     @EventHandler(priority = EventPriority.LOWEST)
     public void endOnInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (event.getAction() != Action.PHYSICAL) {
+        if (event.getHand() != EquipmentSlot.OFF_HAND) {
+            if (event.getAction() != Action.PHYSICAL) {
 
 
-            if (active.contains(player.getUniqueId())) {
-                active.remove(player.getUniqueId());
-                player.removePotionEffect(PotionEffectType.SPEED);
+                if (active.contains(player.getUniqueId())) {
+                    active.remove(player.getUniqueId());
+                    player.removePotionEffect(PotionEffectType.SPEED);
+                }
+
             }
-
         }
     }
 
@@ -147,7 +150,7 @@ public class Agility extends Skill implements InteractSkill {
             UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
             active.add(player.getUniqueId());
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 1));
         }
     }
 }

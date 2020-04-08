@@ -4,6 +4,7 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.minecraft.server.v1_15_R1.Entity;
 import net.minecraft.server.v1_15_R1.EntityInsentient;
 import net.minecraft.server.v1_15_R1.EntityTypes;
+import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class UtilShop {
 
-    public static void registerEntity(String name, int id, Class<? extends EntityInsentient> nmsClass, Class<? extends EntityInsentient> customClass) {
+    public static void registerEntity(String name, int id, Class<? extends Entity> nmsClass, Class<? extends Entity> customClass) {
         try {
             for (Field f : EntityTypes.class.getDeclaredFields()) {
                 if (f.getType().getSimpleName().equals(Map.class.getSimpleName())) {
@@ -21,7 +22,6 @@ public class UtilShop {
                         @SuppressWarnings("unchecked")
                         Map<Class<? extends Entity>, Integer> map = (Map<Class<? extends Entity>, Integer>) f.get(null);
                         map.put(customClass, id);
-                        UtilMessage.broadcast("A", "b");
                     }
                 }
             }

@@ -8,6 +8,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
@@ -15,10 +16,8 @@ import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class Rupture extends Skill implements InteractSkill {
 
 
     private WeakHashMap<Player, ArrayList<LivingEntity>> cooldownJump = new WeakHashMap<>();
-    private HashMap<EntityArmorStand, Long> stands = new HashMap<>();
+    private HashMap<ArmorStand, Long> stands = new HashMap<>();
     //private WeakHashMap<Player, ArrayList<ArmorStand>> fakeArmorStands = new WeakHashMap<>();
 
     public Rupture(Clans i) {
@@ -75,13 +75,11 @@ public class Rupture extends Skill implements InteractSkill {
     @EventHandler
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateType.TICK) {
-            Iterator<Entry<EntityArmorStand, Long>> it = stands.entrySet().iterator();
+            Iterator<Entry<ArmorStand, Long>> it = stands.entrySet().iterator();
             while (it.hasNext()) {
-                Entry<EntityArmorStand, Long> next = it.next();
+                Entry<ArmorStand, Long> next = it.next();
                 if (next.getValue() - System.currentTimeMillis() <= 0) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        UtilPacket.send(player, new PacketPlayOutEntityDestroy(new int[]{next.getKey().getId()}));
-                    }
+                    next.getKey().remove();
                     it.remove();
                 }
             }
@@ -135,34 +133,31 @@ public class Rupture extends Skill implements InteractSkill {
                     }
 
                 }
-                if ((loc.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.AIR) &&
-                        (loc.clone().getBlock().getType().name().contains("STEP"))) {
+                if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
                     loc.add(0.0D, -1.0D, 0.0D);
                 }
 
                 for (int i = 0; i < 3; i++) {
-
-                    final EntityArmorStand as = new EntityArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) p.getWorld()).getHandle());
-                    as.setInvisible(true);
-                    as.setSmall(true);
-                    //as.setGravity(true);
-                    as.setNoGravity(false);
-                    as.setArms(true);
-                    as.setHeadPose(new Vector3f(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
                     loc.add(v);
+                    Location tempLoc = new Location(p.getWorld(), loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75,
+                            loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D));
+
+                    CustomArmorStand as = new CustomArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) loc.getWorld()).getHandle());
+                    ArmorStand test = as.spawn(tempLoc);
+                   // ArmorStand test = (ArmorStand) p.getWorld().spawnEntity(tempLoc, EntityType.ARMOR_STAND);
+                    test.getEquipment().setHelmet(new ItemStack(Material.PACKED_ICE));
+                    test.setGravity(false);
+                    test.setVisible(false);
+                    test.setSmall(true);
+                    test.setHeadPose(new EulerAngle(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
+
+
                     p.getWorld().playEffect(loc, Effect.STEP_SOUND, Material.PACKED_ICE);
-                    as.setLocation(loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75,
-                            loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D), 0.0F, 0.0F);
-                    for (Player player : p.getWorld().getPlayers()) {
 
-                        UtilPacket.send(player, new PacketPlayOutSpawnEntityLiving(as));
-                        UtilPacket.send(player, new PacketPlayOutEntityMetadata(as.getId(), as.getDataWatcher(), false));
-                        UtilPacket.send(player, new PacketPlayOutEntityEquipment(as.getId(), EnumItemSlot.HEAD, CraftItemStack.asNMSCopy(new ItemStack(Material.PACKED_ICE))));
 
-                    }
-                    stands.put(as, System.currentTimeMillis() + 4000);
+                    stands.put(test, System.currentTimeMillis() + 4000);
 
-                    for (Entity ent : as.getBukkitEntity().getNearbyEntities(0.5D, 0.5D, 0.5D)) {
+                    for (Entity ent : test.getNearbyEntities(0.5D, 0.5D, 0.5D)) {
 
                         if (ent instanceof LivingEntity) {
 

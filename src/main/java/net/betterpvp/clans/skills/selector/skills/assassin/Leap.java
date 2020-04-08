@@ -164,9 +164,7 @@ public class Leap extends Skill implements InteractSkill {
 
     @Override
     public void activate(Player player, Gamer gamer) {
-        Bukkit.broadcastMessage("Activate leap");
         if (!wallKick(player)) {
-            Bukkit.broadcastMessage("fucking leaping cunttt");
             DoLeap(player, false);
         }
     }

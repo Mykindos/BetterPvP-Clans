@@ -65,24 +65,6 @@ public class ShopCommand extends Command {
                     if (args[0].equalsIgnoreCase("reload")) {
 
                         p.sendMessage("Shops have been reloaded");
-                        for (World w : Bukkit.getWorlds()) {
-                            for (LivingEntity e : w.getLivingEntities()) {
-                                if (e instanceof Player || e instanceof ArmorStand) continue;
-
-                                for (Shop s : ShopManager.getShops()) {
-                                    if (e.getCustomName() != null) {
-
-                                        if (s.getName().equalsIgnoreCase(ChatColor.stripColor(e.getCustomName()))) {
-
-                                            e.setHealth(0);
-                                            e.remove();
-                                        }
-                                    }
-
-                                }
-                            }
-
-                        }
                         ShopRepository.loadShops(i);
                         ShopKeeperRepository.loadShopKeepers(i);
                     }

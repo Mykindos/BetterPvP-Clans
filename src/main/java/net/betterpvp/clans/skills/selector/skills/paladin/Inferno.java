@@ -10,6 +10,7 @@ import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -38,9 +39,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Inferno extends ChannelSkill implements ToggleSkill {
+public class Inferno extends ChannelSkill implements InteractSkill {
 
-    private Set<String> active = new HashSet<String>();
+    private Set<String> active = new HashSet<>();
 
 
     public Inferno(Clans i) {
@@ -73,6 +74,7 @@ public class Inferno extends ChannelSkill implements ToggleSkill {
 
     @Override
     public boolean usageCheck(Player player) {
+
         if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getName(), "You cannot use " + getName() + " in water.");
             return false;
@@ -183,8 +185,10 @@ public class Inferno extends ChannelSkill implements ToggleSkill {
         return 9 - ((level - 1) * 1);
     }
 
+
+
     @Override
-    public void activateToggle(Player player, Gamer gamer) {
+    public void activate(Player player, Gamer gamer) {
         active.add(player.getName());
     }
 }

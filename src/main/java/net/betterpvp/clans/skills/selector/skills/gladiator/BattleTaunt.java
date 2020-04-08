@@ -28,7 +28,7 @@ import java.util.List;
 
 public class BattleTaunt extends ChannelSkill implements InteractSkill {
 
-    private List<String> active = new ArrayList<String>();
+    private List<String> active = new ArrayList<>();
 
     public BattleTaunt(Clans i) {
         super(i, "Battle Taunt", "Gladiator", getSwords, rightClick, 5, false, true);
