@@ -53,7 +53,7 @@ public class SmokeBomb extends Skill {
                 if (usageCheck(p)) {
                     if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
 
-
+                        p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
                         EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
                         smoked.put(p, (3 + getLevel(p)) * 2);
                         //timer.put(p, System.currentTimeMillis());

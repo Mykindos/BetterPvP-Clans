@@ -311,8 +311,6 @@ public class InteractListener extends BPVPListener<Clans> {
                         block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
 
-                    Bukkit.broadcastMessage("test1");
-
                     block.setBlockData(doorData);
                     block.getState().update();
 
@@ -334,8 +332,6 @@ public class InteractListener extends BPVPListener<Clans> {
                         door.setOpen(true);
                         block.getWorld().playSound(block.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 1f, 1f);
                     }
-
-                    Bukkit.broadcastMessage("test2");
 
                     block.setBlockData(doorData);
                     block.getState().update(true);

@@ -170,6 +170,9 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Colossus", new Colossus(i));
         skills.put("Resistance", new Resistance(i));
         skills.put("Bloodlust", new Bloodlust(i));
+        skills.put("Bloodshed", new Bloodshed(i));
+
+
 
     }
 
@@ -401,7 +404,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
     private boolean display(Player p, BuildSkill s) {
 
-       /* if (s.getSkill().showRecharge()) {
+       if (s.getSkill().showRecharge()) {
 
 
             Recharge r = RechargeManager.getInstance().getAbilityRecharge(p.getName(), s.getSkill().getName());
@@ -434,7 +437,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         }
 
 
-        */
+
         return false;
     }
 

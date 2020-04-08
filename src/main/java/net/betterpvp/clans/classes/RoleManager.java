@@ -7,6 +7,7 @@ import net.betterpvp.clans.classes.roles.*;
 import net.betterpvp.clans.classes.roles.mysql.StatRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -87,9 +88,13 @@ public class RoleManager extends BPVPListener<Clans> {
 
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null){
-                if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)){
-                    player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                RoleBuild build = gamer.getActiveBuild(role.getName());
+                if(build != null){
+                    if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)){
+                        player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                    }
                 }
+
             }
 
         }

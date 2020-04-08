@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
@@ -94,7 +95,7 @@ public class ArcticArmour extends Skill {
 
     @EventHandler
     public void SnowAura(UpdateEvent event) {
-        if (event.getType() != UpdateType.TICK) {
+        if (event.getType() != UpdateType.FASTEST) {
             return;
         }
         Iterator<UUID> iterator = active.iterator();
@@ -102,6 +103,8 @@ public class ArcticArmour extends Skill {
             UUID z = iterator.next();
             if (Bukkit.getPlayer(z) != null) {
                 Player cur = Bukkit.getPlayer(z);
+                Role role = Role.getRole(cur);
+
                 if (!hasSkill(cur, this)) {
 
                     iterator.remove();
@@ -113,7 +116,7 @@ public class ArcticArmour extends Skill {
                 } else if (cur == null) {
                     iterator.remove();
 
-                } else if (Role.getRole(cur) == null || Role.getRole(cur) != null && !Role.getRole(cur).getName().equals(getClassType())) {
+                } else if (role == null || role != null && !role.getName().equals(getClassType())) {
                     iterator.remove();
                 } else if (EffectManager.hasEffect(cur, EffectType.SILENCE)) {
                     iterator.remove();
@@ -133,12 +136,9 @@ public class ArcticArmour extends Skill {
                     for (Block block : blocks.keySet()) {
                         if (block.getLocation().getY() <= cur.getLocation().getY()) {
                             if (block.getRelative(BlockFace.DOWN).getType() != Material.SNOW && UtilBlock.isGrounded(cur)
-                                    && block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+                                    && block.getRelative(BlockFace.DOWN).getType() != Material.AIR && UtilBlock.solid(block)) {
                                 if (block.getType() == Material.AIR) {
-
                                     new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
-
-
                                     block.setType(Material.SNOW);
                                 }
 

@@ -91,8 +91,14 @@ public class ClaimCommand implements IClanCommand {
                         continue;
                     }
 
-                    UtilMessage.message(player, "Clans", "You cannot claim Territory containing enemies.");
-                    break;
+                    if(ClanUtilities.canHurt(player, (Player) entitys)) {
+                        if(ClanUtilities.getClan((Player) entitys) == null){
+                            continue;
+                        }
+                        UtilMessage.message(player, "Clans", "You cannot claim Territory containing enemies.");
+                        return;
+                    }
+
                 }
             }
         }
