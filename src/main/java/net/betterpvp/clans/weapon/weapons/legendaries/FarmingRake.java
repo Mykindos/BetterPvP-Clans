@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.NetherWarts;
 
@@ -34,7 +35,7 @@ public class FarmingRake extends Weapon {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
 
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
         if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.IRON_HOE) return;
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {

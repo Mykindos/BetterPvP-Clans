@@ -3,13 +3,16 @@ package net.betterpvp.clans.gamer;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
 
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
 
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.donation.Donation;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -239,6 +242,11 @@ public class Gamer implements Invitable {
 
     public void setCoins(int coins) {
         this.coins = Math.min(Integer.MAX_VALUE, coins);
+
+        Player player = Bukkit.getPlayer(getUUID());
+        if(player != null){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
     }
 
     public int getKills() {

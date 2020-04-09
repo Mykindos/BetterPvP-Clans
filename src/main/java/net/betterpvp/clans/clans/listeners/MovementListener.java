@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.Pillage;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -46,6 +47,14 @@ public class MovementListener extends BPVPListener<Clans> {
                             || clanFrom != null && clanTo != null
                             && !clanFrom.equals(clanTo)) {
                         displayOwner(e.getPlayer(), e.getTo());
+
+                        new BukkitRunnable(){
+                            @Override
+                            public void run(){
+                                Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
+                            }
+                        }.runTask(getInstance());
+
                     }
                 }
             }.runTaskAsynchronously(getInstance());

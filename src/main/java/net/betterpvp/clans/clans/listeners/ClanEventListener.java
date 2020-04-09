@@ -7,6 +7,8 @@ import net.betterpvp.clans.clans.mysql.AllianceRepository;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.clans.clans.mysql.MemberRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
@@ -34,7 +36,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanCreate(ClanCreateEvent e) {
 
         if (e.isCancelled()) {
@@ -76,7 +78,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanDelete(ClanDeleteEvent e) {
 
         if (e.isCancelled()) {
@@ -97,7 +99,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onMemberLeaveClan(MemberLeaveClanEvent e) {
 
         if (e.isCancelled()) {
@@ -124,7 +126,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onMemberJoinClan(MemberJoinClanEvent e) {
 
         if (e.isCancelled()) {
@@ -133,7 +135,9 @@ public class ClanEventListener extends BPVPListener<Clans> {
 
         Player player = e.getPlayer();
         Clan clan = e.getClan();
-
+        Gamer gamer = GamerManager.getOnlineGamer(player);
+        InviteHandler.removeInvite(clan, gamer, "Invite");
+        InviteHandler.removeInvite(gamer, clan, "Invite");
         // Make sure they aren't already in the clan, just incase they are for whatever reason.
         if (clan.getMember(player.getUniqueId()) == null) {
 
@@ -148,6 +152,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
             UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
 
 
+
         }
     }
 
@@ -157,7 +162,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanKickMember(ClanKickMemberEvent e) {
 
         if (e.isCancelled()) {
@@ -195,7 +200,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanAllyClan(ClanAllyClanEvent e) {
 
         if (e.isCancelled()) {
@@ -231,7 +236,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onClanTrustClan(ClanTrustClanEvent e) {
 
         if (e.isCancelled()) {
@@ -265,7 +270,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanEnemyClan(ClanEnemyClanEvent e) {
 
         if (e.isCancelled()) {
@@ -309,7 +314,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
      *
      * @param e The event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClanNeutralClan(ClanNeutralClanEvent e) {
 
         if (e.isCancelled()) {

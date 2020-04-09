@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.GameMode;
@@ -100,9 +101,9 @@ public class LogManager {
                 return true;
             }
 
-         //   if (UtilClans.hasValuables(p)) {
-          //      return false;
-          //  }
+           if (UtilClans.hasValuables(p)) {
+               return false;
+           }
 
             Clan pc = ClanUtilities.getClan(p);
             if (pc != null) {

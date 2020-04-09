@@ -32,6 +32,7 @@ import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Iterator;
@@ -218,6 +219,7 @@ public class UndeadCamp extends Timed {
 
     @EventHandler
     public void crackChest(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (isActive()) {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {

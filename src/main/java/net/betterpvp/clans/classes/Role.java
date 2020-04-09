@@ -156,7 +156,8 @@ public abstract class Role {
             Weapon fireWalkers = WeaponManager.getWeapon(player.getEquipment().getBoots());
 
             if (player.getEquipment().getHelmet().getType() == role.getHelmet()
-                    && (player.getEquipment().getChestplate().getType() == role.getChestplate())
+                    && (player.getEquipment().getChestplate().getType() == role.getChestplate()
+                    || player.getEquipment().getChestplate().getType() == Material.ELYTRA)
                     && player.getEquipment().getLeggings().getType() == role.getLeggings()
                     && (player.getEquipment().getBoots().getType() == role.getBoots()
 

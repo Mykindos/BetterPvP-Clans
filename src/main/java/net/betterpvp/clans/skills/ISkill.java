@@ -7,7 +7,7 @@ public interface ISkill {
 
      Material[] getSwords = {Material.IRON_SWORD, Material.GOLDEN_SWORD, Material.DIAMOND_SWORD};
 
-     Material[] getBow = {Material.BOW};
+     Material[] getBow = {Material.BOW, Material.CROSSBOW};
 
      Material[] getAxes = {Material.IRON_AXE, Material.GOLDEN_AXE, Material.DIAMOND_AXE};
 

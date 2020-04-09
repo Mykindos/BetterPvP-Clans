@@ -45,7 +45,7 @@ public class MagneticBlade extends Weapon implements ChannelWeapon {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            if (WeaponManager.isWeapon(player.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(player.getInventory().getItemInMainHand()).equals(this)) {
+            if (isThisWeapon(player)) {
                 event.getEntity().getVelocity().multiply(-0.4D);
             }
         }
@@ -60,7 +60,7 @@ public class MagneticBlade extends Weapon implements ChannelWeapon {
 
             if (player.getInventory().getItemInMainHand() == null) return;
             if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
-            if (WeaponManager.isWeapon(player.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(player.getInventory().getItemInMainHand()).equals(this)) {
+            if (isThisWeapon(player)) {
                 if (UtilBlock.isInLiquid(player)) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + getName() + ChatColor.GRAY + " in water.");
                     return;

@@ -10,6 +10,8 @@ import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.classes.menu.KitListener;
 import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.combat.combatlog.CombatLogManager;
+import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
@@ -44,6 +46,7 @@ import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
+import net.betterpvp.core.database.Connect;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
@@ -53,6 +56,9 @@ import net.minecraft.server.v1_15_R1.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -77,6 +83,28 @@ public class Clans extends JavaPlugin implements Listener {
 
 
 
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getScheduler().cancelTasks(this);
+
+
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.getOpenInventory().close();
+            Gamer c = GamerManager.getOnlineGamer(p);
+            GamerRepository.updateGamer(c);
+        }
+
+        Connect.disableSQL();
+
+        for(org.bukkit.World w : Bukkit.getWorlds()){
+            for(LivingEntity e : w.getLivingEntities()){
+                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+                e.setHealth(0);
+                e.remove();
+            }
+        }
     }
 
     private void load() {
@@ -135,6 +163,8 @@ public class Clans extends JavaPlugin implements Listener {
         new FarmingListener(this);
         new KOTHManager(this);
         new ClanScoreboardListener(this);
+        new CombatLogManager(this);
+        new NPCManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         CommandManager.addCommand(new FindCommand(this));
@@ -147,8 +177,16 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onLoad(CoreLoadedEvent e){
+    public void onLoad(CoreLoadedEvent event){
         System.out.println("Core loaded, beginning Clans load.");
+        for(org.bukkit.World w : Bukkit.getWorlds()){
+            for(LivingEntity e : w.getLivingEntities()){
+                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+                e.setHealth(0);
+                e.remove();
+            }
+        }
+
         load();
     }
 

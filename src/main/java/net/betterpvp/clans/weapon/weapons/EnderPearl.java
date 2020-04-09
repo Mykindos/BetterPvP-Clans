@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -39,7 +40,7 @@ public class EnderPearl extends Weapon {
     @EventHandler
     public void onPearlUse(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK
                 || event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (player.getInventory().getItemInMainHand() == null)

@@ -127,11 +127,10 @@ public class CombatManager extends BPVPListener<Clans> {
                         String killerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(dam)).getPrimary().toString();
 
                         if (killDetails.getCause().equals("")) {
-                            UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
                                     + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getInventory().getItemInMainHand()))));
                         } else {
-
-                            UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
                                     + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(killDetails.getCause())) + length);
                         }
 
@@ -304,7 +303,7 @@ public class CombatManager extends BPVPListener<Clans> {
 
     private String getWeaponName(ItemStack d) {
         if (d.hasItemMeta()) {
-            if (d.getItemMeta().getDisplayName() != null) {
+            if (d.getItemMeta().getDisplayName() != null && !d.getItemMeta().getDisplayName().equals("")) {
                 return d.getItemMeta().getDisplayName();
             }
         }

@@ -1,4 +1,4 @@
-package net.betterpvp.clans.skills.selector.skills.gladiator;
+package net.betterpvp.clans.skills.selector.skills.necromancer;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.DamageManager;
@@ -19,7 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Bloodshed extends Skill implements InteractSkill {
 
     public Bloodshed(Clans i) {
-        super(i, "Bloodshed", "Gladiator", getAxes, rightClick, 5, true, true);
+        super(i, "Bloodshed", "Necromancer", getAxes, rightClick, 5, true, true);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Bloodshed extends Skill implements InteractSkill {
 
     @Override
     public double getRecharge(int level) {
-        return 10;
+        return 12 - (level);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Bloodshed extends Skill implements InteractSkill {
 
         p.setHealth(Math.max(0.5, proposedHealth));
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, 4));
-        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BAT_DEATH, 2.0f, 0.5f);
+        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_RAVAGER_ROAR, 2.0f, 0.3f);
         p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 2.0f);
     }
 }

@@ -19,10 +19,10 @@ import net.betterpvp.clans.skills.selector.skills.global.BreakFall;
 import net.betterpvp.clans.skills.selector.skills.global.FastRecovery;
 import net.betterpvp.clans.skills.selector.skills.global.Swim;
 import net.betterpvp.clans.skills.selector.skills.knight.*;
+import net.betterpvp.clans.skills.selector.skills.necromancer.Bloodshed;
+import net.betterpvp.clans.skills.selector.skills.necromancer.SoulHarvest;
 import net.betterpvp.clans.skills.selector.skills.paladin.*;
 import net.betterpvp.clans.skills.selector.skills.ranger.*;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
@@ -170,8 +170,13 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Colossus", new Colossus(i));
         skills.put("Resistance", new Resistance(i));
         skills.put("Bloodlust", new Bloodlust(i));
-        skills.put("Bloodshed", new Bloodshed(i));
 
+        /*
+        * Necromancer Skills
+        */
+
+        skills.put("Bloodshed", new Bloodshed(i));
+        skills.put("Soul Harvest", new SoulHarvest(i));
 
 
     }
@@ -370,7 +375,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                                 showPassiveB(p, b);
                                             }
 
-                                        } else if (p.getInventory().getItemInMainHand().getType() == Material.BOW) {
+                                        } else if (UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
                                             BuildSkill skill = b.getBuildSkill(Types.BOW);
                                             if (skill != null) {
                                                 display(p, skill);

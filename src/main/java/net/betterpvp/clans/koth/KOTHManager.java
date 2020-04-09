@@ -21,6 +21,7 @@ import org.bukkit.block.Chest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -150,6 +151,7 @@ public class KOTHManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void interact(PlayerInteractEvent e){
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
             Block b = e.getClickedBlock();
             if(b.getType() == Material.CHEST){

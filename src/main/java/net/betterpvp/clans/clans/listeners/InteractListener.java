@@ -71,6 +71,7 @@ public class InteractListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void onOuterRedstone(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getAction() == Action.PHYSICAL) {
 
 
@@ -217,6 +218,7 @@ public class InteractListener extends BPVPListener<Clans> {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         Player p = e.getPlayer();
         Clan clan = ClanUtilities.getClan(p);
 
@@ -352,7 +354,7 @@ public class InteractListener extends BPVPListener<Clans> {
     @EventHandler
     public static void doorKnock(PlayerInteractEvent e) {
 
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             if (e.getClickedBlock().getType() == Material.IRON_DOOR

@@ -11,6 +11,7 @@ import net.betterpvp.clans.skills.selector.skills.data.OverChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
@@ -23,6 +24,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.*;
 
@@ -73,7 +75,7 @@ public class Overcharge extends Skill {
     @EventHandler
     public void onBarrageActivate(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (Arrays.asList(getActions()).contains(event.getAction())) {
             if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                 Role r = Role.getRole(player);
@@ -168,7 +170,7 @@ public class Overcharge extends Skill {
                                 continue;
                             }
 
-                            if (player.getInventory().getItemInMainHand().getType() != Material.BOW) {
+                            if (!UtilItem.isRanged(player.getInventory().getItemInMainHand().getType())) {
                                 iterator.remove();
                                 continue;
                             }

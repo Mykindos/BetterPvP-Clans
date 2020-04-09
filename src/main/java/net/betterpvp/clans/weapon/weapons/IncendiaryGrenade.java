@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class IncendiaryGrenade extends Weapon {
     @EventHandler
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.MAGMA_CREAM) return;
 
@@ -67,7 +68,7 @@ public class IncendiaryGrenade extends Weapon {
 
                 if (UtilBlock.getBlockUnder(item.getLocation()).getType() != Material.AIR) {
                     areas.put(location, System.currentTimeMillis() + 6000L);
-                    ParticleEffect.EXPLOSION_HUGE.display(location);
+                    ParticleEffect.SMOKE_LARGE.display(location);
 
                     location.getWorld().playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0F, 1.0F);
                     item.remove();

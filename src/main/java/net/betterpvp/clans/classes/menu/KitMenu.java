@@ -13,30 +13,35 @@ public class KitMenu extends Menu {
 
     public KitMenu(Player p, boolean newPlayer) {
         super(p, 36, ChatColor.GREEN.toString() + ChatColor.BOLD + "Select a Class!", new Button[]{
-                new KitButton(0, new ItemStack(Material.DIAMOND_HELMET), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
-                new KitButton(9, new ItemStack(Material.DIAMOND_CHESTPLATE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
-                new KitButton(18, new ItemStack(Material.DIAMOND_LEGGINGS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
-                new KitButton(27, new ItemStack(Material.DIAMOND_BOOTS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
+                new KitButton(0, new ItemStack(Material.DIAMOND_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
+                new KitButton(9, new ItemStack(Material.DIAMOND_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
+                new KitButton(18, new ItemStack(Material.DIAMOND_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
+                new KitButton(27, new ItemStack(Material.DIAMOND_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Gladiator Class"),
 
-                new KitButton(2, new ItemStack(Material.LEATHER_HELMET), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
-                new KitButton(11, new ItemStack(Material.LEATHER_CHESTPLATE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
-                new KitButton(20, new ItemStack(Material.LEATHER_LEGGINGS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
-                new KitButton(29, new ItemStack(Material.LEATHER_BOOTS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
+                new KitButton(1, new ItemStack(Material.LEATHER_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
+                new KitButton(10, new ItemStack(Material.LEATHER_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
+                new KitButton(19, new ItemStack(Material.LEATHER_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
+                new KitButton(28, new ItemStack(Material.LEATHER_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Assassin Class"),
 
-                new KitButton(4, new ItemStack(Material.IRON_HELMET), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
-                new KitButton(13, new ItemStack(Material.IRON_CHESTPLATE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
-                new KitButton(22, new ItemStack(Material.IRON_LEGGINGS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
-                new KitButton(31, new ItemStack(Material.IRON_BOOTS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
+                new KitButton(3, new ItemStack(Material.IRON_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
+                new KitButton(12, new ItemStack(Material.IRON_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
+                new KitButton(21, new ItemStack(Material.IRON_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
+                new KitButton(30, new ItemStack(Material.IRON_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
 
-                new KitButton(6, new ItemStack(Material.CHAINMAIL_HELMET), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
-                new KitButton(15, new ItemStack(Material.CHAINMAIL_CHESTPLATE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
-                new KitButton(24, new ItemStack(Material.CHAINMAIL_LEGGINGS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
-                new KitButton(33, new ItemStack(Material.CHAINMAIL_BOOTS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
+                new KitButton(5, new ItemStack(Material.TURTLE_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Necromancer Class"),
+                new KitButton(14, new ItemStack(Material.IRON_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Necromancer Class"),
+                new KitButton(23, new ItemStack(Material.IRON_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Necromancer Class"),
+                new KitButton(32, new ItemStack(Material.IRON_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Necromancer Class"),
 
-                new KitButton(8, new ItemStack(Material.GOLDEN_HELMET), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
-                new KitButton(17, new ItemStack(Material.GOLDEN_CHESTPLATE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
-                new KitButton(26, new ItemStack(Material.GOLDEN_LEGGINGS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
-                new KitButton(35, new ItemStack(Material.GOLDEN_BOOTS), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class")});
+                new KitButton(7, new ItemStack(Material.CHAINMAIL_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
+                new KitButton(16, new ItemStack(Material.CHAINMAIL_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
+                new KitButton(25, new ItemStack(Material.CHAINMAIL_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
+                new KitButton(34, new ItemStack(Material.CHAINMAIL_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
+
+                new KitButton(8, new ItemStack(Material.GOLDEN_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
+                new KitButton(17, new ItemStack(Material.GOLDEN_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
+                new KitButton(26, new ItemStack(Material.GOLDEN_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class"),
+                new KitButton(35, new ItemStack(Material.GOLDEN_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Paladin Class")});
         this.newPlayer = newPlayer;
     }
 

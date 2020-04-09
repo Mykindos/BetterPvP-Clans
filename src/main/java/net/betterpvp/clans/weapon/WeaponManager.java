@@ -46,7 +46,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         addWeapon(new FireWalkers(i));
         addWeapon(new WindBlade(i));
         addWeapon(new AlligatorsTooth(i));
-        //new WingsOfZanzul(i);
+        addWeapon(new WingsOfZanzul(i));
         addWeapon(new GiantsBroadsword(i));
         addWeapon(new DwarvenPickaxe(i));
         addWeapon(new SupplyCrate(i));

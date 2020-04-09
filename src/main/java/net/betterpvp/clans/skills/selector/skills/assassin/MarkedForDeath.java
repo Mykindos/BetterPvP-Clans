@@ -13,6 +13,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -108,7 +109,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
                 Player p = Bukkit.getPlayer(uuid);
                 if (p != null) {
                     if (p.getInventory().getItemInMainHand() != null) {
-                        if (p.getInventory().getItemInMainHand().getType() != Material.BOW) {
+                        if (!UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
                             Recharge recharge = RechargeManager.getInstance().getAbilityRecharge(p.getName(), getName());
                             if (recharge != null) {
                                 if (recharge.isCancellable()) {

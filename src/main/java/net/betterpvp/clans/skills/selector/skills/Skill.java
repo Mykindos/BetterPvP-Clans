@@ -214,8 +214,9 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
             }
 
         }
-        if (getType() == Types.AXE || getType() == Types.SWORD) {
-            if (p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD || p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE) {
+        if (getType() == Types.AXE || getType() == Types.SWORD || getType() == Types.BOW) {
+            if (p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD || p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE
+            || p.getInventory().getItemInMainHand().getType() == Material.CROSSBOW) {
                 level++;
             }
         }
@@ -275,126 +276,7 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
     }
 
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onSkillActivate(PlayerInteractEvent event) {
 
-/*
-        Player player = event.getPlayer();
-
-        if (player.getInventory().getItemInMainHand() == null) {
-            return;
-        }
-
-        if (event.getHand() == EquipmentSlot.OFF_HAND) {
-            return;
-        }
-
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Block b = event.getClickedBlock();
-            if (b.getType() == Material.SPONGE) {
-                // Only cancel if the sponge is below the player
-                if (b.getLocation().getY() < player.getLocation().getY()) {
-                    return;
-                }
-            } else if (b.getType() == Material.IRON_DOOR || b.getType() == Material.LEGACY_IRON_DOOR_BLOCK) {
-                return;
-            }
-        } else {
-            if (event.getClickedBlock() != null) {
-
-                if (event.getClickedBlock().getType() == Material.IRON_DOOR) {
-                    return;
-                }
-            }
-        }
-
-
-        if (getActions() == null) {
-            return;
-        }
-
-        if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
-                Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
-
-                if (weapon == null || weapon != null && weapon instanceof EnchantedWeapon) {
-                    Role role = Role.getRole(player);
-
-                    if (role != null && role.getName().equals(getClassType())) {
-
-                        if (!useInteract()) {
-                            return;
-                        }
-
-                        if (UtilItem.isBlockDoor(player)) {
-                            return;
-                        }
-
-                        Gamer gamer = GamerManager.getOnlineGamer(player);
-                        RoleBuild rb = gamer.getActiveBuild(role.getName());
-                        if (rb == null) {
-                            gamer.setActiveBuild(gamer.getBuild(Role.getRole(player).getName(), 1));
-                        }
-
-                        BuildSkill bs = rb.getBuildSkill(getType());
-                        if (bs != null) {
-
-                            Skill s = bs.getSkill();
-                            if (s != null) {
-                                if (s.getName().equals(getName())) {
-
-
-                                    if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
-                                        UtilMessage.message(player, "Effect", "You are silenced!");
-                                        return;
-                                    }
-
-                                    if (!ClanUtilities.canCast(player)) {
-                                        return;
-                                    }
-
-                                    if (!usageCheck(player)) {
-                                        return;
-                                    }
-
-
-                                    if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                                        if (UtilBlock.usable(event.getClickedBlock())) {
-                                            return;
-                                        }
-                                    }
-
-                                    if (0.999 * (s.getEnergy(getLevel(player)) / 100) < Energy.getEnergy(player)) {
-                                        if (getRecharge(bs.getLevel()) == 0) {
-
-                                            s.activateSkill(player);
-                                            return;
-                                        }
-                                        if (RechargeManager.getInstance().add(player, s.getName(), getRecharge(getLevel(player)),
-                                                s.showRecharge(), true, s.isCancellable())) {
-                                            if (Energy.use(player, s.getName(), getEnergy(getLevel(player)), true)) {
-                                                s.activateSkill(player);
-
-                                            }
-                                        }
-                                    } else {
-                                        UtilMessage.message(player, "Energy", "You are too exhausted to use "
-                                                + ChatColor.GREEN + s.getName(getLevel(player)) + ChatColor.GRAY + ".");
-                                    }
-
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
- */
-
-    }
 
 
 }

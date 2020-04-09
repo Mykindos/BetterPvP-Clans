@@ -19,6 +19,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -133,6 +134,7 @@ public class Swarm extends ChannelSkill implements InteractSkill {
 
                     for (LivingEntity other : p.getWorld().getLivingEntities()) {
                         if (other instanceof Bat) continue;
+                        if(other instanceof ArmorStand) continue;
                         if (hitPlayer(bat.getLocation(), other)) {
 
 

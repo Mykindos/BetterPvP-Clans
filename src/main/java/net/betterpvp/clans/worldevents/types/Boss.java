@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 
 import net.betterpvp.clans.combat.LogManager;
@@ -26,6 +27,7 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -161,6 +163,10 @@ public abstract class Boss extends WorldEvent {
         getMinions().clear();
 
         loot = WEManager.getRandomItem();
+
+        for(Player p : Bukkit.getOnlinePlayers()){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
+        }
 
         LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
         if (killer != null) {

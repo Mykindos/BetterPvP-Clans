@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -42,7 +43,7 @@ public class Molotov extends Weapon {
     @EventHandler
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.EXPERIENCE_BOTTLE) return;
 

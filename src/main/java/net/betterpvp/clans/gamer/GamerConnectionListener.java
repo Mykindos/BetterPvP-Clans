@@ -1,6 +1,7 @@
 package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.Types;
@@ -20,6 +21,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
@@ -61,8 +63,22 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
         SettingsRepository.loadSettings(getInstance(), gamer.getClient());
 
-        gamer.setScoreboard(new Scoreboard(e.getClient()
-                .getPlayer()));
+        new BukkitRunnable(){
+            @Override
+            public void run(){
+                Player player = Bukkit.getPlayer(e.getClient().getUUID());
+                if(player != null){
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+                }
+            }
+        }.runTaskLater(getInstance(), 10);
+
+        Player player = Bukkit.getPlayer(e.getClient().getUUID());
+        if(player != null){
+            gamer.setScoreboard(new Scoreboard(player));
+        }
+
+
     }
 
     @EventHandler (priority = EventPriority.LOWEST)
@@ -151,18 +167,28 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             k.setSkill(Types.GLOBAL, SelectorManager.getSkills().get("Swim"), 1);
             k.takePoints(12);
 
+            RoleBuild n = new RoleBuild("Necromancer", d);
+            if (d == 1) {
+                n.setActive(true);
+            }
+
+            n.setSkill(Types.AXE, SelectorManager.getSkills().get("Bloodshed"), 5);
+
+            n.takePoints(5);
 
             c.getBuilds().add(k);
             c.getBuilds().add(r);
             c.getBuilds().add(g);
             c.getBuilds().add(p);
             c.getBuilds().add(a);
+            c.getBuilds().add(n);
 
             BuildRepository.saveBuild(c.getUUID(), a);
             BuildRepository.saveBuild(c.getUUID(), p);
             BuildRepository.saveBuild(c.getUUID(), r);
             BuildRepository.saveBuild(c.getUUID(), g);
             BuildRepository.saveBuild(c.getUUID(), k);
+            BuildRepository.saveBuild(c.getUUID(), n);
         }
     }
 }

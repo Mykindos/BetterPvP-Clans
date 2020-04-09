@@ -10,6 +10,7 @@ import net.betterpvp.clans.skills.selector.skills.data.ChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
@@ -23,6 +24,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.util.Vector;
 
 import java.util.*;
@@ -82,7 +84,7 @@ public class Barrage extends Skill {
     @EventHandler
     public void onBarrageActivate(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (UtilBlock.usable(event.getClickedBlock())) {
                 return;
@@ -171,7 +173,7 @@ public class Barrage extends Skill {
                             }
 
 
-                            if (player.getInventory().getItemInMainHand().getType() != Material.BOW) {
+                            if (!UtilItem.isRanged(player.getInventory().getItemInMainHand().getType())) {
                                 iterator.remove();
                                 continue;
                             }

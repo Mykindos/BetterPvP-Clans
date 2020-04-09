@@ -76,6 +76,7 @@ public class Agility extends Skill implements InteractSkill {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void endOnInteract(PlayerInteractEvent event) {
+
         Player player = event.getPlayer();
         if (event.getHand() != EquipmentSlot.OFF_HAND) {
             if (event.getAction() != Action.PHYSICAL) {

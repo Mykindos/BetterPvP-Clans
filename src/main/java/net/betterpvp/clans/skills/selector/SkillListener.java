@@ -98,14 +98,14 @@ public class SkillListener extends BPVPListener<Clans> {
 
         Player player = event.getPlayer();
 
+        if (event.getHand() == EquipmentSlot.OFF_HAND) {
+            return;
+        }
+
         if (player.getInventory().getItemInMainHand() == null) {
             return;
         }
 
-
-        if (event.getHand() == EquipmentSlot.OFF_HAND) {
-            return;
-        }
 
         if (!ClanUtilities.canCast(player)) {
             return;
@@ -128,6 +128,11 @@ public class SkillListener extends BPVPListener<Clans> {
             } else if (b.getType() == Material.IRON_DOOR) {
                 return;
             }
+        }
+
+        Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
+        if(weapon != null && weapon.isLegendary()){
+            return;
         }
 
         Role role = Role.getRole(player);

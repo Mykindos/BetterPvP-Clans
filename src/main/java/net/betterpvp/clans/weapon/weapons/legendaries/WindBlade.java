@@ -13,10 +13,7 @@ import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.particles.data.color.ParticleColor;
 import net.betterpvp.core.particles.data.color.RegularColor;
-import net.betterpvp.core.utility.UtilBlock;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilTime;
-import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.*;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -125,7 +122,7 @@ public class WindBlade extends Weapon implements ChannelWeapon {
                         }
                     }
                     if (player.isHandRaised()
-                            && player.getInventory().getItemInMainHand().getType() != Material.BOW) { // .ct() for 1.9.4
+                            && !UtilItem.isRanged(player.getInventory().getItemInMainHand().getType())) { // .ct() for 1.9.4
 
                         if (UtilBlock.isInLiquid(player)) {
                             UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + "Wind Rider" + ChatColor.GRAY + " in water.");

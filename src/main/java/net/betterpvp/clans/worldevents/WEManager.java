@@ -5,6 +5,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
@@ -206,6 +207,7 @@ public class WEManager extends BPVPListener<Clans> {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(b.getBossName()), ChatColor.GRAY + "Has entered the world.");
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1F, 1F);
+                        Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
                     }
                 }
             } else if (getActiveWorldEvent() instanceof Environmental) {
@@ -215,6 +217,7 @@ public class WEManager extends BPVPListener<Clans> {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Titles.sendTitle(p, 20, 20, 20, ChatColor.YELLOW + ChatColor.stripColor(e.getDisplayName()), ChatColor.GRAY + "has started!");
                     p.playSound(p.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.5F, 1F);
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
                 }
             }
         }

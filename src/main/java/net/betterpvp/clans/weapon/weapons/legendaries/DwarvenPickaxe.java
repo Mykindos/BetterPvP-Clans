@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class DwarvenPickaxe extends Weapon {
 
@@ -30,7 +31,7 @@ public class DwarvenPickaxe extends Weapon {
     @EventHandler
     public void onBlockBreak(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
 

@@ -20,6 +20,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon {
 
 
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
 

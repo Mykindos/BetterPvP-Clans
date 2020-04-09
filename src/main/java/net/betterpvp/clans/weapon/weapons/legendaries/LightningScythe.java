@@ -20,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class LightningScythe extends Weapon {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
         if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.DIAMOND_HOE) return;
 

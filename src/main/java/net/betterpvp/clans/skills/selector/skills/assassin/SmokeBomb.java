@@ -25,6 +25,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -126,6 +127,7 @@ public class SmokeBomb extends Skill implements ToggleSkill {
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (smoked.containsKey(e.getPlayer())) {
             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 smoked.remove(e.getPlayer());

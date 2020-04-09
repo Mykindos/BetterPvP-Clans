@@ -12,6 +12,7 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.page.ClassSelectionPage;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.utilities.UtilClans;
@@ -24,6 +25,7 @@ import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.commands.admin.OfflineCommand;
 import net.betterpvp.core.client.mysql.ClientRepository;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -42,6 +44,7 @@ import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -75,6 +78,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void onOpenBuildManager(PlayerInteractEvent e) {
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = e.getClickedBlock();
             if (b.getType() == Material.ENCHANTING_TABLE) {
@@ -489,6 +493,28 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    /*
+     * Logs the location and player of chests that are opened in the wilderness
+     * Useful for catching xrayers.
+     */
+    @EventHandler
+    public void onInt(PlayerInteractEvent e) {
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Material m = e.getClickedBlock().getType();
+            if (m == Material.CHEST || m == Material.TRAPPED_CHEST
+                    || m == Material.FURNACE || m == Material.DROPPER || m == Material.CAULDRON) {
+                if (ClanUtilities.getClan(e.getPlayer().getLocation()) == null) {
+
+                    int x = (int) e.getClickedBlock().getLocation().getX();
+                    int y = (int) e.getClickedBlock().getLocation().getY();
+                    int z = (int) e.getClickedBlock().getLocation().getZ();
+                    Log.write("Trap Chest", e.getPlayer().getName() + " opened a chest at " + x + "," + y + "," + z);
+                }
+            }
+        }
+    }
+
     @EventHandler
     public void updateTimePlayed(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.MIN_60) {
@@ -576,6 +602,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.ITEM_FRAME || e.getClickedBlock().getType() == Material.ARMOR_STAND) {
                 Clan c = ClanUtilities.getClan(e.getClickedBlock().getLocation());
@@ -781,6 +808,26 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
+    public void onJoinShield(PlayerJoinEvent e) {
+        if (e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("_SWORD")) {
+            Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+
+            if (gamer != null) {
+                Role role = Role.getRole(e.getPlayer());
+                if (role != null) {
+                    RoleBuild build = gamer.getActiveBuild(role.getName());
+                    if (build != null) {
+                        if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                            e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    @EventHandler
     public void onItemSwap(PlayerItemHeldEvent e) {
         ItemStack item = e.getPlayer().getInventory().getItem(e.getNewSlot());
         if (item != null) {
@@ -802,7 +849,7 @@ public class WorldListener extends BPVPListener<Clans> {
                         e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                     }
 
-                }else{
+                } else {
                     // Remove if not a channel weapon
                     Weapon weapon = WeaponManager.getWeapon(item);
                     if (weapon != null && !(weapon instanceof ChannelWeapon)) {
@@ -818,8 +865,8 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onPickupShield(EntityPickupItemEvent e){
-        if(e.getItem().getItemStack().getType() == Material.SHIELD){
+    public void onPickupShield(EntityPickupItemEvent e) {
+        if (e.getItem().getItemStack().getType() == Material.SHIELD) {
             e.setCancelled(true);
             e.getItem().remove();
         }
@@ -1022,6 +1069,18 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
 
+    }
+
+    /*
+     * Removes arrows when they hit the ground, or a player
+     * Keeps the entity count low (good for performance)
+     */
+    @EventHandler
+    public void onArrowHit(ProjectileHitEvent event) {
+        if (event.getEntity() instanceof Arrow) {
+            Arrow arrow = (Arrow) event.getEntity();
+            arrow.remove();
+        }
     }
 
 

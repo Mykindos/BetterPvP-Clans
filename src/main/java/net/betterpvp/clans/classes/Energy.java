@@ -11,6 +11,7 @@ import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class Energy extends BPVPListener<Clans> {
 
@@ -41,6 +43,10 @@ public class Energy extends BPVPListener<Clans> {
     }
 
     public static boolean use(Player player, String ability, double amount, boolean inform) {
+        if(player.isOp() && player.getGameMode() == GameMode.CREATIVE){
+            return true;
+        }
+
         amount = 0.999 * (amount / 100);
 
 
@@ -115,6 +121,7 @@ public class Energy extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         Player player = event.getPlayer();
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             use(player, "Attack", 0.02, false);
