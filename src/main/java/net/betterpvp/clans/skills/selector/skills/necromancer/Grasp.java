@@ -69,8 +69,7 @@ public class Grasp extends Skill implements InteractSkill {
                         loc.add(0.0D, 1.0D, 0.0D);
                         if ((loc.getBlock().getType() != Material.AIR)
                                 && UtilBlock.solid(loc.getBlock())) {
-                            Bukkit.broadcastMessage("Cancelling cuz " + loc.getBlock().getType().name());
-                            cancel();
+                            System.out.println("Cancelling cuz " + loc.getBlock().getType().name());
                             return;
                         }
 
@@ -185,8 +184,8 @@ public class Grasp extends Skill implements InteractSkill {
                 "and brings all enemies with it.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Max range: " + ChatColor.GREEN + 20 + ((level * 10) / 2),
-                "Damage: " + ChatColor.GREEN + 2 + level
+                "Max range: " + ChatColor.GREEN + (20 + ((level * 10) / 2)),
+                "Damage: " + ChatColor.GREEN + (2 + level)
 
         };
     }
