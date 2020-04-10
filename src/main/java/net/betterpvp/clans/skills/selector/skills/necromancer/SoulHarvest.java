@@ -77,9 +77,11 @@ public class SoulHarvest extends Skill {
                         if(!p.isDead() && p.getHealth() > 0) {
                             List<SoulData> remove = new ArrayList<>();
                             souls.forEach(soul -> {
-                                if (soul.loc.distance(p.getLocation()) <= 1 && !soul.uuid.toString().equals(p.getUniqueId().toString())) {
-                                    giveEffect(p);
-                                    remove.add(soul);
+                                if(soul.loc.getWorld().getName().equals(p.getWorld().getName())) {
+                                    if (soul.loc.distance(p.getLocation()) <= 1.5 && !soul.uuid.toString().equals(p.getUniqueId().toString())) {
+                                        giveEffect(p);
+                                        remove.add(soul);
+                                    }
                                 }
                             });
 

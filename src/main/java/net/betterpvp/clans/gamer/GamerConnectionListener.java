@@ -71,7 +71,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
                 }
             }
-        }.runTaskLater(getInstance(), 10);
+        }.runTaskLater(getInstance(), 20);
 
         Player player = Bukkit.getPlayer(e.getClient().getUUID());
         if(player != null){
@@ -173,8 +173,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             }
 
             n.setSkill(Types.AXE, SelectorManager.getSkills().get("Bloodshed"), 5);
-
-            n.takePoints(5);
+            n.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Soul Harvest"), 3);
+            n.takePoints(8);
 
             c.getBuilds().add(k);
             c.getBuilds().add(r);

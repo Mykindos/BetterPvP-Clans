@@ -38,7 +38,7 @@ public class LogManager {
         getCombatLogs().get(damagee).add(new CombatLogs(damager, name, cause));
     }
 
-    public static void addLog(LivingEntity damagee, LivingEntity damager, String cause) {
+    public static synchronized void addLog(LivingEntity damagee, LivingEntity damager, String cause) {
         addLog(damagee, damager, "", cause);
     }
 
@@ -89,7 +89,7 @@ public class LogManager {
                 return true;
             }
 
-            if (p.getGameMode() != GameMode.SURVIVAL && p.getGameMode() != GameMode.ADVENTURE) {
+            if (p.getGameMode() == GameMode.SPECTATOR || p.getGameMode() == GameMode.CREATIVE) {
                 return true;
             }
 

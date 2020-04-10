@@ -107,9 +107,7 @@ public class SkillListener extends BPVPListener<Clans> {
         }
 
 
-        if (!ClanUtilities.canCast(player)) {
-            return;
-        }
+
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (UtilBlock.usable(event.getClickedBlock())) {
@@ -155,7 +153,9 @@ public class SkillListener extends BPVPListener<Clans> {
                 }).findFirst();
 
                 if(skillOptional.isPresent()){
-
+                    if (!ClanUtilities.canCast(player)) {
+                        return;
+                    }
                     if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
                         UtilMessage.message(player, "Effect", "You are silenced!");
                         return;

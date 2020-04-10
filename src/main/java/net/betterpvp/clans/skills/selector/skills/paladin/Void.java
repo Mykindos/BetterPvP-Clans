@@ -93,10 +93,16 @@ public class Void extends Skill implements ToggleSkill {
         if (e.getDamagee() instanceof Player) {
             final Player p = (Player) e.getDamagee();
 
-            if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
-                if (hasSkill(p, this)) {
+            Role role = Role.getRole(p);
+            if (role != null && role.getName().equals(getClassType())) {
+                if (active.contains(p.getUniqueId())) {
 
+                    e.setDamage(e.getDamage() - 5);
+                    Energy.degenerateEnergy(p, 0.20);
+
+                    e.setKnockback(false);
                 }
+
             }
         }
     }
@@ -128,7 +134,7 @@ public class Void extends Skill implements ToggleSkill {
     @Override
     public boolean usageCheck(Player p) {
 
-        return false;
+        return true;
     }
 
     @Override

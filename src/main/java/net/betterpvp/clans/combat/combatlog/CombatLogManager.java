@@ -169,7 +169,9 @@ public class CombatLogManager extends BPVPListener<Clans> {
                 CombatLog log = logIterator.next();
 
                 if (System.currentTimeMillis() >= log.getTime()) {
-                    log.getNPC().remove();
+                    if(log.getNPC() != null) {
+                        log.getNPC().remove();
+                    }
                     logIterator.remove();
                 }
             }

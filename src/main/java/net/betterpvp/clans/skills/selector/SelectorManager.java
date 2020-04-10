@@ -20,6 +20,7 @@ import net.betterpvp.clans.skills.selector.skills.global.FastRecovery;
 import net.betterpvp.clans.skills.selector.skills.global.Swim;
 import net.betterpvp.clans.skills.selector.skills.knight.*;
 import net.betterpvp.clans.skills.selector.skills.necromancer.Bloodshed;
+import net.betterpvp.clans.skills.selector.skills.necromancer.Grasp;
 import net.betterpvp.clans.skills.selector.skills.necromancer.SoulHarvest;
 import net.betterpvp.clans.skills.selector.skills.paladin.*;
 import net.betterpvp.clans.skills.selector.skills.ranger.*;
@@ -177,6 +178,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
         skills.put("Bloodshed", new Bloodshed(i));
         skills.put("Soul Harvest", new SoulHarvest(i));
+        skills.put("Grasp", new Grasp(i));
 
 
     }

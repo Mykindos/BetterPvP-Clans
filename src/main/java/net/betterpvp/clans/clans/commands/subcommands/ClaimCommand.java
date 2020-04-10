@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
@@ -132,6 +133,7 @@ public class ClaimCommand implements IClanCommand {
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             // ClanRepository.updateDynmap(i, clan);
             return;
         }
@@ -178,7 +180,9 @@ public class ClaimCommand implements IClanCommand {
             UtilLocation.outlineChunk(player.getLocation().getChunk());
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
+
             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             //ClanRepository.updateDynmap(i, clan);
             return;
         }

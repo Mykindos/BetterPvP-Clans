@@ -12,6 +12,7 @@ import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.combatlog.CombatLogManager;
 import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
+import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
@@ -165,6 +166,7 @@ public class Clans extends JavaPlugin implements Listener {
         new ClanScoreboardListener(this);
         new CombatLogManager(this);
         new NPCManager(this);
+        new SafeLogManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         CommandManager.addCommand(new FindCommand(this));

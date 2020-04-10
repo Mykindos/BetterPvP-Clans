@@ -25,6 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Arrays;
 
@@ -55,7 +56,7 @@ public class HiltSmash extends Skill {
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (hasSkill(p, this)) {
             if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                 Weapon weapon = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());

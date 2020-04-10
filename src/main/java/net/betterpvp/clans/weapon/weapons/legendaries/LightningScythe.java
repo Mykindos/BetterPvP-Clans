@@ -75,7 +75,7 @@ public class LightningScythe extends Weapon {
 
         if (RechargeManager.getInstance().add(p, getName(), 7.5, true)) {
             if (Energy.use(p, getName(), 40.0, true)) {
-                Block b = p.getTargetBlock((Set<Material>) null, 50);
+                Block b = p.getTargetBlock( null, 50);
                 if (b.getType() != null) {
 
 
