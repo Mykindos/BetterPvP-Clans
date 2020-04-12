@@ -172,9 +172,10 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 n.setActive(true);
             }
 
+            n.setSkill(Types.SWORD, SelectorManager.getSkills().get("Leech"), 4);
             n.setSkill(Types.AXE, SelectorManager.getSkills().get("Bloodshed"), 5);
             n.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Soul Harvest"), 3);
-            n.takePoints(8);
+            n.takePoints(12);
 
             c.getBuilds().add(k);
             c.getBuilds().add(r);

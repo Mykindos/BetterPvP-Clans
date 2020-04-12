@@ -152,4 +152,18 @@ public class UtilClans {
 
         return false;
     }
+
+    public static boolean isUsableWithShield(ItemStack item){
+
+        if(item.getType().name().contains("_SWORD")){
+            return true;
+        }
+
+        //Windblade
+        if(item.getType() == Material.MUSIC_DISC_11){
+            return true;
+        }
+
+        return false;
+    }
 }

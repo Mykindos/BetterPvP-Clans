@@ -44,7 +44,7 @@ public class StuckCommand extends BPVPListener<Clans> implements IClanCommand {
             return;
         }
 
-        if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+        if (player.getWorld().getName().equalsIgnoreCase("bossworld")) {
             UtilMessage.message(player, "Clans", "You can't use /c stuck from here.");
             return;
         }

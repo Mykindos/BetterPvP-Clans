@@ -7,6 +7,7 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
+import net.minecraft.server.v1_15_R1.EntityVex;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -61,11 +62,12 @@ public class SoulHarvest extends Skill {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e){
-        souls.add(new SoulData(e.getEntity().getUniqueId(), e.getEntity().getLocation(), System.currentTimeMillis() + 60_000));
+        souls.add(new SoulData(e.getEntity().getUniqueId(), e.getEntity().getLocation(), System.currentTimeMillis() + 120_000));
     }
 
     @EventHandler
     public void displaySouls(UpdateEvent e){
+
         if(e.getType() == UpdateEvent.UpdateType.FASTER){
             List<Player> active = new ArrayList<>();
             Bukkit.getOnlinePlayers().forEach(p -> {

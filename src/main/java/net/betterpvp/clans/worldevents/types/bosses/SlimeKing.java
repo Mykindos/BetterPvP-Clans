@@ -51,7 +51,7 @@ public class SlimeKing extends Boss {
 
     public SlimeKing(Clans i) {
         super(i, "SlimeKing", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
                 new Location(w, 702.5, 135, 192.5),
                 new Location(w, 699.5, 135, 123.5),
@@ -71,7 +71,7 @@ public class SlimeKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
     }
 
     @EventHandler
@@ -251,7 +251,7 @@ public class SlimeKing extends Boss {
         if (!getSpawn().getChunk().isLoaded()) {
             getSpawn().getChunk().load();
         }
-        fullSlime = (Slime) Bukkit.getWorld("bossworld2").spawnEntity(getSpawn(),
+        fullSlime = (Slime) Bukkit.getWorld("bossworld").spawnEntity(getSpawn(),
                 getEntityType());
         fullSlime.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
 

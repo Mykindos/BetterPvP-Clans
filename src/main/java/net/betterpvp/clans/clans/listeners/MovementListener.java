@@ -70,7 +70,7 @@ public class MovementListener extends BPVPListener<Clans> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Clan target = ClanUtilities.getClan(p.getLocation());
                 if (target == null) {
-                    if (p.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                    if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
                         if (p.getGameMode() == GameMode.SURVIVAL) {
 
                             p.setGameMode(GameMode.ADVENTURE);

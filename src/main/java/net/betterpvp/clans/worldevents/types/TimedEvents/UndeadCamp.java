@@ -52,7 +52,7 @@ public class UndeadCamp extends Timed {
     public UndeadCamp(Clans i) {
         super(i, "UndeadCamp", WEType.TIMED, 30);
 
-        world = Bukkit.getWorld("bossworld2");
+        world = Bukkit.getWorld("bossworld");
         loc = new Location(world, -144, 72, -480);
 
         chestLocations = new Location[]{
@@ -199,7 +199,7 @@ public class UndeadCamp extends Timed {
     private void spawnMobs() {
         int count = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+            if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
                 if (count < 4) {
                     BossZombie uz = new BossZombie(((CraftWorld) world).getHandle());
                     Zombie undeadZombie = uz.spawnZombie(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
@@ -223,7 +223,7 @@ public class UndeadCamp extends Timed {
         if (isActive()) {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-                    if (e.getClickedBlock().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                    if (e.getClickedBlock().getWorld().getName().equalsIgnoreCase("bossworld")) {
                         if (killCount.containsKey(e.getPlayer())) {
                             if (killCount.get(e.getPlayer()) >= 3) {
                                 breakChest(e.getClickedBlock());

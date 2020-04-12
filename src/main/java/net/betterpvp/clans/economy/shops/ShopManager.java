@@ -283,7 +283,7 @@ public class ShopManager implements Listener {
                             if (gamer != null) {
                                 if (UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
                                     if (!WEManager.isWorldEventActive()) {
-                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld")) {
                                             e.getPlayer().teleport(returnLocs[UtilMath.randomInt(returnLocs.length)]);
                                             UtilMessage.message(e.getPlayer(), "World Event", "You teleported back to Fields.");
                                         } else {
@@ -314,7 +314,7 @@ public class ShopManager implements Listener {
                                         }
 
                                     } else {
-                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld")) {
                                             e.getPlayer().teleport(returnLocs[UtilMath.randomInt(returnLocs.length)]);
                                             UtilMessage.message(e.getPlayer(), "World Event", "You teleported back to Fields.");
                                         }

@@ -110,7 +110,7 @@ public class Pestilence extends Skill implements InteractSkill {
 
     public PestilenceData getPestilence(Player p) {
         for (PestilenceData d : data) {
-            if (d.getDamager() == p.getUniqueId()) {
+            if (d.getDamager().equals(p.getUniqueId())) {
                 return d;
             }
         }

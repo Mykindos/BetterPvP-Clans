@@ -164,9 +164,7 @@ public abstract class Boss extends WorldEvent {
 
         loot = WEManager.getRandomItem();
 
-        for(Player p : Bukkit.getOnlinePlayers()){
-            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
-        }
+
 
         LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
         if (killer != null) {
@@ -228,6 +226,9 @@ public abstract class Boss extends WorldEvent {
 
 
         setActive(false);
+        for(Player p : Bukkit.getOnlinePlayers()){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
+        }
     }
 
    /* private void giveBonus(Client client, String boss) {

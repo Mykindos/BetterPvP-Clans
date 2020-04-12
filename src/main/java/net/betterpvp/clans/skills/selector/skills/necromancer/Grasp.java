@@ -10,6 +10,7 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
@@ -51,44 +52,49 @@ public class Grasp extends Skill implements InteractSkill {
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(level));
         Block block = player.getTargetBlock(null, (20 + (level * 10) / 2));
         Location startPos = player.getLocation();
-        if (block.getType() != Material.AIR) {
-            final Vector v = player.getLocation().toVector().subtract(block.getLocation().toVector()).normalize().multiply(0.2);
-            v.setY(0);
-            final Location loc = block.getLocation().add(v);
 
-            cooldownJump.put(player, new ArrayList<>());
-            final BukkitTask runnable = new BukkitRunnable() {
+        final Vector v = player.getLocation().toVector().subtract(block.getLocation().toVector()).normalize().multiply(0.2);
+        v.setY(0);
 
-                @SuppressWarnings("deprecation")
-                @Override
-                public void run() {
+        final Location loc = block.getLocation().add(v);
+        cooldownJump.put(player, new ArrayList<>());
 
+        final BukkitTask runnable = new BukkitRunnable() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void run() {
+
+                boolean skip = false;
+                if ((loc.getBlock().getType() != Material.AIR)
+                        && UtilBlock.solid(loc.getBlock())) {
+
+                    loc.add(0.0D, 1.0D, 0.0D);
                     if ((loc.getBlock().getType() != Material.AIR)
                             && UtilBlock.solid(loc.getBlock())) {
-
-                        loc.add(0.0D, 1.0D, 0.0D);
-                        if ((loc.getBlock().getType() != Material.AIR)
-                                && UtilBlock.solid(loc.getBlock())) {
-                            System.out.println("Cancelling cuz " + loc.getBlock().getType().name());
-                            return;
-                        }
-
+                        skip = true;
                     }
 
-                    Location compare = loc.clone();
-                    compare.setY(startPos.getY());
-                    if (compare.distance(startPos) < 1) {
-                        cancel();
-                        return;
-                    }
+                }
 
 
-                    if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
-                        loc.add(0.0D, -1.0D, 0.0D);
-                    }
+                Location compare = loc.clone();
+                compare.setY(startPos.getY());
+                if (compare.distance(startPos) < 1) {
+                    cancel();
+                    return;
+                }
 
-                    for (int i = 0; i < 10; i++) {
-                        loc.add(v);
+
+                if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
+                    loc.add(0.0D, -1.0D, 0.0D);
+                }
+
+
+                for (int i = 0; i < 10; i++) {
+
+                    loc.add(v);
+                    if (!skip) {
                         Location tempLoc = new Location(player.getWorld(), loc.getX() + UtilMath.randDouble(-2D, 2.0D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.50,
                                 loc.getZ() + UtilMath.randDouble(-2.0D, 2.0D));
 
@@ -100,35 +106,41 @@ public class Grasp extends Skill implements InteractSkill {
                             player.getWorld().playSound(tempLoc, Sound.ENTITY_VEX_DEATH, 0.3f, 0.3f);
                         }
                     }
-
                 }
 
-            }.runTaskTimer(getInstance(), 0, 2);
 
-            new BukkitRunnable() {
+            }
 
-                @Override
-                public void run() {
-                    runnable.cancel();
-                    cooldownJump.get(player).clear();
+        }.runTaskTimer(getInstance(), 0, 2);
 
-                }
 
-            }.runTaskLater(getInstance(), 40);
-        }
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                runnable.cancel();
+                cooldownJump.get(player).clear();
+
+            }
+
+        }.runTaskLater(getInstance(), 40);
+
+
     }
+
 
     private void createArmourStand(Player player, Location loc, int level) {
         CustomArmorStand as = new CustomArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) loc.getWorld()).getHandle());
         ArmorStand test = as.spawn(loc);
+        test.setVisible(false);
         // ArmorStand test = (ArmorStand) p.getWorld().spawnEntity(tempLoc, EntityType.ARMOR_STAND);
         test.getEquipment().setHelmet(new ItemStack(Material.WITHER_SKELETON_SKULL));
         test.setGravity(false);
-        test.setVisible(false);
+
         test.setSmall(true);
         test.setHeadPose(new EulerAngle(UtilMath.randomInt(360), UtilMath.randomInt(360), UtilMath.randomInt(360)));
 
-        stands.put(test, System.currentTimeMillis() + 300);
+        stands.put(test, System.currentTimeMillis() + 200);
 
         for (Entity ent : test.getNearbyEntities(0.5D, 0.5D, 0.5D)) {
 
@@ -148,7 +160,7 @@ public class Grasp extends Skill implements InteractSkill {
                     Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + level, false));
                     cooldownJump.get(player).add(ed);
                 }
-                if(ent.getLocation().distance(player.getLocation()) < 3) continue;
+                if (ent.getLocation().distance(player.getLocation()) < 3) continue;
                 Location target = player.getLocation();
                 target.add(target.getDirection().normalize().multiply(2));
                 UtilVelocity.velocity(ent, UtilVelocity.getTrajectory(ent.getLocation(), target), 1.0, false, 0, 0.5, 1, true);
@@ -157,7 +169,6 @@ public class Grasp extends Skill implements InteractSkill {
             }
         }
     }
-
 
 
     @EventHandler
@@ -209,12 +220,12 @@ public class Grasp extends Skill implements InteractSkill {
     public boolean usageCheck(Player p) {
         int level = getLevel(p);
         Block block = p.getTargetBlock(null, (20 + (level * 10) / 2));
-        if(block.getLocation().distance(p.getLocation()) < 3){
+        if (block.getLocation().distance(p.getLocation()) < 3) {
             UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " this close.");
             return false;
         }
 
-        if(block.getType() == Material.AIR){
+        if (block.getType() == Material.AIR) {
             UtilMessage.message(p, "Skill", "Could not find location within " + ChatColor.GREEN + (20 + (level * 10) / 2) + ChatColor.GRAY + " blocks.");
             return false;
         }

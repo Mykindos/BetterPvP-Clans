@@ -18,6 +18,8 @@ import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Skeleton.SkeletonType;
@@ -36,7 +38,7 @@ import java.util.Map.Entry;
 
 public class SkeletonKing extends Boss {
 
-    private Skeleton skeleton;
+    private WitherSkeleton skeleton;
     private WeakHashMap<Item, LivingEntity> targets = new WeakHashMap<>();
     private boolean boneShield;
     private List<Item> items = new ArrayList<>();
@@ -47,7 +49,7 @@ public class SkeletonKing extends Boss {
     public SkeletonKing(Clans i) {
         super(i, "SkeletonKing", WEType.BOSS);
 
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
 
         locs = new Location[]{
                 new Location(w, 702.5, 135, 192.5),
@@ -67,7 +69,7 @@ public class SkeletonKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
     }
 
     @Override
@@ -123,10 +125,9 @@ public class SkeletonKing extends Boss {
             BossSkeleton bs = new BossSkeleton(((CraftWorld) loc.getWorld()).getHandle());
             skeleton = bs.spawn(loc);
 
+            skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
+            skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());;
 
-            skeleton.setSkeletonType(SkeletonType.WITHER);
-            skeleton.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-            skeleton.setMaxHealth(getMaxHealth());
             skeleton.setHealth(getMaxHealth());
             skeleton.setCustomName(getBossName());
             skeleton.setCustomNameVisible(true);

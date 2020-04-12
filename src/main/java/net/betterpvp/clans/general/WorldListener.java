@@ -809,7 +809,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onJoinShield(PlayerJoinEvent e) {
-        if (e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("_SWORD")) {
+        if (UtilClans.isUsableWithShield(e.getPlayer().getInventory().getItemInMainHand())) {
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
             if (gamer != null) {
@@ -831,7 +831,7 @@ public class WorldListener extends BPVPListener<Clans> {
     public void onItemSwap(PlayerItemHeldEvent e) {
         ItemStack item = e.getPlayer().getInventory().getItem(e.getNewSlot());
         if (item != null) {
-            if (item.getType().name().contains("_SWORD")) {
+            if (UtilClans.isUsableWithShield(item)) {
                 if (e.getPlayer().getInventory().getItemInOffHand().getType() != Material.SHIELD) {
                     Role role = Role.getRole(e.getPlayer());
                     if (role != null) {

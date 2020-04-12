@@ -31,7 +31,7 @@ public class ClaimCommand implements IClanCommand {
 
     public void run(Player player, String[] args) {
         if (player.getWorld().getName().equalsIgnoreCase("tutorial")) return;
-        if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) return;
+        if (player.getWorld().getName().equalsIgnoreCase("bossworld")) return;
 
         Clan clan = ClanUtilities.getClan(player);
         if (clan == null) {

@@ -54,7 +54,7 @@ public class Witherton extends Boss {
 
     public Witherton(Clans i) {
         super(i, "Witherton", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
                 new Location(w, 702.5, 135, 192.5),
                 new Location(w, 699.5, 135, 123.5),
@@ -66,7 +66,7 @@ public class Witherton extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Witherton extends Boss {
             if (!getSpawn().getChunk().isLoaded()) {
                 getSpawn().getChunk().load();
             }
-            BossWither bs = new BossWither(((CraftWorld) Bukkit.getWorld("bossworld2")).getHandle());
+            BossWither bs = new BossWither(((CraftWorld) Bukkit.getWorld("bossworld")).getHandle());
             wither = bs.spawn(getSpawn());
 
             wither.setMaxHealth(getMaxHealth());

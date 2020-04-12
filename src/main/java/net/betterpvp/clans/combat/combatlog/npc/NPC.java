@@ -91,17 +91,11 @@ public class NPC {
         this.entity = entity;
     }
 
-    public ArmorStand getArmorStand() {
-        return stand;
-    }
-
-    public void setArmorStand(ArmorStand stand) {
-        this.stand = stand;
-    }
 
     public void remove() {
-        getEntity().setHealth(0);
-        getArmorStand().setHealth(0);
+        if(getEntity() != null) {
+            getEntity().setHealth(0);
+        }
     }
 
     public boolean inRadius() {

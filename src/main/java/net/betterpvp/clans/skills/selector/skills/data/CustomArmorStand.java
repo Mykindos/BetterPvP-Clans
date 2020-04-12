@@ -13,11 +13,12 @@ import javax.annotation.Nullable;
 public class CustomArmorStand extends EntityArmorStand {
     public CustomArmorStand(EntityTypes<? extends EntityArmorStand> entitytypes, World world) {
         super(entitytypes, world);
+        setInvisible(true);
     }
 
     public ArmorStand spawn(Location loc) {
 
-        setInvisible(true);
+
         setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
         getWorld().addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
         return (ArmorStand) getBukkitEntity();

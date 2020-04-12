@@ -38,7 +38,7 @@ public class Broodmother extends Boss {
 
     public Broodmother(Clans i) {
         super(i, "Broodmother", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
                 new Location(w, 702.5, 135, 192.5),
                 new Location(w, 699.5, 135, 123.5),
@@ -98,7 +98,7 @@ public class Broodmother extends Boss {
             if (!getSpawn().getChunk().isLoaded()) {
                 getSpawn().getChunk().load();
             }
-            BossSpider bs = new BossSpider(((CraftWorld) Bukkit.getWorld("bossworld2")).getHandle());
+            BossSpider bs = new BossSpider(((CraftWorld) Bukkit.getWorld("bossworld")).getHandle());
             spider = bs.spawnSpider(getSpawn());
 
             spider.setMaxHealth(getMaxHealth());
@@ -250,7 +250,7 @@ public class Broodmother extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
     }
 
     @EventHandler
