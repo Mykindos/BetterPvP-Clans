@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -39,7 +40,7 @@ public class Frailty extends Skill {
     public String[] getDescription(int level) {
         return new String[]{
                 "Nearby enemies that fall below " + ChatColor.GREEN + (40 + ((level - 1) * 10)) + "%" + ChatColor.GRAY + " health",
-                "take " + ChatColor.GREEN + (20 +((level-1) * 5)) + "%" + ChatColor.GRAY + " more damage from only you."
+                "take " + ChatColor.GREEN + (20 + ((level - 1) * 5)) + "%" + ChatColor.GRAY + " more damage from only you."
         };
     }
 
@@ -97,12 +98,14 @@ public class Frailty extends Skill {
 
                 active.forEach(u -> {
                     Player player = Bukkit.getPlayer(u);
-                    if (player != null) {
-                        if (p.getLocation().distance(player.getLocation()) < 5) {
-                            if (ClanUtilities.canHurt(p, player)) {
-                                if (hasSkill(player, this)) {
-                                    if (p.getHealth() / p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(player) - 1) * 10))) {
-                                        p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
+                    if (p.getWorld().equals(player.getWorld())) {
+                        if (player != null) {
+                            if (p.getLocation().distance(player.getLocation()) < 5) {
+                                if (ClanUtilities.canHurt(p, player)) {
+                                    if (hasSkill(player, this)) {
+                                        if (p.getHealth() / p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(player) - 1) * 10))) {
+                                            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
+                                        }
                                     }
                                 }
                             }
@@ -118,13 +121,14 @@ public class Frailty extends Skill {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent e) {
         if (e.getDamager() instanceof Player) {
-            Player damager = (Player) e.getDamager();
 
-            if (e.getDamagee().getHealth() / e.getDamagee().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(damager) - 1) * 10))) {
-
+            if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                Player damager = (Player) e.getDamager();
                 if (hasSkill(damager, this)) {
-                    int level = getLevel(damager);
-                    e.setDamage(e.getDamage() * 1.20 + ((level - 1) * 0.05));
+                    if (e.getDamagee().getHealth() / e.getDamagee().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(damager) - 1) * 10))) {
+                        int level = getLevel(damager);
+                        e.setDamage(e.getDamage() * 1.20 + ((level - 1) * 0.05));
+                    }
                 }
             }
         }

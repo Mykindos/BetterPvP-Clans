@@ -6,6 +6,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import org.bukkit.ChatColor;
@@ -24,7 +25,14 @@ public class Bloodshed extends Skill implements InteractSkill {
 
     @Override
     public String[] getDescription(int level) {
-        return new String[]{"NECROMANCER SKILL : Sacrifice your blood for a boost in speed"};
+        return new String[]{
+                "Right click with Axe to activate.",
+                "",
+                "Sacrifice " +ChatColor.GREEN +  UtilMath.round((1 - (0.50 + (level * 0.05))), 2) + "%" + ChatColor.GRAY + "of your health to grant",
+                "yourself Speed V for 4 seconds.",
+                "",
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override

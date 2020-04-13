@@ -46,6 +46,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.*;
@@ -823,6 +824,41 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
                 }
 
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPickupGiveShield(EntityPickupItemEvent e){
+        if(e.getEntity() instanceof Player){
+            Player player = (Player) e.getEntity();
+            ItemStack item = e.getItem().getItemStack();
+            if (item != null) {
+                if (UtilClans.isUsableWithShield(item)) {
+                    new BukkitRunnable(){
+                        @Override
+                        public void run(){
+                            if(player.getInventory().getItemInMainHand().getType() == item.getType()){
+                                Role role = Role.getRole(player);
+                                if (role != null) {
+                                    Gamer gamer = GamerManager.getOnlineGamer(player);
+                                    if (gamer != null) {
+                                        if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                                            player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                Weapon weapon = WeaponManager.getWeapon(item);
+                                if (weapon != null && weapon instanceof ChannelWeapon) {
+                                    player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                }
+                            }
+                        }
+                    }.runTaskLater(getInstance(), 10);
+
+                }
             }
         }
     }

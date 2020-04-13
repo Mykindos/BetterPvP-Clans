@@ -66,12 +66,12 @@ public class RootingAxe extends Skill {
 
                             if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().name().contains("_SLAB")
                                     || b1.getType().name().contains("_STEP") || b1.getType() == Material.OAK_SLAB
-                                    || b1.getType().name().contains("STAIR")) {
+                                    || b1.getType().name().contains("STAIR") ) {
                                 return;
                             }
 
                             Block b2 = e.getDamagee().getLocation().getBlock().getRelative(0, -2, 0);
-                            if (b2.getType().name().contains("LADDER") || b2.getType().name().contains("GATE")) {
+                            if (b2.getType().name().contains("LADDER") || b2.getType().name().contains("GATE") || !UtilBlock.solid(b2.getType())) {
                                 return;
                             }
                             Block b3 = e.getDamagee().getEyeLocation().getBlock().getRelative(0, -1, 0);

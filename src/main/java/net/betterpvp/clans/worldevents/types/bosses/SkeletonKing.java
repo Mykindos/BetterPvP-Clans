@@ -87,7 +87,7 @@ public class SkeletonKing extends Boss {
     @Override
     public EntityType getEntityType() {
 
-        return EntityType.SKELETON;
+        return EntityType.WITHER_SKELETON;
     }
 
     @Override

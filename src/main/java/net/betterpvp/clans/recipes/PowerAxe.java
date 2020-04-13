@@ -2,16 +2,19 @@ package net.betterpvp.clans.recipes;
 
 import java.util.Iterator;
 
+import net.betterpvp.clans.Clans;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 public class PowerAxe implements CustomRecipe{
 
 
-    public PowerAxe(){
+    public PowerAxe(Clans instance){
         Iterator<Recipe> iter = Bukkit.getServer().recipeIterator();
         while (iter.hasNext()) {
             Recipe r = iter.next();
@@ -23,7 +26,7 @@ public class PowerAxe implements CustomRecipe{
         }
 
         ItemStack axe = new ItemStack(Material.DIAMOND_AXE);
-        ShapedRecipe  fireAxe = new ShapedRecipe(axe);
+        ShapedRecipe fireAxe = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), axe);
         fireAxe.shape("** ", "*/ ", " / ");
         fireAxe.shape(" **", " /*", " / ");
         fireAxe.setIngredient('*', Material.DIAMOND_BLOCK);

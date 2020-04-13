@@ -9,3 +9,6 @@ commands:
   clan:
     description: Base command for all clan related things
     aliases: [c, f, faction, clans]
+  kit:
+  build:
+  

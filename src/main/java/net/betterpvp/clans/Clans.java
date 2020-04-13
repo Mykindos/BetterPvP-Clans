@@ -37,6 +37,7 @@ import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.FindCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
+import net.betterpvp.clans.recipes.*;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
 import net.betterpvp.clans.skills.selector.SelectorManager;
@@ -123,7 +124,7 @@ public class Clans extends JavaPlugin implements Listener {
 
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
-        ReflectionsUtil.loadRecipes("net.betterpvp.clans");
+
 
         startTimers();
 
@@ -277,6 +278,14 @@ public class Clans extends JavaPlugin implements Listener {
             }
         }.runTaskTimer(this, 72000 /2, 72000 /2);
 
+    }
+
+    private void loadRecipes(){
+        new RadiantSword(this);
+        new PowerSword(this);
+        new Chainmail(this);
+        new PowerAxe(this);
+        new FireAxe(this);
     }
 
 

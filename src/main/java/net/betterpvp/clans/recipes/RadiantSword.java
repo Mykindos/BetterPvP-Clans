@@ -2,15 +2,17 @@ package net.betterpvp.clans.recipes;
 
 import java.util.Iterator;
 
+import net.betterpvp.clans.Clans;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class RadiantSword implements CustomRecipe{
 
-    public RadiantSword(){
+    public RadiantSword(Clans instance){
         Iterator<Recipe> iter = Bukkit.getServer().recipeIterator();
         while (iter.hasNext()) {
             Recipe r = iter.next();
@@ -22,7 +24,7 @@ public class RadiantSword implements CustomRecipe{
         }
 
         ItemStack sword = new ItemStack(Material.GOLDEN_SWORD);
-        ShapedRecipe  powerSword = new ShapedRecipe(sword);
+        ShapedRecipe  powerSword = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), sword);
         powerSword.shape(" * ", " * ", " / ");
         powerSword.setIngredient('*', Material.GOLD_BLOCK);
         powerSword.setIngredient('/', Material.STICK);
