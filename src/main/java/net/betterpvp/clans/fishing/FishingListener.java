@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
@@ -130,7 +131,7 @@ public class FishingListener extends BPVPListener<Clans> {
                         if(legValue >= 7499){
                             List<ItemStack> weapons = new ArrayList<>();
                             for(Weapon w : WeaponManager.weapons){
-                                if(w.isLegendary()){
+                                if(w instanceof ILegendary){
                                     weapons.add(w.createWeapon());
                                 }
 

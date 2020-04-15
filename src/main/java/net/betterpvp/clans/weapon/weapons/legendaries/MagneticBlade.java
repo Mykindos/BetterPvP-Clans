@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.weapon.ChannelWeapon;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -25,7 +26,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagneticBlade extends Weapon implements ChannelWeapon {
+public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
 
     public List<String> active = new ArrayList<String>();
 
@@ -127,5 +128,10 @@ public class MagneticBlade extends Weapon implements ChannelWeapon {
             }
         }
 
+    }
+
+    @Override
+    public boolean isTextured() {
+        return false;
     }
 }

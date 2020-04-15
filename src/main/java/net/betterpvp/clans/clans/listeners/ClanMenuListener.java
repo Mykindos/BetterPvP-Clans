@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.menus.ClanMenu;
 import net.betterpvp.clans.clans.menus.EnergyMenu;
 import net.betterpvp.clans.clans.menus.buttons.ClaimButton;
@@ -23,7 +24,9 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 
@@ -106,6 +109,15 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
 
+            Clan clan = ClanUtilities.getClan(e.getPlayer());
+            if (clan != null) {
+                for (ClanMember m : clan.getMembers()) {
+                    Player mP = Bukkit.getPlayer(m.getUUID());
+                    if (mP != null) {
+                        Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(mP));
+                    }
+                }
+            }
 
         }
     }

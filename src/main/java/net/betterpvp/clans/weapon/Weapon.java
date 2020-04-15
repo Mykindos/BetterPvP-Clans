@@ -89,14 +89,6 @@ public class Weapon implements Listener {
         this.lore = lore;
     }
 
-    public boolean isLegendary() {
-        return legendary;
-    }
-
-    public void setLegendary(boolean legendary) {
-        this.legendary = legendary;
-    }
-
     public ItemStack createWeaponNoGlow() {
 
 
@@ -105,14 +97,19 @@ public class Weapon implements Listener {
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
-    @SuppressWarnings("deprecation")
     public ItemStack createWeapon() {
         ItemStack item;
-        if (this instanceof GlacialAxe || this instanceof HyperAxe) {
-            item = new ItemStack(getMaterial(), 1);
-        } else {
+        if (this instanceof ILegendary) {
+            ILegendary iLegendary = (ILegendary) this;
+            if(iLegendary.isTextured()){
+                item = new ItemStack(getMaterial(), 1);
+            }else{
+                item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
+            }
+        }else{
             item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
         }
+
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 

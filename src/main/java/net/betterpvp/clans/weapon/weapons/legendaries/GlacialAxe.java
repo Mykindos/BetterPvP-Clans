@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilBlock;
@@ -19,7 +20,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class GlacialAxe extends Weapon {
+public class GlacialAxe extends Weapon implements ILegendary {
 
     public GlacialAxe(Clans i) {
         super(i, Material.MUSIC_DISC_FAR, (byte) 0, ChatColor.RED + "Glacial Axe",
@@ -90,6 +91,10 @@ public class GlacialAxe extends Weapon {
         }
     }
 
+    @Override
+    public boolean isTextured() {
+        return true;
+    }
 }
 
 

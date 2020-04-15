@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
@@ -17,7 +18,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.NetherWarts;
 
-public class FarmingRake extends Weapon {
+public class FarmingRake extends Weapon implements ILegendary {
 
     public FarmingRake(Clans i) {
         super(i, Material.IRON_HOE, (byte) 0, ChatColor.RED + "Rake",
@@ -126,4 +127,8 @@ public class FarmingRake extends Weapon {
 
     }
 
+    @Override
+    public boolean isTextured() {
+        return false;
+    }
 }

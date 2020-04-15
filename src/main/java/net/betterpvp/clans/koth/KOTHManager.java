@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.weapon.weapons.SupplyCrateData;
@@ -98,7 +99,7 @@ public class KOTHManager extends BPVPListener<Clans> {
                                                 chest.getInventory().addItem(enchantedWeapon.createWeapon());
                                             }
                                         }
-                                    }else if(w.isLegendary()){
+                                    }else if(w instanceof ILegendary){
                                         if(UtilMath.randomInt(10000) > 9995){
                                             chest.getInventory().addItem(w.createWeapon());
                                         }

@@ -9,6 +9,7 @@ import net.betterpvp.clans.economy.shops.menu.ShopMenu;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -109,7 +110,7 @@ public class ShopListener extends BPVPListener<Clans> {
                     if (i.hasItemMeta()) {
                         Weapon wep = WeaponManager.getWeapon(ChatColor.stripColor(i.getItemMeta().getDisplayName()));
                         if (wep != null) {
-                            if (wep.isLegendary()) {
+                            if (wep instanceof ILegendary) {
                                 continue;
                             }
                         }
@@ -188,7 +189,7 @@ public class ShopListener extends BPVPListener<Clans> {
             ItemStack k;
             Weapon wep = WeaponManager.getWeapon(item.getItemName());
             if (wep != null) {
-                if (wep.isLegendary()) {
+                if (wep instanceof ILegendary) {
                     k = wep.createWeapon();
                 } else {
                     k = wep.createWeaponNoGlow();

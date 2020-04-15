@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -207,7 +208,7 @@ public class SupplyCrate extends Weapon {
                                 } else {
  
                                     for (Weapon w : WeaponManager.weapons) {
-                                        if (w.isLegendary()) {
+                                        if (w instanceof ILegendary) {
                                             if (Math.random() > 0.50) {
                                                 chest.getInventory().addItem(w.createWeapon());
                                             }

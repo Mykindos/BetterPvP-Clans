@@ -9,6 +9,7 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.SeverData;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.utility.UtilMessage;
@@ -73,7 +74,7 @@ public class Sever extends Skill implements InteractSkill {
                     if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (active.contains(p.getUniqueId())) {
                             Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
-                            if (w != null && w.isLegendary()) return;
+                            if (w != null && w instanceof ILegendary) return;
 
 
                             int level = getLevel(p);

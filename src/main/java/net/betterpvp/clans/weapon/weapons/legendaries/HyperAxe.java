@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import org.bukkit.ChatColor;
@@ -12,7 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public class HyperAxe extends Weapon {
+public class HyperAxe extends Weapon implements ILegendary {
 
 
     public HyperAxe(Clans i) {
@@ -49,5 +50,10 @@ public class HyperAxe extends Weapon {
 
 
         }
+    }
+
+    @Override
+    public boolean isTextured() {
+        return true;
     }
 }

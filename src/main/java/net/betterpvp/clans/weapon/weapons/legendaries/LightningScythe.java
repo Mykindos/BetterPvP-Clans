@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.weapons.LightningScytheData;
 import net.betterpvp.core.utility.UtilMessage;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class LightningScythe extends Weapon {
+public class LightningScythe extends Weapon implements ILegendary {
 
     public LightningScythe(Clans i) {
         super(i, Material.DIAMOND_HOE, (byte) 0, ChatColor.RED + "Lightning Scythe",
@@ -105,6 +106,11 @@ public class LightningScythe extends Weapon {
             }
         }
 
+    }
+
+    @Override
+    public boolean isTextured() {
+        return false;
     }
 
 

@@ -275,10 +275,20 @@ public class Gamer implements Invitable {
 
     public void addCoins(double coins) {
         this.coins = Math.min(Integer.MAX_VALUE, this.coins + (int) coins);
+        Player player = Bukkit.getPlayer(getUUID());
+        if(player != null){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
     }
 
     public void removeCoins(double coins) {
         this.coins = Math.max(0, this.coins - (int) coins);
+
+        Player player = Bukkit.getPlayer(getUUID());
+        if(player != null){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
+
 
     }
 

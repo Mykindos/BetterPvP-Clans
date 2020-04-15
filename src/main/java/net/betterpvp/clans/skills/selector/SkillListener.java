@@ -13,6 +13,7 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.BPVPListener;
@@ -129,7 +130,7 @@ public class SkillListener extends BPVPListener<Clans> {
         }
 
         Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
-        if(weapon != null && weapon.isLegendary()){
+        if(weapon != null && weapon instanceof ILegendary){
             return;
         }
 

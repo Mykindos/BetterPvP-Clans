@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilGamer;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -24,7 +25,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeteorBow extends Weapon {
+public class MeteorBow extends Weapon implements ILegendary {
 
     public List<Entity> projectiles = new ArrayList<Entity>();
 
@@ -88,5 +89,10 @@ public class MeteorBow extends Weapon {
 
             }
         }
+    }
+
+    @Override
+    public boolean isTextured() {
+        return false;
     }
 }

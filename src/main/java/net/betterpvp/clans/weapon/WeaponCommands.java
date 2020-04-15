@@ -16,7 +16,7 @@ public class WeaponCommands extends Command {
     public void execute(Player player, String[] args) {
 
         for (Weapon weapon : WeaponManager.weapons) {
-            if (weapon.isLegendary()) {
+            if (weapon instanceof ILegendary) {
                 player.getInventory().addItem(weapon.createWeapon());
             }
         }

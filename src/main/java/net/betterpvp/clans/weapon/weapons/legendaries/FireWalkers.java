@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -17,7 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-public class FireWalkers extends Weapon {
+public class FireWalkers extends Weapon implements ILegendary {
 
     public FireWalkers(Clans i) {
         super(i, Material.DIAMOND_BOOTS, (byte) 0, ChatColor.RED + "Flamebringer Treads",
@@ -70,4 +71,8 @@ public class FireWalkers extends Weapon {
         }
     }
 
+    @Override
+    public boolean isTextured() {
+        return false;
+    }
 }

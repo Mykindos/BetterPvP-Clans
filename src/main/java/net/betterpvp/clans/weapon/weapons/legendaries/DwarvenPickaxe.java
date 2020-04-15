@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,7 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-public class DwarvenPickaxe extends Weapon {
+public class DwarvenPickaxe extends Weapon implements ILegendary {
 
 
     public DwarvenPickaxe(Clans i) {
@@ -69,4 +70,8 @@ public class DwarvenPickaxe extends Weapon {
 
     }
 
+    @Override
+    public boolean isTextured() {
+        return false;
+    }
 }

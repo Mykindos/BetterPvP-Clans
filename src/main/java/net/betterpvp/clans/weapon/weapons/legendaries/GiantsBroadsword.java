@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public class GiantsBroadsword extends Weapon {
+public class GiantsBroadsword extends Weapon implements ILegendary {
 
 
     public GiantsBroadsword(Clans i) {
@@ -43,5 +44,10 @@ public class GiantsBroadsword extends Weapon {
         }
 
 
+    }
+
+    @Override
+    public boolean isTextured() {
+        return false;
     }
 }

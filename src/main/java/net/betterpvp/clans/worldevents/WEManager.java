@@ -9,6 +9,7 @@ import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.types.Boss;
@@ -228,7 +229,7 @@ public class WEManager extends BPVPListener<Clans> {
 
     private void loadItems() {
         for (Weapon weapons : WeaponManager.weapons) {
-            if (weapons.isLegendary()) {
+            if (weapons instanceof ILegendary) {
                 dropList.add(new Drop(weapons.createWeapon(), weapons.getChance()));
             }
 

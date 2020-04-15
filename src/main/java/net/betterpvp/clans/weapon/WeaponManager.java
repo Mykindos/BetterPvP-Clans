@@ -8,6 +8,7 @@ import net.betterpvp.core.utility.UtilItem;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -109,12 +110,12 @@ public class WeaponManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onWeaponPickup(PlayerPickupItemEvent event) {
+    public void onWeaponPickup(EntityPickupItemEvent event) {
         ItemStack item = event.getItem().getItemStack();
 
         for (Weapon weapon : weapons) {
-            if (!weapon.isLegendary() && !(weapon instanceof EnchantedWeapon)) {
-                if (item.getType() == weapon.getMaterial() && item.getData().getData() == weapon.getData()) {
+            if (!(weapon instanceof ILegendary) && !(weapon instanceof EnchantedWeapon)) {
+                if (item.getType() == weapon.getMaterial()) {
                     if (!(weapon instanceof FireAxe)) {
                         UtilItem.setItemNameAndLore(item, weapon.getName(), weapon.getLore());
                     }
@@ -129,7 +130,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         ItemStack item = event.getEntity().getItemStack();
 
         for (Weapon weapon : weapons) {
-            if (!weapon.isLegendary() && !(weapon instanceof EnchantedWeapon)) {
+            if (!(weapon instanceof ILegendary) && !(weapon instanceof EnchantedWeapon)) {
                 if (item.getType() == weapon.getMaterial()) {
                     if (!(weapon instanceof FireAxe)) {
                         UtilItem.setItemNameAndLore(item, weapon.getName(), weapon.getLore());
@@ -144,7 +145,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         ItemStack item = event.getInventory().getResult();
 
         for (Weapon weapon : weapons) {
-            if (!weapon.isLegendary() && !(weapon instanceof EnchantedWeapon)) {
+            if (!(weapon instanceof ILegendary) && !(weapon instanceof EnchantedWeapon)) {
                 if (item != null) {
                     if (!(weapon instanceof FireAxe)) {
                         if (item.getType() == weapon.getMaterial()) {

@@ -67,10 +67,11 @@ public class Disengage extends Skill implements InteractSkill {
 
             if (e.getDamagee() instanceof Player) {
                 Player p = (Player) e.getDamagee();
-                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                Role role = Role.getRole(p);
+                if (role != null && role.getName().equals(getClassType())) {
                     if (hasSkill(p, this)) {
                         if (disengages.containsKey(p.getUniqueId())) {
-                            LivingEntity ent = (LivingEntity) e.getDamager();
+                            LivingEntity ent = e.getDamager();
                             Vector vec = ent.getLocation().getDirection();
                             e.setKnockback(false);
                             e.setDamage(0);

@@ -5,6 +5,7 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
 import net.betterpvp.clans.weapon.ChannelWeapon;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 
-public class AlligatorsTooth extends Weapon implements ChannelWeapon {
+public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary {
 
     public List<String> active = new ArrayList<>();
     public WeakHashMap<Player, Long> wait = new WeakHashMap<>();
@@ -135,5 +136,10 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean isTextured() {
+        return false;
     }
 }

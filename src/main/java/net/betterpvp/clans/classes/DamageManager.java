@@ -11,6 +11,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 
 import net.betterpvp.clans.utilities.UtilGamer;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -446,14 +447,14 @@ public class DamageManager extends BPVPListener<Clans> {
                         } else {
 
                             Weapon w = WeaponManager.getWeapon(hand);
-                            if (w != null && w.isLegendary()) {
+                            if (w != null && w instanceof ILegendary) {
                                 return;
                             }
 
                             hand.setDurability((short) (hand.getDurability() + 1));
                         }
                         if (hand.getDurability() > hand.getType().getMaxDurability()) {
-                            p.getInventory().setItemInHand(null);
+                            p.getInventory().setItemInMainHand(null);
                             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
 
                         }

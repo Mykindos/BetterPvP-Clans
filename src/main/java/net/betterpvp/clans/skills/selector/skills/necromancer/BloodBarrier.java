@@ -39,7 +39,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
         return new String[]{
                 "Right click with Axe to activate.",
                 "",
-                "Sacrifice " + ChatColor.GREEN + UtilMath.round(1 - (0.50 + (level * 0.05)), 2) + "%" + ChatColor.GRAY + "of your health to grant",
+                "Sacrifice " + ChatColor.GREEN + UtilMath.round(1 - (0.50 + (level * 0.05)), 2) + "%" + ChatColor.GRAY + " of your health to grant",
                 "yourself and all nearby allies a barrier which reduces",
                 "the damage of the next 3 incoming attacks by 30%",
                 "",
