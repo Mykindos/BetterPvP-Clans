@@ -98,7 +98,7 @@ public class Barrage extends Skill {
                         if (player.getInventory().contains(Material.ARROW)) {
                             if (!charging.containsKey(player)) {
                                 charging.put(player, System.currentTimeMillis());
-                                new ChargeData(player.getUniqueId(), 4, (4 + (getLevel(player) * 2)));
+                                data.add(new ChargeData(player.getUniqueId(), 4, (4 + (getLevel(player) * 2))));
                             }
                         }
                     }
@@ -196,7 +196,6 @@ public class Barrage extends Skill {
                                 }
                             }
                         }
-                    } else {
                     }
 
                     Iterator<Arrow> arrowIterator = arrows.iterator();

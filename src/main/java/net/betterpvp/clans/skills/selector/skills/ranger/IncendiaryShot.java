@@ -8,7 +8,9 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -17,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +69,17 @@ public class IncendiaryShot extends Skill implements InteractSkill {
                         Arrow a = (Arrow) e.getProjectile();
                         if (incens.contains(a)) {
                             e.setReason("Incendiary Shot");
-                            e.getDamagee().setFireTicks(getLevel(p) * 30);
+
+                            //1.15.2 setting players on fire is weird
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    e.getDamagee().setFireTicks(getLevel(p) * 30);
+                                }
+                            }.runTaskLater(getInstance(), 2);
+
                             LogManager.addLog(e.getDamagee(), p, "Incendiary Shot");
-
-
+                            incens.remove(a);
                         }
                     }
                 }
@@ -100,8 +110,8 @@ public class IncendiaryShot extends Skill implements InteractSkill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+        if (UtilBlock.isInLiquid(player)) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in liquid.");
             return false;
         }
         return true;

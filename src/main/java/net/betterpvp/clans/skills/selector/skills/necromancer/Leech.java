@@ -75,6 +75,7 @@ public class Leech extends Skill implements InteractSkill {
     @EventHandler
     public void onDamage(CustomDamageEvent e) {
 
+        if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
         if (e.getDamager() instanceof Player) {
             Player damager = (Player) e.getDamager();
             Role role = Role.getRole(damager);
@@ -116,7 +117,7 @@ public class Leech extends Skill implements InteractSkill {
 
         }
 
-        for(LivingEntity entA : temp) {
+        for (LivingEntity entA : temp) {
             for (LivingEntity entB : UtilPlayer.getAllInRadius(entA.getLocation(), 10)) {
                 if (entB instanceof Player) {
                     if (!ClanUtilities.canHurt(player, (Player) entA)) {
@@ -133,7 +134,7 @@ public class Leech extends Skill implements InteractSkill {
     private void removeLinks(LivingEntity link) {
         List<LivingEntity> children = new ArrayList<>();
         leechData.forEach(l -> {
-            if(l.linkedTo.getUniqueId().equals(link.getUniqueId()) || l.target.getUniqueId().equals(link.getUniqueId())){
+            if (l.linkedTo.getUniqueId().equals(link.getUniqueId()) || l.target.getUniqueId().equals(link.getUniqueId())) {
                 children.add(l.target);
                 children.add(l.linkedTo);
                 removeList.add(l);
@@ -142,20 +143,18 @@ public class Leech extends Skill implements InteractSkill {
 
         children.forEach(e -> {
             leechData.forEach(l -> {
-                if(l.linkedTo.getUniqueId().equals(e.getUniqueId()) || l.target.getUniqueId().equals(e.getUniqueId())){
+                if (l.linkedTo.getUniqueId().equals(e.getUniqueId()) || l.target.getUniqueId().equals(e.getUniqueId())) {
                     removeList.add(l);
                 }
             });
         });
 
 
-
-
     }
 
-    private void breakChain(LeechData leech){
+    private void breakChain(LeechData leech) {
         leechData.forEach(l -> {
-            if(l.owner.getUniqueId().equals(leech.owner.getUniqueId())){
+            if (l.owner.getUniqueId().equals(leech.owner.getUniqueId())) {
                 removeList.add(l);
             }
         });
@@ -202,7 +201,7 @@ public class Leech extends Skill implements InteractSkill {
 
     @EventHandler
     public void onLeech(UpdateEvent e) {
-        if(!removeList.isEmpty()){
+        if (!removeList.isEmpty()) {
             leechData.removeIf(l -> removeList.contains(l));
             removeList.clear();
         }
@@ -219,7 +218,7 @@ public class Leech extends Skill implements InteractSkill {
                 }
 
                 if (l.linkedTo.isDead() || l.owner.isDead() || l.target.isDead()) {
-                    if(l.owner.isDead()){
+                    if (l.owner.isDead()) {
                         breakChain(l);
                     }
                     removeList.add(l);
@@ -227,7 +226,7 @@ public class Leech extends Skill implements InteractSkill {
                 }
 
                 if (l.target.getLocation().distance(l.linkedTo.getLocation()) > 10 || l.target.getLocation().distance(l.owner.getLocation()) > 30) {
-                    if(l.linkedTo.getUniqueId().equals(l.owner.getUniqueId())){
+                    if (l.linkedTo.getUniqueId().equals(l.owner.getUniqueId())) {
                         breakChain(l);
                     }
                     removeList.add(l);

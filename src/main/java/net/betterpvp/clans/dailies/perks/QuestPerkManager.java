@@ -14,7 +14,7 @@ public class QuestPerkManager {
 	
 	public QuestPerkManager(){
 		addPerk(new BaseFishing());
-		addPerk(new Swim());
+		//addPerk(new Swim());
 		addPerk(new ShopDiscount5());
 	}
 	

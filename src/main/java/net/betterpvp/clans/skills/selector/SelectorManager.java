@@ -58,7 +58,7 @@ public class SelectorManager extends BPVPListener<Clans> {
          * Global Skills
          */
         skills.put("Break Fall", new BreakFall(i));
-        skills.put("Swim", new Swim(i));
+        //skills.put("Swim", new Swim(i));
         skills.put("Fast Recovery", new FastRecovery(i));
 
         /*

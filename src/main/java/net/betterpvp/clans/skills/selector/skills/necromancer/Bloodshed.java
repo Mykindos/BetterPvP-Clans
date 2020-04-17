@@ -6,6 +6,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -28,7 +29,7 @@ public class Bloodshed extends Skill implements InteractSkill {
         return new String[]{
                 "Right click with Axe to activate.",
                 "",
-                "Sacrifice " +ChatColor.GREEN +  UtilMath.round((1 - (0.50 + (level * 0.05))), 2) + "%" + ChatColor.GRAY + "of your health to grant",
+                "Sacrifice " +ChatColor.GREEN +  UtilMath.round( 100 - ((0.50 + (level * 0.05)) * 100), 2) + "%" + ChatColor.GRAY + " of your health to grant",
                 "yourself Speed V for 4 seconds.",
                 "",
                 "Recharge: " + ChatColor.GREEN + getRecharge(level)
@@ -58,6 +59,11 @@ public class Bloodshed extends Skill implements InteractSkill {
 
         if(proposedHealth <= 0.5){
             UtilMessage.message(p, "Skill", "You do not have enough health to use " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
+            return false;
+        }
+
+        if(UtilBlock.isInLiquid(p)){
+            UtilMessage.message(p, "Skill", "You cannot use " + net.md_5.bungee.api.ChatColor.GREEN + getName() + net.md_5.bungee.api.ChatColor.GRAY + " in water.");
             return false;
         }
 

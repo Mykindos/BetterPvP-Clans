@@ -62,7 +62,8 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
 
                         if (clan.getTerritory().size() > 0) {
                             side.getScore(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Clan Energy").setScore(12);
-                            side.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + (ClanUtilities.getHoursOfEnergy(clan)) + " hours").setScore(11);
+                            //side.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + (ClanUtilities.getHoursOfEnergy(clan)) + " hours").setScore(11);
+                            side.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + ClanUtilities.getEnergyTimeRemaining(clan)).setScore(11);
                             side.getScore("§r§r").setScore(10);
                         }
                     }

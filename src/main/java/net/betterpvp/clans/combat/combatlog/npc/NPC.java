@@ -99,9 +99,8 @@ public class NPC {
     }
 
     public boolean inRadius() {
-        Location entityLocation = getEntity().getLocation();
-        return Math.abs(entityLocation.getBlockX() - getLocation().getBlockX()) + Math.abs(entityLocation.getBlockY() - getLocation().getBlockY())
-                + Math.abs(entityLocation.getBlockZ() - getLocation().getBlockZ()) <= getRange();
+        return getEntity().getLocation().distance(getLocation()) <= range;
+
     }
 
     public void returnToPost() {

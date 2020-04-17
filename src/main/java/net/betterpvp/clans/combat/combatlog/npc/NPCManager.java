@@ -18,15 +18,15 @@ import java.util.Iterator;
 
 public class NPCManager extends BPVPListener<Clans> {
 
-    public NPCManager(Clans i){
+    public NPCManager(Clans i) {
         super(i);
     }
 
     @EventHandler
     public void onPlayerDamageEntity(EntityDamageEvent event) {
-        if(NPC.npcs.isEmpty()) return;
+        if (NPC.npcs.isEmpty()) return;
         for (NPC npc : NPC.npcs) {
-            if (event.getEntity() == npc.getEntity()) {
+            if (event.getEntity().equals(npc.getEntity())) {
                 event.setCancelled(true);
             }
         }
@@ -34,7 +34,7 @@ public class NPCManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onEntityCombust(EntityCombustEvent event) {
-        if(NPC.npcs.isEmpty()) return;
+        if (NPC.npcs.isEmpty()) return;
         for (NPC npc : NPC.npcs) {
             if (event.getEntity() == npc.getEntity()) {
                 event.setCancelled(true);
@@ -44,7 +44,7 @@ public class NPCManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onNPCTarget(EntityTargetEvent event) {
-        if(NPC.npcs.isEmpty()) return;
+        if (NPC.npcs.isEmpty()) return;
         for (NPC npc : NPC.npcs) {
             if (event.getEntity() == npc.getEntity()) {
                 event.setCancelled(true);
@@ -55,7 +55,7 @@ public class NPCManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onNPCInteract(PlayerInteractEntityEvent event) {
-        if(event.getHand() != EquipmentSlot.OFF_HAND) {
+        if (event.getHand() != EquipmentSlot.OFF_HAND) {
             if (NPC.npcs.isEmpty()) return;
             Player player = event.getPlayer();
 
@@ -75,12 +75,14 @@ public class NPCManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void updateNPC(UpdateEvent event) {
-        if (event.getType() == UpdateEvent.UpdateType.TICK) {
-            if(NPC.npcs.isEmpty()) return;
+        if (event.getType() == UpdateEvent.UpdateType.SEC) {
+            if (NPC.npcs.isEmpty()) return;
             Iterator<NPC> iterator = NPC.npcs.iterator();
             while (iterator.hasNext()) {
                 NPC npc = iterator.next();
-                npc.returnToPost();
+                if (npc.getLocation().getChunk().isLoaded()) {
+                    npc.returnToPost();
+                }
 
                 if (npc.getEntity().isDead() || !npc.getEntity().isValid()) {
                     iterator.remove();

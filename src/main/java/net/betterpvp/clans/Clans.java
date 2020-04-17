@@ -108,6 +108,8 @@ public class Clans extends JavaPlugin implements Listener {
                 e.remove();
             }
         }
+
+        net.betterpvp.clans.combat.combatlog.npc.NPC.removeAllNPCs();
     }
 
     private void load() {

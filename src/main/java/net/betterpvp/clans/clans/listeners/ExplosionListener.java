@@ -74,7 +74,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.HIGH)
     public void onTNTExplode(EntityExplodeEvent e) {
         if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
-
+            e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 2.0f, 1.0f);
 
             boolean clear = false;
             for (Block block : e.blockList()) {

@@ -15,7 +15,7 @@ public class GiantsBroadsword extends Weapon implements ILegendary {
 
 
     public GiantsBroadsword(Clans i) {
-        super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Giants Broadsword",
+        super(i, Material.MUSIC_DISC_BLOCKS, (byte) 0, ChatColor.RED + "Giants Broadsword",
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "9",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Bonus Damage",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
@@ -33,7 +33,7 @@ public class GiantsBroadsword extends Weapon implements ILegendary {
 
             Player player = (Player) event.getDamager();
             if (player.getInventory().getItemInMainHand() == null) return;
-            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_BLOCKS) return;
             if (isThisWeapon(player)) {
 
                 event.setDamage(9);
@@ -48,6 +48,6 @@ public class GiantsBroadsword extends Weapon implements ILegendary {
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }

@@ -23,6 +23,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -49,10 +50,12 @@ public class SmokeBomb extends Skill implements ToggleSkill {
     @EventHandler
     public void preventSmokeDamage(CustomDamageEvent e) {
         if (e.getDamagee() instanceof Player) {
-            Player p = (Player) e.getDamagee();
-            if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) {
-                if (hasSkill(p, this)) {
-                    e.setCancelled("Can't take damage during smoke");
+            if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                Player p = (Player) e.getDamagee();
+                if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) {
+                    if (hasSkill(p, this)) {
+                        e.setCancelled("Can't take damage during smoke");
+                    }
                 }
             }
         }

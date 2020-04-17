@@ -931,36 +931,44 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void craftItem(PrepareItemCraftEvent e) {
 
-        if (e.getRecipe().getResult().getType() == Material.LEATHER_CHESTPLATE
-                || e.getRecipe().getResult().getType() == Material.LEATHER_LEGGINGS
-                || e.getRecipe().getResult().getType() == Material.LEATHER_HELMET
-                || e.getRecipe().getResult().getType() == Material.LEATHER_BOOTS) {
+        if (e.getRecipe() != null) {
+            if (e.getRecipe().getResult() != null) {
 
-            return;
+                if (e.getRecipe().getResult().getType() == Material.LEATHER_CHESTPLATE
+                        || e.getRecipe().getResult().getType() == Material.LEATHER_LEGGINGS
+                        || e.getRecipe().getResult().getType() == Material.LEATHER_HELMET
+                        || e.getRecipe().getResult().getType() == Material.LEATHER_BOOTS) {
 
+                    return;
+
+                }
+
+                if (e.getRecipe().getResult().getType().name().contains("BANNER")) {
+                    return;
+                }
+
+                Material itemType = e.getRecipe().getResult().getType();
+                if (itemType == Material.TNT || itemType == Material.DISPENSER
+                        || itemType == Material.SLIME_BLOCK || itemType == Material.COMPASS
+                        || itemType == Material.PISTON || itemType == Material.PISTON_HEAD || itemType == Material.ENCHANTING_TABLE
+                        || itemType == Material.GLASS_PANE
+                        || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
+                        || itemType == Material.ANVIL
+                        || itemType.name().toLowerCase().contains("boat")) {
+                    e.getInventory().setResult(new ItemStack(Material.AIR));
+                } else {
+                    e.getInventory().setResult(UtilItem.updateNames(e.getRecipe().getResult()));
+                }
+
+            }
         }
 
-        if (e.getRecipe().getResult().getType().name().contains("BANNER")) {
-            return;
-        }
 
-        Material itemType = e.getRecipe().getResult().getType();
-        if (itemType == Material.TNT || itemType == Material.DISPENSER
-                || itemType == Material.SLIME_BLOCK || itemType == Material.COMPASS
-                || itemType == Material.PISTON || itemType == Material.PISTON_HEAD || itemType == Material.ENCHANTING_TABLE
-                || itemType == Material.GLASS_PANE
-                || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
-                || itemType == Material.ANVIL
-                || itemType.name().toLowerCase().contains("boat")) {
-            e.getInventory().setResult(new ItemStack(Material.AIR));
-        } else {
-            e.getInventory().setResult(UtilItem.updateNames(e.getRecipe().getResult()));
-        }
     }
 
     @EventHandler
-    public void spawnTeleport(SpawnTeleportEvent e){
-        if(UtilClans.hasValuables(e.getPlayer())){
+    public void spawnTeleport(SpawnTeleportEvent e) {
+        if (UtilClans.hasValuables(e.getPlayer())) {
             UtilMessage.message(e.getPlayer(), "Spawn", "Unable to teleport with valuable items in your inventory.");
             e.setCancelled(true);
         }
@@ -1317,6 +1325,11 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
                 }
 
+                Weapon weapon = WeaponManager.getWeapon(e.getPlayer().getInventory().getItemInMainHand());
+                if (weapon != null && weapon instanceof ChannelWeapon) {
+                    e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                }
+
             }
         }
     }
@@ -1366,10 +1379,14 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (role != null) {
                         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
                         if (gamer != null) {
-                            if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
-                                e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
-                                return;
+                            RoleBuild build = gamer.getActiveBuild(role.getName());
+                            if (build != null) {
+                                if (build.getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                                    e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                    return;
+                                }
                             }
+
                         }
                     }
 

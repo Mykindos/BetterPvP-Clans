@@ -21,6 +21,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 
@@ -39,7 +40,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
         return new String[]{
                 "Right click with Axe to activate.",
                 "",
-                "Sacrifice " + ChatColor.GREEN + UtilMath.round(1 - (0.50 + (level * 0.05)), 2) + "%" + ChatColor.GRAY + " of your health to grant",
+                "Sacrifice " + ChatColor.GREEN + UtilMath.round( 100 -(0.50 + (level * 0.05)) * 100, 2) + "%" + ChatColor.GRAY + " of your health to grant",
                 "yourself and all nearby allies a barrier which reduces",
                 "the damage of the next 3 incoming attacks by 30%",
                 "",
@@ -90,6 +91,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent e) {
+        if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
         if (e.getDamagee() instanceof Player) {
             Player player = (Player) e.getDamagee();
 

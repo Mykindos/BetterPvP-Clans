@@ -39,7 +39,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
     public WeakHashMap<Player, Long> wait = new WeakHashMap<>();
 
     public WindBlade(Clans i) {
-        super(i, Material.MUSIC_DISC_11, (byte) 0, ChatColor.RED + "Wind Blade",
+        super(i, Material.MUSIC_DISC_MELLOHI, (byte) 0, ChatColor.RED + "Wind Blade",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "7",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Wind Rider",
@@ -59,7 +59,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
                 Player player = (Player) e.getEntity();
 
                 if (player.getInventory().getItemInMainHand() == null) return;
-                if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_11) return;
+                if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_MELLOHI) return;
                 if (isThisWeapon(player)) {
                     e.setCancelled(true);
                 }
@@ -74,7 +74,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
 
         if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
-        if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_11) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_MELLOHI) return;
 
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -164,7 +164,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
             if (event.getDamager() instanceof Player) {
                 Player player = (Player) event.getDamager();
                 if (player.getInventory().getItemInMainHand() == null) return;
-                if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_11) return;
+                if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_MELLOHI) return;
                 if (isThisWeapon(player)) {
 
                     event.setKnockback(false);

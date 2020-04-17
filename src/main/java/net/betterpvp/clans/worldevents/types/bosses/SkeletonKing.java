@@ -52,11 +52,11 @@ public class SkeletonKing extends Boss {
         World w = Bukkit.getWorld("bossworld");
 
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -20, 86, 76),
+                new Location(w, 14, 89, 97),
+                new Location(w, 7.5, 105, 78),
+                new Location(w, -31, 101.5, 91),
+                new Location(w, -22.8, 122, 154)
         };
     }
 
@@ -69,7 +69,7 @@ public class SkeletonKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), -39.3, 105.0, 131.3);
     }
 
     @Override

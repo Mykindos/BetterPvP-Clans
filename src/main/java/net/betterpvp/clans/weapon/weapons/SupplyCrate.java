@@ -155,6 +155,7 @@ public class SupplyCrate extends Weapon {
 
                                 if (!Clans.getOptions().isLastDay()) {
                                     int rand = UtilMath.randomInt(5);
+                                    Bukkit.broadcastMessage(rand + "");
                                     switch (rand) {
                                         case 5:
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET));

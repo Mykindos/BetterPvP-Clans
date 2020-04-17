@@ -374,13 +374,22 @@ public class ClanUtilities {
         ClanRepository.deleteClan(clan);
     }
 
+
+
     public static int getHoursOfEnergy(Clan clan) {
         int count = 0;
         if (clan.getTerritory().size() > 0) {
             count = (int) clan.getEnergy() / (clan.getTerritory().size() * 25);
         }
 
+
         return count;
+    }
+
+    public static String getEnergyTimeRemaining(Clan clan){
+
+        return UtilTime.getTime((clan.getEnergy() / (clan.getTerritory().size() * 25)) * 3600000 , UtilTime.TimeUnit.BEST, 2);
+
     }
 
     public static long getEnergyTime(Clan clan) {

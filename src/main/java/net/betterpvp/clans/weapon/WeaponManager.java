@@ -11,18 +11,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class WeaponManager extends BPVPListener<Clans> {
 
@@ -40,7 +33,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         addWeapon(new Molotov(i));
 
         addWeapon(new MagneticBlade(i));
-        addWeapon(new LightningScythe(i));
+        addWeapon(new DurielsScepter(i));
         addWeapon(new FarmingRake(i));
         addWeapon(new HyperAxe(i));
         addWeapon(new MeteorBow(i));

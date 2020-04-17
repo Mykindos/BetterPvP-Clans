@@ -22,6 +22,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -123,7 +124,13 @@ public class MoltenBlast extends Skill implements InteractSkill {
                 LogManager.addLog(e.getDamagee(), player, "Molten Blast");
                 e.setKnockback(true);
                 e.setDamage(6);
-                e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
+                new BukkitRunnable(){
+                    @Override
+                    public void run(){
+                        e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
+                    }
+                }.runTaskLater(getInstance(), 2);
+
             }
 
 

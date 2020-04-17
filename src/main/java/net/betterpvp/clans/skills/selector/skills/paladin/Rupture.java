@@ -88,8 +88,8 @@ public class Rupture extends Skill implements InteractSkill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER ) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+        if(UtilBlock.isInLiquid(player)){
+            UtilMessage.message(player, "Skill", "You cannot use " + net.md_5.bungee.api.ChatColor.GREEN + getName() + net.md_5.bungee.api.ChatColor.GRAY + " in water.");
             return false;
         }
 

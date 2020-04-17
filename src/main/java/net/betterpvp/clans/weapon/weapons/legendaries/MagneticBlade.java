@@ -87,6 +87,8 @@ public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
                     if (p.isHandRaised()) {
                         if (!Energy.use(p, getName(), 3, true)) {
                             active.remove(p.getName());
+                        } else if (UtilBlock.isInLiquid(p)) {
+                            active.remove(p.getName());
                         } else {
 
                             p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType());

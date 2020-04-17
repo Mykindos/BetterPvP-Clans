@@ -144,7 +144,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             r.setSkill(Types.SWORD, SelectorManager.getSkills().get("Disengage"), 3);
             r.setSkill(Types.BOW, SelectorManager.getSkills().get("Incendiary Shot"), 5);
             r.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Longshot"), 3);
-            r.setSkill(Types.GLOBAL, SelectorManager.getSkills().get("Swim"), 1);
+            r.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Sharpshooter"), 1);
             r.takePoints(12);
 
             RoleBuild p = new RoleBuild("Paladin", d);
@@ -164,7 +164,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             k.setSkill(Types.SWORD, SelectorManager.getSkills().get("Riposte"), 3);
             k.setSkill(Types.AXE, SelectorManager.getSkills().get("Bulls Charge"), 5);
             k.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Fury"), 3);
-            k.setSkill(Types.GLOBAL, SelectorManager.getSkills().get("Swim"), 1);
+            k.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Swordsmanship"), 1);
             k.takePoints(12);
 
             RoleBuild n = new RoleBuild("Necromancer", d);

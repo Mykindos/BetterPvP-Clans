@@ -12,9 +12,11 @@ import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.framework.UpdateEvent;
 import net.minecraft.server.v1_15_R1.BlockSkull;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -81,6 +83,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
             public void run() {
                 scoreboards.forEach(s -> {
                     addClan(s, e.getClanName());
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
                 });
             }
         }.runTaskLater(getInstance(), 10);
@@ -162,6 +165,15 @@ public class ScoreboardManager extends BPVPListener<Clans> {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
+    public void onChunkClaim(ChunkClaimEvent e){
+        for(Entity ent : e.getChunk().getEntities()){
+            if(ent instanceof Player){
+                Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent((Player) ent));
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onMemberKicked(ClanKickMemberEvent e) {
 
         new BukkitRunnable() {
@@ -203,6 +215,13 @@ public class ScoreboardManager extends BPVPListener<Clans> {
             if (ClanUtilities.getClan(p) == null) {
                 addNone(s, p.getName());
             }
+        }
+    }
+
+    @EventHandler
+    public void updateScoreboardTimer(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.SEC_30){
+            Bukkit.getOnlinePlayers().forEach(p -> Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p)));
         }
     }
 

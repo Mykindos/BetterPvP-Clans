@@ -19,6 +19,7 @@ import net.betterpvp.core.utility.UtilVelocity;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -64,9 +65,9 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
 
                             p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
 
-
+                            p.launchProjectile(Trident.class);
                             for (int i = 0; i <= (2 + getLevel(p)); i++) {
-                                pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
+                                //pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
                             }
                         }
                     }

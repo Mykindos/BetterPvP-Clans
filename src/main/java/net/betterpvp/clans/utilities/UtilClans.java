@@ -166,7 +166,7 @@ public class UtilClans {
         }
 
         //Windblade
-        if(item.getType() == Material.MUSIC_DISC_11){
+        if(item.getType() == Material.MUSIC_DISC_MELLOHI){
             return true;
         }
 

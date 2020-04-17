@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class LightningScythe extends Weapon implements ILegendary {
+public class DurielsScepter extends Weapon implements ILegendary {
 
-    public LightningScythe(Clans i) {
-        super(i, Material.DIAMOND_HOE, (byte) 0, ChatColor.RED + "Lightning Scythe",
+    public DurielsScepter(Clans i) {
+        super(i, Material.MUSIC_DISC_CHIRP, (byte) 0, ChatColor.RED + "Duriel's Scepter",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "10 (AoE)",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Lightning Strike",
@@ -59,7 +59,7 @@ public class LightningScythe extends Weapon implements ILegendary {
     public void onInteract(PlayerInteractEvent e) {
         if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
-        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.DIAMOND_HOE) return;
+        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_CHIRP) return;
 
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(e.getPlayer())) {
@@ -93,12 +93,8 @@ public class LightningScythe extends Weapon implements ILegendary {
                     }
 
 
-                    UtilMessage.message(p, "Lightning Scythe", "You used " + ChatColor.GREEN + "Lightning Strike");
-                    p.getInventory().getItemInMainHand().setDurability(
-                            (short) (p.getInventory().getItemInMainHand().getDurability() + 5));
-                    if (p.getInventory().getItemInMainHand().getDurability() >= 1561) {
-                        p.getInventory().setItemInHand(new ItemStack(Material.AIR));
-                    }
+                    UtilMessage.message(p, "Duriel's Scepter", "You used " + ChatColor.GREEN + "Lightning Strike");
+
 
 
                 }
@@ -110,7 +106,7 @@ public class LightningScythe extends Weapon implements ILegendary {
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 
 

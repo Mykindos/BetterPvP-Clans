@@ -225,10 +225,6 @@ public class Grasp extends Skill implements InteractSkill {
             return false;
         }
 
-        if (block.getType() == Material.AIR) {
-            UtilMessage.message(p, "Skill", "Could not find location within " + ChatColor.GREEN + (20 + (level * 10) / 2) + ChatColor.GRAY + " blocks.");
-            return false;
-        }
         return true;
     }
 }
