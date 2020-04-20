@@ -249,6 +249,23 @@ public class EffectManager extends BPVPListener<Clans> {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
+    public void onLoadingTextureDamage(CustomDamageEvent e){
+        if(e.getDamagee() instanceof Player){
+            Player player = (Player) e.getDamagee();
+            if(hasEffect(player, EffectType.TEXTURELOADING)){
+                e.setCancelled("Player is loading the server texture pack");
+            }
+        }
+
+        if(e.getDamager() instanceof Player){
+            Player player = (Player) e.getDamager();
+            if(hasEffect(player, EffectType.TEXTURELOADING)){
+                removeEffect(player, EffectType.TEXTURELOADING);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void resistanceReduction(CustomDamageEvent e) {
         if (e.getDamagee() instanceof Player) {
 

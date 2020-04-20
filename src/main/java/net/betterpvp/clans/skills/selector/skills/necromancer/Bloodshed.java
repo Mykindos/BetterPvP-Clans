@@ -30,7 +30,7 @@ public class Bloodshed extends Skill implements InteractSkill {
                 "Right click with Axe to activate.",
                 "",
                 "Sacrifice " +ChatColor.GREEN +  UtilMath.round( 100 - ((0.50 + (level * 0.05)) * 100), 2) + "%" + ChatColor.GRAY + " of your health to grant",
-                "yourself Speed V for 4 seconds.",
+                "yourself Speed III for 4 seconds.",
                 "",
                 "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
@@ -63,7 +63,7 @@ public class Bloodshed extends Skill implements InteractSkill {
         }
 
         if(UtilBlock.isInLiquid(p)){
-            UtilMessage.message(p, "Skill", "You cannot use " + net.md_5.bungee.api.ChatColor.GREEN + getName() + net.md_5.bungee.api.ChatColor.GRAY + " in water.");
+            UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
 
@@ -77,7 +77,7 @@ public class Bloodshed extends Skill implements InteractSkill {
         double proposedHealth = p.getHealth() - (20 - (20 * healthReduction));
 
         p.setHealth(Math.max(0.5, proposedHealth));
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, 4));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, 2));
         p.getWorld().playSound(p.getLocation(), Sound.ENTITY_RAVAGER_ROAR, 2.0f, 0.3f);
         p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 2.0f);
     }

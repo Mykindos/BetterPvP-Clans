@@ -38,8 +38,7 @@ public class Cyclone extends Skill implements InteractSkill {
                 "Pulls all enemies within",
                 ChatColor.GREEN.toString() + (7 + level) + ChatColor.GRAY + " blocks towards you",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -70,7 +69,7 @@ public class Cyclone extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 5);
+        return 0;
     }
 
 
@@ -89,9 +88,9 @@ public class Cyclone extends Skill implements InteractSkill {
                     UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
 
                 }
-                Vector v = target.getLocation().toVector().subtract(x).normalize().multiply(-1);
+                Vector v = UtilVelocity.getTrajectory(target, p);
                 LogManager.addLog(target, p, "Cyclone");
-                UtilVelocity.velocity(target, v, 0.5D, false, 0.0D, 0.7D, 7.0D, true);
+                UtilVelocity.velocity(target, v, 1.5D, false, 0.0D, 0.5D, 4.0D, true);
 
 
             }

@@ -43,7 +43,7 @@ public class BounceListener extends BPVPListener<Clans> {
         if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
 
             BouncyBall b = balls.stream().filter(z -> z.getBall() != null
-                    && e.getPlayer().getLocation().distance(z.getBall().getLocation()) <= 2
+                    && z.getBall().getWorld().equals(e.getPlayer().getWorld()) && e.getPlayer().getLocation().distance(z.getBall().getLocation()) <= 2
                     || z.getBall() != null && e.getPlayer().getEyeLocation().distance(z.getBall().getLocation()) <= 2).findFirst().orElse(null);
             if(b != null) {
 

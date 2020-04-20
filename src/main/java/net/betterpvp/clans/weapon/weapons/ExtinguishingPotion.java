@@ -24,12 +24,12 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class WaterBottle extends Weapon {
+public class ExtinguishingPotion extends Weapon {
 
     public static HashMap<UUID, Item> items = new HashMap<UUID, Item>();
 
-    public WaterBottle(Clans i) {
-        super(i, Material.POTION, (byte) 0, ChatColor.YELLOW + "Water Bottle", new String[]{
+    public ExtinguishingPotion(Clans i) {
+        super(i, Material.POTION, (byte) 0, ChatColor.YELLOW + "Extinguishing Potion", new String[]{
                 ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
                 ChatColor.GRAY + "  " + "Douses Players",
                 ChatColor.GRAY + "  " + "Douses Fires",
@@ -52,9 +52,10 @@ public class WaterBottle extends Weapon {
                 UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
                 item.setPickupDelay(Integer.MAX_VALUE);
                 item.setVelocity(player.getLocation().getDirection().multiply(1.8));
-                ThrowableManager.addThrowable(item, player, "Water bottle", 30000);
+                ThrowableManager.addThrowable(item, player, "Extinguishing Potion", 30000);
                 items.put(player.getUniqueId(), item);
             } else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                event.setCancelled(true);
                 UtilItem.remove(player, Material.POTION, 1);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
                 player.getWorld().playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.WATER);
@@ -83,7 +84,7 @@ public class WaterBottle extends Weapon {
 
     @EventHandler
     public void onCollide(ThrowableHitGroundEvent e) {
-        if (e.getThrowable().getSkillName().equals("Water bottle")) {
+        if (e.getThrowable().getSkillName().equals("Extinguishing Potion")) {
             for (Player p : UtilPlayer.getInRadius(e.getThrowable().getItem().getLocation(), 3.0)) {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
                 p.setFireTicks(0);

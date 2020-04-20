@@ -24,7 +24,7 @@ public class RadiantSword implements CustomRecipe{
         }
 
         ItemStack sword = new ItemStack(Material.GOLDEN_SWORD);
-        ShapedRecipe  powerSword = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), sword);
+        ShapedRecipe  powerSword = new ShapedRecipe(new NamespacedKey(instance, "GOLDEN_SWORD"), sword);
         powerSword.shape(" * ", " * ", " / ");
         powerSword.setIngredient('*', Material.GOLD_BLOCK);
         powerSword.setIngredient('/', Material.STICK);

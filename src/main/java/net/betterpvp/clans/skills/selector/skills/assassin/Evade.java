@@ -69,7 +69,7 @@ public class Evade extends ChannelSkill implements InteractSkill {
                 "",
                 "2 second internal cooldown.",
                 "",
-                "Energy / second: " + ChatColor.GREEN + (getEnergy(level))};
+                "Energy / second: " + ChatColor.GREEN + (10 * getEnergy(level))};
     }
 
     @Override

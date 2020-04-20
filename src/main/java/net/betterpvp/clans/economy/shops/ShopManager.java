@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.economy.shops.menu.PortableShopMenu;
 import net.betterpvp.clans.economy.shops.menu.ShopMenu;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
@@ -78,6 +79,13 @@ public class ShopManager implements Listener {
 
 
     @EventHandler
+    public void preventShopkeeperDamage(CustomDamageEvent e){
+        if (ShopManager.isShop(e.getDamagee())) {
+            e.setCancelled("Shop keeper damage");
+        }
+    }
+
+    @EventHandler
     public void refreshStocks(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.MIN_128) {
             for (ShopItem i : getShopItems()) {
@@ -113,6 +121,7 @@ public class ShopManager implements Listener {
 
     public static void spawnShop(Clans i, final Location loc, final String str) {
 
+        loc.getChunk().setForceLoaded(true);
         new BukkitRunnable() {
 
             @Override

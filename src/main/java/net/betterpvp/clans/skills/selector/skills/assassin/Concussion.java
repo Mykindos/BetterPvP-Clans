@@ -39,8 +39,7 @@ public class Concussion extends Skill implements InteractSkill {
                 "",
                 "Your next hit blinds the target for " + ChatColor.GREEN + (level) + ChatColor.GRAY + " seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -62,7 +61,7 @@ public class Concussion extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 16 - ((level - 1) * 3);
+        return 0;//16 - ((level - 1) * 3);
     }
 
     @Override

@@ -9,15 +9,7 @@ import java.util.Comparator;
 public class InsuranceManager {
 
     public static void startRollback(Clan c) {
-        Collections.sort(c.getInsurance(), new Comparator<Insurance>() {
-
-            @Override
-            public int compare(Insurance a, Insurance b) {
-
-                return (int) b.getTime() - (int) a.getTime();
-            }
-
-        });
+        Collections.sort(c.getInsurance(), (a, b) -> (int) b.getTime() - (int) a.getTime());
 
         for (Insurance i : c.getInsurance()) {
             InsuranceListener.rollback.add(i);

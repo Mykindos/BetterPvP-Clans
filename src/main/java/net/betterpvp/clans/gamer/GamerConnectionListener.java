@@ -3,25 +3,30 @@ package net.betterpvp.clans.gamer;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.SelectorManager;
-import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.client.mysql.SettingsRepository;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.io.UnsupportedEncodingException;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
@@ -29,8 +34,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         super(instance);
     }
 
-    @EventHandler (priority = EventPriority.LOW)
-    public void onClientLogin(ClientLoginEvent e) {
+    @EventHandler(priority = EventPriority.LOW)
+    public void onClientLogin(ClientLoginEvent e) throws UnsupportedEncodingException {
 
         Gamer gamer = GamerManager.getGamer(e.getClient().getUUID());
         if (gamer == null) {
@@ -51,7 +56,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             GamerManager.addOnlineGamer(gamer);
             BuildRepository.loadBuilds(getInstance(), gamer.getUUID());
 
-            if(gamer.getClient() == null){
+            if (gamer.getClient() == null) {
                 gamer.setClient(e.getClient());
             }
         }
@@ -63,45 +68,87 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
         SettingsRepository.loadSettings(getInstance(), gamer.getClient());
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
-            public void run(){
+            public void run() {
                 Player player = Bukkit.getPlayer(e.getClient().getUUID());
-                if(player != null){
+                if (player != null) {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
                 }
             }
         }.runTaskLater(getInstance(), 20);
 
         Player player = Bukkit.getPlayer(e.getClient().getUUID());
-        if(player != null){
+        if (player != null) {
             gamer.setScoreboard(new Scoreboard(player));
+            player.setResourcePack(Clans.getOptions().getTexturePackURL(),
+                    UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
         }
 
 
     }
 
-    @EventHandler (priority = EventPriority.LOWEST)
-    public void onClientQuit(ClientQuitEvent e){
+    @EventHandler
+    public void onTexturepackStatus(PlayerResourcePackStatusEvent e) {
+        if (Clans.getOptions().isTexturePackForced()) {
+            if (e.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED) {
+                ClientUtilities.messageStaff(e.getPlayer().getName() + " was kicked for declining the texture pack", Rank.MODERATOR);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        e.getPlayer().kickPlayer(ChatColor.YELLOW + "You must allow the server resource pack. \nIn the server list set Server Resource Packs to enabled for BetterPvP. ");
+
+                    }
+                }.runTaskLater(getInstance(), 160);
+            } else if (e.getStatus() == PlayerResourcePackStatusEvent.Status.FAILED_DOWNLOAD) {
+                ClientUtilities.messageStaff(e.getPlayer().getName() + " was kicked for failing to download the texture pack", Rank.MODERATOR);
+
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        e.getPlayer().kickPlayer(ChatColor.YELLOW + "You must allow the server resource pack. \nIn the server list set Server Resource Packs to enabled for BetterPvP. ");
+
+                    }
+                }.runTaskLater(getInstance(), 160);
+            }
+        }
+
+        if (e.getStatus() == PlayerResourcePackStatusEvent.Status.ACCEPTED) {
+            System.out.println("Added Texture Pack immunity to " + e.getPlayer().getName());
+            EffectManager.addEffect(e.getPlayer(), EffectType.TEXTURELOADING, 15000);
+        } else if (e.getStatus() == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    System.out.println("Removed Texture Pack immunity from " + e.getPlayer().getName());
+                    EffectManager.removeEffect(e.getPlayer(), EffectType.TEXTURELOADING);
+                }
+            }.runTaskLater(getInstance(), 10);
+
+        }
+    }
+
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onClientQuit(ClientQuitEvent e) {
         Gamer g = GamerManager.getOnlineGamer(e.getClient().getUUID());
-        if(g != null){
+        if (g != null) {
             g.setScoreboard(null);
         }
     }
-
 
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if(String.valueOf(player.getLocation().getX()).equalsIgnoreCase("NaN")) {
+        if (String.valueOf(player.getLocation().getX()).equalsIgnoreCase("NaN")) {
             player.teleport(Bukkit.getWorld("world").getSpawnLocation());
         }
 
 
         Gamer gamer = GamerManager.getOnlineGamer(player);
-        if(gamer != null){
+        if (gamer != null) {
             gamer.getClient().setLoggedIn(false);
 
             GamerRepository.updateGamer(gamer);

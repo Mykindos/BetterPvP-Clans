@@ -285,6 +285,7 @@ public class ShopListener extends BPVPListener<Clans> {
                     }
                     if (c.getInsurance().size() > 0) {
                         InsuranceManager.startRollback(c);
+                        UtilMessage.message(p, "Clan Recovery", "Clan recovery has begun!");
                     } else {
                         UtilMessage.message(p, "Clan Recovery", "Your clan has not been damaged recently!");
                         g.addFragments(50);

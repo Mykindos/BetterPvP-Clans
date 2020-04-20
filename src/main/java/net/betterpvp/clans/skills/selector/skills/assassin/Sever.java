@@ -44,8 +44,7 @@ public class Sever extends Skill implements InteractSkill {
                 "Your next hit applies a " + ChatColor.GREEN + (level) + ChatColor.GRAY + " second bleed",
                 "dealing 1 heart per second",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 

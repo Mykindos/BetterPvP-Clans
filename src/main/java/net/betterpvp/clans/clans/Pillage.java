@@ -1,11 +1,13 @@
 package net.betterpvp.clans.clans;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.events.ClanRelationshipEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 
 import java.util.*;
@@ -74,8 +76,7 @@ public class Pillage {
 
             ClanRepository.updateRaidHistory(pillager, pillaged);
 
-            ClientUtilities.messageStaffSound("Raid", pillaged.getName() + " has been conquered. Please spectate in /gamemode 3", Sound.BLOCK_NOTE_BLOCK_PLING, Rank.ADMIN);
-            int raids = pillager.getRaids().get(pillaged);
+           int raids = pillager.getRaids().get(pillaged);
             int pointsGained = (pillaged.getMembers().size() + bonus);
             int pointsLost = (pillaged.getMembers().size() + bonus);
 
@@ -86,6 +87,7 @@ public class Pillage {
                 pillager.messageClan(ChatColor.GREEN + "Since you have already raided this clan, you received less points. (Effect stacks)", null, false);
             }
 
+            Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(pillaged, pillager));
             pillaged.setPoints(pillaged.getPoints() - pointsLost);
             pillager.setPoints(pillager.getPoints() + pointsGained);
             ClanRepository.updatePoints(pillaged);
@@ -106,6 +108,8 @@ public class Pillage {
             pillager.messageClan(ChatColor.GRAY + "You received no points as you pillaged this clan under 12 hours ago.", null, false);
             pillaged.messageClan(ChatColor.GRAY + "You lost no points as you were pillaged under 12 hours ago by this clan.", null, false);
         }
+        ClientUtilities.messageStaffSound("Raid", pillaged.getName() + " has been conquered. Please spectate in /gamemode 3", Sound.BLOCK_NOTE_BLOCK_PLING, Rank.ADMIN);
+
         pillages.add(this);
     }
 
@@ -159,7 +163,7 @@ public class Pillage {
 
     public static boolean isPillaging(Clan clan, Clan target) {
         for (Pillage pillage : pillages) {
-            if (pillage.getPillager() == clan && pillage.getPillaged() == target) {
+            if (pillage.getPillager().equals(clan) && pillage.getPillaged().equals(target)) {
                 return true;
             }
         }

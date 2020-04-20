@@ -2,6 +2,7 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -74,13 +75,12 @@ public class Agility extends Skill implements InteractSkill {
     }
 
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void endOnInteract(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
         if (event.getHand() != EquipmentSlot.OFF_HAND) {
             if (event.getAction() != Action.PHYSICAL) {
-
 
                 if (active.contains(player.getUniqueId())) {
                     active.remove(player.getUniqueId());
@@ -149,9 +149,10 @@ public class Agility extends Skill implements InteractSkill {
     public void activate(Player player, Gamer gamer) {
         if (!active.contains(player.getUniqueId())) {
             UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 1));
             active.add(player.getUniqueId());
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 1));
+
         }
     }
 }

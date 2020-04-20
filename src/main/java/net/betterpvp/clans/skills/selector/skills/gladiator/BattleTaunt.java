@@ -62,12 +62,12 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
                         } else if (!hasSwordInMainHand(p)) {
                             active.remove(p.getName());
                         } else {
+//
+                           p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
 
-                            p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
-
-                            p.launchProjectile(Trident.class);
+                         //   p.launchProjectile(Trident.class);
                             for (int i = 0; i <= (2 + getLevel(p)); i++) {
-                                //pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
+                                pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
                             }
                         }
                     }

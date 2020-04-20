@@ -71,13 +71,12 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Blizzard", new Blizzard(i));
         skills.put("Molten Shield", new MoltenShield(i));
         //skills.put("Polymorph", new Polymorph(i));
-        //skills.put("Fireball Thing", new FireballThing(i));
         skills.put("Glacial Prison", new GlacialPrison(i));
         //skills.put("Displacement", new Displacement(i));
         skills.put("Void", new net.betterpvp.clans.skills.selector.skills.paladin.Void(i));
         //skills.put("Repel", new Repel(i));
         skills.put("Rooting Axe", new RootingAxe(i));
-        skills.put("Null Blade", new NullBlade(i));
+        //skills.put("Null Blade", new NullBlade(i));
         skills.put("Rupture", new Rupture(i));
         skills.put("Immolate", new Immolate(i));
         skills.put("Arctic Armour", new ArcticArmour(i));
@@ -171,8 +170,8 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Bloodlust", new Bloodlust(i));
 
         /*
-        * Necromancer Skills
-        */
+         * Necromancer Skills
+         */
 
         skills.put("Bloodshed", new Bloodshed(i));
         skills.put("Soul Harvest", new SoulHarvest(i));
@@ -336,7 +335,7 @@ public class SelectorManager extends BPVPListener<Clans> {
     @EventHandler
     public void onUpdate(UpdateEvent e) {
 
-        if (e.getType() == UpdateEvent.UpdateType.TICK) {
+        if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             for (Player p : Bukkit.getOnlinePlayers()) {
 
                 if (p.getInventory().getItemInMainHand() != null) {
@@ -348,43 +347,41 @@ public class SelectorManager extends BPVPListener<Clans> {
 
                                 Gamer gamer = GamerManager.getOnlineGamer(p);
 
+                                if (gamer != null) {
+                                    if (gamer.getClient().getSettingAsBoolean("RechargeBar")) {
+                                        RoleBuild b = gamer.getActiveBuild(role.getName());
 
+                                        if (b != null) {
+                                            if (UtilItem.isAxe(p.getInventory().getItemInMainHand().getType())) {
+                                                BuildSkill skill = b.getBuildSkill(Types.AXE);
+                                                if (skill != null) {
 
-                                if(gamer != null){
-                                if (gamer.getClient().getSettingAsBoolean("RechargeBar")) {
-                                    RoleBuild b = gamer.getActiveBuild(role.getName());
-
-                                    if (b != null) {
-                                        if (UtilItem.isAxe(p.getInventory().getItemInMainHand().getType())) {
-                                            BuildSkill skill = b.getBuildSkill(Types.AXE);
-                                            if (skill != null) {
-
-                                                if (!display(p, skill)) {
+                                                    if (!display(p, skill)) {
+                                                        showPassiveB(p, b);
+                                                    }
+                                                } else {
                                                     showPassiveB(p, b);
                                                 }
-                                            } else {
-                                                showPassiveB(p, b);
-                                            }
 
 
-                                        } else if (UtilItem.isSword(p.getInventory().getItemInMainHand().getType())) {
-                                            BuildSkill skill = b.getBuildSkill(Types.SWORD);
-                                            if (skill != null) {
-                                                if (!display(p, skill)) {
+                                            } else if (UtilItem.isSword(p.getInventory().getItemInMainHand().getType())) {
+                                                BuildSkill skill = b.getBuildSkill(Types.SWORD);
+                                                if (skill != null) {
+                                                    if (!display(p, skill)) {
+                                                        showPassiveB(p, b);
+                                                    }
+                                                } else {
                                                     showPassiveB(p, b);
                                                 }
-                                            } else {
-                                                showPassiveB(p, b);
-                                            }
 
-                                        } else if (UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
-                                            BuildSkill skill = b.getBuildSkill(Types.BOW);
-                                            if (skill != null) {
-                                                display(p, skill);
+                                            } else if (UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
+                                                BuildSkill skill = b.getBuildSkill(Types.BOW);
+                                                if (skill != null) {
+                                                    display(p, skill);
+                                                }
                                             }
                                         }
                                     }
-                                }
                                 }
                             }
                         }.runTaskAsynchronously(getInstance());
@@ -411,7 +408,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
     private boolean display(Player p, BuildSkill s) {
 
-       if (s.getSkill().showRecharge()) {
+        if (s.getSkill().showRecharge()) {
 
 
             Recharge r = RechargeManager.getInstance().getAbilityRecharge(p.getName(), s.getSkill().getName());
@@ -442,7 +439,6 @@ public class SelectorManager extends BPVPListener<Clans> {
                 return true;
             }
         }
-
 
 
         return false;

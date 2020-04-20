@@ -127,6 +127,7 @@ public class Clans extends JavaPlugin implements Listener {
         ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
 
+        loadRecipes();
 
         startTimers();
 

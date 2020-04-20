@@ -21,6 +21,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -124,7 +125,7 @@ public class Overcharge extends Skill {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent e) {
         if (e.getProjectile() != null) {
             if (e.getProjectile() instanceof Arrow) {
@@ -135,8 +136,6 @@ public class Overcharge extends Skill {
 
 
                         LogManager.addLog(e.getDamagee(), ((Player) a.getShooter()), "Overcharge: " + bonus.get(a));
-
-
                         e.setDamage(e.getDamage() + bonus.get(a));
                     }
                 }

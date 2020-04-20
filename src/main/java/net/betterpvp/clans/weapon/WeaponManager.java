@@ -24,7 +24,7 @@ public class WeaponManager extends BPVPListener<Clans> {
     public WeaponManager(Clans i) {
         super(i);
         addWeapon(new IncendiaryGrenade(i));
-        addWeapon(new WaterBottle(i));
+        addWeapon(new ExtinguishingPotion(i));
         addWeapon(new EnderPearl(i));
         addWeapon(new Web(i));
         addWeapon(new FireAxe(i));

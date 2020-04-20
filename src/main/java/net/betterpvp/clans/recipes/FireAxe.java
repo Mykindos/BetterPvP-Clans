@@ -26,7 +26,7 @@ public class FireAxe implements CustomRecipe{
         }
 
         ItemStack axe = new ItemStack(Material.GOLDEN_AXE);
-        ShapedRecipe  fireAxe = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), axe);
+        ShapedRecipe  fireAxe = new ShapedRecipe(new NamespacedKey(instance, "FIRE_AXE"), axe);
         fireAxe.shape("** ", "*/ ", " / ");
         fireAxe.shape(" **", " /*", " / ");
         fireAxe.setIngredient('*', Material.GOLD_BLOCK);

@@ -63,7 +63,7 @@ public class ClanMenu extends Menu {
         }
 
         if (member.hasRole(Role.ADMIN)) {
-            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS),
+            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS_BLOCK),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Claimed Land",
                     ChatColor.GRAY + "Your clan has claimed " + ChatColor.GREEN + clan.getTerritory().size()
                             + ChatColor.GRAY + " chunks",
@@ -74,7 +74,7 @@ public class ClanMenu extends Menu {
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Claim current chunk",
                     ChatColor.GREEN + "Shift Right-Click: " + ChatColor.GRAY + "Unclaim current chunk"));
         } else {
-            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS),
+            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS_BLOCK),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Claimed Land",
                     ChatColor.GRAY + "Your clan has claimed " + ChatColor.GREEN + clan.getTerritory().size()
                             + ChatColor.GRAY + " chunks",

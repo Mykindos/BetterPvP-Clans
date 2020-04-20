@@ -44,9 +44,6 @@ public class Volley extends Skill implements InteractSkill {
                 "Your next shot is instant, and shoots",
                 "a volley of arrows in the direction you are facing",
                 "",
-                "Upon hitting a target, the arrow will deal 5 hearts",
-                "of damage to a naked player",
-                "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
                 "Energy: " + ChatColor.GREEN + getEnergy(level)
         };
@@ -91,6 +88,7 @@ public class Volley extends Skill implements InteractSkill {
 
 
                         Vector v;
+
                         for (int i = 0; i < 10; i += 2) {
                             Arrow n = p.launchProjectile(Arrow.class);
                             n.setShooter(p);
@@ -160,6 +158,7 @@ public class Volley extends Skill implements InteractSkill {
     public void activate(Player player, Gamer gamer) {
         volleys.remove(player.getUniqueId());
         volleys.add(player.getUniqueId());
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
         UtilMessage.message(player, getClassType(), "You prepared " + getName());
     }
 }

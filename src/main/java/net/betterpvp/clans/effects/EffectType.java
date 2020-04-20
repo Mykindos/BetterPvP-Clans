@@ -15,6 +15,7 @@ public enum EffectType {
     RESISTANCE,
     INVISIBILITY,
     INVULNERABILITY,
-    FRAILTY
+    FRAILTY,
+    TEXTURELOADING
 
 }

@@ -39,6 +39,7 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Gate;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -53,6 +54,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.*;
 
@@ -69,7 +71,7 @@ public class WorldListener extends BPVPListener<Clans> {
         if (e.getBlock().getType().name().contains("LOG")) {
             if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) return;
             Block down = e.getBlock().getRelative(BlockFace.DOWN);
-            if ((down.getType() == Material.GRASS || down.getType() == Material.DIRT) && e.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+            if ((down.getType() == Material.GRASS_BLOCK || down.getType() == Material.DIRT) && e.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
                 return;
             }
 
@@ -78,23 +80,6 @@ public class WorldListener extends BPVPListener<Clans> {
             }
 
             cut(e.getBlock(), e.getPlayer());
-        }
-    }
-
-    private void cutTree(Block b) {
-        if (ClanUtilities.getClan(b.getLocation()) == null) {
-            for (int i = -3; i < 0; i++) {
-                Block down = b.getRelative(0, i, 0);
-                if (down.getType().name().contains("LEAVE")) {
-                    down.setType(Material.AIR);
-                }
-            }
-
-            if (b.getRelative(BlockFace.DOWN).getType() != Material.DIRT
-                    && b.getRelative(BlockFace.DOWN).getType() != Material.GRASS) {
-                b.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-                b.setType(Material.AIR);
-            }
         }
     }
 
@@ -135,14 +120,14 @@ public class WorldListener extends BPVPListener<Clans> {
                                 }
                             }
 
-                            if ((b.getRelative(BlockFace.DOWN).getType() == Material.GRASS || b.getRelative(BlockFace.DOWN).getType() == Material.DIRT)) {
+                            if ((b.getRelative(BlockFace.DOWN).getType() == Material.GRASS_BLOCK || b.getRelative(BlockFace.DOWN).getType() == Material.DIRT)) {
                                 continue;
                             }
                             Material mat = b.getType();
                             Byte data = Byte.valueOf(b.getData());
                             Location loc = b.getLocation();
                             b.setType(Material.AIR);
-                            FallingBlock ent = b.getWorld().spawnFallingBlock(loc.add(0.5D, 0.0D, 0.5D), mat, data.byteValue());
+                            FallingBlock ent = b.getWorld().spawnFallingBlock(loc.add(0.5D, 0.0D, 0.5D), Bukkit.createBlockData(mat));
                             ent.setDropItem(false);
                         }
                     }
@@ -794,7 +779,10 @@ public class WorldListener extends BPVPListener<Clans> {
                     } else if (m == Material.WOODEN_AXE) {
                         e.setDamage(1);
                     }
-
+                } else if (m == Material.TRIDENT) {
+                    e.setDamage(2);
+                } else if (m == Material.DIAMOND_SHOVEL) {
+                    e.setDamage(2);
                 } else {
                     e.setDamage(e.getDamage() * 0.75);
                 }
@@ -825,7 +813,7 @@ public class WorldListener extends BPVPListener<Clans> {
             if (!c.isAdministrating()) {
                 if (block.getType() == Material.OBSIDIAN || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
                         || block.getType() == Material.SPAWNER || block.getType() == Material.COBWEB || block.getType() == Material.BREWING_STAND
-                        || block.getType() == Material.BREWING_STAND) {
+                        || block.getType() == Material.BREWING_STAND || block.getType().name().contains("_BED")) {
                     UtilMessage.message(player, "Server", "You cannot place " + ChatColor.YELLOW
                             + WordUtils.capitalizeFully(block.getType().toString()) + ChatColor.GRAY + ".");
                     event.setCancelled(true);
@@ -853,6 +841,20 @@ public class WorldListener extends BPVPListener<Clans> {
                     UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Trap Doors" + ChatColor.GRAY + " (You can right click to open them).");
                 }
 
+            }
+        }
+    }
+
+    /**
+     * Prevent players setting a new spawn
+     *
+     * @param e event
+     */
+    @EventHandler
+    public void disableBeds(PlayerInteractEvent e) {
+        if (e.getClickedBlock() != null) {
+            if (e.getClickedBlock().getType().name().contains("_BED")) {
+                e.setCancelled(true);
             }
         }
     }
@@ -894,7 +896,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     int x = (int) e.getClickedBlock().getLocation().getX();
                     int y = (int) e.getClickedBlock().getLocation().getY();
                     int z = (int) e.getClickedBlock().getLocation().getZ();
-                    Log.write("Trap Chest", e.getPlayer().getName() + " opened a chest at " + x + "," + y + "," + z);
+                    Log.write("Trap Chest", e.getPlayer().getName() + " opened a chest at " + e.getClickedBlock().getWorld().getName() + ", " + x + "," + y + "," + z);
                 }
             }
         }
@@ -1311,27 +1313,33 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onJoinShield(PlayerJoinEvent e) {
-        if (UtilClans.isUsableWithShield(e.getPlayer().getInventory().getItemInMainHand())) {
-            Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (UtilClans.isUsableWithShield(e.getPlayer().getInventory().getItemInMainHand())) {
+                    Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
-            if (gamer != null) {
-                Role role = Role.getRole(e.getPlayer());
-                if (role != null) {
-                    RoleBuild build = gamer.getActiveBuild(role.getName());
-                    if (build != null) {
-                        if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                    if (gamer != null) {
+                        Role role = Role.getRole(e.getPlayer());
+                        if (role != null) {
+                            RoleBuild build = gamer.getActiveBuild(role.getName());
+                            if (build != null) {
+                                if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                                    e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                }
+                            }
+                        }
+
+                        Weapon weapon = WeaponManager.getWeapon(e.getPlayer().getInventory().getItemInMainHand());
+                        if (weapon != null && weapon instanceof ChannelWeapon) {
                             e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                         }
+
                     }
                 }
-
-                Weapon weapon = WeaponManager.getWeapon(e.getPlayer().getInventory().getItemInMainHand());
-                if (weapon != null && weapon instanceof ChannelWeapon) {
-                    e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
-                }
-
             }
-        }
+        }.runTaskLater(getInstance(), 20);
+
     }
 
     @EventHandler
@@ -1690,6 +1698,15 @@ public class WorldListener extends BPVPListener<Clans> {
                         g.addCoins(amount);
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void stopSpawns(CreatureSpawnEvent e) {
+        if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
+            if (e.getEntityType() == EntityType.PHANTOM) {
+                e.setCancelled(true);
             }
         }
     }

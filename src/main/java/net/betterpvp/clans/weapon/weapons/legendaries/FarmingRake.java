@@ -21,7 +21,7 @@ import org.bukkit.material.NetherWarts;
 public class FarmingRake extends Weapon implements ILegendary {
 
     public FarmingRake(Clans i) {
-        super(i, Material.IRON_HOE, (byte) 0, ChatColor.RED + "Rake",
+        super(i, Material.MUSIC_DISC_WARD, (byte) 0, ChatColor.RED + "Rake",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "0",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Harvest",
@@ -38,7 +38,7 @@ public class FarmingRake extends Weapon implements ILegendary {
 
         if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
-        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.IRON_HOE) return;
+        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_WARD) return;
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(e.getPlayer())) {
                 skill(e.getPlayer());
@@ -118,10 +118,6 @@ public class FarmingRake extends Weapon implements ILegendary {
                     }
                 }
 
-                p.getInventory().getItemInMainHand().setDurability((short) (p.getInventory().getItemInMainHand().getDurability() + 1));
-                if (p.getInventory().getItemInMainHand().getDurability() >= 250) {
-                    p.getInventory().setItemInHand(new ItemStack(Material.AIR));
-                }
             }
         }
 
@@ -129,6 +125,6 @@ public class FarmingRake extends Weapon implements ILegendary {
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }

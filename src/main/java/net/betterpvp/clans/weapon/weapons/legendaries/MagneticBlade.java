@@ -91,7 +91,7 @@ public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
                             active.remove(p.getName());
                         } else {
 
-                            p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType());
+                            p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.GRAY_TERRACOTTA);
 
                             for (int i = 0; i <= 5; i++) {
                                 pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));

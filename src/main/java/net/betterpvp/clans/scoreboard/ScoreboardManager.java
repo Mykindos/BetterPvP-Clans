@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.clans.events.*;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
@@ -455,11 +456,17 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                         : ChatColor.DARK_GREEN + prefix + " ");
                 team.setColor(c.hasTrust(d) ? ChatColor.DARK_GREEN : ChatColor.GREEN);
                 team.setSuffix("");
-            } else if (c.isEnemy(d)) {
+            }else if(Pillage.isPillaging(c, d)) {
+                team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
+                team.setColor(ChatColor.LIGHT_PURPLE);
+            }else if(Pillage.isPillaging(d, c)){
+                team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
+                team.setColor(ChatColor.LIGHT_PURPLE);
+            }else if (c.isEnemy(d)) {
                 team.setPrefix(ChatColor.DARK_RED + prefix + " ");
                 team.setColor(ChatColor.RED);
                 team.setSuffix(d.getSimpleDominanceString(c));
-            } else if (c == d) {
+            } else if (c.equals(d)) {
                 team.setPrefix(ChatColor.DARK_AQUA + prefix + " ");
                 team.setColor(ChatColor.AQUA);
                 team.setSuffix("");

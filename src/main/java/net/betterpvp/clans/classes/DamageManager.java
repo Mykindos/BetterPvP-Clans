@@ -159,6 +159,7 @@ public class DamageManager extends BPVPListener<Clans> {
 
     }
 
+
     @EventHandler
     public void ignoreArmours(CustomDamageEvent e) {
         if (e.getCause() == DamageCause.DROWNING) {
@@ -247,8 +248,10 @@ public class DamageManager extends BPVPListener<Clans> {
             }
 
             if (e.getCause() == DamageCause.ENTITY_ATTACK) {
-                if (e.getDamager().getHealth() <= 0) {
-                    return;
+                if(e.getDamager() != null) {
+                    if (e.getDamager().getHealth() <= 0) {
+                        return;
+                    }
                 }
             }
 

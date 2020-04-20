@@ -38,7 +38,7 @@ public class Bloodlust extends Skill {
         return new String[]{
                 "When an enemy dies within 15 blocks,",
                 "you go into a Bloodlust, receiving",
-                "Speed 1 and Strength 1 for " + ChatColor.GREEN + (7 + level) + ChatColor.GRAY + " seconds.",
+                "Speed 1 and Strength 1 for " + ChatColor.GREEN + (5 + level) + ChatColor.GRAY + " seconds.",
                 "",
                 "Bloodlust can stack up to 3 times,",
                 "boosting the level of Speed and Strength."};

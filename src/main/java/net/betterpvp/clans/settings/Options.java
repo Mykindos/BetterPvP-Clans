@@ -40,6 +40,9 @@ public class Options {
     private boolean bungee;
     private boolean isOpen;
     private boolean mapEnabled;
+    private String texturePackURL;
+    private String texturePackSHA;
+    private boolean texturePackForce;
     private Clans i;
 
     public Options(Clans i) {
@@ -92,6 +95,9 @@ public class Options {
         bungee = i.getConfigManager().get(Configs.MAIN).getBool("Bungee");
         isOpen = i.getConfigManager().get(Configs.MAIN).getBool("Server.IsOpen");
         mapEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Map.Enabled");
+        texturePackURL = i.getConfigManager().get(Configs.MAIN).getString("TexturePack.URL");
+        texturePackSHA = i.getConfigManager().get(Configs.MAIN).getString("TexturePack.SHA");
+        texturePackForce = i.getConfigManager().get(Configs.MAIN).getBool("TexturePack.Forced");
     }
 
     public int getMAHPort() {
@@ -299,6 +305,20 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Bungee", true);
         i.getConfigManager().get(Configs.MAIN).check("Server.IsOpen", true);
         i.getConfigManager().get(Configs.MAIN).check("Map.Enabled", true);
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.URL", "https://mykindos.me/betterpvp.zip");
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.SHA", "ebd67f43392e2d6694bad73ed8a1534ce9ce25a3");
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.Forced", false);
     }
 
+    public String getTexturePackURL() {
+        return texturePackURL;
+    }
+
+    public String getTexturePackSHA() {
+        return texturePackSHA;
+    }
+
+    public boolean isTexturePackForced() {
+        return texturePackForce;
+    }
 }

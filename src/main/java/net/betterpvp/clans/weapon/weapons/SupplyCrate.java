@@ -155,7 +155,6 @@ public class SupplyCrate extends Weapon {
 
                                 if (!Clans.getOptions().isLastDay()) {
                                     int rand = UtilMath.randomInt(5);
-                                    Bukkit.broadcastMessage(rand + "");
                                     switch (rand) {
                                         case 5:
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET));
@@ -192,7 +191,7 @@ public class SupplyCrate extends Weapon {
                                     for (Weapon w : WeaponManager.weapons) {
                                         if (UtilMath.randomInt(10) > 3) {
                                             if (w instanceof EnergyApple || w instanceof IncendiaryGrenade
-                                                    || w instanceof WaterBottle || w instanceof EnderPearl || w instanceof Web || w instanceof GravityGrenade) {
+                                                    || w instanceof ExtinguishingPotion || w instanceof EnderPearl || w instanceof Web || w instanceof GravityGrenade) {
                                                 ItemStack k = w.createWeaponNoGlow();
                                                 k.setAmount(UtilMath.randomInt(1, 8));
                                                 chest.getInventory().addItem(k);

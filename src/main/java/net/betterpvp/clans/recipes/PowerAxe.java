@@ -26,7 +26,7 @@ public class PowerAxe implements CustomRecipe{
         }
 
         ItemStack axe = new ItemStack(Material.DIAMOND_AXE);
-        ShapedRecipe fireAxe = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), axe);
+        ShapedRecipe fireAxe = new ShapedRecipe(new NamespacedKey(instance, "DIAMOND_AXE"), axe);
         fireAxe.shape("** ", "*/ ", " / ");
         fireAxe.shape(" **", " /*", " / ");
         fireAxe.setIngredient('*', Material.DIAMOND_BLOCK);

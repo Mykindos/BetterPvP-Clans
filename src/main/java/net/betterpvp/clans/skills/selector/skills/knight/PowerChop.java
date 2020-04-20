@@ -37,7 +37,7 @@ public class PowerChop extends Skill implements InteractSkill {
         return new String[]{
                 "Put more strength into your",
                 "next axe attack, causing it",
-                "to deal " + ChatColor.GREEN + (Math.min(1, (level))) + ChatColor.GRAY + " bonus damage.",
+                "to deal " + ChatColor.GREEN + (Math.max(1, (level))) + ChatColor.GRAY + " bonus damage.",
                 "",
                 "Attack must be made within",
                 "0.5 seconds of being used.",

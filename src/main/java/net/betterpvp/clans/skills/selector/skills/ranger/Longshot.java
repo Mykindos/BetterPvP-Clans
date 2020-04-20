@@ -13,11 +13,13 @@ import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMath;
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_15_R1.EntityThrownTrident;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -134,7 +136,6 @@ public class Longshot extends Skill {
                             double length = UtilMath.offset(loc, e.getDamagee().getLocation());
 
                             double damage = Math.min((16 + getLevel((Player) arrow.getShooter())), length / 3.0 - 4);
-
 
                             e.setDamage(e.getDamage() + (damage));
                             arrows.remove(arrow);

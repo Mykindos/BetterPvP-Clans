@@ -11,31 +11,34 @@ public class Chainmail implements CustomRecipe{
 
     public Chainmail(Clans instance){
 
-        NamespacedKey key = new NamespacedKey(instance, instance.getDescription().getName());
+        NamespacedKey helmetKey = new NamespacedKey(instance, "CHAINMAIL_HELMET");
+        NamespacedKey chestKey = new NamespacedKey(instance, "CHAINMAIL_CHEST");
+        NamespacedKey leggingKey = new NamespacedKey(instance, "CHAINMAIL_LEGGINGS");
+        NamespacedKey bootKey = new NamespacedKey(instance, "CHAINMAIL_BOOTS");
 
         ItemStack helmet = new ItemStack(Material.CHAINMAIL_HELMET);
-        ShapedRecipe  chainHelmet = new ShapedRecipe(key, helmet);
+        ShapedRecipe  chainHelmet = new ShapedRecipe(helmetKey, helmet);
         chainHelmet.shape("***", "* *", "   ");
         chainHelmet.setIngredient('*', Material.EMERALD);
         Bukkit.getServer().addRecipe(chainHelmet);
         System.out.println("Chain helmet recipe added");
 
         ItemStack chest = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
-        ShapedRecipe  chainChest = new ShapedRecipe(key, chest);
+        ShapedRecipe  chainChest = new ShapedRecipe(chestKey, chest);
         chainChest.shape("* *", "***", "***");
         chainChest.setIngredient('*', Material.EMERALD);
         Bukkit.getServer().addRecipe(chainChest);
         System.out.println("Chain chest recipe added");
 
         ItemStack legs = new ItemStack(Material.CHAINMAIL_LEGGINGS);
-        ShapedRecipe  chainLegs = new ShapedRecipe(key, legs);
+        ShapedRecipe  chainLegs = new ShapedRecipe(leggingKey, legs);
         chainLegs.shape("***", "* *", "* *");
         chainLegs.setIngredient('*', Material.EMERALD);
         Bukkit.getServer().addRecipe(chainLegs);
         System.out.println("Chain legs recipe added");
 
         ItemStack boots = new ItemStack(Material.CHAINMAIL_BOOTS);
-        ShapedRecipe  chainBoots = new ShapedRecipe(key, boots);
+        ShapedRecipe  chainBoots = new ShapedRecipe(bootKey, boots);
         chainBoots.shape("* *", "* *", "   ");
         chainBoots.setIngredient('*', Material.EMERALD);
         Bukkit.getServer().addRecipe(chainBoots);

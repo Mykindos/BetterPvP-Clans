@@ -40,19 +40,19 @@ public class KOTHManager extends BPVPListener<Clans> {
     public static String finalWinner;
 
 
-    public KOTHManager(Clans i){
+    public KOTHManager(Clans i) {
         super(i);
 
     }
 
     @EventHandler
-    public void onUpdate(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.SEC){
-            if(koth == null) return;
+    public void onUpdate(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
+            if (koth == null) return;
 
-            if(koth.getCount() > 0){
-                FireworkEffect fe =  FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.RED).build();
-                FireworkEffect fe2 =  FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.GREEN).build();
+            if (koth.getCount() > 0) {
+                FireworkEffect fe = FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.RED).build();
+                FireworkEffect fe2 = FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.GREEN).build();
                 Location loc = new Location(koth.getLocation().getWorld(), koth.getLocation().getX() + 0.5,
                         Math.min(300, koth.getLocation().getY() + koth.getCount()),
                         koth.getLocation().getZ() + 0.5);
@@ -60,29 +60,31 @@ public class KOTHManager extends BPVPListener<Clans> {
                 UtilFirework.spawn(loc, fe2);
                 koth.takeCount();
             }
-            if(koth.getCount() == 0){
+            if (koth.getCount() == 0) {
                 koth.getLocation().getBlock().setType(Material.CHEST);
 
-                for(Map.Entry<Clan, Integer> entry : clanKills.entrySet()) {
-                    if(winner == null || entry.getValue().compareTo(winner.getValue()) > 0) {
+                for (Map.Entry<Clan, Integer> entry : clanKills.entrySet()) {
+                    if (winner == null || entry.getValue().compareTo(winner.getValue()) > 0) {
                         winner = entry;
                     }
                 }
 
-                if(!broadcasted) {
-                    UtilMessage.broadcast("KOTH", ChatColor.YELLOW + "Clan " + winner.getKey().getName() + ChatColor.GRAY
-                            + " has won the KOTH with " + ChatColor.GREEN + winner.getValue() + ChatColor.GRAY + " kills!");
-                    finalWinner = winner.getKey()
-                            .getName();
-                    broadcasted = true;
+                if(winner != null) {
+                    if (!broadcasted) {
+                        UtilMessage.broadcast("KOTH", ChatColor.YELLOW + "Clan " + winner.getKey().getName() + ChatColor.GRAY
+                                + " has won the KOTH with " + ChatColor.GREEN + winner.getValue() + ChatColor.GRAY + " kills!");
+                        finalWinner = winner.getKey()
+                                .getName();
+                        broadcasted = true;
+                    }
                 }
-                new BukkitRunnable(){
+                new BukkitRunnable() {
                     @Override
-                    public void run(){
-                        if(koth.getLocation().getBlock().getType() == Material.CHEST){
+                    public void run() {
+                        if (koth.getLocation().getBlock().getType() == Material.CHEST) {
 
                             Chest chest = (Chest) koth.getLocation().getBlock().getState();
-                            if(!filledInventory){
+                            if (!filledInventory) {
 
                                 chest.getInventory().addItem(new ItemStack(Material.DIAMOND_BLOCK, UtilMath.randomInt(16, 32)));
                                 chest.getInventory().addItem(new ItemStack(Material.EMERALD_BLOCK, UtilMath.randomInt(16, 32)));
@@ -91,16 +93,16 @@ public class KOTHManager extends BPVPListener<Clans> {
 
                                 chest.getInventory().addItem(new ItemStack(Material.TNT, UtilMath.randomInt(5, 15)));
 
-                                for(Weapon w : WeaponManager.weapons){
-                                    if(w instanceof EnchantedWeapon){
+                                for (Weapon w : WeaponManager.weapons) {
+                                    if (w instanceof EnchantedWeapon) {
                                         EnchantedWeapon enchantedWeapon = (EnchantedWeapon) w;
-                                        if(enchantedWeapon.getName().contains("Ascendant")){
-                                            if(UtilMath.randomInt(0, 100) > 98){
+                                        if (enchantedWeapon.getName().contains("Ascendant")) {
+                                            if (UtilMath.randomInt(0, 100) > 98) {
                                                 chest.getInventory().addItem(enchantedWeapon.createWeapon());
                                             }
                                         }
-                                    }else if(w instanceof ILegendary){
-                                        if(UtilMath.randomInt(10000) > 9995){
+                                    } else if (w instanceof ILegendary) {
+                                        if (UtilMath.randomInt(10000) > 9995) {
                                             chest.getInventory().addItem(w.createWeapon());
                                         }
                                     }
@@ -120,15 +122,15 @@ public class KOTHManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onKill(CustomDeathEvent e) {
-        if(koth != null) {
+        if (koth != null) {
             Clan aClan = ClanUtilities.getClan(e.getKiller());
             Clan bClan = ClanUtilities.getClan(e.getKilled().getLocation());
-            if(aClan != null && bClan != null) {
-                if(bClan.getName().equalsIgnoreCase("Fields")) {
-                    if(clanKills.containsKey(aClan)) {
+            if (aClan != null && bClan != null) {
+                if (bClan.getName().equalsIgnoreCase("Fields")) {
+                    if (clanKills.containsKey(aClan)) {
                         clanKills.put(aClan, clanKills.get(aClan) + 1);
-                    }else {
-                        clanKills.put(aClan,  1);
+                    } else {
+                        clanKills.put(aClan, 1);
                     }
                 }
             }
@@ -137,11 +139,11 @@ public class KOTHManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onBroadcast(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.MIN_01){
-            if(koth != null){
+    public void onBroadcast(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.MIN_01) {
+            if (koth != null) {
                 double left = UtilTime.convert(kothStart - System.currentTimeMillis(), UtilTime.TimeUnit.MINUTES, 0);
-                if(left > 0){
+                if (left > 0) {
                     Bukkit.broadcastMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "The KOTH is landing in "
                             + ChatColor.RED + ChatColor.BOLD + left + ChatColor.AQUA + ChatColor.BOLD + " minutes!");
                 }
@@ -151,29 +153,28 @@ public class KOTHManager extends BPVPListener<Clans> {
 
 
     @EventHandler
-    public void interact(PlayerInteractEvent e){
-        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
-        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+    public void interact(PlayerInteractEvent e) {
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = e.getClickedBlock();
-            if(b.getType() == Material.CHEST){
-                if(koth != null){
+            if (b.getType() == Material.CHEST) {
+                if (koth != null) {
 
 
                     //	Bukkit.broadcastMessage(b.getLocation().getX() + ", " + b.getLocation().getZ() + " " + koth.getLocation().getX() + ", " + koth.getLocation().getZ());
-                    if((int) b.getLocation().getX() == (int) koth.getLocation().getX()
-                            && (int) b.getLocation().getZ()  == (int) koth.getLocation().getZ()){
+                    if (b.getLocation().equals(koth.getLocation())) {
 
-                        if(winner != null) {
+                        if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
+                            return;
+                        }
+                        if (winner != null) {
                             Clan pClan = ClanUtilities.getClan(e.getPlayer());
-                            if(pClan != null) {
-                                if(ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
-                                    return;
-                                }
-                                if(!pClan.getName().equals(finalWinner)) {
+                            if (pClan != null) {
 
+                                if (!pClan.getName().equals(finalWinner)) {
                                     e.setCancelled(true);
                                 }
-                            }else {
+                            } else {
                                 e.setCancelled(true);
                             }
                         }
@@ -182,10 +183,5 @@ public class KOTHManager extends BPVPListener<Clans> {
             }
         }
     }
-
-
-
-
-
 
 }

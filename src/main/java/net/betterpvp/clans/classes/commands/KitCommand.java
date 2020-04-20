@@ -5,9 +5,11 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.menu.KitMenu;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
@@ -26,7 +28,7 @@ public class KitCommand extends Command {
     public void execute(Player player, String[] args) {
         Gamer gamer = GamerManager.getOnlineGamer(player);
 
-        if(args != null) {
+        if (args != null) {
             if (args.length == 1) {
 
                 Role role = Role.getRole(args[0]);
@@ -54,22 +56,45 @@ public class KitCommand extends Command {
                 }
 
             }
-        }else{
+        } else {
             player.openInventory(new KitMenu(player, false).getInventory());
         }
     }
 
     private void giveKit(Player p, Role role) {
-        p.getEquipment().setHelmet(new ItemStack(role.getHelmet()));
-        p.getEquipment().setChestplate(new ItemStack(role.getChestplate()));
-        p.getEquipment().setLeggings(new ItemStack(role.getLeggings()));
-        p.getEquipment().setBoots(new ItemStack(role.getBoots()));
-        p.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
-        p.getInventory().addItem(new ItemStack(Material.IRON_AXE));
-        p.getInventory().addItem(new ItemStack(Material.BOW));
-        p.getInventory().addItem(new ItemStack(Material.ARROW, 32));
-        p.getInventory().addItem(new ItemStack(Material.IRON_PICKAXE));
-        p.getInventory().addItem(new ItemStack(Material.IRON_SHOVEL));
+        if (p.getEquipment().getHelmet() == null) {
+            p.getEquipment().setHelmet(UtilClans.updateNames(new ItemStack(role.getHelmet())));
+        } else {
+            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getHelmet())));
+        }
+
+        if (p.getEquipment().getChestplate() == null) {
+            p.getEquipment().setChestplate(UtilClans.updateNames(new ItemStack(role.getChestplate())));
+        } else {
+            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getChestplate())));
+        }
+
+        if (p.getEquipment().getLeggings() == null) {
+            p.getEquipment().setLeggings(UtilClans.updateNames(new ItemStack(role.getLeggings())));
+
+        } else {
+            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getLeggings())));
+        }
+
+        if (p.getEquipment().getBoots() == null) {
+            p.getEquipment().setBoots(UtilClans.updateNames(new ItemStack(role.getBoots())));
+        } else {
+            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getBoots())));
+        }
+
+
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_SWORD)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_AXE)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BOW)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CROSSBOW)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.ARROW, 64)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_PICKAXE)));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_SHOVEL)));
     }
 
     @Override

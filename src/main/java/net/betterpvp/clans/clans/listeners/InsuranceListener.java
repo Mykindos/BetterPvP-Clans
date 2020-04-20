@@ -9,6 +9,7 @@ import net.betterpvp.clans.clans.mysql.InsuranceRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilTime;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 
@@ -39,8 +40,8 @@ public class InsuranceListener extends BPVPListener<Clans> {
                             }
                         }
                     }
-                    InsuranceRepository.removeInsurance();
                 }
+                InsuranceRepository.removeInsurance();
             }).start();
 
         }
@@ -59,12 +60,12 @@ public class InsuranceListener extends BPVPListener<Clans> {
                         || i.getMaterial() == Material.REDSTONE_BLOCK
                         || i.getMaterial() == Material.ICE
                         || i.getMaterial() == Material.WATER
+                        || i.getMaterial() == Material.LAVA
                         || i.getMaterial() == Material.AIR) {
                     return;
                 }
 
                 if (UtilTime.elapsed(i.getTime(), 86400000)) {
-
                     for (Clan c : ClanUtilities.clans) {
                         c.getInsurance().remove(i);
                     }
@@ -72,12 +73,11 @@ public class InsuranceListener extends BPVPListener<Clans> {
                 }
 
 
-                if (i.getLocation().getBlock().getType() == i.getMaterial() && i.getLocation().getBlock().getData() == i.getData()) {
+                if (i.getLocation().getBlock().getType() == i.getMaterial()) {
                     return;
                 }
 
                 if (i.getType() == InsuranceType.PLACE) {
-
                     i.getLocation().getBlock().setType(Material.AIR);
                 } else if (i.getType() == InsuranceType.BREAK) {
                     i.getLocation().getBlock().setType(i.getMaterial());

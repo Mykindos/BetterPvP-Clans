@@ -51,8 +51,9 @@ public class Blink extends Skill implements InteractSkill {
                 "Using again within 5 seconds De-Blinks,",
                 "returning you to your original location.",
                 "Cannot be used while Slowed.",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "",
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
@@ -198,7 +199,7 @@ public class Blink extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) (level < 1 ? 35 : 35 - (1.5 * (level - 1)));
+        return 0;//(float) (level < 1 ? 35 : 35 - (1.5 * (level - 1)));
     }
 
     @Override

@@ -143,10 +143,12 @@ public class SkeletonKing extends Boss {
 
     @EventHandler
     public void onLaunchedBones(UpdateEvent e) {
-        if (e.getType() == UpdateType.TICK) {
-            if (targets.isEmpty()) return;
-            for (Entry<Item, LivingEntity> entry : targets.entrySet()) {
-                UtilVelocity.velocity(entry.getKey(), UtilVelocity.getTrajectory(entry.getKey(), entry.getValue()), 0.6, false, 0, 0.2, 1, true);
+        if(isActive()) {
+            if (e.getType() == UpdateType.TICK) {
+                if (targets.isEmpty()) return;
+                for (Entry<Item, LivingEntity> entry : targets.entrySet()) {
+                    UtilVelocity.velocity(entry.getKey(), UtilVelocity.getTrajectory(entry.getKey(), entry.getValue()), 0.6, false, 0, 0.2, 1, true);
+                }
             }
         }
     }

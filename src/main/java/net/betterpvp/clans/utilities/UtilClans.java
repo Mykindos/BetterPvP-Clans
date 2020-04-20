@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -41,6 +42,7 @@ public class UtilClans {
         Material m = abc.getType();
         ItemMeta a = abc.getItemMeta();
 
+        a.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         if(m == Material.LEATHER_HELMET){
             a.setDisplayName("Assassin Helmet");
         }else if(m == Material.LEATHER_CHESTPLATE){

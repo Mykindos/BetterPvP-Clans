@@ -156,7 +156,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         c.getInsurance().add(i);
                     }
                 } else {
-                    if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
+                    if (block.getType() == Material.DIRT || block.getType() == Material.GRASS_BLOCK || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
                             || block.getType() == Material.SAND || block.getType() == Material.COBBLESTONE) {
                         //new BlockRestoreData(block, (int) block.getData(), (byte) 0, 60000 * 5L);
                     }
@@ -217,7 +217,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         }
                     }
                 } else {
-                    if (b.getType() == Material.DIRT || b.getType() == Material.GRASS || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
+                    if (b.getType() == Material.DIRT || b.getType() == Material.GRASS_BLOCK || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
                             || b.getType() == Material.SAND || b.getType() == Material.COBBLESTONE) {
                         //	new BlockRestoreData(b, (int) b.getData(), (byte) 0, 60000 * 5L);
                     }

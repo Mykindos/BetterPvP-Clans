@@ -39,7 +39,7 @@ public class WolfsFury extends Skill implements InteractSkill {
                 "Right click with Axe to Activate.",
                 "",
                 "Summon the power of the wolf, gaining",
-                "Strength 2 for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds, and giving",
+                "Strength 1 for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds, and giving",
                 "no knockback on your attacks.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),

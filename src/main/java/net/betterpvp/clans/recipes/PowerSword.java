@@ -24,7 +24,7 @@ public class PowerSword implements CustomRecipe{
         }
 
         ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);
-        ShapedRecipe  powerSword = new ShapedRecipe(new NamespacedKey(instance, instance.getDescription().getName()), sword);
+        ShapedRecipe  powerSword = new ShapedRecipe(new NamespacedKey(instance, "DIAMOND_SWORD"), sword);
         powerSword.shape(" * ", " * ", " / ");
         powerSword.setIngredient('*', Material.DIAMOND_BLOCK);
         powerSword.setIngredient('/', Material.STICK);

@@ -32,16 +32,17 @@ public class Kill3Assassins extends General{
 			if(LogManager.getKiller(e.getEntity()) != null){
 				if(Role.getRole(e.getEntity()) != null && Role.getRole(e.getEntity()).getName().equals("Assassin")){
 					Progress p = getQuestProgression(LogManager.getKiller(e.getEntity()).getDamager().getUniqueId(), getName());
-
-					if(!p.isComplete()){
-						if(p instanceof GeneralProgression){
+					if(p != null){
+					if(!p.isComplete()) {
+						if (p instanceof GeneralProgression) {
 							GeneralProgression gp = (GeneralProgression) p;
 							gp.addCurrentAmount();
 
-							if(gp.getCurrentAmount() >= gp.getRequiredAmount()){
+							if (gp.getCurrentAmount() >= gp.getRequiredAmount()) {
 								gp.onComplete(LogManager.getKiller(e.getEntity()).getDamager().getUniqueId());
 							}
 						}
+					}
 					}
 				}
 

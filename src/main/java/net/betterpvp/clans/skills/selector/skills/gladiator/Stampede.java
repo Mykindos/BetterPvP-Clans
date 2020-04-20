@@ -64,8 +64,6 @@ public class Stampede extends Skill {
             return;
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
-
-
             if (sprintTime.containsKey(p)) {
                 if (hasSkill(p, this)) {
                     if (!p.isSprinting()) {
