@@ -78,6 +78,12 @@ public class SkillListener extends BPVPListener<Clans> {
                         return;
                     }
 
+                    if(Arrays.asList(skill.getActions()).contains(Action.RIGHT_CLICK_BLOCK)){
+                        if (UtilItem.isBlockDoor(player)) {
+                            return;
+                        }
+                    }
+
                     if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
                         UtilMessage.message(player, "Effect", "You are silenced!");
                         return;

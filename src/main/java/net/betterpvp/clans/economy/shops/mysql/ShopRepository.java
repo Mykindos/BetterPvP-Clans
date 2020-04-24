@@ -13,34 +13,35 @@ import java.sql.SQLException;
 
 public class ShopRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_shops";
-
-    private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-            "  `Store` varchar(255)," +
-            "  `Material` VARCHAR(255)," +
-            "  `Slot` int(5)," +
-            "  `Amount` int(5)," +
-            "  `BuyPrice` int(255)," +
-            "  `SellPrice` int(255)," +
-            "  `ItemName` varchar(255)," +
-            "  `Legendary` tinyint(1)," +
-            "  `Glow` tinyint(1)," +
-            "  `Dynamic` tinyint(1)," +
-            "  `Quest` tinyint(1)," +
-            "  `MinSellPrice` int(255)," +
-            "  `BaseSellPrice` int(255)," +
-            "  `MaxSellPrice` int(255)," +
-            "  `MinBuyPrice` int(255)," +
-            "  `BaseBuyPrice` int(255)," +
-            "  `MaxBuyPrice` int(255)," +
-            "  `BaseStock` int(255)," +
-            "  `MaxStock` int(255)," +
-            "  `CurrentStock` int(255)" +
-            ")";
+    private static String TABLE_NAME;
+    private static String CREATE_SHOP_TABLE;
 
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_shops";
+        CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `Store` varchar(255)," +
+                "  `Material` VARCHAR(255)," +
+                "  `Slot` int(5)," +
+                "  `Amount` int(5)," +
+                "  `BuyPrice` int(255)," +
+                "  `SellPrice` int(255)," +
+                "  `ItemName` varchar(255)," +
+                "  `Legendary` tinyint(1)," +
+                "  `Glow` tinyint(1)," +
+                "  `Dynamic` tinyint(1)," +
+                "  `Quest` tinyint(1)," +
+                "  `MinSellPrice` int(255)," +
+                "  `BaseSellPrice` int(255)," +
+                "  `MaxSellPrice` int(255)," +
+                "  `MinBuyPrice` int(255)," +
+                "  `BaseBuyPrice` int(255)," +
+                "  `MaxBuyPrice` int(255)," +
+                "  `BaseStock` int(255)," +
+                "  `MaxStock` int(255)," +
+                "  `CurrentStock` int(255)" +
+                ")";
         QueryFactory.runQuery(CREATE_SHOP_TABLE);
     }
 

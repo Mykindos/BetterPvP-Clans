@@ -51,8 +51,7 @@ public class MoltenBlast extends Skill implements InteractSkill {
                 "area of effect damage, and igniting any players hit",
                 "for " + ChatColor.GREEN + ((level * 0.5)) + ChatColor.GRAY + " seconds",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -216,7 +215,7 @@ public class MoltenBlast extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
     @Override

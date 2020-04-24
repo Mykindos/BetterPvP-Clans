@@ -27,6 +27,11 @@ public class ClanCommand implements CommandExecutor {
 
     public ClanCommand(Clans i) {
         this.i = i;
+
+        if(Clans.getOptions().isHub()){
+            return;
+        }
+
         commands = new ArrayList<>();
 
         commands.add(new AllyCommand());
@@ -61,9 +66,12 @@ public class ClanCommand implements CommandExecutor {
             return true;
         }
 
-        if (Clans.getOptions().isFNG()) {
-            UtilMessage.message(sender, "Clans", "Clans is not currently enabled!");
-            return true;
+        if (Clans.getOptions().isHub()) {
+            if(!ClientUtilities.getOnlineClient((Player) sender).hasRank(Rank.ADMIN, false)){
+                UtilMessage.message(sender, "Clans", "Clans is not currently enabled!");
+                return true;
+            }
+
         }
 
         Player player = (Player) sender;

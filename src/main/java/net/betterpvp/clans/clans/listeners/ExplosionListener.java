@@ -40,8 +40,17 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 for (ClanMember member : clan.getMembers()) {
 
                     if (Bukkit.getPlayer(member.getUUID()) != null) {
-                        clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() + (600000));
+                        int bonus = 0;
+                        if(clan.getMembers().size() > Clans.getOptions().getTntBonusMemberThreshold()){
+                            // 5 minutes per member
+                            bonus = (clan.getMembers().size() - Clans.getOptions().getTntBonusMemberThreshold())
+                                    * (Clans.getOptions().getBonusTimeUntilTNTProtection() * 60000);
+                        }
+
+                        clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() +
+                                (Clans.getOptions().getTimeUntilTNTProtection() * 60000) + bonus);
                         clan.setVulnerable(true);
+                        break;
                     }
                 }
 
@@ -235,7 +244,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
-                if (b.getType() == Material.NETHER_BRICK) {
+                if (b.getType() == Material.NETHER_BRICKS) {
                     b.setType(Material.NETHERRACK);
                     continue;
                 } else if (b.getType() == Material.NETHERRACK) {

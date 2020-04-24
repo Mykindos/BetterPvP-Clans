@@ -234,8 +234,7 @@ public class Pestilence extends Skill implements InteractSkill {
                 "nearby enemies. While enemies are infectetd,",
                 "they deal 20% reduced damage",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -254,7 +253,7 @@ public class Pestilence extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 25 - ((level - 1) * 5);
+        return 0;
     }
 
     @Override

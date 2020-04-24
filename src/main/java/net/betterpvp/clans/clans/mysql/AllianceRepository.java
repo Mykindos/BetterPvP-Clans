@@ -14,15 +14,16 @@ import java.sql.SQLException;
 
 public class AllianceRepository {
 
-    public static final String TABLE_NAME = "clans_alliances";
-
-    public static String CREATE_ALLY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-            + "(Clan VARCHAR(16), "
-            + "Other VARCHAR(16), "
-            + "Trusted TINYINT); ";
+    private static String TABLE_NAME;
+    private static String CREATE_ALLY_TABLE;
 
 
     private static void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_alliances";
+        CREATE_ALLY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+                + "(Clan VARCHAR(16), "
+                + "Other VARCHAR(16), "
+                + "Trusted TINYINT); ";
         QueryFactory.runQuery(CREATE_ALLY_TABLE);
     }
 

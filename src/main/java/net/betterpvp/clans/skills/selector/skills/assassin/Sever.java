@@ -108,7 +108,7 @@ public class Sever extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 20;
+        return 0;
     }
 
     @Override

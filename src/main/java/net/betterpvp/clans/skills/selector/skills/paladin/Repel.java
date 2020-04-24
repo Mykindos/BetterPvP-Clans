@@ -49,8 +49,7 @@ public class Repel extends Skill implements InteractSkill {
                 "which damage, and knockback",
                 "any enemies they come in contact with",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -69,7 +68,7 @@ public class Repel extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
     private WeakHashMap<Player, Long> active = new WeakHashMap<>();

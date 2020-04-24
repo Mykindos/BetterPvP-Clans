@@ -40,8 +40,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
                 "Launches an orb, trapping any players",
                 "within 5 blocks of it in a prison of ice for 5 seconds",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -71,7 +70,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 3);
+        return 0;
     }
 
     private List<Item> items = new ArrayList<>();

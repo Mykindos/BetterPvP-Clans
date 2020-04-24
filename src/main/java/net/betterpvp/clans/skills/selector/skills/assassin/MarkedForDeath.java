@@ -49,8 +49,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
                 "Causing them to take 50% additional damage",
                 "from all targets.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -77,7 +76,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
 

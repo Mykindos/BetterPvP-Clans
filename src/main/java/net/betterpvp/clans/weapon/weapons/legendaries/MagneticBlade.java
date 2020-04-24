@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -111,9 +112,12 @@ public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
     public void pull(Player p, Location loc) {
 
         for (Entity other : loc.getWorld().getEntities()) {
+
             if (loc.distance(other.getLocation()) > 2) continue;
             if (other instanceof Item || other instanceof LivingEntity) {
-
+                if(other instanceof LivingEntity){
+                    if(ShopManager.isShop((LivingEntity) other)) continue;
+                }
                 if (other instanceof Player) {
                     Player player = (Player) other;
                     if (!ClanUtilities.canHurt(p, player)) {

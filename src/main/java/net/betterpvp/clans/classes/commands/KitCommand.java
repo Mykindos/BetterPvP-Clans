@@ -3,6 +3,10 @@ package net.betterpvp.clans.classes.commands;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.menu.KitMenu;
+import net.betterpvp.clans.classes.roles.Assassin;
+import net.betterpvp.clans.classes.roles.Ranger;
+import net.betterpvp.clans.economy.shops.Shop;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
@@ -15,7 +19,12 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class KitCommand extends Command {
@@ -61,7 +70,7 @@ public class KitCommand extends Command {
         }
     }
 
-    private void giveKit(Player p, Role role) {
+    public static void giveKit(Player p, Role role) {
         if (p.getEquipment().getHelmet() == null) {
             p.getEquipment().setHelmet(UtilClans.updateNames(new ItemStack(role.getHelmet())));
         } else {
@@ -90,12 +99,16 @@ public class KitCommand extends Command {
 
         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_SWORD)));
         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_AXE)));
-        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BOW)));
-        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CROSSBOW)));
-        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.ARROW, 64)));
+        if (role instanceof Assassin || role instanceof Ranger) {
+            p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BOW)));
+            p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CROSSBOW)));
+            p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.ARROW, 64)));
+        }
+
         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_PICKAXE)));
         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.IRON_SHOVEL)));
     }
+
 
     @Override
     public void help(Player player) {

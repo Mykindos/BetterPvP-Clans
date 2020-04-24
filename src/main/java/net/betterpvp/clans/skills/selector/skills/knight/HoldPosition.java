@@ -36,8 +36,7 @@ public class HoldPosition extends Skill implements InteractSkill {
                 "Protection II, Slow III and no",
                 "knockback for " + ChatColor.GREEN + (5 + ((level - 1) * 0.5)) + ChatColor.GRAY + " seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -79,7 +78,7 @@ public class HoldPosition extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 60 - ((level - 1) * 5);
+        return 0;
     }
 
 

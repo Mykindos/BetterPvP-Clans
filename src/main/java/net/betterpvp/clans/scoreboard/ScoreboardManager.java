@@ -459,9 +459,11 @@ public class ScoreboardManager extends BPVPListener<Clans> {
             }else if(Pillage.isPillaging(c, d)) {
                 team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
                 team.setColor(ChatColor.LIGHT_PURPLE);
+                team.setSuffix("");
             }else if(Pillage.isPillaging(d, c)){
                 team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
                 team.setColor(ChatColor.LIGHT_PURPLE);
+                team.setSuffix("");
             }else if (c.isEnemy(d)) {
                 team.setPrefix(ChatColor.DARK_RED + prefix + " ");
                 team.setColor(ChatColor.RED);

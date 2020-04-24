@@ -33,8 +33,7 @@ public class Leap extends Skill implements InteractSkill {
                 "Right click with Axe to Activate.",
                 "",
                 "You take a great leap",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
 
     }
@@ -159,7 +158,7 @@ public class Leap extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 20 - (level - 1);
+        return 0;
     }
 
     @Override

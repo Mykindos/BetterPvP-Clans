@@ -53,11 +53,11 @@ public class SlimeKing extends Boss {
         super(i, "SlimeKing", WEType.BOSS);
         World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -111.5, 14.0, -13.5),
+                new Location(w, -154.5, 14, -12.5),
+                new Location(w, -167.5, 14, -56.5),
+                new Location(w, -93.5, 14, -50.5),
+                new Location(w, -132.5, 14, 1.5)
 
         };
     }
@@ -71,7 +71,7 @@ public class SlimeKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), -132.5, 15, -55.5);
     }
 
     @EventHandler

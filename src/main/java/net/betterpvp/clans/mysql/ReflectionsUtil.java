@@ -29,7 +29,7 @@ public class ReflectionsUtil {
      * Loads all Repository objects in order of priority. Data that requires other data to be loaded first should be on high
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void loadRepositories(String packageName, JavaPlugin instance) {
+    public static List<Repository> loadRepositories(String packageName, JavaPlugin instance) {
 
         Reflections reflections = new Reflections(packageName);
 
@@ -55,6 +55,7 @@ public class ReflectionsUtil {
 
         });
 
+        return temp;
 
     }
 

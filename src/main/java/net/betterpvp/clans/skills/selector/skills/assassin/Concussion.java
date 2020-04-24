@@ -67,7 +67,7 @@ public class Concussion extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 5);
+        return 0;
     }
 
     @EventHandler

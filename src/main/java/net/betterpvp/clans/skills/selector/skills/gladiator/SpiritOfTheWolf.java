@@ -31,8 +31,7 @@ public class SpiritOfTheWolf extends Skill implements InteractSkill {
                 "granting all allies within " + ChatColor.GREEN + (5 + (level)) + ChatColor.GRAY + " blocks",
                 "Speed II for 9 seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -51,7 +50,7 @@ public class SpiritOfTheWolf extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
     @Override

@@ -58,9 +58,7 @@ public class Rupture extends Skill implements InteractSkill {
                 "you are facing, damaging, knocking up",
                 "and slowing any enemies hit.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
-
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -105,7 +103,7 @@ public class Rupture extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.mysql.ClanStatRepository;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.*;
-import net.betterpvp.clans.classes.roles.mysql.StatRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.RoleBuild;
@@ -85,7 +85,7 @@ public class RoleManager extends BPVPListener<Clans> {
             UtilMessage.message(player, "Skills", "Listing " + role.getName() + " Skills: ");
 
             UtilMessage.message(player, role.equipMessage(player));
-            StatRepository.addClassStat(role.getName());
+          //TODO  ClanStatRepository.addClassStat(role.getName());
 
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null){

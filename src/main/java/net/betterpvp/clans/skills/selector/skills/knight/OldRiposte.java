@@ -151,8 +151,7 @@ public class OldRiposte extends Skill implements InteractSkill {
                 "Become invulnerable to all",
                 "melee damage for " + ChatColor.GREEN + (1 + (level * 0.5)) + ChatColor.GRAY + " seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -171,7 +170,7 @@ public class OldRiposte extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 60 - ((level - 1) * 3);
+        return 0;
     }
 
     @Override

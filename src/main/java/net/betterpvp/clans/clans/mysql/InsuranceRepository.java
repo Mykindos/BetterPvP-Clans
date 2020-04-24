@@ -18,35 +18,29 @@ import java.sql.SQLException;
 
 public class InsuranceRepository {
 
-    public static final String TABLE_NAME = "clans_insurance";
+    public static  String TABLE_NAME;
 
 
-    private static final String CREATE_INSURANCE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-            "  `Clan` varchar(255)," +
-            "  `InsuranceType` varchar(255)," +
-            "  `Material` varchar(255)," +
-            "  `Data` int(10)," +
-            "  `Time` bigint(100)," +
-            "  `X` double(10,2)," +
-            "  `Y` double(10,2)," +
-            "  `Z` double(10,2)" +
-            ") ";
+    private static  String CREATE_INSURANCE_TABLE;
 
     public static void removeInsurance() {
         String query = "DELETE FROM " + TABLE_NAME + " WHERE ((Time+86400000)-" + System.currentTimeMillis() + ") < 0";
-		/*String query = "DELETE FROM insurance WHERE Type='" + i.getType().toString() 
-				+ "' AND Material='" + i.getMaterial().name() 
-				+ "' AND Data='" + i.getData()
-				+ "' AND Time='" + i.getTime()
-				+ "' AND X='" + i.getLocation().getX()
-				+ "' AND Y='" + i.getLocation().getY()
-				+ "' AND Z='" + i.getLocation().getZ() + "'";*/
         QueryFactory.runQuery(query);
     }
 
 
     private static void initialize() {
-
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_insurance";
+        CREATE_INSURANCE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `Clan` varchar(255)," +
+                "  `InsuranceType` varchar(255)," +
+                "  `Material` varchar(255)," +
+                "  `Data` int(10)," +
+                "  `Time` bigint(100)," +
+                "  `X` double(10,2)," +
+                "  `Y` double(10,2)," +
+                "  `Z` double(10,2)" +
+                ") ";
         QueryFactory.runQuery(CREATE_INSURANCE_TABLE);
     }
 

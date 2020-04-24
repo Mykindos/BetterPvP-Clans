@@ -31,8 +31,7 @@ public class ThreateningShout extends Skill implements InteractSkill {
                 "and grants them Vulnerability for " + ChatColor.GREEN + (2 + level),
                 "seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -51,7 +50,7 @@ public class ThreateningShout extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 2);
+        return 0;
     }
 
 

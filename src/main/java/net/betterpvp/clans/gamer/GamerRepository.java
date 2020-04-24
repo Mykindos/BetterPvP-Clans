@@ -17,22 +17,23 @@ import java.util.UUID;
 
 public class GamerRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_gamers";
-
-    public static String CREATE_GAMER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "` ("
-            + "UUID VARCHAR(64), "
-            + "Coins INT,"
-            + "Kills bigint(255),"
-            + "Deaths bigint(255),"
-            + "Votes INT(10),"
-            + "Fragments bigint(255),"
-            + "BattleCoins bigint(255),"
-            + "Filter tinyint(1),"
-            + "PRIMARY KEY(UUID)); ";
+    public static String TABLE_NAME;
+    public static String CREATE_GAMER_TABLE;
 
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_gamers";
+        CREATE_GAMER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "` ("
+                + "UUID VARCHAR(64), "
+                + "Coins INT,"
+                + "Kills bigint(255),"
+                + "Deaths bigint(255),"
+                + "Votes INT(10),"
+                + "Fragments bigint(255),"
+                + "BattleCoins bigint(255),"
+                + "Filter tinyint(1),"
+                + "PRIMARY KEY(UUID)); ";
         QueryFactory.runQuery(CREATE_GAMER_TABLE);
     }
 

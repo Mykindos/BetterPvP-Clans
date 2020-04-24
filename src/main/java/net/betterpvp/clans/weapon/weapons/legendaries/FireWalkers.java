@@ -37,14 +37,12 @@ public class FireWalkers extends Weapon implements ILegendary {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getEquipment().getBoots() != null) {
-                    if (WeaponManager.isWeapon(p.getEquipment().getBoots())
-                            && WeaponManager.getWeapon(p.getEquipment().getBoots()).equals(this)) {
+                    if(WeaponManager.isWeapon(p.getEquipment().getBoots()) && WeaponManager.getWeapon(p.getEquipment().getBoots()).equals(this)){
                         Item fire = p.getWorld().dropItem(p.getLocation().add(0.0D, 0.5D, 0.0D), new ItemStack(Material.BLAZE_POWDER));
                         ThrowableManager.addThrowable(fire, p, getName(), 2000L);
                         fire.setVelocity(new Vector((Math.random() - 0.5D) / 3.0D, Math.random() / 3.0D, (Math.random() - 0.5D) / 3.0D));
-
-
                     }
+
                 }
             }
         }

@@ -42,8 +42,7 @@ public class PowerChop extends Skill implements InteractSkill {
                 "Attack must be made within",
                 "0.5 seconds of being used.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -62,7 +61,7 @@ public class PowerChop extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 25 - ((level - 1) * 2);
+        return 0;
     }
 
 
@@ -82,7 +81,7 @@ public class PowerChop extends Skill implements InteractSkill {
                                 }
                             }
                             LogManager.addLog(e.getDamagee(), p, "Power Chop");
-                            e.setDamage(e.getDamage() + ((Math.min(1, getLevel(p)) * 0.75)));
+                            e.setDamage(e.getDamage() + ((Math.max(0.75, getLevel(p)) * 0.75)));
                             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_IRON_GOLEM_HURT, 1.0F, 1.0F);
                             charge.remove(p);
                         }

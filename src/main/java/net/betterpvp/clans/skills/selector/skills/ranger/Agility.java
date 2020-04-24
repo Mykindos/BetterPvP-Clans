@@ -51,8 +51,7 @@ public class Agility extends Skill implements InteractSkill {
                 "You are immune to melee attacks while sprinting.",
                 "Agility ends if you interact",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -71,7 +70,7 @@ public class Agility extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 2);
+        return 0;
     }
 
 

@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
@@ -137,6 +138,7 @@ public class Swarm extends ChannelSkill implements InteractSkill {
                     for (LivingEntity other : p.getWorld().getLivingEntities()) {
                         if (other instanceof Bat) continue;
                         if(other instanceof ArmorStand) continue;
+                        if(ShopManager.isShop(other)) continue;
                         if (hitPlayer(bat.getLocation(), other)) {
 
 

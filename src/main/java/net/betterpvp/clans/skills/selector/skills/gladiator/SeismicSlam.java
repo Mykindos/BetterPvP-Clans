@@ -52,8 +52,7 @@ public class SeismicSlam extends Skill implements InteractSkill {
                 "Jump and slam the ground, knocking up all opponents",
                 "within a small radius",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -216,7 +215,7 @@ public class SeismicSlam extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 5);
+        return 0;
     }
 
     @Override

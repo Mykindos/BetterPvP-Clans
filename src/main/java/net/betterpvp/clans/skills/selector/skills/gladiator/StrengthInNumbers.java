@@ -34,8 +34,8 @@ public class StrengthInNumbers extends Skill implements InteractSkill {
                 "",
                 "This does not give you the buff.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+
         };
     }
 
@@ -54,7 +54,7 @@ public class StrengthInNumbers extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
     @Override

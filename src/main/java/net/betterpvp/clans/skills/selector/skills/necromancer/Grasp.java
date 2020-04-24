@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -147,7 +148,7 @@ public class Grasp extends Skill implements InteractSkill {
             if (ent instanceof LivingEntity) {
 
                 LivingEntity ed = (LivingEntity) ent;
-
+                if(ShopManager.isShop(ed)) continue;
                 if (ed instanceof Player) {
                     if (!ClanUtilities.canHurt(player, (Player) ed)) {
                         continue;

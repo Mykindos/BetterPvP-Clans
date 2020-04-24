@@ -17,16 +17,11 @@ import java.util.HashMap;
 
 public class FieldsRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_fields";
+    private static String TABLE_NAME;
     public static HashMap<Location, Material> blocks = new HashMap<>();
     private static World world = Bukkit.getWorld("world");
 
-    public static final String CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
-            "  `Material` VARCHAR(255)," +
-            "  `X` double(10, 0)," +
-            "  `Y` double(10, 0)," +
-            "  `Z` double(10, 0)" +
-            ");";
+    private static String CREATE_FIELDS_TABLE;
 
 
 
@@ -34,6 +29,13 @@ public class FieldsRepository implements Repository<Clans> {
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_fields";
+        CREATE_FIELDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "  (" +
+                "  `Material` VARCHAR(255)," +
+                "  `X` double(10, 0)," +
+                "  `Y` double(10, 0)," +
+                "  `Z` double(10, 0)" +
+                ");";
         QueryFactory.runQuery(CREATE_FIELDS_TABLE);
     }
 

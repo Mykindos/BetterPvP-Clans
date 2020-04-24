@@ -41,8 +41,7 @@ public class ToxicArrow extends Skill implements InteractSkill {
                 "Your next arrow will give your",
                 "target confusion for " + ChatColor.GREEN + (15 + level) + ChatColor.GRAY + " seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
 
         };
     }
@@ -69,7 +68,7 @@ public class ToxicArrow extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
     @EventHandler

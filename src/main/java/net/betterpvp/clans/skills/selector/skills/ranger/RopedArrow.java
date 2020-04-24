@@ -48,8 +48,7 @@ public class RopedArrow extends Skill implements InteractSkill {
                 "Your next arrow will pull you",
                 "in after it hits",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -153,7 +152,7 @@ public class RopedArrow extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
 

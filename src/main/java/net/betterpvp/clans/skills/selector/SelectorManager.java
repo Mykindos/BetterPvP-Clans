@@ -103,6 +103,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Blink", new Blink(i));
         skills.put("Repeated Strikes", new RepeatedStrikes(i));
         skills.put("Evade", new Evade(i));
+        skills.put("Excessive Force", new ExcessiveForce(i));
         skills.put("Backstab", new Backstab(i));
         //skills.put("No Knockback", new Knockback(i));
         skills.put("Feather falling", new FeatherFalling(i));
@@ -145,7 +146,6 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Entangle", new Entangle(i));
         skills.put("Volley", new Volley(i));
         skills.put("Disengage", new Disengage(i));
-        skills.put("Barrage", new Barrage(i));
         skills.put("Hunters Thrill", new HuntersThrill(i));
         skills.put("Incendiary Shot", new IncendiaryShot(i));
         skills.put("Longshot", new Longshot(i));

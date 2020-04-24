@@ -54,8 +54,8 @@ public class Flash extends Skill implements InteractSkill {
                 "Stores up to 3 charges.",
                 "",
                 "Cannot be used while Slowed.",
-                "Recharge: 1 charge per " + ChatColor.GREEN + (11 - level) + ChatColor.GRAY + " seconds.",
-                "Energy: " + ChatColor.GREEN + getEnergy(level) + ChatColor.GRAY + "."};
+                "Recharge: 1 charge per " + ChatColor.GREEN + (11 - level) + ChatColor.GRAY + " seconds."
+        };
     }
 
     @Override
@@ -248,7 +248,7 @@ public class Flash extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) (level < 1 ? 17 : 17 - (1.5 * (level - 1)));
+        return 0;
     }
 
     @Override

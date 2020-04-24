@@ -5,6 +5,7 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
@@ -90,6 +91,7 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
                     }
                 }
             } else {
+                if(ShopManager.isShop(other)) continue;
                 UtilVelocity.velocity(other, UtilVelocity.getTrajectory(other, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
             }
         }

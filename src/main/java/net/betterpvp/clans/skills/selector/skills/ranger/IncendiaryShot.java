@@ -133,7 +133,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
     @Override

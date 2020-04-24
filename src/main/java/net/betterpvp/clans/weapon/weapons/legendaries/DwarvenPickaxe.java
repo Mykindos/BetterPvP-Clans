@@ -49,7 +49,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
 
 
                 if (block.getType().toString().contains("STONE") && block.getType() != Material.GLOWSTONE ||
-                        block.getType().toString().contains("ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
+                        block.getType().toString().contains("_ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
                         || block.getType() == Material.STONE_BRICK_STAIRS
                         || block.getType().name().contains("STONE_SLAB")
                         || block.getType() == Material.IRON_BARS

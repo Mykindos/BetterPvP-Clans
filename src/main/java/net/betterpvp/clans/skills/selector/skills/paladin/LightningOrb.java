@@ -43,8 +43,7 @@ public class LightningOrb extends Skill implements InteractSkill {
                 "will strike all enemies within " + ChatColor.GREEN + (3 + (level * 0.5)) + ChatColor.GRAY + " blocks",
                 "with lightning, giving them Slowness II for 4 seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -63,7 +62,7 @@ public class LightningOrb extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - (level * 2);
+        return 0;
     }
 
     @EventHandler

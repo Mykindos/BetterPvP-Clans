@@ -46,8 +46,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
                 "target for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds.",
                 "Making them unable to use any active skills",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
 
         };
     }
@@ -111,7 +110,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
     @EventHandler

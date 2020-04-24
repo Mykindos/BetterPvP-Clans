@@ -61,7 +61,7 @@ public class Evade extends ChannelSkill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to toggle.",
+                "Hold right click with Sword to activate.",
                 "",
                 "While evading you block attacks, and",
                 "teleport behind the attacker.",

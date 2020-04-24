@@ -18,15 +18,18 @@ import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 
 public class QuestRepository implements Repository<Clans> {
 
-	public static final String TABLE_NAME = "clans_questperks";
-	private static final String CREATE_QUESTPERK_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-			"  `UUID` varchar(255) DEFAULT NULL," +
-			"  `Perk` varchar(255) DEFAULT NULL" +
-			");";
+	private static String TABLE_NAME;
+	private static String CREATE_QUESTPERK_TABLE;
 
 
 	@Override
 	public void initialize() {
+		TABLE_NAME = Clans.getOptions().getTablePrefix() + "_questperks";
+		CREATE_QUESTPERK_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+				"  `UUID` varchar(255) DEFAULT NULL," +
+				"  `Perk` varchar(255) DEFAULT NULL" +
+				");";
+
 		QueryFactory.runQuery(CREATE_QUESTPERK_TABLE);
 	}
 

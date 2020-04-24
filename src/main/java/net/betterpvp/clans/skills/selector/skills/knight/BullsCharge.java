@@ -19,6 +19,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -41,28 +42,28 @@ public class BullsCharge extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with an Axe to activate.",
                 "",
                 "Enter a rage, gaining massive movement speed",
                 "and slowing anything you hit for 3 seconds",
                 "",
                 "While charging, you take no knockback.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
     public boolean usageCheck(Player player) {
         if(UtilBlock.isInLiquid(player)){
-            UtilMessage.message(player, "Skill", "You cannot use " + net.md_5.bungee.api.ChatColor.GREEN + getName() + net.md_5.bungee.api.ChatColor.GRAY + " in water.");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
 
         return true;
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
@@ -151,7 +152,7 @@ public class BullsCharge extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) 35 - ((level - 1) * 5);
+        return 0;
     }
 
     @Override

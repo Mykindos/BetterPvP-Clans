@@ -19,17 +19,19 @@ import java.sql.SQLException;
 
 public class ShopKeeperRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_shopkeepers";
+    private static String TABLE_NAME;
 
-    private static final String CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-            "  `Name` varchar(255)," +
-            "  `X` double(10,2)," +
-            "  `Y` double(10,2)," +
-            "  `Z` double(10,2)" +
-            ") ";
+    private String CREATE_SHOPKEEPER_TABLE;
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_shopkeepers";
+        CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `Name` varchar(255)," +
+                "  `X` double(10,2)," +
+                "  `Y` double(10,2)," +
+                "  `Z` double(10,2)" +
+                ") ";
         QueryFactory.runQuery(CREATE_SHOPKEEPER_TABLE);
     }
 

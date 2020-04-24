@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
+import javax.annotation.Nullable;
+
 public class ShopSkeleton extends EntitySkeleton {
 
 
@@ -66,6 +68,30 @@ public class ShopSkeleton extends EntitySkeleton {
 
     @Override
     public void h(double d0, double d1, double d2) { return;}
+
+    //Combustion
+    @Override
+    public boolean B(Entity entity) {
+        return false;
+    }
+
+    @Override
+    protected void b(DifficultyDamageScaler difficultydamagescaler){return;}
+
+    @Override
+    public void setOnFire(int i, boolean callEvent) {
+        return;
+    }
+
+    @Override
+    public double A(@Nullable Entity entity){
+        return 0;
+    }
+
+    @Override
+    protected boolean damageEntity0(final DamageSource damagesource, float f) {
+        return false;
+    }
 
     public Skeleton spawn(Location loc) {
 

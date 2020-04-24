@@ -48,8 +48,7 @@ public class HiltSmash extends Skill {
                 "and applying shock for " + ChatColor.GREEN + (((level - 1) * 0.5)) + ChatColor.GRAY + " seconds.",
                 "Silences enemy for " + ChatColor.GREEN + ((level / 2) - 0.5) + ChatColor.GRAY + " seconds",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -134,7 +133,7 @@ public class HiltSmash extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 25;
+        return 0;
     }
 
 }

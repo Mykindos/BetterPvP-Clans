@@ -169,7 +169,7 @@ public class Riposte extends Skill implements InteractSkill {
                 "to riposte.",
                 "",
                 "If successful, you gain " + ChatColor.GREEN + (1 + ((level - 1) * 0.5)) + ChatColor.GRAY + " health,",
-                "20 energy, and deal " + ChatColor.GREEN + (1 + ((level - 1) * 0.5)) + ChatColor.GRAY + " bonus damage.",
+                "and deal " + ChatColor.GREEN + (1 + ((level - 1) * 0.5)) + ChatColor.GRAY + " bonus damage.",
                 "",
                 "You must block, parry, then riposte",
                 "all within 2 second of each other."
@@ -191,7 +191,7 @@ public class Riposte extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40;
+        return 0;
     }
 
     @Override

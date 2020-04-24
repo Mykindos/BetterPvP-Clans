@@ -783,6 +783,8 @@ public class WorldListener extends BPVPListener<Clans> {
                     e.setDamage(2);
                 } else if (m == Material.DIAMOND_SHOVEL) {
                     e.setDamage(2);
+                }else if(m == Material.IRON_SHOVEL) {
+                    e.setDamage(1);
                 } else {
                     e.setDamage(e.getDamage() * 0.75);
                 }
@@ -1378,6 +1380,41 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
+    public void onInventoryMoveShield(InventoryMoveItemEvent e) {
+        if (e.getItem() != null) {
+            if (UtilClans.isUsableWithShield(e.getItem())) {
+                if (e.getDestination().getType() == InventoryType.PLAYER) {
+                    Player player = (Player) e.getInitiator().getViewers().get(0);
+                    if (player != null) {
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                if (player.getInventory().getItemInMainHand().getType() == e.getItem().getType()) {
+                                    Role role = Role.getRole(player);
+                                    if (role != null) {
+                                        Gamer gamer = GamerManager.getOnlineGamer(player);
+                                        if (gamer != null) {
+                                            if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
+                                                player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                                return;
+                                            }
+                                        }
+                                    }
+
+                                    Weapon weapon = WeaponManager.getWeapon(e.getItem());
+                                    if (weapon != null && weapon instanceof ChannelWeapon) {
+                                        player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                                    }
+                                }
+                            }
+                        }.runTaskLater(getInstance(), 10);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onItemSwap(PlayerItemHeldEvent e) {
         ItemStack item = e.getPlayer().getInventory().getItem(e.getNewSlot());
         if (item != null) {
@@ -1658,6 +1695,13 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
 
+    }
+
+    @EventHandler
+    public void nonCritArrow(EntityShootBowEvent e) {
+        if (e.getProjectile() instanceof Arrow) {
+            ((Arrow) e.getProjectile()).setCritical(false);
+        }
     }
 
     /*

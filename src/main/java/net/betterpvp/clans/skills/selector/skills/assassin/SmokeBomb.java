@@ -169,8 +169,8 @@ public class SmokeBomb extends Skill implements ToggleSkill {
                 "hitting an enemy or using abilities",
                 " will make you reappear",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
@@ -223,7 +223,7 @@ public class SmokeBomb extends Skill implements ToggleSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 85 - ((level - 1) * 5);
+        return 0;
     }
 
 

@@ -51,8 +51,7 @@ public class Disengage extends Skill implements InteractSkill {
                 "and your attacker receives Slow 4",
                 "for " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)};
     }
 
     @Override
@@ -121,7 +120,7 @@ public class Disengage extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30;
+        return 0;
     }
 
     @Override

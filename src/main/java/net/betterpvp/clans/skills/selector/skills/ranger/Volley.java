@@ -44,8 +44,7 @@ public class Volley extends Skill implements InteractSkill {
                 "Your next shot is instant, and shoots",
                 "a volley of arrows in the direction you are facing",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -151,7 +150,7 @@ public class Volley extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 3);
+        return 0;
     }
 
     @Override

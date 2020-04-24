@@ -40,8 +40,7 @@ public class PinDown extends Skill implements InteractSkill {
                 "an arrow, which gives anybody hit ",
                 "Slowness IV for " + ChatColor.GREEN + (level * 1.5) + ChatColor.GRAY + " seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -69,7 +68,7 @@ public class PinDown extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 35 - ((level - 1));
+        return 0;
     }
 
     @EventHandler

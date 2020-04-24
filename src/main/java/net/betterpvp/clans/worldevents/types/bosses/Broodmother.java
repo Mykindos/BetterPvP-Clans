@@ -40,11 +40,11 @@ public class Broodmother extends Boss {
         super(i, "Broodmother", WEType.BOSS);
         World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -67.5, 44, -107.5),
+                new Location(w, 48.5, 43, -84.5),
+                new Location(w, 51.5, 49, -126.5),
+                new Location(w, 41.5, 54, -84.5),
+                new Location(w, 37.5, 53, -135.5)
         };
 
 
@@ -250,7 +250,7 @@ public class Broodmother extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 33.5, 38, -114.5);
     }
 
     @EventHandler

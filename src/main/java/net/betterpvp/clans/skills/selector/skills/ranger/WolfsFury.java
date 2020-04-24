@@ -42,8 +42,7 @@ public class WolfsFury extends Skill implements InteractSkill {
                 "Strength 1 for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds, and giving",
                 "no knockback on your attacks.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -62,7 +61,7 @@ public class WolfsFury extends Skill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 2);
+        return 0;
     }
 
     @EventHandler

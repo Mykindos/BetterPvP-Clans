@@ -4,6 +4,8 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.classes.commands.KitCommand;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.economy.shops.menu.PortableShopMenu;
 import net.betterpvp.clans.economy.shops.menu.ShopMenu;
@@ -50,7 +52,8 @@ public class ShopManager implements Listener {
     public ShopManager(Clans i) {
         Bukkit.getPluginManager().registerEvents(this, i);
 
-        addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub", "Boss Teleport");
+        addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Necromancer");
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, -5.5, 45.5, -39.5),
@@ -79,7 +82,7 @@ public class ShopManager implements Listener {
 
 
     @EventHandler
-    public void preventShopkeeperDamage(CustomDamageEvent e){
+    public void preventShopkeeperDamage(CustomDamageEvent e) {
         if (ShopManager.isShop(e.getDamagee())) {
             e.setCancelled("Shop keeper damage");
         }
@@ -188,7 +191,60 @@ public class ShopManager implements Listener {
                         Zombie boss = sv.spawn(loc);
 
                         createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
-
+                        break;
+                    case "assassin":
+                        ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton assassinSkeleton = assassin.spawn(loc);
+                        assassinSkeleton.getEquipment().setHelmet(new ItemStack(Material.LEATHER_HELMET));
+                        assassinSkeleton.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+                        assassinSkeleton.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+                        assassinSkeleton.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Assassin", assassinSkeleton);
+                        break;
+                    case "knight":
+                        ShopSkeleton knight = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton knightSkeleton = knight.spawn(loc);
+                        knightSkeleton.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
+                        knightSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                        knightSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        knightSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
+                        break;
+                    case "necromancer":
+                        ShopSkeleton necromancer = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton necromancerSkeleton = necromancer.spawn(loc);
+                        necromancerSkeleton.getEquipment().setHelmet(new ItemStack(Material.TURTLE_HELMET));
+                        necromancerSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                        necromancerSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        necromancerSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Necromancer", necromancerSkeleton);
+                        break;
+                    case "paladin":
+                        ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton paladinSkeleton = paladin.spawn(loc);
+                        paladinSkeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+                        paladinSkeleton.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+                        paladinSkeleton.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+                        paladinSkeleton.getEquipment().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Paladin", paladinSkeleton);
+                        break;
+                    case "ranger":
+                        ShopSkeleton ranger = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton rangerSkeleton = ranger.spawn(loc);
+                        rangerSkeleton.getEquipment().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
+                        rangerSkeleton.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+                        rangerSkeleton.getEquipment().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+                        rangerSkeleton.getEquipment().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Ranger", rangerSkeleton);
+                        break;
+                    case "gladiator":
+                        ShopSkeleton gladiator = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton gladiatorSkeleton = gladiator.spawn(loc);
+                        gladiatorSkeleton.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+                        gladiatorSkeleton.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+                        gladiatorSkeleton.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+                        gladiatorSkeleton.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Gladiator", gladiatorSkeleton);
                         break;
 
                 }
@@ -333,6 +389,13 @@ public class ShopManager implements Listener {
                                 }
                             }
                         } else {
+                            Role role = Role.getRole(s.getName());
+                            if(role != null){
+                                e.getPlayer().getEquipment().clear();
+                                e.getPlayer().getInventory().clear();
+                                KitCommand.giveKit(e.getPlayer(), role);
+                                return;
+                            }
                             e.getPlayer().openInventory(new ShopMenu(ChatColor.stripColor(ent.getCustomName()), e.getPlayer()).getInventory());
                         }
                     }

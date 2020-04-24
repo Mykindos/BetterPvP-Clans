@@ -22,24 +22,27 @@ import java.util.UUID;
 public class ClanRepository implements Repository<Clans> {
 
 
-    public static final String TABLE_NAME = "clans_clans";
+    private static String TABLE_NAME;
 
-    public static String CREATE_CLANS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-            + "(Name VARCHAR(14), "
-            + "Created LONG, "
-            + "Leader VARCHAR(64), "
-            + "Home VARCHAR(64), "
-            + "Territory BLOB, "
-            + "Admin TINYINT, "
-            + "Safe TINYINT, "
-            + "LastLogin BIGINT(255),"
-            + "Energy INT,"
-            + "Points INT,"
-            + "Cooldown LONG," +
-            "PRIMARY KEY(Name))";
+    public static String CREATE_CLANS_TABLE;
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_clans";
+        CREATE_CLANS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+                + "(Name VARCHAR(14), "
+                + "Created LONG, "
+                + "Leader VARCHAR(64), "
+                + "Home VARCHAR(64), "
+                + "Territory BLOB, "
+                + "Admin TINYINT, "
+                + "Safe TINYINT, "
+                + "LastLogin BIGINT(255),"
+                + "Energy INT,"
+                + "Points INT,"
+                + "Cooldown LONG," +
+                "PRIMARY KEY(Name))";
+
         QueryFactory.runQuery(CREATE_CLANS_TABLE);
 
     }
@@ -121,7 +124,6 @@ public class ClanRepository implements Repository<Clans> {
                     result.close();
 
 
-
                     Log.debug("MySQL", "Loaded " + count + " Clans");
 
                     AllianceRepository.load(i);
@@ -148,34 +150,25 @@ public class ClanRepository implements Repository<Clans> {
 
     public static void saveClan(Clan clan) {
         String query = "";
+
+        boolean safe = false;
         if (clan instanceof AdminClan) {
-            AdminClan admin = (AdminClan) clan;
-            query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
-                    + "('" + admin.getName() + "', "
-                    + "'" + admin.getCreated() + "', "
-                    + "'" + admin.getLeader().toString() + "', "
-                    + "'" + UtilFormat.locationToFile(admin.getHome()) + "', "
-                    + "'" + UtilFormat.toString(admin.getTerritory()) + "', "
-                    + "'" + UtilFormat.toTinyInt(true) + "', "
-                    + "'" + UtilFormat.toTinyInt(admin.isSafe()) + "', "
-                    + "'" + System.currentTimeMillis() + "', "
-                    + "'" + clan.getEnergy() + "', "
-                    + "'" + clan.getPoints() + "', "
-                    + "'" + clan.getRawCooldown() + "')";
-        } else {
-            query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
-                    + "('" + clan.getName() + "', "
-                    + "'" + clan.getCreated() + "', "
-                    + "'" + clan.getLeader().toString() + "', "
-                    + "'" + UtilFormat.locationToFile(clan.getHome()) + "', "
-                    + "'" + UtilFormat.toString(clan.getTerritory()) + "', "
-                    + "'" + 0 + "', "
-                    + "'" + 0 + "', "
-                    + "'" + System.currentTimeMillis() + "', "
-                    + "'" + clan.getEnergy() + "', "
-                    + "'" + clan.getPoints() + "', "
-                    + "'" + clan.getRawCooldown() + "')";
+            safe = ((AdminClan) clan).isSafe();
         }
+
+        query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
+                + "('" + clan.getName() + "', "
+                + "'" + clan.getCreated() + "', "
+                + "'" + clan.getLeader().toString() + "', "
+                + "'" + UtilFormat.locationToFile(clan.getHome()) + "', "
+                + "'" + UtilFormat.toString(clan.getTerritory()) + "', "
+                + "'" + UtilFormat.toTinyInt(clan instanceof AdminClan ? true : false) + "', "
+                + "'" + UtilFormat.toTinyInt(safe) + "', "
+                + "'" + System.currentTimeMillis() + "', "
+                + "'" + clan.getEnergy() + "', "
+                + "'" + clan.getPoints() + "', "
+                + "'" + clan.getRawCooldown() + "')";
+
 
         MemberRepository.saveMembers(clan);
 
@@ -280,12 +273,6 @@ public class ClanRepository implements Repository<Clans> {
 
     public static void updateCooldown(Clan clan) {
         String query = "UPDATE " + TABLE_NAME + " SET Cooldown='" + clan.getRawCooldown() + "' WHERE Name='" + clan.getName() + "'";
-        QueryFactory.runQuery(query);
-    }
-
-
-    public static void wipe() {
-        String query = "TRUNCATE TABLE " + TABLE_NAME;
         QueryFactory.runQuery(query);
     }
 

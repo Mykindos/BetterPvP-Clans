@@ -1,7 +1,9 @@
 package net.betterpvp.clans;
 
 
+import net.betterpvp.clans.anticheat.AnticheatManager;
 import net.betterpvp.clans.clans.commands.ClanCommand;
+import net.betterpvp.clans.clans.commands.ClanReloadCommand;
 import net.betterpvp.clans.clans.listeners.*;
 
 import net.betterpvp.clans.classes.DamageManager;
@@ -35,6 +37,7 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.GamerRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.FindCommand;
+import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.recipes.*;
@@ -49,6 +52,7 @@ import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.Connect;
+import net.betterpvp.core.database.Repository;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
@@ -70,10 +74,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
+
 
 public class Clans extends JavaPlugin implements Listener {
 
     private static Options options = null;
+    private List<Repository> repositoryList;
     private ConfigManager config;
     private boolean hasStarted;
 
@@ -83,8 +90,6 @@ public class Clans extends JavaPlugin implements Listener {
         config = new ConfigManager(this);
         options = new Options(this);
         Bukkit.getPluginManager().registerEvents(this, this);
-
-
 
     }
 
@@ -124,7 +129,7 @@ public class Clans extends JavaPlugin implements Listener {
         UtilShop.registerEntity("Villager",  120, EntityVillager.class, ShopVillager.class);
         UtilShop.registerEntity("ArmorStand",  30, EntityArmorStand.class, CustomArmorStand.class);
 
-        ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
+        repositoryList = ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
 
         loadRecipes();
@@ -172,9 +177,12 @@ public class Clans extends JavaPlugin implements Listener {
         new CombatLogManager(this);
         new NPCManager(this);
         new SafeLogManager(this);
+        new AnticheatManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         CommandManager.addCommand(new FindCommand(this));
+        CommandManager.addCommand(new HubCommand(this));
+        CommandManager.addCommand(new ClanReloadCommand(this));
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 
@@ -267,12 +275,12 @@ public class Clans extends JavaPlugin implements Listener {
                             add += 1000;
                         }*/
 
-                        gamer.addCoins((getOptions().getOnlineReward() + add) / 2);
+                        gamer.addCoins((getOptions().getOnlineReward() + add));
 
                         gamer.addFragments(2);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
-                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add) /2)) + ChatColor.GRAY + " Coins.");
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " Coins.");
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
                     }
@@ -303,5 +311,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     public boolean hasStarted(){
         return hasStarted;
+    }
+
+    public List<Repository> getRepositoryList() {
+        return repositoryList;
     }
 }

@@ -114,8 +114,8 @@ public class Recall extends Skill implements ToggleSkill {
                 "Increases health by 1/4 of the health you had",
                 "3 seconds ago",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @EventHandler
@@ -142,7 +142,7 @@ public class Recall extends Skill implements ToggleSkill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) 80 - ((level - 1) * 5);
+        return 0;
     }
 
     @Override

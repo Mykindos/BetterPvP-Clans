@@ -34,7 +34,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
     public WeakHashMap<Player, Long> wait = new WeakHashMap<>();
 
     public AlligatorsTooth(Clans i) {
-        super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Alligators Tooth",
+        super(i, Material.MUSIC_DISC_STRAD, (byte) 0, ChatColor.RED + "Alligators Tooth",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "7 + 2 in Water",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Alliagtor Rush",
@@ -55,7 +55,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
         Player player = event.getPlayer();
         if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
-        if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_STRAD) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(player)) {
@@ -114,7 +114,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
             if (e.getCause() == DamageCause.DROWNING) {
                 Player p = (Player) e.getEntity();
                 if (p.getInventory().getItemInMainHand() == null) return;
-                if (p.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+                if (p.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_STRAD) return;
                 if (isThisWeapon(p)) {
                     e.setCancelled(true);
                 }
@@ -128,7 +128,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
             if (player.getInventory().getItemInMainHand() == null) return;
-            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_STRAD) return;
 
             if (isThisWeapon(player)) {
                 if (event.getDamager().getLocation().getBlock().isLiquid()) {
@@ -140,6 +140,6 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }
