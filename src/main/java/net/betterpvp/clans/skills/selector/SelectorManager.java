@@ -179,6 +179,8 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Leech", new Leech(i));
         skills.put("Frailty", new Frailty(i));
         skills.put("Blood Barrier", new BloodBarrier(i));
+        skills.put("Wreath", new Wreath(i));
+        skills.put("Impotence", new Impotence(i));
 
     }
 

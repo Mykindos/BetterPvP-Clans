@@ -56,8 +56,8 @@ public class Leech extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
         return new String[]{"Right click with Sword to activate.",
                 "",
-                "Create a soul link between all enemies within 10 blocks",
-                "of your target, and all enemies within 10 blocks of them",
+                "Create a soul link between all enemies within 7 blocks",
+                "of your target, and all enemies within 7 blocks of them",
                 "",
                 "Linked targets have 1 health leeched per second.",
                 "All leeched health is given to the caster.",
@@ -103,7 +103,7 @@ public class Leech extends Skill implements InteractSkill {
 
     private void chainEnemies(Player player, LivingEntity link) {
         List<LivingEntity> temp = new ArrayList<>();
-        for (LivingEntity entA : UtilPlayer.getAllInRadius(link.getLocation(), 10)) {
+        for (LivingEntity entA : UtilPlayer.getAllInRadius(link.getLocation(), 7)) {
             if (entA instanceof Player) {
                 if (!ClanUtilities.canHurt(player, (Player) entA)) {
                     return;
@@ -118,7 +118,7 @@ public class Leech extends Skill implements InteractSkill {
         }
 
         for (LivingEntity entA : temp) {
-            for (LivingEntity entB : UtilPlayer.getAllInRadius(entA.getLocation(), 10)) {
+            for (LivingEntity entB : UtilPlayer.getAllInRadius(entA.getLocation(), 7)) {
                 if (entB instanceof Player) {
                     if (!ClanUtilities.canHurt(player, (Player) entA)) {
                         return;
@@ -225,7 +225,7 @@ public class Leech extends Skill implements InteractSkill {
                     continue;
                 }
 
-                if (l.target.getLocation().distance(l.linkedTo.getLocation()) > 10 || l.target.getLocation().distance(l.owner.getLocation()) > 30) {
+                if (l.target.getLocation().distance(l.linkedTo.getLocation()) > 7 || l.target.getLocation().distance(l.owner.getLocation()) > 21) {
                     if (l.linkedTo.getUniqueId().equals(l.owner.getUniqueId())) {
                         breakChain(l);
                     }
@@ -248,7 +248,7 @@ public class Leech extends Skill implements InteractSkill {
                 Vector v = l.target.getLocation().toVector().subtract(loc.toVector());
                 double distance = l.linkedTo.getLocation().distance(l.target.getLocation());
                 boolean remove = false;
-                if (distance > 10) continue;
+                if (distance > 7) continue;
                 for (double i = 0.5; i < distance; i += 0.5) {
 
                     v.multiply(i);

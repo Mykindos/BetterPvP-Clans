@@ -160,7 +160,7 @@ public class DefensiveStance extends ChannelSkill implements InteractSkill {
     @Override
     public void activate(Player p, Gamer gamer) {
         if (!active.contains(p.getUniqueId())) {
-            if (Energy.use(p, getName(), 5, true)) {
+            if (Energy.use(p, getName(), 20, true)) {
                 active.add(p.getUniqueId());
                 gap.put(p, System.currentTimeMillis());
             }

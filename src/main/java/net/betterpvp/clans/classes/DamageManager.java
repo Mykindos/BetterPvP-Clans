@@ -55,6 +55,11 @@ public class DamageManager extends BPVPListener<Clans> {
 
         if ((e instanceof EntityDamageByEntityEvent)) {
             EntityDamageByEntityEvent ev = (EntityDamageByEntityEvent) e;
+
+            if(ev.getDamager() instanceof EvokerFangs){
+                e.setCancelled(true);
+            }
+
             if (ev.getDamager() instanceof FishHook) {
                 FishHook fh = (FishHook) ev.getDamager();
                 if (fh.getShooter() instanceof Player) {
@@ -69,6 +74,7 @@ public class DamageManager extends BPVPListener<Clans> {
             e.setCancelled(true);
 
         }
+
 
         if (e.getCause() == DamageCause.LIGHTNING) {
             e.setCancelled(true);

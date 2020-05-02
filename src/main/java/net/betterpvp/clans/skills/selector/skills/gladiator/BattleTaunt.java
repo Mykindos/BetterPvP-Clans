@@ -13,10 +13,7 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.utility.UtilMath;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilPlayer;
-import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.*;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -61,6 +58,8 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
                         } else if (!hasSkill(p, this)) {
                             active.remove(p.getName());
                         } else if (!hasSwordInMainHand(p)) {
+                            active.remove(p.getName());
+                        }else if(UtilBlock.isInLiquid(p)){
                             active.remove(p.getName());
                         } else {
 //
@@ -110,6 +109,11 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
                     return false;
                 }
             }
+        }
+
+        if(UtilBlock.isInLiquid(p)){
+            UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
         }
         return true;
     }

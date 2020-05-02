@@ -111,7 +111,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in liquid.");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY +  " in water.");
             return false;
         }
         return true;

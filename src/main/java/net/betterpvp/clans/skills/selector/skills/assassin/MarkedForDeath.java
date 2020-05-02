@@ -80,6 +80,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
     }
 
 
+
     @EventHandler
     public void onShoot(EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player) {
@@ -99,6 +100,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
     }
 
 
+    /*
     @EventHandler
     public void onCheckCancel(UpdateEvent e) {
         if (e.getType() == UpdateType.FASTEST) {
@@ -137,6 +139,8 @@ public class MarkedForDeath extends Skill implements InteractSkill {
             }
         }
     }
+    */
+
 
     @Override
     public boolean isCancellable() {
@@ -186,7 +190,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water");
+            UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;

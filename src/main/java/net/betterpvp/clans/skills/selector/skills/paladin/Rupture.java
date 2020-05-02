@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -119,11 +120,11 @@ public class Rupture extends Skill implements InteractSkill {
             @Override
             public void run() {
 
-                if ((loc.getBlock().getType() != Material.AIR)
+                if ((!UtilBlock.airFoliage(loc.getBlock()))
                         && UtilBlock.solid(loc.getBlock())) {
 
                     loc.add(0.0D, 1.0D, 0.0D);
-                    if ((loc.getBlock().getType() != Material.AIR)
+                    if ((!UtilBlock.airFoliage(loc.getBlock()))
                             && UtilBlock.solid(loc.getBlock())) {
 
                         cancel();
@@ -160,7 +161,7 @@ public class Rupture extends Skill implements InteractSkill {
                         if (ent instanceof LivingEntity) {
 
                             LivingEntity ed = (LivingEntity) ent;
-
+                            if(ShopManager.isShop(ed)) continue;
                             if (ed instanceof Player) {
                                 if (!ClanUtilities.canHurt(p, (Player) ed)) {
                                     continue;

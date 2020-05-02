@@ -68,7 +68,7 @@ public class DefenseAura extends Skill implements InteractSkill {
 
     @Override
     public void activate(Player p, Gamer gamer) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 200, 0));
         int level = getLevel(p);
         for (Player cur : UtilPlayer.getNearby(p.getLocation(), (6 + level))) {
             if (!ClanUtilities.canHurt(p, cur)) {

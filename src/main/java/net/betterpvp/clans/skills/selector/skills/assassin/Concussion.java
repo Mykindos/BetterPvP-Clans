@@ -61,7 +61,7 @@ public class Concussion extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 0;//16 - ((level - 1) * 3);
+        return 16 - ((level - 1) * 3);
     }
 
     @Override

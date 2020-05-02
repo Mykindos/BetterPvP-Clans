@@ -4,6 +4,7 @@ package net.betterpvp.clans.skills.selector.skills.paladin;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -81,6 +82,7 @@ public class Cyclone extends Skill implements InteractSkill {
         int level = getLevel(p);
         UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
         for (LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))) {
+            if(ShopManager.isShop(target)) continue;
             if (target instanceof ArmorStand) continue;
             if (!target.getName().equalsIgnoreCase(p.getName())) {
                 if (target instanceof Player) {

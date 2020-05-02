@@ -81,7 +81,7 @@ public class EnergyListener extends BPVPListener<Clans> {
                     clan.messageClan(ChatColor.GRAY.toString() + ChatColor.BOLD + "Your clan energy is now " + ChatColor.GREEN
                             + ChatColor.BOLD + (int) clan.getEnergy(), null, false);
                     clan.messageClan(ChatColor.GRAY.toString() + ChatColor.BOLD + "Unless you purchase more, your clan will disband in " + ChatColor.GREEN + ChatColor.BOLD
-                            + ClanUtilities.getHoursOfEnergy(clan) + ChatColor.GREEN + ChatColor.BOLD + " hours.", null, false);
+                            + ClanUtilities.getEnergyTimeRemaining(clan) + ChatColor.GRAY +  ".", null, false);
                     clan.messageClan(ChatColor.GRAY.toString() + ChatColor.BOLD + "Type '" + ChatColor.YELLOW + ChatColor.BOLD
                             + "/c energy" + ChatColor.GRAY + ChatColor.BOLD + "' to buy more energy", null, false);
 

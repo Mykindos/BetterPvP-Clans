@@ -9,6 +9,7 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.Throwables;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
@@ -166,6 +167,7 @@ public class FleshHook extends ChannelSkill implements InteractSkill {
     public void onCollide(ThrowableCollideEntityEvent e) {
         if (e.getThrowable().getSkillName().equalsIgnoreCase(getName())) {
             LivingEntity collide = e.getCollision();
+            if(ShopManager.isShop(collide)) return;
             if (collide instanceof Player) {
                 Player player = (Player) collide;
                 if (!ClanUtilities.canHurt((Player) e.getThrowable().getThrower(), player)) {

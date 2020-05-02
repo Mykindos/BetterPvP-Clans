@@ -38,6 +38,7 @@ import net.betterpvp.clans.gamer.GamerRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.FindCommand;
 import net.betterpvp.clans.general.commands.HubCommand;
+import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.recipes.*;
@@ -62,7 +63,6 @@ import net.minecraft.server.v1_15_R1.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.LivingEntity;
@@ -183,7 +183,7 @@ public class Clans extends JavaPlugin implements Listener {
         CommandManager.addCommand(new FindCommand(this));
         CommandManager.addCommand(new HubCommand(this));
         CommandManager.addCommand(new ClanReloadCommand(this));
-
+        CommandManager.addCommand(new SearchChestsCommand(this));
         getCommand("clan").setExecutor(new ClanCommand(this));
 
 
