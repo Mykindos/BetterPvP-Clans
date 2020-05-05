@@ -32,7 +32,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         addWeapon(new EnergyApple(i));
         addWeapon(new Molotov(i));
 
-        addWeapon(new MagneticBlade(i));
+        addWeapon(new MagneticHammer(i));
         addWeapon(new DurielsScepter(i));
         addWeapon(new FarmingRake(i));
         addWeapon(new HyperAxe(i));

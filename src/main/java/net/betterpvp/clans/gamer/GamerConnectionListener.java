@@ -62,9 +62,10 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         }
 
 
-        SettingsRepository.saveSetting(e.getClient().getUUID(), "Sidebar", 1);
-        SettingsRepository.saveSetting(e.getClient().getUUID(), "RechargeBar", 1);
-        SettingsRepository.saveSetting(e.getClient().getUUID(), "Killfeed", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Sidebar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Recharge Bar", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Killfeed", 1);
+
 
         SettingsRepository.loadSettings(getInstance(), gamer.getClient());
 

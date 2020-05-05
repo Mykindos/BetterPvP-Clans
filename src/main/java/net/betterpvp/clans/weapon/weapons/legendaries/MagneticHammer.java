@@ -27,17 +27,17 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
+public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary {
 
     public List<String> active = new ArrayList<String>();
 
-    public MagneticBlade(Clans i) {
-        super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Magnetic Blade",
+    public MagneticHammer(Clans i) {
+        super(i, Material.MUSIC_DISC_CAT, (byte) 0, ChatColor.RED + "Magnetic Hammer",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "7",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Magnetic Pull",
                         "",
-                        ChatColor.RESET + "The Magnetic Blade is said to be able",
+                        ChatColor.RESET + "The Magnetic Hammer is said to be able",
                         ChatColor.RESET + "to pull nearby enemies and objects towards itself",
                         ChatColor.RESET + "with unstoppable force.",
                         ""}, true, 2.0);
@@ -61,7 +61,7 @@ public class MagneticBlade extends Weapon implements ChannelWeapon, ILegendary {
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             if (player.getInventory().getItemInMainHand() == null) return;
-            if (player.getInventory().getItemInMainHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_CAT) return;
             if (isThisWeapon(player)) {
                 if (UtilBlock.isInLiquid(player)) {
                     UtilMessage.message(player, getName(), "You cannot use " + ChatColor.LIGHT_PURPLE + getName() + ChatColor.GRAY + " in water.");

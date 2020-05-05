@@ -327,6 +327,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                     }
                 }
 
+                page.getButtons().clear();
                 page.buildPage(button.getSkill().getClassType());
                 page.construct();
             }
@@ -350,7 +351,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                                 Gamer gamer = GamerManager.getOnlineGamer(p);
 
                                 if (gamer != null) {
-                                    if (gamer.getClient().getSettingAsBoolean("RechargeBar")) {
+                                    if (gamer.getClient().getSettingAsBoolean("General.Recharge Bar")) {
                                         RoleBuild b = gamer.getActiveBuild(role.getName());
 
                                         if (b != null) {

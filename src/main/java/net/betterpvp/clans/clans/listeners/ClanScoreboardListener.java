@@ -12,6 +12,7 @@ import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.settings.SettingChangedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,7 +38,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
         Scoreboard scoreboard = e.getPlayer().getScoreboard();
         if (scoreboard != null) {
             if (gamer != null) {
-                if (gamer.getClient().getSettingAsBoolean("Sidebar")) {
+                if (gamer.getClient().getSettingAsBoolean("General.Sidebar")) {
                     Objective side = scoreboard.getObjective("BetterPvP");
                     if (side == null) {
                         side = scoreboard.registerNewObjective("BetterPvP", "dummy", "BetterPvP");
@@ -90,10 +91,23 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
                         side.getScore(we.getDisplayName()).setScore(2);
 
                     }
+                }else{
+                    e.getPlayer().getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+                    Objective side = scoreboard.getObjective("BetterPvP");
+                    if (side != null) {
+                        side.unregister();
+                    }
+
                 }
             }
         }
     }
+
+    @EventHandler
+    public void onSettingsChange(SettingChangedEvent e){
+        Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
+    }
+
 
 
 }

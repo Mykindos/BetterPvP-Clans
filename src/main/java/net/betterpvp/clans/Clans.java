@@ -18,6 +18,8 @@ import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
+import net.betterpvp.clans.donations.RaveArmour;
+import net.betterpvp.clans.donations.SuperTools;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
@@ -178,6 +180,9 @@ public class Clans extends JavaPlugin implements Listener {
         new NPCManager(this);
         new SafeLogManager(this);
         new AnticheatManager(this);
+
+        new SuperTools(this);
+        new RaveArmour(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         CommandManager.addCommand(new FindCommand(this));

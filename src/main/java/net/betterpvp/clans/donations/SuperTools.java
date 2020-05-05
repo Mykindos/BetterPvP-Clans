@@ -6,11 +6,13 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.donation.Donation;
 import net.betterpvp.core.donation.IPerk;
 import net.betterpvp.core.donation.Perk;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.UtilFormat;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -18,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class SuperTools extends BPVPListener<Clans> implements IPerk {
@@ -29,6 +32,7 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
     @EventHandler
     public void onLeftClick(PlayerInteractEvent e) {
         if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if(e.getHand() == EquipmentSlot.OFF_HAND) return;
             Client client = ClientUtilities.getOnlineClient(e.getPlayer());
             if (client != null) {
                 if (!client.hasDonation(getPerk().getName())) return;
@@ -37,7 +41,7 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
                 Block block = e.getClickedBlock();
                 Clan blockClan = ClanUtilities.getClan(block.getChunk());
                 if (blockClan != null) {
-                    if (blockClan != ClanUtilities.getClan(e.getPlayer())) {
+                    if (!blockClan.equals(ClanUtilities.getClan(e.getPlayer()))) {
                         return;
                     }
                 }
