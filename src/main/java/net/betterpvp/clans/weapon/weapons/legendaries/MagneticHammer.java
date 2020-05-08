@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.ILegendary;
@@ -20,8 +21,10 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
@@ -108,6 +111,20 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
 
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onEntityDamage(CustomDamageEvent event) {
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
+        if (event.getDamager() instanceof Player) {
+            Player player = (Player) event.getDamager();
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_CAT) return;
+
+            if (isThisWeapon(player)) {
+                event.setDamage(7);
+
+            }
+        }
+    }
 
     public void pull(Player p, Location loc) {
 
@@ -138,6 +155,6 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }

@@ -125,9 +125,12 @@ public class ShopListener extends BPVPListener<Clans> {
                             if (item.getStore().equalsIgnoreCase("Farmer") && !(item.getData() == i.getData().getData())) {
                                 continue;
                             }
-                            p.getInventory().setItem(x, new ItemStack(i.getType(), i.getAmount() - amount, item.getData()));
-                            if (p.getInventory().getItem(x).getAmount() < 1) {
-                                p.getInventory().setItem(x, new ItemStack(Material.AIR));
+                            p.getInventory().setItem(x, new ItemStack(i.getType(), i.getAmount() - amount));
+                            ItemStack temp = p.getInventory().getItem(x);
+                            if (temp != null) {
+                                if (temp.getAmount() < 1) {
+                                    p.getInventory().setItem(x, new ItemStack(Material.AIR));
+                                }
                             }
 
                             if (item instanceof DynamicShopItem) {

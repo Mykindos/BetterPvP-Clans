@@ -63,15 +63,17 @@ public class FishingListener extends BPVPListener<Clans> {
 
         Player player = event.getPlayer();
 
-        if(event.getCaught() != null) {
-            Clan aClan = ClanUtilities.getClan(event.getCaught().getLocation());
-            if(aClan != null) {
-                if(aClan instanceof AdminClan) {
-                    AdminClan adminClan = (AdminClan) aClan;
-                    if(adminClan.isSafe()) {
-                        UtilMessage.message(event.getPlayer(), "Fishing", "You cannot fish here!");
-                        event.setCancelled(true);
-                        return;
+        if(UtilBlock.isInLiquid(event.getHook())) {
+            if (event.getCaught() != null) {
+                Clan aClan = ClanUtilities.getClan(event.getCaught().getLocation());
+                if (aClan != null) {
+                    if (aClan instanceof AdminClan) {
+                        AdminClan adminClan = (AdminClan) aClan;
+                        if (adminClan.isSafe()) {
+                            UtilMessage.message(event.getPlayer(), "Fishing", "You cannot fish here!");
+                            event.setCancelled(true);
+                            return;
+                        }
                     }
                 }
             }

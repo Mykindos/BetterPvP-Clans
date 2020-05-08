@@ -99,10 +99,12 @@ public class Wreath extends Skill implements InteractSkill {
                 @Override
                 public void run() {
                     loc.add(vector);
-                    if (!UtilBlock.airFoliage(loc.getBlock())) {
+                    if ((!UtilBlock.airFoliage(loc.getBlock()))
+                            && UtilBlock.solid(loc.getBlock())) {
 
                         loc.add(0.0D, 1.0D, 0.0D);
-                        if (!UtilBlock.airFoliage(loc.getBlock())) {
+                        if ((!UtilBlock.airFoliage(loc.getBlock()))
+                                && UtilBlock.solid(loc.getBlock())) {
 
                             cancel();
                             return;

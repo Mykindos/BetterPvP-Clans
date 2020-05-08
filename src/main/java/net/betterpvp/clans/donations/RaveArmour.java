@@ -7,10 +7,8 @@ import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 
 import net.betterpvp.core.client.mysql.SettingsRepository;
-import net.betterpvp.core.donation.IPerk;
-import net.betterpvp.core.donation.Perk;
+import net.betterpvp.core.donation.IDonation;
 import net.betterpvp.core.donation.events.DonationStatusEvent;
-import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMath;
 import org.bukkit.Bukkit;
@@ -18,6 +16,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -26,23 +25,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RaveArmour extends BPVPListener<Clans> implements IPerk {
+public class RaveArmour implements IDonation, Listener {
 
     private List<UUID> actives;
 
-    public RaveArmour(Clans instance) {
-        super(instance);
+    public RaveArmour() {
         actives = new ArrayList<>();
     }
 
 
     @EventHandler
     public void updateActives(UpdateEvent e) {
+
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Client client = ClientUtilities.getOnlineClient(player);
                 if (client != null) {
-                    if (client.hasDonation(getPerk().getName())) {
+                    if (client.hasDonation(getName())) {
                         if (client.getSettingAsBoolean("Cosmetics.Rave Armour")) {
                             if (!actives.contains(player.getUniqueId())) {
                                 actives.add(player.getUniqueId());
@@ -65,7 +64,7 @@ public class RaveArmour extends BPVPListener<Clans> implements IPerk {
 
     @EventHandler
     public void onDonation(DonationStatusEvent e) {
-        if (e.getPerk().getName().equalsIgnoreCase(getPerk().getName())) {
+        if (e.getPerk().getName().equalsIgnoreCase(getName())) {
             if (e.getStatus() == DonationStatusEvent.Status.ADDED) {
                 if (!e.getClient().getSettingAsBoolean("Cosmetics.Rave Armour")) {
                     e.getClient().getSettings().put("Cosmetics.Rave Armour", 1);
@@ -128,9 +127,21 @@ public class RaveArmour extends BPVPListener<Clans> implements IPerk {
         return i;
     }
 
+
+
     @Override
-    public Perk getPerk() {
-        return Perk.RAVEARMOUR;
+    public String getName() {
+        return "RaveArmour";
+    }
+
+    @Override
+    public String getDisplayName() {
+        return "Rave Armour";
+    }
+
+    @Override
+    public long getExpiryTime() {
+        return 0;
     }
 
     private enum Colours {

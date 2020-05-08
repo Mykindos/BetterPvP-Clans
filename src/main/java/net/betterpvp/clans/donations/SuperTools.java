@@ -6,28 +6,23 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
-import net.betterpvp.core.donation.Donation;
-import net.betterpvp.core.donation.IPerk;
-import net.betterpvp.core.donation.Perk;
-import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.donation.DonationExpiryTimes;
+import net.betterpvp.core.donation.IDonation;
 import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.UtilFormat;
-import org.bukkit.Bukkit;
+
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class SuperTools extends BPVPListener<Clans> implements IPerk {
-
-    public SuperTools(Clans instance) {
-        super(instance);
-    }
+public class SuperTools implements IDonation, Listener {
 
     @EventHandler
     public void onLeftClick(PlayerInteractEvent e) {
@@ -35,7 +30,7 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
             if(e.getHand() == EquipmentSlot.OFF_HAND) return;
             Client client = ClientUtilities.getOnlineClient(e.getPlayer());
             if (client != null) {
-                if (!client.hasDonation(getPerk().getName())) return;
+                if (!client.hasDonation(getName())) return;
                 if (PunishManager.isBuildLocked(e.getPlayer().getUniqueId())) return;
 
                 Block block = e.getClickedBlock();
@@ -55,7 +50,7 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
                     }
                 } else if (hand.getType() == Material.DIAMOND_PICKAXE) {
                     if ((mat.name().contains("STONE") && mat != Material.GLOWSTONE) || mat.name().contains("_ORE") || mat.name().contains("BRICK")
-                            || mat.name().contains("COAL")) {
+                            || mat.name().contains("COAL") || mat == Material.ANDESITE || mat == Material.GRANITE) {
                         superTool(e.getPlayer(), block);
                     }
                 } else if (hand.getType() == Material.DIAMOND_SHOVEL) {
@@ -71,7 +66,7 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
 
     private void superTool(Player player, Block block) {
         ItemStack hand = player.getEquipment().getItemInMainHand();
-        if (Energy.use(player, UtilFormat.cleanString(getPerk().getName()), 3, true)) {
+        if (Energy.use(player, UtilFormat.cleanString(getName()), 3, true)) {
             short dura = (short) (hand.getDurability() + 1);
             if (dura >= 1562) {
                 hand.setType(Material.AIR);
@@ -86,7 +81,17 @@ public class SuperTools extends BPVPListener<Clans> implements IPerk {
     }
 
     @Override
-    public Perk getPerk() {
-        return Perk.SUPERTOOLS;
+    public String getName() {
+        return "SuperTools";
+    }
+
+    @Override
+    public String getDisplayName() {
+        return "Super Tools";
+    }
+
+    @Override
+    public long getExpiryTime() {
+        return DonationExpiryTimes.DAY * 60;
     }
 }

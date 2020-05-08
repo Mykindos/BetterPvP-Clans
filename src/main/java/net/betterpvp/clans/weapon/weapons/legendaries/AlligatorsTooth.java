@@ -122,7 +122,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamage(CustomDamageEvent event) {
         if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
         if (event.getDamager() instanceof Player) {
@@ -131,6 +131,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
             if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_STRAD) return;
 
             if (isThisWeapon(player)) {
+                event.setDamage(7);
                 if (event.getDamager().getLocation().getBlock().isLiquid()) {
                     event.setDamage(event.getDamage() + 2);
                 }

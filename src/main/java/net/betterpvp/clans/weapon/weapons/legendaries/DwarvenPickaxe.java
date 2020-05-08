@@ -32,7 +32,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
     @EventHandler
     public void onBlockBreak(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
 
@@ -54,7 +54,9 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                         || block.getType().name().contains("STONE_SLAB")
                         || block.getType() == Material.IRON_BARS
                         || block.getType() == Material.COAL_BLOCK
-                        || block.getType().name().contains("_SLAB")) {
+                        || block.getType().name().contains("_SLAB")
+                        || block.getType() == Material.ANDESITE
+                        || block.getType() == Material.GRANITE) {
 
 
                     player.getInventory().getItemInMainHand().setDurability((short) 0);

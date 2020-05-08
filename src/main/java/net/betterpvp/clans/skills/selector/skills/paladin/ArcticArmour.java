@@ -175,7 +175,7 @@ public class ArcticArmour extends Skill implements ToggleSkill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) (3 - ((level - 1) * 0.5));
+        return (float) (6 - ((level - 1) * 0.5));
     }
 
 

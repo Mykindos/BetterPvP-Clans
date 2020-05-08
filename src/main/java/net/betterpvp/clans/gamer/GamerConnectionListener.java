@@ -179,7 +179,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             if (d == 1) {
                 g.setActive(true);
             }
-            g.setSkill(Types.SWORD, SelectorManager.getSkills().get("Battle Taunt"), 5);
+            g.setSkill(Types.SWORD, SelectorManager.getSkills().get("Takedown"), 5);
             g.setSkill(Types.AXE, SelectorManager.getSkills().get("Seismic Slam"), 3);
             g.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Colossus"), 1);
             g.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Stampede"), 3);

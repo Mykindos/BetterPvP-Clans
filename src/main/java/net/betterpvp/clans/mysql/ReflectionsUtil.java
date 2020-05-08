@@ -6,6 +6,8 @@ import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;
 import net.betterpvp.core.database.Repository;
+import net.betterpvp.core.donation.DonationManager;
+import net.betterpvp.core.donation.IDonation;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -95,4 +97,38 @@ public class ReflectionsUtil {
         System.out.println("Registered " + count + " commands for " + packageName);
 
     }
+
+    public static void registerDonations(String packageName, Plugin instance) {
+        int count = 0;
+        Reflections reflections = new Reflections(packageName);
+        Set<Class<? extends IDonation>> classes = reflections.getSubTypesOf(IDonation.class);
+        for (Class<? extends IDonation> d : classes) {
+            try {
+                if (Listener.class.isAssignableFrom(d)) {
+                    IDonation donation = d.newInstance();
+                    Bukkit.getPluginManager().registerEvents((Listener) donation, instance);
+                    System.out.println("Registered donation + listener");
+                    DonationManager.addDonation(donation);
+
+                } else {
+                    if (d.getConstructors()[0].getParameterCount() > 0) {
+                        System.out.println("Skipped Command (Requires arguments): " + d.getName());
+                        continue;
+                    }
+
+                    DonationManager.addDonation(d.newInstance());
+                }
+                count++;
+
+            } catch (InstantiationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }

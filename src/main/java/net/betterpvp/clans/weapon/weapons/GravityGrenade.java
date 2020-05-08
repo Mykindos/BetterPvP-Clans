@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
@@ -97,6 +98,7 @@ public class GravityGrenade extends Weapon {
                     }
 
                     for (LivingEntity p : UtilPlayer.getAllInRadius(q.getLocation(), 5.0)) {
+                        if(ShopManager.isShop(p)) continue;
                         if (p instanceof Player) {
                             Player d = (Player) p;
                             Clan ca = ClanUtilities.getClan(d.getLocation());
