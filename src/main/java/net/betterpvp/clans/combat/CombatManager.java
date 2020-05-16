@@ -9,6 +9,7 @@ import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
+import net.betterpvp.clans.utilities.UtilRating;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
@@ -79,7 +80,7 @@ public class CombatManager extends BPVPListener<Clans> {
                 if (ent instanceof Player) {
                     Player dam = (Player) ent;
                     Gamer damGamer = GamerManager.getOnlineGamer(dam);
-                    if (ent != p) {
+                    if (!ent.equals(p)) {
 
                         Bukkit.getPluginManager().callEvent(new CustomDeathEvent(p, dam));
 
@@ -140,7 +141,13 @@ public class CombatManager extends BPVPListener<Clans> {
                     g.setLastDamaged(0);
 
 
-                    if (Role.getRole(p) != null) {
+                    Role killedRole = Role.getRole(p);
+                    Role killerRole = Role.getRole(dam);
+                    if (killedRole != null) {
+                        if(killerRole != null){
+                            UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
+                        }
+
 
                         g.addDeath();
                         damGamer.addKill();

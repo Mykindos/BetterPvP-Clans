@@ -242,11 +242,13 @@ public class ClanUtilities {
         }
 
         for (Client client : ClientUtilities.getClients()) {
-            if (client.getName().equalsIgnoreCase(string)) {
-                for (Clan clan : clans) {
-                    for (ClanMember member : clan.getMembers()) {
-                        if (member.getUUID().equals(client.getUUID())) {
-                            return clan;
+            if(client.getName() != null) {
+                if (client.getName().equalsIgnoreCase(string)) {
+                    for (Clan clan : clans) {
+                        for (ClanMember member : clan.getMembers()) {
+                            if (member.getUUID().equals(client.getUUID())) {
+                                return clan;
+                            }
                         }
                     }
                 }

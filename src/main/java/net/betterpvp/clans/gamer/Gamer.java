@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
 
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
+import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
 
 import net.betterpvp.clans.scoreboard.Scoreboard;
@@ -38,6 +39,7 @@ public class Gamer implements Invitable {
     private Location home;
     private boolean filter;
     private Scoreboard scoreboard;
+    private HashMap<String, Integer> ratings;
 
     //private HashMap<Enum, Object> data;
 
@@ -55,8 +57,11 @@ public class Gamer implements Invitable {
         questPerks = new ArrayList<>();
         builds = new ArrayList<>();
         filter = false;
+        ratings = new HashMap<>();
 
-
+        for(Role role : Role.roles){
+            ratings.put(role.getName(), 1500);
+        }
 
 
         //this.data = new HashMap<>();
@@ -140,7 +145,6 @@ public class Gamer implements Invitable {
 
     public void addFragments(double amount) {
         fragments += amount;
-
     }
 
     public boolean hasBattleCoins(int amount) {
@@ -343,7 +347,13 @@ public class Gamer implements Invitable {
     }
 
 
+    public int getRating(Role role){
+        return ratings.get(role.getName());
+    }
 
+    public HashMap<String, Integer> getRatings(){
+        return ratings;
+    }
 
 
 	/*

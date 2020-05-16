@@ -17,11 +17,10 @@ import net.betterpvp.clans.skills.selector.skills.assassin.*;
 import net.betterpvp.clans.skills.selector.skills.gladiator.*;
 import net.betterpvp.clans.skills.selector.skills.global.BreakFall;
 import net.betterpvp.clans.skills.selector.skills.global.FastRecovery;
-import net.betterpvp.clans.skills.selector.skills.global.Swim;
 import net.betterpvp.clans.skills.selector.skills.knight.*;
-import net.betterpvp.clans.skills.selector.skills.necromancer.*;
 import net.betterpvp.clans.skills.selector.skills.paladin.*;
 import net.betterpvp.clans.skills.selector.skills.ranger.*;
+import net.betterpvp.clans.skills.selector.skills.warlock.*;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
@@ -170,7 +169,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Bloodlust", new Bloodlust(i));
 
         /*
-         * Necromancer Skills
+         * Warlock Skills
          */
 
         skills.put("Bloodshed", new Bloodshed(i));
@@ -181,6 +180,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Blood Barrier", new BloodBarrier(i));
         skills.put("Wreath", new Wreath(i));
         skills.put("Impotence", new Impotence(i));
+        skills.put("Cleanse", new Cleanse(i));
 
     }
 

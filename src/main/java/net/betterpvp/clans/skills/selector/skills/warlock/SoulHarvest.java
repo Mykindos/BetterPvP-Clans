@@ -1,19 +1,16 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.classes.roles.Necromancer;
+import net.betterpvp.clans.classes.roles.Warlock;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
-import net.minecraft.server.v1_15_R1.EntityVex;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -27,7 +24,7 @@ public class SoulHarvest extends Skill {
     private List<SoulData> souls = new ArrayList<>();
 
     public SoulHarvest(Clans i) {
-        super(i, "Soul Harvest", "Necromancer", noMaterials, noActions, 3, false, false);
+        super(i, "Soul Harvest", "Warlock", noMaterials, noActions, 3, false, false);
     }
 
     @Override
@@ -36,7 +33,7 @@ public class SoulHarvest extends Skill {
                 "Harvest the soul of nearby dead players.",
                 "",
                 "Collected souls give bursts of speed and regeneration.",
-                "Souls are visible by necromancers only"
+                "Souls are visible by Warlocks only"
         };
     }
 
@@ -72,7 +69,7 @@ public class SoulHarvest extends Skill {
             List<Player> active = new ArrayList<>();
             Bukkit.getOnlinePlayers().forEach(p -> {
                 Role role = Role.getRole(p);
-                if(role != null && role instanceof Necromancer){
+                if(role != null && role instanceof Warlock){
                     if(hasSkill(p, this)){
                         active.add(p);
 

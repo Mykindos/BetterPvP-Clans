@@ -63,7 +63,7 @@ public class BuilderPackage implements IDonation, IClaimable {
         STONEBRICK(Material.STONE_BRICKS, 448),
         DIAMONDPICKAXE(Material.DIAMOND_PICKAXE, 3),
         DIAMONDSHOVEL(Material.DIAMOND_SHOVEL, 3),
-        OAKWOOD(Material.OAK_WOOD, 256),
+        OAKPLANK(Material.OAK_PLANKS, 256),
         SPONGE(Material.SPONGE, 12),
         GLASS(Material.GLASS, 128),
         GLOWSTONE(Material.GLOWSTONE, 32),
@@ -72,7 +72,7 @@ public class BuilderPackage implements IDonation, IClaimable {
         YELLOWCONCRETE(Material.YELLOW_CONCRETE, 64),
         PURPLECONCRETE(Material.PURPLE_CONCRETE, 64),
         PINKCONCRETE(Material.PINK_CONCRETE, 64),
-        LANTERN(Material.LANTERN, 64);
+        SEALANTERN(Material.SEA_LANTERN, 64);
 
         private Material material;
         private int count;

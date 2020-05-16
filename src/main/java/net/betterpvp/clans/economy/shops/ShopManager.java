@@ -53,7 +53,7 @@ public class ShopManager implements Listener {
         Bukkit.getPluginManager().registerEvents(this, i);
 
         addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
-                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Necromancer");
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock");
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, -5.5, 45.5, -39.5),
@@ -210,14 +210,14 @@ public class ShopManager implements Listener {
                         knightSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
                         createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
                         break;
-                    case "necromancer":
-                        ShopSkeleton necromancer = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton necromancerSkeleton = necromancer.spawn(loc);
-                        necromancerSkeleton.getEquipment().setHelmet(new ItemStack(Material.TURTLE_HELMET));
-                        necromancerSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
-                        necromancerSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                        necromancerSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Necromancer", necromancerSkeleton);
+                    case "warlock":
+                        ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton WarlockSkeleton = Warlock.spawn(loc);
+                        WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.TURTLE_HELMET));
+                        WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                        WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Warlock", WarlockSkeleton);
                         break;
                     case "paladin":
                         ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());

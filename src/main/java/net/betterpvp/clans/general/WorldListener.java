@@ -834,11 +834,13 @@ public class WorldListener extends BPVPListener<Clans> {
                         || event.getBlock().getType() == Material.BIRCH_DOOR
                         || event.getBlock().getType() == Material.JUNGLE_DOOR
                         || event.getBlock().getType() == Material.DARK_OAK_DOOR) {
-                    event.getBlock().setType(Material.AIR);
+                    event.setCancelled(true);
+                    UtilItem.remove(player, event.getBlock().getType(), 1);
                     event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_DOOR));
                     UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Doors" + ChatColor.GRAY + " (You can right click to open them).");
-                } else if (event.getBlock().getType() == Material.OAK_TRAPDOOR) {
-                    event.getBlock().setType(Material.AIR);
+                } else if (event.getBlock().getType().name().contains("_TRAPDOOR") && event.getBlock().getType() != Material.IRON_TRAPDOOR) {
+                    event.setCancelled(true);
+                    UtilItem.remove(player, event.getBlock().getType(), 1);
                     event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_TRAPDOOR));
                     UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Trap Doors" + ChatColor.GRAY + " (You can right click to open them).");
                 }

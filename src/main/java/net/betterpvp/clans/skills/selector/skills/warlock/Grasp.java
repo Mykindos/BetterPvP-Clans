@@ -1,4 +1,4 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
@@ -11,7 +11,6 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
@@ -25,11 +24,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.EulerAngle;
@@ -43,7 +39,7 @@ public class Grasp extends Skill implements InteractSkill {
     private HashMap<ArmorStand, Long> stands = new HashMap<>();
 
     public Grasp(Clans i) {
-        super(i, "Grasp", "Necromancer", getSwords, rightClick, 5, true, true);
+        super(i, "Grasp", "Warlock", getSwords, rightClick, 5, true, true);
     }
 
 

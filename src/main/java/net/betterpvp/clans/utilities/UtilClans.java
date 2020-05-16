@@ -87,11 +87,11 @@ public class UtilClans {
             a.setDisplayName("Radiant axe");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "5");
 
-        }else if(m == Material.MUSIC_DISC_13){
-            a.setDisplayName("$100,000");
-        }else if(m == Material.MUSIC_DISC_11){
-            a.setDisplayName("$50,000");
         }else if(m == Material.MUSIC_DISC_WAIT){
+            a.setDisplayName("$100,000");
+        }else if(m == Material.MUSIC_DISC_13){
+            a.setDisplayName("$50,000");
+        }else if(m == Material.MUSIC_DISC_11){
             a.setDisplayName("$1,000,000");
         }else if(m == Material.CARROT){
             a.setDisplayName("Carrot");

@@ -1,9 +1,8 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -51,7 +50,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
     }
 
     public BloodBarrier(Clans i) {
-        super(i, "Blood Barrier", "Necromancer", getAxes, rightClick, 5, true, true);
+        super(i, "Blood Barrier", "Warlock", getAxes, rightClick, 5, true, true);
         shieldDataList = new ArrayList<>();
     }
 

@@ -3,6 +3,7 @@ package net.betterpvp.clans.gamer;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.combat.ratings.RatingRepository;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.scoreboard.Scoreboard;
@@ -40,22 +41,15 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Gamer gamer = GamerManager.getGamer(e.getClient().getUUID());
         if (gamer == null) {
 
-
             gamer = new Gamer(e.getClient().getUUID());
             gamer.setClient(e.getClient());
-
             GamerRepository.saveGamer(gamer);
             GamerManager.getGamers().add(gamer);
-            GamerManager.addOnlineGamer(gamer);
-
             loadDefaults(gamer);
-
 
         } else {
 
-            GamerManager.addOnlineGamer(gamer);
             BuildRepository.loadBuilds(getInstance(), gamer.getUUID());
-
             if (gamer.getClient() == null) {
                 gamer.setClient(e.getClient());
             }
@@ -66,6 +60,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Recharge Bar", 1);
         SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Killfeed", 1);
 
+        RatingRepository.saveRatings(gamer);
 
         SettingsRepository.loadSettings(getInstance(), gamer.getClient());
 
@@ -85,6 +80,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             player.setResourcePack(Clans.getOptions().getTexturePackURL(),
                     UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
         }
+
+        GamerManager.addOnlineGamer(gamer);
 
 
     }
@@ -215,7 +212,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             k.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Swordsmanship"), 1);
             k.takePoints(12);
 
-            RoleBuild n = new RoleBuild("Necromancer", d);
+            RoleBuild n = new RoleBuild("Warlock", d);
             if (d == 1) {
                 n.setActive(true);
             }

@@ -1,10 +1,12 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.classes.roles.Necromancer;
+import net.betterpvp.clans.classes.roles.Warlock;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
@@ -12,17 +14,14 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +31,7 @@ public class Frailty extends Skill {
     private List<UUID> active;
 
     public Frailty(Clans i) {
-        super(i, "Frailty", "Necromancer", noMaterials, noActions, 3, false, false);
+        super(i, "Frailty", "Warlock", noMaterials, noActions, 3, false, false);
         active = new ArrayList<>();
     }
 
@@ -79,7 +78,7 @@ public class Frailty extends Skill {
 
             Bukkit.getOnlinePlayers().forEach(p -> {
                 Role role = Role.getRole(p);
-                if (role != null && role instanceof Necromancer) {
+                if (role != null && role instanceof Warlock) {
                     if (hasSkill(p, this)) {
                         if (!active.contains(p.getUniqueId())) {
                             active.add(p.getUniqueId());
@@ -125,6 +124,11 @@ public class Frailty extends Skill {
             if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 Player damager = (Player) e.getDamager();
                 if (hasSkill(damager, this)) {
+                    if (e.getDamagee() instanceof Player) {
+                        if (EffectManager.hasEffect((Player) e.getDamagee(), EffectType.IMMUNETOEFFECTS)) {
+                            return;
+                        }
+                    }
                     if (e.getDamagee().getHealth() / e.getDamagee().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(damager) - 1) * 10))) {
                         int level = getLevel(damager);
                         e.setDamage(e.getDamage() * 1.20 + ((level - 1) * 0.05));

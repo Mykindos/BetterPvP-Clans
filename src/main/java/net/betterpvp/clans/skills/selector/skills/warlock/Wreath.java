@@ -1,10 +1,10 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 
-import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
@@ -13,7 +13,6 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilEntity;
 import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilPlayer;
 import org.bukkit.*;
 
 import org.bukkit.entity.*;
@@ -32,7 +31,6 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
 public class Wreath extends Skill implements InteractSkill {
@@ -41,7 +39,7 @@ public class Wreath extends Skill implements InteractSkill {
     private WeakHashMap<Player, Long> cooldowns;
 
     public Wreath(Clans i) {
-        super(i, "Wreath", "Necromancer", getSwords, rightClick, 5, true, true);
+        super(i, "Wreath", "Warlock", getSwords, rightClick, 5, true, true);
         actives = new WeakHashMap<>();
         cooldowns = new WeakHashMap<>();
 
@@ -123,7 +121,7 @@ public class Wreath extends Skill implements InteractSkill {
                     for(LivingEntity ent : UtilEntity.getAllInRadius(fangs.getLocation(), 1.5)){
                         CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 3 + getLevel(player), false);
                         LogManager.addLog(ent, player, "Wreath");
-                        ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 1));
+                        EffectManager.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, 40, 1));
                         Bukkit.getPluginManager().callEvent(dmg);
                     }
 

@@ -122,6 +122,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     private void load() {
 
+
+        new RoleManager(this);
+
         UtilShop.registerEntity("Zombie",  54, EntityZombie.class, ShopZombie.class);
         UtilShop.registerEntity("Spider",  52, EntitySpider.class, BossSpider.class);
         UtilShop.registerEntity("CaveSpider",  59, EntityCaveSpider.class, BossCaveSpider.class);
@@ -142,7 +145,7 @@ public class Clans extends JavaPlugin implements Listener {
         new SkillListener(this);
         new SelectorManager(this);
         new DamageManager(this);
-        new RoleManager(this);
+
         new CombatManager(this);
         new WeaponManager(this);
         new WEManager(this);

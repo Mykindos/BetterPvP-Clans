@@ -33,7 +33,7 @@ public class RoleManager extends BPVPListener<Clans> {
         new Paladin();
         new Ranger();
         new Assassin();
-        new Necromancer();
+        new Warlock();
     }
 
     @EventHandler

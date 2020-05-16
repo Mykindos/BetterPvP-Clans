@@ -3,10 +3,10 @@ package net.betterpvp.clans.classes.roles;
 import net.betterpvp.clans.classes.Role;
 import org.bukkit.Material;
 
-public class Necromancer extends Role {
+public class Warlock extends Role {
 
-    public Necromancer() {
-        super("Necromancer");
+    public Warlock() {
+        super("Warlock");
 
     }
 

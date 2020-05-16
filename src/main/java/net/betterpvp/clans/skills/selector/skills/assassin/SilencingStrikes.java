@@ -55,19 +55,17 @@ public class SilencingStrikes extends Skill {
                         }
 
                         //if (Polymorph.polymorphed.containsKey(p)) {
-                       //     return;
-                       // }
+                        //     return;
+                        // }
 
                         SilencingStrikesData d = getSilencingStrikesData(p, ent);
                         d.addCount();
                         d.setLastHit(System.currentTimeMillis());
                         LogManager.addLog(ent, p, "Silencing Strikes");
                         if (d.getCount() == 3) {
-                            if (!EffectManager.hasEffect(ent, EffectType.INVULNERABILITY)) {
-                                EffectManager.addEffect(ent, EffectType.SILENCE, (long) ((getLevel(p) * 1000) * 0.75));
-                            } else {
-
-                                UtilMessage.message(p, getClassType(), ChatColor.GREEN + ent.getName() + ChatColor.GRAY + " is immune to your silence!");
+                            EffectManager.addEffect(ent, EffectType.SILENCE, (long) ((getLevel(p) * 1000) * 0.75));
+                            if (EffectManager.hasEffect(ent, EffectType.IMMUNETOEFFECTS)) {
+                                UtilMessage.message(p, getClassType(), org.bukkit.ChatColor.GREEN + ent.getName() + org.bukkit.ChatColor.GRAY + " is immune to your silence!");
                             }
                             data.remove(d);
                         }

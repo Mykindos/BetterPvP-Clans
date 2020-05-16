@@ -1,28 +1,24 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.classes.roles.Necromancer;
+import net.betterpvp.clans.classes.roles.Warlock;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilEntity;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class Impotence extends Skill {
 
     public Impotence(Clans i) {
-        super(i, "Impotence", "Necromancer", noMaterials, noActions, 3, false, false);
+        super(i, "Impotence", "Warlock", noMaterials, noActions, 3, false, false);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -30,7 +26,7 @@ public class Impotence extends Skill {
         if (e.getDamagee() instanceof Player) {
             Player player = (Player) e.getDamagee();
             Role role = Role.getRole(player);
-            if (role != null && role instanceof Necromancer) {
+            if (role != null && role instanceof Warlock) {
                 if (hasSkill(player, this)) {
                     int level = getLevel(player);
                     int nearby = UtilEntity.getAllInRadius(player.getLocation(), 3 + level).stream().filter(ent -> {
@@ -54,7 +50,7 @@ public class Impotence extends Skill {
     @Override
     public String[] getDescription(int level) {
         return new String[]{
-                "For each enemy within " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + "  blocks",
+                "For each enemy within " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " blocks",
                 "you take reduced damage from all sources, at a maximum of 3 players.",
                 "",
                 "Damage Reduction:",

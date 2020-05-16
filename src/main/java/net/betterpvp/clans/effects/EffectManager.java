@@ -2,6 +2,7 @@ package net.betterpvp.clans.effects;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.effects.events.EffectReceiveEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.framework.BPVPListener;
@@ -12,6 +13,7 @@ import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.Sound;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,6 +25,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.management.monitor.Monitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -44,26 +47,56 @@ public class EffectManager extends BPVPListener<Clans> {
     }
 
     public static void addEffect(Player p, EffectType type, int level, long length) {
-        if (hasEffect(p, type)) {
-            removeEffect(p, type);
-        }
-        if (type == EffectType.STRENGTH) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) ((length / 1000) * 20), level - 1));
-        }
-        if (type == EffectType.SILENCE) {
-            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1F, 1.5F);
-        }
+        Bukkit.getPluginManager().callEvent(new EffectReceiveEvent(p,
+                new Effect(p.getUniqueId(), type, level, length)));
 
-        if (type == EffectType.VULNERABILITY) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) ((length / 1000) * 20), 0));
-        }
-        getEffects().add(new Effect(p.getUniqueId(), type, level, System.currentTimeMillis() + length));
     }
 
     public static Effect getEffect(Player p, EffectType type) {
         return effects.stream().filter(e -> e.getPlayer().equals(p.getUniqueId())
                 && e.getType() == type).findAny().orElse(null);
 
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onReceiveEffect(EffectReceiveEvent e) {
+        if (e.isCancelled()) {
+            return;
+        }
+
+        Effect effect = e.getEffect();
+        Player p = e.getPlayer();
+
+        if (hasEffect(p, effect.getType())) {
+            removeEffect(p, effect.getType());
+        }
+        if (effect.getType() == EffectType.STRENGTH) {
+            p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) ((effect.getRawLength() / 1000) * 20), effect.getLevel() - 1));
+        }
+        if (effect.getType() == EffectType.SILENCE) {
+            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1F, 1.5F);
+        }
+
+        if (effect.getType() == EffectType.VULNERABILITY) {
+            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) ((effect.getRawLength() / 1000) * 20), 0));
+        }
+        getEffects().add(effect);
+    }
+
+    public static void addPotionEffect(LivingEntity ent, PotionEffect effect){
+
+
+        if(ent instanceof Player) {
+            if (hasEffect((Player) ent, EffectType.IMMUNETOEFFECTS)) {
+                if (effect.getType() == PotionEffectType.SLOW || effect.getType() == PotionEffectType.BLINDNESS
+                        || effect.getType() == PotionEffectType.WITHER || effect.getType() == PotionEffectType.CONFUSION
+                        || effect.getType() == PotionEffectType.WEAKNESS || effect.getType() == PotionEffectType.POISON) {
+                    return;
+                }
+            }
+        }
+
+        ent.addPotionEffect(effect);
     }
 
 
@@ -147,7 +180,7 @@ public class EffectManager extends BPVPListener<Clans> {
                 }
             }
         }
-    
+
 
     }
 
@@ -249,17 +282,17 @@ public class EffectManager extends BPVPListener<Clans> {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onLoadingTextureDamage(CustomDamageEvent e){
-        if(e.getDamagee() instanceof Player){
+    public void onLoadingTextureDamage(CustomDamageEvent e) {
+        if (e.getDamagee() instanceof Player) {
             Player player = (Player) e.getDamagee();
-            if(hasEffect(player, EffectType.TEXTURELOADING)){
+            if (hasEffect(player, EffectType.TEXTURELOADING)) {
                 e.setCancelled("Player is loading the server texture pack");
             }
         }
 
-        if(e.getDamager() instanceof Player){
+        if (e.getDamager() instanceof Player) {
             Player player = (Player) e.getDamager();
-            if(hasEffect(player, EffectType.TEXTURELOADING)){
+            if (hasEffect(player, EffectType.TEXTURELOADING)) {
                 removeEffect(player, EffectType.TEXTURELOADING);
             }
         }
@@ -275,6 +308,39 @@ public class EffectManager extends BPVPListener<Clans> {
                 e.setDamage(e.getDamage() * (1.0 - (effect.getLevel() * 20) * 0.01));
 
             }
+        }
+    }
+
+    @EventHandler
+    public void onImmuneToNegativity(EffectReceiveEvent e) {
+        if (hasEffect(e.getPlayer(), EffectType.IMMUNETOEFFECTS)) {
+            EffectType type = e.getEffect().getType();
+
+            if (type == EffectType.SILENCE || type == EffectType.SHOCK || type == EffectType.VULNERABILITY
+                    || type == EffectType.STUN || type == EffectType.FRAILTY){
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void onReceiveImmuneToEffect(EffectReceiveEvent e){
+        if(e.getEffect().getType() == EffectType.IMMUNETOEFFECTS){
+            for (PotionEffect pot : e.getPlayer().getActivePotionEffects()) {
+                if (pot.getType() == PotionEffectType.SLOW
+                        || pot.getType() == PotionEffectType.CONFUSION
+                        || pot.getType() == PotionEffectType.POISON
+                        || pot.getType() == PotionEffectType.BLINDNESS
+                        || pot.getType() == PotionEffectType.WITHER) {
+                    e.getPlayer().removePotionEffect(pot.getType());
+                }
+            }
+
+            EffectManager.removeEffect(e.getPlayer(), EffectType.SHOCK);
+            EffectManager.removeEffect(e.getPlayer(), EffectType.SILENCE);
+            EffectManager.removeEffect(e.getPlayer(), EffectType.STUN);
+            EffectManager.removeEffect(e.getPlayer(), EffectType.VULNERABILITY);
+            EffectManager.removeEffect(e.getPlayer(), EffectType.FRAILTY);
         }
     }
 

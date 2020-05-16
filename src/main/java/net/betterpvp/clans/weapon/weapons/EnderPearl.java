@@ -52,9 +52,9 @@ public class EnderPearl extends Weapon {
                     .message(player, "Ethereal Pearl", "You removed all negative effects!");
             player.getWorld()
                     .playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
-            EffectManager.addEffect(player, EffectType.INVULNERABILITY, 5000);
+            EffectManager.addEffect(player, EffectType.IMMUNETOEFFECTS, 5000);
 
-            for (PotionEffect pot : player.getActivePotionEffects()) {
+            /*for (PotionEffect pot : player.getActivePotionEffects()) {
                 if (pot.getType() == PotionEffectType.SLOW
                         || pot.getType() == PotionEffectType.CONFUSION
                         || pot.getType() == PotionEffectType.POISON
@@ -67,7 +67,7 @@ public class EnderPearl extends Weapon {
             EffectManager.removeEffect(player, EffectType.SHOCK);
             EffectManager.removeEffect(player, EffectType.SILENCE);
             EffectManager.removeEffect(player, EffectType.STUN);
-            EffectManager.removeEffect(player, EffectType.VULNERABILITY);
+            EffectManager.removeEffect(player, EffectType.VULNERABILITY);*/
 
             new BukkitRunnable() {
                 @Override

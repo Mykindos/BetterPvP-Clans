@@ -1,19 +1,17 @@
-package net.betterpvp.clans.skills.selector.skills.necromancer;
+package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.classes.roles.Necromancer;
+import net.betterpvp.clans.classes.roles.Warlock;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.combat.combatlog.CombatLogManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
-import net.betterpvp.core.particles.data.color.ParticleColor;
 import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
@@ -28,14 +26,12 @@ import org.bukkit.event.EventHandler;
 
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public class Leech extends Skill implements InteractSkill {
@@ -45,7 +41,7 @@ public class Leech extends Skill implements InteractSkill {
     private List<LeechData> removeList;
 
     public Leech(Clans i) {
-        super(i, "Leech", "Necromancer", getSwords, rightClick, 5, true, true);
+        super(i, "Leech", "Warlock", getSwords, rightClick, 5, true, true);
         active = new ArrayList<>();
         leechData = new ArrayList<>();
         removeList = new ArrayList<>();
@@ -79,7 +75,7 @@ public class Leech extends Skill implements InteractSkill {
         if (e.getDamager() instanceof Player) {
             Player damager = (Player) e.getDamager();
             Role role = Role.getRole(damager);
-            if (role != null && role instanceof Necromancer) {
+            if (role != null && role instanceof Warlock) {
                 if (hasSkill(damager, this)) {
                     if (active.contains(damager.getUniqueId())) {
                         if (e.getDamagee() instanceof Player) {
