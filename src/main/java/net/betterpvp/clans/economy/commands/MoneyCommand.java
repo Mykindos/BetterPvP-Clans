@@ -2,7 +2,7 @@ package net.betterpvp.clans.economy.commands;
 
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.gamer.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;

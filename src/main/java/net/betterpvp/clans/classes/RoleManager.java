@@ -89,6 +89,7 @@ public class RoleManager extends BPVPListener<Clans> {
 
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null){
+                gamer.setStatValue(role.getName(), gamer.getStatValue(role.getName()) + 1);
                 RoleBuild build = gamer.getActiveBuild(role.getName());
                 if(build != null){
                     if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)){

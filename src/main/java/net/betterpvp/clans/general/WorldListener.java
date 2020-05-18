@@ -457,8 +457,8 @@ public class WorldListener extends BPVPListener<Clans> {
         Player player = event.getPlayer();
         Block block = event.getBlock();
 
-        // PlayerStat stat = ClientUtilities.getOnlineClient(player).getStats();
-        //  stat.blocksPlaced = stat.blocksPlaced+ 1;
+        Gamer gamer = GamerManager.getOnlineGamer(player);
+        gamer.setStatValue("BlocksPlaced", gamer.getStatValue("BlocksPlaced") + 1);
 
         if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getType() == Material.FURNACE || block.getType() == Material.HOPPER
                 || block.getType() == Material.DROPPER || block.getType() == Material.DISPENSER || block.getType() == Material.SHULKER_BOX
@@ -481,7 +481,12 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
 
-        if (ClientUtilities.getOnlineClient(event.getPlayer()).isAdministrating()) {
+
+
+        Gamer gamer = GamerManager.getOnlineGamer(event.getPlayer());
+        gamer.setStatValue("BlocksBroken", gamer.getStatValue("BlocksBroken") + 1);
+
+        if (gamer.getClient().isAdministrating()) {
             return;
         }
 

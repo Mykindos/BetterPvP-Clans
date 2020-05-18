@@ -205,7 +205,7 @@ public abstract class Boss extends WorldEvent {
                     killerGamer.addCoins(50000);
                     killerGamer.addFragments(fragments);
 
-                    //giveBonus(killerGamer, getBossName());
+                    giveBonus(killerGamer, getBossName());
 
                     UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
                             + ChatColor.GREEN + fragments + " fragments");
@@ -316,5 +316,34 @@ public abstract class Boss extends WorldEvent {
         }
     }
 
+    private void giveBonus(Gamer gamer, String boss){
+
+        String bossName = ChatColor.stripColor(boss);
+        gamer.setStatValue(bossName, gamer.getStatValue(bossName) + 1);
+
+
+    }
+
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void bonusDamage(CustomDamageEvent e){
+        if(isActive()){
+            if(e.getDamagee() == null || e.getDamager() == null) return;
+            if(e.getDamager() != null){
+                if(e.getDamager() instanceof Player){
+                    Player p = (Player) e.getDamager();
+
+                    if(e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())){
+                        Gamer gamer = GamerManager.getOnlineGamer(p);
+
+                        int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()).replace(" ", ""));
+                        double modifier = kills * 2;
+                        double modifier2 = modifier >= 10 ? 0.01 : 0.1;
+
+                        e.setDamage(e.getDamage() * (1 + (modifier * modifier2)));
+                    }
+                }
+            }
+        }
+    }
 
 }

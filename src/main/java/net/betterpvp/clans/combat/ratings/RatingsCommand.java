@@ -27,7 +27,7 @@ public class RatingsCommand extends Command {
             }
         }else{
             if(args.length == 1){
-                Gamer gamer = GamerManager.getOnlineGamer(args[0]);
+                Gamer gamer = GamerManager.getGamer(args[0]);
                 if(gamer != null) {
                     UtilMessage.message(player, ChatColor.GREEN.toString() + ChatColor.BOLD + gamer.getClient().getName() + " ratings");
 

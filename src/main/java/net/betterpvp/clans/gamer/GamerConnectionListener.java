@@ -6,6 +6,8 @@ import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.ratings.RatingRepository;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
@@ -148,7 +150,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Gamer gamer = GamerManager.getOnlineGamer(player);
         if (gamer != null) {
             gamer.getClient().setLoggedIn(false);
-
+            PlayerStatRepository.updateAllStats(gamer);
             GamerRepository.updateGamer(gamer);
             gamer.getBuilds().clear();
             String safe = LogManager.isSafe(player) ? ChatColor.GREEN + "Safe" + ChatColor.GRAY : ChatColor.RED + "Unsafe" + ChatColor.GRAY;

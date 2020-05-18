@@ -18,8 +18,6 @@ import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
-import net.betterpvp.clans.donations.RaveArmour;
-import net.betterpvp.clans.donations.SuperTools;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
@@ -36,14 +34,14 @@ import net.betterpvp.clans.fun.BounceListener;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.gamer.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.FindCommand;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
-import net.betterpvp.clans.particles.ReflectionUtils;
 import net.betterpvp.clans.recipes.*;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
@@ -78,6 +76,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class Clans extends JavaPlugin implements Listener {
@@ -105,6 +104,7 @@ public class Clans extends JavaPlugin implements Listener {
             p.getOpenInventory().close();
             Gamer c = GamerManager.getOnlineGamer(p);
             GamerRepository.updateGamer(c);
+            c.updateAllStats();
         }
 
         Connect.disableSQL();
@@ -295,6 +295,16 @@ public class Clans extends JavaPlugin implements Listener {
 
             }
         }.runTaskTimer(this, 72000 /2, 72000 /2);
+
+        new BukkitRunnable(){
+            @Override
+            public void run(){
+                for(Gamer gamer : GamerManager.getOnlineGamers()){
+                    gamer.updateAllStats();
+
+                }
+            }
+        }.runTaskTimerAsynchronously(this, 36000, 36000);
 
     }
 
