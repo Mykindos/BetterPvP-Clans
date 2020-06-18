@@ -187,7 +187,7 @@ public class Clans extends JavaPlugin implements Listener {
 
 
         CommandManager.addCommand(new ShopCommand(this));
-        CommandManager.addCommand(new FindCommand(this));
+        //CommandManager.addCommand(new FindCommand(this));
         CommandManager.addCommand(new HubCommand(this));
         CommandManager.addCommand(new ClanReloadCommand(this));
         CommandManager.addCommand(new SearchChestsCommand(this));

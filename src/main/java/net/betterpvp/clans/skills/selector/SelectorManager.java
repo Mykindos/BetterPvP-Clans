@@ -181,6 +181,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Wreath", new Wreath(i));
         skills.put("Impotence", new Impotence(i));
         skills.put("Cleanse", new Cleanse(i));
+        skills.put("Tormented Soil", new TormentedSoil(i));
 
     }
 
@@ -327,7 +328,6 @@ public class SelectorManager extends BPVPListener<Clans> {
                     }
                 }
 
-                page.getButtons().clear();
                 page.buildPage(button.getSkill().getClassType());
                 page.construct();
             }

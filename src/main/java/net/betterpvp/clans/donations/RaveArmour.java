@@ -27,12 +27,7 @@ import java.util.UUID;
 
 public class RaveArmour implements IDonation, Listener {
 
-    private List<UUID> actives;
-
-    public RaveArmour() {
-        actives = new ArrayList<>();
-    }
-
+    private List<UUID> actives = new ArrayList<>();
 
     @EventHandler
     public void updateActives(UpdateEvent e) {

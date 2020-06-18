@@ -30,7 +30,7 @@ public class TopRatingsCommand extends Command implements Listener {
     public void execute(Player player, String[] args) {
         if (args != null) {
             UtilMessage.message(player, ChatColor.GREEN.toString() + ChatColor.BOLD + "Top 10 " + args[0] + " Ratings");
-            List<Rating> temp = new ArrayList<>(ratings).stream().filter(r -> r.role.equalsIgnoreCase(args[0])).collect(Collectors.toList());
+            List<Rating> temp = new ArrayList<>(ratings).stream().filter(r -> r.role.equalsIgnoreCase(args[0]) && r.rating != 1500).collect(Collectors.toList());
             temp.sort((o1, o2) -> o2.rating - o1.rating);
             for (int i = 0; i < Math.min(10, temp.size()); i++) {
                 Rating rating = temp.get(i);
@@ -39,8 +39,9 @@ public class TopRatingsCommand extends Command implements Listener {
             UtilMessage.message(player, ChatColor.GREEN + "The ratings leaderboard updates every 30 minutes.");
         } else {
             UtilMessage.message(player, ChatColor.GREEN.toString() + ChatColor.BOLD + "Top 10 Ratings ");
-            List<Rating> temp = new ArrayList<>(ratings);
+            List<Rating> temp = new ArrayList<>(ratings).stream().filter(r -> r.rating != 1500).collect(Collectors.toList());
             temp.sort((o1, o2) -> o2.rating - o1.rating);
+
             for (int i = 0; i < Math.min(10, temp.size()); i++) {
                 Rating rating = temp.get(i);
                 UtilMessage.message(player, ChatColor.YELLOW + rating.name + " (" + rating.role + ") - " + ChatColor.WHITE + rating.rating);
