@@ -89,34 +89,33 @@ public class Weapon implements Listener {
         this.lore = lore;
     }
 
-    public boolean isLegendary() {
-        return legendary;
-    }
-
-    public void setLegendary(boolean legendary) {
-        this.legendary = legendary;
-    }
-
     public ItemStack createWeaponNoGlow() {
-        @SuppressWarnings("deprecation")
-        ItemStack item = new ItemStack(getMaterial(), 1, (short) 0, getData());
+
+
+                System.out.println(getMaterial().name());
+        ItemStack item = new ItemStack(getMaterial(), 1);
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
-    @SuppressWarnings("deprecation")
     public ItemStack createWeapon() {
-        ItemStack item = null;
-        if (this instanceof GlacialAxe || this instanceof HyperAxe) {
-            item = new ItemStack(getMaterial(), 1, (short) 0, getData());
-        } else {
-            item = UtilItem.addGlow(new ItemStack(getMaterial(), 1, (short) 0, getData()));
+        ItemStack item;
+        if (this instanceof ILegendary) {
+            ILegendary iLegendary = (ILegendary) this;
+            if(iLegendary.isTextured()){
+                item = new ItemStack(getMaterial(), 1);
+            }else{
+                item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
+            }
+        }else{
+            item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
         }
+
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
 
     protected boolean isThisWeapon(Player p) {
-        return WeaponManager.isWeapon(p.getItemInHand()) && WeaponManager.getWeapon(p.getItemInHand()).equals(this);
+        return WeaponManager.isWeapon(p.getInventory().getItemInMainHand()) && WeaponManager.getWeapon(p.getInventory().getItemInMainHand()).equals(this);
     }
 
 }

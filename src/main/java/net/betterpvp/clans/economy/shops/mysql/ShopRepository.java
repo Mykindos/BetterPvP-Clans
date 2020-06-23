@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.economy.shops.menu.buttons.DynamicShopItem;
 import net.betterpvp.core.database.*;
+import org.bukkit.Material;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -12,35 +13,35 @@ import java.sql.SQLException;
 
 public class ShopRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_shops";
-    
-    private static final String CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-            "  `Store` varchar(255)," +
-            "  `ItemID` int(5)," +
-            "  `Data` int(5)," +
-            "  `Slot` int(5)," +
-            "  `Amount` int(5)," +
-            "  `BuyPrice` int(255)," +
-            "  `SellPrice` int(255)," +
-            "  `ItemName` varchar(255)," +
-            "  `Legendary` tinyint(1)," +
-            "  `Glow` tinyint(1)," +
-            "  `Dynamic` tinyint(1)," +
-            "  `Quest` tinyint(1)," +
-            "  `MinSellPrice` int(255)," +
-            "  `BaseSellPrice` int(255)," +
-            "  `MaxSellPrice` int(255)," +
-            "  `MinBuyPrice` int(255)," +
-            "  `BaseBuyPrice` int(255)," +
-            "  `MaxBuyPrice` int(255)," +
-            "  `BaseStock` int(255)," +
-            "  `MaxStock` int(255)," +
-            "  `CurrentStock` int(255)" +
-            ")";
+    private static String TABLE_NAME;
+    private static String CREATE_SHOP_TABLE;
 
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_shops";
+        CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `Store` varchar(255)," +
+                "  `Material` VARCHAR(255)," +
+                "  `Slot` int(5)," +
+                "  `Amount` int(5)," +
+                "  `BuyPrice` int(255)," +
+                "  `SellPrice` int(255)," +
+                "  `ItemName` varchar(255)," +
+                "  `Legendary` tinyint(1)," +
+                "  `Glow` tinyint(1)," +
+                "  `Dynamic` tinyint(1)," +
+                "  `Quest` tinyint(1)," +
+                "  `MinSellPrice` int(255)," +
+                "  `BaseSellPrice` int(255)," +
+                "  `MaxSellPrice` int(255)," +
+                "  `MinBuyPrice` int(255)," +
+                "  `BaseBuyPrice` int(255)," +
+                "  `MaxBuyPrice` int(255)," +
+                "  `BaseStock` int(255)," +
+                "  `MaxStock` int(255)," +
+                "  `CurrentStock` int(255)" +
+                ")";
         QueryFactory.runQuery(CREATE_SHOP_TABLE);
     }
 
@@ -63,7 +64,10 @@ public class ShopRepository implements Repository<Clans> {
 
                     while (result.next()) {
                         String store = result.getString(1);
-                        int ID = result.getInt(2);
+                        Material mat = Material.getMaterial(result.getString(2));
+                        if(mat == null){
+                            System.out.println("Failed to load shop item " + result.getString(2));
+                        }
                         byte data = (byte) result.getInt(3);
                         int slot = result.getInt(4);
                         int amount = result.getInt(5);
@@ -83,7 +87,7 @@ public class ShopRepository implements Repository<Clans> {
                         int baseStock = result.getInt(19);
                         int maxStock = result.getInt(20);
                         int currentStock = result.getInt(21);
-                        ShopManager.addItem(store, itemName, ID, slot, data, amount, buyPrice, sellPrice, legendary,
+                        ShopManager.addItem(store, itemName, mat, slot, data, amount, buyPrice, sellPrice, legendary,
                                 glow, dynamic, quest, minSell, baseSell, maxSell, minBuy, baseBuy, maxBuy, baseStock, maxStock, currentStock);
                         count++;
                     }

@@ -9,6 +9,7 @@ import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
+import net.betterpvp.clans.utilities.UtilRating;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
@@ -79,7 +80,7 @@ public class CombatManager extends BPVPListener<Clans> {
                 if (ent instanceof Player) {
                     Player dam = (Player) ent;
                     Gamer damGamer = GamerManager.getOnlineGamer(dam);
-                    if (ent != p) {
+                    if (!ent.equals(p)) {
 
                         Bukkit.getPluginManager().callEvent(new CustomDeathEvent(p, dam));
 
@@ -116,7 +117,7 @@ public class CombatManager extends BPVPListener<Clans> {
 
                         Gamer onlineGamer = GamerManager.getOnlineGamer(online);
 
-                        if (!onlineGamer.getClient().getSettingAsBoolean("Killfeed")
+                        if (!onlineGamer.getClient().getSettingAsBoolean("General.Killfeed")
                                 && !online.getName().equals(dam.getName()) && !online.getName().equals(p.getName())
                                 && !ClanUtilities.isClanMember(dam, online) && !ClanUtilities.isClanMember(p, online)) {
                             continue;
@@ -127,11 +128,10 @@ public class CombatManager extends BPVPListener<Clans> {
                         String killerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(dam)).getPrimary().toString();
 
                         if (killDetails.getCause().equals("")) {
-                            UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
-                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getItemInHand()))));
+                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getInventory().getItemInMainHand()))));
                         } else {
-
-                            UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
                                     + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(killDetails.getCause())) + length);
                         }
 
@@ -141,7 +141,13 @@ public class CombatManager extends BPVPListener<Clans> {
                     g.setLastDamaged(0);
 
 
-                    if (Role.getRole(p) != null) {
+                    Role killedRole = Role.getRole(p);
+                    Role killerRole = Role.getRole(dam);
+                    if (killedRole != null) {
+                        if(killerRole != null){
+                            UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
+                        }
+
 
                         g.addDeath();
                         damGamer.addKill();
@@ -304,7 +310,7 @@ public class CombatManager extends BPVPListener<Clans> {
 
     private String getWeaponName(ItemStack d) {
         if (d.hasItemMeta()) {
-            if (d.getItemMeta().getDisplayName() != null) {
+            if (d.getItemMeta().getDisplayName() != null && !d.getItemMeta().getDisplayName().equals("")) {
                 return d.getItemMeta().getDisplayName();
             }
         }

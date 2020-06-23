@@ -4,13 +4,15 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData;
 import net.betterpvp.clans.skills.selector.skills.data.PestilenceData.PestilenceDamageData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.UtilTime;
@@ -27,7 +29,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.UUID;
 
-public class Pestilence extends Skill {
+public class Pestilence extends Skill implements InteractSkill {
 
     private List<PestilenceData> data;
     private List<UUID> active;
@@ -36,6 +38,12 @@ public class Pestilence extends Skill {
         super(i, "Pestilence", "Paladin", getSwords, rightClick, 3, true, true);
         data = new ArrayList<>();
         active = new ArrayList<>();
+    }
+
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
+        active.add(p.getUniqueId());
     }
 
     private class TempData {
@@ -102,7 +110,7 @@ public class Pestilence extends Skill {
 
     public PestilenceData getPestilence(Player p) {
         for (PestilenceData d : data) {
-            if (d.getDamager() == p.getUniqueId()) {
+            if (d.getDamager().equals(p.getUniqueId())) {
                 return d;
             }
         }
@@ -172,7 +180,7 @@ public class Pestilence extends Skill {
                                 @Override
                                 public void run() {
 
-                                    ParticleEffect.VILLAGER_HAPPY.display(0.1F, 0, 0.1F, (float) 0, 1, p.getLocation().add(x, 1, z), 30);
+                                    ParticleEffect.VILLAGER_HAPPY.display(p.getLocation().add(x, 1, z));
                                 }
 
 
@@ -226,8 +234,7 @@ public class Pestilence extends Skill {
                 "nearby enemies. While enemies are infectetd,",
                 "they deal 20% reduced damage",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -246,14 +253,7 @@ public class Pestilence extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 25 - ((level - 1) * 5);
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
-        active.add(p.getUniqueId());
-
+        return 0;
     }
 
     @Override

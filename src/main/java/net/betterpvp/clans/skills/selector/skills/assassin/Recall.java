@@ -9,13 +9,16 @@ import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.clans.skills.selector.skills.data.RecallData;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -29,7 +32,7 @@ import org.bukkit.inventory.InventoryView;
 import java.util.Arrays;
 import java.util.WeakHashMap;
 
-public class Recall extends Skill {
+public class Recall extends Skill implements ToggleSkill {
 
     public WeakHashMap<Player, RecallData> data = new WeakHashMap<>();
 
@@ -44,52 +47,6 @@ public class Recall extends Skill {
     @EventHandler
     public void onRoleChange(RoleChangeEvent e) {
         data.remove(e.getPlayer());
-    }
-
-
-    @EventHandler
-    public void onRecall(PlayerDropItemEvent event) {
-        Player player = event.getPlayer();
-        InventoryView iv = player.getOpenInventory();
-
-
-        if (iv.getType() != InventoryType.CRAFTING) {
-            return;
-        }
-
-        if (WeaponManager.getWeapon(event.getItemDrop().getItemStack()) != null) {
-            return;
-        }
-
-
-        if (!hasSkill(player, this)) {
-            return;
-        }
-
-
-        if (Arrays.asList(getMaterials()).contains(event.getItemDrop().getItemStack().getType())) {
-            event.setCancelled(true);
-            if (usageCheck(player)) {
-                if (data.containsKey(player)) {
-                    if (data.get(player).getLocation() != null) {
-                        if (player.getWorld() == data.get(player).getLocation().getWorld()) {
-                            if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
-                                RecallData d = data.get(player);
-                                player.getWorld().playSound(player.getLocation(), Sound.ZOMBIE_UNFECT, 2.0F, 2.0F);
-                                player.teleport(d.getLocation());
-                                player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + (d.getHealth() / 4)));
-
-                                player.getWorld().playEffect(data.get(player).getLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK);
-                                UtilMessage.message(player, getName(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
-
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
     }
 
 
@@ -119,14 +76,9 @@ public class Recall extends Skill {
 
 
     @Override
-    public void activateSkill(Player player) {
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
 
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while in liquid!");
             return false;
         }
@@ -162,8 +114,8 @@ public class Recall extends Skill {
                 "Increases health by 1/4 of the health you had",
                 "3 seconds ago",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @EventHandler
@@ -190,7 +142,40 @@ public class Recall extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) 80 - ((level - 1) * 5);
+        return 0;
     }
 
+    @Override
+    public void activateToggle(Player player, Gamer gamer) {
+        InventoryView iv = player.getOpenInventory();
+
+
+        if (iv.getType() != InventoryType.CRAFTING) {
+            return;
+        }
+
+        if (!hasSkill(player, this)) {
+            return;
+        }
+
+
+        if (data.containsKey(player)) {
+            if (data.get(player).getLocation() != null) {
+                if (player.getWorld() == data.get(player).getLocation().getWorld()) {
+                    if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
+                        RecallData d = data.get(player);
+                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 2.0F, 2.0F);
+                        player.teleport(d.getLocation());
+                        player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + (d.getHealth() / 4)));
+
+                        player.getWorld().playEffect(data.get(player).getLocation(), Effect.STEP_SOUND, Material.EMERALD_BLOCK);
+                        UtilMessage.message(player, getName(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
+
+                    }
+                }
+            }
+
+
+        }
+    }
 }

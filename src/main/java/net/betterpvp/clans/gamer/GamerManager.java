@@ -1,9 +1,13 @@
 package net.betterpvp.clans.gamer;
 
+import net.betterpvp.core.client.Client;
+import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -117,5 +121,38 @@ public class GamerManager {
         return getGamer(uuid) != null;
 
 
+    }
+
+    public static Gamer searchGamer(Player caller, String client, boolean inform) {
+        LinkedList<Gamer> matchList = new LinkedList<>();
+        for (Gamer cur : gamers) {
+            if (cur.getClient().getName().equalsIgnoreCase(client)) {
+                return cur;
+            }
+            if (cur.getClient().getName().toLowerCase().contains(client.toLowerCase())) {
+                matchList.add(cur);
+            }
+        }
+        if (matchList.size() != 1) {
+            if (!inform) {
+                return null;
+            }
+
+            UtilMessage.message(caller, "Client Search", ChatColor.YELLOW.toString() + matchList.size() + ChatColor.GRAY
+                    + " matches for [" + ChatColor.YELLOW + client + ChatColor.GRAY + "].");
+
+            if (matchList.size() > 0) {
+                String matchString = "";
+                for (Gamer cur : matchList) {
+                    matchString = matchString + ChatColor.YELLOW + cur.getClient().getName() + ChatColor.GRAY + ", ";
+                }
+                if (matchString.length() > 1) {
+                    matchString = matchString.substring(0, matchString.length() - 2);
+                }
+                UtilMessage.message(caller, "Client Search", ChatColor.GRAY + "Matches [" + ChatColor.YELLOW + matchString + ChatColor.GRAY + "].");
+            }
+            return null;
+        }
+        return matchList.get(0);
     }
 }

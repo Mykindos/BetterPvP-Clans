@@ -4,6 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.classes.commands.KitCommand;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.economy.shops.menu.PortableShopMenu;
 import net.betterpvp.clans.economy.shops.menu.ShopMenu;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
@@ -26,12 +29,11 @@ import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,7 +56,8 @@ public class ShopManager extends BPVPListener<Clans> {
         super(i);
 
 
-        addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub", "Boss Teleport");
+        addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock");
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, -5.5, 45.5, -39.5),
@@ -81,6 +84,13 @@ public class ShopManager extends BPVPListener<Clans> {
         shops.add(new Shop(name));
     }
 
+
+    @EventHandler
+    public void preventShopkeeperDamage(CustomDamageEvent e) {
+        if (ShopManager.isShop(e.getDamagee())) {
+            e.setCancelled("Shop keeper damage");
+        }
+    }
 
     @EventHandler
     public void refreshStocks(UpdateEvent e) {
@@ -118,6 +128,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
     public static void spawnShop(Clans i, final Location loc, final String str) {
 
+        loc.getChunk().setForceLoaded(true);
         new BukkitRunnable() {
 
             @Override
@@ -183,7 +194,60 @@ public class ShopManager extends BPVPListener<Clans> {
                         Zombie boss = sv.spawn(loc);
 
                         createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
-
+                        break;
+                    case "assassin":
+                        ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton assassinSkeleton = assassin.spawn(loc);
+                        assassinSkeleton.getEquipment().setHelmet(new ItemStack(Material.LEATHER_HELMET));
+                        assassinSkeleton.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+                        assassinSkeleton.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+                        assassinSkeleton.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Assassin", assassinSkeleton);
+                        break;
+                    case "knight":
+                        ShopSkeleton knight = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton knightSkeleton = knight.spawn(loc);
+                        knightSkeleton.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
+                        knightSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                        knightSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        knightSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
+                        break;
+                    case "warlock":
+                        ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton WarlockSkeleton = Warlock.spawn(loc);
+                        WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.TURTLE_HELMET));
+                        WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                        WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Warlock", WarlockSkeleton);
+                        break;
+                    case "paladin":
+                        ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton paladinSkeleton = paladin.spawn(loc);
+                        paladinSkeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+                        paladinSkeleton.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+                        paladinSkeleton.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+                        paladinSkeleton.getEquipment().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Paladin", paladinSkeleton);
+                        break;
+                    case "ranger":
+                        ShopSkeleton ranger = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton rangerSkeleton = ranger.spawn(loc);
+                        rangerSkeleton.getEquipment().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
+                        rangerSkeleton.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+                        rangerSkeleton.getEquipment().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+                        rangerSkeleton.getEquipment().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Ranger", rangerSkeleton);
+                        break;
+                    case "gladiator":
+                        ShopSkeleton gladiator = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                        Skeleton gladiatorSkeleton = gladiator.spawn(loc);
+                        gladiatorSkeleton.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+                        gladiatorSkeleton.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+                        gladiatorSkeleton.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+                        gladiatorSkeleton.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Gladiator", gladiatorSkeleton);
                         break;
 
                 }
@@ -225,16 +289,18 @@ public class ShopManager extends BPVPListener<Clans> {
         }
     }
 
-    public static void addItem(String store, String itemName, int ID, int slot, byte data, int amount, int buyPrice, int sellPrice, boolean legendary, boolean glow, boolean dynamic,
+    public static void addItem(String store, String itemName, Material mat, int slot, byte data, int amount, int buyPrice, int sellPrice, boolean legendary, boolean glow, boolean dynamic,
                                boolean quest, int minSell, int baseSell, int maxSell, int minBuy, int baseBuy, int maxBuy, int baseStock, int maxStock, int currentStock) {
+
         if (legendary) {
-            shopItems.add(new LegendaryShopItem(store, ID, data, slot, amount, buyPrice, itemName, glow));
+
+            shopItems.add(new LegendaryShopItem(store, mat, data, slot, amount, buyPrice, itemName, glow));
         } else if (quest) {
-            shopItems.add(new QuestShopItem(store, ID, data, slot, amount, itemName, buyPrice));
+            shopItems.add(new QuestShopItem(store, mat, data, slot, amount, itemName, buyPrice));
         } else if (dynamic) {
-            shopItems.add(new DynamicShopItem(store, ID, data, slot, amount, itemName, minBuy, baseBuy, maxBuy, minSell, baseSell, maxSell, baseStock, maxStock, currentStock));
+            shopItems.add(new DynamicShopItem(store, mat, data, slot, amount, itemName, minBuy, baseBuy, maxBuy, minSell, baseSell, maxSell, baseStock, maxStock, currentStock));
         } else {
-            shopItems.add(new NormalShopItem(store, ID, data, slot, amount, itemName, buyPrice, sellPrice));
+            shopItems.add(new NormalShopItem(store, mat, data, slot, amount, itemName, buyPrice, sellPrice));
         }
 
     }
@@ -285,7 +351,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             if (gamer != null) {
                                 if (UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
                                     if (!WEManager.isWorldEventActive()) {
-                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld")) {
                                             e.getPlayer().teleport(returnLocs[UtilMath.randomInt(returnLocs.length)]);
                                             UtilMessage.message(e.getPlayer(), "World Event", "You teleported back to Fields.");
                                         } else {
@@ -316,7 +382,7 @@ public class ShopManager extends BPVPListener<Clans> {
                                         }
 
                                     } else {
-                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                                        if (e.getPlayer().getWorld().getName().equalsIgnoreCase("bossworld")) {
                                             e.getPlayer().teleport(returnLocs[UtilMath.randomInt(returnLocs.length)]);
                                             UtilMessage.message(e.getPlayer(), "World Event", "You teleported back to Fields.");
                                         }
@@ -326,6 +392,13 @@ public class ShopManager extends BPVPListener<Clans> {
                                 }
                             }
                         } else {
+                            Role role = Role.getRole(s.getName());
+                            if(role != null){
+                                e.getPlayer().getEquipment().clear();
+                                e.getPlayer().getInventory().clear();
+                                KitCommand.giveKit(e.getPlayer(), role);
+                                return;
+                            }
                             e.getPlayer().openInventory(new ShopMenu(ChatColor.stripColor(ent.getCustomName()), e.getPlayer()).getInventory());
                         }
                     }

@@ -64,11 +64,6 @@ public class Swordsmanship extends Skill {
         return 0;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -85,7 +80,7 @@ public class Swordsmanship extends Skill {
             if (hasSkill(p, this)) {
                 if (charges.containsKey(p)) {
 
-                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         e.setDamage(e.getDamage() + (charges.get(p) * 0.5));
                         charges.remove(p);
                     }

@@ -10,6 +10,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMath;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -38,14 +39,14 @@ public class Backstab extends Skill {
             if (role != null && role.getName().equals(getClassType())) {
                 if (hasSkill(dam, this)) {
 
-                    if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(dam.getPlayer().getInventory().getItemInMainHand().getType())) {
 
                         if (UtilMath.getAngle(dam.getLocation().getDirection(), e.getDamagee().getLocation().getDirection()) < 60) {
 
                             LogManager.addLog(e.getDamagee(), dam, "Backstab");
                             int level = getLevel(dam);
                             e.setDamage(e.getDamage() * (1.2 + (level * 0.1)));
-                            dam.getWorld().playEffect(e.getDamagee().getLocation().add(0, 1, 0), Effect.STEP_SOUND, 152);
+                            dam.getWorld().playEffect(e.getDamagee().getLocation().add(0, 1, 0), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
 
                             if (e.getDamagee() instanceof Player) {
                                 Player player = (Player) e.getDamagee();
@@ -64,11 +65,6 @@ public class Backstab extends Skill {
         }
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

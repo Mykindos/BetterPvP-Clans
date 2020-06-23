@@ -1,12 +1,13 @@
 package net.betterpvp.clans.economy.shops.menu.buttons;
 
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
+import org.bukkit.Material;
 
 public class QuestShopItem extends ShopItem {
 
-    public QuestShopItem(String store, int itemID, byte data, int slot,
+    public QuestShopItem(String store, Material mat, byte data, int slot,
                          int amount, String itemName, int buyPrice) {
-        super(store, itemID, data, slot, amount, itemName, QuestPerkManager.getPerk(itemName).getDescription(buyPrice));
+        super(store, mat, data, slot, amount, itemName, QuestPerkManager.getPerk(itemName).getDescription(buyPrice));
         this.buyPrice = buyPrice;
     }
 

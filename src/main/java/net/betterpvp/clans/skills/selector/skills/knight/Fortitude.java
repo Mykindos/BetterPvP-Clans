@@ -47,11 +47,6 @@ public class Fortitude extends Skill {
         return Types.PASSIVE_B;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -64,7 +59,8 @@ public class Fortitude extends Skill {
         if (e.getDamagee() instanceof Player) {
             if (e.getDamager() instanceof LivingEntity) {
                 Player p = (Player) e.getDamagee();
-                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                Role role = Role.getRole(p);
+                if (role != null && role.getName().equals(getClassType())) {
                     if (hasSkill(p, this)) {
 
                         health.put(p, Math.min((2 + getLevel(p)), (int) e.getDamage() / 2));

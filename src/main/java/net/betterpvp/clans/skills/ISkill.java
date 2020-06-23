@@ -5,14 +5,14 @@ import org.bukkit.event.block.Action;
 
 public interface ISkill {
 
-     Material[] getSwords = {Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD};
+     Material[] getSwords = {Material.IRON_SWORD, Material.GOLDEN_SWORD, Material.DIAMOND_SWORD};
 
-     Material[] getBow = {Material.BOW};
+     Material[] getBow = {Material.BOW, Material.CROSSBOW};
 
-     Material[] getAxes = {Material.IRON_AXE, Material.GOLD_AXE, Material.DIAMOND_AXE};
+     Material[] getAxes = {Material.IRON_AXE, Material.GOLDEN_AXE, Material.DIAMOND_AXE};
 
-     Material[] getSwordsAndAxes = {Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD,
-            Material.IRON_AXE, Material.GOLD_AXE, Material.DIAMOND_AXE};
+     Material[] getSwordsAndAxes = {Material.IRON_SWORD, Material.GOLDEN_SWORD, Material.DIAMOND_SWORD,
+            Material.IRON_AXE, Material.GOLDEN_AXE, Material.DIAMOND_AXE};
 
      Material[] noMaterials = {};
 

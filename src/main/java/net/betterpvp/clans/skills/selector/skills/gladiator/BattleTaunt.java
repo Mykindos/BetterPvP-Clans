@@ -5,17 +5,19 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.economy.shops.ShopManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
-import net.betterpvp.core.utility.UtilMath;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilPlayer;
-import net.betterpvp.core.utility.UtilVelocity;
+import net.betterpvp.core.utility.*;
 import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -23,9 +25,9 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleTaunt extends Skill {
+public class BattleTaunt extends ChannelSkill implements InteractSkill {
 
-    private List<String> active = new ArrayList<String>();
+    private List<String> active = new ArrayList<>();
 
     public BattleTaunt(Clans i) {
         super(i, "Battle Taunt", "Gladiator", getSwords, rightClick, 5, false, true);
@@ -50,18 +52,20 @@ public class BattleTaunt extends Skill {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (active.contains(p.getName())) {
 
-                    if (p.isBlocking()) {
+                    if (p.isHandRaised()) {
                         if (!Energy.use(p, getName(), getEnergy(getLevel(p)) / 2, true)) {
                             active.remove(p.getName());
                         } else if (!hasSkill(p, this)) {
                             active.remove(p.getName());
                         } else if (!hasSwordInMainHand(p)) {
                             active.remove(p.getName());
+                        }else if(UtilBlock.isInLiquid(p)){
+                            active.remove(p.getName());
                         } else {
+//
+                           p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
 
-                            p.getWorld().playEffect(p.getLocation(), Effect.STEP_SOUND, Material.DIAMOND_BLOCK);
-
-
+                         //   p.launchProjectile(Trident.class);
                             for (int i = 0; i <= (2 + getLevel(p)); i++) {
                                 pull(p, p.getEyeLocation().add(p.getLocation().getDirection().multiply(i)));
                             }
@@ -86,20 +90,12 @@ public class BattleTaunt extends Skill {
                     }
                 }
             } else {
+                if(ShopManager.isShop(other)) continue;
                 UtilVelocity.velocity(other, UtilVelocity.getTrajectory(other, p), 0.3D, false, 0.0D, 0.0D, 1.0D, true);
             }
         }
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            if (!active.contains(p.getName())) {
-                active.add(p.getName());
-            }
-        }
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {
@@ -113,6 +109,11 @@ public class BattleTaunt extends Skill {
                     return false;
                 }
             }
+        }
+
+        if(UtilBlock.isInLiquid(p)){
+            UtilMessage.message(p, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
         }
         return true;
     }
@@ -136,4 +137,12 @@ public class BattleTaunt extends Skill {
         return 15 - ((level - 1));
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (hasSkill(p, this)) {
+            if (!active.contains(p.getName())) {
+                active.add(p.getName());
+            }
+        }
+    }
 }

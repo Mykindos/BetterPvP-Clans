@@ -46,7 +46,7 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
         if (RechargeManager.getInstance().add(player, "Clan-Home-Command", 30, true)) {
 
 
-            if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+            if (player.getWorld().getName().equalsIgnoreCase("bossworld")) {
                 UtilMessage.message(player, "Clans", "You cant teleport home from here");
                 return;
             }

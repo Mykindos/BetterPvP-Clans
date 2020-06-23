@@ -36,14 +36,15 @@ public class Kill3Paladins extends General{
 			if(cl != null){
 				if(Role.getRole(e.getEntity()) != null && Role.getRole(e.getEntity()).getName().equals("Paladin")){
 					Progress p = getQuestProgression(cl.getDamager().getUniqueId(), getName());
+					if(p != null) {
+						if (!p.isComplete()) {
+							if (p instanceof GeneralProgression) {
+								GeneralProgression gp = (GeneralProgression) p;
+								gp.addCurrentAmount();
 
-					if(!p.isComplete()){
-						if(p instanceof GeneralProgression){
-							GeneralProgression gp = (GeneralProgression) p;
-							gp.addCurrentAmount();
-
-							if(gp.getCurrentAmount() >= gp.getRequiredAmount()){
-								gp.onComplete(cl.getDamager().getUniqueId());
+								if (gp.getCurrentAmount() >= gp.getRequiredAmount()) {
+									gp.onComplete(cl.getDamager().getUniqueId());
+								}
 							}
 						}
 					}

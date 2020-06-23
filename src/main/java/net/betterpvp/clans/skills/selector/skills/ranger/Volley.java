@@ -4,8 +4,10 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
@@ -22,7 +24,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class Volley extends Skill {
+public class Volley extends Skill implements InteractSkill {
 
     private Set<UUID> volleys = new HashSet<UUID>();
     private Clans i;
@@ -42,11 +44,7 @@ public class Volley extends Skill {
                 "Your next shot is instant, and shoots",
                 "a volley of arrows in the direction you are facing",
                 "",
-                "Upon hitting a target, the arrow will deal 5 hearts",
-                "of damage to a naked player",
-                "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -89,7 +87,8 @@ public class Volley extends Skill {
 
 
                         Vector v;
-                        for(int i = -10; i < 10; i+=2){
+
+                        for (int i = 0; i < 10; i += 2) {
                             Arrow n = p.launchProjectile(Arrow.class);
                             n.setShooter(p);
                             c.setYaw(c.getYaw() + i);
@@ -97,9 +96,17 @@ public class Volley extends Skill {
                             n.setVelocity(v.multiply(2));
                             arrows.add(n);
                         }
+                        c = p.getLocation();
+                        for (int i = 0; i < 10; i += 2) {
+                            Arrow n = p.launchProjectile(Arrow.class);
+                            n.setShooter(p);
+                            c.setYaw(c.getYaw() - i);
+                            v = c.getDirection();
+                            n.setVelocity(v.multiply(2));
+                            arrows.add(n);
+                        }
 
-
-                        p.getWorld().playSound(p.getLocation(), Sound.PISTON_EXTEND, 3F, 1F);
+                        p.getWorld().playSound(p.getLocation(), Sound.BLOCK_PISTON_EXTEND, 3F, 1F);
                         volleys.remove(p.getUniqueId());
                     }
                 }
@@ -124,17 +131,10 @@ public class Volley extends Skill {
 
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        volleys.remove(player.getUniqueId());
-        volleys.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You prepared " + getName());
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -150,7 +150,14 @@ public class Volley extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 3);
+        return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        volleys.remove(player.getUniqueId());
+        volleys.add(player.getUniqueId());
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+        UtilMessage.message(player, getClassType(), "You prepared " + getName());
+    }
 }

@@ -8,7 +8,9 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
@@ -26,7 +28,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
-public class LightningOrb extends Skill {
+public class LightningOrb extends Skill implements InteractSkill {
 
     public LightningOrb(Clans i) {
         super(i, "Lightning Orb", "Paladin", getAxes, rightClick, 5, true, true);
@@ -41,8 +43,7 @@ public class LightningOrb extends Skill {
                 "will strike all enemies within " + ChatColor.GREEN + (3 + (level * 0.5)) + ChatColor.GRAY + " blocks",
                 "with lightning, giving them Slowness II for 4 seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -61,19 +62,8 @@ public class LightningOrb extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - (level * 2);
+        return 0;
     }
-
-    @Override
-    public void activateSkill(Player p) {
-        Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
-        orb.setVelocity(p.getLocation().getDirection());
-        ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
-
-    }
-
-    //private WeakHashMap<Player, Long> lightningCooldown = new WeakHashMap<>();
-
 
     @EventHandler
     public void onCollide(ThrowableCollideEntityEvent e) {
@@ -115,7 +105,7 @@ public class LightningOrb extends Skill {
                     Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false));
 
 
-                    ent.getWorld().playSound(ent.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
+                    ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);
                     count++;
                 }
 
@@ -149,4 +139,10 @@ public class LightningOrb extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        Item orb = p.getWorld().dropItem(p.getEyeLocation().add(p.getLocation().getDirection()), new ItemStack(Material.DIAMOND_BLOCK));
+        orb.setVelocity(p.getLocation().getDirection());
+        ThrowableManager.addThrowable(orb, p, "Lightning Orb", 5000);
+    }
 }

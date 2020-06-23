@@ -1,22 +1,22 @@
 package net.betterpvp.clans;
 
 
+import net.betterpvp.clans.anticheat.AnticheatManager;
 import net.betterpvp.clans.clans.commands.ClanCommand;
+import net.betterpvp.clans.clans.commands.ClanReloadCommand;
 import net.betterpvp.clans.clans.listeners.*;
-import net.betterpvp.clans.clans.map.MinimapRenderer;
-import net.betterpvp.clans.clans.map.NMS.INMSHandler;
-import net.betterpvp.clans.clans.map.NMS.NMSHandler;
-import net.betterpvp.clans.clans.map.OneHandedRenderer;
-import net.betterpvp.clans.clans.mysql.TestRepository;
+
 import net.betterpvp.clans.classes.DamageManager;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.classes.menu.KitListener;
 import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.combat.combatlog.CombatLogManager;
+import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
+import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.dailies.QuestManager;
-import net.betterpvp.clans.dailies.perks.QuestPerk;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
@@ -34,60 +34,56 @@ import net.betterpvp.clans.fun.BounceListener;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.gamer.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.FindCommand;
+import net.betterpvp.clans.general.commands.HubCommand;
+import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
-import net.betterpvp.clans.recipes.CustomRecipe;
+import net.betterpvp.clans.recipes.*;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
 import net.betterpvp.clans.skills.selector.SelectorManager;
-import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.skills.selector.SkillListener;
+import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
-import net.betterpvp.core.database.QueryFactory;
+import net.betterpvp.core.database.Connect;
 import net.betterpvp.core.database.Repository;
 import net.betterpvp.core.framework.CoreLoadedEvent;
-import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.map.MapRenderer;
-import org.bukkit.map.MapView;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
 
+import java.util.List;
+import java.util.Map;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.*;
 
 public class Clans extends JavaPlugin implements Listener {
 
     private static Options options = null;
+    private List<Repository> repositoryList;
     private ConfigManager config;
-    private INMSHandler nms = new NMSHandler();
     private boolean hasStarted;
 
     @Override
@@ -97,11 +93,37 @@ public class Clans extends JavaPlugin implements Listener {
         options = new Options(this);
         Bukkit.getPluginManager().registerEvents(this, this);
 
+    }
+
+    @Override
+    public void onDisable() {
+        getServer().getScheduler().cancelTasks(this);
 
 
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.getOpenInventory().close();
+            Gamer c = GamerManager.getOnlineGamer(p);
+            GamerRepository.updateGamer(c);
+            c.updateAllStats();
+        }
+
+        Connect.disableSQL();
+
+        for(org.bukkit.World w : Bukkit.getWorlds()){
+            for(LivingEntity e : w.getLivingEntities()){
+                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+                e.setHealth(0);
+                e.remove();
+            }
+        }
+
+        net.betterpvp.clans.combat.combatlog.npc.NPC.removeAllNPCs();
     }
 
     private void load() {
+
+
+        new RoleManager(this);
 
         UtilShop.registerEntity("Zombie",  54, EntityZombie.class, ShopZombie.class);
         UtilShop.registerEntity("Spider",  52, EntitySpider.class, BossSpider.class);
@@ -111,16 +133,19 @@ public class Clans extends JavaPlugin implements Listener {
         UtilShop.registerEntity("Wither",  64, EntityWither.class, BossWither.class);
         UtilShop.registerEntity("Skeleton",  51, EntitySkeleton.class, BossSkeleton.class);
         UtilShop.registerEntity("Villager",  120, EntityVillager.class, ShopVillager.class);
+        UtilShop.registerEntity("ArmorStand",  30, EntityArmorStand.class, CustomArmorStand.class);
 
-        ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
+        repositoryList = ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
-        ReflectionsUtil.loadRecipes("net.betterpvp.clans");
+        ReflectionsUtil.registerDonations("net.betterpvp.clans", this);
 
+        loadRecipes();
         startTimers();
 
+        new SkillListener(this);
         new SelectorManager(this);
         new DamageManager(this);
-        new RoleManager(this);
+
         new CombatManager(this);
         new WeaponManager(this);
         new WEManager(this);
@@ -131,7 +156,7 @@ public class Clans extends JavaPlugin implements Listener {
         new ChatListener(this);
         new ClanEventListener(this);
         new ClanMenuListener(this);
-       // new ClanScoreboardListener(this);
+        // new ClanScoreboardListener(this);
         new DamageListener(this);
         new EnergyListener(this);
         new ExplosionListener(this);
@@ -155,21 +180,35 @@ public class Clans extends JavaPlugin implements Listener {
         new FarmingListener(this);
         new KOTHManager(this);
         new ClanScoreboardListener(this);
+        new CombatLogManager(this);
+        new NPCManager(this);
+        new SafeLogManager(this);
+        new AnticheatManager(this);
+
 
         CommandManager.addCommand(new ShopCommand(this));
-        CommandManager.addCommand(new FindCommand(this));
-
+        //CommandManager.addCommand(new FindCommand(this));
+        CommandManager.addCommand(new HubCommand(this));
+        CommandManager.addCommand(new ClanReloadCommand(this));
+        CommandManager.addCommand(new SearchChestsCommand(this));
         getCommand("clan").setExecutor(new ClanCommand(this));
 
-        loadMap();
 
         hasStarted = true;
 
     }
 
     @EventHandler
-    public void onLoad(CoreLoadedEvent e){
+    public void onLoad(CoreLoadedEvent event){
         System.out.println("Core loaded, beginning Clans load.");
+        for(org.bukkit.World w : Bukkit.getWorlds()){
+            for(LivingEntity e : w.getLivingEntities()){
+                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+                e.setHealth(0);
+                e.remove();
+            }
+        }
+
         load();
     }
 
@@ -198,48 +237,6 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
 
-
-
-    public void loadMap() {
-        try {
-            deleteFolder(new File("./world/data"));
-            File file = new File("./world/data/map_0.dat");
-            file.getParentFile().mkdirs();
-
-            file.createNewFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        MapView map = Bukkit.getMap((short) 0);
-        if (map == null) {
-            map = Bukkit.createMap(Bukkit.getWorld("world"));
-        }
-
-        if (!(map.getRenderers().get(0) instanceof MinimapRenderer)) {
-            for (final MapRenderer r : map.getRenderers()) {
-                map.removeRenderer(r);
-            }
-            final MinimapRenderer renderer = new OneHandedRenderer(3, 4, this);
-
-            map.addRenderer(renderer);
-        }
-    }
-
-    private void deleteFolder(File folder) {
-        File[] files = folder.listFiles();
-        if (files != null) { //some JVMs return null for empty dirs
-            for (File f : files) {
-                if (f.isDirectory()) {
-                    deleteFolder(f);
-                } else {
-                    f.delete();
-                }
-            }
-        }
-        folder.delete();
-    }
 
     private void startTimers(){
         new BukkitRunnable(){
@@ -285,12 +282,12 @@ public class Clans extends JavaPlugin implements Listener {
                             add += 1000;
                         }*/
 
-                        gamer.addCoins((getOptions().getOnlineReward() + add) / 2);
+                        gamer.addCoins((getOptions().getOnlineReward() + add));
 
                         gamer.addFragments(2);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
-                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add) /2)) + ChatColor.GRAY + " Coins.");
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " Coins.");
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
                     }
@@ -298,13 +295,28 @@ public class Clans extends JavaPlugin implements Listener {
 
             }
         }.runTaskTimer(this, 72000 /2, 72000 /2);
+
+        new BukkitRunnable(){
+            @Override
+            public void run(){
+                for(Gamer gamer : GamerManager.getOnlineGamers()){
+                    gamer.updateAllStats();
+
+                }
+            }
+        }.runTaskTimerAsynchronously(this, 36000, 36000);
+
+    }
+
+    private void loadRecipes(){
+        new RadiantSword(this);
+        new PowerSword(this);
+        new Chainmail(this);
+        new PowerAxe(this);
+        new FireAxe(this);
     }
 
 
-
-    public INMSHandler getNMSHandler() {
-        return this.nms;
-    }
 
     public static Options getOptions() {
         return options;
@@ -316,5 +328,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     public boolean hasStarted(){
         return hasStarted;
+    }
+
+    public List<Repository> getRepositoryList() {
+        return repositoryList;
     }
 }

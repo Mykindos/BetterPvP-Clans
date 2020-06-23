@@ -14,6 +14,9 @@ public class Options {
     private int minPlayersForWorldEvent;
     private String world;
     private boolean fng;
+    private int timeUntilTNTProtection;
+    private int bonusTimeUntilTNTProtection;
+    private int tntBonusMemberThreshold;
     private int maxClaims;
     private int autoClickThreshold;
     private boolean logUpdateErrors = true;
@@ -40,6 +43,11 @@ public class Options {
     private boolean bungee;
     private boolean isOpen;
     private boolean mapEnabled;
+    private String texturePackURL;
+    private String texturePackSHA;
+    private boolean texturePackForce;
+    private boolean hub;
+    private String tablePrefix;
     private Clans i;
 
     public Options(Clans i) {
@@ -55,11 +63,15 @@ public class Options {
     public void reloadOptions() {
 
         world = i.getConfigManager().get(Configs.MAIN).getString("World");
+        hub = i.getConfigManager().get(Configs.MAIN).getBool("Hub");
         maxClanMembers = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxMembers");
         maxClanAllies = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxAllies");
         smallClanMaxAllies = i.getConfigManager().get(Configs.MAIN).getInt("Clans.Small.MaxAllies");
         costPerEnergy = i.getConfigManager().get(Configs.MAIN).getInt("Clans.CostPerEnergy");
         isEnemySystemEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Clans.EnemySystemEnabled");
+        timeUntilTNTProtection = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.TimeUntilProtection");
+        bonusTimeUntilTNTProtection = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.BonusTime");
+        tntBonusMemberThreshold = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.MemberThreshold");
         pillageLength = i.getConfigManager().get(Configs.MAIN).getInt("PillageLength");
         farmMaxY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MaxY");
         farmMinY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MinY");
@@ -92,6 +104,10 @@ public class Options {
         bungee = i.getConfigManager().get(Configs.MAIN).getBool("Bungee");
         isOpen = i.getConfigManager().get(Configs.MAIN).getBool("Server.IsOpen");
         mapEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Map.Enabled");
+        texturePackURL = i.getConfigManager().get(Configs.MAIN).getString("TexturePack.URL");
+        texturePackSHA = i.getConfigManager().get(Configs.MAIN).getString("TexturePack.SHA");
+        texturePackForce = i.getConfigManager().get(Configs.MAIN).getBool("TexturePack.Forced");
+        tablePrefix = i.getConfigManager().get(Configs.MAIN).getString("Database.Prefix");
     }
 
     public int getMAHPort() {
@@ -260,13 +276,21 @@ public class Options {
         return warpingEnabled;
     }
 
+    public String getTablePrefix(){
+        return tablePrefix;
+    }
+
     public void checkDefaults() {
         i.getConfigManager().get(Configs.MAIN).check("World", "world");
+        i.getConfigManager().get(Configs.MAIN).check("Hub", false);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxMembers", 4);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxAllies", 1);
         i.getConfigManager().get(Configs.MAIN).check("Clans.Small.MaxAllies", 2);
         i.getConfigManager().get(Configs.MAIN).check("Clans.CostPerEnergy", 5.0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.EnemySystemEnabled", false);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.TimeUntilProtection", 10);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.BonusTime", 5);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.MemberThreshold", 4);
         i.getConfigManager().get(Configs.MAIN).check("PillageLength", 10);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MaxY", 60);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MinY", 44);
@@ -299,6 +323,38 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Bungee", true);
         i.getConfigManager().get(Configs.MAIN).check("Server.IsOpen", true);
         i.getConfigManager().get(Configs.MAIN).check("Map.Enabled", true);
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.URL", "https://mykindos.me/betterpvp.zip");
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.SHA", "ebd67f43392e2d6694bad73ed8a1534ce9ce25a3");
+        i.getConfigManager().get(Configs.MAIN).check("TexturePack.Forced", false);
+        i.getConfigManager().get(Configs.MAIN).check("Database.Prefix", "clans");
+
     }
 
+    public String getTexturePackURL() {
+        return texturePackURL;
+    }
+
+    public String getTexturePackSHA() {
+        return texturePackSHA;
+    }
+
+    public boolean isTexturePackForced() {
+        return texturePackForce;
+    }
+
+    public boolean isHub() {
+        return hub;
+    }
+
+    public int getTimeUntilTNTProtection() {
+        return timeUntilTNTProtection;
+    }
+
+    public int getBonusTimeUntilTNTProtection() {
+        return bonusTimeUntilTNTProtection;
+    }
+
+    public int getTntBonusMemberThreshold() {
+        return tntBonusMemberThreshold;
+    }
 }

@@ -7,17 +7,20 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
-import net.minecraft.server.v1_8_R3.EntityFishingHook;
+
+import net.minecraft.server.v1_15_R1.EntityFishingHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -60,15 +63,17 @@ public class FishingListener extends BPVPListener<Clans> {
 
         Player player = event.getPlayer();
 
-        if(event.getCaught() != null) {
-            Clan aClan = ClanUtilities.getClan(event.getCaught().getLocation());
-            if(aClan != null) {
-                if(aClan instanceof AdminClan) {
-                    AdminClan adminClan = (AdminClan) aClan;
-                    if(adminClan.isSafe()) {
-                        UtilMessage.message(event.getPlayer(), "Fishing", "You cannot fish here!");
-                        event.setCancelled(true);
-                        return;
+        if(UtilBlock.isInLiquid(event.getHook())) {
+            if (event.getCaught() != null) {
+                Clan aClan = ClanUtilities.getClan(event.getCaught().getLocation());
+                if (aClan != null) {
+                    if (aClan instanceof AdminClan) {
+                        AdminClan adminClan = (AdminClan) aClan;
+                        if (adminClan.isSafe()) {
+                            UtilMessage.message(event.getPlayer(), "Fishing", "You cannot fish here!");
+                            event.setCancelled(true);
+                            return;
+                        }
                     }
                 }
             }
@@ -119,7 +124,7 @@ public class FishingListener extends BPVPListener<Clans> {
 
                         String name = randomFish();
                         int value = UtilMath.randomInt(10, 500);
-                        ItemStack item = new ItemStack(Material.RAW_FISH, value, (byte) 0);
+                        ItemStack item = new ItemStack(Material.COD, value);
                         ItemMeta im = item.getItemMeta();
                         im.setDisplayName(name);
                         item.setItemMeta(im);
@@ -128,7 +133,7 @@ public class FishingListener extends BPVPListener<Clans> {
                         if(legValue >= 7499){
                             List<ItemStack> weapons = new ArrayList<>();
                             for(Weapon w : WeaponManager.weapons){
-                                if(w.isLegendary()){
+                                if(w instanceof ILegendary){
                                     weapons.add(w.createWeapon());
                                 }
 
@@ -138,7 +143,7 @@ public class FishingListener extends BPVPListener<Clans> {
                             UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.2D, false, 0.0D, 0.4D, 10.0D, false);
                             UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN +  l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
                             for(Player d : Bukkit.getOnlinePlayers()){
-                                d.playSound(d.getLocation(), Sound.FIREWORK_LAUNCH, 1F, 1F);
+                                d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
                             }
 
                             return;
@@ -235,12 +240,12 @@ public class FishingListener extends BPVPListener<Clans> {
     }
 
     private void setBiteTime(FishHook hook, int time) {
-        net.minecraft.server.v1_8_R3.EntityFishingHook hookCopy = (EntityFishingHook) ((CraftEntity) hook).getHandle();
+        EntityFishingHook hookCopy = (EntityFishingHook) ((CraftEntity) hook).getHandle();
 
         Field fishCatchTime = null;
 
         try {
-            fishCatchTime = net.minecraft.server.v1_8_R3.EntityFishingHook.class.getDeclaredField("ax");
+            EntityFishingHook.class.getDeclaredField("ax");
 
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

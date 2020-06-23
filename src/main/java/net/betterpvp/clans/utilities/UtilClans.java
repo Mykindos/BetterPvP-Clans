@@ -2,6 +2,7 @@ package net.betterpvp.clans.utilities;
 
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.utility.UtilFormat;
@@ -9,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -40,6 +42,7 @@ public class UtilClans {
         Material m = abc.getType();
         ItemMeta a = abc.getItemMeta();
 
+        a.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         if(m == Material.LEATHER_HELMET){
             a.setDisplayName("Assassin Helmet");
         }else if(m == Material.LEATHER_CHESTPLATE){
@@ -64,13 +67,13 @@ public class UtilClans {
             a.setDisplayName("Gladiator Leggings");
         }else if(m == Material.DIAMOND_BOOTS){
             a.setDisplayName("Gladiator Boots");
-        }else if(m == Material.GOLD_HELMET){
+        }else if(m == Material.GOLDEN_HELMET){
             a.setDisplayName("Paladin Helmet");
-        }else if(m == Material.GOLD_CHESTPLATE){
+        }else if(m == Material.GOLDEN_CHESTPLATE){
             a.setDisplayName("Paladin Vest");
-        }else if(m == Material.GOLD_LEGGINGS){
+        }else if(m == Material.GOLDEN_LEGGINGS){
             a.setDisplayName("Paladin Leggings");
-        }else if(m == Material.GOLD_BOOTS){
+        }else if(m == Material.GOLDEN_BOOTS){
             a.setDisplayName("Paladin Boots");
         }else if(m == Material.CHAINMAIL_HELMET){
             a.setDisplayName("Ranger Helmet");
@@ -80,26 +83,26 @@ public class UtilClans {
             a.setDisplayName("Ranger Leggings");
         }else if(m == Material.CHAINMAIL_BOOTS){
             a.setDisplayName("Ranger Boots");
-        }else if(m == Material.GOLD_AXE){
+        }else if(m == Material.GOLDEN_AXE){
             a.setDisplayName("Radiant axe");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "5");
 
-        }else if(m == Material.GREEN_RECORD){
+        }else if(m == Material.MUSIC_DISC_WAIT){
             a.setDisplayName("$100,000");
-        }else if(m == Material.GOLD_RECORD){
+        }else if(m == Material.MUSIC_DISC_13){
             a.setDisplayName("$50,000");
-        }else if(m == Material.RECORD_11){
+        }else if(m == Material.MUSIC_DISC_11){
             a.setDisplayName("$1,000,000");
-        }else if(m == Material.CARROT_ITEM){
+        }else if(m == Material.CARROT){
             a.setDisplayName("Carrot");
-        }else if(m == Material.POTATO_ITEM){
+        }else if(m == Material.POTATO){
             a.setDisplayName("Potato");
         }else if(m == Material.IRON_SWORD){
 
             a.setDisplayName("Standard Sword");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "4");
 
-        }else if(m == Material.GOLD_SWORD){
+        }else if(m == Material.GOLDEN_SWORD){
             a.setDisplayName("Radiant Sword");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "6");
         }else if(m == Material.DIAMOND_SWORD){
@@ -143,16 +146,31 @@ public class UtilClans {
             if(i != null){
                 Weapon w = WeaponManager.getWeapon(i);
                 if(w != null){
-                    if(w.isLegendary()){
+                    if(w instanceof ILegendary){
                         return true;
                     }
                 }
 
-                if(i.getType() == Material.GOLD_RECORD || i.getType() == Material.GREEN_RECORD
-                        || i.getType() == Material.RECORD_11 || i.getType() == Material.TNT){
+                if(i.getType() == Material.MUSIC_DISC_WAIT || i.getType() == Material.MUSIC_DISC_11
+                        || i.getType() == Material.MUSIC_DISC_13 || i.getType() == Material.TNT){
                     return true;
                 }
             }
+        }
+
+        return false;
+    }
+
+    public static boolean isUsableWithShield(ItemStack item){
+
+        if(item.getType().name().contains("_SWORD")){
+            return true;
+        }
+
+        //Windblade
+        if(item.getType() == Material.MUSIC_DISC_MELLOHI || item.getType() == Material.MUSIC_DISC_STRAD
+            || item.getType() == Material.MUSIC_DISC_CAT){
+            return true;
         }
 
         return false;
@@ -198,8 +216,20 @@ public class UtilClans {
 
         if(locs.size() > 0) {
 
-            Collections.sort(locs, Comparator.comparingInt(a -> (int) p.getLocation().distance(a)));
+            Collections.sort(locs, new Comparator<Location>(){
+
+                @Override
+                public int compare(Location a, Location b) {
+                    // TODO Auto-generated method stub
+                    return (int) p.getLocation().distance(a) - (int) p.getLocation().distance(b);
+                }
+
+            });
+
+
             return locs.get(0);
+
+
 
         }
         return null;
@@ -222,8 +252,20 @@ public class UtilClans {
 
         if(locs.size() > 0) {
 
-            Collections.sort(locs, Comparator.comparingInt(a -> (int) p.getLocation().distance(a)));
+            Collections.sort(locs, new Comparator<Location>(){
+
+                @Override
+                public int compare(Location a, Location b) {
+                    // TODO Auto-generated method stub
+                    return (int) p.getLocation().distance(a) - (int) p.getLocation().distance(b);
+                }
+
+            });
+
+
             return locs.get(0);
+
+
 
         }
         return null;

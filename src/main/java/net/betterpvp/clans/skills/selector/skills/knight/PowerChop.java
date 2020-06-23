@@ -4,8 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.ChatColor;
@@ -19,7 +22,7 @@ import java.util.Arrays;
 import java.util.WeakHashMap;
 
 
-public class PowerChop extends Skill {
+public class PowerChop extends Skill implements InteractSkill {
 
     private WeakHashMap<Player, Long> charge = new WeakHashMap<>();
 
@@ -34,13 +37,12 @@ public class PowerChop extends Skill {
         return new String[]{
                 "Put more strength into your",
                 "next axe attack, causing it",
-                "to deal " + ChatColor.GREEN + (Math.min(1, (level))) + ChatColor.GRAY + " bonus damage.",
+                "to deal " + ChatColor.GREEN + (Math.max(1, (level))) + ChatColor.GRAY + " bonus damage.",
                 "",
                 "Attack must be made within",
                 "0.5 seconds of being used.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -59,14 +61,9 @@ public class PowerChop extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 25 - ((level - 1) * 2);
+        return 0;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        charge.put(player, System.currentTimeMillis());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-    }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(CustomDamageEvent e) {
@@ -75,7 +72,7 @@ public class PowerChop extends Skill {
             Player p = (Player) e.getDamager();
             if (hasSkill(p, this)) {
                 if (charge.containsKey(p)) {
-                    if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                    if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                         if (!UtilTime.elapsed(charge.get(p), 1000)) {
                             if (e.getDamagee() instanceof Player) {
                                 if (!ClanUtilities.canHurt(p, (Player) e.getDamagee())) {
@@ -84,8 +81,8 @@ public class PowerChop extends Skill {
                                 }
                             }
                             LogManager.addLog(e.getDamagee(), p, "Power Chop");
-                            e.setDamage(e.getDamage() + ((Math.min(1, getLevel(p)) * 0.75)));
-                            p.getWorld().playSound(p.getLocation(), Sound.IRONGOLEM_HIT, 1.0F, 1.0F);
+                            e.setDamage(e.getDamage() + ((Math.max(0.75, getLevel(p)) * 0.75)));
+                            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_IRON_GOLEM_HURT, 1.0F, 1.0F);
                             charge.remove(p);
                         }
                     }
@@ -97,11 +94,16 @@ public class PowerChop extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
             return false;
         }
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        charge.put(player, System.currentTimeMillis());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+    }
 }

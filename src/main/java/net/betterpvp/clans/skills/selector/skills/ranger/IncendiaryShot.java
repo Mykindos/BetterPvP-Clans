@@ -3,10 +3,14 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,12 +19,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class IncendiaryShot extends Skill {
+public class IncendiaryShot extends Skill implements InteractSkill {
 
     public static List<UUID> active = new ArrayList<UUID>();
     private List<Arrow> incens = new ArrayList<>();
@@ -64,10 +69,17 @@ public class IncendiaryShot extends Skill {
                         Arrow a = (Arrow) e.getProjectile();
                         if (incens.contains(a)) {
                             e.setReason("Incendiary Shot");
-                            e.getDamagee().setFireTicks(getLevel(p) * 30);
+
+                            //1.15.2 setting players on fire is weird
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    e.getDamagee().setFireTicks(getLevel(p) * 30);
+                                }
+                            }.runTaskLater(getInstance(), 2);
+
                             LogManager.addLog(e.getDamagee(), p, "Incendiary Shot");
-
-
+                            incens.remove(a);
                         }
                     }
                 }
@@ -95,19 +107,11 @@ public class IncendiaryShot extends Skill {
         incens.add((Arrow) event.getProjectile());
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        active.remove(player.getUniqueId());
-
-        active.add(player.getUniqueId());
-        player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
-        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
-    }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+        if (UtilBlock.isInLiquid(player)) {
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY +  " in water.");
             return false;
         }
         return true;
@@ -129,7 +133,15 @@ public class IncendiaryShot extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
+        return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.remove(player.getUniqueId());
+
+        active.add(player.getUniqueId());
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
+    }
 }

@@ -3,8 +3,10 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
@@ -21,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PinDown extends Skill {
+public class PinDown extends Skill implements InteractSkill {
 
     public PinDown(Clans i) {
         super(i, "Pin Down", "Ranger", getBow, leftClick, 5, true, true);
@@ -38,8 +40,7 @@ public class PinDown extends Skill {
                 "an arrow, which gives anybody hit ",
                 "Slowness IV for " + ChatColor.GREEN + (level * 1.5) + ChatColor.GRAY + " seconds.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -67,27 +68,7 @@ public class PinDown extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 35 - ((level - 1));
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-        UtilItem.remove(p, Material.ARROW, (byte) 0, 1);
-
-
-        Arrow proj = p.launchProjectile(Arrow.class);
-        active.add(proj);
-
-
-        proj.setVelocity(p.getLocation().getDirection().multiply(1.6D));
-
-
-        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
-
-
-        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
-        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
-
+        return 0;
     }
 
     @EventHandler
@@ -133,4 +114,22 @@ public class PinDown extends Skill {
     }
 
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        UtilItem.remove(p, Material.ARROW, 1);
+
+
+        Arrow proj = p.launchProjectile(Arrow.class);
+        active.add(proj);
+
+
+        proj.setVelocity(p.getLocation().getDirection().multiply(1.6D));
+
+
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
+
+
+        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
+        p.getWorld().playEffect(p.getLocation(), Effect.BOW_FIRE, 0);
+    }
 }

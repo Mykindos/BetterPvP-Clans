@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class FarmingListener extends BPVPListener<Clans> {
 
@@ -27,7 +28,7 @@ public class FarmingListener extends BPVPListener<Clans> {
         }
 
 
-        if (e.getBlock().getType() == Material.PISTON_BASE) {
+        if (e.getBlock().getType() == Material.PISTON) {
             if (b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()) {
                 UtilMessage.message(e.getPlayer(), "Farming", "You cannot place regular pistons within the farming levels.");
                 e.setCancelled(true);
@@ -48,7 +49,7 @@ public class FarmingListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
             if (c != null) {
@@ -58,7 +59,7 @@ public class FarmingListener extends BPVPListener<Clans> {
             }
 
 
-            if (FarmBlocks.isSeed(e.getPlayer().getItemInHand().getType())) {
+            if (FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())) {
                 if (e.getClickedBlock().getLocation().getY() > Clans.getOptions().getFarmingMaxY()
                         || e.getClickedBlock().getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
                     UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y");

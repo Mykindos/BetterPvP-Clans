@@ -7,7 +7,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -26,7 +28,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Polymorph extends Skill {
+public class Polymorph extends Skill implements InteractSkill {
 
     private List<UUID> active = new ArrayList<>();
     public static WeakHashMap<LivingEntity, Long> polymorphed = new WeakHashMap<>();
@@ -66,7 +68,7 @@ public class Polymorph extends Skill {
                 if (active.contains(p.getUniqueId())) {
                     e.setCancelled("Polymorph start");
                     DisguiseAPI.disguiseToAll(ent, new MobDisguise(DisguiseType.SHEEP));
-                    ent.getWorld().playSound(ent.getLocation(), Sound.SHEEP_IDLE, 2.0f, 1.0f);
+                    ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_SHEEP_AMBIENT, 2.0f, 1.0f);
                     polymorphed.put(ent, System.currentTimeMillis());
 
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 2));
@@ -130,13 +132,6 @@ public class Polymorph extends Skill {
     }
 
     @Override
-    public void activateSkill(Player p) {
-        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
-        active.add(p.getUniqueId());
-
-    }
-
-    @Override
     public boolean usageCheck(Player p) {
         if (active.contains(p.getUniqueId())) {
             UtilMessage.message(p, getClassType(), ChatColor.GREEN + getName() + ChatColor.GRAY + " is already active.");
@@ -146,4 +141,9 @@ public class Polymorph extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        UtilMessage.message(p, getClassType(), "You prepared " + ChatColor.GREEN + getName(getLevel(p)));
+        active.add(p.getUniqueId());
+    }
 }

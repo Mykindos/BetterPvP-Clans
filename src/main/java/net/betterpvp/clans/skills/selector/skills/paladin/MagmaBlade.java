@@ -45,8 +45,9 @@ public class MagmaBlade extends Skill {
 
             Player p = (Player) e.getDamager();
             LivingEntity ent = (LivingEntity) e.getDamagee();
-            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
-                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+            if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
+                Role role = Role.getRole(p);
+                if (role != null && role.getName().equals(getClassType())) {
                     if (hasSkill(p, this)) {
                         if (ent.getFireTicks() > 0) {
                             e.setDamage(e.getDamage() + ((getLevel(p) * 1.0)));
@@ -56,12 +57,6 @@ public class MagmaBlade extends Skill {
             }
 
         }
-
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-
 
     }
 

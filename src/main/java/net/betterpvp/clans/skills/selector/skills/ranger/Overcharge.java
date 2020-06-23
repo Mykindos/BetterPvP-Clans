@@ -10,6 +10,8 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.OverChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
@@ -19,9 +21,11 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.*;
 
@@ -49,14 +53,10 @@ public class Overcharge extends Skill {
         };
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -76,9 +76,9 @@ public class Overcharge extends Skill {
     @EventHandler
     public void onBarrageActivate(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
+            if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                 Role r = Role.getRole(player);
                 if (r != null && r.getName().equals(getClassType())) {
                     if (hasSkill(player, this)) {
@@ -125,7 +125,7 @@ public class Overcharge extends Skill {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent e) {
         if (e.getProjectile() != null) {
             if (e.getProjectile() instanceof Arrow) {
@@ -136,8 +136,6 @@ public class Overcharge extends Skill {
 
 
                         LogManager.addLog(e.getDamagee(), ((Player) a.getShooter()), "Overcharge: " + bonus.get(a));
-
-
                         e.setDamage(e.getDamage() + bonus.get(a));
                     }
                 }
@@ -171,12 +169,12 @@ public class Overcharge extends Skill {
                                 continue;
                             }
 
-                            if (player.getItemInHand().getType() != Material.BOW) {
+                            if (!UtilItem.isRanged(player.getInventory().getItemInMainHand().getType())) {
                                 iterator.remove();
                                 continue;
                             }
 
-                            if (player.getLocation().getBlock().isLiquid()) {
+                            if (UtilBlock.isInLiquid(player)) {
                                 iterator.remove();
                                 continue;
                             }
@@ -186,7 +184,7 @@ public class Overcharge extends Skill {
                                     data.addCharge();
                                     data.setLastCharge(System.currentTimeMillis());
                                     UtilMessage.message(player, getClassType(), getName() + ": " + ChatColor.YELLOW + "+ " + data.getCharge() + " Bonus Damage");
-                                    player.playSound(player.getLocation(), Sound.CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
+                                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
                                 }
                             }
                         }

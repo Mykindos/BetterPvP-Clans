@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.Pillage;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -46,6 +47,14 @@ public class MovementListener extends BPVPListener<Clans> {
                             || clanFrom != null && clanTo != null
                             && !clanFrom.equals(clanTo)) {
                         displayOwner(e.getPlayer(), e.getTo());
+
+                        new BukkitRunnable(){
+                            @Override
+                            public void run(){
+                                Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
+                            }
+                        }.runTask(getInstance());
+
                     }
                 }
             }.runTaskAsynchronously(getInstance());
@@ -61,7 +70,7 @@ public class MovementListener extends BPVPListener<Clans> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Clan target = ClanUtilities.getClan(p.getLocation());
                 if (target == null) {
-                    if (p.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                    if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
                         if (p.getGameMode() == GameMode.SURVIVAL) {
 
                             p.setGameMode(GameMode.ADVENTURE);
@@ -123,6 +132,7 @@ public class MovementListener extends BPVPListener<Clans> {
     }
 
      */
+
 
 
     public void displayOwner(Player p, Location location) {

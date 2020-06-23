@@ -2,10 +2,14 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -15,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -22,7 +27,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Agility extends Skill {
+public class Agility extends Skill implements InteractSkill {
 
     private static Set<UUID> active = new HashSet<>();
 
@@ -46,8 +51,7 @@ public class Agility extends Skill {
                 "You are immune to melee attacks while sprinting.",
                 "Agility ends if you interact",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -66,31 +70,23 @@ public class Agility extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 40 - ((level - 1) * 2);
+        return 0;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        if (!active.contains(player.getUniqueId())) {
-            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
-            active.add(player.getUniqueId());
-            player.getWorld().playSound(player.getLocation(), Sound.NOTE_PLING, 0.5F, 0.5F);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 0));
-        }
 
-    }
-
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void endOnInteract(PlayerInteractEvent event) {
+
         Player player = event.getPlayer();
-        if (event.getAction() != Action.PHYSICAL) {
+        if (event.getHand() != EquipmentSlot.OFF_HAND) {
+            if (event.getAction() != Action.PHYSICAL) {
 
+                if (active.contains(player.getUniqueId())) {
+                    active.remove(player.getUniqueId());
+                    player.removePotionEffect(PotionEffectType.SPEED);
+                }
 
-            if (active.contains(player.getUniqueId())) {
-                active.remove(player.getUniqueId());
-                player.removePotionEffect(PotionEffectType.SPEED);
             }
-
         }
     }
 
@@ -107,7 +103,7 @@ public class Agility extends Skill {
                     if (active.contains(p.getUniqueId())) {
                         e.setCancelled("Agility");
                         UtilMessage.message(dam, getClassType(), p.getName() + " is using " + getName());
-                        p.getWorld().playSound(p.getLocation(), Sound.BLAZE_BREATH, 0.5F, 2.0F);
+                        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 0.5F, 2.0F);
                     }
                 }
 
@@ -141,11 +137,21 @@ public class Agility extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
             return false;
         }
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!active.contains(player.getUniqueId())) {
+            UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 1));
+            active.add(player.getUniqueId());
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
+
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class FastRecovery extends Skill {
                 if (rb != null) {
                     if (rb.getGlobal() != null) {
                         if (rb.getGlobal().getSkill().equals(this)) {
-                            if (WeaponManager.getWeapon(p.getItemInHand()) != null) {
+                            if (WeaponManager.getWeapon(p.getInventory().getItemInMainHand()) != null) {
                                 return;
                             }
 
@@ -75,10 +75,6 @@ public class FastRecovery extends Skill {
     public float getEnergy(int level) {
 
         return 0;
-    }
-
-    @Override
-    public void activateSkill(Player p) {
     }
 
     @Override

@@ -15,16 +15,19 @@ import java.util.HashMap;
 
 public class ArmourRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_armour";
-    public static String CREATE_ARMOUR_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (Item VARCHAR(255), Armour double, CONSTRAINT armour_pk PRIMARY KEY (Item)); ";
-    private static String DEFAULT_ARMOUR_VALUES = "INSERT IGNORE INTO betterpvp.clans_armour (Item, Armour) VALUES" +
-            "('DIAMOND_CHESTPLATE', 26),('DIAMOND_LEGGINGS', 18),('DIAMOND_HELMET', 12),('DIAMOND_BOOTS', 12)," +
-            "('LEATHER_HELMET', 4),('LEATHER_CHESTPLATE', 12),('LEATHER_LEGGINGS', 8),('LEATHER_BOOTS', 4)," +
-            "('IRON_CHESTPLATE', 24), ('IRON_LEGGINGS', 20), ('IRON_HELMET', 8),('IRON_BOOTS', 8)," +
-            "('GOLDEN_CHESTPLATE', 24), ('GOLDEN_LEGGINGS', 20), ('GOLDEN_HELMET', 8), ('GOLDEN_BOOTS', 8)," +
-            "('CHAINMAIL_CHESTPLATE', 20), ('CHAINMAIL_LEGGINGS', 16),('CHAINMAIL_HELMET', 8), ('CHAINMAIL_BOOTS', 8);";
+    public static String TABLE_NAME;
+    public static String CREATE_ARMOUR_TABLE;
+    private static String DEFAULT_ARMOUR_VALUES;
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_armour";
+        CREATE_ARMOUR_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (Item VARCHAR(255), Armour double, CONSTRAINT armour_pk PRIMARY KEY (Item)); ";
+        DEFAULT_ARMOUR_VALUES = "INSERT IGNORE INTO `" + TABLE_NAME + "` (Item, Armour) VALUES" +
+                "('DIAMOND_CHESTPLATE', 26),('DIAMOND_LEGGINGS', 18),('DIAMOND_HELMET', 12),('DIAMOND_BOOTS', 12)," +
+                "('LEATHER_HELMET', 4),('LEATHER_CHESTPLATE', 12),('LEATHER_LEGGINGS', 8),('LEATHER_BOOTS', 4)," +
+                "('IRON_CHESTPLATE', 24), ('IRON_LEGGINGS', 20), ('IRON_HELMET', 8),('IRON_BOOTS', 8)," +
+                "('GOLDEN_CHESTPLATE', 24), ('GOLDEN_LEGGINGS', 20), ('GOLDEN_HELMET', 8), ('GOLDEN_BOOTS', 8)," +
+                "('CHAINMAIL_CHESTPLATE', 20), ('CHAINMAIL_LEGGINGS', 16),('CHAINMAIL_HELMET', 8), ('CHAINMAIL_BOOTS', 8);";
         QueryFactory.runQuery(CREATE_ARMOUR_TABLE);
         QueryFactory.runQuery(DEFAULT_ARMOUR_VALUES);
 

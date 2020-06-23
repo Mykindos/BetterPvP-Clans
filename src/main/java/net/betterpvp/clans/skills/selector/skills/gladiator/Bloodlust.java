@@ -38,7 +38,7 @@ public class Bloodlust extends Skill {
         return new String[]{
                 "When an enemy dies within 15 blocks,",
                 "you go into a Bloodlust, receiving",
-                "Speed 1 and Strength 1 for " + ChatColor.GREEN + (7 + level) + ChatColor.GRAY + " seconds.",
+                "Speed 1 and Strength 1 for " + ChatColor.GREEN + (5 + level) + ChatColor.GRAY + " seconds.",
                 "",
                 "Bloodlust can stack up to 3 times,",
                 "boosting the level of Speed and Strength."};
@@ -64,7 +64,7 @@ public class Bloodlust extends Skill {
                     EffectManager.addEffect(p, EffectType.STRENGTH, tempStr, (5 + getLevel(p)) * 1000);
                     p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (5 + getLevel(p)) * 20, tempStr));
                     UtilMessage.message(p, getClassType(), "You entered bloodlust at Level: " + ChatColor.YELLOW + tempStr + ChatColor.GRAY + ".");
-                    p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_PIG_ANGRY, 2.0F, 0.6F);
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_PIGMAN_ANGRY, 2.0F, 0.6F);
 
                 }
             }
@@ -101,12 +101,6 @@ public class Bloodlust extends Skill {
     public Types getType() {
 
         return Types.PASSIVE_B;
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-
-
     }
 
     @Override

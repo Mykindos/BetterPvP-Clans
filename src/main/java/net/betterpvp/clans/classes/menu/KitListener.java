@@ -36,58 +36,58 @@ public class KitListener extends BPVPListener<Clans> {
 
 
 
-                    if(r == null) {
-                        p.getInventory().setHelmet(UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
-                    }else {
-                        UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
-                    }
-
-                    if(r == null) {
-                        p.getInventory().setChestplate(UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
-
-                    }else {
-                        UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
-                    }
-
-                    if(r == null) {
-                        p.getInventory().setLeggings(UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
-
-                    }else {
-                        UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
-                    }
-
-                    if(r == null) {
-                        p.getInventory().setBoots(UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
-
-                    }else {
-                        UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
-                    }
-
-                    ItemStack sword = UtilPlayer.createItem(Material.IRON_SWORD, 1, ChatColor.LIGHT_PURPLE + "Starter Sword", ChatColor.WHITE + "Right click to cast an ability.",
-                            ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
-                    ItemStack axe = UtilPlayer.createItem(Material.IRON_AXE, 1, ChatColor.LIGHT_PURPLE + "Starter Axe", ChatColor.WHITE + "Right click to cast an ability.",
-                            ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
-                    ItemStack bow = UtilPlayer.createItem(Material.BOW, 1, ChatColor.LIGHT_PURPLE + "Starter Bow", ChatColor.WHITE + "Left click with bow to prepare an ability.",
-                            ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.",
-                            ChatColor.GRAY + "Note: This will not work if you do not have a bow ability selected,",
-                            ChatColor.GRAY + "right click an enchanting table to modify your class!");
-                    ItemStack arrows = UtilItem.updateNames(new ItemStack(Material.ARROW, 32));
-
-                    UtilItem.insert(p, sword);
-                    UtilItem.insert(p, axe);
-
-                    if(kb.getRole() instanceof Ranger) {
-                        UtilItem.insert(p, bow);
-                        UtilItem.insert(p, arrows);
-                    }
-
-                    UtilItem.insert(p, new ItemStack(Material.DIAMOND_SPADE));
-                    UtilItem.insert(p, new ItemStack(Material.DIAMOND_PICKAXE));
-                    p.closeInventory();
-
-
-
+                if(r == null) {
+                    p.getInventory().setHelmet(UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
+                }else {
+                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
                 }
+
+                if(r == null) {
+                    p.getInventory().setChestplate(UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
+
+                }else {
+                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
+                }
+
+                if(r == null) {
+                    p.getInventory().setLeggings(UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
+
+                }else {
+                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
+                }
+
+                if(r == null) {
+                    p.getInventory().setBoots(UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
+
+                }else {
+                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
+                }
+
+                ItemStack sword = UtilPlayer.createItem(Material.IRON_SWORD, 1, ChatColor.LIGHT_PURPLE + "Starter Sword", ChatColor.WHITE + "Right click to cast an ability.",
+                        ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
+                ItemStack axe = UtilPlayer.createItem(Material.IRON_AXE, 1, ChatColor.LIGHT_PURPLE + "Starter Axe", ChatColor.WHITE + "Right click to cast an ability.",
+                        ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
+                ItemStack bow = UtilPlayer.createItem(Material.BOW, 1, ChatColor.LIGHT_PURPLE + "Starter Bow", ChatColor.WHITE + "Left click with bow to prepare an ability.",
+                        ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.",
+                        ChatColor.GRAY + "Note: This will not work if you do not have a bow ability selected,",
+                        ChatColor.GRAY + "right click an enchanting table to modify your class!");
+                ItemStack arrows = UtilItem.updateNames(new ItemStack(Material.ARROW, 32));
+
+                UtilItem.insert(p, sword);
+                UtilItem.insert(p, axe);
+
+                if(kb.getRole() instanceof Ranger) {
+                    UtilItem.insert(p, bow);
+                    UtilItem.insert(p, arrows);
+                }
+
+                UtilItem.insert(p, new ItemStack(Material.DIAMOND_SHOVEL));
+                UtilItem.insert(p, new ItemStack(Material.DIAMOND_PICKAXE));
+                p.closeInventory();
+
+
+
+            }
 
         }
     }

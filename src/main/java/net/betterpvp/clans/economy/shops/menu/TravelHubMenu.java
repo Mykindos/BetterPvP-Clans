@@ -14,8 +14,8 @@ public class TravelHubMenu extends Menu {
         addButton(new Button(20, new ItemStack(Material.REDSTONE), ChatColor.RED + "Red Shop", ChatColor.WHITE + "Teleport to the Red Shops"));
         addButton(new Button(24, new ItemStack(Material.DIAMOND), ChatColor.AQUA + "Blue Shop", ChatColor.WHITE + "Teleport to the Blue Shops"));
 
-        addButton(new Button(13, new ItemStack(Material.WOOL, 1, (byte) 11), ChatColor.AQUA + "Blue Spawn", ChatColor.WHITE + "Teleport to the Blue Spawn"));
-        addButton(new Button(31, new ItemStack(Material.WOOL, 1, (byte) 14), ChatColor.RED + "Red Spawn", ChatColor.WHITE + "Teleport to the Red Spawn"));
+        addButton(new Button(13, new ItemStack(Material.BLUE_WOOL, 1), ChatColor.AQUA + "Blue Spawn", ChatColor.WHITE + "Teleport to the Blue Spawn"));
+        addButton(new Button(31, new ItemStack(Material.RED_WOOL, 1), ChatColor.RED + "Red Spawn", ChatColor.WHITE + "Teleport to the Red Spawn"));
 
         construct();
     }

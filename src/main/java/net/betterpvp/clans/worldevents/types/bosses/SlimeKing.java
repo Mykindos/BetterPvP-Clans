@@ -18,13 +18,13 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.EntitySlime;
+import net.minecraft.server.v1_15_R1.EntitySlime;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftSlime;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -51,13 +51,13 @@ public class SlimeKing extends Boss {
 
     public SlimeKing(Clans i) {
         super(i, "SlimeKing", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -111.5, 14.0, -13.5),
+                new Location(w, -154.5, 14, -12.5),
+                new Location(w, -167.5, 14, -56.5),
+                new Location(w, -93.5, 14, -50.5),
+                new Location(w, -132.5, 14, 1.5)
 
         };
     }
@@ -71,7 +71,7 @@ public class SlimeKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), -132.5, 15, -55.5);
     }
 
     @EventHandler
@@ -251,7 +251,7 @@ public class SlimeKing extends Boss {
         if (!getSpawn().getChunk().isLoaded()) {
             getSpawn().getChunk().load();
         }
-        fullSlime = (Slime) Bukkit.getWorld("bossworld2").spawnEntity(getSpawn(),
+        fullSlime = (Slime) Bukkit.getWorld("bossworld").spawnEntity(getSpawn(),
                 getEntityType());
         fullSlime.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
 
@@ -422,13 +422,12 @@ public class SlimeKing extends Boss {
             if (isSlimeKing(e.getThrowable().getThrower())) {
 
                 Block b = e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock();
-                if (e.getThrowable().getItem().getLocation().getBlock().getType() == Material.LEAVES
-                        || e.getThrowable().getItem().getLocation().getBlock().getType() == Material.LEAVES_2
-                        || b.getType() == Material.LEAVES || b.getType() == Material.LEAVES_2) {
-                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getTypeId(), (byte) 0, 30000);
+                if (e.getThrowable().getItem().getLocation().getBlock().getType().name().contains("LEAVES")
+                        || b.getType().name().contains("LEAVES")) {
+                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getType(), (byte) 0, 30000);
                     b.setType(Material.AIR);
                 } else {
-                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getTypeId(), (byte) 0, 2000);
+                    new BlockRestoreData(e.getThrowable().getItem().getLocation().add(0, -1, 0).getBlock(), b.getType(), (byte) 0, 2000);
                     b.setType(Material.SLIME_BLOCK);
                 }
 

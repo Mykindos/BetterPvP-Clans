@@ -5,7 +5,9 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -25,7 +27,7 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class Disengage extends Skill {
+public class Disengage extends Skill implements InteractSkill {
 
     private HashMap<UUID, Long> disengages = new HashMap<>();
 
@@ -49,8 +51,7 @@ public class Disengage extends Skill {
                 "and your attacker receives Slow 4",
                 "for " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)};
     }
 
     @Override
@@ -59,25 +60,17 @@ public class Disengage extends Skill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        if (!disengages.containsKey(player.getUniqueId())) {
-            disengages.put(player.getUniqueId(), (long) (System.currentTimeMillis() + ((0 + (getLevel(player) * 0.5)) * 1000L)));
-            UtilMessage.message(player, getClassType(), "You prepared disengage");
-        }
-
-    }
-
     @EventHandler
     public void onDamage(CustomDamageEvent e) {
         if (e.getCause() == DamageCause.ENTITY_ATTACK) {
 
             if (e.getDamagee() instanceof Player) {
                 Player p = (Player) e.getDamagee();
-                if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+                Role role = Role.getRole(p);
+                if (role != null && role.getName().equals(getClassType())) {
                     if (hasSkill(p, this)) {
                         if (disengages.containsKey(p.getUniqueId())) {
-                            LivingEntity ent = (LivingEntity) e.getDamager();
+                            LivingEntity ent = e.getDamager();
                             Vector vec = ent.getLocation().getDirection();
                             e.setKnockback(false);
                             e.setDamage(0);
@@ -111,7 +104,7 @@ public class Disengage extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -127,7 +120,14 @@ public class Disengage extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 30;
+        return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!disengages.containsKey(player.getUniqueId())) {
+            disengages.put(player.getUniqueId(), (long) (System.currentTimeMillis() + ((0 + (getLevel(player) * 0.5)) * 1000L)));
+            UtilMessage.message(player, getClassType(), "You prepared disengage");
+        }
+    }
 }

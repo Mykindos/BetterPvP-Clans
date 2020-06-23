@@ -18,7 +18,9 @@ import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.event.EventHandler;
@@ -36,7 +38,7 @@ import java.util.Map.Entry;
 
 public class SkeletonKing extends Boss {
 
-    private Skeleton skeleton;
+    private WitherSkeleton skeleton;
     private WeakHashMap<Item, LivingEntity> targets = new WeakHashMap<>();
     private boolean boneShield;
     private List<Item> items = new ArrayList<>();
@@ -47,14 +49,14 @@ public class SkeletonKing extends Boss {
     public SkeletonKing(Clans i) {
         super(i, "SkeletonKing", WEType.BOSS);
 
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
 
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -20, 86, 76),
+                new Location(w, 14, 89, 97),
+                new Location(w, 7.5, 105, 78),
+                new Location(w, -31, 101.5, 91),
+                new Location(w, -22.8, 122, 154)
         };
     }
 
@@ -67,7 +69,7 @@ public class SkeletonKing extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), -39.3, 105.0, 131.3);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class SkeletonKing extends Boss {
     @Override
     public EntityType getEntityType() {
 
-        return EntityType.SKELETON;
+        return EntityType.WITHER_SKELETON;
     }
 
     @Override
@@ -123,10 +125,9 @@ public class SkeletonKing extends Boss {
             BossSkeleton bs = new BossSkeleton(((CraftWorld) loc.getWorld()).getHandle());
             skeleton = bs.spawn(loc);
 
+            skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
+            skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());;
 
-            skeleton.setSkeletonType(SkeletonType.WITHER);
-            skeleton.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-            skeleton.setMaxHealth(getMaxHealth());
             skeleton.setHealth(getMaxHealth());
             skeleton.setCustomName(getBossName());
             skeleton.setCustomNameVisible(true);
@@ -142,10 +143,12 @@ public class SkeletonKing extends Boss {
 
     @EventHandler
     public void onLaunchedBones(UpdateEvent e) {
-        if (e.getType() == UpdateType.TICK) {
-            if (targets.isEmpty()) return;
-            for (Entry<Item, LivingEntity> entry : targets.entrySet()) {
-                UtilVelocity.velocity(entry.getKey(), UtilVelocity.getTrajectory(entry.getKey(), entry.getValue()), 0.6, false, 0, 0.2, 1, true);
+        if(isActive()) {
+            if (e.getType() == UpdateType.TICK) {
+                if (targets.isEmpty()) return;
+                for (Entry<Item, LivingEntity> entry : targets.entrySet()) {
+                    UtilVelocity.velocity(entry.getKey(), UtilVelocity.getTrajectory(entry.getKey(), entry.getValue()), 0.6, false, 0, 0.2, 1, true);
+                }
             }
         }
     }
@@ -385,7 +388,7 @@ public class SkeletonKing extends Boss {
                         e.getDamagee().teleport(loc);
                         Skeleton s = (Skeleton) e.getDamagee();
                         s.setTarget(e.getDamager());
-                        e.getDamagee().getWorld().playSound(getBoss().getLocation(), Sound.ENDERMAN_TELEPORT, 0.5F, 1F);
+                        e.getDamagee().getWorld().playSound(getBoss().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5F, 1F);
                     }
                 }
             }

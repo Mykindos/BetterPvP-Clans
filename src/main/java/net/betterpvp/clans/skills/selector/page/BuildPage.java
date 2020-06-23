@@ -55,9 +55,9 @@ public class BuildPage extends Menu {
                     }
                 }
                 if (g.getActiveBuild(role).getID() == i + 1) {
-                    addButton(new Button(slot + 11, UtilItem.addGlow(new ItemStack(Material.INK_SACK, 1, (byte) i)), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));
+                    addButton(new Button(slot + 11, UtilItem.addGlow(getApplyBuildItem(i + 1)), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));
                 } else {
-                    addButton(new Button(slot + 11, new ItemStack(Material.INK_SACK, 1, (byte) i), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));
+                    addButton(new Button(slot + 11, getApplyBuildItem(i + 1), ChatColor.GREEN.toString() + ChatColor.BOLD + "Apply Build - " + (i + 1)));
                 }
                 addButton(new Button(slot + 20, new ItemStack(Material.ANVIL), ChatColor.GREEN.toString() + ChatColor.BOLD + "Edit & Save Build - " + (i + 1)));
                 addButton(new Button(slot + 38, new ItemStack(Material.TNT), ChatColor.GREEN.toString() + ChatColor.BOLD + "Delete Build - " + (i + 1)));
@@ -65,5 +65,21 @@ public class BuildPage extends Menu {
                 slot += 2;
             }
         }
+    }
+
+    private ItemStack getApplyBuildItem(int id){
+
+        switch(id){
+            case 1:
+                return new ItemStack(Material.INK_SAC, 1);
+            case 2:
+                return new ItemStack(Material.RED_DYE, 1);
+            case 3:
+                return new ItemStack(Material.GREEN_DYE, 1);
+            case 4:
+                return new ItemStack(Material.CYAN_DYE, 1);
+        }
+
+        return null;
     }
 }

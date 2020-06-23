@@ -16,16 +16,18 @@ import java.util.UUID;
 
 public class MemberRepository{
 
-    public static final String TABLE_NAME = "clans_clanmembers";
+    public static  String TABLE_NAME;
 
-    public static final String CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "`  (" +
-            "  `Clan` varchar(255)," +
-            "  `UUID` varchar(255)," +
-            "  `Role` varchar(255)," +
-            "PRIMARY KEY(UUID));";
+    public static  String CREATE_CLANMEMBER_TABLE;
 
 
     private static void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_clanmembers";
+        CREATE_CLANMEMBER_TABLE = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "`  (" +
+                "  `Clan` varchar(255)," +
+                "  `UUID` varchar(255)," +
+                "  `Role` varchar(255)," +
+                "PRIMARY KEY(UUID));";
         QueryFactory.runQuery(CREATE_CLANMEMBER_TABLE);
 
     }

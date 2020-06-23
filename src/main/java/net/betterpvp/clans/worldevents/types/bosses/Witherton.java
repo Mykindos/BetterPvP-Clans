@@ -24,10 +24,10 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_8_R3.EntityLiving;
+import net.minecraft.server.v1_15_R1.EntityLiving;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -54,7 +54,7 @@ public class Witherton extends Boss {
 
     public Witherton(Clans i) {
         super(i, "Witherton", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
                 new Location(w, 702.5, 135, 192.5),
                 new Location(w, 699.5, 135, 123.5),
@@ -66,7 +66,7 @@ public class Witherton extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Witherton extends Boss {
             if (!getSpawn().getChunk().isLoaded()) {
                 getSpawn().getChunk().load();
             }
-            BossWither bs = new BossWither(((CraftWorld) Bukkit.getWorld("bossworld2")).getHandle());
+            BossWither bs = new BossWither(((CraftWorld) Bukkit.getWorld("bossworld")).getHandle());
             wither = bs.spawn(getSpawn());
 
             wither.setMaxHealth(getMaxHealth());
@@ -221,7 +221,7 @@ public class Witherton extends Boss {
         if (isActive()) {
             if (e.getType() == UpdateType.SLOWEST) {
                 if (UtilTime.elapsed(lastShatter, UtilMath.randomInt(15, 45))) {
-                    getBoss().getWorld().playSound(getBoss().getLocation(), Sound.ENDERMAN_SCREAM, 1f, 1f);
+                    getBoss().getWorld().playSound(getBoss().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                     lastShatter = System.currentTimeMillis();
                     for (LivingEntity ent : getBoss().getWorld().getLivingEntities()) {
                         if (getBoss() == ent) continue;
@@ -229,8 +229,8 @@ public class Witherton extends Boss {
                             if (UtilBlock.isGrounded(ent)) {
                                 Clan cLoc = ClanUtilities.getClan(ent.getLocation());
                                 if (cLoc == null || cLoc instanceof AdminClan) {
-                                    new BlockRestoreData(ent.getLocation().getBlock(), 7, (byte) 0, 2000);
-                                    ent.getWorld().playSound(ent.getLocation(), Sound.PISTON_EXTEND, 1f, 1f);
+                                    new BlockRestoreData(ent.getLocation().getBlock(), Material.BEDROCK, (byte) 0, 2000);
+                                    ent.getWorld().playSound(ent.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1f, 1f);
                                     ent.setVelocity(new Vector(0, 2, 0));
                                     LogManager.addLog(ent, getBoss(), "Shatter");
                                 }

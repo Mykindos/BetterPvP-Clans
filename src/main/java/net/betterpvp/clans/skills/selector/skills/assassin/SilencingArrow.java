@@ -6,10 +6,14 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -24,7 +28,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 
 import java.util.*;
 
-public class SilencingArrow extends Skill {
+public class SilencingArrow extends Skill implements InteractSkill {
 
     private List<Arrow> arrows = new ArrayList<>();
     private Set<UUID> active = new HashSet<>();
@@ -42,8 +46,7 @@ public class SilencingArrow extends Skill {
                 "target for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds.",
                 "Making them unable to use any active skills",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
 
         };
     }
@@ -56,8 +59,8 @@ public class SilencingArrow extends Skill {
                 UUID uuid = it.next();
                 Player p = Bukkit.getPlayer(uuid);
                 if (p != null) {
-                    if (p.getItemInHand() != null) {
-                        if (p.getItemInHand().getType() != Material.BOW) {
+                    if (p.getInventory().getItemInMainHand() != null) {
+                        if (!UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
                             Recharge recharge = RechargeManager.getInstance().getAbilityRecharge(p.getName(), getName());
                             if (recharge != null) {
                                 if (recharge.isCancellable()) {
@@ -107,17 +110,7 @@ public class SilencingArrow extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 30 - ((level - 1) * 2);
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-
-        if (!active.contains(player.getUniqueId())) {
-            UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-            player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
-            active.add(player.getUniqueId());
-        }
+        return 0;
     }
 
     @EventHandler
@@ -151,10 +144,10 @@ public class SilencingArrow extends Skill {
                         if (ClanUtilities.canHurt(p, ent)) {
                             if (hasSkill(p, this)) {
                                 if (arrows.contains((Arrow) e.getProjectile())) {
-                                    if (!EffectManager.hasEffect(ent, EffectType.INVULNERABILITY)) {
-                                        EffectManager.addEffect(ent, EffectType.SILENCE, (3 + getLevel(p)) * 1000);
-                                        LogManager.addLog(ent, p, "Silencing Arrow");
-                                    } else {
+
+                                    EffectManager.addEffect(ent, EffectType.SILENCE, (3 + getLevel(p)) * 1000);
+                                    LogManager.addLog(ent, p, "Silencing Arrow");
+                                    if (EffectManager.hasEffect(ent, EffectType.IMMUNETOEFFECTS)) {
                                         UtilMessage.message(p, getClassType(), ChatColor.GREEN + ent.getName() + ChatColor.GRAY + " is immune to your silence!");
                                     }
                                     arrows.remove((Arrow) e.getProjectile());
@@ -184,11 +177,19 @@ public class SilencingArrow extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
             return false;
         }
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        if (!active.contains(player.getUniqueId())) {
+            UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+            active.add(player.getUniqueId());
+        }
+    }
 }

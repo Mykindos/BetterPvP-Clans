@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.GameMode;
@@ -37,7 +38,7 @@ public class LogManager {
         getCombatLogs().get(damagee).add(new CombatLogs(damager, name, cause));
     }
 
-    public static void addLog(LivingEntity damagee, LivingEntity damager, String cause) {
+    public static synchronized void addLog(LivingEntity damagee, LivingEntity damager, String cause) {
         addLog(damagee, damager, "", cause);
     }
 
@@ -88,7 +89,7 @@ public class LogManager {
                 return true;
             }
 
-            if (p.getGameMode() != GameMode.SURVIVAL && p.getGameMode() != GameMode.ADVENTURE) {
+            if (p.getGameMode() == GameMode.SPECTATOR || p.getGameMode() == GameMode.CREATIVE) {
                 return true;
             }
 
@@ -100,9 +101,9 @@ public class LogManager {
                 return true;
             }
 
-         //   if (UtilClans.hasValuables(p)) {
-          //      return false;
-          //  }
+           if (UtilClans.hasValuables(p)) {
+               return false;
+           }
 
             Clan pc = ClanUtilities.getClan(p);
             if (pc != null) {

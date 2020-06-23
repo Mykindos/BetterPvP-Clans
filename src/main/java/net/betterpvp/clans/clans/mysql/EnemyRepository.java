@@ -13,17 +13,17 @@ import java.sql.SQLException;
 
 public class EnemyRepository {
 
-    public static final String TABLE_NAME = "clans_dominance";
-
-    public static String CREATE_ENEMY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-            + "(Clan VARCHAR(16), "
-            + "Other VARCHAR(16), "
-            + "Points INT, "
-            + "Time LONG); ";
-
+    public static String TABLE_NAME;
+    public static String CREATE_ENEMY_TABLE;
 
 
     private static void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_dominance";
+        CREATE_ENEMY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+                + "(Clan VARCHAR(16), "
+                + "Other VARCHAR(16), "
+                + "Points INT, "
+                + "Time LONG); ";
         QueryFactory.runQuery(CREATE_ENEMY_TABLE);
     }
 

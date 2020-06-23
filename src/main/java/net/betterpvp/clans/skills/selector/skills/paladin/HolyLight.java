@@ -27,8 +27,8 @@ public class HolyLight extends Skill {
                 ChatColor.GREEN.toString() + (8 + level) + ChatColor.GRAY + " blocks extra regeneration"};
     }
 
-    @Override
-    public void activateSkill(Player p) {
+
+    private void activate(Player p){
         p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 0));
         int level = getLevel(p);
         for (Player cur : UtilPlayer.getNearby(p.getLocation(), (8 + level))) {
@@ -50,7 +50,7 @@ public class HolyLight extends Skill {
 
 
                 if (hasSkill(player, this)) {
-                    activateSkill(player);
+                    activate(player);
                 }
 
 

@@ -1,6 +1,6 @@
 package net.betterpvp.clans.worldevents.types.nms;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.Wither;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -8,9 +8,9 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 public class BossWither extends EntityWither {
 
     public BossWither(World world) {
-        super(world);
+        super(EntityTypes.WITHER, world);
 
-        this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false,
+        this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this,
                 new Class[0]));
         this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this,
                 EntityHuman.class, true));

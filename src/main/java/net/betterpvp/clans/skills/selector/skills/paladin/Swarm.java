@@ -5,17 +5,24 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,7 +33,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Swarm extends Skill {
+public class Swarm extends ChannelSkill implements InteractSkill {
 
     private WeakHashMap<Player, Long> batCD = new WeakHashMap<>();
     private WeakHashMap<Player, ArrayList<BatData>> batData = new WeakHashMap<>();
@@ -71,20 +78,6 @@ public class Swarm extends Skill {
         return 10 - ((level - 1) * 1);
     }
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            if (Energy.use(p, getName(), 5.0, false)) {
-                if (!current.contains(p.getUniqueId())) {
-                    current.add(p.getUniqueId());
-                    if (!batData.containsKey(p)) {
-                        batData.put(p, new ArrayList<>());
-                    }
-                }
-            }
-
-        }
-    }
 
     public boolean hitPlayer(Location loc, LivingEntity player) {
         if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation()
@@ -106,7 +99,7 @@ public class Swarm extends Skill {
 
 
                 if (current.contains(cur.getUniqueId())) {
-                    if (cur.isBlocking()) {
+                    if (cur.isHandRaised()) {
                         if (!Energy.use(cur, getName(), getEnergy(getLevel(cur)) / 2, true)) {
                             current.remove(cur.getUniqueId());
                         } else if (!hasSkill(cur, this)) {
@@ -144,6 +137,8 @@ public class Swarm extends Skill {
 
                     for (LivingEntity other : p.getWorld().getLivingEntities()) {
                         if (other instanceof Bat) continue;
+                        if(other instanceof ArmorStand) continue;
+                        if(ShopManager.isShop(other)) continue;
                         if (hitPlayer(bat.getLocation(), other)) {
 
 
@@ -189,7 +184,7 @@ public class Swarm extends Skill {
                             other.setVelocity(bat.getLocation().getDirection().add(new Vector(0, .4F, 0)).multiply(0.50));
 
 
-                            bat.getWorld().playSound(bat.getLocation(), Sound.BAT_HURT, 0.2F, 0.7F);
+                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.2F, 0.7F);
 
                             bat.remove();
 
@@ -236,7 +231,22 @@ public class Swarm extends Skill {
     @Override
     public boolean usageCheck(Player p) {
 
+        if(UtilBlock.isInLiquid(p)){
+            UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            return false;
+        }
+
         return true;
+    }
+
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        if (!current.contains(p.getUniqueId())) {
+            current.add(p.getUniqueId());
+            if (!batData.containsKey(p)) {
+                batData.put(p, new ArrayList<>());
+            }
+        }
     }
 
 

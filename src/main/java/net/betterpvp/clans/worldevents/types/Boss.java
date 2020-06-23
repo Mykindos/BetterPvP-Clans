@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 
 import net.betterpvp.clans.combat.LogManager;
@@ -26,6 +27,7 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -117,8 +119,8 @@ public abstract class Boss extends WorldEvent {
                 if (getBoss() != null && !getBoss().isDead()) {
                     Block b = getBoss().getLocation().getBlock();
 
-                    if (b.getType() == Material.STATIONARY_LAVA || b.getType() == Material.LAVA) {
-                        new BlockRestoreData(b, b.getTypeId(), (byte) 0, 180000);
+                    if (b.getType() == Material.LAVA || b.getType() == Material.LAVA) {
+                        new BlockRestoreData(b, b.getType(), (byte) 0, 180000);
                         b.setType(Material.OBSIDIAN);
 
 
@@ -162,6 +164,8 @@ public abstract class Boss extends WorldEvent {
 
         loot = WEManager.getRandomItem();
 
+
+
         LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
         if (killer != null) {
             UtilMessage.broadcast("World Event", ChatColor.YELLOW + getBossName() + ChatColor.GRAY
@@ -201,7 +205,7 @@ public abstract class Boss extends WorldEvent {
                     killerGamer.addCoins(50000);
                     killerGamer.addFragments(fragments);
 
-                    //giveBonus(killerGamer, getBossName());
+                    giveBonus(killerGamer, getBossName());
 
                     UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
                             + ChatColor.GREEN + fragments + " fragments");
@@ -222,6 +226,9 @@ public abstract class Boss extends WorldEvent {
 
 
         setActive(false);
+        for(Player p : Bukkit.getOnlinePlayers()){
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
+        }
     }
 
    /* private void giveBonus(Client client, String boss) {
@@ -309,5 +316,34 @@ public abstract class Boss extends WorldEvent {
         }
     }
 
+    private void giveBonus(Gamer gamer, String boss){
+
+        String bossName = ChatColor.stripColor(boss);
+        gamer.setStatValue(bossName, gamer.getStatValue(bossName) + 1);
+
+
+    }
+
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void bonusDamage(CustomDamageEvent e){
+        if(isActive()){
+            if(e.getDamagee() == null || e.getDamager() == null) return;
+            if(e.getDamager() != null){
+                if(e.getDamager() instanceof Player){
+                    Player p = (Player) e.getDamager();
+
+                    if(e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())){
+                        Gamer gamer = GamerManager.getOnlineGamer(p);
+
+                        int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()).replace(" ", ""));
+                        double modifier = kills * 2;
+                        double modifier2 = modifier >= 10 ? 0.01 : 0.1;
+
+                        e.setDamage(e.getDamage() * (1 + (modifier * modifier2)));
+                    }
+                }
+            }
+        }
+    }
 
 }

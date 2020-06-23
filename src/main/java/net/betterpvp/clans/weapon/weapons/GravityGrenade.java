@@ -4,14 +4,15 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -20,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -34,7 +36,7 @@ public class GravityGrenade extends Weapon {
     private HashMap<Item, Long> gravity = new HashMap<>();
 
     public GravityGrenade(Clans i) {
-        super(i, Material.STAINED_CLAY, (byte) 15, ChatColor.YELLOW + "Gravity Bomb", new String[]{
+        super(i, Material.BLACK_TERRACOTTA, (byte) 15, ChatColor.YELLOW + "Gravity Bomb", new String[]{
                 ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
                 ChatColor.GRAY + "  " + "Creates a field that disrupts all players caught inside"}, false, 10.0);
 
@@ -44,17 +46,17 @@ public class GravityGrenade extends Weapon {
     @EventHandler
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.STAINED_CLAY) return;
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.BLACK_TERRACOTTA) return;
 
 
         if (isThisWeapon(player)) {
             if (ClanUtilities.canCast(player)) {
                 if (event.getAction() == Action.LEFT_CLICK_AIR) {
                     if (RechargeManager.getInstance().add(player, "Gravity Bomb", 15, true)) {
-                        Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.STAINED_CLAY, 1, (byte) 15));
-                        UtilItem.remove(player, Material.STAINED_CLAY, (byte) 15, 1);
+                        Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.BLACK_TERRACOTTA, 1));
+                        UtilItem.remove(player, Material.BLACK_TERRACOTTA, 1);
                         item.setPickupDelay(Integer.MAX_VALUE);
                         item.setVelocity(player.getLocation().getDirection().multiply(1.3));
                         gravity.put(item, System.currentTimeMillis());
@@ -89,13 +91,14 @@ public class GravityGrenade extends Weapon {
                             z = Math.sin(angle) * p;
 
                             loc.add(x, 0, z);
-                            q.getLocation().getWorld().spigot().playEffect(loc, Effect.LARGE_SMOKE, Effect.LARGE_SMOKE.getId(), 0, 0.0F, 0.0F, 0.0F, 0, 1, 100);
-                            //	ParticleEffect.SMOKE_LARGE.display(0,  0, 0, 1, 1,loc, 128);
+                            ParticleEffect.SMOKE_LARGE.display(loc);
+
                             loc.subtract(x, 0, z);
                         }
                     }
 
                     for (LivingEntity p : UtilPlayer.getAllInRadius(q.getLocation(), 5.0)) {
+                        if(ShopManager.isShop(p)) continue;
                         if (p instanceof Player) {
                             Player d = (Player) p;
                             Clan ca = ClanUtilities.getClan(d.getLocation());

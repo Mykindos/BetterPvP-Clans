@@ -43,7 +43,7 @@ public class Cleave extends Skill {
             Player p = (Player) e.getDamager();
 
             if (hasSkill(p, this)) {
-                if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                     if (ClanUtilities.canCast(p)) {
 
                         if (e.getEntity() instanceof Player) {
@@ -85,12 +85,6 @@ public class Cleave extends Skill {
     public float getEnergy(int level) {
 
         return 0;
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-
-
     }
 
     @Override

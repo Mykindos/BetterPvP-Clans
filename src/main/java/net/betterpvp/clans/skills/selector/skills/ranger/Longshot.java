@@ -6,17 +6,20 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMath;
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_15_R1.EntityThrownTrident;
 import org.bukkit.Location;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -43,7 +46,7 @@ public class Longshot extends Skill {
         return new String[]{
                 "Shoot an arrow that gains additional",
                 "damage the further the target hit is",
-                "Caps out at " + ChatColor.GREEN + (13 + level) + ChatColor.GRAY + " damage",
+                "Caps out at " + ChatColor.GREEN + (16 + level) + ChatColor.GRAY + " damage",
                 "Cannot be used in own territory"};
     }
 
@@ -60,7 +63,8 @@ public class Longshot extends Skill {
                 } else if (next.isDead()) {
                     it.remove();
                 } else {
-                    ParticleEffect.FIREWORKS_SPARK.display(new Vector(0, 0.0, 0), 15, next.getLocation().add(new Vector(0, 0.25, 0)), 20);
+                    ParticleEffect.FIREWORKS_SPARK.display(next.getLocation().add(new Vector(0, 0.25, 0)));
+
                 }
             }
         }
@@ -133,7 +137,6 @@ public class Longshot extends Skill {
 
                             double damage = Math.min((16 + getLevel((Player) arrow.getShooter())), length / 3.0 - 4);
 
-
                             e.setDamage(e.getDamage() + (damage));
                             arrows.remove(arrow);
 
@@ -150,11 +153,6 @@ public class Longshot extends Skill {
         }
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

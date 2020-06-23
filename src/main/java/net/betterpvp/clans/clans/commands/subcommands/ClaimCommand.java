@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
@@ -30,7 +31,7 @@ public class ClaimCommand implements IClanCommand {
 
     public void run(Player player, String[] args) {
         if (player.getWorld().getName().equalsIgnoreCase("tutorial")) return;
-        if (player.getWorld().getName().equalsIgnoreCase("bossworld2")) return;
+        if (player.getWorld().getName().equalsIgnoreCase("bossworld")) return;
 
         Clan clan = ClanUtilities.getClan(player);
         if (clan == null) {
@@ -91,8 +92,14 @@ public class ClaimCommand implements IClanCommand {
                         continue;
                     }
 
-                    UtilMessage.message(player, "Clans", "You cannot claim Territory containing enemies.");
-                    break;
+                    if(ClanUtilities.canHurt(player, (Player) entitys)) {
+                        if(ClanUtilities.getClan((Player) entitys) == null){
+                            continue;
+                        }
+                        UtilMessage.message(player, "Clans", "You cannot claim Territory containing enemies.");
+                        return;
+                    }
+
                 }
             }
         }
@@ -126,6 +133,7 @@ public class ClaimCommand implements IClanCommand {
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             // ClanRepository.updateDynmap(i, clan);
             return;
         }
@@ -172,7 +180,9 @@ public class ClaimCommand implements IClanCommand {
             UtilLocation.outlineChunk(player.getLocation().getChunk());
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
+
             Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             //ClanRepository.updateDynmap(i, clan);
             return;
         }

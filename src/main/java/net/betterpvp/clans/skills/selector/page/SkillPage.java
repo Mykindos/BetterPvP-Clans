@@ -60,10 +60,11 @@ public class SkillPage extends Menu {
         addButton(new Button(0, new ItemStack(Material.IRON_SWORD), ChatColor.GREEN.toString() + ChatColor.BOLD + "Sword Skills"));
         addButton(new Button(9, new ItemStack(Material.IRON_AXE), ChatColor.GREEN.toString() + ChatColor.BOLD + "Axe Skills"));
         addButton(new Button(18, new ItemStack(Material.BOW), ChatColor.GREEN.toString() + ChatColor.BOLD + "Bow Skills"));
-        addButton(new Button(27, new ItemStack(Material.INK_SACK, 1, (byte) 1), ChatColor.GREEN.toString() + ChatColor.BOLD + "Class Passive A Skills"));
-        addButton(new Button(36, new ItemStack(Material.INK_SACK, 1, (byte) 14), ChatColor.GREEN.toString() + ChatColor.BOLD + "Class Passive B Skills"));
-        addButton(new Button(45, new ItemStack(Material.INK_SACK, 1, (byte) 11), ChatColor.GREEN.toString() + ChatColor.BOLD + "Global Passive Skills"));
-        addButton(new Button(8, new ItemStack(Material.EMERALD, getBuild().getPoints()), ChatColor.GREEN.toString() + ChatColor.BOLD + "Skill Points"));
+        addButton(new Button(27, new ItemStack(Material.RED_DYE, 1), ChatColor.GREEN.toString() + ChatColor.BOLD + "Class Passive A Skills"));
+        addButton(new Button(36, new ItemStack(Material.ORANGE_DYE, 1), ChatColor.GREEN.toString() + ChatColor.BOLD + "Class Passive B Skills"));
+        addButton(new Button(45, new ItemStack(Material.YELLOW_DYE, 1), ChatColor.GREEN.toString() + ChatColor.BOLD + "Global Passive Skills"));
+        addButton(new Button(8, new ItemStack(Material.EMERALD,
+                getBuild().getPoints()), ChatColor.GREEN.toString() + ChatColor.BOLD + "Skill Points"));
         for (Skill skill : SelectorManager.getSkillsFor(role)) {
             if (skill == null) continue;
             if (skill.getType() == null) continue;

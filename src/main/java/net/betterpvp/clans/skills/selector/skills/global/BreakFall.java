@@ -36,11 +36,6 @@ public class BreakFall extends Skill {
         return Types.GLOBAL;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {

@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,11 +11,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public class GiantsBroadsword extends Weapon {
+public class GiantsBroadsword extends Weapon implements ILegendary {
 
 
     public GiantsBroadsword(Clans i) {
-        super(i, Material.DIAMOND_SWORD, (byte) 0, ChatColor.RED + "Giants Broadsword",
+        super(i, Material.MUSIC_DISC_BLOCKS, (byte) 0, ChatColor.RED + "Giants Broadsword",
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "9",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Bonus Damage",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
@@ -31,8 +32,8 @@ public class GiantsBroadsword extends Weapon {
         if (event.getDamager() instanceof Player) {
 
             Player player = (Player) event.getDamager();
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.DIAMOND_SWORD) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_BLOCKS) return;
             if (isThisWeapon(player)) {
 
                 event.setDamage(9);
@@ -43,5 +44,10 @@ public class GiantsBroadsword extends Weapon {
         }
 
 
+    }
+
+    @Override
+    public boolean isTextured() {
+        return true;
     }
 }

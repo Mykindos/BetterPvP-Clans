@@ -31,7 +31,7 @@ public class KOTHCommand extends Command {
                         b.setType(Material.BEACON);
                         for(int x = -1 ; x <= 1; x++){
                             for(int z = -1; z <= 1; z++){
-                                new BlockRestoreData(player.getLocation().add(x, -1, z).getBlock(), 42, (byte) 0, 1000000);
+                                new BlockRestoreData(player.getLocation().add(x, -1, z).getBlock(), Material.IRON_BLOCK, (byte) 0, 1000000);
                             }
                         }
                         KOTHManager.koth = new SupplyCrateData(b.getLocation(), 900 );

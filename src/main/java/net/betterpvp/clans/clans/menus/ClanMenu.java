@@ -51,19 +51,19 @@ public class ClanMenu extends Menu {
 
         if (member.hasRole(Role.LEADER)) {
 
-            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR_ITEM),
+            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Leave Clan",
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Leave Clan",
                     ChatColor.GREEN + "Shift Right-Click: " + ChatColor.GRAY + "Disband Clan"));
         } else {
 
-            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR_ITEM),
+            addButton(new LeaveButton(clan, 6, new ItemStack(Material.DARK_OAK_DOOR),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Leave Clan",
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Leave Clan"));
         }
 
         if (member.hasRole(Role.ADMIN)) {
-            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS),
+            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS_BLOCK),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Claimed Land",
                     ChatColor.GRAY + "Your clan has claimed " + ChatColor.GREEN + clan.getTerritory().size()
                             + ChatColor.GRAY + " chunks",
@@ -74,7 +74,7 @@ public class ClanMenu extends Menu {
                     ChatColor.GREEN + "Shift Left-Click: " + ChatColor.GRAY + "Claim current chunk",
                     ChatColor.GREEN + "Shift Right-Click: " + ChatColor.GRAY + "Unclaim current chunk"));
         } else {
-            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS),
+            addButton(new ClaimButton(clan, 2, new ItemStack(Material.GRASS_BLOCK),
                     ChatColor.GREEN.toString() + ChatColor.BOLD + "Claimed Land",
                     ChatColor.GRAY + "Your clan has claimed " + ChatColor.GREEN + clan.getTerritory().size()
                             + ChatColor.GRAY + " chunks",
@@ -88,7 +88,7 @@ public class ClanMenu extends Menu {
         for (ClanMember m : clan.getMembers()) {
 
 
-            ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+            ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1, (short) SkullType.PLAYER.ordinal());
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
             Client client = ClientUtilities.getClient(m.getUUID());
             Player p = Bukkit.getPlayer(m.getUUID());

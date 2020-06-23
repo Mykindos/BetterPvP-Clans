@@ -51,11 +51,6 @@ public class Stampede extends Skill {
         return Types.PASSIVE_B;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -69,8 +64,6 @@ public class Stampede extends Skill {
             return;
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
-
-
             if (sprintTime.containsKey(p)) {
                 if (hasSkill(p, this)) {
                     if (!p.isSprinting()) {
@@ -92,7 +85,7 @@ public class Stampede extends Skill {
                             if (str < 2) {
                                 sprintStr.put(p, str + 1);
 
-                                p.getWorld().playSound(p.getLocation(), Sound.ZOMBIE_IDLE, 2.0F, 0.2F * str + 1.0F);
+                                p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_AMBIENT, 2.0F, 0.2F * str + 1.0F);
                             }
                         }
                     }

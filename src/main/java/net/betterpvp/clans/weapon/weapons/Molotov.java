@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -34,7 +35,7 @@ public class Molotov extends Weapon {
     public static List<Item> items = new ArrayList<Item>();
 
     public Molotov(Clans i) {
-        super(i, Material.EXP_BOTTLE, (byte) 0, ChatColor.YELLOW + "Molotov", new String[]{
+        super(i, Material.EXPERIENCE_BOTTLE, (byte) 0, ChatColor.YELLOW + "Molotov", new String[]{
                 ChatColor.GRAY + "Left-Click: " + ChatColor.YELLOW + "Throw",
                 ChatColor.GRAY + "  " + "Creates a dangerous fire zone for 5 seconds"}, false, 0);
     }
@@ -42,9 +43,9 @@ public class Molotov extends Weapon {
     @EventHandler
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
-        if (player.getItemInHand() == null) return;
-        if (player.getItemInHand().getType() != Material.EXP_BOTTLE) return;
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (player.getInventory().getItemInMainHand() == null) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.EXPERIENCE_BOTTLE) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 
@@ -58,9 +59,9 @@ public class Molotov extends Weapon {
             if (ClanUtilities.canCast(player)) {
                 if (event.getAction() == Action.LEFT_CLICK_AIR) {
                     if (RechargeManager.getInstance().add(player, "Molotov", 10, true)) {
-                        Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.EXP_BOTTLE));
+                        Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.EXPERIENCE_BOTTLE));
                         ThrowableManager.addThrowable(item, player, "Molotov", 6000);
-                        UtilItem.remove(player, Material.EXP_BOTTLE, (byte) 0, 1);
+                        UtilItem.remove(player, Material.EXPERIENCE_BOTTLE, 1);
                         UtilItem.setItemNameAndLore(item.getItemStack(), Integer.toString(UtilMath.randomInt(10000)), new String[]{});
                         item.setPickupDelay(Integer.MAX_VALUE);
                         item.setVelocity(player.getLocation().getDirection().multiply(1.8));
@@ -77,7 +78,7 @@ public class Molotov extends Weapon {
             final Item throwable = e.getThrowable().getItem();
 
             for (int i = 0; i < 4; i++) {
-                throwable.getWorld().playSound(throwable.getLocation(), Sound.GLASS, 1f, 1f);
+                throwable.getWorld().playSound(throwable.getLocation(), Sound.BLOCK_GLASS_BREAK, 1f, 1f);
             }
 
             for (int i = 0; i < 60; i++) {
@@ -87,7 +88,7 @@ public class Molotov extends Weapon {
 
 
                         Item item = throwable.getWorld().dropItem(throwable.getLocation(), new ItemStack(Material.BLAZE_POWDER));
-                        item.getWorld().playSound(item.getLocation(), Sound.FIZZ, 0.3F, 0.0F);
+                        item.getWorld().playSound(item.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 0.3F, 0.0F);
                         ThrowableManager.addThrowable(item, e.getThrowable().getThrower(), "Molotov Flames", (5000));
                         item.setVelocity(new Vector(UtilMath.randDouble(-0.6, 0.6), UtilMath.randDouble(0, 0.5), UtilMath.randDouble(-0.6, 0.6)));
 

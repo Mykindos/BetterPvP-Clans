@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.menus.ClanMenu;
 import net.betterpvp.clans.clans.menus.EnergyMenu;
 import net.betterpvp.clans.clans.menus.buttons.ClaimButton;
@@ -23,7 +24,9 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 
@@ -71,7 +74,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
                             + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
                     ClanRepository.updateEnergy(buy1kEnergy.getClan());
-                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                     return;
                 }
             } else if (e.getButton() instanceof BuyOneDayEnergy) {
@@ -85,7 +88,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     ClanRepository.updateEnergy(buyOneDayEnergy.getClan());
                     UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
                             + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
-                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                     return;
                 }
             } else if (e.getButton() instanceof BuyOneHourEnergy) {
@@ -99,13 +102,22 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     ClanRepository.updateEnergy(buyOneHourEnergy.getClan());
                     UtilMessage.message(e.getPlayer(), "Clans", "You purchased " + ChatColor.GREEN + energy
                             + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
-                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                     return;
                 }
             }
 
-            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_BREAK, 1.0F, 0.6F);
+            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
 
+            Clan clan = ClanUtilities.getClan(e.getPlayer());
+            if (clan != null) {
+                for (ClanMember m : clan.getMembers()) {
+                    Player mP = Bukkit.getPlayer(m.getUUID());
+                    if (mP != null) {
+                        Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(mP));
+                    }
+                }
+            }
 
         }
     }
@@ -122,7 +134,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     IClanCommand com = ClanCommand.getCommand("Promote");
                     if (com != null) {
                         com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                         clanMenu.fillPage();
                         clanMenu.construct();
                     }
@@ -133,7 +145,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     IClanCommand com = ClanCommand.getCommand("Demote");
                     if (com != null) {
                         com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                         clanMenu.fillPage();
                         clanMenu.construct();
                     }
@@ -141,7 +153,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     IClanCommand com = ClanCommand.getCommand("Kick");
                     if (com != null) {
                         com.run(e.getPlayer(), new String[]{"", ChatColor.stripColor(memberButton.getName())});
-                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                         clanMenu.fillPage();
                         clanMenu.construct();
                     }
@@ -158,7 +170,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                     IClanCommand com = ClanCommand.getCommand("Leave");
                     if (com != null) {
                         com.run(e.getPlayer(), new String[]{""});
-                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                         e.getPlayer().closeInventory();
                     }
 
@@ -189,7 +201,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                             IClanCommand com = ClanCommand.getCommand("Claim");
                             if (com != null) {
                                 com.run(e.getPlayer(), new String[]{""});
-                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                                 clanMenu.fillPage();
                                 clanMenu.construct();
                             }
@@ -199,7 +211,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                             IClanCommand com = ClanCommand.getCommand("Unclaim");
                             if (com != null) {
                                 com.run(e.getPlayer(), new String[]{""});
-                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_PLING, 1.0F, 2.0F);
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                                 clanMenu.fillPage();
                                 clanMenu.construct();
                             }

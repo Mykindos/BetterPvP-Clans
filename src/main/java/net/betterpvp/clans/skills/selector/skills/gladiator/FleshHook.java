@@ -9,7 +9,11 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.Throwables;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.economy.shops.ShopManager;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.ChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -28,7 +32,7 @@ import org.bukkit.util.Vector;
 
 import java.util.*;
 
-public class FleshHook extends Skill {
+public class FleshHook extends ChannelSkill implements InteractSkill {
 
     private WeakHashMap<Player, List<LivingEntity>> immune;
     private List<ChargeData> charges = new ArrayList<>();
@@ -57,17 +61,10 @@ public class FleshHook extends Skill {
         };
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-        charges.add(new ChargeData(player.getUniqueId(), 25, 100));
-        delay.put(player, System.currentTimeMillis());
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER ) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
@@ -91,8 +88,8 @@ public class FleshHook extends Skill {
                                     continue;
                                 }
                             }
-                            if (player.isBlocking()) {
-                                if (!Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
+                            if (player.isHandRaised()) {
+                                if (!Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                                     iterator.remove();
                                     continue;
                                 }
@@ -110,11 +107,11 @@ public class FleshHook extends Skill {
                                         data.addCharge();
                                         data.setLastCharge(System.currentTimeMillis());
                                         UtilMessage.message(player, getClassType(), getName() + ": " + ChatColor.YELLOW + "+ " + data.getCharge() + "% Strength");
-                                        player.playSound(player.getLocation(), Sound.CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
+                                        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.4F, 1.0F + 0.05F * data.getCharge());
                                     }
                                 }
                             } else {
-                                if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
+                                if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
                                     double base = 0.8D;
                                     Location loc = player.getLocation();
                                     Location loc2 = loc.clone();
@@ -137,7 +134,7 @@ public class FleshHook extends Skill {
 
 
                                     UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-                                    player.getWorld().playSound(player.getLocation(), Sound.IRONGOLEM_THROW, 2.0F, 0.8F);
+                                    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0F, 0.8F);
 
 
                                     iterator.remove();
@@ -170,6 +167,7 @@ public class FleshHook extends Skill {
     public void onCollide(ThrowableCollideEntityEvent e) {
         if (e.getThrowable().getSkillName().equalsIgnoreCase(getName())) {
             LivingEntity collide = e.getCollision();
+            if(ShopManager.isShop(collide)) return;
             if (collide instanceof Player) {
                 Player player = (Player) collide;
                 if (!ClanUtilities.canHurt((Player) e.getThrowable().getThrower(), player)) {
@@ -211,4 +209,9 @@ public class FleshHook extends Skill {
         return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        charges.add(new ChargeData(player.getUniqueId(), 25, 100));
+        delay.put(player, System.currentTimeMillis());
+    }
 }

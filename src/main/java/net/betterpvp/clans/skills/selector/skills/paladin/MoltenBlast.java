@@ -4,27 +4,32 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.particles.ParticleEffect;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.LargeFireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class MoltenBlast extends Skill {
+public class MoltenBlast extends Skill implements InteractSkill {
 
     public List<LargeFireball> fireballs = new ArrayList<>();
 
@@ -46,8 +51,7 @@ public class MoltenBlast extends Skill {
                 "area of effect damage, and igniting any players hit",
                 "for " + ChatColor.GREEN + ((level * 0.5)) + ChatColor.GRAY + " seconds",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -62,7 +66,7 @@ public class MoltenBlast extends Skill {
                     continue;
                 }
                 if (f.getLocation().getY() < 255 || !f.isDead()) {
-                    ParticleEffect.LAVA.display(0, 0, 0, 0, 5, f.getLocation(), 50);
+                    ParticleEffect.LAVA.display(f.getLocation());
                 } else {
                     it.remove();
                 }
@@ -119,7 +123,13 @@ public class MoltenBlast extends Skill {
                 LogManager.addLog(e.getDamagee(), player, "Molten Blast");
                 e.setKnockback(true);
                 e.setDamage(6);
-                e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
+                new BukkitRunnable(){
+                    @Override
+                    public void run(){
+                        e.getDamagee().setFireTicks((int) (20 * (0 + (getLevel(player) * 0.5))));
+                    }
+                }.runTaskLater(getInstance(), 2);
+
             }
 
 
@@ -134,20 +144,12 @@ public class MoltenBlast extends Skill {
     }
 
 
-    @Override
-    public void activateSkill(final Player p) {
-        if (usageCheck(p)) {
-            LargeFireball f = p.launchProjectile(LargeFireball.class);
-            f.setYield(2.0F);
-            f.setVelocity(f.getVelocity().multiply(5));
-            f.setIsIncendiary(false);
-            fireballs.add(f);
-            UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
+    @EventHandler
+    public void onExplode(EntityExplodeEvent e){
+        if(e.getEntity() instanceof LargeFireball){
 
-
+            e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, 2.0f, 1.0f);
         }
-
-
     }
 
 
@@ -177,7 +179,7 @@ public class MoltenBlast extends Skill {
 		 */
 
 
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+        if (player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
             return false;
         }
@@ -213,7 +215,18 @@ public class MoltenBlast extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        LargeFireball f = p.launchProjectile(LargeFireball.class);
+        f.setYield(2.0F);
+        f.setVelocity(f.getVelocity().multiply(5));
+        f.setIsIncendiary(false);
+
+        fireballs.add(f);
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + "Molten Blast" + ChatColor.GRAY + ".");
+
+    }
 }

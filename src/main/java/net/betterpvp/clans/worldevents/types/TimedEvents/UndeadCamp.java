@@ -20,7 +20,7 @@ import net.betterpvp.core.utility.UtilTime.TimeUnit;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
@@ -32,6 +32,7 @@ import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Iterator;
@@ -51,7 +52,7 @@ public class UndeadCamp extends Timed {
     public UndeadCamp(Clans i) {
         super(i, "UndeadCamp", WEType.TIMED, 30);
 
-        world = Bukkit.getWorld("bossworld2");
+        world = Bukkit.getWorld("bossworld");
         loc = new Location(world, -144, 72, -480);
 
         chestLocations = new Location[]{
@@ -187,7 +188,7 @@ public class UndeadCamp extends Timed {
             l.getBlock().setType(Material.ENDER_CHEST);
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 0.1F, 1F);
+            p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1F, 1F);
         }
 
         spawnMobs();
@@ -198,7 +199,7 @@ public class UndeadCamp extends Timed {
     private void spawnMobs() {
         int count = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getWorld().getName().equalsIgnoreCase("bossworld2")) {
+            if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
                 if (count < 4) {
                     BossZombie uz = new BossZombie(((CraftWorld) world).getHandle());
                     Zombie undeadZombie = uz.spawnZombie(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
@@ -218,10 +219,11 @@ public class UndeadCamp extends Timed {
 
     @EventHandler
     public void crackChest(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (isActive()) {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-                    if (e.getClickedBlock().getWorld().getName().equalsIgnoreCase("bossworld2")) {
+                    if (e.getClickedBlock().getWorld().getName().equalsIgnoreCase("bossworld")) {
                         if (killCount.containsKey(e.getPlayer())) {
                             if (killCount.get(e.getPlayer()) >= 3) {
                                 breakChest(e.getClickedBlock());
@@ -275,11 +277,11 @@ public class UndeadCamp extends Timed {
 
         double rand = Math.random();
         if (rand > 0.95) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.GOLD_RECORD));
+            world.dropItem(b.getLocation(), new ItemStack(Material.MUSIC_DISC_11));
         } else if (rand > 0.9) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_SWORD));
         } else if (rand > 0.8) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.GOLD_SWORD));
+            world.dropItem(b.getLocation(), new ItemStack(Material.GOLDEN_SWORD));
         } else if (rand > 0.7) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_AXE));
         }
@@ -366,7 +368,7 @@ public class UndeadCamp extends Timed {
                                         power, false, 0, 0.2, 0.8, true);
 
                                 //Effect
-                                z.getWorld().playSound(z.getLocation(), Sound.ZOMBIE_HURT, 1f, 2f);
+                                z.getWorld().playSound(z.getLocation(), Sound.ENTITY_ZOMBIE_HURT, 1f, 2f);
                             }
                         }
                     }

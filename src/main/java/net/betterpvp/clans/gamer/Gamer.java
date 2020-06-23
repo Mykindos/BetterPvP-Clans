@@ -3,18 +3,21 @@ package net.betterpvp.clans.gamer;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
 
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
+import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
 
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.scoreboard.Scoreboard;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.donation.Donation;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Gamer implements Invitable {
 
@@ -35,6 +38,8 @@ public class Gamer implements Invitable {
     private Location home;
     private boolean filter;
     private Scoreboard scoreboard;
+    private HashMap<String, Integer> ratings;
+    private HashMap<String, Integer> playerStats;
 
     //private HashMap<Enum, Object> data;
 
@@ -52,8 +57,12 @@ public class Gamer implements Invitable {
         questPerks = new ArrayList<>();
         builds = new ArrayList<>();
         filter = false;
+        ratings = new HashMap<>();
+        playerStats = new HashMap<>();
 
-
+        for (Role role : Role.roles) {
+            ratings.put(role.getName(), 1500);
+        }
 
 
         //this.data = new HashMap<>();
@@ -137,7 +146,6 @@ public class Gamer implements Invitable {
 
     public void addFragments(double amount) {
         fragments += amount;
-
     }
 
     public boolean hasBattleCoins(int amount) {
@@ -239,6 +247,11 @@ public class Gamer implements Invitable {
 
     public void setCoins(int coins) {
         this.coins = Math.min(Integer.MAX_VALUE, coins);
+
+        Player player = Bukkit.getPlayer(getUUID());
+        if (player != null) {
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
     }
 
     public int getKills() {
@@ -267,10 +280,20 @@ public class Gamer implements Invitable {
 
     public void addCoins(double coins) {
         this.coins = Math.min(Integer.MAX_VALUE, this.coins + (int) coins);
+        Player player = Bukkit.getPlayer(getUUID());
+        if (player != null) {
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
     }
 
     public void removeCoins(double coins) {
         this.coins = Math.max(0, this.coins - (int) coins);
+
+        Player player = Bukkit.getPlayer(getUUID());
+        if (player != null) {
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+        }
+
 
     }
 
@@ -325,6 +348,40 @@ public class Gamer implements Invitable {
     }
 
 
+    public int getRating(Role role) {
+        return ratings.get(role.getName());
+    }
+
+    public HashMap<String, Integer> getRatings() {
+        return ratings;
+    }
+
+    public HashMap<String, Integer> getPlayerStats() {
+        return playerStats;
+    }
+
+    public void setPlayerStat(HashMap<String, Integer> playerStat) {
+        this.playerStats = playerStat;
+    }
+
+    public int getStatValue(String key) {
+        if (playerStats.containsKey(key)) {
+            return playerStats.get(key);
+        }
+
+        playerStats.put(key, 0);
+        PlayerStatRepository.saveStat(getUUID(), key, 0);
+        return 0;
+    }
+
+    public void setStatValue(String key, int value) {
+        playerStats.put(key, value);
+        //PlayerStatRepository.updateStat(getUUID(), key, value);
+    }
+
+    public void updateAllStats() {
+
+    }
 
 
 

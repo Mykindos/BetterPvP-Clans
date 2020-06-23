@@ -17,9 +17,9 @@ public class FindCommand extends Command implements Listener {
 
     private WeakHashMap<Player, Player> tracker = new WeakHashMap<>();
 
-    public FindCommand(Clans i) {
+    public FindCommand() {
         super("find", new String[]{"track"}, Rank.PLAYER);
-        Bukkit.getPluginManager().registerEvents(this, i);
+
         // TODO Auto-generated constructor stub
     }
 
@@ -47,7 +47,7 @@ public class FindCommand extends Command implements Listener {
 
     @EventHandler
     public void onUpdate(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.TICK){
+        if(e.getType() == UpdateEvent.UpdateType.TICK_2){
             for(Player p : tracker.keySet()){
                 if(tracker.get(p) != null){
                     p.setCompassTarget(tracker.get(p).getLocation());

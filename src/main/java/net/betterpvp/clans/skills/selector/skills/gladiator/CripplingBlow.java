@@ -35,10 +35,10 @@ public class CripplingBlow extends Skill {
     public void onDamage(CustomDamageEvent e) {
         if (e.getDamager() instanceof Player) {
             Player p = (Player) e.getDamager();//
-            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+            if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                 if (hasSkill(p, this)) {
 
-                    LivingEntity ent = (LivingEntity) e.getDamagee();
+                    LivingEntity ent =  e.getDamagee();
                     LogManager.addLog(ent, p, "Crippling Blow");
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((1 + (getLevel(p) * 0.5)) * 20), 0));
 
@@ -54,7 +54,7 @@ public class CripplingBlow extends Skill {
             Player p = (Player) e.getDamager();
 
             if (hasSkill(p, this)) {
-                if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
+                if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
                     e.setKnockback(false);
                 }
             }
@@ -78,12 +78,6 @@ public class CripplingBlow extends Skill {
     public float getEnergy(int level) {
 
         return 0;
-    }
-
-    @Override
-    public void activateSkill(Player p) {
-
-
     }
 
     @Override

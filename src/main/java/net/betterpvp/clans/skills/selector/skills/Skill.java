@@ -1,5 +1,6 @@
 package net.betterpvp.clans.skills.selector.skills;
 
+import javafx.scene.control.Toggle;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
@@ -20,6 +21,7 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -27,7 +29,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Arrays;
 
@@ -172,12 +177,6 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
      */
     public abstract float getEnergy(int level);
 
-    /**
-     * The method used to perform a skill
-     *
-     * @param p The player casting the skill
-     */
-    public abstract void activateSkill(Player p);
 
     /**
      * Checks if a skill is currently usable
@@ -215,8 +214,9 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
             }
 
         }
-        if (getType() == Types.AXE || getType() == Types.SWORD) {
-            if (p.getItemInHand().getType() == Material.DIAMOND_SWORD || p.getItemInHand().getType() == Material.DIAMOND_AXE) {
+        if (getType() == Types.AXE || getType() == Types.SWORD || getType() == Types.BOW) {
+            if (p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD || p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE
+            || p.getInventory().getItemInMainHand().getType() == Material.CROSSBOW) {
                 level++;
             }
         }
@@ -225,8 +225,8 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
 
     public boolean hasSwordInMainHand(Player p) {
-        if (p.getItemInHand() != null) {
-            return p.getItemInHand().getType().name().contains("SWORD");
+        if (p.getInventory().getItemInMainHand() != null) {
+            return p.getInventory().getItemInMainHand().getType().name().contains("SWORD");
         }
         return false;
     }
@@ -275,120 +275,8 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
         return false;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onSkillActivate(PlayerInteractEvent event) {
-
-        Player player = event.getPlayer();
-
-        if (player.getItemInHand() == null) {
-            return;
-        }
-
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Block b = event.getClickedBlock();
-            if (b.getType() == Material.SPONGE) {
-                // Only cancel if the sponge is below the player
-                if (b.getLocation().getY() < player.getLocation().getY()) {
-                    return;
-                }
-            } else if (b.getType() == Material.IRON_DOOR || b.getType() == Material.IRON_DOOR_BLOCK) {
-                return;
-            }
-        } else {
-            if (event.getClickedBlock() != null) {
-
-                if (event.getClickedBlock().getType() == Material.IRON_DOOR
-                        || event.getClickedBlock().getType() == Material.IRON_DOOR_BLOCK) {
-                    return;
-                }
-            }
-        }
 
 
-        if (getActions() == null) {
-            return;
-        }
-
-        if (Arrays.asList(getActions()).contains(event.getAction())) {
-            if (Arrays.asList(getMaterials()).contains(player.getItemInHand().getType())) {
-                Weapon weapon = WeaponManager.getWeapon(player.getItemInHand());
-
-                if (weapon == null || weapon != null && weapon instanceof EnchantedWeapon) {
-                    Role role = Role.getRole(player);
-
-                    if (role != null && role.getName().equals(getClassType())) {
-
-                        if (!useInteract()) {
-                            return;
-                        }
-
-                        if (UtilItem.isBlockDoor(player)) {
-                            return;
-                        }
-
-                        Gamer gamer = GamerManager.getOnlineGamer(player);
-                        RoleBuild rb = gamer.getActiveBuild(role.getName());
-                        if (rb == null) {
-                            gamer.setActiveBuild(gamer.getBuild(Role.getRole(player).getName(), 1));
-                        }
-
-                        BuildSkill bs = rb.getBuildSkill(getType());
-                        if (bs != null) {
-
-                            Skill s = bs.getSkill();
-                            if (s != null) {
-                                if (s.getName().equals(getName())) {
-
-
-                                    if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
-                                        UtilMessage.message(player, "Effect", "You are silenced!");
-                                        return;
-                                    }
-
-                                    if (!ClanUtilities.canCast(player)) {
-                                        return;
-                                    }
-
-                                    if (!usageCheck(player)) {
-                                        return;
-                                    }
-
-
-                                    if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                                        if (UtilBlock.usable(event.getClickedBlock())) {
-                                            return;
-                                        }
-                                    }
-
-                                    if (0.999 * (s.getEnergy(getLevel(player)) / 100) < Energy.getEnergy(player)) {
-                                        if (getRecharge(bs.getLevel()) == 0) {
-
-                                            s.activateSkill(player);
-                                            return;
-                                        }
-                                        if (RechargeManager.getInstance().add(player, s.getName(), getRecharge(getLevel(player)),
-                                                s.showRecharge(), true, s.isCancellable())) {
-                                            if (Energy.use(player, s.getName(), getEnergy(getLevel(player)), true)) {
-                                                s.activateSkill(player);
-
-                                            }
-                                        }
-                                    } else {
-                                        UtilMessage.message(player, "Energy", "You are too exhausted to use "
-                                                + ChatColor.GREEN + s.getName(getLevel(player)) + ChatColor.GRAY + ".");
-                                    }
-
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
-    }
 
 
 }

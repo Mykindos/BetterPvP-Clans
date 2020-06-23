@@ -6,7 +6,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -30,7 +32,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
-public class Repel extends Skill {
+public class Repel extends Skill implements InteractSkill {
 
     public Repel(Clans i) {
         super(i, "Repel", "Paladin", getAxes, rightClick, 5, true, true);
@@ -47,8 +49,7 @@ public class Repel extends Skill {
                 "which damage, and knockback",
                 "any enemies they come in contact with",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -67,25 +68,13 @@ public class Repel extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
     private WeakHashMap<Player, Long> active = new WeakHashMap<>();
     private WeakHashMap<Player, Location> playerVelocity = new WeakHashMap<>();
     private WeakHashMap<Player, ArrayList<Bat>> bats = new WeakHashMap<>();
 
-    @Override
-    public void activateSkill(Player p) {
-        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(p));
-        active.put(p, System.currentTimeMillis());
-        playerVelocity.put(p, p.getEyeLocation());
-        bats.put(p, new ArrayList<Bat>());
-
-        for (int i = 0; i < (5 + getLevel(p)); i++) {
-            bats.get(p).add(p.getWorld().spawn(p.getEyeLocation(), Bat.class));
-        }
-
-    }
 
     public boolean hitPlayer(Location loc, LivingEntity player) {
         if (loc.add(0, -loc.getY(), 0).toVector().subtract(player.getLocation().add(0, -player.getLocation().getY(), 0).toVector()).length() < 0.8D) {
@@ -154,7 +143,7 @@ public class Repel extends Skill {
                             other.setVelocity(bat.getLocation().getDirection().add(new Vector(0, .4F, 0)));
 
 
-                            bat.getWorld().playSound(bat.getLocation(), Sound.BAT_HURT, 0.3F, 0.7F);
+                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.3F, 0.7F);
 
                             bat.remove();
 
@@ -194,4 +183,15 @@ public class Repel extends Skill {
         return true;
     }
 
+    @Override
+    public void activate(Player p, Gamer gamer) {
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(p));
+        active.put(p, System.currentTimeMillis());
+        playerVelocity.put(p, p.getEyeLocation());
+        bats.put(p, new ArrayList<Bat>());
+
+        for (int i = 0; i < (5 + getLevel(p)); i++) {
+            bats.get(p).add(p.getWorld().spawn(p.getEyeLocation(), Bat.class));
+        }
+    }
 }

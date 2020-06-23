@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -100,7 +101,7 @@ public class SupplyCrate extends Weapon {
 
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
-                    new BlockRestoreData(e.getBlock().getLocation().add(x, -1, z).getBlock(), 42, (byte) 0, 70000);
+                    new BlockRestoreData(e.getBlock().getLocation().add(x, -1, z).getBlock(), Material.IRON_BLOCK, (byte) 0, 70000);
                 }
             }
         }
@@ -174,10 +175,10 @@ public class SupplyCrate extends Weapon {
                                             chest.getInventory().addItem(new ItemStack(Material.CHAINMAIL_BOOTS));
                                             break;
                                         case 3:
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_HELMET));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_CHESTPLATE));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_LEGGINGS));
-                                            chest.getInventory().addItem(new ItemStack(Material.GOLD_BOOTS));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_HELMET));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_CHESTPLATE));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_LEGGINGS));
+                                            chest.getInventory().addItem(new ItemStack(Material.GOLDEN_BOOTS));
                                             break;
                                         case 4:
                                             chest.getInventory().addItem(new ItemStack(Material.DIAMOND_HELMET));
@@ -190,7 +191,7 @@ public class SupplyCrate extends Weapon {
                                     for (Weapon w : WeaponManager.weapons) {
                                         if (UtilMath.randomInt(10) > 3) {
                                             if (w instanceof EnergyApple || w instanceof IncendiaryGrenade
-                                                    || w instanceof WaterBottle || w instanceof EnderPearl || w instanceof Web || w instanceof GravityGrenade) {
+                                                    || w instanceof ExtinguishingPotion || w instanceof EnderPearl || w instanceof Web || w instanceof GravityGrenade) {
                                                 ItemStack k = w.createWeaponNoGlow();
                                                 k.setAmount(UtilMath.randomInt(1, 8));
                                                 chest.getInventory().addItem(k);
@@ -202,12 +203,12 @@ public class SupplyCrate extends Weapon {
                                     if (UtilMath.randomInt(1000) > 998) {
                                         chest.getInventory().addItem(new ItemStack(Material.TNT, 5));
                                     } else if (UtilMath.randomInt(1000) < 2.5) {
-                                        chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.RECORD_11)));
+                                        chest.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.MUSIC_DISC_WAIT)));
                                     }
                                 } else {
  
                                     for (Weapon w : WeaponManager.weapons) {
-                                        if (w.isLegendary()) {
+                                        if (w instanceof ILegendary) {
                                             if (Math.random() > 0.50) {
                                                 chest.getInventory().addItem(w.createWeapon());
                                             }

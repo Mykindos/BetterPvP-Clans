@@ -2,6 +2,7 @@ package net.betterpvp.clans.worldevents.types.bosses.commands;
 
 import net.betterpvp.clans.Clans;
 
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Boss;
@@ -15,12 +16,14 @@ import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
 public class BossCommands extends Command {
 
     public BossCommands() {
+
         super("boss", new String[]{}, Rank.ADMIN);
     }
 
@@ -108,6 +111,10 @@ public class BossCommands extends Command {
             } else if (args[0].equalsIgnoreCase("reset")) {
                 for (WorldEvent we : WEManager.getWorldEvents()) {
                     we.setActive(false);
+                }
+
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
                 }
             }
         }

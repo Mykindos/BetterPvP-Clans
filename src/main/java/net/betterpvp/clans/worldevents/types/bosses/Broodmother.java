@@ -18,7 +18,7 @@ import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,13 +38,13 @@ public class Broodmother extends Boss {
 
     public Broodmother(Clans i) {
         super(i, "Broodmother", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld2");
+        World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(w, -67.5, 44, -107.5),
+                new Location(w, 48.5, 43, -84.5),
+                new Location(w, 51.5, 49, -126.5),
+                new Location(w, 41.5, 54, -84.5),
+                new Location(w, 37.5, 53, -135.5)
         };
 
 
@@ -98,7 +98,7 @@ public class Broodmother extends Boss {
             if (!getSpawn().getChunk().isLoaded()) {
                 getSpawn().getChunk().load();
             }
-            BossSpider bs = new BossSpider(((CraftWorld) Bukkit.getWorld("bossworld2")).getHandle());
+            BossSpider bs = new BossSpider(((CraftWorld) Bukkit.getWorld("bossworld")).getHandle());
             spider = bs.spawnSpider(getSpawn());
 
             spider.setMaxHealth(getMaxHealth());
@@ -232,8 +232,8 @@ public class Broodmother extends Boss {
                     if (number > 50 && number < 55) {
                         for (Location loc : UtilMath.sphere(e.getDamagee().getLocation(), 6, true)) {
                             if (loc.getBlock().getType() == Material.AIR) {
-                                new BlockRestoreData(loc.getBlock(), 30, (byte) 0, 10000L);
-                                loc.getBlock().setType(Material.WEB);
+                                new BlockRestoreData(loc.getBlock(), Material.COBWEB, (byte) 0, 10000L);
+                                loc.getBlock().setType(Material.COBWEB);
                             }
                         }
                         spawnSpiders(e.getDamager());
@@ -241,7 +241,7 @@ public class Broodmother extends Boss {
 
                 }
             } else if (e.getDamager() == getBoss() || isMinion(e.getDamager())) {
-                if (e.getDamagee().getLocation().getBlock().getType() == Material.WEB) {
+                if (e.getDamagee().getLocation().getBlock().getType() == Material.COBWEB) {
                     e.setDamage(e.getDamage() * 3);
                 }
             }
@@ -250,7 +250,7 @@ public class Broodmother extends Boss {
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld2"), 660.5, 135, 162.5);
+        return new Location(Bukkit.getWorld("bossworld"), 33.5, 38, -114.5);
     }
 
     @EventHandler
@@ -262,7 +262,7 @@ public class Broodmother extends Boss {
                         if (UtilMath.randomInt(100) > 95) {
                             for (Player p : UtilPlayer.getInRadius(getBoss().getLocation(), 50)) {
                                 UtilMessage.message(p, "Broodmother", "The broodmother has released her broodlings!");
-                                p.playSound(p.getLocation(), Sound.ZOMBIE_INFECT, 1F, 1F);
+                                p.playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_INFECT, 1F, 1F);
                             }
 
                             spawnSpiders(e.getDamager());

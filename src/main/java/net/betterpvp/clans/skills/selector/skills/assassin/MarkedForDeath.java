@@ -5,11 +5,15 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -25,7 +29,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import java.util.*;
 
 
-public class MarkedForDeath extends Skill {
+public class MarkedForDeath extends Skill implements InteractSkill {
 
     private Set<UUID> active = new HashSet<>();
     private List<Arrow> arrows = new ArrayList<>();
@@ -45,8 +49,7 @@ public class MarkedForDeath extends Skill {
                 "Causing them to take 50% additional damage",
                 "from all targets.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -73,16 +76,10 @@ public class MarkedForDeath extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 50 - ((level - 1) * 3);
+        return 0;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-        active.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
-        player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 2.5F, 2.0F);
 
-    }
 
     @EventHandler
     public void onShoot(EntityShootBowEvent e) {
@@ -103,6 +100,7 @@ public class MarkedForDeath extends Skill {
     }
 
 
+    /*
     @EventHandler
     public void onCheckCancel(UpdateEvent e) {
         if (e.getType() == UpdateType.FASTEST) {
@@ -111,8 +109,8 @@ public class MarkedForDeath extends Skill {
                 UUID uuid = it.next();
                 Player p = Bukkit.getPlayer(uuid);
                 if (p != null) {
-                    if (p.getItemInHand() != null) {
-                        if (p.getItemInHand().getType() != Material.BOW) {
+                    if (p.getInventory().getItemInMainHand() != null) {
+                        if (!UtilItem.isRanged(p.getInventory().getItemInMainHand().getType())) {
                             Recharge recharge = RechargeManager.getInstance().getAbilityRecharge(p.getName(), getName());
                             if (recharge != null) {
                                 if (recharge.isCancellable()) {
@@ -141,6 +139,8 @@ public class MarkedForDeath extends Skill {
             }
         }
     }
+    */
+
 
     @Override
     public boolean isCancellable() {
@@ -189,11 +189,17 @@ public class MarkedForDeath extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water");
+        if (UtilBlock.isInLiquid(player)) {
+            UtilMessage.message(player, getClassType(), "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.add(player.getUniqueId());
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
+    }
 }

@@ -2,6 +2,8 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.classes.roles.Ranger;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
@@ -52,6 +54,21 @@ public class VitalitySpores extends Skill {
         }
     }
 
+    @EventHandler
+    public void onDamageReceived(CustomDamageEvent e){
+        if(e.getDamagee() instanceof Player){
+            Player player = (Player) e.getDamagee();
+            Role role = Role.getRole(player);
+            if(role != null && role instanceof Ranger){
+                if(hasSkill(player, this)){
+                    if(player.hasPotionEffect(PotionEffectType.REGENERATION)){
+                        player.removePotionEffect(PotionEffectType.REGENERATION);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public Types getType() {
 
@@ -70,11 +87,6 @@ public class VitalitySpores extends Skill {
         return 0;
     }
 
-    @Override
-    public void activateSkill(Player p) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player p) {

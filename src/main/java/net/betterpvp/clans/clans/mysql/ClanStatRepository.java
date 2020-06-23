@@ -8,14 +8,16 @@ import net.betterpvp.core.database.Repository;
 public class ClanStatRepository implements Repository<Clans> {
 
 
-    public static final String TABLE_NAME = "clans_class_stats";
+    public String TABLE_NAME;
 
-    public static String CREATE_CLASSSTAT_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
-            + "(Class VARCHAR(14), "
-            + "Count int(10)); ";
+    public String CREATE_CLASSSTAT_TABLE;
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_class_stats";
+        CREATE_CLASSSTAT_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " "
+                + "(Class VARCHAR(14), "
+                + "Count int(10)); ";
         QueryFactory.runQuery(CREATE_CLASSSTAT_TABLE);
 
     }

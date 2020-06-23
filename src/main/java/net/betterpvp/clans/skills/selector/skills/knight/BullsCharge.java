@@ -3,10 +3,13 @@ package net.betterpvp.clans.skills.selector.skills.knight;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
@@ -16,6 +19,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -24,7 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class BullsCharge extends Skill {
+public class BullsCharge extends Skill implements InteractSkill {
 
     private HashMap<String, Long> running = new HashMap<String, Long>();
 
@@ -38,36 +42,28 @@ public class BullsCharge extends Skill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with an Axe to activate.",
                 "",
                 "Enter a rage, gaining massive movement speed",
                 "and slowing anything you hit for 3 seconds",
                 "",
                 "While charging, you take no knockback.",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
-        player.getWorld().playSound(player.getLocation(), Sound.ENDERMAN_SCREAM, 1.5F, 0.0F);
-        player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 49);
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
-        running.put(player.getName(), System.currentTimeMillis() + 4000L);
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+        if(UtilBlock.isInLiquid(player)){
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
+
         return true;
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
@@ -108,8 +104,8 @@ public class BullsCharge extends Skill {
                     damagee.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 2));
                     damager.removePotionEffect(PotionEffectType.SPEED);
 
-                    damager.getWorld().playSound(damager.getLocation(), Sound.ENDERMAN_SCREAM, 1.5F, 0.0F);
-                    damager.getWorld().playSound(damager.getLocation(), Sound.ZOMBIE_METAL, 1.5F, 0.5F);
+                    damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
+                    damager.getWorld().playSound(damager.getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1.5F, 0.5F);
 
                     if (event.getDamagee() instanceof Player) {
                         Player damaged = (Player) event.getDamagee();
@@ -156,7 +152,15 @@ public class BullsCharge extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) 35 - ((level - 1) * 5);
+        return 0;
     }
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.5F, 0.0F);
+        player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 49);
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
+        running.put(player.getName(), System.currentTimeMillis() + 4000L);
+    }
 }

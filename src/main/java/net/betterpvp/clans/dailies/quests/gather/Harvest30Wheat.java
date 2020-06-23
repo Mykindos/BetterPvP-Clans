@@ -30,7 +30,7 @@ public class Harvest30Wheat extends General{
 	@EventHandler
 	public void onBreak(BlockBreakEvent e){
 		if(isActive()){
-			if(e.getBlock().getType() == Material.CROPS){
+			if(e.getBlock().getType() == Material.WHEAT){
 				if(e.getBlock().getData() == CropState.RIPE.getData()){
 					Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
 

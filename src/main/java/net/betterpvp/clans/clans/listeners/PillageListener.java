@@ -5,11 +5,13 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.Pillage;
+import net.betterpvp.clans.clans.events.ClanRelationshipEvent;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilTime;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -41,6 +43,8 @@ public class PillageListener extends BPVPListener<Clans> {
                                 + pillage.getPillaged().getName() + ChatColor.GRAY + " has finished!", null, true);
 
                         iterator.remove();
+
+                        Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(pillage.getPillager(), pillage.getPillaged()));
                         return;
                     }
 

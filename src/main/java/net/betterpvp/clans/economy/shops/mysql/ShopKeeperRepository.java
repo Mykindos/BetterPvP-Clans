@@ -1,10 +1,16 @@
 package net.betterpvp.clans.economy.shops.mysql;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.economy.shops.Shop;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.core.database.*;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;
@@ -13,18 +19,19 @@ import java.sql.SQLException;
 
 public class ShopKeeperRepository implements Repository<Clans> {
 
-    public static final String TABLE_NAME = "clans_shopkeepers";
+    private static String TABLE_NAME;
 
-    private static final String CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-            "  `World` varchar(255)," +
-            "  `Name` varchar(255)," +
-            "  `X` double(10,2)," +
-            "  `Y` double(10,2)," +
-            "  `Z` double(10,2)" +
-            ") ";
+    private String CREATE_SHOPKEEPER_TABLE;
 
     @Override
     public void initialize() {
+        TABLE_NAME = Clans.getOptions().getTablePrefix() + "_shopkeepers";
+        CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `Name` varchar(255)," +
+                "  `X` double(10,2)," +
+                "  `Y` double(10,2)," +
+                "  `Z` double(10,2)" +
+                ") ";
         QueryFactory.runQuery(CREATE_SHOPKEEPER_TABLE);
     }
 
@@ -34,6 +41,25 @@ public class ShopKeeperRepository implements Repository<Clans> {
     }
 
     public static void loadShopKeepers(final Clans i) {
+
+        for (World w : Bukkit.getWorlds()) {
+            for (LivingEntity e : w.getLivingEntities()) {
+                if (e instanceof Player || e instanceof ArmorStand) continue;
+
+                for (Shop s : ShopManager.getShops()) {
+                    if (e.getCustomName() != null) {
+
+                        if (s.getName().equalsIgnoreCase(ChatColor.stripColor(e.getCustomName()))) {
+
+                            e.setHealth(0);
+                            e.remove();
+                        }
+                    }
+
+                }
+            }
+
+        }
         new BukkitRunnable() {
 
             @Override

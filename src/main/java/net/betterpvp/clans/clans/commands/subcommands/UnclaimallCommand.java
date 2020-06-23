@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.utility.UtilFormat;
@@ -54,6 +55,9 @@ public class UnclaimallCommand implements IClanCommand {
         UtilMessage.message(player, "Clans", "You unclaimed all Territory.");
         Log.write("Clans", "[" + player.getName() + "] unclaimed all territory.");
         ClanRepository.updateClaims(clan);
+
+
+        Bukkit.getOnlinePlayers().forEach(p -> Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p)));
         //ClanRepository.updateDynmap(i, clan);
     }
 

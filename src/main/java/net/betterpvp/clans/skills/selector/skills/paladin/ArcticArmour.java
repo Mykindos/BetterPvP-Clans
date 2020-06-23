@@ -6,7 +6,9 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -22,14 +24,14 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
 
-public class ArcticArmour extends Skill {
+public class ArcticArmour extends Skill implements ToggleSkill {
 
     private Set<UUID> active = new HashSet<>();
 
@@ -56,29 +58,27 @@ public class ArcticArmour extends Skill {
         };
     }
 
+
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
+    public void onSwap(PlayerSwapHandItemsEvent e) {
         Player p = e.getPlayer();
-        if (Role.getRole(p) != null && Role.getRole(p).getName().equals(getClassType())) {
+        Role role = Role.getRole(p);
+        if (role != null && role.getName().equals(getClassType())) {
             if (hasSkill(p, this)) {
-                if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-
-                    e.setCancelled(true);
-
-                    if (active.contains(p.getUniqueId())) {
-                        active.remove(p.getUniqueId());
-                        UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.RED + "Off");
-                    } else {
-                        if (ClanUtilities.canCast(p)) {
-                            active.add(p.getUniqueId());
-                            UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.GREEN + "On");
-                        }
-                    }
+                if (Arrays.asList(getMaterials()).contains(e.getMainHandItem().getType())) {
+                    activate(p);
                 }
             }
-
         }
     }
+
+
+
+    private void activate(Player p){
+
+    }
+
+
 
     @EventHandler
     public void audio(UpdateEvent event) {
@@ -86,7 +86,7 @@ public class ArcticArmour extends Skill {
             for (UUID uuid : active) {
                 if (Bukkit.getPlayer(uuid) != null) {
                     Player cur = Bukkit.getPlayer(uuid);
-                    cur.getWorld().playSound(cur.getLocation(), Sound.AMBIENCE_RAIN, 0.3F, 0.0F);
+                    cur.getWorld().playSound(cur.getLocation(), Sound.WEATHER_RAIN, 0.3F, 0.0F);
                 }
             }
         }
@@ -94,7 +94,7 @@ public class ArcticArmour extends Skill {
 
     @EventHandler
     public void SnowAura(UpdateEvent event) {
-        if (event.getType() != UpdateType.TICK) {
+        if (event.getType() != UpdateType.FASTEST) {
             return;
         }
         Iterator<UUID> iterator = active.iterator();
@@ -102,6 +102,8 @@ public class ArcticArmour extends Skill {
             UUID z = iterator.next();
             if (Bukkit.getPlayer(z) != null) {
                 Player cur = Bukkit.getPlayer(z);
+                Role role = Role.getRole(cur);
+
                 if (!hasSkill(cur, this)) {
 
                     iterator.remove();
@@ -113,7 +115,7 @@ public class ArcticArmour extends Skill {
                 } else if (cur == null) {
                     iterator.remove();
 
-                } else if (Role.getRole(cur) == null || Role.getRole(cur) != null && !Role.getRole(cur).getName().equals(getClassType())) {
+                } else if (role == null || role != null && !role.getName().equals(getClassType())) {
                     iterator.remove();
                 } else if (EffectManager.hasEffect(cur, EffectType.SILENCE)) {
                     iterator.remove();
@@ -132,13 +134,11 @@ public class ArcticArmour extends Skill {
                     }
                     for (Block block : blocks.keySet()) {
                         if (block.getLocation().getY() <= cur.getLocation().getY()) {
-                            if (block.getRelative(BlockFace.DOWN).getType() != Material.SNOW && UtilBlock.isGrounded(cur)
-                                    && block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+                            Block relDown = block.getRelative(BlockFace.DOWN);
+                            if (relDown.getType() != Material.SNOW && UtilBlock.isGrounded(cur)
+                                    && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)) {
                                 if (block.getType() == Material.AIR) {
-
-                                    new BlockRestoreData(block, 79, (byte) 0, duration);
-
-
+                                    new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
                                     block.setType(Material.SNOW);
                                 }
 
@@ -161,15 +161,9 @@ public class ArcticArmour extends Skill {
     }
 
     @Override
-    public void activateSkill(Player player) {
-
-
-    }
-
-    @Override
     public boolean usageCheck(Player player) {
 
-        return false;
+        return true;
     }
 
     @Override
@@ -181,8 +175,20 @@ public class ArcticArmour extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return (float) (3 - ((level - 1) * 0.5));
+        return (float) (6 - ((level - 1) * 0.5));
     }
 
 
+    @Override
+    public void activateToggle(Player p, Gamer gamer) {
+        if (active.contains(p.getUniqueId())) {
+            active.remove(p.getUniqueId());
+            UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.RED + "Off");
+        } else {
+            if (ClanUtilities.canCast(p)) {
+                active.add(p.getUniqueId());
+                UtilMessage.message(p, getClassType(), "Arctic Armour: " + ChatColor.GREEN + "On");
+            }
+        }
+    }
 }

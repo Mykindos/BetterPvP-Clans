@@ -9,21 +9,24 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilParticle;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -33,7 +36,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 
-public class SmokeBomb extends Skill {
+public class SmokeBomb extends Skill implements ToggleSkill {
 
     public SmokeBomb(Clans i) {
         super(i, "Smoke Bomb", "Assassin", getSwordsAndAxes,
@@ -45,53 +48,14 @@ public class SmokeBomb extends Skill {
     private WeakHashMap<Player, Integer> smoked = new WeakHashMap<>();
 
     @EventHandler
-    public void onActive(PlayerDropItemEvent e) {
-        Player p = e.getPlayer();
-        if (Arrays.asList(getMaterials()).contains(e.getItemDrop().getItemStack().getType())) {
-            if (hasSkill(p, this)) {
-                e.setCancelled(true);
-                if (usageCheck(p)) {
-                    if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
-
-
-                        EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
-                        smoked.put(p, (3 + getLevel(p)) * 2);
-                        //timer.put(p, System.currentTimeMillis());
-                        for (Player player : Bukkit.getOnlinePlayers()) {
-                            player.hidePlayer(p);
-                        }
-                        UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
-
-
-                        for (int i = 0; i < 3; i++) {
-                            p.getWorld().playSound(p.getLocation(), Sound.FIZZ, 2.0F, 0.5F);
-                        }
-
-                        UtilParticle.playParticle(EnumParticle.EXPLOSION_HUGE, p.getLocation(),
-                                (float) p.getLocation().getX(), (float) p.getLocation().getY(),
-                                (float) p.getLocation().getZ(), 0.0F, 0.0F, 0.0F, 0.0F, 1);
-
-                        for (Player d : UtilPlayer.getInRadius(p.getLocation(), 2.5)) {
-                            if (d == p) continue;
-                            if (ClanUtilities.canHurt(p, d)) {
-                                d.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 35, 1));
-                            }
-                        }
-                    }
-
-
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void preventSmokeDamage(CustomDamageEvent e) {
         if (e.getDamagee() instanceof Player) {
-            Player p = (Player) e.getDamagee();
-            if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) {
-                if (hasSkill(p, this)) {
-                    e.setCancelled("Can't take damage during smoke");
+            if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                Player p = (Player) e.getDamagee();
+                if (EffectManager.hasEffect(p, EffectType.INVISIBILITY)) {
+                    if (hasSkill(p, this)) {
+                        e.setCancelled("Can't take damage during smoke");
+                    }
                 }
             }
         }
@@ -109,7 +73,8 @@ public class SmokeBomb extends Skill {
                 if (r != null && r instanceof Assassin) {
                     if (next.getValue() > 0) {
                         for (int i = 0; i < 5; i++) {
-                            next.getKey().getWorld().playEffect(next.getKey().getLocation(), Effect.SMOKE, 4);
+                            ParticleEffect.SMOKE_LARGE.display(next.getKey().getLocation());
+                            //next.getKey().getWorld().playEffect(next.getKey().getLocation(), Effect.SMOKE, 4);
                         }
                         next.setValue(next.getValue() - 1);
                     } else {
@@ -165,6 +130,7 @@ public class SmokeBomb extends Skill {
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (smoked.containsKey(e.getPlayer())) {
             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 smoked.remove(e.getPlayer());
@@ -203,15 +169,8 @@ public class SmokeBomb extends Skill {
                 "hitting an enemy or using abilities",
                 " will make you reappear",
                 "",
-                "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)};
-    }
-
-
-    @Override
-    public void activateSkill(Player player) {
-
-
+                "Cooldown: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
@@ -239,8 +198,7 @@ public class SmokeBomb extends Skill {
             }
         }
 
-        if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER
-                || player.getLocation().getBlock().getType() == Material.WATER) {
+        if ( player.getLocation().getBlock().getType() == Material.WATER) {
             UtilMessage.message(player, getClassType(),
                     "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
@@ -265,8 +223,37 @@ public class SmokeBomb extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 85 - ((level - 1) * 5);
+        return 0;
     }
 
 
+    @Override
+    public void activateToggle(Player p, Gamer gamer) {
+        if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
+
+            p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
+            EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
+            smoked.put(p, (3 + getLevel(p)) * 2);
+            //timer.put(p, System.currentTimeMillis());
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.hidePlayer(p);
+            }
+            UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(getLevel(p)));
+
+
+            for (int i = 0; i < 3; i++) {
+
+                p.getWorld().playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2.0F, 0.5F);
+            }
+
+            ParticleEffect.EXPLOSION_HUGE.display(p.getLocation());
+
+            for (Player d : UtilPlayer.getInRadius(p.getLocation(), 2.5)) {
+                if (d == p) continue;
+                if (ClanUtilities.canHurt(p, d)) {
+                    d.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 35, 1));
+                }
+            }
+        }
+    }
 }

@@ -7,10 +7,15 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
@@ -27,15 +32,16 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.nio.channels.Channel;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class Inferno extends Skill {
+public class Inferno extends ChannelSkill implements InteractSkill {
 
-    private Set<String> active = new HashSet<String>();
+    private Set<String> active = new HashSet<>();
 
 
     public Inferno(Clans i) {
@@ -65,16 +71,11 @@ public class Inferno extends Skill {
     }
 
 
-    @Override
-    public void activateSkill(Player p) {
-        if (hasSkill(p, this)) {
-            active.add(p.getName());
-        }
-    }
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().isLiquid()) {
+
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getName(), "You cannot use " + getName() + " in water.");
             return false;
         }
@@ -139,7 +140,7 @@ public class Inferno extends Skill {
 
 
                 if (active.contains(cur.getName())) {
-                    if (cur.isBlocking()) {
+                    if (cur.isHandRaised()) {
                         if (!Energy.use(cur, getName(), getEnergy(getLevel(cur)) / 2, true)) {
                             active.remove(cur.getName());
                         } else if (!hasSkill(cur, this)) {
@@ -160,7 +161,7 @@ public class Inferno extends Skill {
 							double z = 0.10 - UtilMath.randomInt(20) / 100.0;
 							fire.setVelocity(cur.getLocation().getDirection().add(new Vector(x,y,z)));
 							 */
-                            cur.getWorld().playSound(cur.getLocation(), Sound.GHAST_FIREBALL, 0.1F, 1.0F);
+                            cur.getWorld().playSound(cur.getLocation(), Sound.ENTITY_GHAST_SHOOT, 0.1F, 1.0F);
                         }
                     } else {
                         active.remove(cur.getName());
@@ -184,4 +185,10 @@ public class Inferno extends Skill {
         return 9 - ((level - 1) * 1);
     }
 
+
+
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        active.add(player.getName());
+    }
 }

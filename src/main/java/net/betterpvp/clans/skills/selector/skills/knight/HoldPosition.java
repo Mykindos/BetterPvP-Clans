@@ -4,8 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,7 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class HoldPosition extends Skill {
+public class HoldPosition extends Skill implements InteractSkill {
 
 
     public HoldPosition(Clans i) {
@@ -33,8 +36,7 @@ public class HoldPosition extends Skill {
                 "Protection II, Slow III and no",
                 "knockback for " + ChatColor.GREEN + (5 + ((level - 1) * 0.5)) + ChatColor.GRAY + " seconds.",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
@@ -42,16 +44,6 @@ public class HoldPosition extends Skill {
     public Types getType() {
 
         return Types.AXE;
-    }
-
-    @Override
-    public void activateSkill(Player player) {
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
-        int level = getLevel(player);
-        EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (100 + (((level - 1) * 0.5) * 20)), 3));
-        player.getWorld().playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 1F, 0.5F);
     }
 
     @EventHandler
@@ -69,10 +61,11 @@ public class HoldPosition extends Skill {
 
     @Override
     public boolean usageCheck(Player player) {
-        if (player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + " in water.");
+        if(UtilBlock.isInLiquid(player)){
+            UtilMessage.message(player, "Skill", "You cannot use " + net.md_5.bungee.api.ChatColor.GREEN + getName() + net.md_5.bungee.api.ChatColor.GRAY + " in water.");
             return false;
         }
+
         return true;
     }
 
@@ -85,8 +78,17 @@ public class HoldPosition extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 60 - ((level - 1) * 5);
+        return 0;
     }
 
 
+    @Override
+    public void activate(Player player, Gamer gamer) {
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
+        int level = getLevel(player);
+        EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (100 + (((level - 1) * 0.5) * 20)), 3));
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1F, 0.5F);
+    }
 }

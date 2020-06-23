@@ -32,7 +32,7 @@ public class FieldsRedstoneOre extends General{
 		if(isActive()){
 			if(ClanUtilities.getClan(e.getBlock().getLocation()) != null){
 				if(ClanUtilities.getClan(e.getBlock().getLocation()).getName().equals("Fields")){
-					if(e.getBlock().getType() == Material.REDSTONE_ORE || e.getBlock().getType() == Material.GLOWING_REDSTONE_ORE){
+					if(e.getBlock().getType() == Material.REDSTONE_ORE || e.getBlock().getType() == Material.REDSTONE_ORE){
 						Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
 
 						if(!p.isComplete()){

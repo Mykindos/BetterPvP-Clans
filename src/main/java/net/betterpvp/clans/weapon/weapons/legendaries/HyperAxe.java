@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import org.bukkit.ChatColor;
@@ -12,11 +13,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-public class HyperAxe extends Weapon {
+public class HyperAxe extends Weapon implements ILegendary {
 
 
     public HyperAxe(Clans i) {
-        super(i, Material.RECORD_7, (byte) 0, ChatColor.RED + "Hyper Axe",
+        super(i, Material.MUSIC_DISC_MALL, (byte) 0, ChatColor.RED + "Hyper Axe",
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "4",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Hyper Speed",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Hyper Attack",
@@ -34,11 +35,11 @@ public class HyperAxe extends Weapon {
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
 
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().getType() != Material.RECORD_7) return;
+            if (player.getInventory().getItemInMainHand() == null) return;
+            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_MALL) return;
 
 
-            Weapon weapon = WeaponManager.getWeapon(player.getItemInHand());
+            Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
             if (weapon != null && weapon.equals(this)) {
 
                 event.setDamage(4);
@@ -49,5 +50,10 @@ public class HyperAxe extends Weapon {
 
 
         }
+    }
+
+    @Override
+    public boolean isTextured() {
+        return true;
     }
 }

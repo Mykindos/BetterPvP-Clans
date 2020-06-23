@@ -40,8 +40,17 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 for (ClanMember member : clan.getMembers()) {
 
                     if (Bukkit.getPlayer(member.getUUID()) != null) {
-                        clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() + (600000));
+                        int bonus = 0;
+                        if(clan.getMembers().size() > Clans.getOptions().getTntBonusMemberThreshold()){
+                            // 5 minutes per member
+                            bonus = (clan.getMembers().size() - Clans.getOptions().getTntBonusMemberThreshold())
+                                    * (Clans.getOptions().getBonusTimeUntilTNTProtection() * 60000);
+                        }
+
+                        clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() +
+                                (Clans.getOptions().getTimeUntilTNTProtection() * 60000) + bonus);
                         clan.setVulnerable(true);
+                        break;
                     }
                 }
 
@@ -74,7 +83,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.HIGH)
     public void onTNTExplode(EntityExplodeEvent e) {
         if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
-
+            e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 2.0f, 1.0f);
 
             boolean clear = false;
             for (Block block : e.blockList()) {
@@ -99,7 +108,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                             for (ClanMember member : clan.getMembers()) {
                                 if (Bukkit.getPlayer(member.getUUID()) != null) {
                                     Player d = Bukkit.getPlayer(member.getUUID());
-                                    d.playSound(d.getLocation(), Sound.NOTE_PLING, 1.0F, 1.0F);
+                                    d.playSound(d.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 1.0F);
                                     return;
                                 }
                             }
@@ -156,7 +165,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         c.getInsurance().add(i);
                     }
                 } else {
-                    if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
+                    if (block.getType() == Material.DIRT || block.getType() == Material.GRASS_BLOCK || block.getType() == Material.STONE || block.getType() == Material.GRAVEL
                             || block.getType() == Material.SAND || block.getType() == Material.COBBLESTONE) {
                         //new BlockRestoreData(block, (int) block.getData(), (byte) 0, 60000 * 5L);
                     }
@@ -167,14 +176,14 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     block.setType(Material.AIR);
 
                 }
-                if (block.getType() == Material.ENCHANTMENT_TABLE) {
+                if (block.getType() == Material.ENCHANTING_TABLE) {
                     Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
                     block.breakNaturally();
 
 
                 }
 
-                if (block.getTypeId() == 44 && block.getLocation().distance(e.getEntity().getLocation()) < 4) {
+                if (block.getType() == Material.TNT && block.getLocation().distance(e.getEntity().getLocation()) < 4) {
                     Clans.getCoreProtect().logRemoval("TNT", block.getLocation(), block.getType(), block.getData());
                     block.breakNaturally();
                 }
@@ -217,7 +226,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         }
                     }
                 } else {
-                    if (b.getType() == Material.DIRT || b.getType() == Material.GRASS || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
+                    if (b.getType() == Material.DIRT || b.getType() == Material.GRASS_BLOCK || b.getType() == Material.STONE || b.getType() == Material.GRAVEL
                             || b.getType() == Material.SAND || b.getType() == Material.COBBLESTONE) {
                         //	new BlockRestoreData(b, (int) b.getData(), (byte) 0, 60000 * 5L);
                     }
@@ -235,7 +244,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
-                if (b.getType() == Material.NETHER_BRICK) {
+                if (b.getType() == Material.NETHER_BRICKS) {
                     b.setType(Material.NETHERRACK);
                     continue;
                 } else if (b.getType() == Material.NETHERRACK) {
@@ -244,11 +253,11 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
-                if (b.getType() == Material.PRISMARINE && b.getData() == (byte) 2) {
-                    b.setTypeIdAndData(168, (byte) 1, true);
+                if (b.getType() == Material.DARK_PRISMARINE) {
+                    b.setType(Material.PRISMARINE_BRICKS);
                     continue;
-                } else if (b.getType() == Material.PRISMARINE && b.getData() == (byte) 1) {
-                    b.setTypeIdAndData(168, (byte) 0, true);
+                } else if (b.getType() == Material.PRISMARINE_BRICKS) {
+                    b.setType(Material.PRISMARINE);
                     continue;
                 } else if (b.getType() == Material.PRISMARINE) {
                     b.breakNaturally();
@@ -256,35 +265,35 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
-                if (b.getType() == Material.QUARTZ_BLOCK && b.getData() == (byte) 1) {
+                if (b.getType() == Material.CHISELED_QUARTZ_BLOCK) {
                     b.breakNaturally();
                     continue;
-                } else if (b.getType() == Material.QUARTZ_BLOCK) {
-                    b.setTypeIdAndData(155, (byte) 1, true);
+                } else if (b.getType() == Material.SMOOTH_QUARTZ) {
+                    b.setType(Material.CHISELED_QUARTZ_BLOCK);
                     continue;
                 }
 
-                if (b.getType() == Material.RED_SANDSTONE && b.getData() == (byte) 2) {
-                    b.setTypeIdAndData(179, (byte) 0, true);
+                if (b.getType() == Material.SMOOTH_RED_SANDSTONE) {
+                    b.setType(Material.RED_SANDSTONE);
                     continue;
                 } else if (b.getType() == Material.RED_SANDSTONE) {
                     b.breakNaturally();
                     continue;
                 }
 
-                if (b.getType() == Material.SANDSTONE && b.getData() == (byte) 2) {
-                    b.setTypeIdAndData(24, (byte) 0, true);
+                if (b.getType() == Material.SMOOTH_SANDSTONE) {
+                    b.setType(Material.SANDSTONE);
                     continue;
                 } else if (b.getType() == Material.SANDSTONE) {
                     b.breakNaturally();
                     continue;
                 }
 
-                if (b.getType() == Material.SMOOTH_BRICK && b.getData() == (byte) 2) {
+                if (b.getType() == Material.CRACKED_STONE_BRICKS) {
                     b.breakNaturally();
                     continue;
-                } else if (b.getType() == Material.SMOOTH_BRICK) {
-                    b.setTypeIdAndData(98, (byte) 2, true);
+                } else if (b.getType() == Material.STONE_BRICKS) {
+                    b.setType(Material.CRACKED_STONE_BRICKS);
                     continue;
                 } else if (b.getType() == Material.TRAPPED_CHEST || b.getType() == Material.CHEST
                         || b.getType() == Material.ENDER_CHEST
@@ -292,7 +301,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     b.breakNaturally();
 
                 } else if (b.isLiquid()) {
-                    b.setTypeIdAndData(0, (byte) 0, true);
+                    b.setType(Material.AIR);
                 }
 
                 b.breakNaturally();

@@ -7,7 +7,9 @@ import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.Weapon;
@@ -23,6 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Arrays;
 
@@ -45,18 +48,17 @@ public class HiltSmash extends Skill {
                 "and applying shock for " + ChatColor.GREEN + (((level - 1) * 0.5)) + ChatColor.GRAY + " seconds.",
                 "Silences enemy for " + ChatColor.GREEN + ((level / 2) - 0.5) + ChatColor.GRAY + " seconds",
                 "",
-                "Recharge: " + ChatColor.GREEN + getRecharge(level),
-                "Energy: " + ChatColor.GREEN + getEnergy(level)
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
     }
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (hasSkill(p, this)) {
-            if (Arrays.asList(getMaterials()).contains(p.getItemInHand().getType())) {
-                Weapon weapon = WeaponManager.getWeapon(p.getItemInHand());
+            if (Arrays.asList(getMaterials()).contains(p.getInventory().getItemInMainHand().getType())) {
+                Weapon weapon = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                 if (weapon == null || weapon instanceof EnchantedWeapon) {
 
                     if (ClanUtilities.canCast(p)) {
@@ -90,13 +92,13 @@ public class HiltSmash extends Skill {
                                         LogManager.addLog(ent, p, getName());
                                         Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + getLevel(p), false));
 
-                                        ent.getWorld().playSound(ent.getLocation(), Sound.ZOMBIE_WOODBREAK, 1.0F, 1.2F);
+                                        ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 1.2F);
                                         //ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 , 4));
 
 
                                     } else {
                                         UtilMessage.message(p, getClassType(), "You failed " + getName());
-                                        p.getWorld().playSound(p.getLocation(), Sound.ANVIL_LAND, 1F, 0.1F);
+                                        p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1F, 0.1F);
                                     }
                                 }
                             }
@@ -115,11 +117,6 @@ public class HiltSmash extends Skill {
         return Types.SWORD;
     }
 
-    @Override
-    public void activateSkill(Player player) {
-
-
-    }
 
     @Override
     public boolean usageCheck(Player player) {
@@ -136,7 +133,7 @@ public class HiltSmash extends Skill {
     @Override
     public float getEnergy(int level) {
 
-        return 25;
+        return 0;
     }
 
 }

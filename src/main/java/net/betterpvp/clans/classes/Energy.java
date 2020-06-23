@@ -6,10 +6,12 @@ import net.betterpvp.clans.classes.events.RegenerateEnergyEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,6 +19,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class Energy extends BPVPListener<Clans> {
 
@@ -40,6 +43,10 @@ public class Energy extends BPVPListener<Clans> {
     }
 
     public static boolean use(Player player, String ability, double amount, boolean inform) {
+        if(player.isOp() && player.getGameMode() == GameMode.CREATIVE){
+            return true;
+        }
+
         amount = 0.999 * (amount / 100);
 
 
@@ -72,10 +79,8 @@ public class Energy extends BPVPListener<Clans> {
         }
         double energy = 0.006D;
 
-        if (cur.isSprinting() || cur.getLocation().getBlock().isLiquid()) {
+        if (cur.isSprinting() || UtilBlock.isInLiquid(cur)) {
             energy = 0.0008D;
-
-
         }
 
         Bukkit.getPluginManager().callEvent(new RegenerateEnergyEvent(cur, energy));
@@ -96,7 +101,7 @@ public class Energy extends BPVPListener<Clans> {
 
     @EventHandler
     public void handleRespawn(PlayerRespawnEvent event) {
-        setEnergy(event.getPlayer(), 150.0F);
+        setEnergy(event.getPlayer(), 1.0f);
     }
 
     @EventHandler
@@ -116,6 +121,7 @@ public class Energy extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         Player player = event.getPlayer();
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             use(player, "Attack", 0.02, false);

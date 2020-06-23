@@ -3,6 +3,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
@@ -13,13 +14,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.NetherWarts;
 
-public class FarmingRake extends Weapon {
+public class FarmingRake extends Weapon implements ILegendary {
 
     public FarmingRake(Clans i) {
-        super(i, Material.IRON_HOE, (byte) 0, ChatColor.RED + "Rake",
+        super(i, Material.MUSIC_DISC_WARD, (byte) 0, ChatColor.RED + "Rake",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "0",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Harvest",
@@ -34,9 +36,9 @@ public class FarmingRake extends Weapon {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
 
-
-        if (e.getPlayer().getItemInHand() == null) return;
-        if (e.getPlayer().getItemInHand().getType() != Material.IRON_HOE) return;
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
+        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_WARD) return;
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (isThisWeapon(e.getPlayer())) {
                 skill(e.getPlayer());
@@ -61,54 +63,54 @@ public class FarmingRake extends Weapon {
                             if (b.getType() == Material.POTATO) {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     if (p.getInventory().firstEmpty() == -1) {
-                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.POTATO_ITEM, UtilMath.randomInt(1, 3)));
+                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.POTATO, UtilMath.randomInt(1, 3)));
                                     } else {
-                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.POTATO_ITEM, UtilMath.randomInt(1, 3))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.POTATO, UtilMath.randomInt(1, 3))));
                                     }
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     b.setType(Material.POTATO);
-                                    p.getInventory().removeItem(new ItemStack(Material.POTATO_ITEM, 1));
+                                    p.getInventory().removeItem(new ItemStack(Material.POTATO, 1));
                                 }
                             } else if (b.getType() == Material.CARROT) {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     if (p.getInventory().firstEmpty() == -1) {
-                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.CARROT_ITEM, UtilMath.randomInt(1, 3)));
+                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.CARROT, UtilMath.randomInt(1, 3)));
                                     } else {
-                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CARROT_ITEM, UtilMath.randomInt(1, 3))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CARROT, UtilMath.randomInt(1, 3))));
                                     }
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     b.setType(Material.CARROT);
-                                    p.getInventory().removeItem(new ItemStack(Material.CARROT_ITEM, 1));
+                                    p.getInventory().removeItem(new ItemStack(Material.CARROT, 1));
                                 }
 
-                            } else if (b.getType() == Material.CROPS) {
+                            } else if (b.getType() == Material.WHEAT) {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.WHEAT, 1)));
-                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.SEEDS, UtilMath.randomInt(1, 3))));
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.WHEAT_SEEDS, UtilMath.randomInt(1, 3))));
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    b.setType(Material.CROPS);
-                                    p.getInventory().removeItem(new ItemStack(Material.SEEDS, 1));
+                                    b.setType(Material.WHEAT);
+                                    p.getInventory().removeItem(new ItemStack(Material.WHEAT_SEEDS, 1));
                                 }
-                            } else if (b.getType() == Material.NETHER_WARTS) {
+                            } else if (b.getType() == Material.NETHER_WART_BLOCK) {
                                 NetherWarts n = (NetherWarts) b.getState().getData();
                                 if (n.getState() == NetherWartsState.RIPE) {
                                     if (p.getInventory().firstEmpty() == -1) {
-                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.NETHER_STALK, UtilMath.randomInt(2, 4)));
+                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.NETHER_WART_BLOCK, UtilMath.randomInt(2, 4)));
                                     } else {
-                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_STALK, UtilMath.randomInt(2, 4))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_WART_BLOCK, UtilMath.randomInt(2, 4))));
                                     }
 
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    b.setType(Material.NETHER_WARTS);
-                                    p.getInventory().removeItem(new ItemStack(Material.NETHER_STALK, 1));
+                                    b.setType(Material.NETHER_WART_BLOCK);
+                                    p.getInventory().removeItem(new ItemStack(Material.NETHER_WART_BLOCK, 1));
                                 }
                             }
 
@@ -116,13 +118,13 @@ public class FarmingRake extends Weapon {
                     }
                 }
 
-                p.getItemInHand().setDurability((short) (p.getItemInHand().getDurability() + 1));
-                if (p.getItemInHand().getDurability() >= 250) {
-                    p.getInventory().setItemInHand(new ItemStack(Material.AIR));
-                }
             }
         }
 
     }
 
+    @Override
+    public boolean isTextured() {
+        return true;
+    }
 }

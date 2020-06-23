@@ -4,7 +4,11 @@ name: Clans
 startup: postworld
 version: '1.0'
 depend: [Core, ProtocolLib]
+api-version: 1.15
 commands:
   clan:
     description: Base command for all clan related things
     aliases: [c, f, faction, clans]
+  kit:
+  build:
+  

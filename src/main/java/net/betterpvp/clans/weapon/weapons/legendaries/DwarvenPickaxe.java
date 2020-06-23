@@ -2,6 +2,7 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,8 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
-public class DwarvenPickaxe extends Weapon {
+public class DwarvenPickaxe extends Weapon implements ILegendary {
 
 
     public DwarvenPickaxe(Clans i) {
@@ -30,7 +32,7 @@ public class DwarvenPickaxe extends Weapon {
     @EventHandler
     public void onBlockBreak(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
 
@@ -47,15 +49,17 @@ public class DwarvenPickaxe extends Weapon {
 
 
                 if (block.getType().toString().contains("STONE") && block.getType() != Material.GLOWSTONE ||
-                        block.getType().toString().contains("ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
-                        || block.getType() == Material.SMOOTH_STAIRS
+                        block.getType().toString().contains("_ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
+                        || block.getType() == Material.STONE_BRICK_STAIRS
                         || block.getType().name().contains("STONE_SLAB")
-                        || block.getType() == Material.IRON_FENCE
+                        || block.getType() == Material.IRON_BARS
                         || block.getType() == Material.COAL_BLOCK
-                        || block.getType() == Material.STONE_SLAB2) {
+                        || block.getType().name().contains("_SLAB")
+                        || block.getType() == Material.ANDESITE
+                        || block.getType() == Material.GRANITE) {
 
 
-                    player.getItemInHand().setDurability((short) 0);
+                    player.getInventory().getItemInMainHand().setDurability((short) 0);
 
 
                     Clans.getCoreProtect().logRemoval("Dwarven Pickaxe - " + player.getName(), block.getLocation(), block.getType(), block.getData());
@@ -68,4 +72,8 @@ public class DwarvenPickaxe extends Weapon {
 
     }
 
+    @Override
+    public boolean isTextured() {
+        return false;
+    }
 }

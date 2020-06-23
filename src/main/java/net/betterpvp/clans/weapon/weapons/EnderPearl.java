@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -39,21 +40,21 @@ public class EnderPearl extends Weapon {
     @EventHandler
     public void onPearlUse(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
-
+        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK
                 || event.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (player.getItemInHand() == null)
+            if (player.getInventory().getItemInMainHand() == null)
                 return;
-            if (player.getItemInHand().getType() != Material.ENDER_PEARL)
+            if (player.getInventory().getItemInMainHand().getType() != Material.ENDER_PEARL)
                 return;
             event.setCancelled(true);
             UtilMessage
                     .message(player, "Ethereal Pearl", "You removed all negative effects!");
             player.getWorld()
-                    .playSound(player.getLocation(), Sound.EAT, 2F, 1F);
-            EffectManager.addEffect(player, EffectType.INVULNERABILITY, 5000);
+                    .playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
+            EffectManager.addEffect(player, EffectType.IMMUNETOEFFECTS, 5000);
 
-            for (PotionEffect pot : player.getActivePotionEffects()) {
+            /*for (PotionEffect pot : player.getActivePotionEffects()) {
                 if (pot.getType() == PotionEffectType.SLOW
                         || pot.getType() == PotionEffectType.CONFUSION
                         || pot.getType() == PotionEffectType.POISON
@@ -66,18 +67,18 @@ public class EnderPearl extends Weapon {
             EffectManager.removeEffect(player, EffectType.SHOCK);
             EffectManager.removeEffect(player, EffectType.SILENCE);
             EffectManager.removeEffect(player, EffectType.STUN);
-            EffectManager.removeEffect(player, EffectType.VULNERABILITY);
+            EffectManager.removeEffect(player, EffectType.VULNERABILITY);*/
 
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (player.getItemInHand() != null) {
-                        if (player.getItemInHand()
+                    if (player.getInventory().getItemInMainHand() != null) {
+                        if (player.getInventory().getItemInMainHand()
                                 .getType() == Material.ENDER_PEARL) {
 
-                            if (player.getItemInHand().getAmount() != 1) {
+                            if (player.getInventory().getItemInMainHand().getAmount() != 1) {
 
-                                UtilItem.remove(player, Material.ENDER_PEARL, (byte) 0, 1);
+                                UtilItem.remove(player, Material.ENDER_PEARL, 1);
 
                                 return;
                             }
