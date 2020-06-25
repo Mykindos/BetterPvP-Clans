@@ -15,22 +15,26 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.minecraft.server.v1_15_R1.EntityPlayer;
-import net.minecraft.server.v1_15_R1.PacketPlayOutAnimation;
+import net.minecraft.server.v1_16_R1.EntityPlayer;
+import net.minecraft.server.v1_16_R1.PacketPlayOutAnimation;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.block.data.Powerable;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class InteractListener extends BPVPListener<Clans> {
@@ -47,13 +51,16 @@ public class InteractListener extends BPVPListener<Clans> {
     public void onPlaceRedstoneStuff(BlockPlaceEvent e) {
         Clan c = ClanUtilities.getClan(e.getBlock().getLocation());
         if (c == null) {
-            if (e.getBlock().getType() == Material.OAK_BUTTON) {
+            if (e.getBlock().getType().name().contains("_BUTTON") && e.getBlock().getType() != Material.STONE_BUTTON) {
                 e.getBlock().setType(Material.STONE_BUTTON);
-            } else if (e.getBlock().getType() == Material.OAK_PRESSURE_PLATE) {
+            } else if (e.getBlock().getType().name().contains("PRESSURE_PLATE") && e.getBlock().getType() != Material.STONE_PRESSURE_PLATE) {
                 e.getBlock().setType(Material.STONE_PRESSURE_PLATE);
-            } else if (e.getBlock().getType() == Material.REDSTONE_WIRE || e.getBlock().getType() == Material.REPEATER) {
-                for (int x = -1; x <= 1; x++) {
-                    for (int z = -1; z <= 1; z++) {
+            } else if (e.getBlock().getType() == Material.REDSTONE_WIRE || e.getBlock().getType() == Material.REPEATER
+            || e.getBlock().getType().name().contains("REDSTONE") || e.getBlock().getType() == Material.OBSERVER
+            || e.getBlock().getType().name().contains("BUTTON") || e.getBlock().getType() == Material.DAYLIGHT_DETECTOR
+            || e.getBlock().getType() == Material.TARGET) {
+                for (int x = -2; x <= 2; x++) {
+                    for (int z = -2; z <= 2; z++) {
                         Clan d = ClanUtilities.getClan(e.getBlock().getLocation().add(x, 0, z));
                         if (d != null) {
 
@@ -154,10 +161,13 @@ public class InteractListener extends BPVPListener<Clans> {
                         + ChatColor.GRAY + " in " + ChatColor.YELLOW + ClanUtilities.getRelation(clan, bClan).getPrimary()
                         + "Clan " + bClan.getName() + ChatColor.GRAY + ".");
                 e.setCancelled(true);
+
+
             } else if (bClan == clan) {
                 if (clan.getMember(p.getUniqueId()).getRole() == Role.RECRUIT) {
                     UtilMessage.message(p, "Clans", "Clan Recruits cannot break blocks" + ChatColor.GRAY + ".");
                     e.setCancelled(true);
+
                 }
             }
         }
@@ -190,7 +200,8 @@ public class InteractListener extends BPVPListener<Clans> {
         if (bClan != null) {
 
 
-            if (block.getType() == Material.SAND || block.getType() == Material.GRAVEL) {
+            if (block.getType() == Material.SAND || block.getType() == Material.GRAVEL
+            || block.getType().name().contains("POWDER")) {
                 UtilMessage.message(p, "Clans", "You cannot place " + ChatColor.GREEN + UtilFormat.cleanString(block.getType().toString())
                         + ChatColor.GRAY + " in " + ChatColor.YELLOW + ClanUtilities.getRelation(clan, bClan).getPrimary()
                         + "Clan " + bClan.getName() + ChatColor.GRAY + ".");

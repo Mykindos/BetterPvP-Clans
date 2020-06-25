@@ -12,22 +12,22 @@ public class Warlock extends Role {
 
     @Override
     public Material getHelmet() {
-        return Material.TURTLE_HELMET;
+        return Material.NETHERITE_HELMET;
     }
 
     @Override
     public Material getChestplate() {
-        return Material.IRON_CHESTPLATE;
+        return Material.NETHERITE_CHESTPLATE;
     }
 
     @Override
     public Material getLeggings() {
-        return Material.IRON_LEGGINGS;
+        return Material.NETHERITE_LEGGINGS;
     }
 
     @Override
     public Material getBoots() {
-        return Material.IRON_BOOTS;
+        return Material.NETHERITE_BOOTS;
     }
 
 

@@ -1,6 +1,6 @@
 package net.betterpvp.clans.worldevents.types.nms;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;

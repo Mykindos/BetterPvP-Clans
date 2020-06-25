@@ -30,7 +30,7 @@ public class Kill20Pigmen extends General{
 	public void onKill(EntityDeathEvent e){
 		if(isActive()){
 			if(e.getEntity().getKiller() != null){
-				if(e.getEntity().getType() == EntityType.PIG_ZOMBIE){
+				if(e.getEntity().getType() == EntityType.ZOMBIFIED_PIGLIN){
 					Progress p = getQuestProgression(e.getEntity().getKiller().getUniqueId(), getName());
 
 					if(!p.isComplete()){

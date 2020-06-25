@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -30,7 +30,7 @@ public class ShopZombie extends EntityZombie {
     }
 
     @Override
-    public boolean e(EntityHuman var0) {
+    public boolean f(EntityHuman var0) {
         return false;
     }
 

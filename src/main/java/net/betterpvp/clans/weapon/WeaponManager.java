@@ -91,6 +91,8 @@ public class WeaponManager extends BPVPListener<Clans> {
                 return weapon;
             }
         }
+
+        System.out.println(name);
         return null;
     }
 

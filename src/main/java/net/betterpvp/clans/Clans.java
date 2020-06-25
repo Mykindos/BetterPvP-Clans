@@ -60,7 +60,7 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -100,7 +100,7 @@ public class Clans extends JavaPlugin implements Listener {
         getServer().getScheduler().cancelTasks(this);
 
 
-        for(Player p : Bukkit.getOnlinePlayers()){
+        for (Player p : Bukkit.getOnlinePlayers()) {
             p.getOpenInventory().close();
             Gamer c = GamerManager.getOnlineGamer(p);
             GamerRepository.updateGamer(c);
@@ -109,9 +109,9 @@ public class Clans extends JavaPlugin implements Listener {
 
         Connect.disableSQL();
 
-        for(org.bukkit.World w : Bukkit.getWorlds()){
-            for(LivingEntity e : w.getLivingEntities()){
-                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+        for (org.bukkit.World w : Bukkit.getWorlds()) {
+            for (LivingEntity e : w.getLivingEntities()) {
+                if (e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
                 e.setHealth(0);
                 e.remove();
             }
@@ -125,15 +125,15 @@ public class Clans extends JavaPlugin implements Listener {
 
         new RoleManager(this);
 
-        UtilShop.registerEntity("Zombie",  54, EntityZombie.class, ShopZombie.class);
-        UtilShop.registerEntity("Spider",  52, EntitySpider.class, BossSpider.class);
-        UtilShop.registerEntity("CaveSpider",  59, EntityCaveSpider.class, BossCaveSpider.class);
-        UtilShop.registerEntity("Skeleton",  51, EntitySkeleton.class, ShopSkeleton.class);
-        UtilShop.registerEntity("Zombie",  54, EntityZombie.class, BossZombie.class);
-        UtilShop.registerEntity("Wither",  64, EntityWither.class, BossWither.class);
-        UtilShop.registerEntity("Skeleton",  51, EntitySkeleton.class, BossSkeleton.class);
-        UtilShop.registerEntity("Villager",  120, EntityVillager.class, ShopVillager.class);
-        UtilShop.registerEntity("ArmorStand",  30, EntityArmorStand.class, CustomArmorStand.class);
+        UtilShop.registerEntity("Zombie", 54, EntityZombie.class, ShopZombie.class);
+        UtilShop.registerEntity("Spider", 52, EntitySpider.class, BossSpider.class);
+        UtilShop.registerEntity("CaveSpider", 59, EntityCaveSpider.class, BossCaveSpider.class);
+        UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, ShopSkeleton.class);
+        UtilShop.registerEntity("Zombie", 54, EntityZombie.class, BossZombie.class);
+        UtilShop.registerEntity("Wither", 64, EntityWither.class, BossWither.class);
+        UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, BossSkeleton.class);
+        UtilShop.registerEntity("Villager", 120, EntityVillager.class, ShopVillager.class);
+        UtilShop.registerEntity("ArmorStand", 30, EntityArmorStand.class, CustomArmorStand.class);
 
         repositoryList = ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
@@ -199,11 +199,11 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onLoad(CoreLoadedEvent event){
+    public void onLoad(CoreLoadedEvent event) {
         System.out.println("Core loaded, beginning Clans load.");
-        for(org.bukkit.World w : Bukkit.getWorlds()){
-            for(LivingEntity e : w.getLivingEntities()){
-                if(e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
+        for (org.bukkit.World w : Bukkit.getWorlds()) {
+            for (LivingEntity e : w.getLivingEntities()) {
+                if (e instanceof Player || e instanceof ArmorStand || e instanceof ItemFrame) continue;
                 e.setHealth(0);
                 e.remove();
             }
@@ -237,9 +237,8 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
 
-
-    private void startTimers(){
-        new BukkitRunnable(){
+    private void startTimers() {
+        new BukkitRunnable() {
             @Override
             public void run() {
 
@@ -248,10 +247,10 @@ public class Clans extends JavaPlugin implements Listener {
             }
         }.runTaskTimerAsynchronously(this, 0L, 2L);
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
-            public void run(){
-                for(Player p : Bukkit.getOnlinePlayers()){
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
                     Gamer gamer = GamerManager.getOnlineGamer(p);
                     GamerRepository.updateGamer(gamer);
 
@@ -260,14 +259,14 @@ public class Clans extends JavaPlugin implements Listener {
             }
         }.runTaskTimerAsynchronously(this, 6000L, 6000L);
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
 
             @Override
             public void run() {
-                for(Player p : Bukkit.getOnlinePlayers()){
+                for (Player p : Bukkit.getOnlinePlayers()) {
                     Gamer gamer = GamerManager.getOnlineGamer(p);
-                    if(gamer != null){
+                    if (gamer != null) {
 
 
                         double add = 0;
@@ -294,12 +293,12 @@ public class Clans extends JavaPlugin implements Listener {
                 }
 
             }
-        }.runTaskTimer(this, 72000 /2, 72000 /2);
+        }.runTaskTimer(this, 72000 / 2, 72000 / 2);
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
-            public void run(){
-                for(Gamer gamer : GamerManager.getOnlineGamers()){
+            public void run() {
+                for (Gamer gamer : GamerManager.getOnlineGamers()) {
                     gamer.updateAllStats();
 
                 }
@@ -308,14 +307,14 @@ public class Clans extends JavaPlugin implements Listener {
 
     }
 
-    private void loadRecipes(){
+    private void loadRecipes() {
         new RadiantSword(this);
         new PowerSword(this);
         new Chainmail(this);
         new PowerAxe(this);
         new FireAxe(this);
+        new Netherite(this);
     }
-
 
 
     public static Options getOptions() {
@@ -326,7 +325,7 @@ public class Clans extends JavaPlugin implements Listener {
         return config;
     }
 
-    public boolean hasStarted(){
+    public boolean hasStarted() {
         return hasStarted;
     }
 

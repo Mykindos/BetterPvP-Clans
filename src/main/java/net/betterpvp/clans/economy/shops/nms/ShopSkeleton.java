@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -32,7 +32,7 @@ public class ShopSkeleton extends EntitySkeleton {
     }
 
     @Override
-    public boolean e(EntityHuman var0) {
+    public boolean f(EntityHuman var0) {
         return false;
     }
 
@@ -71,7 +71,7 @@ public class ShopSkeleton extends EntitySkeleton {
 
     //Combustion
     @Override
-    public boolean B(Entity entity) {
+    public boolean attackEntity(Entity entity) {
         return false;
     }
 

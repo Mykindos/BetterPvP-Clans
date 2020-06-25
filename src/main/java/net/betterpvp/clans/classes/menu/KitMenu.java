@@ -28,10 +28,10 @@ public class KitMenu extends Menu {
                 new KitButton(21, new ItemStack(Material.IRON_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
                 new KitButton(30, new ItemStack(Material.IRON_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Knight Class"),
 
-                new KitButton(5, new ItemStack(Material.TURTLE_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
-                new KitButton(14, new ItemStack(Material.IRON_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
-                new KitButton(23, new ItemStack(Material.IRON_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
-                new KitButton(32, new ItemStack(Material.IRON_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
+                new KitButton(5, new ItemStack(Material.NETHERITE_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
+                new KitButton(14, new ItemStack(Material.NETHERITE_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
+                new KitButton(23, new ItemStack(Material.NETHERITE_LEGGINGS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
+                new KitButton(32, new ItemStack(Material.NETHERITE_BOOTS).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Warlock Class"),
 
                 new KitButton(7, new ItemStack(Material.CHAINMAIL_HELMET).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),
                 new KitButton(16, new ItemStack(Material.CHAINMAIL_CHESTPLATE).clone(), ChatColor.GREEN.toString() + ChatColor.BOLD + "Ranger Class"),

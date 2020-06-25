@@ -1,6 +1,6 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
@@ -42,8 +42,8 @@ public class ShopVillager extends EntityVillager {
    // public void movementTick(){return;}
 
 
-    @Override
-    public void a(NBTTagCompound nbttagcompound){return;};
+   // @Override
+  //  public void a(NBTTagCompound nbttagcompound){return;};
 
     @Override
     public void setVillagerData(VillagerData villagerdata) {return;}
@@ -70,8 +70,8 @@ public class ShopVillager extends EntityVillager {
         return false;
     }
 
-    @Override
-    public void a(Entity entity, float f, double d0, double d1){return;}
+   // @Override
+   // public void a(Entity entity, float f, double d0, double d1){return;}
 
     @Override
     protected SoundEffect getSoundAmbient() {

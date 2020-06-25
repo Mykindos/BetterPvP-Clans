@@ -1,11 +1,11 @@
 package net.betterpvp.clans.combat.combatlog.npc;
 
-import net.minecraft.server.v1_15_R1.EntityAgeable;
-import net.minecraft.server.v1_15_R1.EntityCreature;
+import net.minecraft.server.v1_16_R1.EntityAgeable;
+import net.minecraft.server.v1_16_R1.EntityCreature;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftAgeable;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftCreature;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftAgeable;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;

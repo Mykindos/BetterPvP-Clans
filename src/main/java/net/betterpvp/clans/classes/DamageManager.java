@@ -560,8 +560,6 @@ public class DamageManager extends BPVPListener<Clans> {
         switch (ent) {
             case PIG:
                 return Sound.ENTITY_PIG_HURT;
-            case PIG_ZOMBIE:
-                return Sound.ENTITY_ZOMBIE_PIGMAN_HURT;
             case COW:
                 return Sound.ENTITY_COW_HURT;
             case SHEEP:

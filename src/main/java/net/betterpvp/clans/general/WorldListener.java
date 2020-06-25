@@ -754,6 +754,8 @@ public class WorldListener extends BPVPListener<Clans> {
                         e.setDamage(5);
                     } else if (m == Material.GOLDEN_SWORD) {
                         e.setDamage(6);
+                    } else if (m == Material.NETHERITE_SWORD) {
+                        e.setDamage(6);
                     } else if (m == Material.IRON_SWORD) {
                         e.setDamage(4.5);
 
@@ -777,7 +779,9 @@ public class WorldListener extends BPVPListener<Clans> {
                         e.setDamage(4);
                     } else if (m == Material.GOLDEN_AXE) {
                         e.setDamage(5);
-                    } else if (m == Material.IRON_AXE) {
+                    } else if (m == Material.NETHERITE_AXE) {
+                        e.setDamage(5);
+                    }else if (m == Material.IRON_AXE) {
                         e.setDamage(3);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
@@ -1169,7 +1173,7 @@ public class WorldListener extends BPVPListener<Clans> {
             } else if (event.getEntityType() == EntityType.MAGMA_CUBE) {
                 drops.add(new ItemStack(Material.MAGMA_CREAM, UtilMath.randomInt(1, 3)));
                 drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.PIG_ZOMBIE) {
+            } else if (event.getEntityType() == EntityType.ZOMBIFIED_PIGLIN) {
                 PigZombie z = (PigZombie) event.getEntity();
                 if (z.getEquipment().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
                     drops.add(new ItemStack(Material.GOLDEN_AXE));

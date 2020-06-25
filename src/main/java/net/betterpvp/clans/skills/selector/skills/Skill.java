@@ -33,6 +33,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
@@ -215,8 +216,10 @@ public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 
         }
         if (getType() == Types.AXE || getType() == Types.SWORD || getType() == Types.BOW) {
-            if (p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_SWORD || p.getInventory().getItemInMainHand().getType() == Material.DIAMOND_AXE
-            || p.getInventory().getItemInMainHand().getType() == Material.CROSSBOW) {
+            ItemStack mainHand = p.getInventory().getItemInMainHand();
+            if (mainHand.getType() == Material.DIAMOND_SWORD ||mainHand.getType() == Material.DIAMOND_AXE
+            || mainHand.getType() == Material.CROSSBOW || mainHand.getType() == Material.NETHERITE_SWORD
+            || mainHand.getType() == Material.NETHERITE_AXE) {
                 level++;
             }
         }

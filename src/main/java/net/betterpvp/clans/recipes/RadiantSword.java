@@ -16,8 +16,6 @@ public class RadiantSword implements CustomRecipe{
         Iterator<Recipe> iter = Bukkit.getServer().recipeIterator();
         while (iter.hasNext()) {
             Recipe r = iter.next();
-            // May not be safe to depend on == here for recipe comparison
-            // Probably safer to compare the recipe result (an ItemStack)
             if (r.getResult().getType() == Material.GOLDEN_SWORD) {
                 iter.remove();
             }
