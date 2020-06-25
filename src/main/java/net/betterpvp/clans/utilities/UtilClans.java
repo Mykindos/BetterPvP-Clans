@@ -99,7 +99,7 @@ public class UtilClans {
             a.setDisplayName("$100,000");
         }else if(m == Material.MUSIC_DISC_13){
             a.setDisplayName("$50,000");
-        }else if(m == Material.MUSIC_DISC_11){
+        }else if(m == Material.MUSIC_DISC_PIGSTEP){
             a.setDisplayName("$1,000,000");
         }else if(m == Material.CARROT){
             a.setDisplayName("Carrot");
@@ -167,7 +167,7 @@ public class UtilClans {
                     }
                 }
 
-                if(i.getType() == Material.MUSIC_DISC_WAIT || i.getType() == Material.MUSIC_DISC_11
+                if(i.getType() == Material.MUSIC_DISC_WAIT || i.getType() == Material.MUSIC_DISC_PIGSTEP
                         || i.getType() == Material.MUSIC_DISC_13 || i.getType() == Material.TNT){
                     return true;
                 }

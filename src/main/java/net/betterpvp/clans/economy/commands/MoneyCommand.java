@@ -59,7 +59,7 @@ public class MoneyCommand extends Command {
                 int amount = Integer.parseInt(args[2]);
                 if (amount > 0) {
                     Gamer playerGamer = GamerManager.getGamer(player);
-                    Gamer targetGamer = GamerManager.getGamer(player);
+                    Gamer targetGamer = GamerManager.getGamer(args[1]);
 
                     if(targetGamer == null){
                         targetGamer = GamerManager.searchGamer(player, args[1], true);
