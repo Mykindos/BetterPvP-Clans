@@ -17,7 +17,7 @@ public class WeaponCommands extends Command {
 
         for (Weapon weapon : WeaponManager.weapons) {
             if (weapon instanceof ILegendary) {
-                player.getInventory().addItem(weapon.createWeapon());
+                player.getInventory().addItem(weapon.createWeapon(true));
             }
         }
 

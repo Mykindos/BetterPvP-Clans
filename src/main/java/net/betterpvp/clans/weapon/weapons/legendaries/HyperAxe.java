@@ -22,8 +22,8 @@ public class HyperAxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Hyper Speed",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Hyper Attack",
                         ChatColor.GRAY + "Knockback: " + ChatColor.YELLOW + "None", "",
-                        ChatColor.WHITE + "Rumoured to attack foes 500% faster",
-                        ChatColor.WHITE + "than any other weapon known to man.", ""}, true, 2);
+                        ChatColor.GRAY + "Rumoured to attack foes 500% faster",
+                        ChatColor.GRAY + "than any other weapon known to man.", ""}, true, 2);
 
 
     }
