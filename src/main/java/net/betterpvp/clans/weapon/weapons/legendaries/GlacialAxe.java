@@ -26,6 +26,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
         super(i, Material.MUSIC_DISC_FAR, (byte) 0, ChatColor.RED + "Glacial Axe",
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "6",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Walking",
+                        "",
                         ChatColor.GRAY + "When walking on water, a radius below",
                         ChatColor.GRAY + "you is temporarily transformed into ice", ""}, true, 6);
 

@@ -9,7 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -113,7 +115,7 @@ public class Weapon implements Listener {
             }
 
             if(showUUID) {
-                loreTemp.add(ChatColor.RESET.toString() + "UUID: " + ChatColor.YELLOW.toString() + UUID.randomUUID().toString());
+                loreTemp.add(ChatColor.GRAY.toString() + "UUID: " + ChatColor.YELLOW.toString() + UUID.randomUUID().toString());
             }
         }else{
             item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));

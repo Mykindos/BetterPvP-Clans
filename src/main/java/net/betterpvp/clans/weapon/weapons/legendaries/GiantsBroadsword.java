@@ -19,6 +19,7 @@ public class GiantsBroadsword extends Weapon implements ILegendary {
                 new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "9",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Bonus Damage",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
+                        "",
                         ChatColor.GRAY + "You deal massive damage, however you ",
                         ChatColor.GRAY + "attack slower than usual", ""}, true, 2);
 
