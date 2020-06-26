@@ -155,10 +155,10 @@ public class ChatListener extends BPVPListener<Clans> {
 
 
                     if (ClanUtilities.getClan(p) == null || Clans.getOptions().isFNG()) {
-                        online.sendMessage(rank + donationRank + ChatColor.YELLOW + p.getName() + ": " + ChatColor.RESET + e.getMessage());
+                        online.sendMessage(rank + donationRank + ChatColor.YELLOW + p.getName() + ChatColor.RESET + ": " + e.getMessage());
                     } else {
                         new FancyMessage(rank + donationRank + ClanUtilities.getRelation(clan, target).getSecondary() + clan.getName() + " "
-                                + ClanUtilities.getRelation(clan, target).getPrimary() + p.getName() + ": ")
+                                + ClanUtilities.getRelation(clan, target).getPrimary() + p.getName() +ChatColor.RESET + ": ")
                                 .tooltip(ClanUtilities.getClanTooltip(p, clan)).then(e.getMessage()).send(online);
                     }
                 }
