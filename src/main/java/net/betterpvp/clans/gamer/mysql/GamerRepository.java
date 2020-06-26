@@ -115,7 +115,7 @@ public class GamerRepository implements Repository<Clans> {
                 + "'" + gamer.getFragments() + "', "
                 + "'" + gamer.getBattleCoins() + "',"
                 + "'" + UtilFormat.toTinyInt(gamer.isFiltering()) + "')";
-        Log.write("Clans", "Saved Gamer [" + ClientUtilities.getClient(gamer.getUUID()).getName() + "]");
+        Log.write("Clans", "Saved Gamer [" + gamer.getClient().getName() + "]");
         QueryFactory.runQuery(query);
 
     }

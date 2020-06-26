@@ -66,20 +66,8 @@ public class WeaponManager extends BPVPListener<Clans> {
 
     public static Weapon getWeapon(ItemStack item) {
         for (Weapon weapon : weapons) {
-
-            if (weapon.getMaterial().equals(item.getType())) {
-
-                if (item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().hasLore()) {
-                    if (ChatColor.stripColor(item.getItemMeta().getDisplayName()).equalsIgnoreCase(ChatColor.stripColor(weapon.getName()))) {
-
-                        if (item.getItemMeta().getLore() != null && weapon.getLore() != null) {
-
-                            if (item.getItemMeta().getLore().equals(Arrays.asList(weapon.getLore()))) {
-                                return weapon;
-                            }
-                        }
-                    }
-                }
+            if(weapon.createWeapon().isSimilar(item)){
+                return weapon;
             }
         }
         return null;

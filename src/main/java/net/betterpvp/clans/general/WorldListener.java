@@ -37,6 +37,8 @@ import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
@@ -1312,6 +1314,18 @@ public class WorldListener extends BPVPListener<Clans> {
             blood.put(item, System.currentTimeMillis());
         }
 
+    }
+
+    @EventHandler
+    public void onDeathHealth(PlayerDeathEvent e){
+        AttributeInstance health = e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        health.setBaseValue(20.0);
+    }
+
+    @EventHandler
+    public void onJoinHealth(PlayerJoinEvent e){
+        AttributeInstance health = e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        health.setBaseValue(20.0);
     }
 
     /**
