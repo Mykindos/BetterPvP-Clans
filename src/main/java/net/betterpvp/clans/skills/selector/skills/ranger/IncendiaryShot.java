@@ -101,7 +101,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
             return;
         }
 
-        UtilMessage.message(player, getClassType(), "You fired " + ChatColor.GREEN + getName() + ".");
+        UtilMessage.message(player, getClassType(), "You fired " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
         //event.getProjectile().setFireTicks(Integer.MAX_VALUE);
         active.remove(player.getUniqueId());
         incens.add((Arrow) event.getProjectile());

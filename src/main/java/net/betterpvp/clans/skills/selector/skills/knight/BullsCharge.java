@@ -109,7 +109,7 @@ public class BullsCharge extends Skill implements InteractSkill {
 
                     if (event.getDamagee() instanceof Player) {
                         Player damaged = (Player) event.getDamagee();
-                        UtilMessage.message(damaged, getClassType(), ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName() + ".");
+                        UtilMessage.message(damaged, getClassType(), ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                         UtilMessage.message(damager, getClassType(), "You hit " + ChatColor.YELLOW + damaged.getName() + ChatColor.GRAY + " with " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                         running.remove(damager.getName());
                         return;
