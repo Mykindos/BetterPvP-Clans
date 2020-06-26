@@ -63,7 +63,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
         player.setHealth(Math.max(0.5, proposedHealth));
 
 
-        UtilMessage.message(player, "Skill", "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_ATTACK, 2.0f, 1.0f);
 
@@ -189,10 +189,7 @@ public class BloodBarrier extends Skill implements InteractSkill {
             this.player = player.getUniqueId();
             this.level = level;
             this.endTime = System.currentTimeMillis() + 60_000;
-
         }
-
-
     }
 }
 
