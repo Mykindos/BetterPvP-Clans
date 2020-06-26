@@ -192,7 +192,7 @@ public class ShopListener extends BPVPListener<Clans> {
             Weapon wep = WeaponManager.getWeapon(item.getItemName());
             if (wep != null) {
                 if (wep instanceof ILegendary) {
-                    k = wep.createWeapon();
+                    k = wep.createWeapon(true);
                 } else {
                     k = wep.createWeaponNoGlow();
                     k.setAmount(amount);
