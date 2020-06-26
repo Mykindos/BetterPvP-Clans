@@ -72,6 +72,7 @@ public class Bloodshed extends Skill implements InteractSkill {
         double healthReduction = 0.50 + (level * 0.05);
         double proposedHealth = p.getHealth() - (20 - (20 * healthReduction));
 
+        UtilMessage.message(p, getClassType(), "You used " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
         p.setHealth(Math.max(0.5, proposedHealth));
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, 2));
         p.getWorld().playSound(p.getLocation(), Sound.ENTITY_RAVAGER_ROAR, 2.0f, 0.3f);
