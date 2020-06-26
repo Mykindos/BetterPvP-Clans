@@ -12,6 +12,8 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +68,13 @@ public class WeaponManager extends BPVPListener<Clans> {
 
     public static Weapon getWeapon(ItemStack item) {
         for (Weapon weapon : weapons) {
-            if(weapon.createWeapon().isSimilar(item)){
+            ItemStack wepItem = item.clone();
+            if(item.getItemMeta() instanceof Damageable) {
+                Damageable damageable = (Damageable) wepItem.getItemMeta();
+                damageable.setDamage((short) 0);
+                wepItem.setItemMeta((ItemMeta)damageable);
+            }
+            if(weapon.createWeapon().isSimilar(wepItem)){
                 return weapon;
             }
         }

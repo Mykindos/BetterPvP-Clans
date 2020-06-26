@@ -118,7 +118,7 @@ public class Blizzard extends ChannelSkill implements InteractSkill {
     @Override
     public boolean usageCheck(Player p) {
         if (p.getLocation().getBlock().isLiquid()) {
-            UtilMessage.message(p, getClassType(), "You cannot use " + getName() + " in water.");
+            UtilMessage.message(p, getClassType(), "You cannot use " + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
 

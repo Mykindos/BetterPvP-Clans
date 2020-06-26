@@ -138,7 +138,7 @@ public class Agility extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
+            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
