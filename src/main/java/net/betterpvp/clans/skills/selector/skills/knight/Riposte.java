@@ -65,10 +65,10 @@ public class Riposte extends Skill implements InteractSkill {
                                     block.put(damagee, damager);
                                     prepare.put(damagee, System.currentTimeMillis() + 2000);
 
-                                    UtilMessage.message(damagee, getClassType(), "You parried with " + getName() + ".");
+                                    UtilMessage.message(damagee, getClassType(), "You parried with " + getName() + ChatColor.GRAY + ".");
                                     if (damager instanceof Player) {
                                         Player temp = (Player) damager;
-                                        UtilMessage.message(temp, getClassType(), damagee.getName() + " parried with " + getName() + ".");
+                                        UtilMessage.message(temp, getClassType(), damagee.getName() + " parried with " + getName() + ChatColor.GRAY + ".");
                                     }
                                 }
                             }
@@ -110,9 +110,9 @@ public class Riposte extends Skill implements InteractSkill {
                                 ent.damage((1 + (level * 0.5)));
                                 UtilPlayer.health(damager, (1 + (level * 0.5)));
                                 Energy.regenerateEnergy(damager, 20.0);
-                                UtilMessage.message(damager, getClassType(), "You countered with " + getName() + ".");
+                                UtilMessage.message(damager, getClassType(), "You countered with " + getName() + ChatColor.GRAY + ".");
                                 if (damagee != null) {
-                                    UtilMessage.message(damagee, getClassType(), damager.getName() + " countered with " + getName() + ".");
+                                    UtilMessage.message(damagee, getClassType(), damager.getName() + " countered with " + getName() + ChatColor.GRAY + ".");
                                     LogManager.addLog(damagee, damager, "Riposte");
                                 }
                             }
@@ -141,7 +141,7 @@ public class Riposte extends Skill implements InteractSkill {
             block.remove(cur);
 
 
-            UtilMessage.message(cur, getClassType(), "You failed to " + getName() + ".");
+            UtilMessage.message(cur, getClassType(), "You failed to " + getName() + ChatColor.GRAY + ".");
         }
     }
 
@@ -197,6 +197,6 @@ public class Riposte extends Skill implements InteractSkill {
     @Override
     public void activate(Player player, Gamer gamer) {
         prepare.put(player, System.currentTimeMillis() + 2000L);
-        UtilMessage.message(player, getClassType(), "You prepared to " + getName() + ".");
+        UtilMessage.message(player, getClassType(), "You prepared to " + getName() + ChatColor.GRAY + ".");
     }
 }
