@@ -52,37 +52,38 @@ public class BuildRepository implements Repository<Clans> {
 
                     Gamer g = GamerManager.getOnlineGamer(uuid);
 
+                    if(g != null) {
+                        while (result.next()) {
+                            String role = result.getString(2);
+                            int id = result.getInt(3);
+                            RoleBuild build = new RoleBuild(role, id);
 
-                    while (result.next()) {
-                        String role = result.getString(2);
-                        int id = result.getInt(3);
-                        RoleBuild build = new RoleBuild(role, id);
+                            String sword = result.getString(4);
+                            setSkill(build, Types.SWORD, sword);
 
-                        String sword = result.getString(4);
-                        setSkill(build, Types.SWORD, sword);
+                            String axe = result.getString(5);
+                            setSkill(build, Types.AXE, axe);
 
-                        String axe = result.getString(5);
-                        setSkill(build, Types.AXE, axe);
+                            String bow = result.getString(6);
+                            setSkill(build, Types.BOW, bow);
 
-                        String bow = result.getString(6);
-                        setSkill(build, Types.BOW, bow);
+                            String passiveA = result.getString(7);
+                            setSkill(build, Types.PASSIVE_A, passiveA);
 
-                        String passiveA = result.getString(7);
-                        setSkill(build, Types.PASSIVE_A, passiveA);
+                            String passiveB = result.getString(8);
+                            setSkill(build, Types.PASSIVE_B, passiveB);
 
-                        String passiveB = result.getString(8);
-                        setSkill(build, Types.PASSIVE_B, passiveB);
+                            String global = result.getString(9);
+                            setSkill(build, Types.GLOBAL, global);
 
-                        String global = result.getString(9);
-                        setSkill(build, Types.GLOBAL, global);
+                            boolean active = result.getBoolean(10);
+                            build.setActive(active);
 
-                        boolean active = result.getBoolean(10);
-                        build.setActive(active);
+                            g.getBuilds().add(build);
+                            count++;
+                        }
 
-                        g.getBuilds().add(build);
-                        count++;
                     }
-
 
                     statement.close();
                     result.close();
