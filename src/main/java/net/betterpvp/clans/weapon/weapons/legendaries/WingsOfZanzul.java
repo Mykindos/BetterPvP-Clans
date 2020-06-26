@@ -17,9 +17,9 @@ public class WingsOfZanzul extends Weapon implements ILegendary {
         super(i, Material.ELYTRA, (byte) 0, ChatColor.RED + "Wings of Zanzul", new String[]{"",
                 ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Gliding",
                 "",
-                ChatColor.RESET + "It is noted in history that Zanzul",
-                ChatColor.RESET + "created these wings to assist in",
-                ChatColor.RESET + "the great rebellion against Zephyrus.",
+                ChatColor.GRAY + "It is noted in history that Zanzul",
+                ChatColor.GRAY + "created these wings to assist in",
+                ChatColor.GRAY + "the great rebellion against Zephyrus.",
                 ""}, true, 2.0);
     }
 

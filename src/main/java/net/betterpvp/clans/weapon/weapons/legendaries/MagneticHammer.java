@@ -40,9 +40,9 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "7",
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Magnetic Pull",
                         "",
-                        ChatColor.RESET + "The Magnetic Hammer is said to be able",
-                        ChatColor.RESET + "to pull nearby enemies and objects towards itself",
-                        ChatColor.RESET + "with unstoppable force.",
+                        ChatColor.GRAY + "The Magnetic Hammer is said to be able",
+                        ChatColor.GRAY + "to pull nearby enemies and objects towards itself",
+                        ChatColor.GRAY + "with unstoppable force.",
                         ""}, true, 2.0);
     }
 

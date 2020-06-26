@@ -295,7 +295,7 @@ public class Clan implements Invitable {
         if (clan != null) {
             if (clan.getDominance(this) != null) {
                 return ChatColor.GRAY + "(" + ChatColor.GREEN + clan.getDominance(this).getPoints() + ChatColor.GRAY + ":"
-                        + ChatColor.RED + getDominance(clan).getPoints() + ChatColor.GRAY + ")" + ChatColor.RESET;
+                        + ChatColor.RED + getDominance(clan).getPoints() + ChatColor.GRAY + ")" + ChatColor.GRAY;
             }
         }
         return "";

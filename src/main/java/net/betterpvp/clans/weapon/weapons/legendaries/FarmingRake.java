@@ -26,9 +26,9 @@ public class FarmingRake extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "0",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Harvest",
                         "",
-                        ChatColor.RESET + "This mysterious tool will ",
-                        ChatColor.RESET + "automatically harvest and replant any ",
-                        ChatColor.RESET + "crops in your vicinity.",
+                        ChatColor.GRAY + "This mysterious tool will ",
+                        ChatColor.GRAY + "automatically harvest and replant any ",
+                        ChatColor.GRAY + "crops in your vicinity.",
                         ""}, true, 8.0);
     }
 

@@ -26,7 +26,7 @@ public class CombatLog {
 
     public CombatLog(Player player) {
         this.player = player;
-        this.npc = new NPC(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Right Click Me! " + ChatColor.RESET + player.getName(), player.getLocation(), EntityType.SHEEP, 0.5, true);
+        this.npc = new NPC(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Right Click Me! " + ChatColor.GRAY + player.getName(), player.getLocation(), EntityType.SHEEP, 0.5, true);
 
         npc.getEntity().setRemoveWhenFarAway(false);
         npc.getEntity().setCustomNameVisible(true);

@@ -45,9 +45,9 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
                         ChatColor.GRAY + "Ability: " + ChatColor.YELLOW + "Wind Rider",
                         ChatColor.GRAY + "Knockback: " + ChatColor.YELLOW + "300%",
                         "",
-                        ChatColor.RESET + "Once owned by the God Zephyrus,",
-                        ChatColor.RESET + "it is rumoured the Wind Blade",
-                        ChatColor.RESET + "grants its owner flight.",
+                        ChatColor.GRAY + "Once owned by the God Zephyrus,",
+                        ChatColor.GRAY + "it is rumoured the Wind Blade",
+                        ChatColor.GRAY + "grants its owner flight.",
                         ""}, true, 2.0);
 
     }

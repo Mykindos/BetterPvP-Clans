@@ -36,9 +36,9 @@ public class DurielsScepter extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "10 (AoE)",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "Lightning Strike",
                         "",
-                        ChatColor.RESET + "This mysterious weapon is believed",
-                        ChatColor.RESET + "to call the power of the gods",
-                        ChatColor.RESET + "and strike lightning on your enemies.",
+                        ChatColor.GRAY + "This mysterious weapon is believed",
+                        ChatColor.GRAY + "to call the power of the gods",
+                        ChatColor.GRAY + "and strike lightning on your enemies.",
                         ""}, true, 2.0);
     }
 

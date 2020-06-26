@@ -41,10 +41,10 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Breathing",
                         ChatColor.GRAY + "Knockback: " + ChatColor.YELLOW + "100%",
                         "",
-                        ChatColor.RESET + "A blade forged from hundreds of ",
-                        ChatColor.RESET + "alligators teeth. It's powers allow ",
-                        ChatColor.RESET + "its owner to swim with great speed, ",
-                        ChatColor.RESET + "able to catch any prey.",
+                        ChatColor.GRAY + "A blade forged from hundreds of ",
+                        ChatColor.GRAY + "alligators teeth. It's powers allow ",
+                        ChatColor.GRAY + "its owner to swim with great speed, ",
+                        ChatColor.GRAY + "able to catch any prey.",
                         ""}, true, 2.0);
     }
 
