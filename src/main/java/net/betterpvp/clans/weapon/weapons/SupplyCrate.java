@@ -210,7 +210,7 @@ public class SupplyCrate extends Weapon {
                                     for (Weapon w : WeaponManager.weapons) {
                                         if (w instanceof ILegendary) {
                                             if (Math.random() > 0.50) {
-                                                chest.getInventory().addItem(w.createWeapon());
+                                                chest.getInventory().addItem(w.createWeapon(true));
                                             }
                                         }
                                     }

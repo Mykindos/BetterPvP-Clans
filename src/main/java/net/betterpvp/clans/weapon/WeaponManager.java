@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class WeaponManager extends BPVPListener<Clans> {
 
@@ -69,12 +70,25 @@ public class WeaponManager extends BPVPListener<Clans> {
     public static Weapon getWeapon(ItemStack item) {
         for (Weapon weapon : weapons) {
             ItemStack wepItem = item.clone();
-            if(item.getItemMeta() instanceof Damageable) {
+            if(wepItem.getItemMeta() instanceof Damageable) {
                 Damageable damageable = (Damageable) wepItem.getItemMeta();
                 damageable.setDamage((short) 0);
                 wepItem.setItemMeta((ItemMeta)damageable);
             }
-            if(weapon.createWeapon().isSimilar(wepItem)){
+
+            if(weapon instanceof ILegendary){
+                if(wepItem.hasItemMeta()) {
+                    ItemMeta meta = wepItem.getItemMeta();
+                    if(meta.hasLore()) {
+                        List<String> lore = meta.getLore();
+                        lore.removeIf(s -> s.contains("UUID:"));
+                        meta.setLore(lore);
+                        wepItem.setItemMeta(meta);
+                    }
+                }
+            }
+
+            if(weapon.createWeapon(false).isSimilar(wepItem)){
                 return weapon;
             }
         }

@@ -134,7 +134,7 @@ public class FishingListener extends BPVPListener<Clans> {
                             List<ItemStack> weapons = new ArrayList<>();
                             for(Weapon w : WeaponManager.weapons){
                                 if(w instanceof ILegendary){
-                                    weapons.add(w.createWeapon());
+                                    weapons.add(w.createWeapon(true));
                                 }
 
                             }

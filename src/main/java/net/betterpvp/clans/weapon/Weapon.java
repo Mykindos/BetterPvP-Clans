@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class Weapon implements Listener {
 
@@ -91,14 +92,18 @@ public class Weapon implements Listener {
 
     public ItemStack createWeaponNoGlow() {
 
-
-                System.out.println(getMaterial().name());
         ItemStack item = new ItemStack(getMaterial(), 1);
         return UtilItem.setItemNameAndLore(item, getName(), getLore());
     }
 
     public ItemStack createWeapon() {
+       return createWeapon(false);
+    }
+
+    public ItemStack createWeapon(boolean showUUID){
         ItemStack item;
+
+        List<String> loreTemp = new ArrayList<>(Arrays.asList(getLore()));
         if (this instanceof ILegendary) {
             ILegendary iLegendary = (ILegendary) this;
             if(iLegendary.isTextured()){
@@ -106,11 +111,15 @@ public class Weapon implements Listener {
             }else{
                 item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
             }
+
+            if(showUUID) {
+                loreTemp.add(ChatColor.RESET.toString() + "UUID: " + ChatColor.YELLOW.toString() + UUID.randomUUID().toString());
+            }
         }else{
             item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
         }
 
-        return UtilItem.setItemNameAndLore(item, getName(), getLore());
+        return UtilItem.setItemNameAndLore(item, getName(), loreTemp);
     }
 
 

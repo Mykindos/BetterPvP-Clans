@@ -25,6 +25,7 @@ import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 
@@ -45,7 +46,8 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
                         ChatColor.RESET + "alligators teeth. It's powers allow ",
                         ChatColor.RESET + "its owner to swim with great speed, ",
                         ChatColor.RESET + "able to catch any prey.",
-                        ""}, true, 2.0);
+                        ""
+                }, true, 2.0);
     }
 
     @EventHandler
@@ -53,7 +55,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
 
 
         Player player = event.getPlayer();
-        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_STRAD) return;
 
@@ -94,7 +96,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
                         } else {
                             UtilVelocity.velocity(player, 1.0D, 0.11D, 1.0D, true);
                             ParticleEffect.WATER_WAKE.display(player.getLocation());
-                           // player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.WATER);
+                            // player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, Material.WATER);
                             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FISH_SWIM, 0.8F, 1.5F);
                         }
                     } else {

@@ -103,7 +103,7 @@ public class KOTHManager extends BPVPListener<Clans> {
                                         }
                                     } else if (w instanceof ILegendary) {
                                         if (UtilMath.randomInt(10000) > 9995) {
-                                            chest.getInventory().addItem(w.createWeapon());
+                                            chest.getInventory().addItem(w.createWeapon(true));
                                         }
                                     }
                                 }
