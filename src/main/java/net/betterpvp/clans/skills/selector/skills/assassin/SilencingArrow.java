@@ -178,7 +178,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + ChatColor.GRAY + " in water.");
+            UtilMessage.message(player, "Skills", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while in liquid.");
             return false;
         }
         return true;
@@ -187,7 +187,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
     @Override
     public void activate(Player player, Gamer gamer) {
         if (!active.contains(player.getUniqueId())) {
-            UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+            UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
             active.add(player.getUniqueId());
         }
