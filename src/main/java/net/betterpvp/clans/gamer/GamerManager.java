@@ -125,14 +125,17 @@ public class GamerManager {
 
     public static Gamer searchGamer(Player caller, String client, boolean inform) {
         LinkedList<Gamer> matchList = new LinkedList<>();
-        for (Gamer cur : gamers) {
-            if (cur.getClient().getName().equalsIgnoreCase(client)) {
-                return cur;
-            }
-            if (cur.getClient().getName().toLowerCase().contains(client.toLowerCase())) {
-                matchList.add(cur);
-            }
+
+        Gamer gamer = searchGamers(matchList, onlineGamers, client);
+        if(gamer != null){
+            return gamer;
         }
+
+        gamer = searchGamers(matchList, gamers, client);
+        if(gamer != null){
+            return gamer;
+        }
+
         if (matchList.size() != 1) {
             if (!inform) {
                 return null;
@@ -155,4 +158,18 @@ public class GamerManager {
         }
         return matchList.get(0);
     }
+
+    private static Gamer searchGamers(LinkedList<Gamer> target, List<Gamer> source, String client){
+        for (Gamer cur : source) {
+            if (cur.getClient().getName().equalsIgnoreCase(client)) {
+                return cur;
+            }
+            if (cur.getClient().getName().toLowerCase().contains(client.toLowerCase())) {
+                target.add(cur);
+            }
+        }
+
+        return null;
+    }
+
 }

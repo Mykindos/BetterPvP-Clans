@@ -27,6 +27,7 @@ public class ArmourRepository implements Repository<Clans> {
                 "('LEATHER_HELMET', 4),('LEATHER_CHESTPLATE', 12),('LEATHER_LEGGINGS', 8),('LEATHER_BOOTS', 4)," +
                 "('IRON_CHESTPLATE', 24), ('IRON_LEGGINGS', 20), ('IRON_HELMET', 8),('IRON_BOOTS', 8)," +
                 "('GOLDEN_CHESTPLATE', 24), ('GOLDEN_LEGGINGS', 20), ('GOLDEN_HELMET', 8), ('GOLDEN_BOOTS', 8)," +
+                "('NETHERITE_CHESTPLATE', 24), ('NETHERITE_LEGGINGS', 20), ('NETHERITE_HELMET', 8), ('NETHERITE_BOOTS', 8)," +
                 "('CHAINMAIL_CHESTPLATE', 20), ('CHAINMAIL_LEGGINGS', 16),('CHAINMAIL_HELMET', 8), ('CHAINMAIL_BOOTS', 8);";
         QueryFactory.runQuery(CREATE_ARMOUR_TABLE);
         QueryFactory.runQuery(DEFAULT_ARMOUR_VALUES);

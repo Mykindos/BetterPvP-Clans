@@ -14,7 +14,7 @@ import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
-import net.minecraft.server.v1_15_R1.BlockSkull;
+import net.minecraft.server.v1_16_R1.BlockSkull;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;

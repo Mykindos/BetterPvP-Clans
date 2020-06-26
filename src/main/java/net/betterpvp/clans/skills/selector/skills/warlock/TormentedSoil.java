@@ -46,7 +46,7 @@ public class TormentedSoil extends Skill implements InteractSkill {
         }
         tormentList.add(new Torment(player.getUniqueId(), loc.add(0, 0.5, 0), level));
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PARROT_IMITATE_ILLUSIONER, 2f, 2f);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_BLINDNESS, 2f, 1.3f);
     }
 
     @Override

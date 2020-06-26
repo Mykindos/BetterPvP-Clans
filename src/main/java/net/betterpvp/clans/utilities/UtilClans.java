@@ -75,6 +75,14 @@ public class UtilClans {
             a.setDisplayName("Paladin Leggings");
         }else if(m == Material.GOLDEN_BOOTS){
             a.setDisplayName("Paladin Boots");
+        }else if(m == Material.NETHERITE_HELMET){
+            a.setDisplayName("Warlock Helmet");
+        }else if(m == Material.NETHERITE_CHESTPLATE){
+            a.setDisplayName("Warlock Vest");
+        }else if(m == Material.NETHERITE_LEGGINGS){
+            a.setDisplayName("Warlock Leggings");
+        }else if(m == Material.NETHERITE_BOOTS){
+            a.setDisplayName("Warlock Boots");
         }else if(m == Material.CHAINMAIL_HELMET){
             a.setDisplayName("Ranger Helmet");
         }else if(m == Material.CHAINMAIL_CHESTPLATE){
@@ -91,7 +99,7 @@ public class UtilClans {
             a.setDisplayName("$100,000");
         }else if(m == Material.MUSIC_DISC_13){
             a.setDisplayName("$50,000");
-        }else if(m == Material.MUSIC_DISC_11){
+        }else if(m == Material.MUSIC_DISC_PIGSTEP){
             a.setDisplayName("$1,000,000");
         }else if(m == Material.CARROT){
             a.setDisplayName("Carrot");
@@ -109,6 +117,10 @@ public class UtilClans {
             a.setDisplayName("Power Sword");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "5");
             lore.add(ChatColor.GRAY + "Bonus 1 Level to Sword Skills");
+        }else if(m == Material.NETHERITE_SWORD){
+            a.setDisplayName("Ancient Sword");
+            lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "6");
+            lore.add(ChatColor.GRAY + "Bonus 1 Level to Sword Skills");
         }else if(m == Material.IRON_AXE){
             a.setDisplayName("Standard Axe");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "3");
@@ -116,6 +128,10 @@ public class UtilClans {
         }else if(m == Material.DIAMOND_AXE){
             a.setDisplayName("Power Axe");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "4");
+            lore.add(ChatColor.GRAY + "Bonus 1 Level to Axe Skills");
+        }else if(m == Material.NETHERITE_AXE){
+            a.setDisplayName("Ancient Axe");
+            lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "5");
             lore.add(ChatColor.GRAY + "Bonus 1 Level to Axe Skills");
         }
 
@@ -151,7 +167,7 @@ public class UtilClans {
                     }
                 }
 
-                if(i.getType() == Material.MUSIC_DISC_WAIT || i.getType() == Material.MUSIC_DISC_11
+                if(i.getType() == Material.MUSIC_DISC_WAIT || i.getType() == Material.MUSIC_DISC_PIGSTEP
                         || i.getType() == Material.MUSIC_DISC_13 || i.getType() == Material.TNT){
                     return true;
                 }

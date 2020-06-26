@@ -24,10 +24,10 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_15_R1.EntityLiving;
+import net.minecraft.server.v1_16_R1.EntityLiving;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

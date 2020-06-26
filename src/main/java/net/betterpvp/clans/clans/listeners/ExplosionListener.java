@@ -281,6 +281,14 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     continue;
                 }
 
+                if (b.getType() == Material.POLISHED_BLACKSTONE_BRICKS) {
+                    b.setType(Material.CRACKED_POLISHED_BLACKSTONE_BRICKS);
+                    continue;
+                } else if (b.getType() == Material.CRACKED_POLISHED_BLACKSTONE_BRICKS) {
+                    b.breakNaturally();
+                    continue;
+                }
+
                 if (b.getType() == Material.SMOOTH_SANDSTONE) {
                     b.setType(Material.SANDSTONE);
                     continue;

@@ -16,7 +16,8 @@ public enum Blocks {
     POTATO(Material.POTATO, new ItemStack(Material.POTATO, 3)),
     CARROT(Material.CARROT, new ItemStack(Material.CARROT, 3)),
     WATERMELON(Material.MELON, new ItemStack(Material.MELON, 2)),
-    ENDERCHEST(Material.ENDER_CHEST, new ItemStack(Material.DIAMOND, 1));
+    ENDERCHEST(Material.ENDER_CHEST, new ItemStack(Material.DIAMOND, 1)),
+    NETHERITE(Material.GILDED_BLACKSTONE, new ItemStack(Material.NETHERITE_INGOT, 3));
 
     private Material mat;
     private ItemStack drop;

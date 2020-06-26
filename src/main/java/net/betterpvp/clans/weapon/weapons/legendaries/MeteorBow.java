@@ -42,7 +42,7 @@ public class MeteorBow extends Weapon implements ILegendary {
     }
 
     @EventHandler
-    public void ProjectileShoot(EntityShootBowEvent event) {
+    public void projectileShoot(EntityShootBowEvent event) {
         LivingEntity entity = event.getEntity();
 
         if (entity instanceof Player) {

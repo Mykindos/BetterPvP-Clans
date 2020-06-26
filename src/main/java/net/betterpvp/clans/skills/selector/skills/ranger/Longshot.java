@@ -13,7 +13,7 @@ import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMath;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_15_R1.EntityThrownTrident;
+import net.minecraft.server.v1_16_R1.EntityThrownTrident;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Arrow;

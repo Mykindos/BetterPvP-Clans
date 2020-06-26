@@ -33,7 +33,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -216,10 +216,10 @@ public class ShopManager extends BPVPListener<Clans> {
                     case "warlock":
                         ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
                         Skeleton WarlockSkeleton = Warlock.spawn(loc);
-                        WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.TURTLE_HELMET));
-                        WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
-                        WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                        WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                        WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
+                        WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
+                        WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.NETHERITE_LEGGINGS));
+                        WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.NETHERITE_BOOTS));
                         createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Warlock", WarlockSkeleton);
                         break;
                     case "paladin":
