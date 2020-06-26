@@ -178,7 +178,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, "Skills", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while in liquid.");
+            UtilMessage.message(player, "Skills", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
