@@ -148,7 +148,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
                                     EffectManager.addEffect(ent, EffectType.SILENCE, (3 + getLevel(p)) * 1000);
                                     LogManager.addLog(ent, p, "Silencing Arrow");
                                     if (EffectManager.hasEffect(ent, EffectType.IMMUNETOEFFECTS)) {
-                                        UtilMessage.message(p, getClassType(), ChatColor.GREEN + ent.getName() + ChatColor.GRAY + " is immune to your silence!");
+                                        UtilMessage.message(p, getClassType(), ChatColor.YELLOW + ent.getName() + ChatColor.GRAY + " is immune to your silence!");
                                     }
                                     arrows.remove((Arrow) e.getProjectile());
 
@@ -178,7 +178,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, "Skills", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
