@@ -158,7 +158,7 @@ public class Blink extends Skill implements InteractSkill {
         }
 
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + " in water.");
+            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
 
