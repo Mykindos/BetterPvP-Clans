@@ -71,20 +71,18 @@ public class HoldPosition extends Skill implements InteractSkill {
 
     @Override
     public double getRecharge(int level) {
-
         return 25 - ((level - 1) * 2);
     }
 
     @Override
     public float getEnergy(int level) {
-
         return 0;
     }
 
 
     @Override
     public void activate(Player player, Gamer gamer) {
-        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)));
+        UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         int level = getLevel(player);
         EffectManager.addEffect(player, EffectType.RESISTANCE, 1, (long) (5 + ((level - 1) * 0.5)) * 1000);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (100 + (((level - 1) * 0.5) * 20)), 1));
