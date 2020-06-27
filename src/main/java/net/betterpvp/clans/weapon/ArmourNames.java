@@ -23,7 +23,12 @@ public enum ArmourNames {
     DIAMOND_BOOTS(Material.DIAMOND_BOOTS, "Gladiator Boots"),
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, "Gladiator Leggings"),
     DIAMOND_CHESTPLATE(Material.DIAMOND_CHESTPLATE, "Gladiator Chestplate"),
-    DIAMOND_HELMET(Material.DIAMOND_HELMET, "Gladiator Helmet");
+    DIAMOND_HELMET(Material.DIAMOND_HELMET, "Gladiator Helmet"),
+
+    NETHERITE_BOOTS(Material.NETHERITE_BOOTS, "Warlock Boots"),
+    NETHERITE_LEGGINGS(Material.NETHERITE_LEGGINGS, "Warlock Leggings"),
+    NETHERITE_CHESTPLATE(Material.NETHERITE_CHESTPLATE, "Warlock Chestplate"),
+    NETHERITE_HELMET(Material.NETHERITE_HELMET, "Warlock Helmet");
 
     private Material m;
     private String n;
