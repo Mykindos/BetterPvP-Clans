@@ -40,13 +40,11 @@ public class Riposte extends Skill implements InteractSkill {
     public long godTime = 30L;
     public double prepareTime = 1;
 
-
     @EventHandler(priority = EventPriority.LOW)
     public void onParry(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) {
             return;
         }
-
         if (event.getCause() == DamageCause.ENTITY_ATTACK) {
             if (event.getEntity() instanceof Player) {
                 Player damagee = (Player) event.getEntity();
@@ -64,11 +62,10 @@ public class Riposte extends Skill implements InteractSkill {
                                     event.setCancelled(true);
                                     block.put(damagee, damager);
                                     prepare.put(damagee, System.currentTimeMillis() + 2000);
-
-                                    UtilMessage.message(damagee, getClassType(), "You parried with " + getName() + ".");
+                                    UtilMessage.message(damagee, getClassType(), "You parried with " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                                     if (damager instanceof Player) {
                                         Player temp = (Player) damager;
-                                        UtilMessage.message(temp, getClassType(), damagee.getName() + " parried with " + getName() + ".");
+                                        UtilMessage.message(temp, getClassType(), ChatColor.YELLOW + damagee.getName() + ChatColor.GRAY + " parried with " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                                     }
                                 }
                             }
@@ -85,7 +82,6 @@ public class Riposte extends Skill implements InteractSkill {
         if (e.isCancelled()) {
             return;
         }
-
         if (e.getCause() == DamageCause.ENTITY_ATTACK) {
             if (e.getDamager() instanceof Player) {
                 Player damager = (Player) e.getDamager();
@@ -97,7 +93,6 @@ public class Riposte extends Skill implements InteractSkill {
                     }
                 }
                 if (e.getEntity() instanceof LivingEntity) {
-
                     if (prepare.containsKey(damager)) {
                         if (block.containsKey(damager)) {
                             LivingEntity ent = block.get(damager);
@@ -110,9 +105,9 @@ public class Riposte extends Skill implements InteractSkill {
                                 ent.damage((1 + (level * 0.5)));
                                 UtilPlayer.health(damager, (1 + (level * 0.5)));
                                 Energy.regenerateEnergy(damager, 20.0);
-                                UtilMessage.message(damager, getClassType(), "You countered with " + getName() + ".");
+                                UtilMessage.message(damager, getClassType(), "You countered with " + ChatColor.GREEN + getName() + ChatColor.GRAY +  ".");
                                 if (damagee != null) {
-                                    UtilMessage.message(damagee, getClassType(), damager.getName() + " countered with " + getName() + ".");
+                                    UtilMessage.message(damagee, getClassType(), ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + " countered with " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                                     LogManager.addLog(damagee, damager, "Riposte");
                                 }
                             }
@@ -129,19 +124,15 @@ public class Riposte extends Skill implements InteractSkill {
             return;
         }
         HashSet<Player> expired = new HashSet<>();
-
         for (Player cur : prepare.keySet()) {
             if (System.currentTimeMillis() > prepare.get(cur)) {
                 expired.add(cur);
             }
         }
         for (Player cur : expired) {
-
             prepare.remove(cur);
             block.remove(cur);
-
-
-            UtilMessage.message(cur, getClassType(), "You failed to " + getName() + ".");
+            UtilMessage.message(cur, getClassType(), "You failed to " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
         }
     }
 
@@ -151,12 +142,10 @@ public class Riposte extends Skill implements InteractSkill {
         if (!hasSkill(player, this)) {
             return false;
         }
-
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
-
         return true;
     }
 
@@ -178,25 +167,22 @@ public class Riposte extends Skill implements InteractSkill {
 
     @Override
     public Types getType() {
-
         return Types.SWORD;
     }
 
     @Override
     public double getRecharge(int level) {
-
         return 14;
     }
 
     @Override
     public float getEnergy(int level) {
-
         return 0;
     }
 
     @Override
     public void activate(Player player, Gamer gamer) {
         prepare.put(player, System.currentTimeMillis() + 2000L);
-        UtilMessage.message(player, getClassType(), "You prepared to " + getName() + ".");
+        UtilMessage.message(player, getClassType(), "You prepared to " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
     }
 }
