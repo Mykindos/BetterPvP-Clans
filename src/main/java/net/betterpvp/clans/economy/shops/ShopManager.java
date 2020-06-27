@@ -128,134 +128,141 @@ public class ShopManager extends BPVPListener<Clans> {
 
     public static void spawnShop(Clans i, final Location loc, final String str) {
 
-        loc.getChunk().setForceLoaded(true);
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                if (!loc.getChunk().isLoaded()) {
-                    loc.getChunk().load();
-                }
-                switch (str.toLowerCase()) {
-                    case "armour":
-
-                        ShopSkeleton as = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton armour = as.spawn(loc);
-                        armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
-                        break;
-                    case "weapons":
-
-                        ShopZombie wz = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
-                        Zombie weapons = wz.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Weapons / Tools", weapons);
-
-                        break;
-                    case "farmer":
-                        ShopVillager fv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                        Villager farmer = fv.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Farmer", farmer);
-                        break;
-                    case "building":
-                        ShopVillager bv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                        Villager builder = bv.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Building", builder);
-
-                        break;
-                    case "resources":
-                        ShopVillager rv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                        Villager resources = rv.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Resources", resources);
-
-
-                        break;
-                    case "fragment":
-                        ShopSkeleton bs = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton battle = bs.spawn(loc);
-                        battle.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Fragment Vendor", battle);
-
-                        break;
-
-                    case "disc":
-                        ShopVillager dv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                        Villager disc = dv.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Disc", disc);
-
-                        break;
-                    case "travel":
-                        ShopVillager tv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                        Villager travel = tv.spawn(loc);
-                        createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Travel Hub", travel);
-
-                        break;
-                    case "boss":
-                        ShopZombie sv = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
-                        Zombie boss = sv.spawn(loc);
-
-                        createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
-                        break;
-                    case "assassin":
-                        ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton assassinSkeleton = assassin.spawn(loc);
-                        assassinSkeleton.getEquipment().setHelmet(new ItemStack(Material.LEATHER_HELMET));
-                        assassinSkeleton.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
-                        assassinSkeleton.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
-                        assassinSkeleton.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Assassin", assassinSkeleton);
-                        break;
-                    case "knight":
-                        ShopSkeleton knight = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton knightSkeleton = knight.spawn(loc);
-                        knightSkeleton.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
-                        knightSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
-                        knightSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                        knightSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
-                        break;
-                    case "warlock":
-                        ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton WarlockSkeleton = Warlock.spawn(loc);
-                        WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
-                        WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
-                        WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.NETHERITE_LEGGINGS));
-                        WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.NETHERITE_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Warlock", WarlockSkeleton);
-                        break;
-                    case "paladin":
-                        ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton paladinSkeleton = paladin.spawn(loc);
-                        paladinSkeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
-                        paladinSkeleton.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
-                        paladinSkeleton.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
-                        paladinSkeleton.getEquipment().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Paladin", paladinSkeleton);
-                        break;
-                    case "ranger":
-                        ShopSkeleton ranger = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton rangerSkeleton = ranger.spawn(loc);
-                        rangerSkeleton.getEquipment().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
-                        rangerSkeleton.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-                        rangerSkeleton.getEquipment().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
-                        rangerSkeleton.getEquipment().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Ranger", rangerSkeleton);
-                        break;
-                    case "gladiator":
-                        ShopSkeleton gladiator = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                        Skeleton gladiatorSkeleton = gladiator.spawn(loc);
-                        gladiatorSkeleton.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-                        gladiatorSkeleton.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-                        gladiatorSkeleton.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-                        gladiatorSkeleton.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-                        createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Gladiator", gladiatorSkeleton);
-                        break;
-
-                }
-
-
+        try {
+            if (!loc.getChunk().isLoaded()) {
+                loc.getChunk().load();
             }
+            loc.getChunk().setForceLoaded(true);
+            new BukkitRunnable() {
 
-        }.runTask(i);
+                @Override
+                public void run() {
+                    if (!loc.getChunk().isLoaded()) {
+                        loc.getChunk().load();
+                    }
+                    switch (str.toLowerCase()) {
+                        case "armour":
+
+                            ShopSkeleton as = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton armour = as.spawn(loc);
+                            armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
+                            break;
+                        case "weapons":
+
+                            ShopZombie wz = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
+                            Zombie weapons = wz.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Weapons / Tools", weapons);
+
+                            break;
+                        case "farmer":
+                            ShopVillager fv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager farmer = fv.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Farmer", farmer);
+                            break;
+                        case "building":
+                            ShopVillager bv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager builder = bv.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Building", builder);
+
+                            break;
+                        case "resources":
+                            ShopVillager rv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager resources = rv.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Resources", resources);
+
+
+                            break;
+                        case "fragment":
+                            ShopSkeleton bs = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton battle = bs.spawn(loc);
+                            battle.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Fragment Vendor", battle);
+
+                            break;
+
+                        case "disc":
+                            ShopVillager dv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager disc = dv.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Disc", disc);
+
+                            break;
+                        case "travel":
+                            ShopVillager tv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager travel = tv.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Travel Hub", travel);
+
+                            break;
+                        case "boss":
+                            ShopZombie sv = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
+                            Zombie boss = sv.spawn(loc);
+
+                            createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
+                            break;
+                        case "assassin":
+                            ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton assassinSkeleton = assassin.spawn(loc);
+                            assassinSkeleton.getEquipment().setHelmet(new ItemStack(Material.LEATHER_HELMET));
+                            assassinSkeleton.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+                            assassinSkeleton.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+                            assassinSkeleton.getEquipment().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Assassin", assassinSkeleton);
+                            break;
+                        case "knight":
+                            ShopSkeleton knight = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton knightSkeleton = knight.spawn(loc);
+                            knightSkeleton.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
+                            knightSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+                            knightSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                            knightSkeleton.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
+                            break;
+                        case "warlock":
+                            ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton WarlockSkeleton = Warlock.spawn(loc);
+                            WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
+                            WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
+                            WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.NETHERITE_LEGGINGS));
+                            WarlockSkeleton.getEquipment().setBoots(new ItemStack(Material.NETHERITE_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Warlock", WarlockSkeleton);
+                            break;
+                        case "paladin":
+                            ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton paladinSkeleton = paladin.spawn(loc);
+                            paladinSkeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+                            paladinSkeleton.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+                            paladinSkeleton.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+                            paladinSkeleton.getEquipment().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Paladin", paladinSkeleton);
+                            break;
+                        case "ranger":
+                            ShopSkeleton ranger = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton rangerSkeleton = ranger.spawn(loc);
+                            rangerSkeleton.getEquipment().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
+                            rangerSkeleton.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+                            rangerSkeleton.getEquipment().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+                            rangerSkeleton.getEquipment().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Ranger", rangerSkeleton);
+                            break;
+                        case "gladiator":
+                            ShopSkeleton gladiator = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton gladiatorSkeleton = gladiator.spawn(loc);
+                            gladiatorSkeleton.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+                            gladiatorSkeleton.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+                            gladiatorSkeleton.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+                            gladiatorSkeleton.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+                            createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Gladiator", gladiatorSkeleton);
+                            break;
+
+                    }
+
+
+                }
+
+            }.runTask(i);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

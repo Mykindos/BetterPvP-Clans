@@ -49,6 +49,11 @@ public class AutoCraftCommand extends Command {
                             giveItems(player, Role.getRole(args[0]));
                         }
                         break;
+                    case "warlock":
+                        if(remove(player, Material.NETHERITE_INGOT, 24)){
+                            giveItems(player, Role.getRole(args[0]));
+                        }
+                        break;
                 }
             }
         }
