@@ -385,12 +385,15 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void interactSpring(PlayerInteractEvent event) {
 
+        if(event.getHand() == EquipmentSlot.OFF_HAND){
+            return;
+        }
 
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 
-        if (event.getClickedBlock().getType() != Material.SPONGE) {
+        if (!event.getClickedBlock().getType().name().contains("SPONGE")) {
             return;
         }
 
