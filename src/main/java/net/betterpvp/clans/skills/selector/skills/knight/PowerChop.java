@@ -95,7 +95,7 @@ public class PowerChop extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, getClassType(), "You cannot use " + getName() + ChatColor.GRAY + " in water.");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
@@ -104,6 +104,6 @@ public class PowerChop extends Skill implements InteractSkill {
     @Override
     public void activate(Player player, Gamer gamer) {
         charge.put(player, System.currentTimeMillis());
-        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player));
+        UtilMessage.message(player, getClassType(), "You prepared " + ChatColor.GREEN + getName() + " " + getLevel(player) + ChatColor.GRAY + ".");
     }
 }
