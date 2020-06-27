@@ -54,7 +54,7 @@ public class ShopListener extends BPVPListener<Clans> {
             } else if (e.getClickType() == ClickType.RIGHT) {
 
                 if (item.getSellPrice() == 0) {
-                    UtilMessage.message(e.getPlayer(), "Shops", "You cannot sell this!");
+                    UtilMessage.message(e.getPlayer(), "Shop", "You cannot sell this!");
                     return;
                 }
 
