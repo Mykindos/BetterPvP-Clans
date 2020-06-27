@@ -3,6 +3,7 @@ package net.betterpvp.clans.classes.menu;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.roles.Ranger;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilItem;
@@ -37,30 +38,30 @@ public class KitListener extends BPVPListener<Clans> {
 
 
                 if(r == null) {
-                    p.getInventory().setHelmet(UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
+                    p.getInventory().setHelmet(UtilClans.updateNames(new ItemStack(kb.getRole().getHelmet())));
                 }else {
-                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getHelmet())));
+                    UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getHelmet())));
                 }
 
                 if(r == null) {
-                    p.getInventory().setChestplate(UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
+                    p.getInventory().setChestplate(UtilClans.updateNames(new ItemStack(kb.getRole().getChestplate())));
 
                 }else {
-                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getChestplate())));
+                    UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getChestplate())));
                 }
 
                 if(r == null) {
-                    p.getInventory().setLeggings(UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
+                    p.getInventory().setLeggings(UtilClans.updateNames(new ItemStack(kb.getRole().getLeggings())));
 
                 }else {
-                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getLeggings())));
+                    UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getLeggings())));
                 }
 
                 if(r == null) {
-                    p.getInventory().setBoots(UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
+                    p.getInventory().setBoots(UtilClans.updateNames(new ItemStack(kb.getRole().getBoots())));
 
                 }else {
-                    UtilItem.insert(p, UtilItem.updateNames(new ItemStack(kb.getRole().getBoots())));
+                    UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getBoots())));
                 }
 
                 ItemStack sword = UtilPlayer.createItem(Material.IRON_SWORD, 1, ChatColor.LIGHT_PURPLE + "Starter Sword", ChatColor.WHITE + "Right click to cast an ability.",
@@ -71,7 +72,7 @@ public class KitListener extends BPVPListener<Clans> {
                         ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.",
                         ChatColor.GRAY + "Note: This will not work if you do not have a bow ability selected,",
                         ChatColor.GRAY + "right click an enchanting table to modify your class!");
-                ItemStack arrows = UtilItem.updateNames(new ItemStack(Material.ARROW, 32));
+                ItemStack arrows = UtilClans.updateNames(new ItemStack(Material.ARROW, 32));
 
                 UtilItem.insert(p, sword);
                 UtilItem.insert(p, axe);
