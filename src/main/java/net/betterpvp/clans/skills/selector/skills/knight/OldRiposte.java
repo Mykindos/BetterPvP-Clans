@@ -43,7 +43,7 @@ public class OldRiposte extends Skill implements InteractSkill {
         if (Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())) {
             if (WeaponManager.getWeapon(player.getInventory().getItemInMainHand()) == null) {
                 if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
-                    UtilMessage.message(player, getName(), "You are silenced!");
+                    UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while silenced.");
                     return;
                 }
                 if (hasSkill(player, this)) {
@@ -88,7 +88,7 @@ public class OldRiposte extends Skill implements InteractSkill {
                         UtilMessage.message(target, getClassType(), "Contered an attack from " + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
 
 
-                        UtilMessage.message(target, getClassType(), "You " + ChatColor.LIGHT_PURPLE + "Riposted " + ChatColor.GRAY + "against "
+                        UtilMessage.message(target, getClassType(), "You " + ChatColor.GREEN + "Riposted" + ChatColor.GRAY + " against "
                                 + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
 
                     }
