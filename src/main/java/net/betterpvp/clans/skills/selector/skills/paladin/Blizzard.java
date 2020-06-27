@@ -40,7 +40,7 @@ public class Blizzard extends ChannelSkill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Hold Right click with Sword to Activate.",
+                "Hold Right click with a sword to activate.",
                 "",
                 "While channeling, release a blizzard",
                 "that slows anyone hit for 2 seconds.",

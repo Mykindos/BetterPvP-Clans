@@ -47,7 +47,7 @@ public class SeismicSlam extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate",
+                "Right click with a axe to Activate",
                 "",
                 "Jump and slam the ground, knocking up all opponents",
                 "within a small radius",

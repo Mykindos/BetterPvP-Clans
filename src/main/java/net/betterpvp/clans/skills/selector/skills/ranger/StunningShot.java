@@ -41,7 +41,7 @@ public class StunningShot extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Left click to Activate.",
+                "Left click to activate.",
                 "",
                 "Shoot an arrow",
                 "stunning anyone hit for " + ChatColor.GREEN + String.format("%.2f", (level * 0.40)) + ChatColor.GRAY + " seconds",
@@ -99,7 +99,7 @@ public class StunningShot extends Skill implements InteractSkill {
         active.remove(player.getUniqueId());
 
         arrows.add((Arrow) event.getProjectile());
-        UtilMessage.message(player, getClassType(), "You fired " + ChatColor.GREEN + getName(getLevel(player)) + ".");
+        UtilMessage.message(player, getClassType(), "You fired " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         RechargeManager.getInstance().removeCooldown(player.getName(), getName(), true);
         if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), showRecharge())) {
 
@@ -141,7 +141,7 @@ public class StunningShot extends Skill implements InteractSkill {
         active.remove(player.getUniqueId());
 
         active.add(player.getUniqueId());
-        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
+        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
     }
 }

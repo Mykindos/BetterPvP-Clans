@@ -35,7 +35,7 @@ public class Concussion extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Your next hit blinds the target for " + ChatColor.GREEN + (level) + ChatColor.GRAY + " seconds.",
                 "",

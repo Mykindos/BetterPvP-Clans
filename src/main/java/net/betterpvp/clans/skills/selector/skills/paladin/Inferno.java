@@ -55,7 +55,7 @@ public class Inferno extends ChannelSkill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Hold Block with Sword to Channel.",
+                "Hold Block with a sword to Channel.",
                 "",
                 "You spray fire at high speed,",
                 "igniting anything it hits.",

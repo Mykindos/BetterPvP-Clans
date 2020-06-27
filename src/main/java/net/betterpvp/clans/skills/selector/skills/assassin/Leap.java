@@ -30,7 +30,7 @@ public class Leap extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "You take a great leap",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)

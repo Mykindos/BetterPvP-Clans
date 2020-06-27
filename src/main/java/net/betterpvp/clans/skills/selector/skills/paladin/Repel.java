@@ -43,7 +43,7 @@ public class Repel extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Release a pack of " + ChatColor.GREEN + (5 + level) + ChatColor.GRAY + " bats",
                 "which damage, and knockback",

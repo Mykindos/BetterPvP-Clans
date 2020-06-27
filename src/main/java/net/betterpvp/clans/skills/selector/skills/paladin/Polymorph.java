@@ -42,7 +42,7 @@ public class Polymorph extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to prepare.",
+                "Right click with a sword to prepare.",
                 "",
                 "The next player you hit, is polymorphed",
                 "into a sheep for 8 seconds.",

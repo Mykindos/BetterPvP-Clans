@@ -40,7 +40,7 @@ public class Volley extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Left click with Bow to Prepare",
+                "Left click with a bow to Prepare",
                 "Your next shot is instant, and shoots",
                 "a volley of arrows in the direction you are facing",
                 "",

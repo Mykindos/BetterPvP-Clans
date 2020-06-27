@@ -40,7 +40,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Left click to Activate.",
+                "Left click to activate.",
                 "",
                 "Shoot an ignited arrow",
                 "burning anyone hit for " + ChatColor.GREEN + (0 + level) + ChatColor.GRAY + " seconds",
@@ -142,6 +142,6 @@ public class IncendiaryShot extends Skill implements InteractSkill {
 
         active.add(player.getUniqueId());
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 2.5F, 2.0F);
-        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ".");
+        UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
     }
 }

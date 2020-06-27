@@ -43,7 +43,7 @@ public class Blink extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Instantly teleport forwards 15 Blocks.",
                 "Cannot be used while Slowed.",

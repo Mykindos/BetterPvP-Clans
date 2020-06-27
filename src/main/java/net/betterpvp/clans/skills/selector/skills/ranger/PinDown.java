@@ -36,7 +36,7 @@ public class PinDown extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Left click with bow to instantly fire",
+                "Left click with a bow to instantly fire",
                 "an arrow, which gives anybody hit ",
                 "Slowness IV for " + ChatColor.GREEN + (level * 1.5) + ChatColor.GRAY + " seconds.",
                 "",

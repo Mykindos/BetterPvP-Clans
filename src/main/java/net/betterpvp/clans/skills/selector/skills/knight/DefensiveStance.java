@@ -45,7 +45,7 @@ public class DefensiveStance extends ChannelSkill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Hold Block with Sword to Channel.",
+                "Hold Block with a sword to Channel.",
                 "",
                 "While active, you are immune to all",
                 "melee damage from attacks infront of you.",

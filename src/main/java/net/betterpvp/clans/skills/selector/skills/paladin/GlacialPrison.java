@@ -35,7 +35,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate",
+                "Right click with a sword to Activate",
                 "",
                 "Launches an orb, trapping any players",
                 "within 5 blocks of it in a prison of ice for 5 seconds",

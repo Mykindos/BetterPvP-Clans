@@ -26,7 +26,7 @@ public class StrengthInNumbers extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Grant all allies within 6 blocks",
                 "Strength I for " + ChatColor.GREEN + (2 + level),

@@ -36,7 +36,7 @@ public class BattleTaunt extends ChannelSkill implements InteractSkill {
     @Override
     public String[] getDescription(int level) {
 
-        return new String[]{"Hold Block with Sword to Channel.",
+        return new String[]{"Hold Block with a sword to Channel.",
                 "",
                 "While channelling, any enemies within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks",
                 "are slowly pulled in towards you",

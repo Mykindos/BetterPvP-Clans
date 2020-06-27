@@ -186,7 +186,7 @@ public class Grasp extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Create a wall of skulls closes in on you from a distance",
                 "and brings all enemies with it.",

@@ -146,7 +146,7 @@ public class OldRiposte extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Become invulnerable to all",
                 "melee damage for " + ChatColor.GREEN + (1 + (level * 0.5)) + ChatColor.GRAY + " seconds.",

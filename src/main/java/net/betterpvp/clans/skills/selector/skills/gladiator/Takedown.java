@@ -36,7 +36,7 @@ public class Takedown extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Hurl yourself towards an opponent.",
                 "If you collide with them, you " + ChatColor.WHITE + "both",
