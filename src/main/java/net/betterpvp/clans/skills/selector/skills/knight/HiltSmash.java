@@ -64,7 +64,7 @@ public class HiltSmash extends Skill {
                     if (ClanUtilities.canCast(p)) {
 
                         if (EffectManager.hasEffect(p, EffectType.SILENCE)) {
-                            UtilMessage.message(p, getName(), "You cannot use " + getName() + " while silenced!");
+                            UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " while silenced.");
                             return;
                         }
                         int level = getLevel(p);
@@ -79,16 +79,16 @@ public class HiltSmash extends Skill {
                                         if (ent instanceof Player) {
                                             Player damagee = (Player) ent;
                                             if (!ClanUtilities.canHurt(p, (Player) ent)) {
-                                                UtilMessage.message(p, getClassType(), "You failed " + getName());
+                                                UtilMessage.message(p, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                                                 return;
                                             }
 
-                                            UtilMessage.message(damagee, getClassType(), ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName(getLevel(p)));
+                                            UtilMessage.message(damagee, getClassType(), ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName(getLevel(p)) + ChatColor.GRAY + ".");
                                             EffectManager.addEffect(damagee, EffectType.SHOCK, (getLevel(p) * 1000) / 2);
                                             EffectManager.addEffect(damagee, EffectType.SILENCE, (long) (((getLevel(p) * 1000) / 2) - 0.5));
                                         }
 
-                                        UtilMessage.message(p, getClassType(), "You hit " + ent.getName() + " with " + ChatColor.GREEN + getName(getLevel(p)));
+                                        UtilMessage.message(p, getClassType(), "You hit " + ent.getName() + " with " + ChatColor.GREEN + getName(getLevel(p)) + ChatColor.GRAY + ".");
                                         LogManager.addLog(ent, p, getName());
                                         Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + getLevel(p), false));
 
@@ -97,7 +97,7 @@ public class HiltSmash extends Skill {
 
 
                                     } else {
-                                        UtilMessage.message(p, getClassType(), "You failed " + getName());
+                                        UtilMessage.message(p, getClassType(), "You failed " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
                                         p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 1F, 0.1F);
                                     }
                                 }
