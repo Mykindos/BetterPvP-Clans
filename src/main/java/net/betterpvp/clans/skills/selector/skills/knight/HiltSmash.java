@@ -41,7 +41,7 @@ public class HiltSmash extends Skill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Smash the hilt of your sword into",
                 "your opponent, dealing " + ChatColor.GREEN + (3 + (level)) + ChatColor.GRAY + " damage",

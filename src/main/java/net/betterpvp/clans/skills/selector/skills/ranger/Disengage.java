@@ -42,7 +42,7 @@ public class Disengage extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with sword to prepare",
+                "Right click with a sword to prepare",
                 "",
                 "If you are attacked",
                 "within " + ChatColor.GREEN + (0 + (level * 0.5)) + ChatColor.GRAY + " seconds you successfully disengage",

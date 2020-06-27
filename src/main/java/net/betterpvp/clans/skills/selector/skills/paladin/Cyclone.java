@@ -34,7 +34,7 @@ public class Cyclone extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Pulls all enemies within",
                 ChatColor.GREEN.toString() + (7 + level) + ChatColor.GRAY + " blocks towards you",

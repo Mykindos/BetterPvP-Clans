@@ -67,7 +67,7 @@ public class KitListener extends BPVPListener<Clans> {
                         ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
                 ItemStack axe = UtilPlayer.createItem(Material.IRON_AXE, 1, ChatColor.LIGHT_PURPLE + "Starter Axe", ChatColor.WHITE + "Right click to cast an ability.",
                         ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.");
-                ItemStack bow = UtilPlayer.createItem(Material.BOW, 1, ChatColor.LIGHT_PURPLE + "Starter Bow", ChatColor.WHITE + "Left click with bow to prepare an ability.",
+                ItemStack bow = UtilPlayer.createItem(Material.BOW, 1, ChatColor.LIGHT_PURPLE + "Starter Bow", ChatColor.WHITE + "Left click with a bow to prepare an ability.",
                         ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.",
                         ChatColor.GRAY + "Note: This will not work if you do not have a bow ability selected,",
                         ChatColor.GRAY + "right click an enchanting table to modify your class!");

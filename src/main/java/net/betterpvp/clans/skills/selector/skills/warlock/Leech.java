@@ -50,7 +50,7 @@ public class Leech extends Skill implements InteractSkill {
 
     @Override
     public String[] getDescription(int level) {
-        return new String[]{"Right click with Sword to activate.",
+        return new String[]{"Right click with a sword to activate.",
                 "",
                 "Create a soul link between all enemies within 7 blocks",
                 "of your target, and all enemies within 7 blocks of them",

@@ -24,7 +24,7 @@ public class ThreateningShout extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Release a roar, which frightens all enemies",
                 "within " + ChatColor.GREEN + (4 + level) + ChatColor.GRAY + " blocks",

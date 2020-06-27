@@ -36,7 +36,7 @@ public class WolfsFury extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Summon the power of the wolf, gaining",
                 "Strength 1 for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds, and giving",

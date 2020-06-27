@@ -27,7 +27,7 @@ public class DefenseAura extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate",
+                "Right click with a axe to Activate",
                 "",
                 "Gives you, and all allies within " + ChatColor.GREEN + (6 + level) + ChatColor.GRAY + " blocks",
                 "2 bonus hearts",

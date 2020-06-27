@@ -43,7 +43,7 @@ public class RopedArrow extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Left click with Bow to prepare.",
+                "Left click with a bow to prepare.",
                 "",
                 "Your next arrow will pull you",
                 "in after it hits",

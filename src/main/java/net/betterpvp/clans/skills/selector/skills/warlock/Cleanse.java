@@ -44,7 +44,7 @@ public class Cleanse extends Skill implements InteractSkill {
     @Override
     public String[] getDescription(int level) {
         return new String[]{
-                "Right click with Axe to activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Sacrifice " + ChatColor.GREEN + UtilMath.round(100 - ((0.50 + (level * 0.05)) * 100), 2) + "%" + ChatColor.GRAY + " of your health to purge",
                 "all negative effects from yourself and allies within " + ChatColor.GREEN + (5 + level) + ChatColor.GRAY + " blocks.",

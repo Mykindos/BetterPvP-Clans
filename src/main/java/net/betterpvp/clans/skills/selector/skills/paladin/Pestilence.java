@@ -227,7 +227,7 @@ public class Pestilence extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to Activate.",
+                "Right click with a sword to activate.",
                 "",
                 "Your next hit will apply Pestilence to the target.",
                 "Pestilence poisons the target, and spreads to",

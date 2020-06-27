@@ -44,7 +44,7 @@ public class Agility extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Sprint with great agility, gaining",
                 "Speed I for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds.",

@@ -53,7 +53,7 @@ public class Rupture extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Rupture the earth in the direction",
                 "you are facing, damaging, knocking up",

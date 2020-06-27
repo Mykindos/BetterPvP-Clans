@@ -52,7 +52,7 @@ public class FleshHook extends ChannelSkill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Hold Block with Sword to Channel.",
+                "Hold Block with a sword to Channel.",
                 "",
                 "Fire a hook at an enemy, pulling them towards you",
                 "Higher Charge time = faster hook",

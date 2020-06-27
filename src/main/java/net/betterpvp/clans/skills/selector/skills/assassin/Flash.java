@@ -46,7 +46,7 @@ public class Flash extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Axe to Activate.",
+                "Right click with a axe to activate.",
                 "",
                 "Instantly teleport forwards 8 Blocks.",
                 "Cannot be used while Slowed.",

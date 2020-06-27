@@ -39,7 +39,7 @@ public class Sever extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Right click with Sword to activate",
+                "Right click with a sword to activate",
                 "",
                 "Your next hit applies a " + ChatColor.GREEN + (level) + ChatColor.GRAY + " second bleed",
                 "dealing 1 heart per second",
