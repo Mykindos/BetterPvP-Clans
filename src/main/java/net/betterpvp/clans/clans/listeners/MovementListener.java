@@ -62,8 +62,6 @@ public class MovementListener extends BPVPListener<Clans> {
 
     }
 
-    // TODO UNCOMMENT BEFORE RELEASE
-    /*
     @EventHandler
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.FASTER) {
@@ -130,10 +128,6 @@ public class MovementListener extends BPVPListener<Clans> {
 
         }
     }
-
-     */
-
-
 
     public void displayOwner(Player p, Location location) {
 
