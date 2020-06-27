@@ -977,7 +977,7 @@ public class WorldListener extends BPVPListener<Clans> {
                         || itemType.name().toLowerCase().contains("boat")) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
-                    e.getInventory().setResult(UtilItem.updateNames(e.getRecipe().getResult()));
+                    e.getInventory().setResult(UtilClans.updateNames(e.getRecipe().getResult()));
                 }
 
             }

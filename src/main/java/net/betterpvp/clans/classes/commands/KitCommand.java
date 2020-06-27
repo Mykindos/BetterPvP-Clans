@@ -74,26 +74,26 @@ public class KitCommand extends Command {
         if (p.getEquipment().getHelmet() == null) {
             p.getEquipment().setHelmet(UtilClans.updateNames(new ItemStack(role.getHelmet())));
         } else {
-            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getHelmet())));
+            UtilItem.insert(p, UtilClans.updateNames(new ItemStack(role.getHelmet())));
         }
 
         if (p.getEquipment().getChestplate() == null) {
             p.getEquipment().setChestplate(UtilClans.updateNames(new ItemStack(role.getChestplate())));
         } else {
-            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getChestplate())));
+            UtilItem.insert(p, UtilClans.updateNames(new ItemStack(role.getChestplate())));
         }
 
         if (p.getEquipment().getLeggings() == null) {
             p.getEquipment().setLeggings(UtilClans.updateNames(new ItemStack(role.getLeggings())));
 
         } else {
-            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getLeggings())));
+            UtilItem.insert(p, UtilClans.updateNames(new ItemStack(role.getLeggings())));
         }
 
         if (p.getEquipment().getBoots() == null) {
             p.getEquipment().setBoots(UtilClans.updateNames(new ItemStack(role.getBoots())));
         } else {
-            UtilItem.insert(p, UtilItem.updateNames(new ItemStack(role.getBoots())));
+            UtilItem.insert(p, UtilClans.updateNames(new ItemStack(role.getBoots())));
         }
 
 

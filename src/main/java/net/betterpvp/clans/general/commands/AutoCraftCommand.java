@@ -1,6 +1,7 @@
 package net.betterpvp.clans.general.commands;
 
 import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilItem;
@@ -48,16 +49,21 @@ public class AutoCraftCommand extends Command {
                             giveItems(player, Role.getRole(args[0]));
                         }
                         break;
+                    case "warlock":
+                        if(remove(player, Material.NETHERITE_INGOT, 24)){
+                            giveItems(player, Role.getRole(args[0]));
+                        }
+                        break;
                 }
             }
         }
     }
 
     private void giveItems(Player p, Role r){
-        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(r.getHelmet())));
-        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(r.getChestplate())));
-        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(r.getLeggings())));
-        p.getInventory().addItem(UtilItem.updateNames(new ItemStack(r.getBoots())));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(r.getHelmet())));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(r.getChestplate())));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(r.getLeggings())));
+        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(r.getBoots())));
         UtilMessage.message(p, "Auto Craft", "You crafted a " + ChatColor.WHITE + ChatColor.BOLD + r.getName() + ChatColor.GRAY + " set");
     }
 

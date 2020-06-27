@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -167,7 +168,7 @@ public class FishingListener extends BPVPListener<Clans> {
                                     new ItemStack(Material.IRON_INGOT, 3), new ItemStack(Material.GOLD_INGOT, 3), new ItemStack(Material.LEATHER, 3),
                                     new ItemStack(Material.DIAMOND_AXE), new ItemStack(Material.SPONGE), new ItemStack(Material.LAPIS_BLOCK),
                                     new ItemStack(Material.FISHING_ROD)};
-                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), UtilItem.updateNames(types[UtilMath.randomInt(types.length- 1) ]));
+                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), UtilClans.updateNames(types[UtilMath.randomInt(types.length- 1) ]));
                             UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.2D, false, 0.0D, 0.4D, 10.0D, false);
                             UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(items.getItemStack().getType().toString()) + ChatColor.GRAY + ".");
                             return;
@@ -212,7 +213,7 @@ public class FishingListener extends BPVPListener<Clans> {
                             }
                         }
                         item.setAmount(value / 3);
-                        UtilItem.insert(player, UtilItem.updateNames(item));
+                        UtilItem.insert(player, UtilClans.updateNames(item));
 
                         Fish fish = new Fish(player.getName(), tripled ? value / 3: value, name, System.currentTimeMillis());
                         FishManager.addFish(fish);
