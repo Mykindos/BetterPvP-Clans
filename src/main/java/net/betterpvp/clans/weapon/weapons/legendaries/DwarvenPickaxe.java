@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.utility.UtilBlock;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,11 +15,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.util.List;
+
 public class DwarvenPickaxe extends Weapon implements ILegendary {
 
 
     public DwarvenPickaxe(Clans i) {
-        super(i, Material.DIAMOND_PICKAXE, (byte) 0, ChatColor.RED + "Dwarven Pickaxe",
+        super(i, Material.FIREWORK_STAR, (byte) 0, ChatColor.RED + "Dwarven Pickaxe",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "0",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "None",
@@ -25,7 +29,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "This pickaxe will instantly ",
                         ChatColor.GRAY + "break any stone related blocks. ",
                         ""}
-                , true, 8.0);
+                , true, 6.0);
 
     }
 
@@ -40,6 +44,10 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                 return;
             }
 
+            if (player.getInventory().getItemInMainHand().getType() != Material.FIREWORK_STAR) {
+                return;
+            }
+
             if (isThisWeapon(player)) {
                 if (ClanUtilities.getClan(block.getChunk()) != null) {
                     if (ClanUtilities.getClan(block.getChunk()) != ClanUtilities.getClan(player)) {
@@ -47,26 +55,31 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                     }
                 }
 
-
-                if (block.getType().toString().contains("STONE") && block.getType() != Material.GLOWSTONE ||
-                        block.getType().toString().contains("_ORE") || block.getType().toString().contains("BRICK") || block.getType() == Material.COBBLESTONE_STAIRS
-                        || block.getType() == Material.STONE_BRICK_STAIRS
-                        || block.getType().name().contains("STONE_SLAB")
-                        || block.getType() == Material.IRON_BARS
-                        || block.getType() == Material.COAL_BLOCK
-                        || block.getType().name().contains("_SLAB")
-                        || block.getType() == Material.ANDESITE
-                        || block.getType() == Material.GRANITE) {
-
-
-                    player.getInventory().getItemInMainHand().setDurability((short) 0);
-
-
-                    Clans.getCoreProtect().logRemoval("Dwarven Pickaxe - " + player.getName(), block.getLocation(), block.getType(), block.getData());
+                List<Block> blocks = UtilBlock.getSurrounding(block, true);
+                blocks.add(block);
+                for (Block b : blocks) {
+                    if (b.getType().toString().contains("STONE") && b.getType() != Material.GLOWSTONE ||
+                            b.getType().toString().contains("_ORE") || b.getType().toString().contains("BRICK") || b.getType() == Material.COBBLESTONE_STAIRS
+                            || b.getType() == Material.STONE_BRICK_STAIRS
+                            || b.getType().name().contains("STONE_SLAB")
+                            || b.getType() == Material.IRON_BARS
+                            || b.getType() == Material.COAL_BLOCK
+                            || b.getType().name().contains("_SLAB")
+                            || b.getType() == Material.ANDESITE
+                            || b.getType() == Material.GRANITE
+                            || b.getType() == Material.DIORITE) {
 
 
-                    block.breakNaturally();
+                        player.getInventory().getItemInMainHand().setDurability((short) 0);
+
+
+                        Clans.getCoreProtect().logRemoval("Dwarven Pickaxe - " + player.getName(), b.getLocation(), b.getType(), b.getData());
+
+
+                        b.breakNaturally();
+                    }
                 }
+
             }
         }
 
@@ -74,6 +87,6 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }
