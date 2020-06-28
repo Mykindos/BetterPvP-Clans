@@ -17,7 +17,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
 
 
     public DwarvenPickaxe(Clans i) {
-        super(i, Material.DIAMOND_PICKAXE, (byte) 0, ChatColor.RED + "Dwarven Pickaxe",
+        super(i, Material.FIREWORK_STAR, (byte) 0, ChatColor.RED + "Dwarven Pickaxe",
                 new String[]{"",
                         ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "0",
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "None",
@@ -74,6 +74,6 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
 
     @Override
     public boolean isTextured() {
-        return false;
+        return true;
     }
 }

@@ -22,6 +22,7 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,8 +34,10 @@ import java.io.UnsupportedEncodingException;
 
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
+    private final World world;
     public GamerConnectionListener(Clans instance) {
         super(instance);
+        this.world = Bukkit.getWorld("world");
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -143,7 +146,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Player player = event.getPlayer();
 
         if (String.valueOf(player.getLocation().getX()).equalsIgnoreCase("NaN")) {
-            player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+            player.teleport(world.getSpawnLocation());
         }
 
 

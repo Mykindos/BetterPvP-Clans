@@ -61,8 +61,12 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 import java.util.*;
 
 public class WorldListener extends BPVPListener<Clans> {
+
+
+    private final World world;
     public WorldListener(Clans instance) {
         super(instance);
+        world = Bukkit.getWorld("world");
     }
 
 
@@ -292,7 +296,6 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onTimeUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
-            World world = Bukkit.getWorld("world");
             if (world.getTime() > 13000) {
                 world.setTime(world.getTime() + 20);
             }
@@ -1546,7 +1549,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void blood(UpdateEvent e) {
-        if (e.getType() == UpdateEvent.UpdateType.FASTEST) {
+        if (e.getType() == UpdateEvent.UpdateType.FASTER) {
             if (blood.isEmpty()) {
                 return;
             }
@@ -1573,7 +1576,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
                     } else {
-                        e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -300.5, 130, -300.5));
+                        e.getPlayer().teleport(new Location(world, -300.5, 130, -300.5));
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
@@ -1585,15 +1588,15 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
                     } else {
-                        e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 300.5, 130, 300.5));
+                        e.getPlayer().teleport(new Location(world, 300.5, 130, 300.5));
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 224.5, 70, -82.5));
+                e.getPlayer().teleport(new Location(world, 224.5, 70, -82.5));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -159.5, 74, 245.5));
+                e.getPlayer().teleport(new Location(world, -159.5, 74, 245.5));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
         }
