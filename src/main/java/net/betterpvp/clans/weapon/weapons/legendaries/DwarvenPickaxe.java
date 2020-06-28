@@ -29,7 +29,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "This pickaxe will instantly ",
                         ChatColor.GRAY + "break any stone related blocks. ",
                         ""}
-                , true, 8.0);
+                , true, 6.0);
 
     }
 
@@ -44,7 +44,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                 return;
             }
 
-            if(player.getInventory().getItemInMainHand().getType() != Material.FIREWORK_STAR){
+            if (player.getInventory().getItemInMainHand().getType() != Material.FIREWORK_STAR) {
                 return;
             }
 
@@ -66,7 +66,8 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                             || b.getType() == Material.COAL_BLOCK
                             || b.getType().name().contains("_SLAB")
                             || b.getType() == Material.ANDESITE
-                            || b.getType() == Material.GRANITE) {
+                            || b.getType() == Material.GRANITE
+                            || b.getType() == Material.DIORITE) {
 
 
                         player.getInventory().getItemInMainHand().setDurability((short) 0);

@@ -50,7 +50,7 @@ public class SuperTools implements IDonation, Listener {
                     }
                 } else if (hand.getType() == Material.DIAMOND_PICKAXE) {
                     if ((mat.name().contains("STONE") && mat != Material.GLOWSTONE) || mat.name().contains("_ORE") || mat.name().contains("BRICK")
-                            || mat.name().contains("COAL") || mat == Material.ANDESITE || mat == Material.GRANITE) {
+                            || mat.name().contains("COAL") || mat == Material.ANDESITE || mat == Material.GRANITE || mat == Material.DIORITE) {
                         superTool(e.getPlayer(), block);
                     }
                 } else if (hand.getType() == Material.DIAMOND_SHOVEL) {
