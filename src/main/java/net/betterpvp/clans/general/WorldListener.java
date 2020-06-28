@@ -64,6 +64,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
 
     private final World world;
+
     public WorldListener(Clans instance) {
         super(instance);
         world = Bukkit.getWorld("world");
@@ -388,7 +389,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void interactSpring(PlayerInteractEvent event) {
 
-        if(event.getHand() == EquipmentSlot.OFF_HAND){
+        if (event.getHand() == EquipmentSlot.OFF_HAND) {
             return;
         }
 
@@ -488,7 +489,6 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-
 
 
         Gamer gamer = GamerManager.getOnlineGamer(event.getPlayer());
@@ -698,21 +698,21 @@ public class WorldListener extends BPVPListener<Clans> {
         if (e.getType() == UpdateEvent.UpdateType.SLOWEST) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 for (ItemStack i : p.getInventory().getContents()) {
-                    if (i != null) {
-                        if (i.hasItemMeta()) {
-                            Weapon w = WeaponManager.getWeapon(i);
-                            if (w != null) {
-                                if (w instanceof ILegendary) {
-                                    ILegendary legend = (ILegendary) w;
-                                    if (legend.isTextured()) {
-                                        continue;
-                                    }
-                                } else if (w instanceof EnchantedWeapon) {
-                                    UtilItem.addGlow(i);
+                    if (i == null) continue;
+                    if (i.hasItemMeta()) {
+                        Weapon w = WeaponManager.getWeapon(i);
+                        if (w != null) {
+                            if (w instanceof ILegendary) {
+                                ILegendary legend = (ILegendary) w;
+                                if (legend.isTextured()) {
+                                    continue;
                                 }
+                            } else if (w instanceof EnchantedWeapon) {
+                                UtilItem.addGlow(i);
                             }
                         }
                     }
+
                 }
             }
         }
@@ -789,7 +789,7 @@ public class WorldListener extends BPVPListener<Clans> {
                         e.setDamage(5);
                     } else if (m == Material.NETHERITE_AXE) {
                         e.setDamage(5);
-                    }else if (m == Material.IRON_AXE) {
+                    } else if (m == Material.IRON_AXE) {
                         e.setDamage(3);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
@@ -800,7 +800,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     e.setDamage(2);
                 } else if (m == Material.DIAMOND_SHOVEL) {
                     e.setDamage(2);
-                }else if(m == Material.IRON_SHOVEL) {
+                } else if (m == Material.IRON_SHOVEL) {
                     e.setDamage(1);
                 } else {
                     e.setDamage(e.getDamage() * 0.75);
@@ -1323,13 +1323,13 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onDeathHealth(PlayerDeathEvent e){
+    public void onDeathHealth(PlayerDeathEvent e) {
         AttributeInstance health = e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH);
         health.setBaseValue(20.0);
     }
 
     @EventHandler
-    public void onJoinHealth(PlayerJoinEvent e){
+    public void onJoinHealth(PlayerJoinEvent e) {
         AttributeInstance health = e.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
         health.setBaseValue(20.0);
     }
