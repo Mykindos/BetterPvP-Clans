@@ -82,8 +82,10 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Player player = Bukkit.getPlayer(e.getClient().getUUID());
         if (player != null) {
             gamer.setScoreboard(new Scoreboard(player));
-            player.setResourcePack(Clans.getOptions().getTexturePackURL(),
-                    UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
+            if(Clans.getOptions().isHub()) {
+                player.setResourcePack(Clans.getOptions().getTexturePackURL(),
+                        UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
+            }
         }
 
         GamerManager.addOnlineGamer(gamer);

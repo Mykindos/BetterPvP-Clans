@@ -28,9 +28,6 @@ public class ClanCommand implements CommandExecutor {
     public ClanCommand(Clans i) {
         this.i = i;
 
-        if(Clans.getOptions().isHub()){
-            return;
-        }
 
         commands = new ArrayList<>();
 

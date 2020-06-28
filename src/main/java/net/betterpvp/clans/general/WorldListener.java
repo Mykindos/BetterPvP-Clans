@@ -1527,6 +1527,16 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler
+    public void onHubDamage(CustomDamageEvent e){
+        if(Clans.getOptions().isHub()){
+            Clan clan = ClanUtilities.getClan(e.getDamagee().getLocation());
+            if(clan == null){
+                e.setCancelled("Can only take damage in the hub arena.");
+            }
+        }
+    }
+
     /*
      * Stops ground items from being destroyed from things like lava, fire, lightning, etc.
      */
