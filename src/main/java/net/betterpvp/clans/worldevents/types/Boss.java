@@ -165,7 +165,6 @@ public abstract class Boss extends WorldEvent {
         loot = WEManager.getRandomItem();
 
 
-
         LivingEntity killer = LogManager.getKiller(e.getEntity()).getDamager();
         if (killer != null) {
             UtilMessage.broadcast("World Event", ChatColor.YELLOW + getBossName() + ChatColor.GRAY
@@ -218,7 +217,7 @@ public abstract class Boss extends WorldEvent {
         Weapon wep = WeaponManager.getWeapon(loot);
         if (wep != null
                 && !(wep instanceof EnchantedWeapon)) {
-            UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " +wep.getName() + ChatColor.YELLOW + " was dropped at the world event!");
+            UtilMessage.broadcast("Legendary Loot", ChatColor.YELLOW + "A " + wep.getName() + ChatColor.YELLOW + " was dropped at the world event!");
             Log.write("Legendary", wep.getName() + " dropped from world event");
         }
 
@@ -226,7 +225,7 @@ public abstract class Boss extends WorldEvent {
 
 
         setActive(false);
-        for(Player p : Bukkit.getOnlinePlayers()){
+        for (Player p : Bukkit.getOnlinePlayers()) {
             Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
         }
     }
@@ -316,23 +315,27 @@ public abstract class Boss extends WorldEvent {
         }
     }
 
-    private void giveBonus(Gamer gamer, String boss){
+    private void giveBonus(Gamer gamer, String boss) {
 
         String bossName = ChatColor.stripColor(boss);
+        if (bossName.contains("Witherton")) {
+            bossName = "Witherton";
+        }
+
         gamer.setStatValue(bossName, gamer.getStatValue(bossName) + 1);
 
 
     }
 
-    @EventHandler (priority = EventPriority.HIGHEST)
-    public void bonusDamage(CustomDamageEvent e){
-        if(isActive()){
-            if(e.getDamagee() == null || e.getDamager() == null) return;
-            if(e.getDamager() != null){
-                if(e.getDamager() instanceof Player){
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void bonusDamage(CustomDamageEvent e) {
+        if (isActive()) {
+            if (e.getDamagee() == null || e.getDamager() == null) return;
+            if (e.getDamager() != null) {
+                if (e.getDamager() instanceof Player) {
                     Player p = (Player) e.getDamager();
 
-                    if(e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())){
+                    if (e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())) {
                         Gamer gamer = GamerManager.getOnlineGamer(p);
 
                         int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()).replace(" ", ""));

@@ -26,6 +26,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.ListIterator;
+
 public class ExplosionListener extends BPVPListener<Clans> {
 
     public ExplosionListener(Clans i) {
@@ -35,8 +37,9 @@ public class ExplosionListener extends BPVPListener<Clans> {
     @EventHandler
     public void updateClanTNTProtection(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
-            for (Clan clan : ClanUtilities.clans) {
-
+            ListIterator<Clan> it = ClanUtilities.getClans().listIterator();
+            while(it.hasNext()){
+                Clan clan = it.next();
                 for (ClanMember member : clan.getMembers()) {
 
                     if (Bukkit.getPlayer(member.getUUID()) != null) {
@@ -62,6 +65,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     }
                 }
             }
+
         }
     }
 

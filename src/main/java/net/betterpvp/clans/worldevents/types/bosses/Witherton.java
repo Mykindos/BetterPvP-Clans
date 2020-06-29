@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 
+import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
@@ -14,6 +15,8 @@ import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Boss;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
+import net.betterpvp.clans.worldevents.types.bosses.ads.SkeletonMinion;
+import net.betterpvp.clans.worldevents.types.bosses.ads.WitherMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossWither;
 import net.betterpvp.clans.worldevents.types.nms.BossWitherSkull;
 
@@ -26,6 +29,7 @@ import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_16_R1.EntityLiving;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
@@ -33,6 +37,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -51,28 +57,37 @@ public class Witherton extends Boss {
     public List<TrackingSkull> skulls = new ArrayList<>();
     private long lastShatter, lastExplosion;
     private Location[] locs;
+    private Location[] minionLocs;
+    private WithertonPhase phase = WithertonPhase.PHASE_ONE;
+
+    private World world;
 
     public Witherton(Clans i) {
         super(i, "Witherton", WEType.BOSS);
-        World w = Bukkit.getWorld("bossworld");
+        world = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, 702.5, 135, 192.5),
-                new Location(w, 699.5, 135, 123.5),
-                new Location(w, 615.5, 135, 126.5),
-                new Location(w, 618.5, 135, 199.5),
-                new Location(w, 655.5, 135, 199.5)
+                new Location(world, 702.5, 135, 192.5),
+                new Location(world, 699.5, 135, 123.5),
+                new Location(world, 615.5, 135, 126.5),
+                new Location(world, 618.5, 135, 199.5),
+                new Location(world, 655.5, 135, 199.5)
+        };
+
+        minionLocs = new Location[]{
+                new Location(world, -304, 46, -60),
+                new Location(world, -326, 46, -60)
         };
     }
 
     @Override
     public Location getSpawn() {
-        return new Location(Bukkit.getWorld("bossworld"), 660.5, 135, 162.5);
+        return new Location(world, -315, 46, -60);
     }
 
     @Override
     public double getBaseDamage() {
 
-        return 5;
+        return 3;
     }
 
     @Override
@@ -109,21 +124,24 @@ public class Witherton extends Boss {
     public void spawn() {
 
         wither = null;
-
+        phase = WithertonPhase.PHASE_ONE;
 
         if (getBoss() == null) {
             if (!getSpawn().getChunk().isLoaded()) {
                 getSpawn().getChunk().load();
             }
-            BossWither bs = new BossWither(((CraftWorld) Bukkit.getWorld("bossworld")).getHandle());
+            BossWither bs = new BossWither(((CraftWorld) world).getHandle());
             wither = bs.spawn(getSpawn());
 
-            wither.setMaxHealth(getMaxHealth());
+            wither.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
             wither.setHealth(getMaxHealth());
             wither.setCustomName(getBossName());
             wither.setCustomNameVisible(true);
             wither.setRemoveWhenFarAway(false);
-            wither.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+            wither.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, -100));
+
+            //wither.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+
 
             lastExplosion = System.currentTimeMillis();
             lastShatter = System.currentTimeMillis();
@@ -134,16 +152,140 @@ public class Witherton extends Boss {
 
     }
 
+    private void spawnMinions() {
+        for (Location loc : minionLocs) {
+            world.spigot().strikeLightning(loc, false);
+            WitherSkeleton s = (WitherSkeleton) getBoss().getWorld().spawnEntity(loc, EntityType.WITHER_SKELETON);
+            WitherMinion sm = new WitherMinion(s);
+
+            Player target = UtilPlayer.getClosest(loc);
+            if (target != null) {
+                s.setTarget(target);
+            }
+
+            getMinions().add(sm);
+        }
+
+    }
+
+    @EventHandler
+    public void onBossRegen(EntityRegainHealthEvent e) {
+        if (isActive()) {
+            if (e.getEntity().equals(getBoss())) {
+                e.setCancelled(true);
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void minionKnockback(CustomKnockbackEvent e) {
+        if (isActive()) {
+
+            if (e.getDamagee().equals(getBoss())) {
+                e.setDamage(0);
+            }
+
+            if (getMinions().isEmpty()) return;
+            if (e.getDamagee() instanceof Player) {
+                if (isMinion(e.getDamager())) {
+                    e.setDamage(3);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMinionDamage(CustomDamageEvent e) {
+        if (isActive()) {
+            if (isMinion(e.getDamager())) {
+                e.setDamage(5);
+            }
+        }
+    }
+
+    @EventHandler
+    public void monitorMinion(UpdateEvent e) {
+        if (e.getType() == UpdateType.SEC) {
+            if (isActive()) {
+                for (WorldEventMinion m : getMinions()) {
+                    if (m.getEntity().isDead()) continue;
+                    if (m.getEntity().getLocation().getY() < 30) {
+                        m.getEntity().setHealth(0);
+                        m.getEntity().remove();
+                    }
+                }
+
+                getMinions().removeIf(m -> m.getEntity() == null || m.getEntity().isDead());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMinionDeath(EntityDeathEvent e){
+        if(isActive()){
+            if(isMinion(e.getEntity())){
+                e.getDrops().clear();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMinionLoot(EntityPickupItemEvent e) {
+        if (isActive()) {
+            if (isMinion(e.getEntity())) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
     @EventHandler
     public void onTarget(EntityTargetEvent e) {
         if (isActive()) {
-            if (e.getEntity() == getBoss()) {
+            if (e.getEntity().equals(getBoss())) {
                 if (!(e.getTarget() instanceof Player)) {
                     e.setCancelled(true);
                 }
             }
         }
     }
+
+    @EventHandler
+    public void onDamageBoss(CustomDamageEvent e) {
+        if (isActive()) {
+            if (e.getDamagee().equals(getBoss())) {
+                if (!getMinions().isEmpty()) {
+                    e.setCancelled("Witherton shield is up");
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void monitorPhase(UpdateEvent e) {
+        if (e.getType() == UpdateType.SEC) {
+            if (isActive()) {
+                double health = getBoss().getHealth();
+                if (phase == WithertonPhase.PHASE_ONE) {
+                    if (health < 1500) {
+                        spawnMinions();
+                        phase = WithertonPhase.PHASE_TWO;
+                    }
+                } else if (phase == WithertonPhase.PHASE_TWO) {
+                    if (health < 1000) {
+                        spawnMinions();
+                        phase = WithertonPhase.PHASE_THREE;
+                    }
+                } else if (phase == WithertonPhase.PHASE_THREE) {
+                    if (health < 500) {
+                        spawnMinions();
+                        phase = WithertonPhase.PHASE_FOUR;
+                    }
+                }
+            }
+        }
+    }
+
 
     /*
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -187,7 +329,7 @@ public class Witherton extends Boss {
                             Player player = (Player) e.getDamagee();
                             if (RechargeManager.getInstance().add(player, "Witherton-Bombs", 10, false)) {
                                 if (!bomb.containsKey(player)) {
-                                    bomb.put(player, 3);
+                                    bomb.put(player, 2);
                                 }
                             }
 
@@ -202,7 +344,9 @@ public class Witherton extends Boss {
     public void onDamageMelee(CustomDamageEvent e) {
         if (isActive()) {
             if (e.getDamagee() != null) {
-                if (e.getDamagee() == getBoss()) {
+                if (e.getDamagee().equals(getBoss())) {
+
+                    e.setDamage(e.getDamage() * 2);
                     if (UtilMath.randDouble(0, 100) > 90) {
                         if (e.getDamager() instanceof Player) {
                             Player player = (Player) e.getDamager();
@@ -224,15 +368,16 @@ public class Witherton extends Boss {
                     getBoss().getWorld().playSound(getBoss().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1f, 1f);
                     lastShatter = System.currentTimeMillis();
                     for (LivingEntity ent : getBoss().getWorld().getLivingEntities()) {
-                        if (getBoss() == ent) continue;
+                        if (getBoss().equals(ent)) continue;
+                        if (isMinion(ent)) continue;
                         if (UtilMath.offset(ent, getBoss()) < 15) {
                             if (UtilBlock.isGrounded(ent)) {
                                 Clan cLoc = ClanUtilities.getClan(ent.getLocation());
                                 if (cLoc == null || cLoc instanceof AdminClan) {
-                                    new BlockRestoreData(ent.getLocation().getBlock(), Material.BEDROCK, (byte) 0, 2000);
+                                    new BlockRestoreData(ent.getLocation().getBlock(), Material.CRYING_OBSIDIAN, (byte) 0, 2000);
                                     ent.getWorld().playSound(ent.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1f, 1f);
                                     ent.setVelocity(new Vector(0, 2, 0));
-                                    LogManager.addLog(ent, getBoss(), "Shatter");
+                                    //LogManager.addLog(ent, getBoss(), "Shatter");
                                 }
                             }
                         }
@@ -447,9 +592,9 @@ public class Witherton extends Boss {
         if (isActive()) {
             if (e.getDamagee() == getBoss() || isMinion(e.getDamagee())) {
                 if (e.getCause() == DamageCause.FALL) {
-                    e.setCancelled("Broodmother - Immune to Fall");
+                    e.setCancelled("Witherton - Immune to Fall");
                 } else if (e.getCause() == DamageCause.SUFFOCATION) {
-                    e.setCancelled("Broodmother - Immune to Suffocation");
+                    e.setCancelled("Witherton - Immune to Suffocation");
                 }
             }
         }
@@ -496,6 +641,13 @@ public class Witherton extends Boss {
                 }
             }
         }
+    }
+
+    private enum WithertonPhase {
+        PHASE_ONE,
+        PHASE_TWO,
+        PHASE_THREE,
+        PHASE_FOUR
     }
 
 
