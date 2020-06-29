@@ -41,6 +41,7 @@ import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.networking.QueueCommand;
+import net.betterpvp.clans.networking.SlotListener;
 import net.betterpvp.clans.recipes.*;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
@@ -195,12 +196,12 @@ public class Clans extends JavaPlugin implements Listener {
             QueueCommand queueCommand = new QueueCommand(this);
             CommandManager.addCommand(queueCommand);
             Bukkit.getPluginManager().registerEvents(queueCommand, this);
+        }else{
+            new SlotListener(this);
         }
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 
-
-        hasStarted = true;
 
     }
 
@@ -333,6 +334,10 @@ public class Clans extends JavaPlugin implements Listener {
 
     public boolean hasStarted() {
         return hasStarted;
+    }
+
+    public void setStarted(boolean started){
+        this.hasStarted = started;
     }
 
     public List<Repository> getRepositoryList() {

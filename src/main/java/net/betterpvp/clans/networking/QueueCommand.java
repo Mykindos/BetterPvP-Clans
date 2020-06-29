@@ -15,6 +15,7 @@ import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.networking.events.NetworkMessageEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
@@ -38,12 +39,15 @@ public class QueueCommand extends Command implements Listener {
 
     private Plugin instance;
     private List<UUID> queue;
+    private List<UUID> reserved;
     private boolean queueEnabled;
+    private boolean canJoin;
 
     public QueueCommand(Plugin instance) {
         super("queue", new String[]{}, Rank.PLAYER);
         this.instance = instance;
         queue = new ArrayList<>();
+        reserved = new ArrayList<>();
         queueEnabled = true;
     }
 
@@ -67,6 +71,15 @@ public class QueueCommand extends Command implements Listener {
 
     }
 
+    @EventHandler
+    public void onNetworkMessage(NetworkMessageEvent e){
+        if(e.getChannel().equals("Bungee")){
+            if(e.getMessage().equals("SlotAvailable")){
+                canJoin = true;
+            }
+        }
+    }
+
     @Override
     public void help(Player player) {
     }
@@ -84,6 +97,9 @@ public class QueueCommand extends Command implements Listener {
                 }
                 if(client.hasDonation("ReservedSlot")){
                     UtilMessage.message(e.getPlayer(), "Queue", "As you have a reserved slot, you skip the queue.");
+                    if (!reserved.contains(e.getPlayer().getUniqueId())) {
+                        reserved.add(e.getPlayer().getUniqueId());
+                    }
                     return;
                 }
                 if (!queue.contains(e.getPlayer().getUniqueId())) {
@@ -100,10 +116,20 @@ public class QueueCommand extends Command implements Listener {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             if (Clans.getOptions().isHub()) {
                 if (queueEnabled) {
+                    if(!reserved.isEmpty()) {
+                        Player player = Bukkit.getPlayer(reserved.get(0));
+                        if (player != null) {
+                            connectPlayer(player);
+                        }
+                    }
+
                     if (queue.isEmpty()) return;
-                    Player player = Bukkit.getPlayer(queue.get(0));
-                    if (player != null) {
-                        connectPlayer(player);
+                    if(canJoin) {
+                        Player player = Bukkit.getPlayer(queue.get(0));
+                        if (player != null) {
+                            connectPlayer(player);
+                        }
+                        canJoin = false;
                     }
                 }
             }

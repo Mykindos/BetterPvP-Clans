@@ -48,6 +48,7 @@ public class Options {
     private boolean texturePackForce;
     private boolean hub;
     private String tablePrefix;
+    private int hubPort;
     private Clans i;
 
     public Options(Clans i) {
@@ -63,7 +64,7 @@ public class Options {
     public void reloadOptions() {
 
         world = i.getConfigManager().get(Configs.MAIN).getString("World");
-        hub = i.getConfigManager().get(Configs.MAIN).getBool("Hub");
+        hub = i.getConfigManager().get(Configs.MAIN).getBool("Bungee.IsHub");
         maxClanMembers = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxMembers");
         maxClanAllies = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxAllies");
         smallClanMaxAllies = i.getConfigManager().get(Configs.MAIN).getInt("Clans.Small.MaxAllies");
@@ -108,6 +109,7 @@ public class Options {
         texturePackSHA = i.getConfigManager().get(Configs.MAIN).getString("TexturePack.SHA");
         texturePackForce = i.getConfigManager().get(Configs.MAIN).getBool("TexturePack.Forced");
         tablePrefix = i.getConfigManager().get(Configs.MAIN).getString("Database.Prefix");
+        hubPort = i.getConfigManager().get(Configs.MAIN).getInt("Bungee.HubPort");
     }
 
     public int getMAHPort() {
@@ -282,7 +284,6 @@ public class Options {
 
     public void checkDefaults() {
         i.getConfigManager().get(Configs.MAIN).check("World", "world");
-        i.getConfigManager().get(Configs.MAIN).check("Hub", false);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxMembers", 4);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxAllies", 1);
         i.getConfigManager().get(Configs.MAIN).check("Clans.Small.MaxAllies", 2);
@@ -320,13 +321,14 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.CanClanHomeFromWilderness", false);
         i.getConfigManager().get(Configs.MAIN).check("Settings.OnlineReward", 500000);
         i.getConfigManager().get(Configs.MAIN).check("MAH.Port", 1441);
-        i.getConfigManager().get(Configs.MAIN).check("Bungee", true);
+        i.getConfigManager().get(Configs.MAIN).check("Bungee.IsHub", false);
         i.getConfigManager().get(Configs.MAIN).check("Server.IsOpen", true);
         i.getConfigManager().get(Configs.MAIN).check("Map.Enabled", true);
         i.getConfigManager().get(Configs.MAIN).check("TexturePack.URL", "https://mykindos.me/betterpvp.zip");
         i.getConfigManager().get(Configs.MAIN).check("TexturePack.SHA", "ebd67f43392e2d6694bad73ed8a1534ce9ce25a3");
         i.getConfigManager().get(Configs.MAIN).check("TexturePack.Forced", false);
         i.getConfigManager().get(Configs.MAIN).check("Database.Prefix", "clans");
+        i.getConfigManager().get(Configs.MAIN).check("Bungee.HubPort", 0);
 
     }
 
@@ -342,9 +344,7 @@ public class Options {
         return texturePackForce;
     }
 
-    public boolean isHub() {
-        return hub;
-    }
+
 
     public int getTimeUntilTNTProtection() {
         return timeUntilTNTProtection;
@@ -356,5 +356,13 @@ public class Options {
 
     public int getTntBonusMemberThreshold() {
         return tntBonusMemberThreshold;
+    }
+
+    public boolean isHub() {
+        return hub;
+    }
+
+    public int getHubPort(){
+        return hubPort;
     }
 }
