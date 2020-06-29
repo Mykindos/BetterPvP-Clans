@@ -24,8 +24,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -39,6 +42,8 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         super(instance);
         this.world = Bukkit.getWorld("world");
     }
+
+
 
     @EventHandler(priority = EventPriority.LOW)
     public void onClientLogin(ClientLoginEvent e) throws UnsupportedEncodingException {

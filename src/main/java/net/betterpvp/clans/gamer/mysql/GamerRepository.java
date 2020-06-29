@@ -85,7 +85,7 @@ public class GamerRepository implements Repository<Clans> {
             result.close();
 
             Log.debug("MySQL", "Hooked " + count + " Gamers to Clients");
-
+            clans.setStarted(true);
         } catch (SQLException ex) {
             Log.debug("Connection", "Could not load Gamers (Connection Error), ");
             ex.printStackTrace();
@@ -95,6 +95,8 @@ public class GamerRepository implements Repository<Clans> {
             BuildRepository.loadBuilds(clans, p.getUniqueId());
 
         }
+
+
 
 
     }
