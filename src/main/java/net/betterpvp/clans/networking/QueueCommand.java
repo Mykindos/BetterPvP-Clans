@@ -146,6 +146,10 @@ public class QueueCommand extends Command implements Listener {
                 });
 
             }
+
+            if(reserved.contains(e.getPlayer().getUniqueId())){
+                reserved.remove(e.getPlayer().getUniqueId());
+            }
         }
     }
 
