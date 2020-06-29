@@ -78,7 +78,7 @@ public class SkillListener extends BPVPListener<Clans> {
                         return;
                     }
 
-                    if(Arrays.asList(skill.getActions()).contains(Action.RIGHT_CLICK_BLOCK)){
+                    if (Arrays.asList(skill.getActions()).contains(Action.RIGHT_CLICK_BLOCK)) {
                         if (UtilItem.isBlockDoor(player)) {
                             return;
                         }
@@ -113,8 +113,12 @@ public class SkillListener extends BPVPListener<Clans> {
             return;
         }
 
-
-
+        if (player.getInventory().getItemInMainHand().getType() != Material.BOW
+                && player.getInventory().getItemInMainHand().getType() != Material.CROSSBOW) {
+            if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                return;
+            }
+        }
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (UtilBlock.usable(event.getClickedBlock())) {
@@ -136,7 +140,7 @@ public class SkillListener extends BPVPListener<Clans> {
         }
 
         Weapon weapon = WeaponManager.getWeapon(player.getInventory().getItemInMainHand());
-        if(weapon != null && weapon instanceof ILegendary){
+        if (weapon != null && weapon instanceof ILegendary) {
             return;
         }
 
@@ -159,7 +163,7 @@ public class SkillListener extends BPVPListener<Clans> {
                     return false;
                 }).findFirst();
 
-                if(skillOptional.isPresent()){
+                if (skillOptional.isPresent()) {
                     if (!ClanUtilities.canCast(player)) {
                         return;
                     }
@@ -206,7 +210,6 @@ public class SkillListener extends BPVPListener<Clans> {
 
             }
         }
-
 
 
     }

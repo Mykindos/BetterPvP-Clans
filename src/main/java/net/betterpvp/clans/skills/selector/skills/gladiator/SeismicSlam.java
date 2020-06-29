@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
@@ -136,6 +137,7 @@ public class SeismicSlam extends Skill implements InteractSkill {
                 }
 
                 for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), 4)) {
+                    if(ShopManager.isShop(ent)) continue;
                     if (ent.equals(p)) continue;
                     if (immune.get(p).contains(ent)) continue;
                     if (ent instanceof Player) {

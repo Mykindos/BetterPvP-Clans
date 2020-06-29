@@ -66,6 +66,16 @@ public class MovementListener extends BPVPListener<Clans> {
     public void onUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.FASTER) {
             for (Player p : Bukkit.getOnlinePlayers()) {
+
+                if(Clans.getOptions().isHub()){
+                    if(!p.isOp()){
+                        if(p.getGameMode() != GameMode.ADVENTURE) {
+                            p.setGameMode(GameMode.ADVENTURE);
+                        }
+                    }
+                    continue;
+                }
+
                 Clan target = ClanUtilities.getClan(p.getLocation());
                 if (target == null) {
                     if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {

@@ -28,9 +28,6 @@ public class ClanCommand implements CommandExecutor {
     public ClanCommand(Clans i) {
         this.i = i;
 
-        if(Clans.getOptions().isHub()){
-            return;
-        }
 
         commands = new ArrayList<>();
 
@@ -92,7 +89,8 @@ public class ClanCommand implements CommandExecutor {
                 UtilMessage.message(player, "TNT Protection: " + clan.getVulnerableString());
                 UtilMessage.message(player, "Cooldown: " + (!clan.isOnCooldown() ? ChatColor.GREEN + "No"
                         : ChatColor.RED + UtilTime.getTime(clan.getCooldown(), TimeUnit.BEST, 1)));
-                UtilMessage.message(player, "Energy: " + ChatColor.YELLOW + (int) clan.getEnergy());
+                UtilMessage.message(player, "Energy: " + ChatColor.YELLOW + (int) clan.getEnergy() + " - ("
+                        + ChatColor.GOLD + ClanUtilities.getEnergyTimeRemaining(clan) + ChatColor.YELLOW + ")");
 
                 UtilMessage.message(player, "Points: " + ChatColor.YELLOW + clan.getPoints());
 
@@ -129,7 +127,8 @@ public class ClanCommand implements CommandExecutor {
                 UtilMessage.message(player, "TNT Protection: " + clan.getVulnerableString());
                 UtilMessage.message(player, "Cooldown: " + (!clan.isOnCooldown() ? ChatColor.GREEN + "No"
                         : ChatColor.RED + UtilTime.getTime(clan.getCooldown(), TimeUnit.BEST, 2)));
-                UtilMessage.message(player, "Energy: " + ChatColor.YELLOW + (int) clan.getEnergy());
+                UtilMessage.message(player, "Energy: " + ChatColor.YELLOW + (int) clan.getEnergy()  + " - ("
+                        + ChatColor.GOLD + ClanUtilities.getEnergyTimeRemaining(clan) + ChatColor.YELLOW + ")");
                 if (showPoints) {
                     UtilMessage.message(player, "Points: " + ChatColor.YELLOW + clan.getPoints());
                 }

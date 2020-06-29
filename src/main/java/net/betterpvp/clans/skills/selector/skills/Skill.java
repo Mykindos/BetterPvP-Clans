@@ -1,41 +1,17 @@
 package net.betterpvp.clans.skills.selector.skills;
 
-import javafx.scene.control.Toggle;
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.effects.EffectManager;
-import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.ISkill;
 import net.betterpvp.clans.skills.Types;
-import net.betterpvp.clans.skills.selector.BuildSkill;
 import net.betterpvp.clans.skills.selector.RoleBuild;
-import net.betterpvp.clans.weapon.EnchantedWeapon;
-import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.BPVPListener;
-import net.betterpvp.core.utility.UtilBlock;
-import net.betterpvp.core.utility.UtilItem;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
 
 public abstract class Skill extends BPVPListener<Clans> implements ISkill {
 

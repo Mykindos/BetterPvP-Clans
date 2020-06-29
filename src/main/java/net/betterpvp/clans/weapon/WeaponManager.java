@@ -68,6 +68,18 @@ public class WeaponManager extends BPVPListener<Clans> {
 
 
     public static Weapon getWeapon(ItemStack item) {
+        if(item.hasItemMeta()){
+            if(item.getItemMeta().getDisplayName() != null){
+                for(Weapon weapon : weapons){
+                    if(weapon.getName().equalsIgnoreCase(item.getItemMeta().getDisplayName())){
+                        return weapon;
+                    }
+                }
+            }
+        }
+
+        return null;
+        /*
         for (Weapon weapon : weapons) {
             ItemStack wepItem = item.clone();
             if(wepItem.getItemMeta() instanceof Damageable) {
@@ -92,7 +104,7 @@ public class WeaponManager extends BPVPListener<Clans> {
                 return weapon;
             }
         }
-        return null;
+        return null;*/
     }
 
     public static Weapon getWeapon(String name) {

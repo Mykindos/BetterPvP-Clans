@@ -33,6 +33,10 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onScoreboardUpdate(ScoreboardUpdateEvent e) {
+
+        if(Clans.getOptions().isHub()){
+            return;
+        }
         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
         Scoreboard scoreboard = e.getPlayer().getScoreboard();

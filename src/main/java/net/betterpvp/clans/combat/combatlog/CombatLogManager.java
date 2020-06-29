@@ -27,17 +27,22 @@ import java.util.Iterator;
 
 public class CombatLogManager extends BPVPListener<Clans> {
 
-    public CombatLogManager(Clans i){
+    public CombatLogManager(Clans i) {
         super(i);
     }
 
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        if(LogManager.isSafe(player)){
+
+        if (Clans.getOptions().isHub()) {
             return;
-        }else{
+        }
+
+        Player player = event.getPlayer();
+        if (LogManager.isSafe(player)) {
+            return;
+        } else {
 
             for (Entity entity : player.getNearbyEntities(18, 18, 18)) {
                 if (entity instanceof Player) {
@@ -60,7 +65,6 @@ public class CombatLogManager extends BPVPListener<Clans> {
         }
 
 
-
     }
 
     @EventHandler
@@ -75,7 +79,7 @@ public class CombatLogManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void oncombatNPCClick(PlayerInteractNPCEvent event) {
+    public void onCombatNPCClick(PlayerInteractNPCEvent event) {
         Iterator<CombatLog> iterator = CombatLog.loggers.iterator();
         while (iterator.hasNext()) {
             CombatLog logger = iterator.next();
@@ -108,16 +112,16 @@ public class CombatLogManager extends BPVPListener<Clans> {
                 Clan enemy = ClanUtilities.getClan(event.getPlayer());
                 Clan self = ClanUtilities.getClan(logger.getPlayer());
                 boolean doIt = true;
-                if(enemy2 != null && self != null) {
-                    if(self.isEnemy(enemy2)) {
-                        if(isOnline(enemy2)) {
+                if (enemy2 != null && self != null) {
+                    if (self.isEnemy(enemy2)) {
+                        if (isOnline(enemy2)) {
                             enemy2.getDominance(self).addPoint();
                             doIt = false;
                         }
                     }
                 }
 
-                if(doIt) {
+                if (doIt) {
                     if (enemy != null && self != null) {
                         if (self.isEnemy(enemy)) {
                             if (isOnline(enemy)) {
@@ -169,7 +173,7 @@ public class CombatLogManager extends BPVPListener<Clans> {
                 CombatLog log = logIterator.next();
 
                 if (System.currentTimeMillis() >= log.getTime()) {
-                    if(log.getNPC() != null) {
+                    if (log.getNPC() != null) {
                         log.getNPC().remove();
                     }
                     logIterator.remove();

@@ -129,11 +129,11 @@ public class ShopManager extends BPVPListener<Clans> {
     public static void spawnShop(Clans i, final Location loc, final String str) {
 
         try {
-            loc.getChunk().setForceLoaded(true);
-            new BukkitRunnable() {
 
+            new BukkitRunnable() {
                 @Override
                 public void run() {
+                    loc.getChunk().setForceLoaded(true);
                     if (!loc.getChunk().isLoaded()) {
                         loc.getChunk().load();
                     }

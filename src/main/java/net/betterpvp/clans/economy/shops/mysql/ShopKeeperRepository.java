@@ -27,6 +27,7 @@ public class ShopKeeperRepository implements Repository<Clans> {
     public void initialize() {
         TABLE_NAME = Clans.getOptions().getTablePrefix() + "_shopkeepers";
         CREATE_SHOPKEEPER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+                "  `World` varchar(255)," +
                 "  `Name` varchar(255)," +
                 "  `X` double(10,2)," +
                 "  `Y` double(10,2)," +

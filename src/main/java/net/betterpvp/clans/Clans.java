@@ -35,13 +35,12 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
-import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.general.WorldListener;
-import net.betterpvp.clans.general.commands.FindCommand;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
+import net.betterpvp.clans.networking.QueueCommand;
 import net.betterpvp.clans.recipes.*;
 import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.settings.Options;
@@ -76,7 +75,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.Map;
 
 
 public class Clans extends JavaPlugin implements Listener {
@@ -122,7 +120,6 @@ public class Clans extends JavaPlugin implements Listener {
 
     private void load() {
 
-
         new RoleManager(this);
 
         UtilShop.registerEntity("Zombie", 54, EntityZombie.class, ShopZombie.class);
@@ -138,9 +135,11 @@ public class Clans extends JavaPlugin implements Listener {
         repositoryList = ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);
         ReflectionsUtil.registerDonations("net.betterpvp.clans", this);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         loadRecipes();
         startTimers();
+
 
         new SkillListener(this);
         new SelectorManager(this);
@@ -191,6 +190,13 @@ public class Clans extends JavaPlugin implements Listener {
         CommandManager.addCommand(new HubCommand(this));
         CommandManager.addCommand(new ClanReloadCommand(this));
         CommandManager.addCommand(new SearchChestsCommand(this));
+
+        if(Clans.getOptions().isHub()) {
+            QueueCommand queueCommand = new QueueCommand(this);
+            CommandManager.addCommand(queueCommand);
+            Bukkit.getPluginManager().registerEvents(queueCommand, this);
+        }
+
         getCommand("clan").setExecutor(new ClanCommand(this));
 
 
