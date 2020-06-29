@@ -390,6 +390,9 @@ public class ClanUtilities {
 
     public static String getEnergyTimeRemaining(Clan clan){
 
+        if(clan.getTerritory().isEmpty()){
+            return "∞";
+        }
         return UtilTime.getTime((clan.getEnergy() / (clan.getTerritory().size() * 25)) * 3600000 , UtilTime.TimeUnit.BEST, 2);
 
     }

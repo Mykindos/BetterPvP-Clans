@@ -46,15 +46,6 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
                         ""}, true, 2.0);
     }
 
-    @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if (event.getDamager() instanceof Player) {
-            Player player = (Player) event.getDamager();
-            if (isThisWeapon(player)) {
-                event.getEntity().getVelocity().multiply(-0.4D);
-            }
-        }
-    }
 
     @EventHandler
     public void onWindRiderUse(PlayerInteractEvent event) {

@@ -6,6 +6,7 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Warlock;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -100,6 +101,7 @@ public class Leech extends Skill implements InteractSkill {
     private void chainEnemies(Player player, LivingEntity link) {
         List<LivingEntity> temp = new ArrayList<>();
         for (LivingEntity entA : UtilPlayer.getAllInRadius(link.getLocation(), 7)) {
+            if(ShopManager.isShop(entA)) continue;
             if (entA instanceof Player) {
                 if (!ClanUtilities.canHurt(player, (Player) entA)) {
                     return;
