@@ -1,7 +1,5 @@
 package net.betterpvp.clans.clans.events;
 
-import net.betterpvp.clans.clans.Clan;
-import net.betterpvp.core.client.Client;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

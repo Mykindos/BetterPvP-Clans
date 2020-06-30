@@ -1,16 +1,15 @@
 package net.betterpvp.clans.dailies.quests.gather;
 
-import org.bukkit.Material;
-import org.bukkit.NetherWartsState;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.material.NetherWarts;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
 import net.betterpvp.clans.dailies.quests.General;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.NetherWartsState;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.material.NetherWarts;
 
 public class Harvest30Netherwarts extends General{
 

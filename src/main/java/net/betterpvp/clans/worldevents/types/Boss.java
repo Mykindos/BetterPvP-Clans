@@ -6,9 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
 import net.betterpvp.clans.combat.LogManager;
-
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.EnchantedWeapon;
@@ -19,13 +17,11 @@ import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
 import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
-
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
-
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

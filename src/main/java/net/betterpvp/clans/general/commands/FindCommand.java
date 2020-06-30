@@ -1,6 +1,5 @@
 package net.betterpvp.clans.general.commands;
 
-import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;

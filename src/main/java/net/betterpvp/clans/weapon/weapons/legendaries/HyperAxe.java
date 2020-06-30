@@ -2,7 +2,6 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;

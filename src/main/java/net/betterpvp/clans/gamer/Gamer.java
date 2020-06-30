@@ -2,11 +2,9 @@ package net.betterpvp.clans.gamer;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
-
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
-
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.scoreboard.Scoreboard;
@@ -17,7 +15,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class Gamer implements Invitable {
 

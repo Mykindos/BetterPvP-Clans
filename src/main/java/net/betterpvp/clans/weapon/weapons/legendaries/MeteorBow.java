@@ -11,7 +11,6 @@ import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;

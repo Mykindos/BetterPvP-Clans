@@ -1,9 +1,5 @@
 package net.betterpvp.clans.general;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -45,7 +41,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Gate;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -60,10 +55,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class WorldListener extends BPVPListener<Clans> {

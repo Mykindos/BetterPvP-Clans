@@ -1,7 +1,5 @@
 package net.betterpvp.clans.mysql;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.recipes.CustomRecipe;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;

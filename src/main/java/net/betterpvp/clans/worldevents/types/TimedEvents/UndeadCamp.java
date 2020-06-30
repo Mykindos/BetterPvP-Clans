@@ -4,7 +4,6 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.CombatLogs;
 import net.betterpvp.clans.combat.LogManager;
-
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Timed;

@@ -2,11 +2,8 @@ package net.betterpvp.clans.economy.shops.nms;
 
 import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-
-import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 
 public class ShopVillager extends EntityVillager {

@@ -1,7 +1,6 @@
 package net.betterpvp.clans.combat.ratings;
 
 import net.betterpvp.clans.classes.Role;
-import net.betterpvp.clans.classes.RoleManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Rank;

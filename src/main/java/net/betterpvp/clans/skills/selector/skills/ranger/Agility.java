@@ -2,7 +2,6 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -16,7 +15,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;

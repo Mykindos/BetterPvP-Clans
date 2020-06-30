@@ -8,7 +8,6 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;

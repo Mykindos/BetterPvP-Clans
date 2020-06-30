@@ -7,22 +7,16 @@ import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
-
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.core.framework.BPVPListener;
-import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.settings.SettingChangedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
 public class ClanScoreboardListener extends BPVPListener<Clans> {
 

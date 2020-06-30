@@ -11,8 +11,6 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
-import net.betterpvp.clans.skills.selector.skills.Skill;
-import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
@@ -32,7 +30,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.nio.channels.Channel;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;

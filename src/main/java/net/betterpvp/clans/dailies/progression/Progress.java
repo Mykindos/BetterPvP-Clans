@@ -1,12 +1,11 @@
 package net.betterpvp.clans.dailies.progression;
 
-import java.util.UUID;
-
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.utility.UtilMessage;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 
-import net.md_5.bungee.api.ChatColor;
+import java.util.UUID;
 
 public class Progress {
 

@@ -1,6 +1,5 @@
 package net.betterpvp.clans.skills.selector;
 
-import javafx.scene.control.Toggle;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
@@ -12,7 +11,6 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
-import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -21,7 +19,6 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -1,7 +1,6 @@
 package net.betterpvp.clans.clans.events;
 
 import net.betterpvp.clans.clans.Clan;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 

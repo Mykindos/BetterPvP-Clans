@@ -11,7 +11,6 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

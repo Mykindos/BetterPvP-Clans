@@ -1,17 +1,17 @@
 package net.betterpvp.clans.skills.selector.skills.assassin;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
-import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

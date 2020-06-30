@@ -1,12 +1,11 @@
 package net.betterpvp.clans.general.commands;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import org.bukkit.entity.Player;
-
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 
 
 public class HubCommand extends Command {

@@ -11,7 +11,6 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
-
 import net.betterpvp.core.client.commands.admin.ChatToggle;
 import net.betterpvp.core.client.commands.admin.StaffChatCommand;
 import net.betterpvp.core.framework.BPVPListener;

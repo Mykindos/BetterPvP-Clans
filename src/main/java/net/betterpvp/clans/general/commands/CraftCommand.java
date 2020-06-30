@@ -5,12 +5,9 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
+
 
 public class CraftCommand extends Command {
 

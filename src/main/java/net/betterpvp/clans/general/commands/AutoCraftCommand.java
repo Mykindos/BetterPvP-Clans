@@ -4,7 +4,6 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
-import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

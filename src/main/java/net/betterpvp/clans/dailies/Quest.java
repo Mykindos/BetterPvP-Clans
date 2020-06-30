@@ -1,15 +1,12 @@
 package net.betterpvp.clans.dailies;
 
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.dailies.progression.Progress;
+import net.betterpvp.core.framework.BPVPListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import net.betterpvp.core.framework.BPVPListener;
-import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
-
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.dailies.progression.Progress;
 
 public class Quest extends BPVPListener<Clans> {
 	

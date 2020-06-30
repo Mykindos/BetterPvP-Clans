@@ -1,14 +1,9 @@
 package net.betterpvp.clans.worldevents.types.bosses.ads;
 
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
-import net.betterpvp.clans.worldevents.types.nms.BossSkeleton;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;

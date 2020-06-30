@@ -10,7 +10,6 @@ import net.betterpvp.clans.clans.events.MemberJoinClanEvent;
 import net.betterpvp.clans.clans.listeners.InviteHandler;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;

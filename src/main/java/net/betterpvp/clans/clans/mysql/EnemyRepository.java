@@ -4,7 +4,9 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.Dominance;
-import net.betterpvp.core.database.*;
+import net.betterpvp.core.database.Connect;
+import net.betterpvp.core.database.Log;
+import net.betterpvp.core.database.QueryFactory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.PreparedStatement;

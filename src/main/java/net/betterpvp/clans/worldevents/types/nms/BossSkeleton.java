@@ -2,8 +2,6 @@ package net.betterpvp.clans.worldevents.types.nms;
 
 import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftWitherSkeleton;
-import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 

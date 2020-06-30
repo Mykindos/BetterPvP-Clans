@@ -1,7 +1,5 @@
 package net.betterpvp.clans.recipes;
 
-import java.util.Iterator;
-
 import net.betterpvp.clans.Clans;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -9,6 +7,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+
+import java.util.Iterator;
 
 public class RadiantSword implements CustomRecipe{
 

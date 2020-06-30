@@ -1,9 +1,10 @@
 package net.betterpvp.clans.dailies;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.betterpvp.core.configs.ConfigManager;
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
+import net.betterpvp.clans.dailies.quests.General;
+import net.betterpvp.clans.dailies.quests.fighting.*;
+import net.betterpvp.clans.dailies.quests.gather.*;
 import net.betterpvp.core.configs.Configs;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilTime;
@@ -11,35 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.betterpvp.clans.Clans;
-
-import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
-import net.betterpvp.clans.dailies.quests.General;
-import net.betterpvp.clans.dailies.quests.fighting.Kill3Assassins;
-import net.betterpvp.clans.dailies.quests.fighting.Kill3Gladiators;
-import net.betterpvp.clans.dailies.quests.fighting.Kill3Knights;
-import net.betterpvp.clans.dailies.quests.fighting.Kill3Paladins;
-import net.betterpvp.clans.dailies.quests.fighting.Kill3Rangers;
-import net.betterpvp.clans.dailies.quests.fighting.Kill5Skeletons;
-import net.betterpvp.clans.dailies.quests.fighting.Kill5Spiders;
-import net.betterpvp.clans.dailies.quests.fighting.Kill5Zombies;
-import net.betterpvp.clans.dailies.quests.fighting.KillPlayers15;
-import net.betterpvp.clans.dailies.quests.fighting.KillsAsAssassin;
-import net.betterpvp.clans.dailies.quests.fighting.KillsAsGladiator;
-import net.betterpvp.clans.dailies.quests.fighting.KillsAsKnight;
-import net.betterpvp.clans.dailies.quests.fighting.KillsAsPaladin;
-import net.betterpvp.clans.dailies.quests.fighting.KillsAsRanger;
-import net.betterpvp.clans.dailies.quests.gather.FieldsCoalOre;
-import net.betterpvp.clans.dailies.quests.gather.FieldsDiamondOre;
-import net.betterpvp.clans.dailies.quests.gather.FieldsEmeraldOre;
-import net.betterpvp.clans.dailies.quests.gather.FieldsGoldOre;
-import net.betterpvp.clans.dailies.quests.gather.FieldsIronOre;
-import net.betterpvp.clans.dailies.quests.gather.FieldsRedstoneOre;
-import net.betterpvp.clans.dailies.quests.gather.Harvest30Carrot;
-import net.betterpvp.clans.dailies.quests.gather.Harvest30Netherwarts;
-import net.betterpvp.clans.dailies.quests.gather.Harvest30Potato;
-import net.betterpvp.clans.dailies.quests.gather.Harvest30Wheat;
-import net.betterpvp.clans.dailies.quests.gather.LakeCatchFish;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuestManager {

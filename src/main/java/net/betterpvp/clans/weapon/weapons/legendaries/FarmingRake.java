@@ -5,7 +5,6 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;

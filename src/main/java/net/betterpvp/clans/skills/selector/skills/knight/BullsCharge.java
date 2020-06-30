@@ -14,7 +14,6 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

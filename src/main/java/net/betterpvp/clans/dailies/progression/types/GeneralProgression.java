@@ -1,8 +1,8 @@
 package net.betterpvp.clans.dailies.progression.types;
 
-import java.util.UUID;
-
 import net.betterpvp.clans.dailies.progression.Progress;
+
+import java.util.UUID;
 
 public class GeneralProgression extends Progress{
 	

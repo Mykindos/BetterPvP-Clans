@@ -8,7 +8,6 @@ import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.utilities.UtilRating;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;

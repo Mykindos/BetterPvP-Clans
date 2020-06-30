@@ -1,11 +1,9 @@
 package net.betterpvp.clans.donations;
 
-import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
-
 import net.betterpvp.core.client.mysql.SettingsRepository;
 import net.betterpvp.core.donation.IDonation;
 import net.betterpvp.core.donation.events.DonationStatusEvent;

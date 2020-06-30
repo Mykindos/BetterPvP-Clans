@@ -1,17 +1,13 @@
 package net.betterpvp.clans.weapon;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.weapon.weapons.legendaries.GlacialAxe;
-import net.betterpvp.clans.weapon.weapons.legendaries.HyperAxe;
 import net.betterpvp.core.utility.UtilItem;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;

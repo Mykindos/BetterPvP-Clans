@@ -12,7 +12,6 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.libs.jline.WindowsTerminal;
 import org.bukkit.entity.Player;
 
 public class StrengthInNumbers extends Skill implements InteractSkill {

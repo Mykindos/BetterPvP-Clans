@@ -1,12 +1,9 @@
 package net.betterpvp.clans.classes.commands;
 
-import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.menu.KitMenu;
 import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.classes.roles.Ranger;
-import net.betterpvp.clans.economy.shops.Shop;
-import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
@@ -15,16 +12,10 @@ import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class KitCommand extends Command {

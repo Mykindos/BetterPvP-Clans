@@ -14,13 +14,11 @@ import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
-
 import net.minecraft.server.v1_16_R1.EntityFishingHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;

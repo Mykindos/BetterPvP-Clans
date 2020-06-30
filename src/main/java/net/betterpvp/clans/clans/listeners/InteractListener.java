@@ -17,13 +17,13 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.minecraft.server.v1_16_R1.EntityPlayer;
 import net.minecraft.server.v1_16_R1.PacketPlayOutAnimation;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.DoubleChest;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
-import org.bukkit.block.data.Powerable;
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,10 +31,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class InteractListener extends BPVPListener<Clans> {

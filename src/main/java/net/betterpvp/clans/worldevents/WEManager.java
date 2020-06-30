@@ -2,9 +2,6 @@ package net.betterpvp.clans.worldevents;
 
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.AdminClan;
-import net.betterpvp.clans.clans.Clan;
-import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
@@ -21,29 +18,19 @@ import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
 import net.betterpvp.clans.worldevents.types.bosses.Witherton;
 import net.betterpvp.clans.worldevents.types.environmental.FishingFrenzy;
 import net.betterpvp.clans.worldevents.types.environmental.MiningMadness;
-import net.betterpvp.core.client.Client;
-import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.Titles;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.*;
-import org.bukkit.block.Sign;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 

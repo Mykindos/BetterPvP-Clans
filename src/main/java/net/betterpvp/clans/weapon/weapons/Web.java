@@ -14,7 +14,6 @@ import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;

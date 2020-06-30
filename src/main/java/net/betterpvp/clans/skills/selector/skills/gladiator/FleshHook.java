@@ -14,7 +14,6 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
-import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.data.ChargeData;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;

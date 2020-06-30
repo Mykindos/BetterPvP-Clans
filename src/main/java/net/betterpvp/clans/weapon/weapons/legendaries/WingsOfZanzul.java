@@ -3,14 +3,10 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
-import net.betterpvp.core.framework.UpdateEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemDamageEvent;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class WingsOfZanzul extends Weapon implements ILegendary {
     public WingsOfZanzul(Clans i) {

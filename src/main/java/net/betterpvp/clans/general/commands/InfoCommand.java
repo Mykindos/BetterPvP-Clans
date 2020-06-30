@@ -13,7 +13,6 @@ import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-
 import java.text.DecimalFormat;
 
 public class InfoCommand extends Command {

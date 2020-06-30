@@ -4,11 +4,8 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.combatlog.npc.NPC;
 import net.betterpvp.clans.utilities.UtilClans;
-import net.betterpvp.core.utility.UtilItem;
-import net.minecraft.server.v1_16_R1.EntityTypes;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
-
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

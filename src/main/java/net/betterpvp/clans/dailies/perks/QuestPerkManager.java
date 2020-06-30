@@ -1,12 +1,11 @@
 package net.betterpvp.clans.dailies.perks;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import net.betterpvp.clans.dailies.mysql.QuestRepository;
 import net.betterpvp.clans.gamer.GamerManager;
 import org.bukkit.entity.Player;
 
-import net.betterpvp.clans.dailies.mysql.QuestRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestPerkManager {
 	

@@ -19,7 +19,6 @@ import net.betterpvp.core.utility.recharge.Recharge;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
