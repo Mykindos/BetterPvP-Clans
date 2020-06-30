@@ -58,8 +58,17 @@ public class InfoCommand extends Command {
                 + " " + ChatColor.BLUE + "Blocks Broken: " + ChatColor.GREEN +  gamer.getStatValue("BlocksBroken"));
         UtilMessage.message(player, ChatColor.YELLOW + "Class Information");
         String msg = "";
+        String msg2 = "";
+        boolean alt = false;
         for (Role r : Role.roles) {
-            msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
+            if(alt){
+                msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
+                alt = false;
+            }else{
+                msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
+                alt = true;
+            }
+
         }
         UtilMessage.message(player, msg);
 
