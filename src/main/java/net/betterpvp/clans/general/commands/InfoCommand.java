@@ -65,10 +65,10 @@ public class InfoCommand extends Command {
         UtilMessage.message(player, msg);
 
         UtilMessage.message(player, ChatColor.YELLOW + "PvE Information");
-        UtilMessage.message(player, ChatColor.BLUE + "Slime King: " + ChatColor.GREEN + gamer.getStatValue("SlimeKing")
-                + ChatColor.BLUE + " Skeleton King: " + ChatColor.GREEN +  gamer.getStatValue("SkeletonKing")
+        UtilMessage.message(player, ChatColor.BLUE + "Slime King: " + ChatColor.GREEN + gamer.getStatValue("Slime King")
+                + ChatColor.BLUE + " Skeleton King: " + ChatColor.GREEN +  gamer.getStatValue("Skeleton King")
                 + ChatColor.BLUE + " Broodmother: " + ChatColor.GREEN +  gamer.getStatValue("Broodmother")
-                + ChatColor.BLUE + " Witherton: " + ChatColor.GREEN +  gamer.getStatValue("Witherton"));
+                + ChatColor.BLUE + " Witherton: " + ChatColor.GREEN +  gamer.getStatValue("Charles Witherton"));
 
     }
 

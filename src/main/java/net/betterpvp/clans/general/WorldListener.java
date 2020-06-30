@@ -1,5 +1,9 @@
 package net.betterpvp.clans.general;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -58,6 +62,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class WorldListener extends BPVPListener<Clans> {
@@ -302,6 +308,7 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
     }
+
 
     /*
      * Stops players from filling buckets with water or lava, and also breaks the bucket.
@@ -699,6 +706,7 @@ public class WorldListener extends BPVPListener<Clans> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 for (ItemStack i : p.getInventory().getContents()) {
                     if (i == null) continue;
+
                     if (i.hasItemMeta()) {
                         Weapon w = WeaponManager.getWeapon(i);
                         if (w != null) {
@@ -714,6 +722,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
 
                 }
+
             }
         }
     }
@@ -1648,9 +1657,11 @@ public class WorldListener extends BPVPListener<Clans> {
                 || e.getFrom().getBlockY() != e.getTo().getBlockY()
                 || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if (c.hasRank(Rank.ADMIN, false)) {
-                if (!c.isLoggedIn()) {
-                    e.setCancelled(true);
+            if(c != null) {
+                if (c.hasRank(Rank.ADMIN, false)) {
+                    if (!c.isLoggedIn()) {
+                        e.setCancelled(true);
+                    }
                 }
             }
         }

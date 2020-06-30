@@ -185,7 +185,7 @@ public abstract class Boss extends WorldEvent {
                 Gamer killerGamer = GamerManager.getOnlineGamer(p);
                 if (killerGamer != null) {
 
-                    double fragments = 5;
+                    double fragments = 10;
 
 
                 /*
@@ -206,7 +206,7 @@ public abstract class Boss extends WorldEvent {
 
                     giveBonus(killerGamer, getBossName());
 
-                    UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50000 " + ChatColor.GRAY + "and "
+                    UtilMessage.message(p, "World Event", "You received " + ChatColor.GREEN + "$50,000 " + ChatColor.GRAY + "and "
                             + ChatColor.GREEN + fragments + " fragments");
 
                 }
@@ -318,12 +318,15 @@ public abstract class Boss extends WorldEvent {
     private void giveBonus(Gamer gamer, String boss) {
 
         String bossName = ChatColor.stripColor(boss);
-        if (bossName.contains("Witherton")) {
-            bossName = "Witherton";
-        }
 
         gamer.setStatValue(bossName, gamer.getStatValue(bossName) + 1);
 
+        Player player = Bukkit.getPlayer(gamer.getUUID());
+        if(player != null) {
+            int kc = gamer.getStatValue(bossName);
+            UtilMessage.message(player, "Your kill count for " + getBossName() + ChatColor.GRAY + " is now "
+                    + ChatColor.GREEN + kc + ChatColor.GRAY + " (" + ChatColor.YELLOW + (kc * 2) + "% bonus damage" + ChatColor.GRAY + ").");
+        }
 
     }
 

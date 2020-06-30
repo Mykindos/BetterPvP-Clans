@@ -398,19 +398,21 @@ public class Witherton extends Boss {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
+                                if(isActive()) {
                                 for (int q = 0; q < 3; q++) {
                                     float x = (float) (Math.random() * 1.25);
                                     float z = (float) (Math.random() * 1.25);
 
-                                    Item ex = getBoss().getWorld().dropItem(getBoss().getEyeLocation(), new ItemStack(Material.ENDER_PEARL));
-                                    ThrowableManager.addThrowable(ex, getBoss(), "Witherton-Bomb", 3000l);
+                                        Item ex = getBoss().getWorld().dropItem(getBoss().getEyeLocation(), new ItemStack(Material.ENDER_PEARL));
+                                        ThrowableManager.addThrowable(ex, getBoss(), "Witherton-Bomb", 3000l);
 
 
-                                    if (Math.random() > 0.5) x = x - (x * 2);
-                                    if (Math.random() > 0.5) z = z - (z * 2);
+                                        if (Math.random() > 0.5) x = x - (x * 2);
+                                        if (Math.random() > 0.5) z = z - (z * 2);
 
-                                    ex.setVelocity(new Vector(x, 0.9f, z));
+                                        ex.setVelocity(new Vector(x, 0.9f, z));
 
+                                    }
                                 }
                             }
                         }.runTaskLater(getInstance(), i * 2);

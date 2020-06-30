@@ -13,16 +13,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class BuilderPackage implements IDonation, IClaimable {
+public class NetherBlockPackage implements IDonation, IClaimable {
 
     @Override
     public String getName() {
-        return "BuilderPackage";
+        return "NetherBlockPackage";
     }
 
     @Override
     public String getDisplayName() {
-        return "Builder Package";
+        return "Nether Block Package";
     }
 
     @Override
@@ -60,18 +60,19 @@ public class BuilderPackage implements IDonation, IClaimable {
     private enum PackageContents {
 
 
-        STONEBRICK(Material.STONE_BRICKS, 448),
+        NETHERBRICK(Material.NETHER_BRICKS, 256),
         DIAMONDPICKAXE(Material.DIAMOND_PICKAXE, 3),
         DIAMONDSHOVEL(Material.DIAMOND_SHOVEL, 3),
-        OAKPLANK(Material.OAK_PLANKS, 256),
-        SPONGE(Material.SPONGE, 12),
+        WARPEDSTEM(Material.WARPED_STEM, 256),
         GLASS(Material.GLASS, 128),
-        GLOWSTONE(Material.GLOWSTONE, 32),
-        REDCONCRETE(Material.RED_CONCRETE, 64),
-        BLUECONCRETE(Material.BLUE_CONCRETE, 64),
-        YELLOWCONCRETE(Material.YELLOW_CONCRETE, 64),
-        PURPLECONCRETE(Material.PURPLE_CONCRETE, 64),
-        PINKCONCRETE(Material.PINK_CONCRETE, 64),
+        SHROOMLIGHT(Material.SHROOMLIGHT, 32),
+        BASALT(Material.BASALT, 128),
+        SOULLANTERN(Material.SOUL_LANTERN, 32),
+        SOULCAMPFIRE(Material.SOUL_CAMPFIRE, 5),
+        SOULTORCH(Material.SOUL_TORCH, 64),
+        BLACKSTONE(Material.POLISHED_BLACKSTONE_BRICKS, 448),
+        WEEPINGVINES(Material.WEEPING_VINES, 32),
+        TWISTINGVINES(Material.TWISTING_VINES, 32),
         SEALANTERN(Material.SEA_LANTERN, 64);
 
         private Material material;

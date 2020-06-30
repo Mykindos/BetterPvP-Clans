@@ -153,5 +153,12 @@
             <version>1.16</version>
 
         </dependency>
+
+        <dependency>
+            <groupId>org.inventivetalent</groupId>
+            <artifactId>packetlistener</artifactId>
+            <version>1.16</version>
+
+        </dependency>
     </dependencies>
 </project>

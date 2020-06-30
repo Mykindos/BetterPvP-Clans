@@ -69,7 +69,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Lightning Orb", new LightningOrb(i));
         skills.put("Blizzard", new Blizzard(i));
         skills.put("Molten Shield", new MoltenShield(i));
-        //skills.put("Polymorph", new Polymorph(i));
+        skills.put("Polymorph", new Polymorph(i));
         skills.put("Glacial Prison", new GlacialPrison(i));
         //skills.put("Displacement", new Displacement(i));
         skills.put("Void", new net.betterpvp.clans.skills.selector.skills.paladin.Void(i));
@@ -182,6 +182,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Impotence", new Impotence(i));
         skills.put("Cleanse", new Cleanse(i));
         skills.put("Tormented Soil", new TormentedSoil(i));
+        skills.put("Bloodthirsty", new Bloodthirst(i));
 
     }
 

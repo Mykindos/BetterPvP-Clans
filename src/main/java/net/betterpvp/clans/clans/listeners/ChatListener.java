@@ -46,7 +46,7 @@ public class ChatListener extends BPVPListener<Clans> {
         if (client.hasRank(Rank.ADMIN, false) || e.getPlayer().isOp()) {
             if (!client.isLoggedIn()) {
                 e.setCancelled(true);
-               // return;
+                return;
             }
         }
 

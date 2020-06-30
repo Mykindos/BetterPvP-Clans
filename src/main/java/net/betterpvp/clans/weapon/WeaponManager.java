@@ -71,8 +71,10 @@ public class WeaponManager extends BPVPListener<Clans> {
         if(item.hasItemMeta()){
             if(item.getItemMeta().getDisplayName() != null){
                 for(Weapon weapon : weapons){
-                    if(weapon.getName().equalsIgnoreCase(item.getItemMeta().getDisplayName())){
-                        return weapon;
+                    if(item.getType() == weapon.getMaterial()) {
+                        if (weapon.getName().equalsIgnoreCase(item.getItemMeta().getDisplayName())) {
+                            return weapon;
+                        }
                     }
                 }
             }
