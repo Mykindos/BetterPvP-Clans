@@ -3,7 +3,6 @@ package net.betterpvp.clans.effects.events;
 
 import net.betterpvp.clans.effects.Effect;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

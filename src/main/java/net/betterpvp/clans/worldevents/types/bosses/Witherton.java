@@ -5,7 +5,6 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
@@ -15,17 +14,14 @@ import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Boss;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
-import net.betterpvp.clans.worldevents.types.bosses.ads.SkeletonMinion;
 import net.betterpvp.clans.worldevents.types.bosses.ads.WitherMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossWither;
 import net.betterpvp.clans.worldevents.types.nms.BossWitherSkull;
-
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
-
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_16_R1.EntityLiving;
 import org.bukkit.*;
@@ -34,7 +30,6 @@ import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
@@ -398,19 +393,21 @@ public class Witherton extends Boss {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
+                                if(isActive()) {
                                 for (int q = 0; q < 3; q++) {
                                     float x = (float) (Math.random() * 1.25);
                                     float z = (float) (Math.random() * 1.25);
 
-                                    Item ex = getBoss().getWorld().dropItem(getBoss().getEyeLocation(), new ItemStack(Material.ENDER_PEARL));
-                                    ThrowableManager.addThrowable(ex, getBoss(), "Witherton-Bomb", 3000l);
+                                        Item ex = getBoss().getWorld().dropItem(getBoss().getEyeLocation(), new ItemStack(Material.ENDER_PEARL));
+                                        ThrowableManager.addThrowable(ex, getBoss(), "Witherton-Bomb", 3000l);
 
 
-                                    if (Math.random() > 0.5) x = x - (x * 2);
-                                    if (Math.random() > 0.5) z = z - (z * 2);
+                                        if (Math.random() > 0.5) x = x - (x * 2);
+                                        if (Math.random() > 0.5) z = z - (z * 2);
 
-                                    ex.setVelocity(new Vector(x, 0.9f, z));
+                                        ex.setVelocity(new Vector(x, 0.9f, z));
 
+                                    }
                                 }
                             }
                         }.runTaskLater(getInstance(), i * 2);

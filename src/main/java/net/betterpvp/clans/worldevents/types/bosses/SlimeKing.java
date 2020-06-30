@@ -27,7 +27,6 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_16_R1.entity.CraftSlime;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SlimeSplitEvent;
 import org.bukkit.inventory.ItemStack;

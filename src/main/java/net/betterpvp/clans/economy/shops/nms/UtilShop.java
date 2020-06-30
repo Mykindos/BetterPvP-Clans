@@ -1,10 +1,7 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.betterpvp.core.utility.UtilMessage;
 import net.minecraft.server.v1_16_R1.Entity;
-import net.minecraft.server.v1_16_R1.EntityInsentient;
 import net.minecraft.server.v1_16_R1.EntityTypes;
-import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Field;
 import java.util.Map;

@@ -3,7 +3,6 @@ package net.betterpvp.clans.skills.selector.skills.global;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
-
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
@@ -12,7 +11,6 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.BuildSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
-
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;

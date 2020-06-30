@@ -1,6 +1,5 @@
 package net.betterpvp.clans.gamer;
 
-import net.betterpvp.core.client.Client;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

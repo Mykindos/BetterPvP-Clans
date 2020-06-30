@@ -1,10 +1,9 @@
 package net.betterpvp.clans.dailies.commands;
 
-import org.bukkit.entity.Player;
-
+import net.betterpvp.clans.dailies.menus.QuestMenu;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
-import net.betterpvp.clans.dailies.menus.QuestMenu;
+import org.bukkit.entity.Player;
 
 public class DailyCommand extends Command{
 

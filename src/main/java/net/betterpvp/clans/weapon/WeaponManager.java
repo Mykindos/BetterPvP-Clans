@@ -12,13 +12,9 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class WeaponManager extends BPVPListener<Clans> {
 
@@ -71,8 +67,10 @@ public class WeaponManager extends BPVPListener<Clans> {
         if(item.hasItemMeta()){
             if(item.getItemMeta().getDisplayName() != null){
                 for(Weapon weapon : weapons){
-                    if(weapon.getName().equalsIgnoreCase(item.getItemMeta().getDisplayName())){
-                        return weapon;
+                    if(item.getType() == weapon.getMaterial()) {
+                        if (weapon.getName().equalsIgnoreCase(item.getItemMeta().getDisplayName())) {
+                            return weapon;
+                        }
                     }
                 }
             }

@@ -13,7 +13,6 @@ public class BuildCommand extends Command {
 
     public BuildCommand() {
         super("build", new String[]{}, Rank.PLAYER);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -22,8 +21,11 @@ public class BuildCommand extends Command {
             Gamer gamer = GamerManager.getOnlineGamer(p);
             if (gamer != null) {
 
-                UtilMessage.message(p, "Convenience", "You opened the Build Editor.");
-                p.openInventory(new ClassSelectionPage(p).getInventory());
+                // TODO restrict to donations / admins only
+                if(gamer.getClient().hasDonation("ConveniencePackage") || gamer.getClient().hasRank(Rank.PLAYER, false)) {
+                    UtilMessage.message(p, "Convenience", "You opened the Build Editor.");
+                    p.openInventory(new ClassSelectionPage(p).getInventory());
+                }
 
             }
 

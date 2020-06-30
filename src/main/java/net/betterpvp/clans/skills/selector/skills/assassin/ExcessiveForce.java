@@ -10,16 +10,11 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
-import net.minecraft.server.v1_16_R1.EntityIllagerIllusioner;
-import net.minecraft.server.v1_16_R1.EntityIllagerWizard;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Illusioner;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
 
 import java.util.Iterator;
 import java.util.Map;

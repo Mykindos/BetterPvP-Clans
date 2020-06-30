@@ -1,7 +1,6 @@
 package net.betterpvp.clans.settings;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.combat.armour.ArmourRepository;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;

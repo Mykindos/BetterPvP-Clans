@@ -5,8 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import javax.annotation.Nullable;
-
 /**
  * Used for Rupture to ensure entity is invisible when spawned
  */

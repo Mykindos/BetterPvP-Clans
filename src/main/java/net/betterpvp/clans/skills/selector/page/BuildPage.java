@@ -2,11 +2,9 @@ package net.betterpvp.clans.skills.selector.page;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
-
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
-
 import net.betterpvp.core.interfaces.Button;
 import net.betterpvp.core.interfaces.Menu;
 import net.betterpvp.core.utility.UtilItem;

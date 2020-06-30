@@ -1,14 +1,13 @@
 package net.betterpvp.clans.dailies.quests;
 
-import java.util.UUID;
-
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.dailies.Quest;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.util.UUID;
 
 public abstract class General extends Quest{
 

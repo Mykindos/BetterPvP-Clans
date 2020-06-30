@@ -6,15 +6,11 @@ import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.clans.events.*;
-import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
-import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
-import net.minecraft.server.v1_16_R1.BlockSkull;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -25,10 +21,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Set;
 
 

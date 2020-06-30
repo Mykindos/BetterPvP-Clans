@@ -7,7 +7,6 @@ import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
-import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.utility.UtilFormat;
@@ -15,7 +14,6 @@ import net.betterpvp.core.utility.UtilLocation;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class UnclaimCommand implements IClanCommand {

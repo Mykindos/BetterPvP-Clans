@@ -5,7 +5,9 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.core.database.*;
+import net.betterpvp.core.database.Connect;
+import net.betterpvp.core.database.Log;
+import net.betterpvp.core.database.QueryFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 

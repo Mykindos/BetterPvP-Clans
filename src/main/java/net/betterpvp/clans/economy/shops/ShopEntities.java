@@ -5,7 +5,6 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
 public class ShopEntities extends BPVPListener<Clans> {

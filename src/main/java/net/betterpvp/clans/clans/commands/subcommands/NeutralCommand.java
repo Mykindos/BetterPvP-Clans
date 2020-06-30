@@ -6,7 +6,6 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ClanNeutralClanEvent;
 import net.betterpvp.clans.clans.listeners.InviteHandler;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

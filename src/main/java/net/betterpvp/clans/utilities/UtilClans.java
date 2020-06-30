@@ -1,5 +1,9 @@
 package net.betterpvp.clans.utilities;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.weapon.ILegendary;
@@ -14,6 +18,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -287,5 +292,26 @@ public class UtilClans {
         return null;
 
 
+    }
+
+    public static void setGlowing(Player player, Player target, boolean glowing) {
+        PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
+        packet.getIntegers().write(0, target.getEntityId()); //Set packet's entity id
+        WrappedDataWatcher watcher = new WrappedDataWatcher(); //Create data watcher, the Entity Metadata packet requires this
+        WrappedDataWatcher.Serializer serializer =WrappedDataWatcher.Registry.get(Byte.class); //Found this through google, needed for some stupid reason
+        watcher.setEntity(target); //Set the new data watcher's target
+        byte entityByte = 0x00;
+        if(glowing){
+            entityByte = (byte) (entityByte | 0x40);
+        }else{
+            entityByte = (byte) (entityByte & ~0x40);
+        }
+        watcher.setObject(0, serializer, entityByte); //Set status to glowing, found on protocol page
+        packet.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects()); //Make the packet's datawatcher the one we created
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,7 +2,6 @@ package net.betterpvp.clans.worldevents.types.bosses;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.worldevents.WEType;
@@ -11,7 +10,6 @@ import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.bosses.ads.Broodling;
 import net.betterpvp.clans.worldevents.types.nms.BossCaveSpider;
 import net.betterpvp.clans.worldevents.types.nms.BossSpider;
-
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
@@ -21,7 +19,6 @@ import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;

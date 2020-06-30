@@ -4,7 +4,6 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.listeners.InsuranceListener;
 
 import java.util.Collections;
-import java.util.Comparator;
 
 public class InsuranceManager {
 

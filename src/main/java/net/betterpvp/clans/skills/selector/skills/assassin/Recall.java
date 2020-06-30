@@ -15,7 +15,6 @@ import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.clans.skills.selector.skills.data.RecallData;
-import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilBlock;
@@ -26,10 +25,8 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.InventoryView;
 
-import java.util.Arrays;
 import java.util.WeakHashMap;
 
 public class Recall extends Skill implements ToggleSkill {

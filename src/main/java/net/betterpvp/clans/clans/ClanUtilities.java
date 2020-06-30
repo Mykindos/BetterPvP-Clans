@@ -2,7 +2,6 @@ package net.betterpvp.clans.clans;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
-import net.betterpvp.clans.clans.events.ClanDeleteEvent;
 import net.betterpvp.clans.clans.mysql.AllianceRepository;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
@@ -11,7 +10,6 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.clans.skills.selector.skills.ranger.Agility;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;

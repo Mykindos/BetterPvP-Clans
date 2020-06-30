@@ -1,19 +1,18 @@
 package net.betterpvp.clans.dailies.mysql;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
-
+import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.dailies.perks.QuestPerk;
+import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.dailies.perks.QuestPerk;
-import net.betterpvp.clans.dailies.perks.QuestPerkManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
 
 
 public class QuestRepository implements Repository<Clans> {

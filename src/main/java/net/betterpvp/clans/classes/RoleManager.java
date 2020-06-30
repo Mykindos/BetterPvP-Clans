@@ -1,7 +1,6 @@
 package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.mysql.ClanStatRepository;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
 import net.betterpvp.clans.classes.roles.*;

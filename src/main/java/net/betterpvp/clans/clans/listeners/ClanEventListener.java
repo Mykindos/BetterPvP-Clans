@@ -9,7 +9,6 @@ import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.clans.clans.mysql.MemberRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.clans.scoreboard.ScoreboardManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;

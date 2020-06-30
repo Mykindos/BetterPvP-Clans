@@ -3,7 +3,6 @@ package net.betterpvp.clans.clans.commands.subcommands;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import org.bukkit.entity.Player;

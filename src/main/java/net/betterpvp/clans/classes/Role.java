@@ -1,14 +1,12 @@
 package net.betterpvp.clans.classes;
 
 import net.betterpvp.clans.classes.events.RoleChangeEvent;
-
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.weapon.weapons.legendaries.FireWalkers;
-import net.betterpvp.core.client.ClientUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

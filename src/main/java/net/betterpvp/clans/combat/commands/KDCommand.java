@@ -2,7 +2,6 @@ package net.betterpvp.clans.combat.commands;
 
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
-import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;

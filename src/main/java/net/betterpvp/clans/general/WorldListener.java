@@ -41,7 +41,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Gate;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -56,7 +55,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.*;
 
@@ -302,6 +300,7 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
     }
+
 
     /*
      * Stops players from filling buckets with water or lava, and also breaks the bucket.
@@ -699,6 +698,7 @@ public class WorldListener extends BPVPListener<Clans> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 for (ItemStack i : p.getInventory().getContents()) {
                     if (i == null) continue;
+
                     if (i.hasItemMeta()) {
                         Weapon w = WeaponManager.getWeapon(i);
                         if (w != null) {
@@ -714,6 +714,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
 
                 }
+
             }
         }
     }
@@ -1648,9 +1649,11 @@ public class WorldListener extends BPVPListener<Clans> {
                 || e.getFrom().getBlockY() != e.getTo().getBlockY()
                 || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if (c.hasRank(Rank.ADMIN, false)) {
-                if (!c.isLoggedIn()) {
-                    e.setCancelled(true);
+            if(c != null) {
+                if (c.hasRank(Rank.ADMIN, false)) {
+                    if (!c.isLoggedIn()) {
+                        e.setCancelled(true);
+                    }
                 }
             }
         }

@@ -1,20 +1,18 @@
 package net.betterpvp.clans.dailies.menus;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.betterpvp.core.interfaces.Button;
-import net.betterpvp.core.interfaces.Menu;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
 import net.betterpvp.clans.dailies.Quest;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.progression.Progress;
 import net.betterpvp.clans.dailies.progression.types.GeneralProgression;
-
+import net.betterpvp.core.interfaces.Button;
+import net.betterpvp.core.interfaces.Menu;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestMenu extends Menu {
 

@@ -25,7 +25,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.management.monitor.Monitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
