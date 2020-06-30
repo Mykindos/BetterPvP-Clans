@@ -337,7 +337,7 @@ public abstract class Boss extends WorldEvent {
                     if (e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())) {
                         Gamer gamer = GamerManager.getOnlineGamer(p);
 
-                        int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()).replace(" ", ""));
+                        int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()));
                         double modifier = kills * 2;
                         double modifier2 = modifier >= 10 ? 0.01 : 0.1;
 
