@@ -38,13 +38,13 @@ public class ExplosionListener extends BPVPListener<Clans> {
     public void updateClanTNTProtection(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
             ListIterator<Clan> it = ClanUtilities.getClans().listIterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Clan clan = it.next();
                 for (ClanMember member : clan.getMembers()) {
 
                     if (Bukkit.getPlayer(member.getUUID()) != null) {
                         int bonus = 0;
-                        if(clan.getMembers().size() > Clans.getOptions().getTntBonusMemberThreshold()){
+                        if (clan.getMembers().size() > Clans.getOptions().getTntBonusMemberThreshold()) {
                             // 5 minutes per member
                             bonus = (clan.getMembers().size() - Clans.getOptions().getTntBonusMemberThreshold())
                                     * (Clans.getOptions().getBonusTimeUntilTNTProtection() * 60000);
@@ -248,14 +248,15 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
-                if (b.getType() == Material.NETHER_BRICKS) {
-                    b.setType(Material.NETHERRACK);
-                    continue;
-                } else if (b.getType() == Material.NETHERRACK) {
-                    b.breakNaturally();
-                    continue;
+                for (TNTBlocks tntBlock : TNTBlocks.values()) {
+                    if (b.getType() == tntBlock.normal) {
+                        b.setType(tntBlock.damaged);
+                        break;
+                    } else if (b.getType() == tntBlock.damaged) {
+                        b.breakNaturally();
+                        break;
+                    }
                 }
-
 
                 if (b.getType() == Material.DARK_PRISMARINE) {
                     b.setType(Material.PRISMARINE_BRICKS);
@@ -268,46 +269,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     continue;
                 }
 
-
-                if (b.getType() == Material.CHISELED_QUARTZ_BLOCK) {
-                    b.breakNaturally();
-                    continue;
-                } else if (b.getType() == Material.SMOOTH_QUARTZ) {
-                    b.setType(Material.CHISELED_QUARTZ_BLOCK);
-                    continue;
-                }
-
-                if (b.getType() == Material.SMOOTH_RED_SANDSTONE) {
-                    b.setType(Material.RED_SANDSTONE);
-                    continue;
-                } else if (b.getType() == Material.RED_SANDSTONE) {
-                    b.breakNaturally();
-                    continue;
-                }
-
-                if (b.getType() == Material.POLISHED_BLACKSTONE_BRICKS) {
-                    b.setType(Material.CRACKED_POLISHED_BLACKSTONE_BRICKS);
-                    continue;
-                } else if (b.getType() == Material.CRACKED_POLISHED_BLACKSTONE_BRICKS) {
-                    b.breakNaturally();
-                    continue;
-                }
-
-                if (b.getType() == Material.SMOOTH_SANDSTONE) {
-                    b.setType(Material.SANDSTONE);
-                    continue;
-                } else if (b.getType() == Material.SANDSTONE) {
-                    b.breakNaturally();
-                    continue;
-                }
-
-                if (b.getType() == Material.CRACKED_STONE_BRICKS) {
-                    b.breakNaturally();
-                    continue;
-                } else if (b.getType() == Material.STONE_BRICKS) {
-                    b.setType(Material.CRACKED_STONE_BRICKS);
-                    continue;
-                } else if (b.getType() == Material.TRAPPED_CHEST || b.getType() == Material.CHEST
+                if (b.getType() == Material.TRAPPED_CHEST || b.getType() == Material.CHEST
                         || b.getType() == Material.ENDER_CHEST
                         || b.getType() == Material.ANVIL) {
                     b.breakNaturally();
@@ -340,5 +302,36 @@ public class ExplosionListener extends BPVPListener<Clans> {
             e.blockList().clear();
         }
     }
+
+    private enum TNTBlocks {
+
+        STONEBRICK(Material.STONE_BRICKS, Material.CRACKED_STONE_BRICKS),
+        NETHERBRICKS(Material.NETHER_BRICKS, Material.NETHERRACK),
+        SANDSTONE(Material.SMOOTH_SANDSTONE, Material.SANDSTONE),
+        REDSANDSTONE(Material.SMOOTH_RED_SANDSTONE, Material.RED_SANDSTONE),
+        BLACKSTONE(Material.POLISHED_BLACKSTONE_BRICKS, Material.CRACKED_POLISHED_BLACKSTONE_BRICKS),
+        QUARTZ(Material.QUARTZ_BRICKS, Material.CHISELED_QUARTZ_BLOCK),
+        PURPUR(Material.PURPUR_BLOCK, Material.PURPUR_PILLAR);
+
+
+
+
+
+        private Material normal, damaged;
+
+        TNTBlocks(Material normal, Material damaged) {
+            this.normal = normal;
+            this.damaged = damaged;
+        }
+
+        public Material getNormal() {
+            return normal;
+
+        }
+
+        public Material getDamaged() {
+            return damaged;
+        }
+        }
 
 }

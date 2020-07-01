@@ -141,6 +141,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Gamer g = GamerManager.getOnlineGamer(e.getClient().getUUID());
         if (g != null) {
             g.setScoreboard(null);
+            PlayerStatRepository.updateAllStats(g);
         }
     }
 

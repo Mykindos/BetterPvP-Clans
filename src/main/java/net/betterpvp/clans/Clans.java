@@ -34,6 +34,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
@@ -100,7 +101,7 @@ public class Clans extends JavaPlugin implements Listener {
             p.getOpenInventory().close();
             Gamer c = GamerManager.getOnlineGamer(p);
             GamerRepository.updateGamer(c);
-            c.updateAllStats();
+            PlayerStatRepository.updateAllStats(c);
         }
 
         Connect.disableSQL();
@@ -303,11 +304,11 @@ public class Clans extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 for (Gamer gamer : GamerManager.getOnlineGamers()) {
-                    gamer.updateAllStats();
+                    PlayerStatRepository.updateAllStats(gamer);
 
                 }
             }
-        }.runTaskTimerAsynchronously(this, 36000, 36000);
+        }.runTaskTimerAsynchronously(this, 18000, 18000);
 
     }
 
