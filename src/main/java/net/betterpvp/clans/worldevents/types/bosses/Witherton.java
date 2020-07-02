@@ -61,11 +61,10 @@ public class Witherton extends Boss {
         super(i, "Witherton", WEType.BOSS);
         world = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(world, 702.5, 135, 192.5),
-                new Location(world, 699.5, 135, 123.5),
-                new Location(world, 615.5, 135, 126.5),
-                new Location(world, 618.5, 135, 199.5),
-                new Location(world, 655.5, 135, 199.5)
+                new Location(world, -316.5, 49, -44.5),
+                new Location(world, -314.5, 49, -44.5),
+                new Location(world, -316.5, 49, -76.5),
+                new Location(world, -314.5, 49, -76.5)
         };
 
         minionLocs = new Location[]{
@@ -667,4 +666,8 @@ public class Witherton extends Boss {
     }
 
 
+    @Override
+    public boolean isBoss(LivingEntity ent) {
+        return ent.equals(getBoss());
+    }
 }

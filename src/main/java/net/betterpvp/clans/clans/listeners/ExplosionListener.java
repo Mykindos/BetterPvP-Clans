@@ -279,19 +279,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
                 b.breakNaturally();
-				/*
 
-                FallingBlock fb = b.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-                fb.setDropItem(false);
-                b.setType(Material.AIR);
-
-                float x = -0.5F + (float) (Math.random() * 1.0D);
-                float y = -0.5F + (float) (Math.random() * 2.0D);
-                float z = -0.5F + (float) (Math.random() * 1.0D);
-                fb.setVelocity(new Vector(x, y, z).multiply(1.2));
-
-                new Debris(fb, Regen.TEMPORARY);
-				 */
             }
         }
     }

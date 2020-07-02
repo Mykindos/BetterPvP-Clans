@@ -32,6 +32,7 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
+import net.betterpvp.core.networking.events.NetworkMessageEvent;
 import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -715,6 +716,21 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 }
 
+            }
+        }
+    }
+
+    @EventHandler
+    public void onnetwork(NetworkMessageEvent e){
+        if(e.getChannel().equals("MAH")){
+            if(e.getMessage().startsWith("Authenticate")){
+                System.out.println(e.getMessage().split("-!-")[1] + " was authenticated");
+            }else if(e.getMessage().startsWith("Failed")){
+                String[] out = e.getMessage().split("-!-");
+                System.out.println(out[1] + " failed to authenticate with the following banned mods " + out[2]);
+            }else if(e.getMessage().startsWith("Image")){
+                String[] out = e.getMessage().split("-!-");
+                System.out.println(out[1] + " uploaded an image " + out[2]);
             }
         }
     }

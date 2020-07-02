@@ -37,11 +37,12 @@ public class Broodmother extends Boss {
         super(i, "Broodmother", WEType.BOSS);
         World w = Bukkit.getWorld("bossworld");
         locs = new Location[]{
-                new Location(w, -67.5, 44, -107.5),
-                new Location(w, 48.5, 43, -84.5),
-                new Location(w, 51.5, 49, -126.5),
-                new Location(w, 41.5, 54, -84.5),
-                new Location(w, 37.5, 53, -135.5)
+                new Location(w, 20.5, 13, -99.5),
+                new Location(w, 54.5, 15, -98.5),
+                new Location(w, 67.5, 17, -85.5),
+                new Location(w, 19.5, 22, -126.5),
+                new Location(w, 8.5, 41, -100.5),
+                new Location(w, 68.5, 44, -107.5)
         };
 
 
@@ -168,7 +169,7 @@ public class Broodmother extends Boss {
                 if (e.getDamager() == getBoss()) {
                     e.setDamage(getBaseDamage());
 
-                } else if (e.getDamagee() == getBoss()) {
+                } else if (e.getDamagee().equals(getBoss())) {
                     if (e.getDamager() instanceof Player) {
                         Player p = (Player) e.getDamager();
                         if (EffectManager.hasProtection(p)) {
@@ -368,5 +369,8 @@ public class Broodmother extends Boss {
         return locs;
     }
 
-
+    @Override
+    public boolean isBoss(LivingEntity ent) {
+        return ent.equals(getBoss());
+    }
 }

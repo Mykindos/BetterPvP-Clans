@@ -73,11 +73,9 @@ public class ArcticArmour extends Skill implements ToggleSkill {
     }
 
 
-
-    private void activate(Player p){
+    private void activate(Player p) {
 
     }
-
 
 
     @EventHandler
@@ -136,7 +134,8 @@ public class ArcticArmour extends Skill implements ToggleSkill {
                         if (block.getLocation().getY() <= cur.getLocation().getY()) {
                             Block relDown = block.getRelative(BlockFace.DOWN);
                             if (relDown.getType() != Material.SNOW && UtilBlock.isGrounded(cur)
-                                    && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)) {
+                                    && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)
+                                    && !relDown.getType().name().contains("STAIRS") && !relDown.getType().name().contains("CAMPFIRE")) {
                                 if (block.getType() == Material.AIR) {
                                     new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
                                     block.setType(Material.SNOW);

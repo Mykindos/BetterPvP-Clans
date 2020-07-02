@@ -661,5 +661,9 @@ public class SlimeKing extends Boss {
         return locs;
     }
 
+    @Override
+    public boolean isBoss(LivingEntity ent) {
+        return ent.equals(getBoss());
+    }
 
 }

@@ -65,7 +65,7 @@ public class InfoCommand extends Command {
                 msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
                 alt = false;
             }else{
-                msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
+                msg2 += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
                 alt = true;
             }
 

@@ -61,6 +61,8 @@ public abstract class Boss extends WorldEvent {
 
     public abstract LivingEntity getBoss();
 
+    public abstract boolean isBoss(LivingEntity ent);
+
     public long lastDamaged;
 
     public List<WorldEventMinion> getMinions() {
@@ -97,7 +99,7 @@ public abstract class Boss extends WorldEvent {
     public void onDamageTeleport(CustomDamageEvent e) {
         if (isActive()) {
             if (getBoss() != null && !getBoss().isDead()) {
-                if (e.getDamagee() == getBoss()) {
+                if (e.getDamagee().equals(getBoss())) {
                     if (e.getDamager() instanceof Player) {
                         lastDamaged = System.currentTimeMillis();
                     }
