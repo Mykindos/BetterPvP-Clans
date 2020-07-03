@@ -57,6 +57,12 @@ public class BossCommand extends Command {
                         w.setActive(true);
                         WEManager.announce();
                         break;
+                    case "borisdoris":
+                        Boss bd = (Boss) WEManager.getWorldEvent("Boris & Doris");
+                        bd.spawn();
+                        bd.setActive(true);
+                        WEManager.announce();
+                        break;
                     case "miningmadness":
                         Environmental enviro = (Environmental) WEManager.getWorldEvent("miningmadness");
                         enviro.spawn();

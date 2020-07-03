@@ -36,6 +36,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -335,6 +336,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
+        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getRightClicked() instanceof LivingEntity) {
             LivingEntity ent = (LivingEntity) e.getRightClicked();
             if (ent.getCustomName() != null && !ent.getCustomName().equals("")) {

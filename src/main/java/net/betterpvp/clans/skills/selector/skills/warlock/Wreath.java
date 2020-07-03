@@ -118,7 +118,7 @@ public class Wreath extends Skill implements InteractSkill {
 
                     EvokerFangs fangs = (EvokerFangs) player.getWorld().spawnEntity(loc, EntityType.EVOKER_FANGS);
                     for(LivingEntity ent : UtilEntity.getAllInRadius(fangs.getLocation(), 1.5)){
-                        CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 3 + getLevel(player), false);
+                        CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + (getLevel(player) / 1.5), false);
                         LogManager.addLog(ent, player, "Wreath");
                         EffectManager.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, 40, 1));
                         Bukkit.getPluginManager().callEvent(dmg);
@@ -143,7 +143,14 @@ public class Wreath extends Skill implements InteractSkill {
 
     @Override
     public String[] getDescription(int level) {
-        return new String[]{"No description yet"};
+        return new String[]{
+                "Right click with a sword to prepare.",
+                "",
+                "Your next 3 attacks will release a barrage of teeth",
+                "that deal " + ChatColor.GREEN + String.format("%.2f", (2 + (level /1.5))) + ChatColor.GRAY + " damage and slow their target.",
+                "",
+                "Recharge: " + ChatColor.GREEN + getRecharge(level)
+        };
     }
 
     @Override
@@ -153,7 +160,7 @@ public class Wreath extends Skill implements InteractSkill {
 
     @Override
     public double getRecharge(int level) {
-        return 23 - (level * 2);
+        return 26 - (level * 2);
     }
 
     @Override

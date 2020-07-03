@@ -50,6 +50,7 @@ import net.betterpvp.clans.skills.selector.SkillListener;
 import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
+import net.betterpvp.clans.worldevents.types.bosses.ads.PolarBearCub;
 import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
@@ -128,6 +129,8 @@ public class Clans extends JavaPlugin implements Listener {
         UtilShop.registerEntity("Zombie", 54, EntityZombie.class, BossZombie.class);
         UtilShop.registerEntity("Wither", 64, EntityWither.class, BossWither.class);
         UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, BossSkeleton.class);
+        UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, BossPolarBear.class);
+        UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, PolarBearCub.class);
         UtilShop.registerEntity("Villager", 120, EntityVillager.class, ShopVillager.class);
         UtilShop.registerEntity("ArmorStand", 30, EntityArmorStand.class, CustomArmorStand.class);
 

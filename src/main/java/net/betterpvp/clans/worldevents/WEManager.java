@@ -12,10 +12,7 @@ import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.types.Boss;
 import net.betterpvp.clans.worldevents.types.Environmental;
 import net.betterpvp.clans.worldevents.types.TimedEvents.UndeadCamp;
-import net.betterpvp.clans.worldevents.types.bosses.Broodmother;
-import net.betterpvp.clans.worldevents.types.bosses.SkeletonKing;
-import net.betterpvp.clans.worldevents.types.bosses.SlimeKing;
-import net.betterpvp.clans.worldevents.types.bosses.Witherton;
+import net.betterpvp.clans.worldevents.types.bosses.*;
 import net.betterpvp.clans.worldevents.types.environmental.FishingFrenzy;
 import net.betterpvp.clans.worldevents.types.environmental.MiningMadness;
 import net.betterpvp.core.framework.BPVPListener;
@@ -51,6 +48,7 @@ public class WEManager extends BPVPListener<Clans> {
         addWorldEvent(new Broodmother(i));
         addWorldEvent(new SkeletonKing(i));
         addWorldEvent(new Witherton(i));
+        addWorldEvent(new BorisAndDoris(i));
 
         addWorldEvent(new FishingFrenzy(i));
         addWorldEvent(new MiningMadness(i));

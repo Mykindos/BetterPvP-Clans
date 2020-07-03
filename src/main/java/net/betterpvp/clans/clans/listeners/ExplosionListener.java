@@ -1,10 +1,8 @@
 package net.betterpvp.clans.clans.listeners;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.*;
 import net.betterpvp.clans.clans.Clan.DataType;
-import net.betterpvp.clans.clans.ClanMember;
-import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
@@ -94,7 +92,10 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 Clan clan = ClanUtilities.getClan(block.getLocation());
 
                 if (clan != null) {
-
+                    if(clan instanceof AdminClan){
+                        clear = true;
+                        break;
+                    }
                     if (!clan.isVulnerable()) {
                         if (!Clans.getOptions().isLastDay()) {
                             clear = true;
@@ -216,7 +217,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 Clan c = ClanUtilities.getClan(b.getLocation());
                 if (c != null) {
                     if (!c.isVulnerable()) {
-                        continue;
+                        return;
                     }
 
                     Insurance i = new Insurance(b.getLocation(), b.getType(), b.getData(), InsuranceType.BREAK, System.currentTimeMillis());
