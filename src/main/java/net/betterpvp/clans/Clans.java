@@ -130,7 +130,7 @@ public class Clans extends JavaPlugin implements Listener {
         UtilShop.registerEntity("Wither", 64, EntityWither.class, BossWither.class);
         UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, BossSkeleton.class);
         UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, BossPolarBear.class);
-        UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, PolarBearCub.class);
+        //UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, PolarBearCub.class);
         UtilShop.registerEntity("Villager", 120, EntityVillager.class, ShopVillager.class);
         UtilShop.registerEntity("ArmorStand", 30, EntityArmorStand.class, CustomArmorStand.class);
 

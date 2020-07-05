@@ -1,5 +1,6 @@
 package net.betterpvp.clans.worldevents.commands;
 
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Boss;
@@ -11,6 +12,7 @@ import net.betterpvp.clans.worldevents.types.bosses.ads.SlimeBase;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -27,6 +29,7 @@ public class BossCommand extends Command {
 
         if(args.length > 1){
             if(args[0].equalsIgnoreCase("spawn")){
+                System.out.println("Spawning: " + args[1].toLowerCase());
                 switch(args[1].toLowerCase()){
                     case "broodmother":
                         Boss b = (Boss) WEManager.getWorldEvent("Broodmother");
@@ -110,6 +113,10 @@ public class BossCommand extends Command {
             }else if(args[0].equalsIgnoreCase("reset")){
                 for(WorldEvent we : WEManager.getWorldEvents()){
                     we.setActive(false);
+                }
+
+                for(Player p : Bukkit.getOnlinePlayers()){
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
                 }
             }
         }

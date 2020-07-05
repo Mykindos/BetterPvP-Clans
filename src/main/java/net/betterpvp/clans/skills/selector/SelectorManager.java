@@ -258,9 +258,10 @@ public class SelectorManager extends BPVPListener<Clans> {
                         }
                     } else if (e.getButton().getName().contains("Delete Build")) {
                         if (RechargeManager.getInstance().add(p, "Delete Build", 5, true)) {
-                            g.getBuild(role, build).deleteBuild();
+                            RoleBuild dBuild = g.getBuild(role, build);
+                            dBuild.deleteBuild();
                             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
-                            BuildRepository.updateBuild(p.getUniqueId(), g.getBuild(role, build));
+                            BuildRepository.updateBuild(p.getUniqueId(), dBuild);
 
                         }
                     }
@@ -307,14 +308,15 @@ public class SelectorManager extends BPVPListener<Clans> {
                 } else if (event.getClickType() == ClickType.RIGHT) {
                     if (build.getPoints() < 12) {
                         if (button.getSkill().getType() == null) return;
-                        if (build.getBuildSkill(button.getSkill().getType()) == null) return;
-                        if (build.getBuildSkill(button.getSkill().getType()).getSkill() == button.getSkill()) {
+                        BuildSkill buildSkill = build.getBuildSkill(button.getSkill().getType());
+                        if (buildSkill == null) return;
+                        if (buildSkill.getSkill().equals(button.getSkill())) {
 
-                            build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), build.getBuildSkill(button.getSkill().getType()).getLevel() - 1));
+                            build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), buildSkill.getLevel() - 1));
                             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                             build.addPoint();
 
-                            if (build.getBuildSkill(button.getSkill().getType()).getLevel() == 0) {
+                            if (buildSkill.getLevel() == 0) {
                                 build.setSkill(button.getSkill().getType(), null);
                                 Bukkit.getPluginManager().callEvent(new SkillDequipEvent(event.getPlayer(), button.getSkill()));
 
