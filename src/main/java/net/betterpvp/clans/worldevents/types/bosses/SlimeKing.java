@@ -2,6 +2,7 @@ package net.betterpvp.clans.worldevents.types.bosses;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
@@ -10,6 +11,7 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Boss;
+import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.bosses.ads.*;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMath;
@@ -160,6 +162,18 @@ public class SlimeKing extends Boss {
 
     }
 
+    @EventHandler
+    public void onReducedKB(CustomKnockbackEvent e){
+        if(isActive()){
+            WorldEventMinion minion = getMinion(e.getDamagee());
+            if(minion != null){
+                if(minion instanceof SlimeQuarter){
+                    e.setDamage(e.getDamage() * 0.2);
+                }
+            }
+        }
+    }
+
     public boolean isDead() {
 
         if (allSlimes.isEmpty()) return true;
@@ -180,7 +194,7 @@ public class SlimeKing extends Boss {
             if (e.getProjectile() != null) {
                 if (e.getDamagee() instanceof Slime) {
                     if (isSlimeKing(e.getDamagee())) {
-                        if (UtilMath.randomInt(10) > 8) {
+                        if (UtilMath.randomInt(10) > 7) {
                             for (SlimeBase sb : allSlimes) {
                                 if (!(sb instanceof SlimeShield)) {
                                     rockets.add(new SlimeRocket(sb.getEntity().getLocation(), e.getDamager()));
@@ -484,6 +498,19 @@ public class SlimeKing extends Boss {
 
 
      */
+
+    @EventHandler
+    public void setTarget(CustomDamageEvent e){
+        if(isActive()){
+            if(isBoss(e.getDamagee())) {
+                Slime slime = (Slime) getBoss();
+                slime.setTarget(e.getDamager());
+            }else if(isMinion(e.getDamagee())){
+                Slime slime = (Slime) getMinion(e.getDamagee());
+                slime.setTarget(e.getDamager());
+            }
+        }
+    }
 
 
     @EventHandler

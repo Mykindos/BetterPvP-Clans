@@ -110,6 +110,16 @@ public abstract class Boss extends WorldEvent {
         }
     }
 
+    @EventHandler
+    public void onLavaDamage(CustomDamageEvent e){
+        if(isActive()){
+            if(isBoss(e.getDamagee())){
+                if(e.getCause() == DamageCause.LAVA){
+                    e.setCancelled("Boss cannot take damage from lava");
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void checkLava(UpdateEvent e) {
