@@ -1,6 +1,9 @@
 package net.betterpvp.clans.worldevents.commands;
 
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
+import net.betterpvp.clans.weapon.ILegendary;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.clans.worldevents.types.Boss;
@@ -117,6 +120,19 @@ public class BossCommand extends Command {
 
                 for(Player p : Bukkit.getOnlinePlayers()){
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
+                }
+            }else if(args[0].equalsIgnoreCase("simulate")){
+                int count = 0;
+                while(count < 100){
+                    Weapon wep = WeaponManager.getWeapon(WEManager.getRandomItem());
+                    if(wep != null){
+                        if(wep instanceof ILegendary){
+                            Bukkit.broadcastMessage("Received " +  wep.getName() + ChatColor.WHITE + " after " + count + " attempts");
+                            break;
+                        }
+                    }
+
+                    count++;
                 }
             }
         }

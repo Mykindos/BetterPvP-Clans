@@ -226,7 +226,7 @@ public class BorisAndDoris extends Boss {
                         doris.setHealth(Math.min(doris.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), doris.getHealth() + 1));
                     }
 
-                    doris.setCustomName(getBorisName() + "  " + ChatColor.GREEN
+                    doris.setCustomName(getDorisName() + "  " + ChatColor.GREEN
                             + (int) doris.getHealth() + ChatColor.YELLOW + "/" + ChatColor.GREEN + (int) doris.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
 
                     if(doris.getHealth() == doris.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()){
@@ -312,6 +312,17 @@ public class BorisAndDoris extends Boss {
     @Override
     public Location[] getTeleportLocations() {
         return locs;
+    }
+
+    @Override
+    public void removeBoss(){
+        if(doris != null){
+            doris.remove();
+        }
+
+        if(boris != null){
+            boris.remove();
+        }
     }
 
     private enum BorisDorisPhase {

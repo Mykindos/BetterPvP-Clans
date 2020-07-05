@@ -293,7 +293,7 @@ public class SelectorManager extends BPVPListener<Clans> {
 
                         } else {
                             if (buildSkill.getLevel() < button.getSkill().getMaxLevel()) {
-                                if (build.getBuildSkill(button.getSkill().getType()).getSkill() == button.getSkill()) {
+                                if (buildSkill.getSkill().equals(button.getSkill())) {
                                     build.takePoint();
                                     build.setSkill(button.getSkill().getType(), button.getSkill(), buildSkill.getLevel() + 1);
                                     BuildRepository.updateBuild(event.getPlayer().getUniqueId(), build);

@@ -14,6 +14,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -65,7 +66,7 @@ public class ThrowableManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onPickup(PlayerPickupItemEvent e) {
+    public void onPickup(EntityPickupItemEvent e) {
         if (getThrowable(e.getItem()) != null) {
 
             //Bukkit.getPluginManager().callEvent(new ThrowableCollideEntityEvent(getThrowable(e.getItem()), e.getPlayer()));

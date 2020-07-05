@@ -373,4 +373,9 @@ public class Broodmother extends Boss {
     public boolean isBoss(LivingEntity ent) {
         return ent.equals(getBoss());
     }
+
+    @Override
+    public void removeBoss(){
+        getBoss().remove();
+    }
 }

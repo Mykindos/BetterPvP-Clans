@@ -426,10 +426,21 @@ public class ClanUtilities {
     }
 
     public static boolean canCast(Player p) {
-        if (getClan(p.getLocation()) != null) {
-            if (getClan(p.getLocation()) instanceof AdminClan) {
-                AdminClan a = (AdminClan) getClan(p.getLocation());
+        Clan clanLoc = getClan(p.getLocation());
+        if (clanLoc != null) {
+            if (clanLoc instanceof AdminClan) {
+                AdminClan a = (AdminClan) clanLoc;
                 if (a.isSafe()) {
+
+                    Gamer gamer = GamerManager.getOnlineGamer(p);
+
+                    // Allow skills if player is combat tagged
+                    if (gamer != null) {
+                        if (!UtilTime.elapsed(gamer.getLastDamaged(), 15000)) {
+                            return true;
+                        }
+                    }
+
                     UtilMessage.message(p, "Restriction", "You are not allowed to cast abilities here!");
                     return false;
                 }
@@ -470,9 +481,11 @@ public class ClanUtilities {
         }
 
 
-        if (getRelation(getClan(player), getClan(target)) == ClanRelation.SELF
-                || getRelation(getClan(player), getClan(target)) == ClanRelation.ALLY
-                || getRelation(getClan(player), getClan(target)) == ClanRelation.ALLY_TRUST) {
+        Clan playerClan = getClan(player);
+        Clan targetClan = getClan(target);
+        if (getRelation(playerClan,targetClan) == ClanRelation.SELF
+                || getRelation(playerClan, targetClan) == ClanRelation.ALLY
+                || getRelation(playerClan, targetClan) == ClanRelation.ALLY_TRUST) {
             return false;
         }
 
@@ -485,11 +498,11 @@ public class ClanUtilities {
             }
 
 
-            Clan targetClan = getClan(target.getLocation());
+            Clan targetLocClan = getClan(target.getLocation());
 
-            if (targetClan != null) {
-                if (targetClan instanceof AdminClan) {
-                    AdminClan ac = (AdminClan) targetClan;
+            if (targetLocClan != null) {
+                if (targetLocClan instanceof AdminClan) {
+                    AdminClan ac = (AdminClan) targetLocClan;
                     if (ac.isSafe()) {
                         if (ac.getName().contains("Spawn")) {
                             if (target.getLocation().getY() < 100) {
@@ -501,10 +514,10 @@ public class ClanUtilities {
 
                 }
             }
-            Clan playerClan = getClan(player.getLocation());
-            if (playerClan != null) {
-                if (playerClan instanceof AdminClan) {
-                    AdminClan ac = (AdminClan) playerClan;
+            Clan playerLocClan = getClan(player.getLocation());
+            if (playerLocClan != null) {
+                if (playerLocClan instanceof AdminClan) {
+                    AdminClan ac = (AdminClan) playerLocClan;
                     return !ac.isSafe();
                 }
             }

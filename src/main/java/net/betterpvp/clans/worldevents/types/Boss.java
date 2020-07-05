@@ -61,6 +61,8 @@ public abstract class Boss extends WorldEvent {
 
     public abstract LivingEntity getBoss();
 
+    public abstract void removeBoss();
+
     public abstract boolean isBoss(LivingEntity ent);
 
     public long lastDamaged;
@@ -98,14 +100,13 @@ public abstract class Boss extends WorldEvent {
     @EventHandler
     public void onDamageTeleport(CustomDamageEvent e) {
         if (isActive()) {
-            if (getBoss() != null && !getBoss().isDead()) {
-                if (e.getDamagee().equals(getBoss())) {
-                    if (e.getDamager() instanceof Player) {
-                        lastDamaged = System.currentTimeMillis();
-                    }
-
+            if (isBoss(e.getDamagee())) {
+                if (e.getDamager() instanceof Player) {
+                    lastDamaged = System.currentTimeMillis();
                 }
+
             }
+
         }
     }
 
@@ -129,30 +130,6 @@ public abstract class Boss extends WorldEvent {
         }
     }
 
-
-    @EventHandler
-    public void onSafeDamage(CustomDamageEvent e) {
-        if (isActive()) {
-            if (e.getCause() == DamageCause.ENTITY_ATTACK || e.getCause() == DamageCause.PROJECTILE) {
-                if (e.getDamagee() == getBoss() || isMinion(e.getDamagee())) {
-                    if (e.getDamager() != null && !e.getDamager().isDead()) {
-                        Clan clan = ClanUtilities.getClan(
-                                e.getDamager()
-                                        .getLocation());
-                        if (clan != null) {
-                            if (clan instanceof AdminClan) {
-                                AdminClan adminClan = (AdminClan) clan;
-                                if (adminClan.isSafe()) {
-                                    e.setCancelled("Cant damage boss in safezone");
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     public void announceDeath(EntityDeathEvent e) {
         for (WorldEventMinion bm : getMinions()) {
@@ -276,7 +253,7 @@ public abstract class Boss extends WorldEvent {
     public void onSuffocate(CustomDamageEvent e) {
         if (isActive()) {
             if (e.getDamagee() != null) {
-                if (getBoss() == e.getDamagee()) {
+                if (isBoss(e.getDamagee())) {
                     if (e.getCause() == DamageCause.SUFFOCATION || e.getCause() == DamageCause.DROWNING) {
                         e.setCancelled("Bosses cant suffocate or drown");
                     }
@@ -292,7 +269,7 @@ public abstract class Boss extends WorldEvent {
                 if (UtilTime.elapsed(lastDamaged, 60000 * 15)) {
                     setActive(false);
 
-                    getBoss().remove();
+                    removeBoss();
 
                     for (WorldEventMinion wem : getMinions()) {
                         wem.getEntity().remove();
@@ -320,7 +297,7 @@ public abstract class Boss extends WorldEvent {
         gamer.setStatValue(bossName, gamer.getStatValue(bossName) + 1);
 
         Player player = Bukkit.getPlayer(gamer.getUUID());
-        if(player != null) {
+        if (player != null) {
             int kc = gamer.getStatValue(bossName);
             UtilMessage.message(player, "World Event", "Your kill count for " + getBossName() + ChatColor.GRAY + " is now "
                     + ChatColor.GREEN + kc + ChatColor.GRAY + " (" + ChatColor.YELLOW + "+" + (kc * 2) + "% bonus damage versus this boss" + ChatColor.GRAY + ").");
@@ -336,7 +313,7 @@ public abstract class Boss extends WorldEvent {
                 if (e.getDamager() instanceof Player) {
                     Player p = (Player) e.getDamager();
 
-                    if (e.getDamagee().equals(getBoss()) || isMinion(e.getDamagee())) {
+                    if (isBoss(e.getDamagee()) || isMinion(e.getDamagee())) {
                         Gamer gamer = GamerManager.getOnlineGamer(p);
 
                         int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()));

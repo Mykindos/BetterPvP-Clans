@@ -28,7 +28,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Walking",
                         "",
                         ChatColor.GRAY + "When walking on water, a radius below",
-                        ChatColor.GRAY + "you is temporarily transformed into ice", ""}, true, 6);
+                        ChatColor.GRAY + "you is temporarily transformed into ice", ""}, true, 7);
 
     }
 

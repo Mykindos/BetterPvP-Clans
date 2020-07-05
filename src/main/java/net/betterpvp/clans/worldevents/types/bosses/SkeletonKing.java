@@ -449,6 +449,11 @@ public class SkeletonKing extends Boss {
     }
 
     @Override
+    public void removeBoss(){
+        getBoss().remove();
+    }
+
+    @Override
     public Location[] getTeleportLocations() {
 
         return locs;
