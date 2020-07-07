@@ -22,6 +22,21 @@ public class NormalShopItem extends ShopItem {
         this.sellPrice = sellPrice;
     }
 
+    public NormalShopItem(String store, Material mat, byte data, int slot,
+                          int amount, String itemName, int buyPrice) {
+        super(store, mat, data, slot, amount, itemName,
+                ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + NumberFormat.getInstance().format(buyPrice),
+                "",
+                ChatColor.GRAY + "Shift Left Click: " + ChatColor.YELLOW + "Buy 64");
+        this.buyPrice = buyPrice;
+    }
+
+    public NormalShopItem(String store, Material mat, byte data, int slot,
+                          int amount, String itemName, int buyPrice, String[] lore) {
+        super(store, mat, data, slot, amount, itemName, lore);
+        this.buyPrice = buyPrice;
+    }
+
     public int getBuyPrice() {
         return buyPrice;
     }

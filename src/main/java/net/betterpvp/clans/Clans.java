@@ -20,7 +20,7 @@ import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
-import net.betterpvp.clans.economy.shops.menu.buttons.ShopListener;
+import net.betterpvp.clans.economy.shops.ShopListener;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
@@ -34,6 +34,7 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
+import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
@@ -100,7 +101,7 @@ public class Clans extends JavaPlugin implements Listener {
             p.getOpenInventory().close();
             Gamer c = GamerManager.getOnlineGamer(p);
             GamerRepository.updateGamer(c);
-            c.updateAllStats();
+            PlayerStatRepository.updateAllStats(c);
         }
 
         Connect.disableSQL();
@@ -127,6 +128,8 @@ public class Clans extends JavaPlugin implements Listener {
         UtilShop.registerEntity("Zombie", 54, EntityZombie.class, BossZombie.class);
         UtilShop.registerEntity("Wither", 64, EntityWither.class, BossWither.class);
         UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, BossSkeleton.class);
+        UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, BossPolarBear.class);
+        //UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, PolarBearCub.class);
         UtilShop.registerEntity("Villager", 120, EntityVillager.class, ShopVillager.class);
         UtilShop.registerEntity("ArmorStand", 30, EntityArmorStand.class, CustomArmorStand.class);
 
@@ -290,9 +293,8 @@ public class Clans extends JavaPlugin implements Listener {
                         gamer.addFragments(2);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
-                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " Coins.");
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " coins and " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
 
-                        UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
                     }
                 }
 
@@ -303,11 +305,11 @@ public class Clans extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 for (Gamer gamer : GamerManager.getOnlineGamers()) {
-                    gamer.updateAllStats();
+                    PlayerStatRepository.updateAllStats(gamer);
 
                 }
             }
-        }.runTaskTimerAsynchronously(this, 36000, 36000);
+        }.runTaskTimerAsynchronously(this, 18000, 18000);
 
     }
 

@@ -82,13 +82,14 @@ public class Pestilence extends Skill implements InteractSkill {
                         Player infected = Bukkit.getPlayer(pdd.getDamagee());
                         if (infected != null) {
                             for (Player p : UtilPlayer.getInRadius(infected.getLocation(), 5)) {
-                                if (p.getGameMode() == GameMode.SPECTATOR || p.getGameMode() == GameMode.CREATIVE)
+                                if (p.getGameMode() == GameMode.SPECTATOR || p.getGameMode() == GameMode.CREATIVE) {
                                     continue;
+                                }
                                 if (ClanUtilities.canHurt(damager, p)) {
                                     if (d.getOldInfected().contains(p.getUniqueId())) {
                                         continue;
                                     }
-                                    if (pdd.getDamagee() == p.getUniqueId()) {
+                                    if (pdd.getDamagee().equals(p.getUniqueId())) {
                                         continue;
                                     }
                                     temp.add(new TempData(d, p, damager));
@@ -98,6 +99,7 @@ public class Pestilence extends Skill implements InteractSkill {
                     }
                 }
             }
+
             for (TempData d : temp) {
                 if (isInfected(d.getPlayer(), d.getDamager())) {
                     continue;
@@ -153,9 +155,9 @@ public class Pestilence extends Skill implements InteractSkill {
 
     public boolean isInfected(Player p, Player damager) {
         for (PestilenceData pd : data) {
-            if (pd.getDamager() == damager.getUniqueId()) {
+            if (pd.getDamager().equals(damager.getUniqueId())) {
                 for (PestilenceDamageData pdd : pd.getCurrentInfected()) {
-                    if (pdd.getDamagee() == p.getUniqueId()) {
+                    if (pdd.getDamagee().equals(p.getUniqueId())) {
                         return true;
                     }
                 }

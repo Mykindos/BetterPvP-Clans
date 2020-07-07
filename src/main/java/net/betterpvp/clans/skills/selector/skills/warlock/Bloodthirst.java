@@ -45,23 +45,26 @@ public class Bloodthirst extends Skill {
                         if (hasSkill(gamer, warlock, this)) {
                             int level = getLevel(warlock);
                             for (Player player : Bukkit.getOnlinePlayers()) {
+                                if(!player.getWorld().equals(warlock.getWorld())) continue;
                                 if (ClanUtilities.canHurt(warlock, player)) {
                                     if (UtilPlayer.getHealthPercentage(player) < (25 + (level * 5))) {
                                         UtilClans.setGlowing(warlock, player, true);
                                         double distanceA = warlock.getLocation().distance(player.getLocation());
-                                        double distanceB = warlock.getLocation().add(warlock.getLocation().getDirection()).distance(player.getLocation());
-                                        if(distanceA - distanceB > 0.6){
-                                            if (warlock.hasPotionEffect(PotionEffectType.SPEED)) {
-                                                PotionEffect speed = player.getPotionEffect(PotionEffectType.SPEED);
-                                                if(speed != null) {
-                                                    if (speed.getAmplifier() < 2) {
-                                                        warlock.removePotionEffect(PotionEffectType.SPEED);
+                                        if(distanceA < 50) {
+                                            double distanceB = warlock.getLocation().add(warlock.getLocation().getDirection()).distance(player.getLocation());
+                                            if (distanceA - distanceB > 0.6) {
+                                                if (warlock.hasPotionEffect(PotionEffectType.SPEED)) {
+                                                    PotionEffect speed = player.getPotionEffect(PotionEffectType.SPEED);
+                                                    if (speed != null) {
+                                                        if (speed.getAmplifier() < 2) {
+                                                            warlock.removePotionEffect(PotionEffectType.SPEED);
+                                                        }
                                                     }
                                                 }
-                                            }
 
-                                            warlock.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
-                                            break;
+                                                warlock.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
+                                                break;
+                                            }
                                         }
                                     }else{
                                         UtilClans.setGlowing(warlock, player, false);

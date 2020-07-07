@@ -1,6 +1,7 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -26,9 +27,9 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Active: " + ChatColor.YELLOW + "None",
                         "",
                         ChatColor.GRAY + "This pickaxe will instantly ",
-                        ChatColor.GRAY + "break any stone related blocks. ",
+                        ChatColor.GRAY + "break any stone related blocks in a 3x3 radius. ",
                         ""}
-                , true, 6.0);
+                , true, 7.0);
 
     }
 
@@ -48,8 +49,9 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
             }
 
             if (isThisWeapon(player)) {
-                if (ClanUtilities.getClan(block.getChunk()) != null) {
-                    if (ClanUtilities.getClan(block.getChunk()) != ClanUtilities.getClan(player)) {
+                Clan blockClan = ClanUtilities.getClan(block.getChunk());
+                if (blockClan != null) {
+                    if (!blockClan.equals(ClanUtilities.getClan(player))) {
                         return;
                     }
                 }

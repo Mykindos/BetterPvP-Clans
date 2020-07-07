@@ -16,7 +16,7 @@ public class WingsOfZanzul extends Weapon implements ILegendary {
                 ChatColor.GRAY + "It is noted in history that Zanzul",
                 ChatColor.GRAY + "created these wings to assist in",
                 ChatColor.GRAY + "the great rebellion against Zephyrus.",
-                ""}, true, 2.0);
+                ""}, true, 3.0);
     }
 
     @EventHandler

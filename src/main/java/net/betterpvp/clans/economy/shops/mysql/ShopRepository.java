@@ -87,6 +87,7 @@ public class ShopRepository implements Repository<Clans> {
                         int baseStock = result.getInt(19);
                         int maxStock = result.getInt(20);
                         int currentStock = result.getInt(21);
+
                         ShopManager.addItem(store, itemName, mat, slot, data, amount, buyPrice, sellPrice, legendary,
                                 glow, dynamic, quest, minSell, baseSell, maxSell, minBuy, baseBuy, maxBuy, baseStock, maxStock, currentStock);
                         count++;

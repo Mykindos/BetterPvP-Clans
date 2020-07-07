@@ -37,10 +37,14 @@ public class Weapon implements Listener {
 
     }
 
-    public List<String> getLoreWithPrice(int price) {
+    public List<String> getLoreWithPrice(String store, int price) {
         List<String> temp = new ArrayList<String>();
 
-        temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price);
+        if (store.contains("Fragment Vendor")) {
+            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price + ChatColor.GRAY + " fragments");
+        } else {
+            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price);
+        }
         if (getLore() != null) {
             temp.addAll(Arrays.asList(getLore()));
         }
@@ -95,25 +99,25 @@ public class Weapon implements Listener {
     }
 
     public ItemStack createWeapon() {
-       return createWeapon(false);
+        return createWeapon(false);
     }
 
-    public ItemStack createWeapon(boolean showUUID){
+    public ItemStack createWeapon(boolean showUUID) {
         ItemStack item;
 
         List<String> loreTemp = new ArrayList<>(Arrays.asList(getLore()));
         if (this instanceof ILegendary) {
             ILegendary iLegendary = (ILegendary) this;
-            if(iLegendary.isTextured()){
+            if (iLegendary.isTextured()) {
                 item = new ItemStack(getMaterial(), 1);
-            }else{
+            } else {
                 item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
             }
 
-            if(showUUID) {
+            if (showUUID) {
                 loreTemp.add(ChatColor.GRAY.toString() + "UUID: " + ChatColor.YELLOW.toString() + UUID.randomUUID().toString());
             }
-        }else{
+        } else {
             item = UtilItem.addGlow(new ItemStack(getMaterial(), 1));
         }
 

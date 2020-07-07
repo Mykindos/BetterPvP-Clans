@@ -97,13 +97,15 @@ public class Frailty extends Skill {
 
                 active.forEach(u -> {
                     Player player = Bukkit.getPlayer(u);
-                    if (p.getWorld().equals(player.getWorld())) {
-                        if (player != null) {
-                            if (p.getLocation().distance(player.getLocation()) < 5) {
-                                if (ClanUtilities.canHurt(p, player)) {
-                                    if (hasSkill(player, this)) {
-                                        if (p.getHealth() / p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(player) - 1) * 10))) {
-                                            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
+                    if(player != null) {
+                        if (p.getWorld().equals(player.getWorld())) {
+                            if (player != null) {
+                                if (p.getLocation().distance(player.getLocation()) < 5) {
+                                    if (ClanUtilities.canHurt(p, player)) {
+                                        if (hasSkill(player, this)) {
+                                            if (p.getHealth() / p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * 100 < (40 + ((getLevel(player) - 1) * 10))) {
+                                                p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
+                                            }
                                         }
                                     }
                                 }

@@ -103,7 +103,7 @@ public class BuildRepository implements Repository<Clans> {
     }
 
     public static void saveBuild(UUID uuid, RoleBuild build) {
-        String query = "INSERT INTO " + TABLE_NAME + " VALUES ('"
+        String query = "INSERT IGNORE INTO " + TABLE_NAME + " VALUES ('"
                 + uuid.toString() + "', '" + build.getRole() + "', '" + build.getID() + "', "
                 + (build.getSword() == null ? null + ", " : "'" + (build.getSword().getSkill().getName() + "," + build.getSword().getLevel() + "', "))
                 + (build.getAxe() == null ? null + ", " : "'" + (build.getAxe().getSkill().getName() + "," + build.getAxe().getLevel() + "', "))

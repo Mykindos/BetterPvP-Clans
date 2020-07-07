@@ -100,6 +100,9 @@ public class TormentedSoil extends Skill implements InteractSkill {
         ListIterator<Torment> it = tormentList.listIterator();
         while (it.hasNext()) {
             Torment torment = it.next();
+            if(!torment.location.getWorld().equals(e.getLocation())){
+                return false;
+            }
             if (torment.location.distance(e.getLocation()) <= (5 + (torment.level / 2))) {
                 if (e instanceof Player) {
                     Player damagee = (Player) e;

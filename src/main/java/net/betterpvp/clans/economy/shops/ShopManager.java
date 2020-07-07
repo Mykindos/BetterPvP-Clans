@@ -36,6 +36,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -254,7 +255,7 @@ public class ShopManager extends BPVPListener<Clans> {
                 }
 
             }.runTask(i);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -301,7 +302,12 @@ public class ShopManager extends BPVPListener<Clans> {
         } else if (dynamic) {
             shopItems.add(new DynamicShopItem(store, mat, data, slot, amount, itemName, minBuy, baseBuy, maxBuy, minSell, baseSell, maxSell, baseStock, maxStock, currentStock));
         } else {
-            shopItems.add(new NormalShopItem(store, mat, data, slot, amount, itemName, buyPrice, sellPrice));
+            if (sellPrice > 0) {
+                shopItems.add(new NormalShopItem(store, mat, data, slot, amount, itemName, buyPrice, sellPrice));
+            } else {
+                shopItems.add(new NormalShopItem(store, mat, data, slot, amount, itemName, buyPrice));
+
+            }
         }
 
     }
@@ -335,6 +341,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (e.getRightClicked() instanceof LivingEntity) {
             LivingEntity ent = (LivingEntity) e.getRightClicked();
             if (ent.getCustomName() != null && !ent.getCustomName().equals("")) {
@@ -394,7 +401,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             }
                         } else {
                             Role role = Role.getRole(s.getName());
-                            if(role != null){
+                            if (role != null) {
                                 e.getPlayer().getEquipment().clear();
                                 e.getPlayer().getInventory().clear();
                                 KitCommand.giveKit(e.getPlayer(), role);

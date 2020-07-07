@@ -65,7 +65,7 @@ public class InfoCommand extends Command {
                 msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
                 alt = false;
             }else{
-                msg += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
+                msg2 += ChatColor.BLUE + r.getName() + ": " + ChatColor.GREEN + gamer.getStatValue(r.getName()) + " ";
                 alt = true;
             }
 
@@ -78,6 +78,7 @@ public class InfoCommand extends Command {
                 + ChatColor.BLUE + " Skeleton King: " + ChatColor.GREEN +  gamer.getStatValue("Skeleton King")
                 + ChatColor.BLUE + " Broodmother: " + ChatColor.GREEN +  gamer.getStatValue("Broodmother")
                 + ChatColor.BLUE + " Witherton: " + ChatColor.GREEN +  gamer.getStatValue("Charles Witherton"));
+        UtilMessage.message(player, ChatColor.BLUE + "Boris & Doris: " + ChatColor.GREEN + gamer.getStatValue("Boris & Doris"));
 
     }
 

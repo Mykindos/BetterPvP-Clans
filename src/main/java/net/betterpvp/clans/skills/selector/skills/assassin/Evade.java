@@ -42,7 +42,7 @@ public class Evade extends ChannelSkill implements InteractSkill {
     public Evade(Clans i) {
         super(i, "Evade", "Assassin", getSwords,
                 rightClick, 3,
-                false, true);
+                true, true);
 
     }
 
@@ -105,7 +105,7 @@ public class Evade extends ChannelSkill implements InteractSkill {
         if (e.getCause() != DamageCause.ENTITY_ATTACK) return;
         if (e.getDamagee() instanceof Player) {
             if (e.getDamager() instanceof LivingEntity) {
-                LivingEntity ent = (LivingEntity) e.getDamager();
+                LivingEntity ent = e.getDamager();
                 Player p = (Player) e.getDamagee();
 
 

@@ -43,8 +43,8 @@ public class HiltSmash extends Skill {
                 "",
                 "Smash the hilt of your sword into",
                 "your opponent, dealing " + ChatColor.GREEN + (3 + (level)) + ChatColor.GRAY + " damage",
-                "and applying shock for " + ChatColor.GREEN + (((level - 1) * 0.5)) + ChatColor.GRAY + " seconds.",
-                "Silences enemy for " + ChatColor.GREEN + ((level / 2) - 0.5) + ChatColor.GRAY + " seconds",
+                "and applying shock for " + ChatColor.GREEN + (level / 2) + ChatColor.GRAY + " seconds.",
+                "Silences enemy for " + ChatColor.GREEN + (level / 2) + ChatColor.GRAY + " seconds",
                 "",
                 "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };
@@ -82,13 +82,13 @@ public class HiltSmash extends Skill {
                                             }
 
                                             UtilMessage.message(damagee, getClassType(), ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName(getLevel(p)));
-                                            EffectManager.addEffect(damagee, EffectType.SHOCK, (getLevel(p) * 1000) / 2);
-                                            EffectManager.addEffect(damagee, EffectType.SILENCE, (long) (((getLevel(p) * 1000) / 2) - 0.5));
+                                            EffectManager.addEffect(damagee, EffectType.SHOCK, (level * 1000) / 2);
+                                            EffectManager.addEffect(damagee, EffectType.SILENCE, (long) (((level * 1000) / 2)));
                                         }
 
-                                        UtilMessage.message(p, getClassType(), "You hit " + ent.getName() + " with " + ChatColor.GREEN + getName(getLevel(p)));
+                                        UtilMessage.message(p, getClassType(), "You hit " + ent.getName() + " with " + ChatColor.GREEN + getName(level));
                                         LogManager.addLog(ent, p, getName());
-                                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + getLevel(p), false));
+                                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + level, false));
 
                                         ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 1.2F);
                                         //ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 , 4));

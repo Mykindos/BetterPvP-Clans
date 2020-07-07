@@ -44,6 +44,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         addWeapon(new DwarvenPickaxe(i));
         addWeapon(new SupplyCrate(i));
         addWeapon(new GlacialAxe(i));
+        addWeapon(new ClanRecovery(i));
 
         for (Qualities q : Qualities.values()) {
             for (ArmourNames an : ArmourNames.values()) {

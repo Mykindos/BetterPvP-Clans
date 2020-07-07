@@ -52,7 +52,7 @@ public class JoinCommand implements IClanCommand {
 
             if (tGamer.getClient().isAdministrating()) {
                 target.getMembers().add(new ClanMember(player.getUniqueId(), Role.LEADER));
-             //   ScoreboardManager.addPlayer(player.getName());
+                //   ScoreboardManager.addPlayer(player.getName());
                 UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + ".");
                 Bukkit.getPluginManager().callEvent(new MemberJoinClanEvent(player, target));
                 return;
@@ -70,11 +70,10 @@ public class JoinCommand implements IClanCommand {
                 return;
             }
 
-            if (target.getMembers().size() == 5) {
-                if (target.getAlliances().size() >= Clans.getOptions().getMaxAlliesSmallClan()) {
-                    UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many allies to join.");
-                    return;
-                }
+            if (target.getMembers().size() + target.getAlliances().size() >= Clans.getOptions().getMaxClanMembers()) {
+                UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members or allies");
+                return;
+
             }
 
 

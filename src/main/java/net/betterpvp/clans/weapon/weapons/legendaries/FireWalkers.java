@@ -30,7 +30,7 @@ public class FireWalkers extends Weapon implements ILegendary {
                         "",
                         ChatColor.GRAY + "Wherever you may walk, fire shall shadow you.",
                         ""
-                }, true, 4.0);
+                }, true, 5.0);
 
     }
 

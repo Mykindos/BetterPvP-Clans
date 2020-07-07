@@ -6,6 +6,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ChannelWeapon;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -48,7 +49,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
                         ChatColor.GRAY + "Once owned by the God Zephyrus,",
                         ChatColor.GRAY + "it is rumoured the Wind Blade",
                         ChatColor.GRAY + "grants its owner flight.",
-                        ""}, true, 2.0);
+                        ""}, true, 3.0);
 
     }
 
@@ -84,24 +85,18 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
                     return;
                 }
 
-                Clan clan = ClanUtilities.getClan(player.getLocation());
-                if (clan != null) {
-                    if (clan instanceof AdminClan) {
-                        AdminClan adminClan = (AdminClan) clan;
-                        if (adminClan.isSafe()) {
-                            return;
 
+                if(ClanUtilities.canCast(player)) {
+
+
+                    if (!active.contains(player.getName())) {
+                        if (Energy.use(player, "Wind Rider", 20.0, true)) {
+                            active.add(player.getName());
+                            wait.put(player, System.currentTimeMillis());
                         }
+
+
                     }
-                }
-
-                if (!active.contains(player.getName())) {
-                    if (Energy.use(player, "Wind Rider", 20.0, true)) {
-                        active.add(player.getName());
-                        wait.put(player, System.currentTimeMillis());
-                    }
-
-
                 }
             }
         }
@@ -112,15 +107,9 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
         if (event.getType() == UpdateEvent.UpdateType.TICK) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (active.contains(player.getName())) {
-                    Clan clan = ClanUtilities.getClan(player.getLocation());
-                    if (clan != null) {
-                        if (clan instanceof AdminClan) {
-                            AdminClan adminClan = (AdminClan) clan;
-                            if (adminClan.isSafe()) {
-                                active.remove(player.getName());
-                                continue;
-                            }
-                        }
+                    if(!ClanUtilities.canCast(player)){
+                        active.remove(player.getName());
+                        continue;
                     }
                     if (player.isHandRaised()
                             && !UtilItem.isRanged(player.getInventory().getItemInMainHand().getType())) { // .ct() for 1.9.4

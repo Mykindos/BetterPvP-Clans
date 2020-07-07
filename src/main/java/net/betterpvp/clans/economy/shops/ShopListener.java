@@ -1,11 +1,17 @@
-package net.betterpvp.clans.economy.shops.menu.buttons;
+package net.betterpvp.clans.economy.shops;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.insurance.InsuranceManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
+import net.betterpvp.clans.economy.shops.events.ShopTradeEvent;
+import net.betterpvp.clans.economy.shops.events.TradeAction;
 import net.betterpvp.clans.economy.shops.menu.ShopMenu;
+import net.betterpvp.clans.economy.shops.menu.buttons.DynamicShopItem;
+import net.betterpvp.clans.economy.shops.menu.buttons.LegendaryShopItem;
+import net.betterpvp.clans.economy.shops.menu.buttons.QuestShopItem;
+import net.betterpvp.clans.economy.shops.menu.buttons.ShopItem;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
@@ -22,10 +28,12 @@ import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
@@ -36,19 +44,81 @@ public class ShopListener extends BPVPListener<Clans> {
         super(i);
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onShopTrade(ShopTradeEvent e) {
+        if (e.isCancelled()) {
+            UtilMessage.message(e.getPlayer(), "Shop", e.getCancelReason());
+            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
+            return;
+        }
+
+        Gamer g = GamerManager.getOnlineGamer(e.getPlayer());
+
+        if (e.getAction() == TradeAction.BUY_FRAGMENTITEM) {
+            int amount = e.isShift() ? 64 : e.getItem().getAmount();
+            double cost = e.isShift() ? e.getItem().getBuyPrice() * 64 : e.getItem().getBuyPrice();
+
+            if (e.getPlayer().getInventory().firstEmpty() != -1) {
+
+                ItemStack k;
+                Weapon wep = WeaponManager.getWeapon(e.getItem().getItemName());
+                if (wep != null) {
+                    if (wep instanceof ILegendary) {
+                        k = wep.createWeapon(true);
+                    } else {
+                        k = wep.createWeaponNoGlow();
+                        k.setAmount(amount);
+                    }
+
+                } else {
+                    k = UtilClans.updateNames(new ItemStack(e.getItem().getItemStack().getType(), amount));
+                    k.getItemMeta().setLore(null);
+                }
+
+
+                if (g.hasFragments(cost)) {
+                    g.takeFragments((int) cost);
+                    UtilMessage.message(e.getPlayer(), "Shop", "You have purchased " + ChatColor.YELLOW + amount + " " + e.getItem().getItemName() +
+                            ChatColor.GRAY + " for " + ChatColor.GREEN + UtilFormat.formatNumber((int) cost) + ChatColor.GRAY + " fragments");
+                    Log.write("Shop", e.getPlayer().getName() + " " + "purchased " + +amount + " "
+                            + e.getItem().getItemName() + " for " + UtilFormat.formatNumber((int) cost) + " fragments");
+                } else {
+                    UtilMessage.message(e.getPlayer(), "Shop", "You have insufficient funds to purchase this item.");
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
+                    return;
+                }
+
+
+                if (e.isGiveItem()) {
+                    UtilItem.insert(e.getPlayer(), k);
+                }
+                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
+            }else{
+                UtilMessage.message(e.getPlayer(), "Shop", "Your inventory is currently too full to purchase this item.");
+                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 0.6F);
+            }
+        }
+    }
+
+
+
 
     @EventHandler
     public void buttonClick(ButtonClickEvent e) {
         if (e.getButton() instanceof ShopItem) {
             Player p = e.getPlayer();
             ShopItem item = (ShopItem) e.getButton();
+
             if (e.getClickType() == ClickType.LEFT) {
                 if (item.getStore().equalsIgnoreCase(ChatColor.stripColor("Fragment Vendor"))) {
                     if (item instanceof QuestShopItem) {
+                        // Bukkit.getPluginManager().callEvent(new ShopTradeEvent(p, item, TradeAction.BUY_QUESTITEM, false));
                         buyQuestItem(p, item, false);
                         return;
                     }
-                    buyItem(p, item, false, true);
+                    Gamer gamer = GamerManager.getOnlineGamer(p);
+                    Bukkit.getPluginManager().callEvent(new ShopTradeEvent(gamer, p, item, TradeAction.BUY_FRAGMENTITEM, false));
+                    //buyItem(p, item, false, true);
                     return;
                 }
             } else if (e.getClickType() == ClickType.RIGHT) {

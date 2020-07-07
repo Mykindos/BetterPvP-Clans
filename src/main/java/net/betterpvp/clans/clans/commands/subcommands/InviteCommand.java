@@ -59,16 +59,9 @@ public class InviteCommand implements IClanCommand {
             return;
         }
 
-        if (clan.getMembers().size() >= Clans.getOptions().getMaxClanMembers()) {
-            UtilMessage.message(player, "Clans", "Your Clan has too many members.");
+        if(clan.getMembers().size() + clan.getAlliances().size() >= Clans.getOptions().getMaxClanMembers()){
+            UtilMessage.message(player, "Clans", "Your clan has too many members or allies to invite another member.");
             return;
-        }
-
-        if (clan.getMembers().size() == 5) {
-            if (clan.getAlliances().size() >= Clans.getOptions().getMaxAlliesSmallClan()) {
-                UtilMessage.message(player, "Clans", "Your Clan has too many allies to invite more members.");
-                return;
-            }
         }
 
         UtilMessage.message(player, "Clans", "You invited " + ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " to join your Clan.");
