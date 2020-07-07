@@ -20,7 +20,7 @@ import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
-import net.betterpvp.clans.economy.shops.menu.buttons.ShopListener;
+import net.betterpvp.clans.economy.shops.ShopListener;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
@@ -50,7 +50,6 @@ import net.betterpvp.clans.skills.selector.SkillListener;
 import net.betterpvp.clans.skills.selector.skills.data.CustomArmorStand;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
-import net.betterpvp.clans.worldevents.types.bosses.ads.PolarBearCub;
 import net.betterpvp.clans.worldevents.types.nms.*;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
@@ -294,9 +293,8 @@ public class Clans extends JavaPlugin implements Listener {
                         gamer.addFragments(2);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
-                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " Coins.");
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " coins and " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
 
-                        UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
                     }
                 }
 

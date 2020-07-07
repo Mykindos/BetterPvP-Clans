@@ -36,7 +36,7 @@ public class SupplyCrate extends Weapon {
     private WeakHashMap<Location, Long> removeLater = new WeakHashMap<>();
 
     public SupplyCrate(Clans i) {
-        super(i, Material.BEACON, (byte) 0, ChatColor.LIGHT_PURPLE + "Supply Crate", new String[]{
+        super(i, Material.BEACON, (byte) 0, ChatColor.LIGHT_PURPLE + "Supply Crate", new String[]{"",
                 ChatColor.GRAY + "Placing this block will call",
                 ChatColor.GRAY + "down a supply crate which contains",
                 ChatColor.GRAY + "a wide variety of items",

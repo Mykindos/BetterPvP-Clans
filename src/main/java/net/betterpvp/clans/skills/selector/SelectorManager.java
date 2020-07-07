@@ -315,6 +315,7 @@ public class SelectorManager extends BPVPListener<Clans> {
                             build.setSkill(button.getSkill().getType(), new BuildSkill(button.getSkill(), buildSkill.getLevel() - 1));
                             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                             build.addPoint();
+                            buildSkill.setLevel(buildSkill.getLevel() -1);
 
                             if (buildSkill.getLevel() == 0) {
                                 build.setSkill(button.getSkill().getType(), null);

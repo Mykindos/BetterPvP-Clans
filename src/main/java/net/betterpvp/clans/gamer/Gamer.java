@@ -8,7 +8,10 @@ import net.betterpvp.clans.dailies.perks.QuestPerk;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
 import net.betterpvp.clans.scoreboard.Scoreboard;
+import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.clans.skills.selector.RoleBuild;
+import net.betterpvp.clans.skills.selector.SelectorManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.donation.Donation;
 import org.bukkit.Bukkit;
@@ -382,6 +385,90 @@ public class Gamer implements Invitable {
 
     public void updateAllStats() {
 
+    }
+
+    public void loadDefaults() {
+
+        if(!getBuilds().isEmpty()) return;
+
+        for (int d = 1; d < 5; d++) {
+
+            RoleBuild a = new RoleBuild("Assassin", d);
+            if (d == 1) {
+                a.setActive(true);
+
+            }
+            a.setSkill(Types.SWORD, SelectorManager.getSkills().get("Sever"), 3);
+            a.setSkill(Types.AXE, SelectorManager.getSkills().get("Leap"), 5);
+            a.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Backstab"), 1);
+            a.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Smoke Bomb"), 3);
+            a.takePoints(12);
+
+            RoleBuild g = new RoleBuild("Gladiator", d);
+            if (d == 1) {
+                g.setActive(true);
+            }
+            g.setSkill(Types.SWORD, SelectorManager.getSkills().get("Takedown"), 5);
+            g.setSkill(Types.AXE, SelectorManager.getSkills().get("Seismic Slam"), 3);
+            g.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Colossus"), 1);
+            g.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Stampede"), 3);
+            g.takePoints(12);
+
+            RoleBuild r = new RoleBuild("Ranger", d);
+            if (d == 1) {
+                r.setActive(true);
+            }
+            r.setSkill(Types.SWORD, SelectorManager.getSkills().get("Disengage"), 3);
+            r.setSkill(Types.BOW, SelectorManager.getSkills().get("Incendiary Shot"), 5);
+            r.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Longshot"), 3);
+            r.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Sharpshooter"), 1);
+            r.takePoints(12);
+
+            RoleBuild p = new RoleBuild("Paladin", d);
+            if (d == 1) {
+                p.setActive(true);
+            }
+            p.setSkill(Types.SWORD, SelectorManager.getSkills().get("Inferno"), 5);
+            p.setSkill(Types.AXE, SelectorManager.getSkills().get("Molten Blast"), 3);
+            p.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Holy Light"), 2);
+            p.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Immolate"), 2);
+            p.takePoints(12);
+
+            RoleBuild k = new RoleBuild("Knight", d);
+            if (d == 1) {
+                k.setActive(true);
+            }
+            k.setSkill(Types.SWORD, SelectorManager.getSkills().get("Riposte"), 3);
+            k.setSkill(Types.AXE, SelectorManager.getSkills().get("Bulls Charge"), 5);
+            k.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Fury"), 3);
+            k.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Swordsmanship"), 1);
+            k.takePoints(12);
+
+            RoleBuild n = new RoleBuild("Warlock", d);
+            if (d == 1) {
+                n.setActive(true);
+            }
+
+            n.setSkill(Types.SWORD, SelectorManager.getSkills().get("Leech"), 4);
+            n.setSkill(Types.AXE, SelectorManager.getSkills().get("Bloodshed"), 5);
+            n.setSkill(Types.PASSIVE_A, SelectorManager.getSkills().get("Frailty"), 1);
+            n.setSkill(Types.PASSIVE_B, SelectorManager.getSkills().get("Soul Harvest"), 2);
+            n.takePoints(12);
+
+            getBuilds().add(k);
+            getBuilds().add(r);
+            getBuilds().add(g);
+            getBuilds().add(p);
+            getBuilds().add(a);
+            getBuilds().add(n);
+
+            BuildRepository.saveBuild(getUUID(), a);
+            BuildRepository.saveBuild(getUUID(), p);
+            BuildRepository.saveBuild(getUUID(), r);
+            BuildRepository.saveBuild(getUUID(), g);
+            BuildRepository.saveBuild(getUUID(), k);
+            BuildRepository.saveBuild(getUUID(), n);
+        }
     }
 
 

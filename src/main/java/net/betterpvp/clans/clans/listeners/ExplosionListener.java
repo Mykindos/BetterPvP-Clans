@@ -158,6 +158,10 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
                 Clan c = ClanUtilities.getClan(block.getLocation());
                 if (c != null) {
+                    if(c instanceof AdminClan){
+
+                        continue;
+                    }
                     if (block.getType() == Material.AIR) {
                         continue;
                     }
@@ -216,6 +220,9 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 Clans.getCoreProtect().logRemoval("TNT", b.getLocation(), b.getType(), b.getData());
                 Clan c = ClanUtilities.getClan(b.getLocation());
                 if (c != null) {
+                    if(c instanceof AdminClan){
+                        continue;
+                    }
                     if (!c.isVulnerable()) {
                         return;
                     }

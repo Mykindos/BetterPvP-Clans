@@ -296,6 +296,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onTimeUpdate(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
+
             if (world.getTime() > 13000) {
                 world.setTime(world.getTime() + 20);
             }

@@ -11,16 +11,22 @@ import net.betterpvp.clans.worldevents.types.bosses.ads.PolarBearCub;
 import net.betterpvp.clans.worldevents.types.bosses.ads.WitherMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossPolarBear;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -295,6 +301,65 @@ public class BorisAndDoris extends Boss {
                 if (e.getDamager() instanceof Player) {
                     PolarBear bear = (PolarBear) e.getDamagee();
                     bear.setTarget(e.getDamager());
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSetIce(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.FAST){
+            if(isActive()) {
+                if(boris != null && boris.getHealth() > 0){
+                    setIce(boris);
+                }
+                if(doris != null && doris.getHealth() > 0){
+                    setIce(boris);
+                }
+
+                if(!getMinions().isEmpty()){
+                    for(WorldEventMinion wem : getMinions()){
+                        if(wem.getEntity() != null && wem.getEntity().getHealth() > 0 && wem.getEntity() instanceof PolarBearCub){
+                           setIce(wem.getEntity());
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
+     * Replaces water that is close to the Boss & Minions with ice for 10 seconds
+     * @param e Entity to check
+     */
+    private void setIce(LivingEntity e) {
+        for (Block b : UtilBlock.getInRadius(e.getLocation(), 5, 2).keySet()) {
+
+            if (b.getType() == Material.WATER) {
+                if (e.getLocation().getBlock().isLiquid()) continue;
+                if (b.getRelative(BlockFace.UP).getType() != Material.AIR) continue;
+
+                new BlockRestoreData(b, b.getType(), (byte) 0, 10000L);
+                b.setType(Material.ICE);
+            }
+        }
+    }
+
+    /**
+     * Ticking damage in the icy cold water in the Doris & Boris Arena
+     * @param e UpdateEvent
+     */
+    @EventHandler
+    public void onColdWaterDamage(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.FAST){
+            if(isActive()){
+                for(Player player : world.getPlayers()){
+                    if(UtilBlock.isInLiquid(player)){
+                        CustomDamageEvent ev = new CustomDamageEvent(player, null, null, EntityDamageEvent.DamageCause.CUSTOM, 3.0, false, "Hypothermia");
+                        ev.setIgnoreArmour(true);
+                        Bukkit.getPluginManager().callEvent(ev);
+                    }
                 }
             }
         }

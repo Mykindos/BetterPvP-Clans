@@ -335,7 +335,7 @@ public class SkeletonKing extends Boss {
 
     private void spawnClones(int amount) {
         for (int i = 0; i < amount; i++) {
-            Skeleton s = (Skeleton) getBoss().getWorld().spawnEntity(getBoss().getLocation(), EntityType.SKELETON);
+            WitherSkeleton s = (WitherSkeleton) getBoss().getWorld().spawnEntity(getBoss().getLocation(), EntityType.WITHER_SKELETON);
             SkeletonMinion sm = new SkeletonMinion(s);
             s.setTarget(skeleton.getTarget());
             getMinions().add(sm);

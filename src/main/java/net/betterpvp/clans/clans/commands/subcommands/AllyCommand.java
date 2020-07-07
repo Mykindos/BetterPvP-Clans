@@ -54,30 +54,16 @@ public class AllyCommand implements IClanCommand {
             return;
         }
 
-        if (clan.getMembers().size() < 6) {
-            if (clan.getAlliances().size() >= Clans.getOptions().getMaxAlliesSmallClan()) {
-                UtilMessage.message(player, "Clans", "Your Clan has too many allies.");
-                return;
-            }
-        } else {
-            if (clan.getAlliances().size() >= Clans.getOptions().getMaxClanAllies()) {
-                UtilMessage.message(player, "Clans", "Your Clan has too many allies.");
-                return;
-            }
+        if(clan.getMembers().size() + clan.getAlliances().size() > Clans.getOptions().getMaxClanMembers()){
+            UtilMessage.message(player, "Clans", "Your Clan has too many allies.");
+            return;
         }
 
-
-        if (target.getMembers().size() < 6) {
-            if (target.getAlliances().size() >= Clans.getOptions().getMaxAlliesSmallClan()) {
-                UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members/allies.");
-                return;
-            }
-        } else {
-            if (target.getAlliances().size() >= Clans.getOptions().getMaxClanAllies()) {
-                UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members/allies.");
-                return;
-            }
+        if(target.getMembers().size() + target.getAlliances().size() >= Clans.getOptions().getMaxClanMembers()){
+            UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members/allies.");
+            return;
         }
+
 
 
         if (InviteHandler.isInvited(target, clan, "Ally")) {
