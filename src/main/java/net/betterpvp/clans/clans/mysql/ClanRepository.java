@@ -38,8 +38,9 @@ public class ClanRepository implements Repository<Clans> {
                 + "LastLogin BIGINT(255),"
                 + "Energy INT,"
                 + "Points INT,"
-                + "Cooldown LONG," +
-                "PRIMARY KEY(Name))";
+                + "Cooldown LONG,"
+                + "Level INT,"
+                + "PRIMARY KEY(Name))";
 
         QueryFactory.runQuery(CREATE_CLANS_TABLE);
 
@@ -83,6 +84,7 @@ public class ClanRepository implements Repository<Clans> {
                         int points = result.getInt(10);
                         int energy = result.getInt(9);
                         long cooldown = result.getLong(11);
+                        int level = result.getInt(12);
 
                         if (admin) {
                             final AdminClan clan = new AdminClan(name);
@@ -94,6 +96,7 @@ public class ClanRepository implements Repository<Clans> {
                             clan.setLastLogin(lastLogin);
                             clan.setEnergy(energy);
                             clan.setPoints(points);
+                            clan.setLevel(level);
 
                             ClanUtilities.addClan(clan);
                             if (!clan.getName().equalsIgnoreCase("Outskirts")) {
@@ -111,6 +114,7 @@ public class ClanRepository implements Repository<Clans> {
                             clan.setEnergy(energy);
                             clan.setPoints(points);
                             clan.setCooldown(cooldown);
+                            clan.setLevel(level);
                             ClanUtilities.addClan(clan);
                             //updateDynmap(i, clan);
                         }
@@ -165,7 +169,8 @@ public class ClanRepository implements Repository<Clans> {
                 + "'" + System.currentTimeMillis() + "', "
                 + "'" + clan.getEnergy() + "', "
                 + "'" + clan.getPoints() + "', "
-                + "'" + clan.getRawCooldown() + "')";
+                + "'" + clan.getRawCooldown() + "', "
+                + "" + clan.getLevel() + ")";
 
 
         MemberRepository.saveMembers(clan);
@@ -271,6 +276,11 @@ public class ClanRepository implements Repository<Clans> {
 
     public static void updateCooldown(Clan clan) {
         String query = "UPDATE " + TABLE_NAME + " SET Cooldown='" + clan.getRawCooldown() + "' WHERE Name='" + clan.getName() + "'";
+        QueryFactory.runQuery(query);
+    }
+
+    public static void updateLevel(Clan clan){
+        String query = "UPDATE " + TABLE_NAME + " SET LEvel='" + clan.getLevel() + "' WHERE Name='" + clan.getName() + "'";
         QueryFactory.runQuery(query);
     }
 

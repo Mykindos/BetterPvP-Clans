@@ -1,13 +1,18 @@
 package net.betterpvp.clans.farming;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,7 +24,7 @@ public class FarmingListener extends BPVPListener<Clans> {
         super(instance);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent e) {
         Block b = e.getBlock();
 
@@ -28,28 +33,28 @@ public class FarmingListener extends BPVPListener<Clans> {
         }
 
 
-        if (e.getBlock().getType() == Material.PISTON) {
-            if (b.getLocation().getY() > Clans.getOptions().getFarmingMinY() && b.getLocation().getY() < Clans.getOptions().getFarmingMaxY()) {
-                UtilMessage.message(e.getPlayer(), "Farming", "You cannot place regular pistons within the farming levels.");
-                e.setCancelled(true);
-                return;
-
+        Clan clan = ClanUtilities.getClan(b.getLocation());
+        if (clan != null) {
+            int bonusLevels = 4 + ((clan.getLevel() - 1) * 4);
+            int minY = Clans.getOptions().getFarmingMaxY() - bonusLevels;
+            if(FarmBlocks.isSeed(b.getType())){
+                if(b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || b.getLocation().getY() < minY){
+                    UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between "
+                            + ChatColor.GREEN + Clans.getOptions().getFarmingMaxY() + ChatColor.GRAY + " and " + ChatColor.GREEN + minY + ChatColor.GRAY + " Y.");
+                    e.setCancelled(true);
+                }
             }
         }
 
-        if (FarmBlocks.isSeed(b.getType())) {
 
-            if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || b.getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
-                UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y.");
-                e.setCancelled(true);
-
-            }
-        }
     }
 
-    @EventHandler
+
+
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onInteract(PlayerInteractEvent e) {
-        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
+
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
             if (c != null) {
@@ -59,14 +64,20 @@ public class FarmingListener extends BPVPListener<Clans> {
             }
 
 
-            if (FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())) {
-                if (e.getClickedBlock().getLocation().getY() > Clans.getOptions().getFarmingMaxY()
-                        || e.getClickedBlock().getLocation().getY() < Clans.getOptions().getFarmingMinY()) {
-                    UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between 50 and 58 Y");
-                    e.setCancelled(true);
-
+            Clan clan = ClanUtilities.getClan(e.getClickedBlock().getLocation());
+            if (clan != null) {
+                Block b = e.getClickedBlock();
+                int bonusLevels = 4 + ((clan.getLevel() - 1) * 4);
+                int minY = Clans.getOptions().getFarmingMaxY() - bonusLevels;
+                if(FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())){
+                    if(b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || b.getLocation().getY() < minY){
+                        UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between "
+                                + ChatColor.GREEN + Clans.getOptions().getFarmingMaxY() + ChatColor.GRAY + " and " + ChatColor.GREEN + minY + ChatColor.GRAY + " Y.");
+                        e.setCancelled(true);
+                    }
                 }
             }
+
         }
     }
 }

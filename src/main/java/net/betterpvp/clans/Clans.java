@@ -63,6 +63,7 @@ import net.coreprotect.CoreProtectAPI;
 import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.LivingEntity;
@@ -118,6 +119,8 @@ public class Clans extends JavaPlugin implements Listener {
     }
 
     private void load() {
+
+        new WorldCreator("bossworld").createWorld();
 
         new RoleManager(this);
 

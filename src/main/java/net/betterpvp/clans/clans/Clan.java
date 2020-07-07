@@ -37,6 +37,7 @@ public class Clan implements Invitable {
     private double energy;
     private long cooldown;
     private HashMap<Clan, Integer> raidCount;
+    private int level;
 
     public Clan(String name) {
         this.name = name;
@@ -56,6 +57,7 @@ public class Clan implements Invitable {
         this.energy = 2400;
         this.points = 0;
         this.cooldown = 0;
+        this.level = 1;
 
 
     }
@@ -365,6 +367,14 @@ public class Clan implements Invitable {
             }
         }
         return false;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public enum DataType {

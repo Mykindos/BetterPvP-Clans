@@ -129,7 +129,7 @@ public class InteractListener extends BPVPListener<Clans> {
 
         Clan bClan = ClanUtilities.getClan(block.getLocation());
         if (bClan != null) {
-            if (bClan != clan) {
+            if (!bClan.equals(clan)) {
 
 
                 if (bClan instanceof AdminClan) {

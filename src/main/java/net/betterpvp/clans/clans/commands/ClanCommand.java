@@ -93,6 +93,7 @@ public class ClanCommand implements CommandExecutor {
                         + ChatColor.GOLD + ClanUtilities.getEnergyTimeRemaining(clan) + ChatColor.YELLOW + ")");
 
                 UtilMessage.message(player, "Points: " + ChatColor.YELLOW + clan.getPoints());
+                UtilMessage.message(player, "Level: " +  ChatColor.YELLOW + clan.getLevel());
 
             } else {
                 UtilMessage.message(player, "Clans", "You are not in a Clan.");
@@ -132,6 +133,7 @@ public class ClanCommand implements CommandExecutor {
                 if (showPoints) {
                     UtilMessage.message(player, "Points: " + ChatColor.YELLOW + clan.getPoints());
                 }
+                UtilMessage.message(player, "Level: " +  ChatColor.YELLOW + clan.getLevel());
 
             } else {
                 ClanUtilities.searchClan(player, args[0], true);
