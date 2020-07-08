@@ -29,6 +29,8 @@ public class SlotListener extends BPVPListener<Clans> {
                 return;
             }
 
+            NetworkReceiver.sendNetworkMessage("127.0.0.1", Clans.getOptions().getHubPort(), "Bungee", "ReservedSlotAllowed");
+
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Client pClient = ClientUtilities.getOnlineClient(p);
                 if (pClient != null) {

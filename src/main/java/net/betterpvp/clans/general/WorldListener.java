@@ -709,6 +709,8 @@ public class WorldListener extends BPVPListener<Clans> {
                                 if (legend.isTextured()) {
                                     continue;
                                 }
+
+                                UtilItem.addGlow(i);
                             } else if (w instanceof EnchantedWeapon) {
                                 UtilItem.addGlow(i);
                             }
@@ -722,14 +724,14 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onnetwork(NetworkMessageEvent e){
-        if(e.getChannel().equals("MAH")){
-            if(e.getMessage().startsWith("Authenticate")){
+    public void onnetwork(NetworkMessageEvent e) {
+        if (e.getChannel().equals("MAH")) {
+            if (e.getMessage().startsWith("Authenticate")) {
                 System.out.println(e.getMessage().split("-!-")[1] + " was authenticated");
-            }else if(e.getMessage().startsWith("Failed")){
+            } else if (e.getMessage().startsWith("Failed")) {
                 String[] out = e.getMessage().split("-!-");
                 System.out.println(out[1] + " failed to authenticate with the following banned mods " + out[2]);
-            }else if(e.getMessage().startsWith("Image")){
+            } else if (e.getMessage().startsWith("Image")) {
                 String[] out = e.getMessage().split("-!-");
                 System.out.println(out[1] + " uploaded an image " + out[2]);
             }
@@ -1501,6 +1503,10 @@ public class WorldListener extends BPVPListener<Clans> {
                     e.getPlayer().getInventory().setItemInOffHand(null);
                 }
             }
+        } else {
+            if (e.getPlayer().getInventory().getItemInOffHand().getType() == Material.SHIELD) {
+                e.getPlayer().getInventory().setItemInOffHand(null);
+            }
         }
     }
 
@@ -1546,10 +1552,10 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onHubDamage(CustomDamageEvent e){
-        if(Clans.getOptions().isHub()){
+    public void onHubDamage(CustomDamageEvent e) {
+        if (Clans.getOptions().isHub()) {
             Clan clan = ClanUtilities.getClan(e.getDamagee().getLocation());
-            if(clan == null){
+            if (clan == null) {
                 e.setCancelled("Can only take damage in the hub arena.");
             }
         }
@@ -1666,7 +1672,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 || e.getFrom().getBlockY() != e.getTo().getBlockY()
                 || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
             Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if(c != null) {
+            if (c != null) {
                 if (c.hasRank(Rank.ADMIN, false)) {
                     if (!c.isLoggedIn()) {
                         e.setCancelled(true);

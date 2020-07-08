@@ -49,7 +49,9 @@ public class Options {
     private boolean hub;
     private String tablePrefix;
     private int hubPort;
+    private int maxClanlevel;
     private Clans i;
+
 
     public Options(Clans i) {
         this.i = i;
@@ -110,6 +112,7 @@ public class Options {
         texturePackForce = i.getConfigManager().get(Configs.MAIN).getBool("TexturePack.Forced");
         tablePrefix = i.getConfigManager().get(Configs.MAIN).getString("Database.Prefix");
         hubPort = i.getConfigManager().get(Configs.MAIN).getInt("Bungee.HubPort");
+        maxClanlevel = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxLevel");
     }
 
     public int getMAHPort() {
@@ -329,6 +332,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("TexturePack.Forced", false);
         i.getConfigManager().get(Configs.MAIN).check("Database.Prefix", "clans");
         i.getConfigManager().get(Configs.MAIN).check("Bungee.HubPort", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.MaxLevel", 5);
 
     }
 
@@ -364,5 +368,9 @@ public class Options {
 
     public int getHubPort(){
         return hubPort;
+    }
+
+    public int getMaxClanlevel() {
+        return maxClanlevel;
     }
 }

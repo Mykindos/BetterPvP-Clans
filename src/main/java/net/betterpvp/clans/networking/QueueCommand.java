@@ -36,6 +36,7 @@ public class QueueCommand extends Command implements Listener {
     private List<UUID> reserved;
     private boolean queueEnabled;
     private boolean canJoin;
+    private boolean reservedSlotAllowed;
 
     public QueueCommand(Plugin instance) {
         super("queue", new String[]{}, Rank.PLAYER);
@@ -70,6 +71,8 @@ public class QueueCommand extends Command implements Listener {
         if(e.getChannel().equals("Bungee")){
             if(e.getMessage().equals("SlotAvailable")){
                 canJoin = true;
+            }else if(e.getMessage().equalsIgnoreCase("ReservedSlotAllowed")){
+                reservedSlotAllowed = true;
             }
         }
     }
@@ -110,12 +113,15 @@ public class QueueCommand extends Command implements Listener {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             if (Clans.getOptions().isHub()) {
                 if (queueEnabled) {
-                    if(!reserved.isEmpty()) {
-                        Player player = Bukkit.getPlayer(reserved.get(0));
-                        if (player != null) {
-                            connectPlayer(player);
+                    if(reservedSlotAllowed) {
+                        if (!reserved.isEmpty()) {
+                            Player player = Bukkit.getPlayer(reserved.get(0));
+                            if (player != null) {
+                                connectPlayer(player);
+                            }
                         }
                     }
+                    reservedSlotAllowed = false;
 
                     if (queue.isEmpty()) return;
                     if(canJoin) {

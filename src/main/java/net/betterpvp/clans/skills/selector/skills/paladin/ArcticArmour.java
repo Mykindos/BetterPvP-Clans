@@ -130,17 +130,20 @@ public class ArcticArmour extends Skill implements ToggleSkill {
                             p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 0));
                         }
                     }
-                    for (Block block : blocks.keySet()) {
-                        if (block.getLocation().getY() <= cur.getLocation().getY()) {
-                            Block relDown = block.getRelative(BlockFace.DOWN);
-                            if (relDown.getType() != Material.SNOW && UtilBlock.isGrounded(cur)
-                                    && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)
-                                    && !relDown.getType().name().contains("STAIRS") && !relDown.getType().name().contains("CAMPFIRE")) {
-                                if (block.getType() == Material.AIR) {
-                                    new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
-                                    block.setType(Material.SNOW);
-                                }
+                    if (UtilBlock.isGrounded(cur)) {
+                        for (Block block : blocks.keySet()) {
+                            if (block.getLocation().getY() <= cur.getLocation().getY()) {
+                                Block relDown = block.getRelative(BlockFace.DOWN);
+                                if (relDown.getType() != Material.SNOW
+                                        && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)
+                                        && !relDown.getType().name().contains("STAIRS") && !relDown.getType().name().contains("CAMPFIRE")
+                                        && !relDown.getType().name().contains("SLAB") && relDown.getType() != Material.GRASS_PATH && relDown.getType() != Material.FARMLAND) {
+                                    if (block.getType() == Material.AIR) {
+                                        new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
+                                        block.setType(Material.SNOW);
+                                    }
 
+                                }
                             }
                         }
                     }

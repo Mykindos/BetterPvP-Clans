@@ -18,7 +18,10 @@ public class FarmBlocks {
                 || b == Material.PUMPKIN
                 || b == Material.MELON
                 || b == Material.NETHER_WART_BLOCK
-                || b == Material.NETHER_WART;
+                || b == Material.NETHER_WART
+                || b == Material.BEETROOT
+                || b == Material.BEETROOTS
+                || b == Material.SWEET_BERRY_BUSH;
     }
 
 
@@ -30,6 +33,8 @@ public class FarmBlocks {
                 || b == Material.CARROT
                 || b == Material.CACTUS
                 || b == Material.NETHER_WART_BLOCK
-                || b == Material.NETHER_WART;
+                || b == Material.NETHER_WART
+                || b == Material.BEETROOT_SEEDS
+                || b == Material.SWEET_BERRIES;
     }
 }

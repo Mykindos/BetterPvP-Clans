@@ -111,7 +111,7 @@ public class MovementListener extends BPVPListener<Clans> {
                                     }
                                 } else {
                                     if (p.getLocation().getY() < Clans.getOptions().getFarmingMaxY()
-                                            && p.getLocation().getY() > Clans.getOptions().getFarmingMinY()) {
+                                            && p.getLocation().getY() > (Clans.getOptions().getFarmingMaxY() - (4 + ((c.getLevel() -1) * 4)))) {
                                         if (p.getGameMode() == GameMode.ADVENTURE) {
                                             p.setGameMode(GameMode.SURVIVAL);
                                         }

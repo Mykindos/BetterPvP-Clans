@@ -56,7 +56,7 @@ public class Bloodthirst extends Skill {
                                                 if (warlock.hasPotionEffect(PotionEffectType.SPEED)) {
                                                     PotionEffect speed = player.getPotionEffect(PotionEffectType.SPEED);
                                                     if (speed != null) {
-                                                        if (speed.getAmplifier() < 2) {
+                                                        if (speed.getAmplifier() < 1) {
                                                             warlock.removePotionEffect(PotionEffectType.SPEED);
                                                         }
                                                     }
