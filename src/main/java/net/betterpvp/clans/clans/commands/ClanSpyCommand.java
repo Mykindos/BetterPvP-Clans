@@ -20,7 +20,7 @@ public class ClanSpyCommand extends Command implements Listener {
 
     private ArrayList<UUID> spying = new ArrayList<>();
 
-    public ClanSpyCommand(Clans c) {
+    public ClanSpyCommand() {
         super("ccspy", new String[]{}, Rank.ADMIN);
     }
 

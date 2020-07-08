@@ -158,7 +158,7 @@ public class ClanRepository implements Repository<Clans> {
             safe = ((AdminClan) clan).isSafe();
         }
 
-        query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown) VALUES "
+        query = "INSERT INTO " + TABLE_NAME + " (Name, Created, Leader, Home, Territory, Admin, Safe, LastLogin, Energy, Points, Cooldown, Level) VALUES "
                 + "('" + clan.getName() + "', "
                 + "'" + clan.getCreated() + "', "
                 + "'" + clan.getLeader().toString() + "', "

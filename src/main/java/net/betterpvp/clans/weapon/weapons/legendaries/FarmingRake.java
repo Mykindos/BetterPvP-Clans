@@ -9,6 +9,8 @@ import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
+import org.bukkit.craftbukkit.v1_16_R1.block.impl.CraftSweetBerryBush;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -66,9 +68,9 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     } else {
                                         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.POTATO, UtilMath.randomInt(1, 3))));
                                     }
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.POTATOES);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.POTATOES);
                                     b.setType(Material.POTATO);
                                     p.getInventory().removeItem(new ItemStack(Material.POTATO, 1));
                                 }
@@ -79,9 +81,9 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     } else {
                                         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.CARROT, UtilMath.randomInt(1, 3))));
                                     }
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.CARROTS);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.CARROTS);
                                     b.setType(Material.CARROT);
                                     p.getInventory().removeItem(new ItemStack(Material.CARROT, 1));
                                 }
@@ -90,9 +92,9 @@ public class FarmingRake extends Weapon implements ILegendary {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.WHEAT, 1)));
                                     p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.WHEAT_SEEDS, UtilMath.randomInt(1, 3))));
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.WHEAT);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.WHEAT);
                                     b.setType(Material.WHEAT);
                                     p.getInventory().removeItem(new ItemStack(Material.WHEAT_SEEDS, 1));
                                 }
@@ -105,11 +107,41 @@ public class FarmingRake extends Weapon implements ILegendary {
                                         p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_WART_BLOCK, UtilMath.randomInt(2, 4))));
                                     }
 
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
-                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
+
                                     b.setType(Material.NETHER_WART_BLOCK);
                                     p.getInventory().removeItem(new ItemStack(Material.NETHER_WART_BLOCK, 1));
+                                }
+                            }else if(b.getType().name().contains("BEETROOT")){
+                                Ageable age = (Ageable) b.getBlockData();
+
+                                if (age.getAge() == age.getMaximumAge()) {
+
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BEETROOT, 1)));
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BEETROOT_SEEDS, UtilMath.randomInt(1, 3))));
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.BEETROOTS);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.BEETROOTS);
+
+                                    b.setType(Material.BEETROOTS);
+                                    p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
+                                }
+                            }else if(b.getType() == Material.SWEET_BERRY_BUSH){
+
+
+                                Ageable age = (Ageable) b.getBlockData();
+
+                                if (age.getAge() == age.getMaximumAge()) {
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.SWEET_BERRIES, UtilMath.randomInt(2, 3))));
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.SWEET_BERRY_BUSH);
+                                    p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.SWEET_BERRY_BUSH);
+                                    age.setAge(1);
+                                    b.setBlockData(age);
+                                    //b.setType(Material.SWEET_BERRY_BUSH);
+                                    //p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
                                 }
                             }
 
