@@ -98,7 +98,11 @@ public class QueueCommand extends Command implements Listener {
                 }
 
                 if(user.isForced() && !user.isAuthenticated()){
-                    UtilMessage.message(e.getPlayer(), "MAH", "You need to authenticate with MAH before joining the queue!");
+                    UtilMessage.message(e.getPlayer(), ChatColor.RED.toString() + ChatColor.BOLD + "You need to authenticate with MAH before joining the queue!");
+                    UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "MAH is a Client-Side Anti-Cheat created for BetterPvP");
+                    UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "You must download and install this mod from https://betterpvp.net/mah.html");
+                    UtilMessage.message(e.getPlayer(), "");
+                    UtilMessage.message(e.getPlayer(), ChatColor.GRAY + "You are required to use MAH for another " + ChatColor.GREEN + user.getExpiryString() + ChatColor.GRAY + '.');
                     return;
                 }
                 if(client.hasDonation("ReservedSlot")){

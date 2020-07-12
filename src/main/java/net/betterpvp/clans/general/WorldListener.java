@@ -73,6 +73,9 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onTreeBreak(BlockBreakEvent e) {
 
+        if(Clans.getOptions().isHub()){
+            return;
+        }
 
         if (e.getBlock().getType().name().contains("LOG")) {
             if (ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) return;
@@ -1159,7 +1162,7 @@ public class WorldListener extends BPVPListener<Clans> {
         List<ItemStack> drops = event.getDrops();
         if (event.getEntity().getCustomName() == null) {
             if (event.getEntityType() != EntityType.PLAYER) {
-                drops.clear();
+                event.getDrops().clear();
             }
             if (event.getEntityType() == EntityType.CHICKEN) {
                 drops.add(new ItemStack(Material.CHICKEN, 1));

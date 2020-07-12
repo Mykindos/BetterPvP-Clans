@@ -110,7 +110,7 @@ public class ReflectionsUtil {
 
                 } else {
                     if (d.getConstructors()[0].getParameterCount() > 0) {
-                        System.out.println("Skipped Command (Requires arguments): " + d.getName());
+                        System.out.println("Skipped Donation (Requires arguments): " + d.getName());
                         continue;
                     }
 

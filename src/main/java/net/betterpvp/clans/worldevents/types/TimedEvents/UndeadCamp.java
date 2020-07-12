@@ -52,105 +52,109 @@ public class UndeadCamp extends Timed {
         super(i, "UndeadCamp", WEType.TIMED, 30);
 
         world = Bukkit.getWorld("bossworld");
-        loc = new Location(world, -144, 72, -480);
+        loc = new Location(world, 320.5, 50, 9.5);
 
         chestLocations = new Location[]{
-                createLocation(136.5, 32, 215.5),
-                createLocation(128.5, 32, 212.5),
-                createLocation(126.5, 32, 207.5),
-                createLocation(127.5, 32, 223.5),
-                createLocation(143.5, 32, 221.5),
-                createLocation(158.5, 32, 207.5),
-                createLocation(155.5, 43, 196.5),
-                createLocation(133.5, 43, 187.5),
-                createLocation(139.5, 52, 209.5),
-                createLocation(143.5, 52, 215.5),
-                createLocation(142.5, 52, 200.5),
-                createLocation(148.5, 65, 199.5),
-                createLocation(154.5, 65, 208.5),
-                createLocation(152.5, 65, 215.5),
-                createLocation(145.5, 65, 205.5),
-                createLocation(138.5, 65, 200.5),
-                createLocation(140.5, 75, 197.5),
-                createLocation(137.5, 75, 206.5),
-                createLocation(145.5, 75, 210.5),
-                createLocation(153.5, 75, 215.5),
-                createLocation(151.5, 75, 201.5),
-                createLocation(139.5, 91, 209.5),
-                createLocation(138.5, 91, 199.5),
-                createLocation(149.5, 91, 209.5),
-                createLocation(147.5, 91, 197.5),
-                createLocation(165.5, 32, 223.5),
-                createLocation(115.5, 32, 181.5),
-                createLocation(123.5, 32, 167.5),
-                createLocation(115.5, 32, 149.5),
-                createLocation(117.5, 32, 151.5),
-                createLocation(124.5, 38, 125.5),
-                createLocation(130.5, 38, 119.5),
-                createLocation(142.5, 32, 142.5),
-                createLocation(154.5, 32, 154.5),
-
-                createLocation(159.5, 37, 135.5),
-                createLocation(155.5, 37, 138.5),
-                createLocation(139.5, 36, 131.5),
-                createLocation(158.5, 33, 128.5),
-                createLocation(157.5, 32, 165.5),
-                createLocation(133.5, 44, 165.5),
-                createLocation(157.5, 32, 136.5),
-                createLocation(152.5, 52, 129.5),
-                createLocation(145.5, 52, 134.5),
-                createLocation(137.5, 52, 132.5),
-                createLocation(138.5, 52, 121.5),
-                createLocation(155.5, 52, 117.5),
-                createLocation(136.5, 66, 129.5),
-                createLocation(139.5, 66, 123.5),
-                createLocation(137.5, 66, 115.5),
-                createLocation(145.5, 66, 128.5),
-                createLocation(152.5, 66, 121.5),
-                createLocation(158.5, 32, 195.5),
-                createLocation(81.5, 42.5, 154.5),
-                createLocation(101.5, 42, 205.5),
-                createLocation(112.5, 42, 219.5),
-
+                createLocation(330.5, 119, 45.5),
+                createLocation(320.5, 109, 45.5),
+                createLocation(319.5, 109, 35.5),
+                createLocation(328.5, 109, 33.5),
+                createLocation(334.5, 93, 51.5),
+                createLocation(326.5, 93, 46.5),
+                createLocation(318.5, 93, 42.5),
+                createLocation(321.5, 93, 33.5),
+                createLocation(332.5, 93, 37.5),
+                createLocation(326.5, 83, 41.5),
+                createLocation(319.5, 83, 36.5),
+                createLocation(329.5, 83, 35.5),
+                createLocation(335.5, 83, 44.5),
+                createLocation(333.5, 83, 51.5),
+                createLocation(324.5, 70, 51.5),
+                createLocation(320.5, 70, 45.5),
+                createLocation(323.5, 70, 36.5),
+                createLocation(332.5, 70, 46.5),
+                createLocation(336.5, 61, 32.5),
+                createLocation(314.5, 61, 23.5),
+                createLocation(346.5, 50, 59.5),
+                createLocation(321.5, 50, 57.5),
+                createLocation(308.5, 50, 59.5),
+                createLocation(317.5, 50, 51.5),
+                createLocation(309.5, 50, 48.5),
+                createLocation(307.5, 50, 43.5),
+                createLocation(339.5, 50, 43.5),
+                createLocation(339.5, 50, 31.5),
+                createLocation(296.5, 50, 17.5),
+                createLocation(325.5, 50, 20.5),
+                createLocation(338.5, 50, 1.5),
+                createLocation(304.5, 50, 3.5),
+                createLocation(298.5, 50, -12.5),
+                createLocation(296.5, 50, -14.5),
+                createLocation(323.5, 50, -55.5),
+                createLocation(335.5, 50, -49.5),
+                createLocation(339.5, 51, -35.5),
+                createLocation(338.5, 50, -27.5),
+                createLocation(320.5, 54, -32.5),
+                createLocation(336.5, 55, -34.5),
+                createLocation(340.5, 55, -28.5),
+                createLocation(336.5, 55, -25.5),
+                createLocation(314.5, 62, 1.5),
+                createLocation(305.5, 56, -38.5),
+                createLocation(311.5, 56, -44.5),
+                createLocation(331.5, 61, -45.5),
+                createLocation(333.5, 70, -34.5),
+                createLocation(326.5, 70, -29.5),
+                createLocation(318.5, 70, -31.5),
+                createLocation(319.5, 70, -42.5),
+                createLocation(336.5, 70, -46.5),
+                createLocation(333.5, 84, -42.5),
+                createLocation(326.5, 84, -35.5),
+                createLocation(321.5, 84, -30.5),
+                createLocation(317.5, 84, -34.5),
+                createLocation(320.5, 84, -40.5),
+                createLocation(318.5, 84, -48.5)
 
         };
 
         mobSpawnLocations = new Location[]{
 
-                createLocation(151.5, 41.5, 179.5),
-                createLocation(170.5, 32, 203.5),
-                createLocation(131.5, 44, 172.5),
-                createLocation(145.5, 66, 132.5),
-                createLocation(193.5, 33, 127.5),
-                createLocation(142.5, 75, 209.5),
-                createLocation(142.5, 92, 200.5),
-                createLocation(143.5, 75, 203.5),
-                createLocation(63.5, 33, 170.5),
-                createLocation(149.5, 32, 156.5),
-                createLocation(63.5, 33, 160.5),
-                createLocation(175.5, 33, 144.5),
-                createLocation(82.5, 38.5, 152.5),
-                createLocation(105.5, 32, 204.5),
-                createLocation(111.5, 32, 216.5)
+                createLocation(337.5, 55, -31.5),
+                createLocation(326.5, 50, -45.5),
+                createLocation(305.5, 50, -51.5),
+                createLocation(311.5, 50, -40.5),
+                createLocation(308.5, 57, -41.5),
+                createLocation(320.5, 71, -35.5),
+                createLocation(330.5, 84, -46.5),
+                createLocation(323.5, 84, -32.5),
+                createLocation(310.5, 69.5, -21.5),
+                createLocation(326.5, 50, -3.5),
+                createLocation(315.5, 62, 2.5),
+                createLocation(313.5, 61, 22.5),
+                createLocation(311.5, 69.5, 27.5),
+                createLocation(338.5, 55, 32.5),
+                createLocation(336.5, 50, 47.5),
+                createLocation(308.5, 50, 45.5),
+                createLocation(328.5, 83, 37.5),
+                createLocation(320.5, 93, 45.5),
+                createLocation(321.5, 110, 48.5)
 
         };
 
 
         locs = new Location[]{
-                createLocation(121.5, 32, 124.5),
-                createLocation(116.5, 32, 165.5),
-                createLocation(120.5, 32, 212.5),
-                createLocation(146.5, 32, 207.5),
-                createLocation(154.5, 37, 198.5),
-                createLocation(175.5, 32, 179.5),
-                createLocation(204.5, 32, 168.5),
-                createLocation(177.5, 35, 120.5),
-                createLocation(152.5, 56, 122.5),
-                createLocation(130.5, 51, 140.5),
-                createLocation(82.5, 40, 202.5),
-                createLocation(66.5, 33, 185.5),
-                createLocation(80.5, 34, 119.5),
-                createLocation(100.5, 32, 222.5)
+               createLocation(365, 49, -38),
+                createLocation(333, 49, -69),
+                createLocation(296, 49, -64),
+                createLocation(285, 49, -30),
+                createLocation(278, 49, -1.5),
+                createLocation(279, 48, 37),
+                createLocation(283, 48, 65),
+                createLocation(302, 48, 77),
+                createLocation(324, 49, 77),
+                createLocation(348, 50, 72),
+                createLocation(363, 49, 57),
+                createLocation(365, 49, 17),
+                createLocation(369, 49, -15)
+
 
         };
 		/*
@@ -277,11 +281,15 @@ public class UndeadCamp extends Timed {
         double rand = Math.random();
         if (rand > 0.95) {
             world.dropItem(b.getLocation(), new ItemStack(Material.MUSIC_DISC_PIGSTEP));
-        } else if (rand > 0.9) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_SWORD));
+        }else if(rand > 0.90){
+            world.dropItem(b.getLocation(), new ItemStack(Material.NETHERITE_AXE));
+        } else if(rand > 0.85){
+            world.dropItem(b.getLocation(), new ItemStack(Material.NETHERITE_SWORD));
         } else if (rand > 0.8) {
-            world.dropItem(b.getLocation(), new ItemStack(Material.GOLDEN_SWORD));
+            world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_SWORD));
         } else if (rand > 0.7) {
+            world.dropItem(b.getLocation(), new ItemStack(Material.GOLDEN_SWORD));
+        } else if (rand > 0.6) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_AXE));
         }
         b.setType(Material.AIR);
@@ -438,7 +446,7 @@ public class UndeadCamp extends Timed {
                     if (Math.random() > 0.97) {
                         world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.IRON_BOOTS));
                     }
-                    world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.IRON_INGOT, UtilMath.randomInt(3, 7)));
+                    world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.IRON_INGOT, UtilMath.randomInt(2, 5)));
                 } else if (e.getEntity() instanceof Skeleton) {
                     if (Math.random() > 0.97) {
                         world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.CHAINMAIL_HELMET));
@@ -455,7 +463,7 @@ public class UndeadCamp extends Timed {
                     if (Math.random() > 0.97) {
                         world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.CHAINMAIL_BOOTS));
                     }
-                    world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.EMERALD, UtilMath.randomInt(3, 7)));
+                    world.dropItem(e.getEntity().getLocation(), new ItemStack(Material.EMERALD, UtilMath.randomInt(2, 5)));
                 }
 
 

@@ -91,6 +91,6 @@ public class SuperTools implements IDonation, Listener {
 
     @Override
     public long getExpiryTime() {
-        return DonationExpiryTimes.DAY * 60;
+        return DonationExpiryTimes.DAY * 7 * 6;
     }
 }

@@ -13,6 +13,7 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.mysql.BuildRepository;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.SelectorManager;
+import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.listeners.ClientLoginEvent;
@@ -94,6 +95,15 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
 
     }
+
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onRemoveOnlineGamer(PlayerQuitEvent e){
+        Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+        if(gamer != null){
+            GamerManager.getOnlineGamers().remove(gamer);
+        }
+    }
+
 
     @EventHandler
     public void onTexturepackStatus(PlayerResourcePackStatusEvent e) {
