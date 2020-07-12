@@ -18,6 +18,7 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.minecraft.server.v1_16_R1.EntityTypes;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -136,8 +137,13 @@ public class Rupture extends Skill implements InteractSkill {
                     }
 
                 }
+
+
                 if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
-                    loc.add(0.0D, -1.0D, 0.0D);
+                    Block halfBlock = loc.clone().add(0, -0.5, 0).getBlock();
+                    if(!halfBlock.getType().name().contains("SLAB") && !halfBlock.getType().name().contains("STAIR")) {
+                        loc.add(0.0D, -1.0D, 0.0D);
+                    }
                 }
 
                 for (int i = 0; i < 3; i++) {

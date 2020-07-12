@@ -1,5 +1,6 @@
 package net.betterpvp.clans.clans.listeners;
 
+import me.mykindos.MAH.user.MAHManager;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Alliance;
 import net.betterpvp.clans.clans.Clan;
@@ -109,8 +110,8 @@ public class ChatListener extends BPVPListener<Clans> {
                         continue;
                     }
 
-				/*
-					if(onlineClient.getSettingsAsBoolean("ChatFilter")){
+
+					if(onlineClient.getSettingAsBoolean("ChatFilter")){
 
 						String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
 						for(String s : filter){
@@ -122,10 +123,10 @@ public class ChatListener extends BPVPListener<Clans> {
 
 						}
 					}
-				*/
+
 
                     if (tempIgnore.contains(online)) {
-                        if (p == online) {
+                        if (p.equals(online)) {
                             UtilMessage.message(p, "Chat", "Your chat filter is on! Only people with their filter off can see bad messages.");
                         }
                         continue;
@@ -152,11 +153,16 @@ public class ChatListener extends BPVPListener<Clans> {
 					}
 					*/
 
+					String prefix = "";
+					if(MAHManager.isAuthenticated(p.getUniqueId())){
+					    prefix = ChatColor.GREEN + "* ";
+                    }
+
 
                     if (ClanUtilities.getClan(p) == null || Clans.getOptions().isFNG()) {
-                        online.sendMessage(rank + donationRank + ChatColor.YELLOW + p.getName() + ": " + ChatColor.RESET + e.getMessage());
+                        online.sendMessage(prefix + rank + donationRank + ChatColor.YELLOW + p.getName() + ": " + ChatColor.RESET + e.getMessage());
                     } else {
-                        new FancyMessage(rank + donationRank + ClanUtilities.getRelation(clan, target).getSecondary() + clan.getName() + " "
+                        new FancyMessage(prefix + rank + donationRank + ClanUtilities.getRelation(clan, target).getSecondary() + clan.getName() + " "
                                 + ClanUtilities.getRelation(clan, target).getPrimary() + p.getName() + ": ")
                                 .tooltip(ClanUtilities.getClanTooltip(p, clan)).then(e.getMessage()).send(online);
                     }

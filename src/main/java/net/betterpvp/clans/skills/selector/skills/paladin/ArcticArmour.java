@@ -137,7 +137,9 @@ public class ArcticArmour extends Skill implements ToggleSkill {
                                 if (relDown.getType() != Material.SNOW
                                         && relDown.getType() != Material.AIR && relDown.getType() != Material.WATER && !UtilBlock.airFoliage(relDown)
                                         && !relDown.getType().name().contains("STAIRS") && !relDown.getType().name().contains("CAMPFIRE")
-                                        && !relDown.getType().name().contains("SLAB") && relDown.getType() != Material.GRASS_PATH && relDown.getType() != Material.FARMLAND) {
+                                        && !relDown.getType().name().contains("SLAB") && relDown.getType() != Material.GRASS_PATH
+                                        && relDown.getType() != Material.FARMLAND && !relDown.isLiquid() && relDown.getType() != Material.RAIL
+                                && !relDown.getType().name().contains("FENCE")) {
                                     if (block.getType() == Material.AIR) {
                                         new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);
                                         block.setType(Material.SNOW);

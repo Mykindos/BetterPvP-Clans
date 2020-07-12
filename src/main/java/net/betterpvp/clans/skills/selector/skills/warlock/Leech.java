@@ -268,6 +268,11 @@ public class Leech extends Skill implements InteractSkill {
             ListIterator<LeechData> it = leechData.listIterator();
             while (it.hasNext()) {
                 LeechData l = it.next();
+                if(l.target instanceof Player){
+                    if(!ClanUtilities.canHurt(l.owner, (Player) l.target)){
+                        continue;
+                    }
+                }
                 LogManager.addLog(l.target, l.owner, "Leech");
                 CustomDamageEvent leechDmg = new CustomDamageEvent(l.target, l.owner, null, EntityDamageEvent.DamageCause.MAGIC, 1, false);
                 leechDmg.setIgnoreArmour(true);

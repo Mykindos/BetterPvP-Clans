@@ -2,6 +2,8 @@ package net.betterpvp.clans.networking;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import me.mykindos.MAH.user.MAHManager;
+import me.mykindos.MAH.user.MAHUser;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.gamer.Gamer;
@@ -87,9 +89,16 @@ public class QueueCommand extends Command implements Listener {
             if (Clans.getOptions().isHub()) {
                 // TODO add MAH check
 
-                Client client = ClientUtilities.getOnlineClient(e.getPlayer());
+
+                MAHUser user = MAHManager.getOnlineMAHUser(e.getPlayer());
+                Client client = user.getClient();
                 if (client.hasRank(Rank.MODERATOR, false)) {
                     UtilMessage.message(e.getPlayer(), "Queue", "Type " + ChatColor.GREEN + "/queue" + ChatColor.GRAY + " to join the server (Mod+ only).");
+                    return;
+                }
+
+                if(user.isForced() && !user.isAuthenticated()){
+                    UtilMessage.message(e.getPlayer(), "MAH", "You need to authenticate with MAH before joining the queue!");
                     return;
                 }
                 if(client.hasDonation("ReservedSlot")){

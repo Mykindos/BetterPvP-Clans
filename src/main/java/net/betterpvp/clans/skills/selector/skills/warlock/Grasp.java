@@ -188,8 +188,8 @@ public class Grasp extends Skill implements InteractSkill {
         return new String[]{
                 "Right click with a sword to activate.",
                 "",
-                "Create a wall of skulls closes in on you from a distance",
-                "and brings all enemies with it.",
+                "Create a wall of skulls that closes in on you from a distance",
+                "and drags all enemies with it.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
                 "Max range: " + ChatColor.GREEN + (20 + ((level * 10) / 2)),
