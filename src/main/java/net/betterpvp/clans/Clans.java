@@ -293,19 +293,13 @@ public class Clans extends JavaPlugin implements Listener {
                             frags++;
                         }
 
-                        // TODO reimplement MAH bonus
-                       /* double multiplier = MAHManager.isAuthenticated(p) ? 3 : 1.0;
-                        if(MAHManager.isAuthenticated(p)) {
-                            add += 1000;
-                        }
-*/
                         if (gamer.getClient().isDiscordLinked()) {
                             add += 1000;
                         }
 
                         gamer.addCoins((getOptions().getOnlineReward() + add));
 
-                        gamer.addFragments(2);
+                        gamer.addFragments(frags);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
                                 + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " coins and " + ChatColor.YELLOW + (frags) + ChatColor.GRAY + " fragments");
