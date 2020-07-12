@@ -55,7 +55,7 @@ public class UndeadCamp extends Timed {
         loc = new Location(world, 320.5, 50, 9.5);
 
         chestLocations = new Location[]{
-                createLocation(330.5, 119, 45.5),
+                createLocation(330.5, 109, 45.5),
                 createLocation(320.5, 109, 45.5),
                 createLocation(319.5, 109, 35.5),
                 createLocation(328.5, 109, 33.5),
