@@ -6,6 +6,7 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.donation.DonationExpiryTimes;
 import net.betterpvp.core.donation.IDonation;
 import net.betterpvp.core.framework.UpdateEvent;
@@ -120,7 +121,7 @@ public class AgilityHelmet implements IDonation, Listener {
         Gamer gamer = GamerManager.getOnlineGamer(player);
         if (gamer != null) {
             if (gamer.getClient().hasDonation(getName())) {
-                UtilItem.insert(player, new ItemStack(Material.TURTLE_HELMET, 1));
+                UtilItem.insert(player, UtilClans.updateNames(new ItemStack(Material.TURTLE_HELMET, 1)));
             }
         }
     }

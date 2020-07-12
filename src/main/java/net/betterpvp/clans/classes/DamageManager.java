@@ -295,18 +295,18 @@ public class DamageManager extends BPVPListener<Clans> {
 
                             e.getDamagee().setHealth(0);
                             // Fixed in spigot version
-                            if (e.getDamagee().isDead()) {
-                                if (!(e.getDamagee() instanceof Player)) {
+                           //if (e.getDamagee().isDead()) {
+                           //    if (!(e.getDamagee() instanceof Player)) {
 
-                                    /*
-                                     * EntityDeathEvent not called if entity is killed with setHealth(0);
-                                     */
-                                    List<ItemStack> drops = new ArrayList<>();
-                                    Bukkit.getPluginManager().callEvent(new EntityDeathEvent(e.getDamagee(), drops));
+                           //        /*
+                           //         * EntityDeathEvent not called if entity is killed with setHealth(0);
+                           //         */
+                           //        List<ItemStack> drops = new ArrayList<>();
+                           //        Bukkit.getPluginManager().callEvent(new EntityDeathEvent(e.getDamagee(), drops));
 
-                                }
-                                return;
-                            }
+                           //    }
+                           //    return;
+                           //}
 
                         } else {
 

@@ -138,6 +138,8 @@ public class UtilClans {
             a.setDisplayName("Ancient Axe");
             lore.add(ChatColor.GRAY + "Damage: " + ChatColor.GREEN + "5");
             lore.add(ChatColor.GRAY + "Bonus 1 Level to Axe Skills");
+        }else if(m == Material.TURTLE_HELMET){
+            a.setDisplayName("Agility Helmet");
         }
 
         if(a.hasDisplayName()){
