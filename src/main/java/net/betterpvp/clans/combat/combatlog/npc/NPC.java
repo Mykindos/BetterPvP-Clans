@@ -16,7 +16,7 @@ import java.util.List;
 
 public class NPC {
 
-    public static List<NPC> npcs = new ArrayList<NPC>();
+    public static List<NPC> npcs = new ArrayList<>();
 
     private String name;
     private Location location;
@@ -25,7 +25,7 @@ public class NPC {
     private double range;
     private ArmorStand stand;
 
-    public NPC(String name, Location location, EntityType entityType, double range, boolean visable) {
+    public NPC(String name, Location location, EntityType entityType, double range) {
         if (!location.getChunk().isLoaded()) {
             location.getChunk().load();
         }
@@ -95,6 +95,7 @@ public class NPC {
     public void remove() {
         if(getEntity() != null) {
             getEntity().setHealth(0);
+            getEntity().remove();
         }
     }
 

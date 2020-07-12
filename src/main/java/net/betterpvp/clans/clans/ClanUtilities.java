@@ -240,7 +240,7 @@ public class ClanUtilities {
         }
 
         for (Client client : ClientUtilities.getClients()) {
-            if(client.getName() != null) {
+            if (client.getName() != null) {
                 if (client.getName().equalsIgnoreCase(string)) {
                     for (Clan clan : clans) {
                         for (ClanMember member : clan.getMembers()) {
@@ -319,7 +319,7 @@ public class ClanUtilities {
 
 
         //ClanRepository.removeDynmap(clan);
-      //  ScoreboardManager.removeClan(clan.getName());
+        //  ScoreboardManager.removeClan(clan.getName());
         ClanRepository.deleteClan(clan);
 
         ClanUtilities.getClans().remove(clan);
@@ -370,10 +370,9 @@ public class ClanUtilities {
         }
 
         //ClanRepository.removeDynmap(clan);
-       // ScoreboardManager.removeClan(clan.getName());
+        // ScoreboardManager.removeClan(clan.getName());
         ClanRepository.deleteClan(clan);
     }
-
 
 
     public static int getHoursOfEnergy(Clan clan) {
@@ -386,12 +385,12 @@ public class ClanUtilities {
         return count;
     }
 
-    public static String getEnergyTimeRemaining(Clan clan){
+    public static String getEnergyTimeRemaining(Clan clan) {
 
-        if(clan.getTerritory().isEmpty()){
+        if (clan.getTerritory().isEmpty()) {
             return "∞";
         }
-        return UtilTime.getTime((clan.getEnergy() / (clan.getTerritory().size() * 25)) * 3600000 , UtilTime.TimeUnit.BEST, 2);
+        return UtilTime.getTime((clan.getEnergy() / (clan.getTerritory().size() * 25)) * 3600000, UtilTime.TimeUnit.BEST, 2);
 
     }
 
@@ -475,7 +474,6 @@ public class ClanUtilities {
         }
 
 
-
         if (EffectManager.hasEffect(target, EffectType.PROTECTION) || EffectManager.hasEffect(player, EffectType.PROTECTION)) {
             return false;
         }
@@ -483,7 +481,7 @@ public class ClanUtilities {
 
         Clan playerClan = getClan(player);
         Clan targetClan = getClan(target);
-        if (getRelation(playerClan,targetClan) == ClanRelation.SELF
+        if (getRelation(playerClan, targetClan) == ClanRelation.SELF
                 || getRelation(playerClan, targetClan) == ClanRelation.ALLY
                 || getRelation(playerClan, targetClan) == ClanRelation.ALLY_TRUST) {
             return false;
@@ -499,6 +497,11 @@ public class ClanUtilities {
 
 
             Clan targetLocClan = getClan(target.getLocation());
+            if (Clans.getOptions().isHub()) {
+                if (targetLocClan == null) {
+                    return false;
+                }
+            }
 
             if (targetLocClan != null) {
                 if (targetLocClan instanceof AdminClan) {

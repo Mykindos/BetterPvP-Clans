@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -80,6 +81,7 @@ public class Agility extends Skill implements InteractSkill {
             if (event.getAction() != Action.PHYSICAL) {
 
                 if (active.contains(player.getUniqueId())) {
+                    System.out.println(event.getAction().name());
                     active.remove(player.getUniqueId());
                     player.removePotionEffect(PotionEffectType.SPEED);
                 }
@@ -147,7 +149,13 @@ public class Agility extends Skill implements InteractSkill {
         if (!active.contains(player.getUniqueId())) {
             UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName() + " " + getLevel(player));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (3 + getLevel(player)) * 20, 1));
-            active.add(player.getUniqueId());
+            new BukkitRunnable(){
+                @Override
+                public void run(){
+                    active.add(player.getUniqueId());
+                }
+            }.runTaskLater(getInstance(), 1);
+
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 0.5F);
 
         }

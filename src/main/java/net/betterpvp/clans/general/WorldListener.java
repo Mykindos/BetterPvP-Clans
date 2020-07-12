@@ -738,6 +738,20 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler
+    public void onPlaceScaffold(BlockPlaceEvent e){
+        if(e.getBlock().getType() == Material.SCAFFOLDING){
+            Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+            if(gamer != null){
+                if(gamer.getClient().isAdministrating()){
+                    return;
+                }
+            }
+
+            e.setCancelled(true);
+        }
+    }
+
     /*
      * Sets the damage for all tools
      * Removes knockback from assassins

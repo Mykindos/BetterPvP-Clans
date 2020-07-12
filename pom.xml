@@ -57,6 +57,7 @@
                             <exclude>org.apache.maven:lib:tests</exclude>
                             <exclude>log4j:log4j:jar:</exclude>
                             <exclude>*net.betterpvp:core*</exclude>
+                            <exclude>*me.mykindos:MAH*</exclude>
                             <exclude>*LibsDisguises*</exclude>
                             <exclude>*CoreProtect*</exclude>
 
@@ -150,6 +151,12 @@
         <dependency>
             <groupId>net.betterpvp</groupId>
             <artifactId>core</artifactId>
+            <version>1.16</version>
+
+        </dependency>
+        <dependency>
+            <groupId>me.mykindos</groupId>
+            <artifactId>MAH</artifactId>
             <version>1.16</version>
 
         </dependency>

@@ -1,6 +1,7 @@
 package net.betterpvp.clans;
 
 
+import me.mykindos.MAH.user.MAHManager;
 import net.betterpvp.clans.anticheat.AnticheatManager;
 import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.ClanReloadCommand;
@@ -15,6 +16,8 @@ import net.betterpvp.clans.combat.combatlog.CombatLogManager;
 import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.crates.CrateListener;
+import net.betterpvp.clans.crates.CrateManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopCommand;
@@ -120,7 +123,9 @@ public class Clans extends JavaPlugin implements Listener {
 
     private void load() {
 
-        new WorldCreator("bossworld").createWorld();
+        if (!Clans.getOptions().isHub()) {
+            new WorldCreator("bossworld").createWorld();
+        }
 
         new RoleManager(this);
 
@@ -187,6 +192,8 @@ public class Clans extends JavaPlugin implements Listener {
         new NPCManager(this);
         new SafeLogManager(this);
         new AnticheatManager(this);
+        new CrateManager();
+        new CrateListener(this);
 
 
         CommandManager.addCommand(new ShopCommand(this));
@@ -195,11 +202,11 @@ public class Clans extends JavaPlugin implements Listener {
         CommandManager.addCommand(new ClanReloadCommand(this));
         CommandManager.addCommand(new SearchChestsCommand(this));
 
-        if(Clans.getOptions().isHub()) {
+        if (Clans.getOptions().isHub()) {
             QueueCommand queueCommand = new QueueCommand(this);
             CommandManager.addCommand(queueCommand);
             Bukkit.getPluginManager().registerEvents(queueCommand, this);
-        }else{
+        } else {
             new SlotListener(this);
         }
 
@@ -280,23 +287,28 @@ public class Clans extends JavaPlugin implements Listener {
 
 
                         double add = 0;
+                        int frags = 2;
+
+                        if(MAHManager.isAuthenticated(p.getUniqueId())){
+                            frags++;
+                        }
 
                         // TODO reimplement MAH bonus
                        /* double multiplier = MAHManager.isAuthenticated(p) ? 3 : 1.0;
                         if(MAHManager.isAuthenticated(p)) {
                             add += 1000;
                         }
-
-                        if(c.isDiscordLinked()) {
+*/
+                        if (gamer.getClient().isDiscordLinked()) {
                             add += 1000;
-                        }*/
+                        }
 
                         gamer.addCoins((getOptions().getOnlineReward() + add));
 
                         gamer.addFragments(2);
 
                         UtilMessage.message(p, "Online Reward", "You received " + ChatColor.YELLOW + "$"
-                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " coins and " + ChatColor.YELLOW + (2) + ChatColor.GRAY + " fragments");
+                                + UtilFormat.formatNumber((int) ((getOptions().getOnlineReward() + add))) + ChatColor.GRAY + " coins and " + ChatColor.YELLOW + (frags) + ChatColor.GRAY + " fragments");
 
                     }
                 }
@@ -338,7 +350,7 @@ public class Clans extends JavaPlugin implements Listener {
         return hasStarted;
     }
 
-    public void setStarted(boolean started){
+    public void setStarted(boolean started) {
         this.hasStarted = started;
     }
 

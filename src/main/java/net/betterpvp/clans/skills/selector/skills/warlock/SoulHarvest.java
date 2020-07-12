@@ -8,6 +8,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +34,9 @@ public class SoulHarvest extends Skill {
                 "Harvest the soul of nearby dead players.",
                 "",
                 "Collected souls give bursts of speed and regeneration.",
-                "Souls are visible by Warlocks only"
+                "Souls are visible by Warlocks only",
+                "",
+                "Buff duration: " + ChatColor.GREEN + ((40 + (level * 20)) /20) + ChatColor.GRAY + " seconds."
         };
     }
 
@@ -101,8 +104,9 @@ public class SoulHarvest extends Skill {
     }
 
     private void giveEffect(Player p){
-        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40 + ((getLevel(p)) * 20), 1));
-        p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40 + ((getLevel(p)) * 20), 1));
+        int level = getLevel(p);
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40 + (level * 20), 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40 + (level * 20), 1));
     }
 
     private class SoulData {
