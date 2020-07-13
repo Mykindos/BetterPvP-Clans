@@ -1,5 +1,6 @@
 package net.betterpvp.clans.classes.commands;
 
+import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.menu.KitMenu;
 import net.betterpvp.clans.classes.roles.Assassin;
@@ -28,37 +29,56 @@ public class KitCommand extends Command {
     public void execute(Player player, String[] args) {
         Gamer gamer = GamerManager.getOnlineGamer(player);
 
-        if (args != null) {
-            if (args.length == 1) {
+        if (gamer.getClient().hasRank(Rank.ADMIN, false)) {
+            if (args != null) {
+                if (args.length == 1) {
 
-                Role role = Role.getRole(args[0]);
-                if (role != null) {
-                    giveKit(player, role);
-                    return;
-                } else {
-                    UtilMessage.message(player, "Kit", args[0] + " is not a valid kit.");
-                }
-
-
-            } else if (args.length == 2) {
-
-                Player p = Bukkit.getPlayer(args[1]);
-                if (p != null) {
                     Role role = Role.getRole(args[0]);
                     if (role != null) {
-                        ClientUtilities.messageStaff("Kit", ChatColor.GREEN + player.getName() + ChatColor.GRAY
-                                + " gave " + ChatColor.GREEN + p.getName() + ChatColor.GRAY + " a " + ChatColor.YELLOW + role.getName() + ChatColor.GRAY + " kit");
-                        giveKit(p, role);
+                        giveKit(player, role);
+                        return;
                     } else {
                         UtilMessage.message(player, "Kit", args[0] + " is not a valid kit.");
                     }
+                    return;
 
+                } else if (args.length == 2) {
+
+                    Player p = Bukkit.getPlayer(args[1]);
+                    if (p != null) {
+                        Role role = Role.getRole(args[0]);
+                        if (role != null) {
+                            ClientUtilities.messageStaff("Kit", ChatColor.GREEN + player.getName() + ChatColor.GRAY
+                                    + " gave " + ChatColor.GREEN + p.getName() + ChatColor.GRAY + " a " + ChatColor.YELLOW + role.getName() + ChatColor.GRAY + " kit");
+                            giveKit(p, role);
+                        } else {
+                            UtilMessage.message(player, "Kit", args[0] + " is not a valid kit.");
+                        }
+
+                    }
+                    return;
                 }
-
+            } else {
+                player.openInventory(new KitMenu(player, false).getInventory());
             }
-        } else {
-            player.openInventory(new KitMenu(player, false).getInventory());
+        }else if(gamer.getClient().hasRank(Rank.PLAYER, false)){
+            if(Clans.getOptions().isHub()){
+                UtilMessage.message(player, "You cannot claim your starter kit in the Hub!");
+                return;
+            }
+            if(gamer.getClient().isDiscordLinked()){
+                if(!gamer.isStarterKitClaimed()) {
+                    player.openInventory(new KitMenu(player, false).getInventory());
+                }else{
+                    UtilMessage.message(player, "Kit", "You have already claimed your starter kit for this season!");
+                }
+            }else{
+                UtilMessage.message(player, "Kit", "You need to link your discord account to claim your starter kit. Type"
+                        + ChatColor.GREEN + "/link " + ChatColor.GRAY + " for more information.");
+            }
         }
+
+
     }
 
     public static void giveKit(Player p, Role role) {

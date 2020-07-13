@@ -35,6 +35,7 @@ public class GamerRepository implements Repository<Clans> {
                 + "Fragments bigint(255),"
                 + "BattleCoins bigint(255),"
                 + "Filter tinyint(1),"
+                + "StarterKit tinyint(1),"
                 + "PRIMARY KEY(UUID)); ";
         QueryFactory.runQuery(CREATE_GAMER_TABLE);
     }
@@ -57,7 +58,7 @@ public class GamerRepository implements Repository<Clans> {
                 int fragments = result.getInt(6);
                 int battlecoins = result.getInt(7);
                 boolean filter = result.getBoolean(8);
-
+                boolean starterKit = result.getBoolean(9);
 
                 Gamer gamer = new Gamer(uuid);
                 Client client = ClientUtilities.getClient(uuid);
@@ -71,6 +72,7 @@ public class GamerRepository implements Repository<Clans> {
                     gamer.setFragments(fragments);
                     gamer.setBattleCoins(battlecoins);
                     gamer.setFilter(filter);
+                    gamer.setStarterKitClaimed(starterKit);
 
                     gamer.setClient(client);
 
@@ -220,6 +222,11 @@ public class GamerRepository implements Repository<Clans> {
 
     public static void updateDeaths(Gamer gamer) {
         String query = "UPDATE " + TABLE_NAME + " SET Deaths='" + gamer.getDeaths() + "' WHERE UUID='" + gamer.getUUID().toString() + "'";
+        QueryFactory.runQuery(query);
+    }
+
+    public static void updateStarterKitClaimed(Gamer gamer) {
+        String query = "UPDATE " + TABLE_NAME + " SET StarterKit=" + gamer.isStarterKitClaimed() + " WHERE UUID='" + gamer.getUUID().toString() + "'";
         QueryFactory.runQuery(query);
     }
 

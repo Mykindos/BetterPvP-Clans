@@ -338,13 +338,40 @@ public class BorisAndDoris extends Boss {
     public void onPickupSnowball(EntityPickupItemEvent e) {
         if (isActive()) {
             if (e.getItem().getWorld().equals(world)) {
-                if(e.getItem().getItemStack().getType() == Material.SNOWBALL){
+                if (e.getItem().getItemStack().getType() == Material.SNOWBALL) {
                     e.setCancelled(true);
                     e.getItem().remove();
                 }
             }
         }
 
+    }
+
+    @EventHandler
+    public void onBossTarget(UpdateEvent e) {
+        if (isActive()) {
+            if (e.getType() == UpdateEvent.UpdateType.SLOW) {
+                if (doris != null && !doris.isDead()) {
+                    if (doris.getTarget() == null) {
+                        if (boris != null && !boris.isDead()) {
+                            if (boris.getTarget() != null) {
+                                doris.setTarget(boris.getTarget());
+                            }
+                        }
+                    }
+                }
+
+                if (boris != null && !boris.isDead()) {
+                    if (boris.getTarget() == null) {
+                        if (doris != null && !doris.isDead()) {
+                            if (doris.getTarget() != null) {
+                                boris.setTarget(doris.getTarget());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @EventHandler
@@ -369,6 +396,15 @@ public class BorisAndDoris extends Boss {
     }
 
     @EventHandler
+    public void onGolemKnockback(CustomKnockbackEvent e) {
+        if (isActive()) {
+            if (isMinion(e.getDamagee()) && e.getDamagee() instanceof Snowman) {
+                e.setDamage(e.getDamage() * 0.2);
+            }
+        }
+    }
+
+    @EventHandler
     public void onSetIce(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.FAST) {
             if (isActive()) {
@@ -376,7 +412,7 @@ public class BorisAndDoris extends Boss {
                     setIce(boris);
                 }
                 if (doris != null && doris.getHealth() > 0) {
-                    setIce(boris);
+                    setIce(doris);
                 }
 
                 if (!getMinions().isEmpty()) {
