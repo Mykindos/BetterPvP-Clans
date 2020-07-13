@@ -3,6 +3,9 @@ package net.betterpvp.clans.classes.menu;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.roles.Ranger;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
@@ -32,31 +35,29 @@ public class KitListener extends BPVPListener<Clans> {
             if(e.getButton() instanceof KitButton){
                 KitButton kb = (KitButton) e.getButton();
                 Player p = e.getPlayer();
-                Role r = Role.getRole(p);
+                Gamer gamer = GamerManager.getOnlineGamer(p);
 
-
-
-                if(r == null) {
+                if(p.getEquipment().getHelmet() == null) {
                     p.getInventory().setHelmet(UtilClans.updateNames(new ItemStack(kb.getRole().getHelmet())));
                 }else {
                     UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getHelmet())));
                 }
 
-                if(r == null) {
+                if(p.getEquipment().getChestplate() == null) {
                     p.getInventory().setChestplate(UtilClans.updateNames(new ItemStack(kb.getRole().getChestplate())));
 
                 }else {
                     UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getChestplate())));
                 }
 
-                if(r == null) {
+                if(p.getEquipment().getLeggings() == null) {
                     p.getInventory().setLeggings(UtilClans.updateNames(new ItemStack(kb.getRole().getLeggings())));
 
                 }else {
                     UtilItem.insert(p, UtilClans.updateNames(new ItemStack(kb.getRole().getLeggings())));
                 }
 
-                if(r == null) {
+                if(p.getEquipment().getBoots() == null) {
                     p.getInventory().setBoots(UtilClans.updateNames(new ItemStack(kb.getRole().getBoots())));
 
                 }else {
@@ -81,10 +82,14 @@ public class KitListener extends BPVPListener<Clans> {
                     UtilItem.insert(p, arrows);
                 }
 
-                UtilItem.insert(p, new ItemStack(Material.DIAMOND_SHOVEL));
-                UtilItem.insert(p, new ItemStack(Material.DIAMOND_PICKAXE));
+                UtilItem.insert(p, new ItemStack(Material.IRON_SHOVEL));
+                UtilItem.insert(p, new ItemStack(Material.IRON_PICKAXE));
                 p.closeInventory();
 
+                if(gamer != null){
+                    gamer.setStarterKitClaimed(true);
+                    GamerRepository.updateStarterKitClaimed(gamer);
+                }
 
 
             }

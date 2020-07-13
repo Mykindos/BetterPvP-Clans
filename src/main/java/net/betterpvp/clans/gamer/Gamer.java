@@ -44,6 +44,7 @@ public class Gamer implements Invitable {
     private Scoreboard scoreboard;
     private HashMap<String, Integer> ratings;
     private HashMap<String, Integer> playerStats;
+    private boolean starterKitClaimed;
 
     //private HashMap<Enum, Object> data;
 
@@ -56,6 +57,7 @@ public class Gamer implements Invitable {
         this.deaths = 0;
         this.votes = 0;
         this.fragments = 0;
+        this.starterKitClaimed = false;
         activeBuilds = new HashMap<>();
         donations = new ArrayList<>();
         questPerks = new ArrayList<>();
@@ -469,6 +471,14 @@ public class Gamer implements Invitable {
             BuildRepository.saveBuild(getUUID(), k);
             BuildRepository.saveBuild(getUUID(), n);
         }
+    }
+
+    public boolean isStarterKitClaimed() {
+        return starterKitClaimed;
+    }
+
+    public void setStarterKitClaimed(boolean starterKitClaimed) {
+        this.starterKitClaimed = starterKitClaimed;
     }
 
 

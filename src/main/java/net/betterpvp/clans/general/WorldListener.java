@@ -73,7 +73,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onTreeBreak(BlockBreakEvent e) {
 
-        if(Clans.getOptions().isHub()){
+        if (Clans.getOptions().isHub()) {
             return;
         }
 
@@ -742,11 +742,11 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onPlaceScaffold(BlockPlaceEvent e){
-        if(e.getBlock().getType() == Material.SCAFFOLDING){
+    public void onPlaceScaffold(BlockPlaceEvent e) {
+        if (e.getBlock().getType() == Material.SCAFFOLDING) {
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
-            if(gamer != null){
-                if(gamer.getClient().isAdministrating()){
+            if (gamer != null) {
+                if (gamer.getClient().isAdministrating()) {
                     return;
                 }
             }
@@ -1153,116 +1153,114 @@ public class WorldListener extends BPVPListener<Clans> {
     /*
      * Modifies the drops for just about all mobs in minecraft
      */
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void handleDeath(EntityDeathEvent event) {
 
         event.setDroppedExp(0);
 
 
-        List<ItemStack> drops = event.getDrops();
         if (event.getEntity().getCustomName() == null) {
             if (event.getEntityType() != EntityType.PLAYER) {
                 event.getDrops().clear();
-            }
-            if (event.getEntityType() == EntityType.CHICKEN) {
-                drops.add(new ItemStack(Material.CHICKEN, 1));
-                drops.add(new ItemStack(Material.FEATHER, 2 + UtilMath.randomInt(1)));
-            } else if (event.getEntityType() == EntityType.COW) {
-                drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
-            }
-            if (event.getEntityType() == EntityType.MUSHROOM_COW) {
-                drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.RED_MUSHROOM, 2 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.OCELOT) {
-                int rand = UtilMath.randomInt(10);
-                if (rand == 0 || rand == 1 || rand == 2) {
+                List<ItemStack> drops = new ArrayList<>();
+
+                if (event.getEntityType() == EntityType.CHICKEN) {
+                    drops.add(new ItemStack(Material.CHICKEN, 1));
+                    drops.add(new ItemStack(Material.FEATHER, 2 + UtilMath.randomInt(1)));
+                } else if (event.getEntityType() == EntityType.COW) {
+                    drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
                     drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
-                } else if (rand == 3 || rand == 4 || rand == 5) {
-                    drops.add(new ItemStack(Material.COD, 2 + UtilMath.randomInt(2)));
-                } else if (rand == 6 || rand == 7) {
-                    drops.add(new ItemStack(Material.COAL, 1 + UtilMath.randomInt(2)));
-                } else {
-                    drops.add(new ItemStack(Material.COD, 10 + UtilMath.randomInt(10)));
                 }
-                drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
+                if (event.getEntityType() == EntityType.MUSHROOM_COW) {
+                    drops.add(new ItemStack(Material.BEEF, 1 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.RED_MUSHROOM, 2 + UtilMath.randomInt(2)));
+                } else if (event.getEntityType() == EntityType.OCELOT) {
+                    int rand = UtilMath.randomInt(10);
+                    if (rand == 0 || rand == 1 || rand == 2) {
+                        drops.add(new ItemStack(Material.LEATHER, 1 + UtilMath.randomInt(2)));
+                    } else if (rand == 3 || rand == 4 || rand == 5) {
+                        drops.add(new ItemStack(Material.COD, 2 + UtilMath.randomInt(2)));
+                    } else if (rand == 6 || rand == 7) {
+                        drops.add(new ItemStack(Material.COAL, 1 + UtilMath.randomInt(2)));
+                    } else {
+                        drops.add(new ItemStack(Material.COD, 10 + UtilMath.randomInt(10)));
+                    }
+                    drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
 
-            } else if (event.getEntityType() == EntityType.PIG) {
-                drops.add(new ItemStack(Material.PORKCHOP, 1 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.SHEEP) {
-                drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(4)));
-            } else if (event.getEntityType() == EntityType.VILLAGER) {
-                drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(3)));
-            } else if (event.getEntityType() == EntityType.BLAZE) {
-                drops.add(new ItemStack(Material.BLAZE_ROD, 1));
-                drops.add(new ItemStack(Material.BONE, 6 + UtilMath.randomInt(7)));
-            } else if (event.getEntityType() == EntityType.CAVE_SPIDER) {
+                } else if (event.getEntityType() == EntityType.PIG) {
+                    drops.add(new ItemStack(Material.PORKCHOP, 1 + UtilMath.randomInt(2)));
+                } else if (event.getEntityType() == EntityType.SHEEP) {
+                    drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.WHITE_WOOL, 1 + UtilMath.randomInt(4)));
+                } else if (event.getEntityType() == EntityType.VILLAGER) {
+                    drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(3)));
+                } else if (event.getEntityType() == EntityType.BLAZE) {
+                    drops.add(new ItemStack(Material.BLAZE_ROD, 1));
+                    drops.add(new ItemStack(Material.BONE, 6 + UtilMath.randomInt(7)));
+                } else if (event.getEntityType() == EntityType.CAVE_SPIDER) {
 
-                drops.add(new ItemStack(Material.COBWEB, 1));
-                drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.SPIDER_EYE, 1));
-                drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
+                    drops.add(new ItemStack(Material.COBWEB, 1));
+                    drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.SPIDER_EYE, 1));
+                    drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
 
-            } else if (event.getEntityType() == EntityType.CREEPER) {
-                drops.add(new ItemStack(Material.COAL, 2 + UtilMath.randomInt(4)));
-                drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(7)));
-            } else if (event.getEntityType() == EntityType.ENDERMAN) {
-                drops.add(new ItemStack(Material.BONE, 12 + UtilMath.randomInt(8)));
-            } else if (event.getEntityType() == EntityType.GHAST) {
-                drops.add(new ItemStack(Material.GHAST_TEAR, 1));
-                drops.add(new ItemStack(Material.BONE, 16 + UtilMath.randomInt(8)));
-            } else if (event.getEntityType() == EntityType.IRON_GOLEM) {
-                drops.add(new ItemStack(Material.IRON_INGOT, 2 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.BONE, 12 + UtilMath.randomInt(6)));
-            } else if (event.getEntityType() == EntityType.MAGMA_CUBE) {
-                drops.add(new ItemStack(Material.MAGMA_CREAM, UtilMath.randomInt(1, 3)));
-                drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.ZOMBIFIED_PIGLIN) {
-                PigZombie z = (PigZombie) event.getEntity();
-                if (z.getEquipment().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
-                    drops.add(new ItemStack(Material.GOLDEN_AXE));
+                } else if (event.getEntityType() == EntityType.CREEPER) {
+                    drops.add(new ItemStack(Material.COAL, 2 + UtilMath.randomInt(4)));
+                    drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(7)));
+                } else if (event.getEntityType() == EntityType.ENDERMAN) {
+                    drops.add(new ItemStack(Material.BONE, 12 + UtilMath.randomInt(8)));
+                } else if (event.getEntityType() == EntityType.GHAST) {
+                    drops.add(new ItemStack(Material.GHAST_TEAR, 1));
+                    drops.add(new ItemStack(Material.BONE, 16 + UtilMath.randomInt(8)));
+                } else if (event.getEntityType() == EntityType.IRON_GOLEM) {
+                    drops.add(new ItemStack(Material.IRON_INGOT, 2 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.BONE, 12 + UtilMath.randomInt(6)));
+                } else if (event.getEntityType() == EntityType.MAGMA_CUBE) {
+                    drops.add(new ItemStack(Material.MAGMA_CREAM, UtilMath.randomInt(1, 3)));
+                    drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
+                } else if (event.getEntityType() == EntityType.ZOMBIFIED_PIGLIN) {
+                    PigZombie z = (PigZombie) event.getEntity();
+                    if (z.getEquipment().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
+                        drops.add(new ItemStack(Material.GOLDEN_AXE));
+                    }
+                    drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(2)));
+                    if (UtilMath.randomInt(50) > 48) {
+                        ItemStack[] temp = {new ItemStack(Material.CHAINMAIL_HELMET), new ItemStack(Material.CHAINMAIL_BOOTS),
+                                new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS)};
+                        drops.add(temp[UtilMath.randomInt(temp.length - 1)]);
+                    }
+                    if (UtilMath.randomInt(100) > 90) {
+                        drops.add(new ItemStack(Material.GOLDEN_PICKAXE));
+                    } else if (UtilMath.randomInt(1000) > 990) {
+                        drops.add(new ItemStack(Material.GOLDEN_SWORD));
+                    }
+                } else if (event.getEntityType() == EntityType.SILVERFISH) {
+                    drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
+                } else if (event.getEntityType() == EntityType.SKELETON) {
+                    drops.add(new ItemStack(Material.ARROW, 4 + UtilMath.randomInt(5)));
+                    drops.add(new ItemStack(Material.BONE, 3 + UtilMath.randomInt(4)));
+                } else if (event.getEntityType() == EntityType.SLIME) {
+                    drops.add(new ItemStack(Material.SLIME_BALL, 1));
+                    drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
+                } else if (event.getEntityType() == EntityType.SPIDER) {
+                    drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.COBWEB, 1));
+                    drops.add(new ItemStack(Material.SPIDER_EYE, 1));
+                    drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
+                } else if (event.getEntityType() == EntityType.ZOMBIE) {
+                    event.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 1));
+                    drops.add(new ItemStack(Material.BONE, 3 + UtilMath.randomInt(4)));
+                } else if (event.getEntityType() == EntityType.RABBIT) {
+                    drops.add(new ItemStack(Material.RABBIT_HIDE, 1 + UtilMath.randomInt(3)));
+                    drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(3)));
                 }
-                drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(2)));
-                if (UtilMath.randomInt(50) > 48) {
-                    ItemStack[] temp = {new ItemStack(Material.CHAINMAIL_HELMET), new ItemStack(Material.CHAINMAIL_BOOTS),
-                            new ItemStack(Material.CHAINMAIL_CHESTPLATE), new ItemStack(Material.CHAINMAIL_LEGGINGS)};
-                    drops.add(temp[UtilMath.randomInt(temp.length - 1)]);
+
+                for (ItemStack t : drops) {
+                    event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), t);
                 }
-                if (UtilMath.randomInt(100) > 90) {
-                    drops.add(new ItemStack(Material.GOLDEN_PICKAXE));
-                } else if (UtilMath.randomInt(1000) > 990) {
-                    drops.add(new ItemStack(Material.GOLDEN_SWORD));
-                }
-            } else if (event.getEntityType() == EntityType.SILVERFISH) {
-                drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.SKELETON) {
-                drops.add(new ItemStack(Material.ARROW, 4 + UtilMath.randomInt(5)));
-                drops.add(new ItemStack(Material.BONE, 3 + UtilMath.randomInt(4)));
-            } else if (event.getEntityType() == EntityType.SLIME) {
-                drops.add(new ItemStack(Material.SLIME_BALL, 1));
-                drops.add(new ItemStack(Material.BONE, 1 + UtilMath.randomInt(2)));
-            } else if (event.getEntityType() == EntityType.SPIDER) {
-                drops.add(new ItemStack(Material.STRING, 2 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.COBWEB, 1));
-                drops.add(new ItemStack(Material.SPIDER_EYE, 1));
-                drops.add(new ItemStack(Material.BONE, 4 + UtilMath.randomInt(4)));
-            } else if (event.getEntityType() == EntityType.ZOMBIE) {
-                event.getDrops().add(new ItemStack(Material.ROTTEN_FLESH, 1));
-                drops.add(new ItemStack(Material.BONE, 3 + UtilMath.randomInt(4)));
-            } else if (event.getEntityType() == EntityType.RABBIT) {
-                drops.add(new ItemStack(Material.RABBIT_HIDE, 1 + UtilMath.randomInt(3)));
-                drops.add(new ItemStack(Material.BONE, 2 + UtilMath.randomInt(3)));
             }
         }
 
-
-        if (!(event.getEntity() instanceof Player)) {
-            for (ItemStack t : drops) {
-                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), t);
-            }
-
-        }
     }
 
 
