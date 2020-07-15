@@ -74,6 +74,12 @@ public class Dominance {
             EnemyRepository.updateDominance(getClan().getDominance(getSelf()));
         }
 
+        if(getClan().getDominance(getSelf()).getPoints() >= 10 && getClan().getDominance(getSelf()).getPoints() < 16){
+            int pointsUntilConquer = 16 - getClan().getDominance(getSelf()).getPoints();
+            getSelf().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getClan().getName() + ChatColor.GRAY + " if you lose "
+                    + ChatColor.GREEN + pointsUntilConquer + ChatColor.GRAY + " points.", null, false);
+        }
+
         if (getClan().getDominance(getSelf()).getPoints() >= 16) {
             UtilMessage.broadcast("Clans", ChatColor.YELLOW + "Clan " + getSelf().getName() + ChatColor.GRAY + " has conquered "
                     + ChatColor.YELLOW + getClan().getName() + ChatColor.GRAY + ".");

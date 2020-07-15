@@ -58,15 +58,18 @@ public class ShopManager extends BPVPListener<Clans> {
                 "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock");
 
         World world = Bukkit.getWorld("world");
-        returnLocs = new Location[]{new Location(world, -5.5, 45.5, -39.5),
-                new Location(world, 17.5, 42, -32.5),
-                new Location(world, 32.5, 49, -14.5),
-                new Location(world, 59.5, 42, -5.5),
-                new Location(world, 74.5, 41.5, 25.5),
-                new Location(world, 18.5, 51, 39.5),
-                new Location(world, 11.5, 56.5, 77.5),
-                new Location(world, -15.5, 45, 23.5),
-                new Location(world, -52.5, 44.5, 26.5)};
+        returnLocs = new Location[]{new Location(world, 6.5, 49, -14.5),
+                new Location(world, -7.5, 46, -47.5),
+                new Location(world, -26.5, 47, -24.5),
+                new Location(world, -46.5, 50, 4.5),
+                new Location(world, -45.5, 50, 21.5),
+                new Location(world, -20.5, 60, 50.5),
+                new Location(world, 31.5, 62, 82.5),
+                new Location(world, 55.5, 63, 47.5),
+                new Location(world, 73.5, 51, 51.5),
+                new Location(world, 82.5, 52, -8.5),
+                new Location(world, 47.5, 48, -44.5),
+                new Location(world, 5.5, 70, -36.5)};
     }
 
 
@@ -376,15 +379,15 @@ public class ShopManager extends BPVPListener<Clans> {
                                             if (c.getName().equalsIgnoreCase("Fields")
                                                     || c.getName().equalsIgnoreCase("Outskirts")) {
                                                 WorldEvent we = WEManager.getActiveWorldEvent();
-                                                if (!(we instanceof Environmental)) {
+                                                if (we != null) {
+                                                    if (!(we instanceof Environmental)) {
 
+                                                        lastEvent = we;
 
-                                                    lastEvent = we;
+                                                        e.getPlayer().teleport(we.getTeleportLocations()[UtilMath.randomInt(we.getTeleportLocations().length)]);
+                                                        UtilMessage.message(e.getPlayer(), "World Event", "You teleported to the World Event Arena");
 
-                                                    e.getPlayer().teleport(we.getTeleportLocations()[UtilMath.randomInt(we.getTeleportLocations().length)]);
-                                                    UtilMessage.message(e.getPlayer(), "World Event", "You teleported to the World Event Arena");
-
-
+                                                    }
                                                 }
                                             }
                                         }

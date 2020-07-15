@@ -29,7 +29,7 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                         ChatColor.GRAY + "This pickaxe will instantly ",
                         ChatColor.GRAY + "break any stone related blocks in a 3x3 radius. ",
                         ""}
-                , true, 7.0);
+                , true, 5.0);
 
     }
 

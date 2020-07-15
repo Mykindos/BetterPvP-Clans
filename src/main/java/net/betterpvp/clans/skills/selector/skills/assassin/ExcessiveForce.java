@@ -30,7 +30,7 @@ public class ExcessiveForce extends Skill implements InteractSkill {
 
     @Override
     public void activate(Player player, Gamer gamer) {
-        active.put(player, System.currentTimeMillis() + (1500 + (getLevel(player) * 500)));
+        active.put(player, System.currentTimeMillis() + (2500 + (getLevel(player) * 500)));
         UtilMessage.message(player, getClassType(), "You activated " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 1f, 1.7f);
     }
@@ -73,7 +73,7 @@ public class ExcessiveForce extends Skill implements InteractSkill {
         return  new String[]{
                 "Right click with a Sword to activate.",
                 "",
-                "For the next " + ChatColor.GREEN + (2 + ((level -1) * 0.5)) + ChatColor.GRAY + " seconds",
+                "For the next " + ChatColor.GREEN + (3 + ((level -1) * 0.5)) + ChatColor.GRAY + " seconds",
                 "your attacks deal knockback to enemies",
                 "",
                 "Does not ignore anti-knockback abilities.",

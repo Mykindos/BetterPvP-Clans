@@ -147,30 +147,29 @@ public class AgilityHelmet implements IDonation, Listener {
                         if (!gamer.getClient().hasDonation(getName())) {
                             player.getInventory().setHelmet(null);
                             continue;
-                        }else{
-                            if(!active.contains(player.getUniqueId())){
-                               active.add(player.getUniqueId());
-                               UtilMessage.message(player, "Agility Helmet", "Increased agility activated.");
-                               player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 1.f, 1.f);
+                        } else {
+                            if (!active.contains(player.getUniqueId())) {
+                                active.add(player.getUniqueId());
+                                UtilMessage.message(player, "Agility Helmet", "Increased agility activated.");
+                                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 1.f, 1.f);
                             }
                         }
                     }
                     if (otherArmour(player)) {
                         for (ItemStack d : player.getInventory().getArmorContents()) {
                             if (d == null) continue;
-                            if (d.getType() == Material.TURTLE_HELMET) continue;
-                            UtilItem.insert(player, d);
+                            if (d.getType() == Material.TURTLE_HELMET) {
+                                UtilItem.insert(player, d);
+                                UtilMessage.message(player, "Agility", "You cannot use the agility helmet with other armour!");
+                                player.getEquipment().setHelmet(null);
+                                return;
+                            }
                         }
 
-                        player.getInventory().setChestplate(null);
-                        player.getInventory().setLeggings(null);
-                        player.getInventory().setBoots(null);
 
-
-                        UtilMessage.message(player, "Agility", "You cannot use the agility helmet with other armour!");
                     }
-                }else{
-                    if(active.contains(player.getUniqueId())){
+                } else {
+                    if (active.contains(player.getUniqueId())) {
                         active.remove(player.getUniqueId());
                     }
                 }

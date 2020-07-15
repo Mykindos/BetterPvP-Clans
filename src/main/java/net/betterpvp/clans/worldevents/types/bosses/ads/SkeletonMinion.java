@@ -31,7 +31,7 @@ public class SkeletonMinion extends WorldEventMinion {
     @Override
     public String getDisplayName() {
 
-        return ChatColor.BLUE + "Skeleton King";
+        return ChatColor.BLUE + "Skeleton Minion";
     }
 
     @Override

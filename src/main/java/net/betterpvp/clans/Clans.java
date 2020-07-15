@@ -30,6 +30,8 @@ import net.betterpvp.clans.economy.shops.nms.ShopZombie;
 import net.betterpvp.clans.economy.shops.nms.UtilShop;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.farming.FarmingListener;
+import net.betterpvp.clans.farming.bee.BeeListener;
+import net.betterpvp.clans.fields.Fields;
 import net.betterpvp.clans.fields.management.FieldsManager;
 import net.betterpvp.clans.fishing.FishingListener;
 import net.betterpvp.clans.fun.BounceListener;
@@ -38,6 +40,8 @@ import net.betterpvp.clans.gamer.GamerConnectionListener;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
+import net.betterpvp.clans.general.ServerListener;
+import net.betterpvp.clans.general.VoteListener;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
@@ -181,6 +185,7 @@ public class Clans extends JavaPlugin implements Listener {
         new ShopManager(this);
         new QuestPerkManager();
         new FieldsManager(this);
+        new Fields(this);
         new ScoreboardManager(this);
         new KitListener(this);
         new QuestManager(this);
@@ -194,6 +199,9 @@ public class Clans extends JavaPlugin implements Listener {
         new AnticheatManager(this);
         new CrateManager();
         new CrateListener(this);
+        new ServerListener(this);
+        new VoteListener(this);
+        new BeeListener(this);
 
 
         CommandManager.addCommand(new ShopCommand(this));

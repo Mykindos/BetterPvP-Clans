@@ -10,6 +10,7 @@ import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.interfaces.Button;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
@@ -120,7 +121,7 @@ public class CrateManager {
                 UtilMessage.message(p, c.getName(), "You received $" + ChatColor.YELLOW + amount);
                 return;
             }
-            p.getInventory().addItem(newItem.clone());
+
             UtilMessage.message(p, c.getName(), "You received " + ChatColor.GREEN + newItem.getAmount() + " " + newItem.getItemMeta().getDisplayName());
 
             Weapon w = WeaponManager.getWeapon(newItem);
@@ -131,8 +132,12 @@ public class CrateManager {
                     for (Player dd : Bukkit.getOnlinePlayers()) {
                         dd.playSound(dd.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1f);
                     }
+
+                    newItem = w.createWeapon(true).clone();
                 }
             }
+
+            UtilItem.insert(p, newItem.clone());
 
 
         }

@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import sun.reflect.generics.repository.FieldRepository;
 
 
 public class FieldsManager extends BPVPListener<Clans> {
@@ -31,6 +32,7 @@ public class FieldsManager extends BPVPListener<Clans> {
                             || m == Material.ENDER_CHEST || m == Material.PUMPKIN || m == Material.MELON
                     || m == Material.GILDED_BLACKSTONE) {
                         FieldsRepository.saveOre(e.getBlockPlaced());
+                        FieldsRepository.blocks.put(e.getBlockPlaced().getLocation(), e.getBlockPlaced().getType());
                     }
                 }
             }
@@ -46,6 +48,9 @@ public class FieldsManager extends BPVPListener<Clans> {
             if (c != null) {
                 if (c.getName().equals("Fields")) {
                     FieldsRepository.deleteOre(e.getBlock());
+                    if(FieldsRepository.blocks.containsKey(e.getBlock().getLocation())) {
+                        FieldsRepository.blocks.remove(e.getBlock().getLocation());
+                    }
                 }
             }
         }

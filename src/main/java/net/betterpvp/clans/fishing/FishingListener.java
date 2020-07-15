@@ -12,6 +12,8 @@ import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
+import net.betterpvp.core.client.Client;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
 import net.minecraft.server.v1_16_R1.EntityFishingHook;
@@ -25,6 +27,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -81,12 +84,12 @@ public class FishingListener extends BPVPListener<Clans> {
         if(Energy.use(player, "Hook", 25D, true)){
 
 
-            /**Client c = ClientUtilities.getOnlineClient(player);
-            if(c.getGamer().hasPerk(Perk.getPerk("MasterFisher")) || c.hasDonationRank(DonationRank.GUARDIAN)){
+            Client c = ClientUtilities.getOnlineClient(player);
+            if(c.hasDonation("MasterFisher") ){
 
                 setBiteTime(event.getHook(), UtilMath.randomInt(100, 650));
                 System.out.println(player.getName() + " threw hook using MasterFisher");
-            }*/
+            }
 
             if(event.getCaught() != null && event.getCaught().getType() == EntityType.PLAYER){
                 Player caught = (Player) event.getCaught();
@@ -162,7 +165,7 @@ public class FishingListener extends BPVPListener<Clans> {
                         int itemValue = UtilMath.randomInt(100);
                         if (itemValue <= 15) {
 
-                            ItemStack[] types = new ItemStack[]{new ItemStack(Material.DIAMOND_SWORD), new ItemStack(Material.DIAMOND),
+                            ItemStack[] types = new ItemStack[]{new ItemStack(Material.DIAMOND_SWORD), new ItemStack(Material.DIAMOND, 3), new ItemStack(Material.NETHERITE_INGOT, 3),
                                     new ItemStack(Material.IRON_INGOT, 3), new ItemStack(Material.GOLD_INGOT, 3), new ItemStack(Material.LEATHER, 3),
                                     new ItemStack(Material.DIAMOND_AXE), new ItemStack(Material.SPONGE), new ItemStack(Material.LAPIS_BLOCK),
                                     new ItemStack(Material.FISHING_ROD)};
@@ -244,7 +247,7 @@ public class FishingListener extends BPVPListener<Clans> {
         Field fishCatchTime = null;
 
         try {
-            EntityFishingHook.class.getDeclaredField("ax");
+           fishCatchTime = EntityFishingHook.class.getDeclaredField("ao");
 
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -259,10 +262,21 @@ public class FishingListener extends BPVPListener<Clans> {
         fishCatchTime.setAccessible(true);
 
         try {
-            fishCatchTime.setInt(hookCopy, time);
+
+            new BukkitRunnable(){
+                @Override
+                public void run(){
+                    try {
+                        Field tmp = EntityFishingHook.class.getDeclaredField("ao");
+                        tmp.setAccessible(true);
+                        tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) /2));
+                        System.out.println(tmp.getInt(hookCopy));
+                    } catch (IllegalAccessException | NoSuchFieldException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.runTaskLater(getInstance(), 20);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 

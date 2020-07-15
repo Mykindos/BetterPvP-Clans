@@ -60,6 +60,7 @@
                             <exclude>*me.mykindos:MAH*</exclude>
                             <exclude>*LibsDisguises*</exclude>
                             <exclude>*CoreProtect*</exclude>
+                            <exclude>*votifier*</exclude>
 
                         </excludes>
                     </artifactSet>
@@ -84,6 +85,12 @@
         <repository>
             <id>dmulloy2-repo</id>
             <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
+        </repository>
+        <!-- CodeMC -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 
@@ -124,8 +131,6 @@
             <scope>provided</scope>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
@@ -155,10 +160,23 @@
 
         </dependency>
         <dependency>
+        <groupId>me.mykindos</groupId>
+        <artifactId>MAH</artifactId>
+        <version>1.16</version>
+
+    </dependency>
+
+        <dependency>
             <groupId>me.mykindos</groupId>
-            <artifactId>MAH</artifactId>
+            <artifactId>votifier</artifactId>
             <version>1.16</version>
 
+        </dependency>
+
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>2.4.1</version>
         </dependency>
 
     </dependencies>

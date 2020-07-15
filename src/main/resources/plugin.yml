@@ -11,4 +11,8 @@ commands:
     aliases: [c, f, faction, clans]
   kit:
   build:
+  coords:
+  scan:
+  craft:
+  hub:
   

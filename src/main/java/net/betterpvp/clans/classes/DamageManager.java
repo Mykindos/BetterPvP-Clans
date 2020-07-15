@@ -190,6 +190,14 @@ public class DamageManager extends BPVPListener<Clans> {
             return;
         }
 
+        if(e.getDamagee() instanceof Player){
+            Player damagee = (Player) e.getDamagee();
+            if(damagee.getGameMode() == GameMode.CREATIVE
+                    || damagee.getGameMode() == GameMode.SPECTATOR){
+                return;
+            }
+        }
+
         if (e.isCancelled()) return;
         if (!(e.getDamager() instanceof Player) && e.getDamagee() instanceof Player) {
             Gamer gamer = GamerManager.getOnlineGamer((Player) e.getDamagee());
@@ -198,9 +206,6 @@ public class DamageManager extends BPVPListener<Clans> {
             }
         }
         if (e.getDamagee() instanceof Player && e.getDamager() instanceof Player) {
-            if (((Player) e.getDamagee()).getGameMode() == GameMode.CREATIVE) {
-                return;
-            }
             if (ClanUtilities.canHurt((Player) e.getDamager(), (Player) e.getDamagee())) {
                 Gamer gamer = GamerManager.getOnlineGamer((Player) e.getDamager());
                 if (gamer != null) {

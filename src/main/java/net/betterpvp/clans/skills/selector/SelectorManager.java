@@ -182,7 +182,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Impotence", new Impotence(i));
         skills.put("Cleanse", new Cleanse(i));
         skills.put("Tormented Soil", new TormentedSoil(i));
-        skills.put("Bloodthirsty", new Bloodthirst(i));
+        skills.put("Bloodthirst", new Bloodthirst(i));
 
     }
 

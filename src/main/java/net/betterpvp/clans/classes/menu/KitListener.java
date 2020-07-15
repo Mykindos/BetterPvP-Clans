@@ -7,6 +7,8 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilItem;
@@ -89,6 +91,7 @@ public class KitListener extends BPVPListener<Clans> {
                 if(gamer != null){
                     gamer.setStarterKitClaimed(true);
                     GamerRepository.updateStarterKitClaimed(gamer);
+                    ClientUtilities.messageStaff(ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " claimed a starter kit!", Rank.ADMIN);
                 }
 
 

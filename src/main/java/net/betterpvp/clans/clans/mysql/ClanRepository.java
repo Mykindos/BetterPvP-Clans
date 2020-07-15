@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.farming.bee.BeeRepository;
 import net.betterpvp.core.database.*;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilLocation;
@@ -132,6 +133,7 @@ public class ClanRepository implements Repository<Clans> {
                     MemberRepository.load(i);
                     InsuranceRepository.load(i);
                     EnemyRepository.load(i);
+                    BeeRepository.load(i);
 
                 } catch (SQLException ex) {
                     Log.debug("Connection", "Could not load Clans (Connection Error), ");

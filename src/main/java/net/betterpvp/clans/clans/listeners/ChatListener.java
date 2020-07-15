@@ -97,7 +97,7 @@ public class ChatListener extends BPVPListener<Clans> {
             List<Player> tempIgnore = new ArrayList<>();
             for (Player online : Bukkit.getOnlinePlayers()) {
                 if (sendSelfOnly) {
-                    if (online != p) {
+                    if (!online.equals(p)) {
                         continue;
                     }
                 }
@@ -111,18 +111,18 @@ public class ChatListener extends BPVPListener<Clans> {
                     }
 
 
-					if(onlineClient.getSettingAsBoolean("ChatFilter")){
-
-						String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
-						for(String s : filter){
-							if(message.contains(s.toLowerCase())){
-								if(!tempIgnore.contains(online)){
-									tempIgnore.add(online);
-								}
-							}
-
-						}
-					}
+					//if(onlineClient.getSettingAsBoolean("ChatFilter")){
+//
+					//	String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+					//	for(String s : filter){
+					//		if(message.contains(s.toLowerCase())){
+					//			if(!tempIgnore.contains(online)){
+					//				tempIgnore.add(online);
+					//			}
+					//		}
+//
+					//	}
+					//}
 
 
                     if (tempIgnore.contains(online)) {

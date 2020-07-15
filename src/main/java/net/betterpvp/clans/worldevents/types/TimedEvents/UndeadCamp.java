@@ -141,7 +141,7 @@ public class UndeadCamp extends Timed {
 
 
         locs = new Location[]{
-               createLocation(365, 49, -38),
+                createLocation(365, 49, -38),
                 createLocation(333, 49, -69),
                 createLocation(296, 49, -64),
                 createLocation(285, 49, -30),
@@ -202,27 +202,29 @@ public class UndeadCamp extends Timed {
     private void spawnMobs() {
         int count = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
-                if (count < 4) {
-                    BossZombie uz = new BossZombie(((CraftWorld) world).getHandle());
-                    Zombie undeadZombie = uz.spawnZombie(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
-                    undeadZombie.setTarget(p);
-                    getMinions().add(new UndeadZombie(undeadZombie));
+            if (p.getGameMode() == GameMode.ADVENTURE) {
+                if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
+                    if (count < 4) {
+                        BossZombie uz = new BossZombie(((CraftWorld) world).getHandle());
+                        Zombie undeadZombie = uz.spawnZombie(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
+                        undeadZombie.setTarget(p);
+                        getMinions().add(new UndeadZombie(undeadZombie));
 
 
-                    BossSkeleton us = new BossSkeleton(((CraftWorld) world).getHandle());
-                    Skeleton undeadArcher = us.spawn(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
-                    undeadArcher.setTarget(p);
-                    getMinions().add(new UndeadSkeleton(undeadArcher));
+                        BossSkeleton us = new BossSkeleton(((CraftWorld) world).getHandle());
+                        Skeleton undeadArcher = us.spawn(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
+                        undeadArcher.setTarget(p);
+                        getMinions().add(new UndeadSkeleton(undeadArcher));
+                    }
+                    count++;
                 }
-                count++;
             }
         }
     }
 
     @EventHandler
     public void crackChest(PlayerInteractEvent e) {
-        if(e.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (e.getHand() == EquipmentSlot.OFF_HAND) return;
         if (isActive()) {
             if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (e.getClickedBlock().getType() == Material.ENDER_CHEST) {
@@ -281,9 +283,9 @@ public class UndeadCamp extends Timed {
         double rand = Math.random();
         if (rand > 0.95) {
             world.dropItem(b.getLocation(), new ItemStack(Material.MUSIC_DISC_PIGSTEP));
-        }else if(rand > 0.90){
+        } else if (rand > 0.90) {
             world.dropItem(b.getLocation(), new ItemStack(Material.NETHERITE_AXE));
-        } else if(rand > 0.85){
+        } else if (rand > 0.85) {
             world.dropItem(b.getLocation(), new ItemStack(Material.NETHERITE_SWORD));
         } else if (rand > 0.8) {
             world.dropItem(b.getLocation(), new ItemStack(Material.DIAMOND_SWORD));
