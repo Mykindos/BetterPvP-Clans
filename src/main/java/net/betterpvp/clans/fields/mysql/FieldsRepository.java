@@ -87,7 +87,7 @@ public class FieldsRepository implements Repository<Clans> {
 
     public static void saveOre(Block b) {
 
-        String query = "INSERT INTO " + TABLE_NAME + " (ID, X, Y, Z) VALUES "
+        String query = "INSERT INTO " + TABLE_NAME + " (Material, X, Y, Z) VALUES "
                 + "('" + b.getType().name() + "', "
                 + "'" + b.getLocation().getX() + "', "
                 + "'" + b.getLocation().getY() + "', "

@@ -97,14 +97,17 @@ public class QueueCommand extends Command implements Listener {
                     return;
                 }
 
-                if(user.isForced() && !user.isAuthenticated()){
-                    UtilMessage.message(e.getPlayer(), ChatColor.RED.toString() + ChatColor.BOLD + "You need to authenticate with MAH before joining the queue!");
-                    UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "MAH is a Client-Side Anti-Cheat created for BetterPvP");
-                    UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "You must download and install this mod from https://betterpvp.net/mah.html");
-                    UtilMessage.message(e.getPlayer(), "");
-                    UtilMessage.message(e.getPlayer(), ChatColor.GRAY + "You are required to use MAH for another " + ChatColor.GREEN + user.getExpiryString() + ChatColor.GRAY + '.');
-                    return;
+                if(Clans.getOptions().getMAHCheck()) {
+                    if (user.isForced() && !user.isAuthenticated()) {
+                        UtilMessage.message(e.getPlayer(), ChatColor.RED.toString() + ChatColor.BOLD + "You need to authenticate with MAH before joining the queue!");
+                        UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "MAH is a Client-Side Anti-Cheat created for BetterPvP");
+                        UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "You must download and install this mod from https://betterpvp.net/mah.html");
+                        UtilMessage.message(e.getPlayer(), "");
+                        UtilMessage.message(e.getPlayer(), ChatColor.GRAY + "You are required to use MAH for another " + ChatColor.GREEN + user.getExpiryString() + ChatColor.GRAY + '.');
+                        return;
+                    }
                 }
+
                 if(client.hasDonation("ReservedSlot")){
                     UtilMessage.message(e.getPlayer(), "Queue", "As you have a reserved slot, you skip the queue.");
                     if (!reserved.contains(e.getPlayer().getUniqueId())) {

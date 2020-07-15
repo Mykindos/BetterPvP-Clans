@@ -15,7 +15,7 @@ public class DiscordCommand extends Command {
 
     @Override
     public void execute(Player player, String[] args) {
-        UtilMessage.message(player, ChatColor.GRAY + "Join our Discord! " + ChatColor.AQUA.toString() + ChatColor.BOLD  + "https://discord.gg/0u0optDwaEARVDyy");
+        UtilMessage.message(player, ChatColor.GRAY + "Join our Discord! " + ChatColor.AQUA.toString() + ChatColor.BOLD  + "https://discord.gg/Q4XvxH7");
     }
 
     @Override

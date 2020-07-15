@@ -101,7 +101,7 @@ public class Fields extends BPVPListener<Clans> {
         e.setCancelled(true);
         if (p == null) return;
         for (Blocks bc : Blocks.values()) {
-            if (b.getType() == bc.getMaterial() || bc == Blocks.REDSTONE) {
+            if (b.getType() == bc.getMaterial()) {
                 getMap().put(new BlockData(b.getLocation(), b.getType()), System.currentTimeMillis());
 
                 if (b.getType() == Blocks.LAPIS.getMaterial()) {

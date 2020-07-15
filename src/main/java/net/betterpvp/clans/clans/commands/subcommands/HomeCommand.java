@@ -3,6 +3,7 @@ package net.betterpvp.clans.clans.commands.subcommands;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
@@ -72,18 +73,23 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
                         UtilMessage.message(player, "Clans", "Cannot teleport from spawn while in combat");
                         return;
                     }
-                    //if(player.getLocation().getY() > 110){
-                    Clan homeClan = ClanUtilities.getClan(clan.getHome());
-                    if (homeClan != null && homeClan == ClanUtilities.getClan(player)) {
-                        UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
-                        player.teleport(clan.getHome());
+
+                    if (player.getLocation().getY() > 110) {
+                        Clan homeClan = ClanUtilities.getClan(clan.getHome());
+                        if (homeClan != null && homeClan.equals(ClanUtilities.getClan(player))) {
+                            if(Pillage.pillages.stream().anyMatch(pillage -> pillage.getPillaged().equals(homeClan))){
+                                if(!RechargeManager.getInstance().add(player, "Clan Home", 30.0D, true)){
+                                    return;
+                                }
+                            }
+                            UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
+                            player.teleport(clan.getHome());
+                        }
+                    } else {
+
+                        UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
+
                     }
-                    //}else{
-
-                    //	UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");
-
-
-                    //}
 
                 } else {
                     UtilMessage.message(player, "Clans", "You can only teleport home from spawn or in the wilderness.");

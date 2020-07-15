@@ -62,19 +62,21 @@ public class KitCommand extends Command {
                 player.openInventory(new KitMenu(player, false).getInventory());
             }
         }else if(gamer.getClient().hasRank(Rank.PLAYER, false)){
-            if(Clans.getOptions().isHub()){
-                UtilMessage.message(player, "You cannot claim your starter kit in the Hub!");
-                return;
-            }
-            if(gamer.getClient().isDiscordLinked()){
-                if(!gamer.isStarterKitClaimed()) {
-                    player.openInventory(new KitMenu(player, false).getInventory());
-                }else{
-                    UtilMessage.message(player, "Kit", "You have already claimed your starter kit for this season!");
+            if(Clans.getOptions().isStarterKitEnabled()) {
+                if (Clans.getOptions().isHub()) {
+                    UtilMessage.message(player, "You cannot claim your starter kit in the Hub!");
+                    return;
                 }
-            }else{
-                UtilMessage.message(player, "Kit", "You need to link your discord account to claim your starter kit. Type"
-                        + ChatColor.GREEN + "/link " + ChatColor.GRAY + " for more information.");
+                if (gamer.getClient().isDiscordLinked()) {
+                    if (!gamer.isStarterKitClaimed()) {
+                        player.openInventory(new KitMenu(player, false).getInventory());
+                    } else {
+                        UtilMessage.message(player, "Kit", "You have already claimed your starter kit for this season!");
+                    }
+                } else {
+                    UtilMessage.message(player, "Kit", "You need to link your discord account to claim your starter kit. Type "
+                            + ChatColor.GREEN + "/link " + ChatColor.GRAY + " for more information.");
+                }
             }
         }
 

@@ -50,6 +50,7 @@ public class Options {
     private String tablePrefix;
     private int hubPort;
     private int maxClanlevel;
+    private int maxBees;
     private Clans i;
 
 
@@ -78,6 +79,7 @@ public class Options {
         pillageLength = i.getConfigManager().get(Configs.MAIN).getInt("PillageLength");
         farmMaxY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MaxY");
         farmMinY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MinY");
+        maxBees = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MaxBees");
         mahCheck = i.getConfigManager().get(Configs.MAIN).getBool("MAH.Check");
         morphsEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Morphs.Enabled");
         resetTime = i.getConfigManager().get(Configs.MAIN).getLong("Daily-Reset-Time");
@@ -333,6 +335,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Database.Prefix", "clans");
         i.getConfigManager().get(Configs.MAIN).check("Bungee.HubPort", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxLevel", 5);
+        i.getConfigManager().get(Configs.MAIN).check("Farming.MaxBees", 20);
 
     }
 
@@ -372,5 +375,9 @@ public class Options {
 
     public int getMaxClanlevel() {
         return maxClanlevel;
+    }
+
+    public int getMaxBees() {
+        return maxBees;
     }
 }

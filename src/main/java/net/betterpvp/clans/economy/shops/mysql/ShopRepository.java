@@ -23,6 +23,7 @@ public class ShopRepository implements Repository<Clans> {
         CREATE_SHOP_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                 "  `Store` varchar(255)," +
                 "  `Material` VARCHAR(255)," +
+                "   `Data` int(5)," +
                 "  `Slot` int(5)," +
                 "  `Amount` int(5)," +
                 "  `BuyPrice` int(255)," +

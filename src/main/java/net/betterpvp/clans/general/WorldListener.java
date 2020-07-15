@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
@@ -21,6 +22,7 @@ import net.betterpvp.clans.skills.selector.skills.ranger.Longshot;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.*;
 import net.betterpvp.clans.weapon.weapons.legendaries.MeteorBow;
+import net.betterpvp.core.Core;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
@@ -341,6 +343,10 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void stopLeafDecay(LeavesDecayEvent event) {
+        if(Bukkit.getOnlinePlayers().size() == 0){
+            event.setCancelled(true);
+            return;
+        }
         if (!getInstance().hasStarted()) {
             event.setCancelled(true);
             return;
@@ -1153,7 +1159,7 @@ public class WorldListener extends BPVPListener<Clans> {
     /*
      * Modifies the drops for just about all mobs in minecraft
      */
-    @EventHandler (priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void handleDeath(EntityDeathEvent event) {
 
         event.setDroppedExp(0);
@@ -1625,7 +1631,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
                     } else {
-                        e.getPlayer().teleport(new Location(world, -300.5, 130, -300.5));
+                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
@@ -1637,17 +1643,19 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
                     } else {
-                        e.getPlayer().teleport(new Location(world, 300.5, 130, 300.5));
+                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(world, 224.5, 70, -82.5));
+                e.getPlayer().teleport(new Location(world, 475.5, 64, 15.5, -90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, -159.5, 74, 245.5));
+                e.getPlayer().teleport(new Location(world, -475.5, 72, -15.5, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
+
+            Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
         }
     }
 
@@ -1837,5 +1845,36 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onAssassinDamage(CustomDamageEvent e) {
+        if (e.getDamager() instanceof Player) {
+            Player player = (Player) e.getDamager();
+            Role role = Role.getRole(player);
+            if (role != null && role instanceof Assassin) {
+                if (e.getDamagee() instanceof Player) {
+                    Player damagee = (Player) e.getDamagee();
+                    Role dRole = Role.getRole(damagee);
+                    if (dRole != null && role instanceof Assassin) {
+                        return;
+                    }
+                }
+                e.setDamage(e.getDamage() * 1.10);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInSpawn(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.SEC){
+            for(Player player : Bukkit.getOnlinePlayers()){
+                Clan clan = ClanUtilities.getClan(player.getLocation());
+                if(clan != null && clan instanceof AdminClan){
+                    if(((AdminClan) clan).isSafe()){
+                        EffectManager.addEffect(player, EffectType.NOFALL, 10_000);
+                    }
+                }
+            }
+        }
+    }
 
 }

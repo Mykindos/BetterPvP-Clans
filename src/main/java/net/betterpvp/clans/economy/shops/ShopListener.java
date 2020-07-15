@@ -287,6 +287,13 @@ public class ShopListener extends BPVPListener<Clans> {
                     return;
                 }
             } else {
+
+                if(g.getClient().hasDonation("ConveniencePackage")){
+                    if (k.getType() != Material.MUSIC_DISC_13 && k.getType() != Material.MUSIC_DISC_PIGSTEP && k.getType() != Material.MUSIC_DISC_WAIT) {
+                        cost = cost * 0.90;
+                    }
+                }
+
                 if (QuestPerkManager.hasPerk(p, "5% Shop Discount")) {
                     if (k.getType() != Material.MUSIC_DISC_13 && k.getType() != Material.MUSIC_DISC_PIGSTEP && k.getType() != Material.MUSIC_DISC_WAIT) {
                         cost = cost * 0.95;

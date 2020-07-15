@@ -3,6 +3,7 @@ package net.betterpvp.clans.clans;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.ClanMember.Role;
 import net.betterpvp.clans.clans.insurance.Insurance;
+import net.betterpvp.clans.farming.bee.BeeData;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilTime.TimeUnit;
@@ -38,6 +39,7 @@ public class Clan implements Invitable {
     private long cooldown;
     private HashMap<Clan, Integer> raidCount;
     private int level;
+    private List<BeeData> beeData;
 
     public Clan(String name) {
         this.name = name;
@@ -58,6 +60,7 @@ public class Clan implements Invitable {
         this.points = 0;
         this.cooldown = 0;
         this.level = 1;
+        beeData = new ArrayList<>();
 
 
     }
@@ -339,11 +342,12 @@ public class Clan implements Invitable {
     public void messageClan(String message, UUID ignore, boolean prefix) {
         for (ClanMember member : getMembers()) {
             if (ignore == null || !ignore.equals(member.getUUID())) {
-                if (Bukkit.getPlayer(member.getUUID()) != null) {
+                Player player = Bukkit.getPlayer(member.getUUID());
+                if (player != null) {
                     if (prefix) {
-                        UtilMessage.message(Bukkit.getPlayer(member.getUUID()), "Clans", message);
+                        UtilMessage.message(player, "Clans", message);
                     } else {
-                        UtilMessage.message(Bukkit.getPlayer(member.getUUID()), message);
+                        UtilMessage.message(player, message);
                     }
                 }
             }
@@ -375,6 +379,10 @@ public class Clan implements Invitable {
 
     public int getLevel() {
         return level;
+    }
+
+    public List<BeeData> getBeeData() {
+        return beeData;
     }
 
     public enum DataType {

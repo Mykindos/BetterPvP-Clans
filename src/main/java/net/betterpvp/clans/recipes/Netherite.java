@@ -22,6 +22,7 @@ public class Netherite implements CustomRecipe {
         while (iter.hasNext()) {
             Recipe r = iter.next();
             if (r.getResult().getType().name().contains("NETHERITE")) {
+                if(r.getResult().getAmount() == 9 && r.getResult().getType() == Material.NETHERITE_INGOT) continue;
                 iter.remove();
             }
         }
