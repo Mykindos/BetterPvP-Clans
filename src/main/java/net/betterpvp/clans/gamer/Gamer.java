@@ -45,6 +45,7 @@ public class Gamer implements Invitable {
     private HashMap<String, Integer> ratings;
     private HashMap<String, Integer> playerStats;
     private boolean starterKitClaimed;
+    private long lastAction;
 
     //private HashMap<Enum, Object> data;
 
@@ -69,6 +70,7 @@ public class Gamer implements Invitable {
         for (Role role : Role.roles) {
             ratings.put(role.getName(), 1500);
         }
+        lastAction = System.currentTimeMillis();
 
 
         //this.data = new HashMap<>();
@@ -479,6 +481,14 @@ public class Gamer implements Invitable {
 
     public void setStarterKitClaimed(boolean starterKitClaimed) {
         this.starterKitClaimed = starterKitClaimed;
+    }
+
+    public void setLastAction(long lastAction) {
+        this.lastAction = lastAction;
+    }
+
+    public long getLastAction() {
+        return lastAction;
     }
 
 

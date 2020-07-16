@@ -53,9 +53,11 @@ public class EnemyCommand implements IClanCommand {
             hours += client.getTimePlayed();
         }
 
-        if (hours < 24) {
-            UtilMessage.message(player, "Clans", "Your clan has under 24 hours of total play time. You may not enemy anybody.");
-            return;
+        if(Clans.getOptions().isProtectNewClans()) {
+            if (hours < 24) {
+                UtilMessage.message(player, "Clans", "Your clan has under 24 hours of total play time. You may not enemy anybody.");
+                return;
+            }
         }
 
         hours = 0;

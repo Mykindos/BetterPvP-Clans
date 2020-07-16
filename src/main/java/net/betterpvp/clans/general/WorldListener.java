@@ -485,7 +485,8 @@ public class WorldListener extends BPVPListener<Clans> {
                 || block.getType() == Material.GRINDSTONE || block.getType() == Material.LECTERN || block.getType() == Material.BLAST_FURNACE
                 || block.getType() == Material.STONECUTTER
                 || block.getType() == Material.BARREL
-                || block.getType() == Material.SMITHING_TABLE) {
+                || block.getType() == Material.SMITHING_TABLE
+        ) {
 
             if (block.getLocation().getY() > 200) {
                 UtilMessage.message(player, "Restriction", "You can only place chests lower than 200Y!");
@@ -587,7 +588,8 @@ public class WorldListener extends BPVPListener<Clans> {
                     || event.getInventory().getType() == InventoryType.GRINDSTONE
                     || event.getInventory().getType() == InventoryType.LECTERN
                     || event.getInventory().getType() == InventoryType.SHULKER_BOX
-                    || event.getInventory().getType() == InventoryType.LOOM) {
+                    || event.getInventory().getType() == InventoryType.LOOM
+                    || event.getInventory().getType() == InventoryType.STONECUTTER) {
                 UtilMessage.message(player, "Game", ChatColor.YELLOW + UtilFormat.cleanString(event.getInventory().getType().toString()) + ChatColor.GRAY + " is disabled.");
                 event.setCancelled(true);
             }
@@ -1019,8 +1021,8 @@ public class WorldListener extends BPVPListener<Clans> {
                         || itemType == Material.PISTON || itemType == Material.PISTON_HEAD || itemType == Material.ENCHANTING_TABLE
                         || itemType == Material.GLASS_PANE
                         || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
-                        || itemType == Material.ANVIL
-                        || itemType.name().toLowerCase().contains("boat")) {
+                        || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK
+                        /*|| itemType.name().toLowerCase().contains("boat")*/) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
                     e.getInventory().setResult(UtilClans.updateNames(e.getRecipe().getResult()));
@@ -1694,13 +1696,15 @@ public class WorldListener extends BPVPListener<Clans> {
         if (e.getFrom().getBlockX() != e.getTo().getBlockX()
                 || e.getFrom().getBlockY() != e.getTo().getBlockY()
                 || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
-            Client c = ClientUtilities.getOnlineClient(e.getPlayer());
-            if (c != null) {
-                if (c.hasRank(Rank.ADMIN, false)) {
-                    if (!c.isLoggedIn()) {
+            Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
+            if (gamer != null) {
+                if (gamer.getClient().hasRank(Rank.ADMIN, false)) {
+                    if (!gamer.getClient().isLoggedIn()) {
                         e.setCancelled(true);
                     }
                 }
+
+                gamer.setLastAction(System.currentTimeMillis());
             }
         }
     }

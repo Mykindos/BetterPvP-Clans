@@ -22,7 +22,7 @@ public class BuildCommand extends Command {
             if (gamer != null) {
 
                 // TODO restrict to donations / admins only
-                if(gamer.getClient().hasDonation("ConveniencePackage") || gamer.getClient().hasRank(Rank.PLAYER, false)) {
+                if(gamer.getClient().hasDonation("ConveniencePackage") || gamer.getClient().hasRank(Rank.ADMIN, false)) {
                     UtilMessage.message(p, "Convenience", "You opened the Build Editor.");
                     p.openInventory(new ClassSelectionPage(p).getInventory());
                 }

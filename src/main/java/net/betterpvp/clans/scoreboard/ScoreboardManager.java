@@ -127,13 +127,14 @@ public class ScoreboardManager extends BPVPListener<Clans> {
         new BukkitRunnable() {
             @Override
             public void run() {
+                initialise(getScoreboard(e.getPlayer()));
                 Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
                 scoreboards.forEach(s -> {
                     removePlayer(s, e.getPlayer().getName(), null);
                     addPlayer(ClientUtilities.getOnlineClient(e.getPlayer()));
                 });
             }
-        }.runTaskLater(getInstance(), 10);
+        }.runTaskLater(getInstance(), 20);
 
     }
 
@@ -154,7 +155,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                     addPlayer(e.getClient());
                 });
             }
-        }.runTaskLater(getInstance(), 10);
+        }.runTaskLater(getInstance(), 20);
 
 
     }
@@ -174,6 +175,10 @@ public class ScoreboardManager extends BPVPListener<Clans> {
         new BukkitRunnable() {
             @Override
             public void run() {
+                Player target = Bukkit.getPlayer(e.getTarget().getUUID());
+                if(target != null) {
+                    initialise(getScoreboard(target));
+                }
                 Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(Bukkit.getPlayer(e.getTarget().getUUID())));
                 scoreboards.forEach(s -> {
                     removePlayer(s, e.getTarget().getName(), e.getClan());
@@ -183,7 +188,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                     }
                 });
             }
-        }.runTaskLater(getInstance(), 10);
+        }.runTaskLater(getInstance(), 20);
 
     }
 
@@ -225,6 +230,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
         Iterator<Team> teams = s.getScoreboard().getTeams().iterator();
         while (teams.hasNext()) {
             Team t = teams.next();
+
             if (c != null) {
                 if (t.getName().equals(c.getName())) {
                     if (t.hasEntry(name)) {

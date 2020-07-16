@@ -44,7 +44,7 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
             return;
         }
 
-        if (RechargeManager.getInstance().add(player, "Clan-Home-Command", 30, true)) {
+
 
 
             if (player.getWorld().getName().equalsIgnoreCase("bossworld")) {
@@ -77,13 +77,10 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
                     if (player.getLocation().getY() > 110) {
                         Clan homeClan = ClanUtilities.getClan(clan.getHome());
                         if (homeClan != null && homeClan.equals(ClanUtilities.getClan(player))) {
-                            if(Pillage.pillages.stream().anyMatch(pillage -> pillage.getPillaged().equals(homeClan))){
-                                if(!RechargeManager.getInstance().add(player, "Clan Home", 30.0D, true)){
-                                    return;
-                                }
+                            if(RechargeManager.getInstance().add(player, "Clan Home", 30, true)) {
+                                UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
+                                player.teleport(clan.getHome());
                             }
-                            UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
-                            player.teleport(clan.getHome());
                         }
                     } else {
 
@@ -109,7 +106,7 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
                 teleports.put(player, System.currentTimeMillis());
 
             }
-        }
+
     }
 
     @EventHandler

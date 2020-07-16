@@ -43,7 +43,7 @@ public class Energy extends BPVPListener<Clans> {
     }
 
     public static boolean use(Player player, String ability, double amount, boolean inform) {
-        if(player.isOp() && player.getGameMode() == GameMode.CREATIVE){
+        if (player.isOp() && player.getGameMode() == GameMode.CREATIVE) {
             return true;
         }
 
@@ -65,12 +65,21 @@ public class Energy extends BPVPListener<Clans> {
     }
 
     public static void regenerateEnergy(Player player, double energy) {
-        player.setExp(Math.min(0.999F, (float) getEnergy(player) + (float) energy));
+        try {
+            player.setExp(Math.min(0.999F, (float) getEnergy(player) + (float) energy));
+        } catch (Exception ex) {
+
+        }
     }
 
     public static void degenerateEnergy(Player player, double energy) {
-        if (getEnergy(player) <= 0F) return;
-        player.setExp(Math.min(0.999F, (float) getEnergy(player) - (float) energy));
+        double eg = getEnergy(player);
+        if (eg <= 0F) return;
+        try {
+            player.setExp(Math.min(0.999F, (float) eg - (float) energy));
+        } catch (Exception ex) {
+
+        }
     }
 
     public void updateEnergy(Player cur) {
@@ -121,7 +130,7 @@ public class Energy extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         Player player = event.getPlayer();
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             use(player, "Attack", 0.02, false);

@@ -249,7 +249,7 @@ public class EffectManager extends BPVPListener<Clans> {
 
             if (hasEffect(dam, EffectType.PROTECTION)) {
                 UtilMessage.message(dam, "Protected", "You cannot damage other players while you have protection!");
-                UtilMessage.message(dam, "Protected", "Type '/protection' to disable this permanentely.");
+                UtilMessage.message(dam, "Protected", "Type '/protection' to disable this permanently.");
                 e.setCancelled(true);
             }
         }

@@ -63,7 +63,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
             if (isThisWeapon(player)) {
 
                 event.setDamage(6);
-                event.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 0));
+                event.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 1));
 
             }
         }

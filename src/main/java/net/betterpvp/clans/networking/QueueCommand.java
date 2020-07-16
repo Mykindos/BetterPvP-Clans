@@ -12,6 +12,7 @@ import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
+import net.betterpvp.core.donation.events.DonationStatusEvent;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.networking.events.NetworkMessageEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -69,11 +70,23 @@ public class QueueCommand extends Command implements Listener {
     }
 
     @EventHandler
-    public void onNetworkMessage(NetworkMessageEvent e){
-        if(e.getChannel().equals("Bungee")){
-            if(e.getMessage().equals("SlotAvailable")){
+    public void onDonate(DonationStatusEvent e) {
+        if (Clans.getOptions().isHub()) {
+            if (e.getPerk().getName().equals("ReservedSlot")) {
+                Player player = Bukkit.getPlayer(e.getClient().getUUID());
+                if (!reserved.contains(e.getClient().getUUID())) {
+                    reserved.add(e.getClient().getUUID());
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onNetworkMessage(NetworkMessageEvent e) {
+        if (e.getChannel().equals("Bungee")) {
+            if (e.getMessage().equals("SlotAvailable")) {
                 canJoin = true;
-            }else if(e.getMessage().equalsIgnoreCase("ReservedSlotAllowed")){
+            } else if (e.getMessage().equalsIgnoreCase("ReservedSlotAllowed")) {
                 reservedSlotAllowed = true;
             }
         }
@@ -97,7 +110,7 @@ public class QueueCommand extends Command implements Listener {
                     return;
                 }
 
-                if(Clans.getOptions().getMAHCheck()) {
+                if (Clans.getOptions().getMAHCheck()) {
                     if (user.isForced() && !user.isAuthenticated()) {
                         UtilMessage.message(e.getPlayer(), ChatColor.RED.toString() + ChatColor.BOLD + "You need to authenticate with MAH before joining the queue!");
                         UtilMessage.message(e.getPlayer(), ChatColor.YELLOW.toString() + "MAH is a Client-Side Anti-Cheat created for BetterPvP");
@@ -108,7 +121,7 @@ public class QueueCommand extends Command implements Listener {
                     }
                 }
 
-                if(client.hasDonation("ReservedSlot")){
+                if (client.hasDonation("ReservedSlot")) {
                     UtilMessage.message(e.getPlayer(), "Queue", "As you have a reserved slot, you skip the queue.");
                     if (!reserved.contains(e.getPlayer().getUniqueId())) {
                         reserved.add(e.getPlayer().getUniqueId());
@@ -129,7 +142,7 @@ public class QueueCommand extends Command implements Listener {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
             if (Clans.getOptions().isHub()) {
                 if (queueEnabled) {
-                    if(reservedSlotAllowed) {
+                    if (reservedSlotAllowed) {
                         if (!reserved.isEmpty()) {
                             Player player = Bukkit.getPlayer(reserved.get(0));
                             if (player != null) {
@@ -140,7 +153,7 @@ public class QueueCommand extends Command implements Listener {
                     reservedSlotAllowed = false;
 
                     if (queue.isEmpty()) return;
-                    if(canJoin) {
+                    if (canJoin) {
                         Player player = Bukkit.getPlayer(queue.get(0));
                         if (player != null) {
                             connectPlayer(player);
@@ -163,7 +176,7 @@ public class QueueCommand extends Command implements Listener {
 
             }
 
-            if(reserved.contains(e.getPlayer().getUniqueId())){
+            if (reserved.contains(e.getPlayer().getUniqueId())) {
                 reserved.remove(e.getPlayer().getUniqueId());
             }
         }
@@ -193,7 +206,7 @@ public class QueueCommand extends Command implements Listener {
                         scoreboard.resetScores(s);
                     }
 
-                    if(queue.contains(e.getPlayer().getUniqueId())) {
+                    if (queue.contains(e.getPlayer().getUniqueId())) {
                         side.getScore("§r").setScore(3);
                         side.getScore(ChatColor.GRAY.toString() + ChatColor.BOLD + "Position in queue:").setScore(2);
                         side.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + (queue.indexOf(e.getPlayer().getUniqueId()) + 1)).setScore(1);

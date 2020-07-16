@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.AllyChatCommand;
 import net.betterpvp.clans.clans.commands.ClanChatCommand;
+import net.betterpvp.clans.filter.FilterRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.Client;
@@ -33,8 +34,6 @@ public class ChatListener extends BPVPListener<Clans> {
     public ChatListener(Clans i) {
         super(i);
     }
-
-    private static final String[] filter = {"fuck", "shit", "cunt", "kys", "nigger", "faggot", "gook", "chink", "nigga", "nigguh", "cock", "bitch"};
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onGlobalChat(AsyncPlayerChatEvent e) {
@@ -111,18 +110,18 @@ public class ChatListener extends BPVPListener<Clans> {
                     }
 
 
-					//if(onlineClient.getSettingAsBoolean("ChatFilter")){
+					if(onlineClient.getSettingAsBoolean("General.Chat Filter")){
 //
-					//	String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
-					//	for(String s : filter){
-					//		if(message.contains(s.toLowerCase())){
-					//			if(!tempIgnore.contains(online)){
-					//				tempIgnore.add(online);
-					//			}
-					//		}
+						String message = e.getMessage().replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+						for(String s : FilterRepository.CHAT_FILTER){
+							if(message.contains(s.toLowerCase())){
+								if(!tempIgnore.contains(online)){
+									tempIgnore.add(online);
+								}
+							}
 //
-					//	}
-					//}
+						}
+					}
 
 
                     if (tempIgnore.contains(online)) {

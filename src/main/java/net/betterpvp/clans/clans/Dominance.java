@@ -62,23 +62,28 @@ public class Dominance {
             getClan().messageClan("You lost Dominance against " + ChatColor.RED + getSelf().getName()
                     + " " + getClan().getDominanceString(getSelf()) + ChatColor.GRAY + ".", null, true);
 
+
+
             EnemyRepository.updateDominance(getSelf().getDominance(getClan()));
         } else if (getClan().getDominance(getSelf()).getPoints() >= getSelf().getDominance(getClan()).getPoints()) {
             getClan().getDominance(getSelf()).setPoints(getClan().getDominance(getSelf()).getPoints() + 1);
             getSelf().messageClan("You gained Dominance against " + ChatColor.RED + getClan().getName() + " "
                     + getSelf().getDominanceString(getClan()) + ChatColor.GRAY + ".", null, true);
 
+            if(getClan().getDominance(getSelf()).getPoints() >= 10 && getClan().getDominance(getSelf()).getPoints() < 16){
+                int pointsUntilConquer = 16 - getClan().getDominance(getSelf()).getPoints();
+                getClan().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getClan().getName() + ChatColor.GRAY + " if you lose "
+                        + ChatColor.GREEN + pointsUntilConquer + ChatColor.GRAY + " points.", null, true);
+            }
+
             getClan().messageClan("You lost Dominance against " + ChatColor.RED + getSelf().getName() + " "
                     + getClan().getDominanceString(getSelf()) + ChatColor.GRAY + ".", null, true);
 
             EnemyRepository.updateDominance(getClan().getDominance(getSelf()));
+
         }
 
-        if(getClan().getDominance(getSelf()).getPoints() >= 10 && getClan().getDominance(getSelf()).getPoints() < 16){
-            int pointsUntilConquer = 16 - getClan().getDominance(getSelf()).getPoints();
-            getSelf().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getClan().getName() + ChatColor.GRAY + " if you lose "
-                    + ChatColor.GREEN + pointsUntilConquer + ChatColor.GRAY + " points.", null, false);
-        }
+
 
         if (getClan().getDominance(getSelf()).getPoints() >= 16) {
             UtilMessage.broadcast("Clans", ChatColor.YELLOW + "Clan " + getSelf().getName() + ChatColor.GRAY + " has conquered "

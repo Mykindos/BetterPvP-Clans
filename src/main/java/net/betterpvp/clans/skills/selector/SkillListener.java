@@ -52,6 +52,7 @@ public class SkillListener extends BPVPListener<Clans> {
         Role role = Role.getRole(player);
         if (role != null) {
             Gamer gamer = GamerManager.getOnlineGamer(player);
+            gamer.setLastAction(System.currentTimeMillis());
             RoleBuild build = gamer.getActiveBuild(role.getName());
             if (build != null) {
                 Optional<Skill> skillOptional = build.getActiveSkills().stream().filter(s -> {
@@ -144,6 +145,7 @@ public class SkillListener extends BPVPListener<Clans> {
         Role role = Role.getRole(player);
         if (role != null) {
             Gamer gamer = GamerManager.getOnlineGamer(player);
+            gamer.setLastAction(System.currentTimeMillis());
             RoleBuild build = gamer.getActiveBuild(role.getName());
             if (build != null) {
 

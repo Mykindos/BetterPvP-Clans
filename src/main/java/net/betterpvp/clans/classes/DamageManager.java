@@ -1,5 +1,7 @@
 package net.betterpvp.clans.classes;
 
+import me.mykindos.MAH.user.MAHManager;
+import me.mykindos.MAH.user.MAHUser;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
@@ -141,6 +143,19 @@ public class DamageManager extends BPVPListener<Clans> {
 
     }
 
+    @EventHandler
+    public void onMAHDamage(CustomDamageEvent e){
+        if(e.getDamager() instanceof Player){
+            MAHUser user = MAHManager.getOnlineMAHUser((Player) e.getDamager());
+            if(user != null){
+                if(user.isForced()){
+                    if(!user.isAuthenticated()){
+                        e.setCancelled("Must authenticate with MAH");
+                    }
+                }
+            }
+        }
+    }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void handleCauseTimers(CustomDamageEvent e) {

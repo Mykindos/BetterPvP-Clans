@@ -8,6 +8,7 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.Pillage;
 import net.betterpvp.clans.farming.FarmBlocks;
+import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.punish.PunishManager;
@@ -271,14 +272,19 @@ public class InteractListener extends BPVPListener<Clans> {
                             || block.getType().name().contains("_BUTTON") || block.getType() == Material.FURNACE
                             || block.getType() == Material.OAK_FENCE_GATE || block.getType() == Material.CRAFTING_TABLE || UtilBlock.usable(block)) {
 
-						/*
+                        if(e.getAction() == Action.LEFT_CLICK_BLOCK){
+                            if(block.getType() == Material.ENDER_CHEST){
+                                return;
+                            }
+                        }
+
 						if(KOTHManager.koth != null){
 							if(KOTHManager.koth.getLocation().getBlockX() == block.getLocation().getBlockX() 
 									&& KOTHManager.koth.getLocation().getBlockZ()  == block.getLocation().getBlockZ()){
 								return;
 							}
 						}
-						*/
+
 
                         UtilMessage.message(p, "Clans", "You cannot use " + ChatColor.GREEN + UtilFormat.cleanString(block.getType().toString())
                                 + ChatColor.GRAY + " in " + ChatColor.YELLOW + ClanUtilities.getRelation(clan, bClan).getPrimary()

@@ -16,6 +16,6 @@ public class MasterFisher implements IDonation {
 
     @Override
     public long getExpiryTime() {
-        return DonationExpiryTimes.DAY * 7 * 6;
+        return DonationExpiryTimes.DAY * 31;
     }
 }

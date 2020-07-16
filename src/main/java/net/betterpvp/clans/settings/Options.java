@@ -51,6 +51,7 @@ public class Options {
     private int hubPort;
     private int maxClanlevel;
     private int maxBees;
+    private boolean protectNewClans;
     private Clans i;
 
 
@@ -115,6 +116,7 @@ public class Options {
         tablePrefix = i.getConfigManager().get(Configs.MAIN).getString("Database.Prefix");
         hubPort = i.getConfigManager().get(Configs.MAIN).getInt("Bungee.HubPort");
         maxClanlevel = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxLevel");
+        protectNewClans = i.getConfigManager().get(Configs.MAIN).getBool("Clans.Protect-New-Clans");
     }
 
     public int getMAHPort() {
@@ -335,6 +337,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Database.Prefix", "clans");
         i.getConfigManager().get(Configs.MAIN).check("Bungee.HubPort", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxLevel", 5);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.Protect-New-Clans", false);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MaxBees", 20);
 
     }
@@ -379,5 +382,9 @@ public class Options {
 
     public int getMaxBees() {
         return maxBees;
+    }
+
+    public boolean isProtectNewClans() {
+        return protectNewClans;
     }
 }

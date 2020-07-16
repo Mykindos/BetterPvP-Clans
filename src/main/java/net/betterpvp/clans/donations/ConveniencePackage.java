@@ -16,6 +16,6 @@ public class ConveniencePackage implements IDonation {
 
     @Override
     public long getExpiryTime() {
-        return DonationExpiryTimes.DAY * 60;
+        return DonationExpiryTimes.DAY * 31;
     }
 }

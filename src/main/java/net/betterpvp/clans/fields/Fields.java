@@ -99,15 +99,13 @@ public class Fields extends BPVPListener<Clans> {
 
         boolean doubleIt = WEManager.isEventActive("MiningMadness");
         e.setCancelled(true);
-        if (p == null) return;
         for (Blocks bc : Blocks.values()) {
             if (b.getType() == bc.getMaterial()) {
+
                 getMap().put(new BlockData(b.getLocation(), b.getType()), System.currentTimeMillis());
 
                 if (b.getType() == Blocks.LAPIS.getMaterial()) {
-                    Dye dye = new Dye();
-                    dye.setColor(DyeColor.BLUE);
-                    b.getWorld().dropItemNaturally(b.getLocation(), dye.toItemStack(3));
+                    b.getWorld().dropItemNaturally(b.getLocation(), new ItemStack(Material.LAPIS_LAZULI, 3));
                 } else if (b.getType() == Blocks.ENDERCHEST.getMaterial()) {
                     e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.LEATHER, UtilMath.randomInt(10)));
 

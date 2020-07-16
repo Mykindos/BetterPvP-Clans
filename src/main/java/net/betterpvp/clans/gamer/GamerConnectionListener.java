@@ -20,7 +20,10 @@ import net.betterpvp.core.client.listeners.ClientLoginEvent;
 import net.betterpvp.core.client.listeners.ClientQuitEvent;
 import net.betterpvp.core.client.mysql.SettingsRepository;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilFormat;
+import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -36,11 +39,11 @@ import java.io.UnsupportedEncodingException;
 public class GamerConnectionListener extends BPVPListener<Clans> {
 
     private final World world;
+
     public GamerConnectionListener(Clans instance) {
         super(instance);
         this.world = Bukkit.getWorld("world");
     }
-
 
 
     @EventHandler(priority = EventPriority.LOW)
@@ -67,6 +70,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Sidebar", 1);
         SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Recharge Bar", 1);
         SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Killfeed", 1);
+        SettingsRepository.saveSetting(e.getClient().getUUID(), "General.Chat Filter", 1);
 
         RatingRepository.saveRatings(gamer);
 
@@ -78,6 +82,11 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 Player player = Bukkit.getPlayer(e.getClient().getUUID());
                 if (player != null) {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
+                    if(!player.hasPlayedBefore()){
+                        EffectManager.addEffect(player, EffectType.PROTECTION, 60_000 * 15);
+                        UtilMessage.message(player, "Protection", "You have received " + ChatColor.GREEN + 15
+                                + " minutes " + ChatColor.GRAY + "of PvP protection. " + ChatColor.YELLOW + "/protection " + ChatColor.GRAY + "to disable");
+                    }
                 }
             }
         }.runTaskLater(getInstance(), 20);
@@ -85,21 +94,59 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         Player player = Bukkit.getPlayer(e.getClient().getUUID());
         if (player != null) {
             gamer.setScoreboard(new Scoreboard(player));
-            if(Clans.getOptions().isHub()) {
-                player.setResourcePack(Clans.getOptions().getTexturePackURL(),
-                        UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
+            if (Clans.getOptions().isHub()) {
+                try {
+                    player.setResourcePack(Clans.getOptions().getTexturePackURL(),
+                            UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                    player.setResourcePack("http://betterpvp.net/betterpvptexturepack.zip",
+                            UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
+                }
             }
         }
 
+        gamer.setLastAction(System.currentTimeMillis());
         GamerManager.addOnlineGamer(gamer);
 
 
     }
 
-    @EventHandler (priority = EventPriority.MONITOR)
-    public void onRemoveOnlineGamer(PlayerQuitEvent e){
+    @EventHandler
+    public void onKickInactive(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC_30) {
+            if (!Clans.getOptions().isHub()) {
+                int count = 0;
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    Client pClient = ClientUtilities.getOnlineClient(p);
+                    if (pClient != null) {
+                        if (pClient.hasDonation("ReservedSlot") || pClient.hasRank(Rank.TRIAL_MOD, false)) {
+                            count++;
+                        }
+                    }
+                }
+
+                if (Bukkit.getOnlinePlayers().size() < Bukkit.getServer().getMaxPlayers() + count) {
+                    for (Gamer gamer : GamerManager.getOnlineGamers()) {
+                        if (gamer.getClient().hasDonation("ReservedSlot")) continue;
+                        if (gamer.getClient().hasRank(Rank.TRIAL_MOD, false)) continue;
+                        if (UtilTime.elapsed(gamer.getLastAction(), 60000 * 15)) {
+                            Player player = Bukkit.getPlayer(gamer.getUUID());
+                            if (player != null) {
+                                player.kickPlayer(ChatColor.RED + "You were kicked for 10 minutes of inactivity!");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onRemoveOnlineGamer(PlayerQuitEvent e) {
         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
-        if(gamer != null){
+        if (gamer != null) {
             GamerManager.getOnlineGamers().remove(gamer);
         }
     }

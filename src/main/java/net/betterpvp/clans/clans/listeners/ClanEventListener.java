@@ -138,7 +138,9 @@ public class ClanEventListener extends BPVPListener<Clans> {
         InviteHandler.removeInvite(clan, gamer, "Invite");
         InviteHandler.removeInvite(gamer, clan, "Invite");
         // Make sure they aren't already in the clan, just incase they are for whatever reason.
-        if (clan.getMember(player.getUniqueId()) == null) {
+
+        ClanMember member = clan.getMember(player.getUniqueId());
+        if (member == null) {
 
             clan.messageClan(ChatColor.YELLOW + player.getName() + ChatColor.GRAY
                     + " has joined your Clan.", player.getUniqueId(), true);
@@ -151,6 +153,12 @@ public class ClanEventListener extends BPVPListener<Clans> {
             UtilMessage.message(player, "Clans", "You joined " + ChatColor.YELLOW + "Clan " + clan.getName() + ChatColor.GRAY + ".");
 
 
+            for(ClanMember m : clan.getMembers()){
+                Player mPlayer = Bukkit.getPlayer(m.getUUID());
+                if(mPlayer != null){
+                    Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(mPlayer));
+                }
+            }
 
         }
     }
