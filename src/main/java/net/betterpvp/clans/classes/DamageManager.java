@@ -430,6 +430,10 @@ public class DamageManager extends BPVPListener<Clans> {
                                 takeDura = true;
                             }
 
+                            if(armour.getType() == Material.TURTLE_HELMET){
+                                takeDura = false;
+                            }
+
                             if (takeDura) {
                                 armour.setDurability((short) (armour.getDurability() + 1));
                                 if (armour.getDurability() > armour.getType().getMaxDurability()) {
@@ -467,7 +471,6 @@ public class DamageManager extends BPVPListener<Clans> {
                             || UtilItem.isShovel(hand.getType())) {
 
 
-
                         if (p.getInventory().getItemInMainHand().getType() == Material.GOLDEN_SWORD) {
                             if (UtilMath.randomInt(10) > 6) {
                                 hand.setDurability((short) (hand.getDurability() + 1));
@@ -484,7 +487,7 @@ public class DamageManager extends BPVPListener<Clans> {
                             hand.setDurability((short) (hand.getDurability() + 1));
                         }
                         if (hand.getDurability() > hand.getType().getMaxDurability()) {
-                            p.getInventory().setItemInMainHand(null);
+                            p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
 
                         }

@@ -1,5 +1,7 @@
 package net.betterpvp.clans.combat.safelog;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.combat.combatlog.CombatLog;
 import net.betterpvp.clans.combat.combatlog.CombatTag;
@@ -22,7 +24,7 @@ import java.util.ListIterator;
 
 public class SafeLogManager extends BPVPListener<Clans> {
 
-    public SafeLogManager(Clans i){
+    public SafeLogManager(Clans i) {
         super(i);
     }
 
@@ -77,7 +79,7 @@ public class SafeLogManager extends BPVPListener<Clans> {
     @EventHandler
     public synchronized void update(UpdateEvent event) {
         if (event.getType() == UpdateEvent.UpdateType.TICK) {
-            if(SafeLog.loggers.isEmpty()){
+            if (SafeLog.loggers.isEmpty()) {
                 return;
             }
 
@@ -86,12 +88,12 @@ public class SafeLogManager extends BPVPListener<Clans> {
                 SafeLog log = iterator.next();
                 Player player = log.getPlayer();
 
-                if (player == null){
+                if (player == null) {
                     iterator.remove();
                     return;
                 }
 
-                if( log.getSeconds() < 0) {
+                if (log.getSeconds() < 0) {
                     iterator.remove();
                     return;
                 }
@@ -108,18 +110,22 @@ public class SafeLogManager extends BPVPListener<Clans> {
                             CombatTag.tagged.remove(CombatTag.getCombatTag(player.getUniqueId()));
                         }
 
-                        if(CombatLog.getCombatLog(player) != null){
+                        if (CombatLog.getCombatLog(player) != null) {
                             CombatLog.loggers.remove(CombatLog.getCombatLog(player));
                         }
-                        if(UtilClans.hasValuables(player)){
+                        if (UtilClans.hasValuables(player)) {
                             iterator.remove();
                             return;
                         }
 
                         Gamer c = GamerManager.getOnlineGamer(player);
                         c.setSafeLogged(true);
-                        player.kickPlayer(ChatColor.RED + "[Log] " + ChatColor.GRAY + "Safely Logged Out");
-
+                        //player.kickPlayer(ChatColor.RED + "[Log] " + ChatColor.GRAY + "Safely Logged Out");
+                        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                        out.writeUTF("KickPlayer");
+                        out.writeUTF(player.getName());
+                        out.writeUTF("You safe logged.");
+                        player.sendPluginMessage(getInstance(), "BungeeCord", out.toByteArray());
                         iterator.remove();
 
 

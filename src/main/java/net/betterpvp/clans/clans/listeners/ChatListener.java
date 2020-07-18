@@ -1,6 +1,7 @@
 package net.betterpvp.clans.clans.listeners;
 
 import me.mykindos.MAH.user.MAHManager;
+import me.mykindos.MAH.user.MAHUser;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Alliance;
 import net.betterpvp.clans.clans.Clan;
@@ -153,10 +154,18 @@ public class ChatListener extends BPVPListener<Clans> {
 					*/
 
 					String prefix = "";
-					if(MAHManager.isAuthenticated(p.getUniqueId())){
-					    prefix = ChatColor.GREEN + "* ";
-                    }
+                    MAHUser mahUser = MAHManager.getOnlineMAHUser(p);
+                    if(mahUser != null){
+                        if(mahUser.isAuthenticated()){
+                            prefix = ChatColor.GREEN + "* ";
+                        }
 
+                        if(mahUser.isForced()){
+                            if(!mahUser.isAuthenticated()){
+                                prefix = ChatColor.RED + "* ";
+                            }
+                        }
+                    }
 
                     if (ClanUtilities.getClan(p) == null || Clans.getOptions().isFNG()) {
                         online.sendMessage(prefix + rank + donationRank + ChatColor.YELLOW + p.getName() + ": " + ChatColor.RESET + e.getMessage());

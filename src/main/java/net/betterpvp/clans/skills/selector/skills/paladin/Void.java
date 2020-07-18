@@ -146,7 +146,9 @@ public class Void extends Skill implements ToggleSkill {
             UtilMessage.message(player, getClassType(), "Void: " + ChatColor.RED + "Off");
         } else {
             active.add(player.getUniqueId());
-            UtilMessage.message(player, getClassType(), "Void: " + ChatColor.GREEN + "On");
+            if(Energy.use(player, "Void", 5, false)) {
+                UtilMessage.message(player, getClassType(), "Void: " + ChatColor.GREEN + "On");
+            }
         }
     }
 }

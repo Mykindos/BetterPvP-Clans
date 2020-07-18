@@ -148,7 +148,7 @@ public class Rupture extends Skill implements InteractSkill {
 
                 for (int i = 0; i < 3; i++) {
                     loc.add(v);
-                    Location tempLoc = new Location(p.getWorld(), loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.0D, 0.5D) - 0.75,
+                    Location tempLoc = new Location(p.getWorld(), loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.3D, 0.8D) - 0.75,
                             loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D));
 
                     CustomArmorStand as = new CustomArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) loc.getWorld()).getHandle());

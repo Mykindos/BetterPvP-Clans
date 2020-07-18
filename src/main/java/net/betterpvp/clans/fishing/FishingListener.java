@@ -35,7 +35,7 @@ import java.util.List;
 
 public class FishingListener extends BPVPListener<Clans> {
 
-    public FishingListener(Clans i){
+    public FishingListener(Clans i) {
         super(i);
     }
 
@@ -57,15 +57,19 @@ public class FishingListener extends BPVPListener<Clans> {
         System.out.println(event.getState().name());
 
 
-        if(event.getCaught() != null && event.getCaught().getType() == EntityType.ARMOR_STAND){
+        if (event.getCaught() != null && event.getCaught().getType() == EntityType.ARMOR_STAND) {
             event.setCancelled(true);
+            return;
+        }
+
+        if (event.getCaught() != null && event.getCaught().getType() == EntityType.DROPPED_ITEM) {
             return;
         }
 
 
         Player player = event.getPlayer();
 
-        if(UtilBlock.isInLiquid(event.getHook())) {
+        if (UtilBlock.isInLiquid(event.getHook())) {
             if (event.getCaught() != null) {
                 Clan aClan = ClanUtilities.getClan(event.getCaught().getLocation());
                 if (aClan != null) {
@@ -81,24 +85,24 @@ public class FishingListener extends BPVPListener<Clans> {
             }
         }
 
-        if(Energy.use(player, "Hook", 25D, true)){
+        if (Energy.use(player, "Hook", 25D, true)) {
 
 
             Client c = ClientUtilities.getOnlineClient(player);
-            if(c.hasDonation("MasterFisher") ){
+            if (c.hasDonation("MasterFisher")) {
 
                 setBiteTime(event.getHook(), UtilMath.randomInt(100, 650));
                 System.out.println(player.getName() + " threw hook using MasterFisher");
             }
 
-            if(event.getCaught() != null && event.getCaught().getType() == EntityType.PLAYER){
+            if (event.getCaught() != null && event.getCaught().getType() == EntityType.PLAYER) {
                 Player caught = (Player) event.getCaught();
 
-                if(caught != null){
-                    if(ClanUtilities.getClan(caught.getLocation()) != null){
-                        if(ClanUtilities.getClan(caught.getLocation()) instanceof AdminClan){
+                if (caught != null) {
+                    if (ClanUtilities.getClan(caught.getLocation()) != null) {
+                        if (ClanUtilities.getClan(caught.getLocation()) instanceof AdminClan) {
                             AdminClan a = (AdminClan) ClanUtilities.getClan(caught.getLocation());
-                            if(a.isSafe()){
+                            if (a.isSafe()) {
                                 event.setCancelled(true);
                                 return;
                             }
@@ -112,16 +116,15 @@ public class FishingListener extends BPVPListener<Clans> {
             }
 
 
-
             if (event.getCaught() != null && event.getCaught().getType() == EntityType.DROPPED_ITEM) {
 
                 event.getCaught().remove();
                 event.setExpToDrop(0);
                 Clan clan = ClanUtilities.getClan(player.getLocation());
-                if(clan != null || QuestPerkManager.hasPerk(player, "Base Fishing")){
-                    if((clan == null && QuestPerkManager.hasPerk(player, "Base Fishing"))
+                if (clan != null || QuestPerkManager.hasPerk(player, "Base Fishing")) {
+                    if ((clan == null && QuestPerkManager.hasPerk(player, "Base Fishing"))
                             || clan.getName().equals("Lake") || QuestPerkManager.hasPerk(player, "Base Fishing")
-                            || clan.getName().equals("Fields") ){
+                            || clan.getName().equals("Fields")) {
 
 
                         String name = randomFish();
@@ -132,19 +135,19 @@ public class FishingListener extends BPVPListener<Clans> {
                         item.setItemMeta(im);
 
                         int legValue = UtilMath.randomInt(7500);
-                        if(legValue >= 7499){
+                        if (legValue >= 7499) {
                             List<ItemStack> weapons = new ArrayList<>();
-                            for(Weapon w : WeaponManager.weapons){
-                                if(w instanceof ILegendary){
+                            for (Weapon w : WeaponManager.weapons) {
+                                if (w instanceof ILegendary) {
                                     weapons.add(w.createWeapon(true));
                                 }
 
                             }
                             Item items = player.getWorld().dropItem(event.getHook().getLocation(), weapons.get(UtilMath.randomInt(weapons.size())));
                             ItemStack l = items.getItemStack();
-                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.2D, false, 0.0D, 0.4D, 10.0D, false);
-                            UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN +  l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                            for(Player d : Bukkit.getOnlinePlayers()){
+                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
+                            UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                            for (Player d : Bukkit.getOnlinePlayers()) {
                                 d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
                             }
 
@@ -154,10 +157,10 @@ public class FishingListener extends BPVPListener<Clans> {
                         int mobValue = UtilMath.randomInt(100);
                         if (mobValue <= 10) {
 
-                            EntityType[] types = new EntityType[]{EntityType.CREEPER , EntityType.ZOMBIE,
+                            EntityType[] types = new EntityType[]{EntityType.CREEPER, EntityType.ZOMBIE,
                                     EntityType.WITCH, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.CAVE_SPIDER};
-                            Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(types.length- 1) ]);
-                            UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.2D, false, 0.0D, 0.4D, 10.0D, false);
+                            Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(types.length - 1)]);
+                            UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
                             UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
                             return;
                         }
@@ -169,14 +172,13 @@ public class FishingListener extends BPVPListener<Clans> {
                                     new ItemStack(Material.IRON_INGOT, 3), new ItemStack(Material.GOLD_INGOT, 3), new ItemStack(Material.LEATHER, 3),
                                     new ItemStack(Material.DIAMOND_AXE), new ItemStack(Material.SPONGE), new ItemStack(Material.LAPIS_BLOCK),
                                     new ItemStack(Material.FISHING_ROD)};
-                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), UtilClans.updateNames(types[UtilMath.randomInt(types.length- 1) ]));
-                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.2D, false, 0.0D, 0.4D, 10.0D, false);
+                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), UtilClans.updateNames(types[UtilMath.randomInt(types.length - 1)]));
+                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
                             UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(items.getItemStack().getType().toString()) + ChatColor.GRAY + ".");
                             return;
                         }
 
                         if (value < 450) {
-
 
 
                             UtilMessage.message(player, "Fishing", "You caught " + ChatColor.GREEN + value + " Pound " + name + ChatColor.GRAY + ".");
@@ -193,9 +195,9 @@ public class FishingListener extends BPVPListener<Clans> {
                             } else {
 
                                 value = UtilMath.randomInt(1, 500);
-                                if(value < 450){
+                                if (value < 450) {
                                     value = UtilMath.randomInt(1, 500);
-                                }else{
+                                } else {
                                     value = UtilMath.randomInt(1, 1000);
                                 }
                                 value = value + 1500;
@@ -207,8 +209,8 @@ public class FishingListener extends BPVPListener<Clans> {
                         }
 
                         boolean tripled = false;
-                        if(clan != null && (clan.getName().equalsIgnoreCase("Fields") || clan.getName().equalsIgnoreCase("Lake"))) {
-                            if(WEManager.isEventActive("FishingFrenzy")) {
+                        if (clan != null && (clan.getName().equalsIgnoreCase("Fields") || clan.getName().equalsIgnoreCase("Lake"))) {
+                            if (WEManager.isEventActive("FishingFrenzy")) {
                                 value *= 3;
                                 tripled = true;
                             }
@@ -216,27 +218,27 @@ public class FishingListener extends BPVPListener<Clans> {
                         item.setAmount(value / 3);
                         UtilItem.insert(player, UtilClans.updateNames(item));
 
-                        Fish fish = new Fish(player.getName(), tripled ? value / 3: value, name, System.currentTimeMillis());
+                        Fish fish = new Fish(player.getName(), tripled ? value / 3 : value, name, System.currentTimeMillis());
                         FishManager.addFish(fish);
                         FishRepository.saveFish(fish);
 
-                        if(FishManager.isTop(fish)){
-                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish this map!" );
-                        }else if(FishManager.isTopWeek(fish)){
-                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish this week!" );
-                        }else if(FishManager.isTopDay(fish)){
-                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish today!" );
+                        if (FishManager.isTop(fish)) {
+                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish this map!");
+                        } else if (FishManager.isTopWeek(fish)) {
+                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish this week!");
+                        } else if (FishManager.isTopDay(fish)) {
+                            UtilMessage.broadcast("Fishing", ChatColor.YELLOW + player.getName() + ChatColor.RED + " caught the biggest fish today!");
                         }
-                    }else{
+                    } else {
                         UtilMessage.message(event.getPlayer(), "Fishing", "You can only catch fish at the Lake!");
                     }
-                }else{
+                } else {
                     UtilMessage.message(event.getPlayer(), "Fishing", "You can only catch fish at the Lake!");
                 }
 
 
             }
-        }else{
+        } else {
             event.setCancelled(true);
         }
     }
@@ -247,7 +249,7 @@ public class FishingListener extends BPVPListener<Clans> {
         Field fishCatchTime = null;
 
         try {
-           fishCatchTime = EntityFishingHook.class.getDeclaredField("ao");
+            fishCatchTime = EntityFishingHook.class.getDeclaredField("ao");
 
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -263,13 +265,13 @@ public class FishingListener extends BPVPListener<Clans> {
 
         try {
 
-            new BukkitRunnable(){
+            new BukkitRunnable() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
                         Field tmp = EntityFishingHook.class.getDeclaredField("ao");
                         tmp.setAccessible(true);
-                        tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) /2));
+                        tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) / 2));
                         System.out.println(tmp.getInt(hookCopy));
                     } catch (IllegalAccessException | NoSuchFieldException e) {
                         e.printStackTrace();

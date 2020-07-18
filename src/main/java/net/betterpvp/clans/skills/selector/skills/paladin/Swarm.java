@@ -74,7 +74,7 @@ public class Swarm extends ChannelSkill implements InteractSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 10 - ((level - 1) * 1);
+        return 12 - ((level - 1) * 1);
     }
 
 
@@ -127,7 +127,7 @@ public class Swarm extends ChannelSkill implements InteractSkill {
 
     @EventHandler
     public void batHit(UpdateEvent e) {
-        if (e.getType() == UpdateType.TICK) {
+        if (e.getType() == UpdateType.TICK_2) {
             for (Player p : batData.keySet()) {
                 for (BatData bat2 : batData.get(p)) {
                     Bat bat = bat2.bat;
@@ -177,13 +177,13 @@ public class Swarm extends ChannelSkill implements InteractSkill {
                             Bukkit.getPluginManager().callEvent(new CustomDamageEvent(other, p, null, DamageCause.CUSTOM, 1, false));
                             //other.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 0));
                             if (other instanceof Player) {
-                                EffectManager.addEffect((Player) other, EffectType.SHOCK, 1000L);
+                                EffectManager.addEffect((Player) other, EffectType.SHOCK, 800L);
                             }
 
                             other.setVelocity(bat.getLocation().getDirection().add(new Vector(0, .4F, 0)).multiply(0.50));
 
 
-                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.2F, 0.7F);
+                            bat.getWorld().playSound(bat.getLocation(), Sound.ENTITY_BAT_HURT, 0.1F, 0.7F);
 
                             bat.remove();
 
@@ -241,9 +241,11 @@ public class Swarm extends ChannelSkill implements InteractSkill {
     @Override
     public void activate(Player p, Gamer gamer) {
         if (!current.contains(p.getUniqueId())) {
-            current.add(p.getUniqueId());
-            if (!batData.containsKey(p)) {
-                batData.put(p, new ArrayList<>());
+            if(Energy.use(p, "Swarm", 5, false)) {
+                current.add(p.getUniqueId());
+                if (!batData.containsKey(p)) {
+                    batData.put(p, new ArrayList<>());
+                }
             }
         }
     }

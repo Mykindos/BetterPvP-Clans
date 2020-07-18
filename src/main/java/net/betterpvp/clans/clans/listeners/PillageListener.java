@@ -69,7 +69,7 @@ public class PillageListener extends BPVPListener<Clans> {
         Clan pillaged = ClanUtilities.getClan(e.getBlock().getLocation());
         if (pillager != null && pillaged != null) {
             if (Pillage.isPillaging(pillager, pillaged)) {
-                Insurance i = new Insurance(e.getBlock().getLocation(), e.getBlock().getType(), e.getBlock().getData(),
+                Insurance i = new Insurance(e.getBlock().getLocation(), e.getBlock().getType(), e.getBlock().getBlockData().getAsString(),
                         InsuranceType.PLACE, System.currentTimeMillis());
                 InsuranceRepository.saveInsurance(pillaged, i);
                 pillaged.getInsurance().add(i);
@@ -84,7 +84,8 @@ public class PillageListener extends BPVPListener<Clans> {
         if (pillager != null && pillaged != null) {
             if (Pillage.isPillaging(pillager, pillaged)) {
 
-                Insurance i = new Insurance(e.getBlock().getLocation(), e.getBlock().getType(), e.getBlock().getData(),
+                e.getBlock().getBlockData();
+                Insurance i = new Insurance(e.getBlock().getLocation(), e.getBlock().getType(), e.getBlock().getBlockData().getAsString(),
                         InsuranceType.BREAK, System.currentTimeMillis());
                 InsuranceRepository.saveInsurance(pillaged, i);
                 pillaged.getInsurance().add(i);

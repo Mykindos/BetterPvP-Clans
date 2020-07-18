@@ -185,7 +185,8 @@ public class AgilityHelmet implements IDonation, Listener {
                 Player p = (Player) e.getDamager();
                 if (p.getEquipment().getHelmet() != null) {
                     if (hasAgilityHelmetEquipped(p)) {
-                        e.setCancelled("Cant damage with Agility Helmet");
+                        e.setDamage(1);
+                        //e.setCancelled("Cant damage with Agility Helmet");
                     }
                 }
             }

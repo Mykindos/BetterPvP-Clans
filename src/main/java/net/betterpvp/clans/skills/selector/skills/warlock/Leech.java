@@ -21,6 +21,7 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -101,6 +102,7 @@ public class Leech extends Skill implements InteractSkill {
         List<LivingEntity> temp = new ArrayList<>();
         for (LivingEntity entA : UtilPlayer.getAllInRadius(link.getLocation(), 7)) {
             if(ShopManager.isShop(entA)) continue;
+            if(entA instanceof ArmorStand) continue;
             if (entA instanceof Player) {
                 if (!ClanUtilities.canHurt(player, (Player) entA)) {
                     return;
@@ -116,6 +118,7 @@ public class Leech extends Skill implements InteractSkill {
 
         for (LivingEntity entA : temp) {
             for (LivingEntity entB : UtilPlayer.getAllInRadius(entA.getLocation(), 7)) {
+                if(entB instanceof ArmorStand) continue;
                 if (entB instanceof Player) {
                     if (!ClanUtilities.canHurt(player, (Player) entA)) {
                         return;

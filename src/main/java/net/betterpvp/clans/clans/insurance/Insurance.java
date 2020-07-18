@@ -8,11 +8,11 @@ public class Insurance {
 
     private long time;
     private Material material;
-    private byte data;
+    private String data;
     private InsuranceType type;
     private Location loc;
 
-    public Insurance(Location loc, Material mat, byte data, InsuranceType type, long time) {
+    public Insurance(Location loc, Material mat, String data, InsuranceType type, long time) {
         this.material = mat;
         this.data = data;
         this.type = type;
@@ -28,7 +28,7 @@ public class Insurance {
         return material;
     }
 
-    public byte getData() {
+    public String getData() {
         return data;
     }
 

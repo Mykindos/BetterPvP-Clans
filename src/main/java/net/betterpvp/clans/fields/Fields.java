@@ -107,7 +107,7 @@ public class Fields extends BPVPListener<Clans> {
                 if (b.getType() == Blocks.LAPIS.getMaterial()) {
                     b.getWorld().dropItemNaturally(b.getLocation(), new ItemStack(Material.LAPIS_LAZULI, 3));
                 } else if (b.getType() == Blocks.ENDERCHEST.getMaterial()) {
-                    e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.LEATHER, UtilMath.randomInt(10)));
+                    e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.LEATHER, UtilMath.randomInt(1,10)));
 
                     e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),
                             ENDERCHEST_ITEMS[UtilMath.randomInt(ENDERCHEST_ITEMS.length - 1)].clone());

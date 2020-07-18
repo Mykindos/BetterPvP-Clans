@@ -73,6 +73,8 @@ public class MoneyCommand extends Command {
                             if (playerGamer.getCoins() >= amount) {
                                 playerGamer.removeCoins(amount);
                                 targetGamer.addCoins(amount);
+                                GamerRepository.updateCoins(playerGamer);
+                                GamerRepository.updateCoins(targetGamer);
 
                                 UtilMessage.message(player, "Coins", "You sent " + ChatColor.YELLOW + UtilFormat.formatter.format(amount) + " Coins"
                                         + ChatColor.GRAY + " to " + ChatColor.YELLOW + targetGamer.getClient().getName() + ChatColor.GRAY + ".");

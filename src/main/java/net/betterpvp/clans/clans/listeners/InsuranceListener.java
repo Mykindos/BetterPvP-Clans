@@ -9,7 +9,9 @@ import net.betterpvp.clans.clans.mysql.InsuranceRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilTime;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.event.EventHandler;
 
 import java.util.ListIterator;
@@ -60,7 +62,8 @@ public class InsuranceListener extends BPVPListener<Clans> {
                         || i.getMaterial() == Material.ICE
                         || i.getMaterial() == Material.WATER
                         || i.getMaterial() == Material.LAVA
-                        || i.getMaterial() == Material.AIR) {
+                        || i.getMaterial() == Material.AIR
+                        || i.getMaterial().name().contains("CHEST")) {
                     return;
                 }
 
@@ -80,6 +83,9 @@ public class InsuranceListener extends BPVPListener<Clans> {
                     i.getLocation().getBlock().setType(Material.AIR);
                 } else if (i.getType() == InsuranceType.BREAK) {
                     i.getLocation().getBlock().setType(i.getMaterial());
+                    BlockData data = Bukkit.createBlockData(i.getData());
+                    i.getLocation().getBlock().setBlockData(data);
+                    //i.getLocation().getBlock().setBlockData();
                 }
             }
 

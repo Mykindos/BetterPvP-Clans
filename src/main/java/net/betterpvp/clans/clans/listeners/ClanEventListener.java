@@ -392,7 +392,8 @@ public class ClanEventListener extends BPVPListener<Clans> {
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL
                 || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER
-                || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BREEDING) {
+                || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BREEDING
+                || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.DEFAULT) {
             Clan clan = ClanUtilities.getClan(event.getEntity().getLocation());
 
             if (clan != null) {

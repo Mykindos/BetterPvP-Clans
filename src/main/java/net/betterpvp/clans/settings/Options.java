@@ -52,6 +52,7 @@ public class Options {
     private int maxClanlevel;
     private int maxBees;
     private boolean protectNewClans;
+    private boolean votingCratesEnabled;
     private Clans i;
 
 
@@ -117,6 +118,7 @@ public class Options {
         hubPort = i.getConfigManager().get(Configs.MAIN).getInt("Bungee.HubPort");
         maxClanlevel = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxLevel");
         protectNewClans = i.getConfigManager().get(Configs.MAIN).getBool("Clans.Protect-New-Clans");
+        votingCratesEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Voting.CratesEnabled");
     }
 
     public int getMAHPort() {
@@ -339,6 +341,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.MaxLevel", 5);
         i.getConfigManager().get(Configs.MAIN).check("Clans.Protect-New-Clans", false);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MaxBees", 20);
+        i.getConfigManager().get(Configs.MAIN).check("Voting.CratesEnabled", false);
 
     }
 
@@ -386,5 +389,9 @@ public class Options {
 
     public boolean isProtectNewClans() {
         return protectNewClans;
+    }
+
+    public boolean isVotingCratesEnabled() {
+        return votingCratesEnabled;
     }
 }

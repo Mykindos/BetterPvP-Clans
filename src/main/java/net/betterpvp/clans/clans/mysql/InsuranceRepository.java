@@ -37,7 +37,7 @@ public class InsuranceRepository {
                 "  `Clan` varchar(255)," +
                 "  `InsuranceType` varchar(255)," +
                 "  `Material` varchar(255)," +
-                "  `Data` int(10)," +
+                "  `Data` varchar(1000)," +
                 "  `Time` bigint(100)," +
                 "  `X` double(10,2)," +
                 "  `Y` double(10,2)," +
@@ -63,7 +63,7 @@ public class InsuranceRepository {
                         String clan = result.getString(1);
                         InsuranceType type = InsuranceType.valueOf(result.getString(2));
                         Material mat = Material.valueOf(result.getString(3));
-                        byte data = result.getByte(4);
+                        String data = result.getString(4);
                         long time = result.getLong(5);
                         double x = result.getDouble(6);
                         double y = result.getDouble(7);

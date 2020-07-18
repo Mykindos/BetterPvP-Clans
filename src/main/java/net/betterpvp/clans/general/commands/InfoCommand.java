@@ -45,7 +45,7 @@ public class InfoCommand extends Command {
     private void displayInfo(Gamer gamer, Player player) {
 
         UtilMessage.message(player, ChatColor.YELLOW + "Displaying Information for " + ChatColor.GREEN + gamer.getClient().getName());
-        UtilMessage.message(player, ChatColor.BLUE + "Time Played: " + ChatColor.GREEN + UtilTime.getTime2((long) gamer.getClient().getTimePlayed() * 3600000L, UtilTime.TimeUnit.DAYS, 2));
+        UtilMessage.message(player, ChatColor.BLUE + "Hours Played: " + ChatColor.GREEN + gamer.getStatValue("Time Played"));
         UtilMessage.message(player, ChatColor.BLUE + "Coins: " + ChatColor.GREEN + UtilFormat.formatNumber(gamer.getCoins()) + "  "
                 + ChatColor.BLUE + "Fragments: " + ChatColor.GREEN + gamer.getFragments());
         UtilMessage.message(player, ChatColor.BLUE + "Kills: " + ChatColor.GREEN + gamer.getKills() + "  "

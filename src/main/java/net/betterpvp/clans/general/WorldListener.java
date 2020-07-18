@@ -589,7 +589,8 @@ public class WorldListener extends BPVPListener<Clans> {
                     || event.getInventory().getType() == InventoryType.LECTERN
                     || event.getInventory().getType() == InventoryType.SHULKER_BOX
                     || event.getInventory().getType() == InventoryType.LOOM
-                    || event.getInventory().getType() == InventoryType.STONECUTTER) {
+                    || event.getInventory().getType() == InventoryType.STONECUTTER
+                    || event.getInventory().getType() == InventoryType.SMITHING) {
                 UtilMessage.message(player, "Game", ChatColor.YELLOW + UtilFormat.cleanString(event.getInventory().getType().toString()) + ChatColor.GRAY + " is disabled.");
                 event.setCancelled(true);
             }
@@ -911,6 +912,17 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler
+    public void onDisableBed(PlayerInteractEvent e){
+        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            if(e.getHand() != EquipmentSlot.OFF_HAND){
+                if(e.getPlayer().getInventory().getItemInMainHand() != null && e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("_BED")){
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
     /**
      * Prevent players setting a new spawn
      *
@@ -1019,13 +1031,15 @@ public class WorldListener extends BPVPListener<Clans> {
                 if (itemType == Material.TNT || itemType == Material.DISPENSER
                         || itemType == Material.SLIME_BLOCK || itemType == Material.COMPASS
                         || itemType == Material.PISTON || itemType == Material.PISTON_HEAD || itemType == Material.ENCHANTING_TABLE
-                        || itemType == Material.GLASS_PANE
+                        || itemType.name().contains("_PANE")
                         || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
-                        || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK
-                        /*|| itemType.name().toLowerCase().contains("boat")*/) {
+                        || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK || itemType == Material.CROSSBOW
+                        || itemType.name().toLowerCase().contains("boat")) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
-                    e.getInventory().setResult(UtilClans.updateNames(e.getRecipe().getResult()));
+                    if(e.getRecipe() != null) {
+                        e.getInventory().setResult(UtilClans.updateNames(e.getRecipe().getResult()));
+                    }
                 }
 
             }
@@ -1040,6 +1054,12 @@ public class WorldListener extends BPVPListener<Clans> {
             UtilMessage.message(e.getPlayer(), "Spawn", "Unable to teleport with valuable items in your inventory.");
             e.setCancelled(true);
         }
+
+        Clan clan = ClanUtilities.getClan(e.getPlayer());
+        if(clan != null){
+            UtilMessage.message(e.getPlayer(), "Spawn", "You can only teleport to spawn from the wilderness.");
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -1049,7 +1069,8 @@ public class WorldListener extends BPVPListener<Clans> {
             Clan aClan = ClanUtilities.getClan(e.getPlayer());
             Clan bClan = ClanUtilities.getClan(e.getBlock().getLocation());
 
-            Gate g = (Gate) e.getBlock().getState().getData();
+
+            Gate g = (Gate) e.getBlock().getState().getBlockData();
             if (g.isOpen()) {
                 if (bClan != null) {
                     if (aClan == null || (aClan != null && !aClan.getName().equalsIgnoreCase(bClan.getName()))) {
@@ -1849,7 +1870,19 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler
+    public void onArmourStand(PlayerInteractEntityEvent e){
+        if(e.getRightClicked() instanceof ArmorStand){
+            Client client = ClientUtilities.getOnlineClient(e.getPlayer());
+            if(client != null){
+                if(!client.isAdministrating()){
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+   /* @EventHandler(priority = EventPriority.HIGHEST)
     public void onAssassinDamage(CustomDamageEvent e) {
         if (e.getDamager() instanceof Player) {
             Player player = (Player) e.getDamager();
@@ -1865,7 +1898,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 e.setDamage(e.getDamage() * 1.10);
             }
         }
-    }
+    }*/
 
     @EventHandler
     public void onInSpawn(UpdateEvent e){

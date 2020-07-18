@@ -213,6 +213,7 @@ public class SkeletonKing extends Boss {
             if (e.getDamagee() == null || e.getDamager() == null) return;
             if (e.getDamagee() instanceof Skeleton) {
                 if (e.getDamagee() == getBoss()) {
+                    getMinions().removeIf(m -> m.getEntity() == null || (m.getEntity() != null && m.getEntity().isDead()));
                     if (!getMinions().isEmpty()) {
 
                         e.setCancelled("Must kill minions");

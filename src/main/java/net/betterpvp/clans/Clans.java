@@ -322,6 +322,7 @@ public class Clans extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 for (Gamer gamer : GamerManager.getOnlineGamers()) {
+                    gamer.setStatValue("Time Played", gamer.getStatValue("Time Played") + 0.25);
                     PlayerStatRepository.updateAllStats(gamer);
 
                 }
