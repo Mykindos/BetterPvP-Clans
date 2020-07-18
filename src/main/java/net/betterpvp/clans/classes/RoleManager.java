@@ -37,7 +37,7 @@ public class RoleManager extends BPVPListener<Clans> {
 
     @EventHandler
     public void setRoles(UpdateEvent event) {
-        if (event.getType() == UpdateType.FAST) {
+        if (event.getType() == UpdateType.SEC) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 Role.doEquip(player);
             }
@@ -109,7 +109,7 @@ public class RoleManager extends BPVPListener<Clans> {
             if (event.getDamager() instanceof Player) {
                 Player damaged = (Player) event.getDamagee();
                 Player damager = (Player) event.getDamager();
-
+                if(!damaged.getWorld().equals(damager.getWorld())) return;
                 if (damaged.getLocation().distance(damager.getLocation()) <= 4.0) {
                     if (Role.getRole(damaged) != null) {
                         if (RechargeManager.getInstance().add(damager, "Damage", 0.7, false)) {

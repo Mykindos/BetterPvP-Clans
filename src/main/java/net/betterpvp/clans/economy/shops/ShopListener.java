@@ -91,6 +91,10 @@ public class ShopListener extends BPVPListener<Clans> {
 
                 if (e.isGiveItem()) {
                     UtilItem.insert(e.getPlayer(), k);
+
+                    if(wep != null && wep instanceof ILegendary){
+                        e.getPlayer().updateInventory();
+                    }
                 }
                 e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
             }else{

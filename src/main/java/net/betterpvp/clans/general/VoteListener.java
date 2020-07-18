@@ -31,7 +31,7 @@ public class VoteListener extends BPVPListener<Clans> {
     @EventHandler
     public void onVote(VotifierEvent e) {
         Vote vote = e.getVote();
-
+        System.out.println("Vote from: " + e.getVote().getUsername());
         NetworkReceiver.sendGlobalNetworkMessage("Vote", "AddVote-!-" + vote.getUsername());
     }
 
@@ -46,6 +46,7 @@ public class VoteListener extends BPVPListener<Clans> {
             }
         }
     }
+
 
     @EventHandler
     public void onProcessVote(UpdateEvent e) {

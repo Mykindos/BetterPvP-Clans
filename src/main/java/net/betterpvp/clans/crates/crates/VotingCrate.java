@@ -14,8 +14,7 @@ public class VotingCrate extends Crate {
 
     public VotingCrate() {
         super(UtilPlayer.createItem(Material.CHEST, 1, ChatColor.GREEN + "Voting Crate",
-                ChatColor.GRAY + "Left Click to preview",
-                ChatColor.GRAY + "Right Click to open"));
+                ChatColor.GRAY + "Left click to open"));
         loot.put(UtilPlayer.createItem(Material.GOLD_NUGGET, 1, ChatColor.YELLOW + "$10000"), 150.0);
         loot.put(UtilPlayer.createItem(Material.GOLD_INGOT, 1, ChatColor.YELLOW + "$15000"), 70.0);
         loot.put(UtilPlayer.createItem(Material.GOLD_BLOCK, 1, ChatColor.YELLOW + "$100000"), 5.0);

@@ -39,7 +39,7 @@ public class FindCommand extends Command implements Listener {
                 }
             }
         }else{
-            UtilMessage.message(player, "Correct Usage: '/find {entity name}");
+            UtilMessage.message(player, "Correct Usage: '/track {entity name}");
         }
 
     }

@@ -43,7 +43,7 @@ public class Gamer implements Invitable {
     private boolean filter;
     private Scoreboard scoreboard;
     private HashMap<String, Integer> ratings;
-    private HashMap<String, Integer> playerStats;
+    private HashMap<String, Double> playerStats;
     private boolean starterKitClaimed;
     private long lastAction;
 
@@ -364,25 +364,25 @@ public class Gamer implements Invitable {
         return ratings;
     }
 
-    public HashMap<String, Integer> getPlayerStats() {
+    public HashMap<String, Double> getPlayerStats() {
         return playerStats;
     }
 
-    public void setPlayerStat(HashMap<String, Integer> playerStat) {
+    public void setPlayerStat(HashMap<String, Double> playerStat) {
         this.playerStats = playerStat;
     }
 
-    public int getStatValue(String key) {
+    public double getStatValue(String key) {
         if (playerStats.containsKey(key)) {
             return playerStats.get(key);
         }
 
-        playerStats.put(key, 0);
+        playerStats.put(key, 0d);
         PlayerStatRepository.saveStat(getUUID(), key, 0);
         return 0;
     }
 
-    public void setStatValue(String key, int value) {
+    public void setStatValue(String key, double value) {
         playerStats.put(key, value);
         //PlayerStatRepository.updateStat(getUUID(), key, value);
     }

@@ -24,7 +24,7 @@ public class PlayerStatRepository implements Repository<Clans> {
         String createQuery = "CREATE TABLE IF NOT EXISTS `" + TABLE_NAME + "` ("
                 + "UUID varchar(255) not null,"
                 + "Stat varchar(255) not null,"
-                + "Value int default 0 not null,"
+                + "Value double default 0 not null,"
                 + "UNIQUE clans_playerstats_pk (UUID, Stat))";
 
         QueryFactory.runQuery(createQuery);
@@ -43,7 +43,7 @@ public class PlayerStatRepository implements Repository<Clans> {
                     while (result.next()) {
                         UUID uuid = UUID.fromString(result.getString(1));
                         String key = result.getString(2);
-                        int value = result.getInt(3);
+                        double value = result.getInt(3);
 
                         Gamer gamer = GamerManager.getGamer(uuid);
                         if(gamer != null){
@@ -90,7 +90,7 @@ public class PlayerStatRepository implements Repository<Clans> {
 
     public static void updateAllStats(Gamer gamer){
         List<String> queries = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : gamer.getPlayerStats().entrySet()) {
+        for (Map.Entry<String, Double> entry : gamer.getPlayerStats().entrySet()) {
             String query = "UPDATE `" + TABLE_NAME + "` SET Value = " + entry.getValue() + " WHERE Stat ='" + entry.getKey() + "' AND UUID='" + gamer.getUUID() + "'";
             queries.add(query);
         }

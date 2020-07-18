@@ -36,6 +36,6 @@ public class PolarBearCub extends WorldEventMinion {
 
     @Override
     public double getMaxHealth() {
-        return 50;
+        return 75;
     }
 }

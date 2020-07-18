@@ -308,7 +308,7 @@ public abstract class Boss extends WorldEvent {
 
         Player player = Bukkit.getPlayer(gamer.getUUID());
         if (player != null) {
-            int kc = gamer.getStatValue(bossName);
+            int kc = (int) gamer.getStatValue(bossName);
             UtilMessage.message(player, "World Event", "Your kill count for " + getBossName() + ChatColor.GRAY + " is now "
                     + ChatColor.GREEN + kc + ChatColor.GRAY + " (" + ChatColor.YELLOW + "+" + (kc * 2) + "% bonus damage versus this boss" + ChatColor.GRAY + ").");
         }
@@ -326,7 +326,7 @@ public abstract class Boss extends WorldEvent {
                     if (isBoss(e.getDamagee()) || isMinion(e.getDamagee())) {
                         Gamer gamer = GamerManager.getOnlineGamer(p);
 
-                        int kills = gamer.getStatValue(ChatColor.stripColor(getBossName()));
+                        int kills = (int) gamer.getStatValue(ChatColor.stripColor(getBossName()));
                         double modifier = kills * 2;
                         double modifier2 = modifier >= 10 ? 0.01 : 0.1;
 

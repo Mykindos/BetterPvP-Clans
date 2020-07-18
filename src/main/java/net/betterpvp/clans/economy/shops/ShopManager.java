@@ -15,6 +15,8 @@ import net.betterpvp.clans.economy.shops.mysql.ShopRepository;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
@@ -174,7 +176,7 @@ public class ShopManager extends BPVPListener<Clans> {
                         case "fragment":
                             ShopSkeleton bs = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
                             Skeleton battle = bs.spawn(loc);
-                            battle.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
+                            battle.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Fragment Vendor", battle);
 
                             break;
@@ -357,6 +359,10 @@ public class ShopManager extends BPVPListener<Clans> {
                             e.getPlayer().openInventory(new TravelHubMenu(e.getPlayer()).getInventory());
                         } else if (s.getName().equalsIgnoreCase("Boss Teleport")) {
 
+                            if(EffectManager.hasEffect(e.getPlayer(), EffectType.PROTECTION)){
+                                UtilMessage.message(e.getPlayer(), "World Event", "You cannot enter the arena while you have protection.");
+                                return;
+                            }
                             Clan c = ClanUtilities.getClan(e.getPlayer().getLocation());
                             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
                             if (gamer != null) {

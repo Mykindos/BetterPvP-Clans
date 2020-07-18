@@ -12,14 +12,17 @@ import net.betterpvp.core.utility.UtilMath;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.Bee;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class BeeListener extends BPVPListener<Clans> {
 
@@ -32,10 +35,18 @@ public class BeeListener extends BPVPListener<Clans> {
     public void onSpawn(CreatureSpawnEvent e) {
         if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BEEHIVE) {
             Clan clan = ClanUtilities.getClan(e.getEntity().getLocation());
-            if(clan != null){
-                if(clan.getBeeData().isEmpty()) return;
-                    Bee theBee = (Bee) e.getEntity();
-                    theBee.setAnger(0);
+            if (clan != null) {
+                if (clan.getBeeData().isEmpty()) return;
+                Bee theBee = (Bee) e.getEntity();
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if(theBee != null) {
+                            theBee.setAnger(0);
+                        }
+                    }
+                }.runTaskLater(getInstance(), 5l);
+
 
             }
 
@@ -81,29 +92,37 @@ public class BeeListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onSpawn(UpdateEvent e) {
-        if (e.getType() == UpdateEvent.UpdateType.MIN_16) {
+        if (e.getType() == UpdateEvent.UpdateType.MIN_08) {
             for (Clan clan : ClanUtilities.getClans()) {
                 if (clan.getBeeData().isEmpty()) continue;
+                if (clan.getHome() == null) continue;
                 int beeCount = getBeeCount(clan);
 
                 int beesToSpawn = Clans.getOptions().getMaxBees() - beeCount;
+                System.out.println("Bee test: " + clan.getBeeData().size() + " vs " + beesToSpawn);
                 for (int x = 0; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
+                    World world = clan.getHome().getWorld();
+                    world.spawnEntity(clan.getBeeData().get(0).getLoc().clone().add(0, 1, 0), EntityType.BEE);
+
+                    /*
                     CustomBee bee = new CustomBee(((CraftWorld) clan.getHome().getWorld()).getHandle());
                     bee.spawn(clan.getBeeData().get(UtilMath.randomInt(0, clan.getBeeData().size() - 1)).getLoc().clone().add(0, 1, 0));
+                    */
+
                 }
 
             }
         }
     }
 
-    private int getBeeCount(Clan clan){
+    private int getBeeCount(Clan clan) {
         int beeCount = 0;
 
         beeCount += getLivingBeeCount(clan);
 
         for (BeeData d : clan.getBeeData()) {
             NBTTileEntity tileEntity = new NBTTileEntity(d.getLoc().getBlock().getState());
-            if(tileEntity != null) {
+            if (tileEntity != null) {
                 beeCount += tileEntity.getCompoundList("Bees").size();
             }
         }
@@ -111,7 +130,7 @@ public class BeeListener extends BPVPListener<Clans> {
         return beeCount;
     }
 
-    private int getLivingBeeCount(Clan clan){
+    private int getLivingBeeCount(Clan clan) {
         int beeCount = 0;
         for (String chunks : clan.getTerritory()) {
             Chunk chunk = UtilFormat.stringToChunk(chunks);

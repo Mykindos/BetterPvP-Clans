@@ -378,7 +378,11 @@ public class BorisAndDoris extends Boss {
     public void onReducedKB(CustomKnockbackEvent e) {
         if (isActive()) {
             if (isBoss(e.getDamagee())) {
-                e.setDamage(e.getDamage() * 0.10);
+                e.setDamage(0);
+            }
+
+            if(isBoss(e.getDamager())){
+                e.setDamage(0);
             }
         }
     }

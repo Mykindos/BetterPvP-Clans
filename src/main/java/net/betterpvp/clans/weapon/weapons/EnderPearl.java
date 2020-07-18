@@ -82,7 +82,7 @@ public class EnderPearl extends Weapon {
                             }
 
                             player.getInventory()
-                                    .setItemInHand(new ItemStack(Material.AIR));
+                                    .setItemInMainHand(new ItemStack(Material.AIR));
                         }
                     }
 

@@ -66,10 +66,12 @@ public class EnemyCommand implements IClanCommand {
             hours += client.getTimePlayed();
         }
 
-        if (hours < 24) {
-            UtilMessage.message(player, "Clans", target.getName() + " has under 24 hours total play time.");
-            UtilMessage.message(player, "Clans", "This stat is never reset, and only exists to protect new players.");
-            return;
+        if(Clans.getOptions().isProtectNewClans()) {
+            if (hours < 24) {
+                UtilMessage.message(player, "Clans", target.getName() + " has under 24 hours total play time.");
+                UtilMessage.message(player, "Clans", "This stat is never reset, and only exists to protect new players.");
+                return;
+            }
         }
 
 

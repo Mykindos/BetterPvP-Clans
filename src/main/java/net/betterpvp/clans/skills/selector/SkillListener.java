@@ -11,6 +11,7 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
+import net.betterpvp.clans.skills.selector.skills.paladin.Polymorph;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
@@ -48,6 +49,9 @@ public class SkillListener extends BPVPListener<Clans> {
             return;
         }
 
+        if(Polymorph.polymorphed.containsKey(player)){
+            return;
+        }
 
         Role role = Role.getRole(player);
         if (role != null) {
@@ -108,6 +112,10 @@ public class SkillListener extends BPVPListener<Clans> {
         }
 
         if (player.getInventory().getItemInMainHand() == null) {
+            return;
+        }
+
+        if(Polymorph.polymorphed.containsKey(player)){
             return;
         }
 

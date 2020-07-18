@@ -169,7 +169,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         continue;
                     }
                     if (!Clans.getOptions().isFNG()) {
-                        Insurance i = new Insurance(block.getLocation(), block.getType(), block.getData(), InsuranceType.BREAK, System.currentTimeMillis());
+                        Insurance i = new Insurance(block.getLocation(), block.getType(), block.getBlockData().getAsString(), InsuranceType.BREAK, System.currentTimeMillis());
                         InsuranceRepository.saveInsurance(c, i);
                         c.getInsurance().add(i);
                     }
@@ -227,7 +227,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         return;
                     }
 
-                    Insurance i = new Insurance(b.getLocation(), b.getType(), b.getData(), InsuranceType.BREAK, System.currentTimeMillis());
+                    Insurance i = new Insurance(b.getLocation(), b.getType(), b.getBlockData().getAsString(), InsuranceType.BREAK, System.currentTimeMillis());
                     if (i.getMaterial() != Material.AIR) {
                         if (BlockRestoreData.isRestoredBlock(b)) {
                             continue;

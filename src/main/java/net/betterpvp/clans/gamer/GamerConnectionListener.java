@@ -23,6 +23,7 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilProxy;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -82,7 +83,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 Player player = Bukkit.getPlayer(e.getClient().getUUID());
                 if (player != null) {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
-                    if(!player.hasPlayedBefore()){
+                    if(!player.hasPlayedBefore() && GamerManager.getOnlineGamer(player).getStatValue("Time Played") > 1){
                         EffectManager.addEffect(player, EffectType.PROTECTION, 60_000 * 15);
                         UtilMessage.message(player, "Protection", "You have received " + ChatColor.GREEN + 15
                                 + " minutes " + ChatColor.GRAY + "of PvP protection. " + ChatColor.YELLOW + "/protection " + ChatColor.GRAY + "to disable");
@@ -100,7 +101,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
                 }catch(Exception ex){
                     ex.printStackTrace();
-                    player.setResourcePack("http://betterpvp.net/betterpvptexturepack.zip",
+                    player.setResourcePack("https://puu.sh/FGt4O.zip",
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
                 }
             }
@@ -109,6 +110,18 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         gamer.setLastAction(System.currentTimeMillis());
         GamerManager.addOnlineGamer(gamer);
 
+        if(!Clans.getOptions().isHub()) {
+            new Thread(() -> {
+                if (UtilProxy.isUsingProxy(player)) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            ClientUtilities.messageStaff("Proxy", player.getName() + " may be using a VPN / Proxy", Rank.ADMIN);
+                        }
+                    }.runTask(getInstance());
+                }
+            }).start();
+        }
 
     }
 
