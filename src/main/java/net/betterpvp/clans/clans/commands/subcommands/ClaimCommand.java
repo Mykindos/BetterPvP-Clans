@@ -132,7 +132,7 @@ public class ClaimCommand implements IClanCommand {
             UtilLocation.outlineChunk(player.getLocation().getChunk());
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
-            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
             Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             // ClanRepository.updateDynmap(i, clan);
             return;
@@ -148,7 +148,7 @@ public class ClaimCommand implements IClanCommand {
 
                             clan.getTerritory().add(UtilFormat.chunkToFile(player.getLocation().getChunk()));
                             UtilLocation.outlineChunk(player.getLocation().getChunk());
-                            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+                            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
 
                             UtilMessage.message(player, "Clans", "You claimed Territory " + ChatColor.YELLOW
                                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
@@ -181,7 +181,7 @@ public class ClaimCommand implements IClanCommand {
             Log.write("Clans", "[" + player.getName() + "] claimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
             ClanRepository.updateClaims(clan);
 
-            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
             Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
             //ClanRepository.updateDynmap(i, clan);
             return;

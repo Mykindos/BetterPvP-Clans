@@ -40,7 +40,7 @@ public class CrateListener extends BPVPListener<Clans> {
                                 if (CrateManager.isCrate(p.getInventory().getItemInMainHand())) {
                                     CrateManager.openCrate(getInstance(), p, CrateManager.getCrate(p.getInventory().getItemInMainHand().getItemMeta().getDisplayName()));
                                     if (p.getInventory().getItemInMainHand().getAmount() - 1 <= 0) {
-                                        p.getInventory().remove(p.getInventory().getItemInMainHand());
+                                        p.getInventory().setItemInMainHand(null);
                                         return;
                                     }
                                     p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);

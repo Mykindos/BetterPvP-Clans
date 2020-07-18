@@ -26,6 +26,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -111,10 +112,10 @@ public abstract class Boss extends WorldEvent {
     }
 
     @EventHandler
-    public void onLavaDamage(CustomDamageEvent e){
-        if(isActive()){
-            if(isBoss(e.getDamagee())){
-                if(e.getCause() == DamageCause.LAVA){
+    public void onLavaDamage(CustomDamageEvent e) {
+        if (isActive()) {
+            if (isBoss(e.getDamagee())) {
+                if (e.getCause() == DamageCause.LAVA || e.getCause() == DamageCause.FIRE) {
                     e.setCancelled("Boss cannot take damage from lava");
                 }
             }
@@ -128,12 +129,15 @@ public abstract class Boss extends WorldEvent {
                 if (getBoss() != null && !getBoss().isDead()) {
                     Block b = getBoss().getLocation().getBlock();
 
-                    if (b.getType() == Material.LAVA || b.getType() == Material.LAVA) {
-                        new BlockRestoreData(b, b.getType(), (byte) 0, 180000);
-                        b.setType(Material.OBSIDIAN);
+
+                    if (b.getType() == Material.LAVA) {
+                        if (b.getRelative(BlockFace.UP).getType() != Material.LAVA) {
+                            new BlockRestoreData(b, b.getType(), (byte) 0, 180000);
+                            b.setType(Material.OBSIDIAN);
 
 
-                        getBoss().teleport(getBoss().getLocation().add(0, 1, 0));
+                            getBoss().teleport(getBoss().getLocation().add(0, 1, 0));
+                        }
                     }
                 }
             }

@@ -87,7 +87,7 @@ public class StuckCommand extends BPVPListener<Clans> implements IClanCommand {
 
                     Location loc = getBestPosition(next.getKey());
                     if (loc != null) {
-                        next.getKey().teleport(Bukkit.getWorld("world").getHighestBlockAt(loc).getLocation());
+                        next.getKey().teleport(Bukkit.getWorld("world").getHighestBlockAt(loc).getLocation().add(0, 1, 0));
                         Titles.sendTitle(next.getKey(), 0, 20, 20, "", ChatColor.YELLOW + "Teleport finished");
                     }
                 }

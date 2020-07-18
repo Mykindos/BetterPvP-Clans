@@ -40,6 +40,7 @@ public class Clan implements Invitable {
     private HashMap<Clan, Integer> raidCount;
     private int level;
     private List<BeeData> beeData;
+    private List<Location> chunkOutlines;
 
     public Clan(String name) {
         this.name = name;
@@ -61,6 +62,7 @@ public class Clan implements Invitable {
         this.cooldown = 0;
         this.level = 1;
         beeData = new ArrayList<>();
+        chunkOutlines = new ArrayList<>();
 
 
     }
@@ -383,6 +385,14 @@ public class Clan implements Invitable {
 
     public List<BeeData> getBeeData() {
         return beeData;
+    }
+
+    public List<Location> getChunkOutlines() {
+        return chunkOutlines;
+    }
+
+    public void setChunkOutlines(List<Location> list){
+        this.chunkOutlines = list;
     }
 
     public enum DataType {

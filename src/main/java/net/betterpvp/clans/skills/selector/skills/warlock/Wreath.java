@@ -12,6 +12,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilEntity;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.EvokerFangs;
@@ -52,15 +53,15 @@ public class Wreath extends Skill implements InteractSkill {
     }
 
     @EventHandler
-    public void onDequip(SkillDequipEvent e){
-        if(e.getSkill().equals(this)){
+    public void onDequip(SkillDequipEvent e) {
+        if (e.getSkill().equals(this)) {
             actives.remove(e.getPlayer());
         }
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent e){
-        if(actives.containsKey(e.getEntity())){
+    public void onDeath(PlayerDeathEvent e) {
+        if (actives.containsKey(e.getEntity())) {
             actives.remove(e.getEntity());
         }
     }
@@ -77,14 +78,22 @@ public class Wreath extends Skill implements InteractSkill {
                 actives.remove(player);
                 return;
             }
-            if(cooldowns.containsKey(player)){
-                if(cooldowns.get(player) - System.currentTimeMillis() > 0){
+            if (cooldowns.containsKey(player)) {
+                if (cooldowns.get(player) - System.currentTimeMillis() > 0) {
                     return;
                 }
             }
 
             cooldowns.put(player, System.currentTimeMillis() + 600);
             actives.put(player, actives.get(player) - 1);
+            int level = getLevel(player);
+
+            if (actives.get(player) == 0) {
+                RechargeManager.getInstance().removeCooldown(player.getName(), getName(), true);
+                if (RechargeManager.getInstance().add(player, getName(), getRecharge(level), showRecharge())) {
+
+                }
+            }
 
             final Location startPos = player.getLocation().clone();
             final Vector vector = player.getLocation().clone().getDirection().normalize().multiply(1);
@@ -112,12 +121,12 @@ public class Wreath extends Skill implements InteractSkill {
                         loc.add(0.0D, -1.0D, 0.0D);
                     }
 
-                    if(loc.distance(startPos) > 20){
+                    if (loc.distance(startPos) > 20) {
                         cancel();
                     }
 
                     EvokerFangs fangs = (EvokerFangs) player.getWorld().spawnEntity(loc, EntityType.EVOKER_FANGS);
-                    for(LivingEntity ent : UtilEntity.getAllInRadius(fangs.getLocation(), 1.5)){
+                    for (LivingEntity ent : UtilEntity.getAllInRadius(fangs.getLocation(), 1.5)) {
                         CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + (getLevel(player) / 1.5), false);
                         LogManager.addLog(ent, player, "Wreath");
                         EffectManager.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, 40, 1));
@@ -147,7 +156,7 @@ public class Wreath extends Skill implements InteractSkill {
                 "Right click with a sword to prepare.",
                 "",
                 "Your next 3 attacks will release a barrage of teeth",
-                "that deal " + ChatColor.GREEN + String.format("%.2f", (2 + (level /1.5))) + ChatColor.GRAY + " damage and slow their target.",
+                "that deal " + ChatColor.GREEN + String.format("%.2f", (2 + (level / 1.5))) + ChatColor.GRAY + " damage and slow their target.",
                 "",
                 "Recharge: " + ChatColor.GREEN + getRecharge(level)
         };

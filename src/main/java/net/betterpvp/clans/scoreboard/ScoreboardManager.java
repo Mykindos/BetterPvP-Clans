@@ -167,6 +167,8 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                 Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent((Player) ent));
             }
         }
+
+        e.getClan().getChunkOutlines().clear();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

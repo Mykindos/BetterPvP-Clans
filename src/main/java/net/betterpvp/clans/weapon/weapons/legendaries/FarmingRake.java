@@ -30,7 +30,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                         ChatColor.GRAY + "This mysterious tool will ",
                         ChatColor.GRAY + "automatically harvest and replant any ",
                         ChatColor.GRAY + "crops in your vicinity.",
-                        ""}, true, 9.0);
+                        ""}, true, 9.5);
     }
 
 
@@ -58,7 +58,7 @@ public class FarmingRake extends Weapon implements ILegendary {
             if (Energy.use(p, getName(), 25.0, true)) {
                 for (int x = -5; x < 5; x++) {
                     for (int z = -5; z < 5; z++) {
-                        Location loc = new Location(p.getWorld(), p.getLocation().getX() + x, p.getLocation().getY(), p.getLocation().getZ() + z);
+                        Location loc = new Location(p.getWorld(), p.getLocation().getX() + x, p.getLocation().getY() + 0.1, p.getLocation().getZ() + z);
                         if (loc.getBlock() != null || loc.getBlock().getType() != Material.AIR) {
                             Block b = loc.getBlock();
                             if (b.getType() == Material.POTATO) {
@@ -74,7 +74,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     b.setType(Material.POTATO);
                                     p.getInventory().removeItem(new ItemStack(Material.POTATO, 1));
                                 }
-                            } else if (b.getType() == Material.CARROT) {
+                            } else if (b.getType() == Material.CARROTS) {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     if (p.getInventory().firstEmpty() == -1) {
                                         p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.CARROT, UtilMath.randomInt(1, 3)));
@@ -120,8 +120,8 @@ public class FarmingRake extends Weapon implements ILegendary {
                                 if (age.getAge() == age.getMaximumAge()) {
 
                                     p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BEETROOT, 1)));
-                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BEETROOT_SEEDS, UtilMath.randomInt(1, 3))));
-                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
+                                    p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.BEETROOT_SEEDS, UtilMath.randomInt(1, 2))));
+                                    p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 0.7f, 1.f);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.BEETROOTS);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.BEETROOTS);
 

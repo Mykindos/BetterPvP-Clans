@@ -11,6 +11,7 @@ public class FarmBlocks {
                 || b == Material.POTATO
                 || b == Material.POTATO
                 || b == Material.CARROT
+                || b == Material.CARROTS
                 || b == Material.CACTUS
                 || b == Material.MELON_STEM
                 || b == Material.WHEAT

@@ -43,7 +43,7 @@ public class UnclaimallCommand implements IClanCommand {
         for (String s : clan.getTerritory()) {
             Chunk c = UtilFormat.stringToChunk(s);
             if (c != null) {
-                Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(c));
+                Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, c));
             }
         }
 

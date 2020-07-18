@@ -44,10 +44,10 @@ public class CombatLog {
             items.add(contents);
         }
 
-        for (ItemStack armor : player.getInventory().getArmorContents()) {
+    /*    for (ItemStack armor : player.getInventory().getArmorContents()) {
             if(armor == null) continue;
             items.add(armor);
-        }
+        }*/
 
 
         loggers.add(this);
