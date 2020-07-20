@@ -135,9 +135,8 @@ public class BeeListener extends BPVPListener<Clans> {
                     int beeCount = getBeeCount(clan);
 
                     int beesToSpawn = Clans.getOptions().getMaxBees() - beeCount;
-                    System.out.println("Bee Test " + clan.getName() + ": " + clan.getBeeData().size() + " vs " + beesToSpawn);
                     World world = clan.getHome().getWorld();
-                    for (int x = 0; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
+                    for (int x = beeCount; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
                         world.spawnEntity(clan.getBeeData().get(0).getLoc().clone().add(0, 1, 0), EntityType.BEE);
                     }
                 } catch (Exception ex) {
