@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class ToggleMapCommand extends Command {
 
     public ToggleMapCommand() {
-        super("togglemap", new String[]{}, Rank.PLAYER);
+        super("togglemap", new String[]{}, Rank.ADMIN);
     }
 
     @Override
