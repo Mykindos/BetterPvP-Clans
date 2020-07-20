@@ -139,7 +139,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                     }
                 }
 
-                if (Bukkit.getOnlinePlayers().size() < Bukkit.getServer().getMaxPlayers() + count) {
+                if (Bukkit.getOnlinePlayers().size() > Bukkit.getServer().getMaxPlayers() + count) {
                     for (Gamer gamer : GamerManager.getOnlineGamers()) {
                         if (gamer.getClient().hasDonation("ReservedSlot")) continue;
                         if (gamer.getClient().hasRank(Rank.TRIAL_MOD, false)) continue;
