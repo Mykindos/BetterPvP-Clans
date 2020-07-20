@@ -1034,7 +1034,8 @@ public class WorldListener extends BPVPListener<Clans> {
                         || itemType.name().contains("_PANE")
                         || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
                         || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK || itemType == Material.CROSSBOW
-                        || itemType.name().toLowerCase().contains("boat")) {
+                        || itemType.name().toLowerCase().contains("boat")
+                        || itemType.name().contains("CAMPFIRE")) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
                     if(e.getRecipe() != null) {
