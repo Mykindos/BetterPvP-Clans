@@ -61,7 +61,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                         Location loc = new Location(p.getWorld(), p.getLocation().getX() + x, p.getLocation().getY() + 0.1, p.getLocation().getZ() + z);
                         if (loc.getBlock() != null || loc.getBlock().getType() != Material.AIR) {
                             Block b = loc.getBlock();
-                            if (b.getType() == Material.POTATO) {
+                            if (b.getType() == Material.POTATOES) {
                                 if (b.getData() == CropState.RIPE.getData()) {
                                     if (p.getInventory().firstEmpty() == -1) {
                                         p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.POTATO, UtilMath.randomInt(1, 3)));
@@ -71,7 +71,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.POTATOES);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.POTATOES);
-                                    b.setType(Material.POTATO);
+                                    b.setType(Material.POTATOES);
                                     p.getInventory().removeItem(new ItemStack(Material.POTATO, 1));
                                 }
                             } else if (b.getType() == Material.CARROTS) {
@@ -84,7 +84,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.CARROTS);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.CARROTS);
-                                    b.setType(Material.CARROT);
+                                    b.setType(Material.CARROTS);
                                     p.getInventory().removeItem(new ItemStack(Material.CARROT, 1));
                                 }
 
