@@ -98,9 +98,7 @@ public class MovementListener extends BPVPListener<Clans> {
                         Clan c = ClanUtilities.getClan(p);
 
                         if (c != null) {
-
-
-                            if (c == target) {
+                            if (c.equals(target)) {
                                 if (p.getGameMode() == GameMode.ADVENTURE) {
                                     p.setGameMode(GameMode.SURVIVAL);
                                 }
@@ -110,18 +108,21 @@ public class MovementListener extends BPVPListener<Clans> {
                                         p.setGameMode(GameMode.SURVIVAL);
                                     }
                                 } else {
-                                    if (p.getLocation().getY() < Clans.getOptions().getFarmingMaxY()
-                                            && p.getLocation().getY() > (Clans.getOptions().getFarmingMaxY() - (4 + ((c.getLevel() -1) * 4)))) {
-                                        if (p.getGameMode() == GameMode.ADVENTURE) {
-                                            p.setGameMode(GameMode.SURVIVAL);
-                                        }
-                                    } else {
-                                        if (p.getGameMode() == GameMode.SURVIVAL) {
+                                    Clan lClan = ClanUtilities.getClan(p.getLocation());
+                                    if(lClan != null) {
+                                        if (p.getLocation().getY() < Clans.getOptions().getFarmingMaxY()
+                                                && p.getLocation().getY() > (Clans.getOptions().getFarmingMaxY() - (4 + ((lClan.getLevel() - 1) * 4)))) {
+                                            if (p.getGameMode() == GameMode.ADVENTURE) {
+                                                p.setGameMode(GameMode.SURVIVAL);
+                                            }
+                                        } else {
+                                            if (p.getGameMode() == GameMode.SURVIVAL) {
 
 
-                                            p.setGameMode(GameMode.ADVENTURE);
+                                                p.setGameMode(GameMode.ADVENTURE);
 
 
+                                            }
                                         }
                                     }
                                 }
