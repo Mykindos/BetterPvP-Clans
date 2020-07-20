@@ -74,6 +74,10 @@ public class FishingListener extends BPVPListener<Clans> {
             return;
         }
 
+        if (event.getCaught() != null && event.getCaught().equals(event.getPlayer())) {
+            return;
+        }
+
 
         Player player = event.getPlayer();
 
