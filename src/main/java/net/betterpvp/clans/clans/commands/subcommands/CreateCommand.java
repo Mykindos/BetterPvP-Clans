@@ -4,6 +4,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ClanCreateEvent;
+import net.betterpvp.clans.filter.FilterRepository;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
@@ -55,6 +56,11 @@ public class CreateCommand implements IClanCommand {
                     UtilMessage.message(player, "Clans", "Clan name cannot be a Clan command.");
                     return;
                 }
+            }
+
+            if(FilterRepository.CHAT_FILTER.contains(name.toLowerCase())){
+                UtilMessage.message(player, "Clans", "You cannot use this clan name.");
+                return;
             }
 
             for (String string : filtered) {
