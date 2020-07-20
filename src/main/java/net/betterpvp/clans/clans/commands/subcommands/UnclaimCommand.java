@@ -48,7 +48,7 @@ public class UnclaimCommand implements IClanCommand {
                             + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".", null, true);
                     UtilMessage.message(player, "Clans", "You unclaimed Territory " + ChatColor.YELLOW
                             + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
-                    Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+                    Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
                     return;
                 }
             }
@@ -67,7 +67,7 @@ public class UnclaimCommand implements IClanCommand {
                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".", null, true);
             UtilMessage.message(player, "Clans", "You unclaimed Territory " + ChatColor.YELLOW
                     + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
-            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+            Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
 
 
             return;
@@ -84,7 +84,7 @@ public class UnclaimCommand implements IClanCommand {
         UtilMessage.message(player, "Clans", "You unclaimed Territory " + ChatColor.YELLOW
                 + UtilLocation.chunkToString(player.getLocation().getChunk()) + ChatColor.GRAY + ".");
         Log.write("Clans", "[" + player.getName() + "] unclaimed territory [" + UtilFormat.chunkToFile(player.getLocation().getChunk()) + "]");
-        Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(player.getLocation().getChunk()));
+        Bukkit.getPluginManager().callEvent(new ChunkClaimEvent(clan, player.getLocation().getChunk()));
         ClanRepository.updateClaims(clan);
         //ClanRepository.updateDynmap(i, clan);
     }

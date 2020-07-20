@@ -53,6 +53,8 @@ public class Options {
     private int maxBees;
     private boolean protectNewClans;
     private boolean votingCratesEnabled;
+    private boolean advancedMap;
+    private int advancedMapDistance;
     private Clans i;
 
 
@@ -119,6 +121,8 @@ public class Options {
         maxClanlevel = i.getConfigManager().get(Configs.MAIN).getInt("Clans.MaxLevel");
         protectNewClans = i.getConfigManager().get(Configs.MAIN).getBool("Clans.Protect-New-Clans");
         votingCratesEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Voting.CratesEnabled");
+        advancedMap = i.getConfigManager().get(Configs.MAIN).getBool("Clans.AdvancedMap.Enabled");
+        advancedMapDistance = i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.Distance");
     }
 
     public int getMAHPort() {
@@ -342,6 +346,8 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.Protect-New-Clans", false);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MaxBees", 20);
         i.getConfigManager().get(Configs.MAIN).check("Voting.CratesEnabled", false);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.Enabled", true);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.Distance", 100);
 
     }
 
@@ -393,5 +399,17 @@ public class Options {
 
     public boolean isVotingCratesEnabled() {
         return votingCratesEnabled;
+    }
+
+    public boolean isAdvancedMap(){
+        return advancedMap;
+    }
+
+    public void toggleAdvancedMap(){
+        advancedMap = !advancedMap;
+    }
+
+    public int getAdvancedMapDistance() {
+        return advancedMapDistance;
     }
 }

@@ -197,7 +197,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             ShopZombie sv = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
                             Zombie boss = sv.spawn(loc);
 
-                            createShop(ChatColor.RED.toString() + ChatColor.BOLD + "Boss Teleport", boss);
+                            createShop(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Boss Teleport", boss);
                             break;
                         case "assassin":
                             ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());

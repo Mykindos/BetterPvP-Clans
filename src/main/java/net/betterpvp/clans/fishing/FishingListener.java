@@ -6,7 +6,6 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
-import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
@@ -63,18 +62,7 @@ public class FishingListener extends BPVPListener<Clans> {
             return;
         }
 
-        if (event.getCaught() != null && event.getCaught() instanceof LivingEntity) {
-            if (ShopManager.isShop((LivingEntity) event.getCaught())) {
-                event.setCancelled(true);
-                return;
-            }
-        }
-
         if (event.getCaught() != null && event.getCaught().getType() == EntityType.DROPPED_ITEM) {
-            return;
-        }
-
-        if (event.getCaught() != null && event.getCaught().equals(event.getPlayer())) {
             return;
         }
 

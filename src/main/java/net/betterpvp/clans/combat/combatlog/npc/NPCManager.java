@@ -62,7 +62,7 @@ public class NPCManager extends BPVPListener<Clans> {
             while (iterator.hasNext()) {
                 NPC npc = iterator.next();
 
-                if (event.getRightClicked() == npc.getEntity()) {
+                if (event.getRightClicked().equals(npc.getEntity())) {
                     event.setCancelled(true);
                     Bukkit.getServer().getPluginManager().callEvent(new PlayerInteractNPCEvent(player, npc));
                 }

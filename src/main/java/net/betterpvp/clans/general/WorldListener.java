@@ -1050,20 +1050,6 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void spawnTeleport(SpawnTeleportEvent e) {
-        if (UtilClans.hasValuables(e.getPlayer())) {
-            UtilMessage.message(e.getPlayer(), "Spawn", "Unable to teleport with valuable items in your inventory.");
-            e.setCancelled(true);
-        }
-
-        Clan clan = ClanUtilities.getClan(e.getPlayer());
-        if(clan != null){
-            UtilMessage.message(e.getPlayer(), "Spawn", "You can only teleport to spawn from the wilderness.");
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
     public void onBreakGate(BlockBreakEvent e) {
 
         if (e.getBlock().getType().name().contains("GATE")) {
@@ -1122,14 +1108,10 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void armorStand(PlayerArmorStandManipulateEvent e) {
 
-        Clan c = ClanUtilities.getClan(e.getRightClicked().getLocation());
-        if (c != null) {
-            if (c instanceof AdminClan) {
-                if (!ClientUtilities.getClient(e.getPlayer()).isAdministrating()) {
-                    e.setCancelled(true);
-                }
-            }
+        if(!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+            e.setCancelled(true);
         }
+
     }
 
 

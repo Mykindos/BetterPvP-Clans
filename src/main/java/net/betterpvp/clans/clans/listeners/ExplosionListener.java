@@ -136,8 +136,6 @@ public class ExplosionListener extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityExplode(EntityExplodeEvent e) {
         e.setCancelled(true);
-
-
         if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
 
             for (Block block : UtilBlock.getInRadius(e.getLocation().add(0, 1, 0), 6).keySet()) {
@@ -256,14 +254,21 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
 
+                boolean broken = false;
                 for (TNTBlocks tntBlock : TNTBlocks.values()) {
                     if (b.getType() == tntBlock.normal) {
                         b.setType(tntBlock.damaged);
+                        broken = true;
                         break;
                     } else if (b.getType() == tntBlock.damaged) {
                         b.breakNaturally();
+                        broken = true;
                         break;
                     }
+                }
+
+                if(broken){
+                    continue;
                 }
 
                 if (b.getType() == Material.DARK_PRISMARINE) {

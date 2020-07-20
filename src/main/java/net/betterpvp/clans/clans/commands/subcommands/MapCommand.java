@@ -1,14 +1,19 @@
 package net.betterpvp.clans.clans.commands.subcommands;
 
+import io.github.bananapuncher714.cartographer.core.Cartographer;
+import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.LinkedList;
 
@@ -20,8 +25,15 @@ public final class MapCommand implements IClanCommand {
 
     public void run(Player player, String[] args) {
         if (args.length == 1) {
-            UtilMessage.message(player, "Clans", "Clan Territory Map:");
-            displayMap(player);
+            if(Clans.getOptions().isAdvancedMap()) {
+                ItemStack map = Cartographer.getInstance().getMapManager().getItemFor(Cartographer.getInstance().getMapManager().getMinimaps().get("Clans"));
+                map = UtilClans.updateNames(map);
+                player.getInventory().addItem(map);
+                UtilMessage.message(player, "Map", "A map has been added to your inventory.");
+            }else {
+                UtilMessage.message(player, "Clans", "Clan Territory Map:");
+                displayMap(player);
+            }
         }
     }
 

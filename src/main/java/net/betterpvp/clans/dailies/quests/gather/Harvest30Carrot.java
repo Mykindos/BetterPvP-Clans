@@ -7,6 +7,7 @@ import net.betterpvp.clans.dailies.quests.General;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.CropState;
 import org.bukkit.Material;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 
@@ -29,8 +30,10 @@ public class Harvest30Carrot extends General{
 	@EventHandler
 	public void onBreak(BlockBreakEvent e){
 		if(isActive()){
-			if(e.getBlock().getType() == Material.CARROT){
-				if(e.getBlock().getData() == CropState.RIPE.getData()){
+			if(e.getBlock().getType() == Material.CARROTS){
+				Ageable age = (Ageable) e.getBlock().getBlockData();
+
+				if (age.getAge() == age.getMaximumAge()) {
 					Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
 
 					if(!p.isComplete()){

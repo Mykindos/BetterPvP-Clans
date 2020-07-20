@@ -17,6 +17,7 @@ import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.Bee;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -36,18 +37,24 @@ public class BeeListener extends BPVPListener<Clans> {
         if (e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BEEHIVE) {
             Clan clan = ClanUtilities.getClan(e.getEntity().getLocation());
             if (clan != null) {
+                if (!clan.isOnline()) {
+                    e.setCancelled(true);
+                    return;
+                }
                 if (clan.getBeeData().isEmpty()) return;
                 Bee theBee = (Bee) e.getEntity();
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        if(theBee != null) {
+                        if (theBee != null) {
                             theBee.setAnger(0);
                         }
                     }
                 }.runTaskLater(getInstance(), 5l);
 
 
+            } else {
+                e.setCancelled(true);
             }
 
         }
@@ -94,23 +101,43 @@ public class BeeListener extends BPVPListener<Clans> {
     public void onSpawn(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.MIN_08) {
             for (Clan clan : ClanUtilities.getClans()) {
-                if (clan.getBeeData().isEmpty()) continue;
-                if (clan.getHome() == null) continue;
-                int beeCount = getBeeCount(clan);
+                try {
+                    if (!clan.isOnline()) continue;
+                    if (clan.getBeeData().isEmpty()) continue;
+                    if (clan.getHome() == null) continue;
+                    int beeCount = getBeeCount(clan);
 
-                int beesToSpawn = Clans.getOptions().getMaxBees() - beeCount;
-                System.out.println("Bee test: " + clan.getBeeData().size() + " vs " + beesToSpawn);
-                for (int x = 0; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
+                    int beesToSpawn = Clans.getOptions().getMaxBees() - beeCount;
+                    System.out.println("Bee Test " + clan.getName() + ": " + clan.getBeeData().size() + " vs " + beesToSpawn);
                     World world = clan.getHome().getWorld();
-                    world.spawnEntity(clan.getBeeData().get(0).getLoc().clone().add(0, 1, 0), EntityType.BEE);
+                    for (int x = 0; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
+
+                        world.spawnEntity(clan.getBeeData().get(0).getLoc().clone().add(0, 1, 0), EntityType.BEE);
 
                     /*
                     CustomBee bee = new CustomBee(((CraftWorld) clan.getHome().getWorld()).getHandle());
                     bee.spawn(clan.getBeeData().get(UtilMath.randomInt(0, clan.getBeeData().size() - 1)).getLoc().clone().add(0, 1, 0));
                     */
 
+                    }
+                } catch (Exception ex) {
+
                 }
 
+            }
+        }
+    }
+
+    @EventHandler
+    public void onKillWildernessBees(UpdateEvent e){
+        if(e.getType() == UpdateEvent.UpdateType.MIN_08){
+            for(LivingEntity ent : Bukkit.getWorld("world").getLivingEntities()){
+                if(ent instanceof Bee){
+                    Clan lClan = ClanUtilities.getClan(ent.getLocation());
+                    if (lClan == null) {
+                        ent.setHealth(0);
+                    }
+                }
             }
         }
     }
@@ -120,12 +147,18 @@ public class BeeListener extends BPVPListener<Clans> {
 
         beeCount += getLivingBeeCount(clan);
 
+
         for (BeeData d : clan.getBeeData()) {
-            NBTTileEntity tileEntity = new NBTTileEntity(d.getLoc().getBlock().getState());
-            if (tileEntity != null) {
-                beeCount += tileEntity.getCompoundList("Bees").size();
+            try {
+                NBTTileEntity tileEntity = new NBTTileEntity(d.getLoc().getBlock().getState());
+                if (tileEntity != null) {
+                    beeCount += tileEntity.getCompoundList("Bees").size();
+                }
+            } catch (Exception ex) {
+
             }
         }
+
 
         return beeCount;
     }

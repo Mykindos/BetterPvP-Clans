@@ -37,7 +37,7 @@ public class MeteorBow extends Weapon implements ILegendary {
                         ChatColor.GRAY + "The mythical bow that reigned down",
                         ChatColor.GRAY + "hell from the heavens. Each shot",
                         ChatColor.GRAY + "is as deadly as a meteor.",
-                        ""}, true, 3.0);
+                        ""}, true, 3.5);
     }
 
     @EventHandler

@@ -16,6 +16,7 @@ import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
+import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -321,6 +322,7 @@ public class BorisAndDoris extends Boss {
                 if (e.getProjectile() != null) {
                     if (e.getProjectile() instanceof Snowball) {
                         e.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 1));
+                        UtilVelocity.velocity(e.getDamagee(), e.getDamager().getEyeLocation().getDirection(), 1.2, false, 1, 2, 2, true);
                     }
                 }
             } else {
