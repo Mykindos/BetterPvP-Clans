@@ -80,13 +80,16 @@ public class AgilityHelmet implements IDonation, Listener {
                                     Suspicion.suspicions.remove(player.getUniqueId());
                                 }
 
-                                if (Energy.use(player, "Agility Leap", 0.5F, true)) {
-                                    if (WallJump(player)) {
+                                if(UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 5000)){
 
-                                    } else {
+                                    if (Energy.use(player, "Agility Leap", 0.5F, true)) {
+                                        if (WallJump(player)) {
 
-                                        if (RechargeManager.getInstance().add(player, "Agility Leap", 4, true)) {
-                                            DoLeap(player, false);
+                                        } else {
+
+                                            if (RechargeManager.getInstance().add(player, "Agility Leap", 5, true)) {
+                                                DoLeap(player, false);
+                                            }
                                         }
                                     }
                                 }
@@ -242,12 +245,12 @@ public class AgilityHelmet implements IDonation, Listener {
 
     public void DoLeap(Player player, boolean wallkick) {
         if (!wallkick) {
-            UtilVelocity.velocity(player, 1.6D, 0.4D, 1.0D, true);
+            UtilVelocity.velocity(player, 1.2D, 0.4D, 1.0D, true);
 
         } else {
             Vector vec = player.getLocation().getDirection();
             vec.setY(0);
-            UtilVelocity.velocity(player, vec, 1.3D, false, 0.0D, 1.2D, 2.0D, true);
+            UtilVelocity.velocity(player, vec, 1.15D, false, 0.0D, 1.2D, 2.0D, true);
         }
 
         if (!wallkick) {
@@ -262,7 +265,7 @@ public class AgilityHelmet implements IDonation, Listener {
 
     public boolean WallJump(Player player) {
 
-        if (RechargeManager.getInstance().add(player, "Agility WallKick", 0.25, false)) {
+        if (RechargeManager.getInstance().add(player, "Agility WallKick", 0.5, false)) {
             Vector vec = player.getLocation().getDirection();
 
             boolean xPos = true;

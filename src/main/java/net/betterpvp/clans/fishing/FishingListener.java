@@ -62,9 +62,6 @@ public class FishingListener extends BPVPListener<Clans> {
             return;
         }
 
-        if (event.getCaught() != null && event.getCaught().getType() == EntityType.DROPPED_ITEM) {
-            return;
-        }
 
         if (event.getCaught() != null && event.getCaught().equals(event.getPlayer())) {
             return;

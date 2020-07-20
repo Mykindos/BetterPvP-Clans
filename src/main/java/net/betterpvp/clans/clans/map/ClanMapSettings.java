@@ -10,9 +10,7 @@ public class ClanMapSettings extends MapSettings {
         super(fileConfiguration);
 
         allowedZooms.clear();
-        allowedZooms.add(1D);
         allowedZooms.add(2D);
-        allowedZooms.add(4D);
         setRotation(BooleanOption.FALSE);
 
     }

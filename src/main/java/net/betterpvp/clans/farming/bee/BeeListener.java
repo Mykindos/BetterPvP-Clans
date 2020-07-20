@@ -4,15 +4,16 @@ import de.tr7zw.changeme.nbtapi.NBTTileEntity;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.events.ClanDeleteEvent;
 import net.betterpvp.clans.farming.bee.nms.CustomBee;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMath;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Material;
-import org.bukkit.World;
+import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Beehive;
 import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.Bee;
 import org.bukkit.entity.Entity;
@@ -20,10 +21,15 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityEnterBlockEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Optional;
 
 public class BeeListener extends BPVPListener<Clans> {
 
@@ -60,7 +66,7 @@ public class BeeListener extends BPVPListener<Clans> {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlaceBeehive(BlockPlaceEvent e) {
         if (e.isCancelled()) {
             return;
@@ -72,15 +78,36 @@ public class BeeListener extends BPVPListener<Clans> {
             Clan lClan = ClanUtilities.getClan(e.getBlock().getLocation());
             if (lClan != null) {
                 if (pClan.equals(lClan)) {
-
-                    BeeData bee = new BeeData(e.getBlock().getLocation());
-                    pClan.getBeeData().add(bee);
-                    BeeRepository.saveBeeData(pClan, bee);
+                    if (pClan.getBeeData().size() < 5 + (pClan.getLevel() * 5)) {
+                        BeeData bee = new BeeData(e.getBlock().getLocation());
+                        pClan.getBeeData().add(bee);
+                        BeeRepository.saveBeeData(pClan, bee);
+                    } else {
+                        UtilMessage.message(e.getPlayer(), "Farming","Your clan can only have up to "
+                                + ChatColor.GREEN + (5 + (pClan.getLevel() * 5)) + ChatColor.GRAY + " beehives.");
+                        e.setCancelled(true);
+                    }
 
                 }
             }
 
         }
+    }
+
+    @EventHandler
+    public void onEnterBlock(EntityEnterBlockEvent e) {
+        if (e.getBlock().getType() == Material.BEEHIVE) {
+            if (e.getEntity() instanceof Bee) {
+                e.setCancelled(true);
+                Bee bee = (Bee) e.getEntity();
+                bee.setHasNectar(false);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDisband(ClanDeleteEvent e) {
+        BeeRepository.wipeBees(e.getClan());
     }
 
 
@@ -111,14 +138,7 @@ public class BeeListener extends BPVPListener<Clans> {
                     System.out.println("Bee Test " + clan.getName() + ": " + clan.getBeeData().size() + " vs " + beesToSpawn);
                     World world = clan.getHome().getWorld();
                     for (int x = 0; x < Math.min(clan.getBeeData().size(), beesToSpawn); x++) {
-
                         world.spawnEntity(clan.getBeeData().get(0).getLoc().clone().add(0, 1, 0), EntityType.BEE);
-
-                    /*
-                    CustomBee bee = new CustomBee(((CraftWorld) clan.getHome().getWorld()).getHandle());
-                    bee.spawn(clan.getBeeData().get(UtilMath.randomInt(0, clan.getBeeData().size() - 1)).getLoc().clone().add(0, 1, 0));
-                    */
-
                     }
                 } catch (Exception ex) {
 
@@ -129,10 +149,58 @@ public class BeeListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onKillWildernessBees(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.MIN_08){
-            for(LivingEntity ent : Bukkit.getWorld("world").getLivingEntities()){
-                if(ent instanceof Bee){
+    public void updateHives(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.MIN_01) {
+            for (Clan clan : ClanUtilities.getClans()) {
+                if (!clan.isOnline()) continue;
+                if (clan.getBeeData().isEmpty()) continue;
+                for (BeeData data : clan.getBeeData()) {
+                    if (data.isHarvestable()) continue;
+                    if (data.getHarvestTime() <= System.currentTimeMillis()) {
+                        Block hive = Bukkit.getWorld("world").getBlockAt(data.getLoc());
+                        if (hive.getType() == Material.BEEHIVE) {
+                            Beehive hiveData = (Beehive) hive.getBlockData();
+                            hiveData.setHoneyLevel(hiveData.getMaximumHoneyLevel());
+                            hive.setBlockData(hiveData);
+
+                            data.setHarvestable(true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onHarvest(PlayerInteractEvent e) {
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (e.getPlayer().getInventory().getItemInMainHand() == null) return;
+        if (e.getPlayer().getInventory().getItemInMainHand().getType() != Material.SHEARS) return;
+        if (e.getClickedBlock().getType() != Material.BEEHIVE) return;
+
+        Clan pClan = ClanUtilities.getClan(e.getPlayer());
+        Clan lClan = ClanUtilities.getClan(e.getClickedBlock().getLocation());
+
+        if (pClan != null && lClan != null) {
+            if (pClan.equals(lClan)) {
+                Optional<BeeData> opt = pClan.getBeeData().stream().filter(d -> d.getLoc().equals(e.getClickedBlock().getLocation())).findFirst();
+                if (opt.isPresent()) {
+                    BeeData data = opt.get();
+                    Beehive hiveData = (Beehive) e.getClickedBlock().getBlockData();
+                    if (hiveData.getHoneyLevel() >= hiveData.getMaximumHoneyLevel()) {
+                        data.setHarvestable(false);
+                        data.updateHarvestTime();
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onKillWildernessBees(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.MIN_08) {
+            for (LivingEntity ent : Bukkit.getWorld("world").getLivingEntities()) {
+                if (ent instanceof Bee) {
                     Clan lClan = ClanUtilities.getClan(ent.getLocation());
                     if (lClan == null) {
                         ent.setHealth(0);
@@ -148,6 +216,7 @@ public class BeeListener extends BPVPListener<Clans> {
         beeCount += getLivingBeeCount(clan);
 
 
+        /*
         for (BeeData d : clan.getBeeData()) {
             try {
                 NBTTileEntity tileEntity = new NBTTileEntity(d.getLoc().getBlock().getState());
@@ -157,7 +226,7 @@ public class BeeListener extends BPVPListener<Clans> {
             } catch (Exception ex) {
 
             }
-        }
+        }*/
 
 
         return beeCount;

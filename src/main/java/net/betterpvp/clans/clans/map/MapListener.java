@@ -3,6 +3,7 @@ package net.betterpvp.clans.clans.map;
 import io.github.bananapuncher714.cartographer.core.Cartographer;
 import io.github.bananapuncher714.cartographer.core.api.SimpleImage;
 import io.github.bananapuncher714.cartographer.core.api.events.minimap.MinimapLoadEvent;
+import io.github.bananapuncher714.cartographer.core.api.events.player.MapViewerChangeSettingEvent;
 import io.github.bananapuncher714.cartographer.core.api.events.player.MapViewerCreateEvent;
 import io.github.bananapuncher714.cartographer.core.api.map.MapCursorProvider;
 import io.github.bananapuncher714.cartographer.core.api.map.WorldCursorProvider;
@@ -90,6 +91,11 @@ public class MapListener extends BPVPListener<Clans> {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onChangeSetting(MapViewerChangeSettingEvent e){
+
     }
 
 }
