@@ -3,7 +3,7 @@ main: net.betterpvp.clans.Clans
 name: Clans
 startup: postworld
 version: '1.0'
-depend: [Core, ProtocolLib, Cartographer2]
+depend: [Core, ProtocolLib]
 api-version: 1.15
 commands:
   clan:

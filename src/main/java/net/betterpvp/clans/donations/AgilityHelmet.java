@@ -80,17 +80,9 @@ public class AgilityHelmet implements IDonation, Listener {
                                     Suspicion.suspicions.remove(player.getUniqueId());
                                 }
 
-
-                               if (!UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 10000)) {
-                                    UtilMessage.message(player, "Agility Helmet", "You cannot use agility helmet while in combat.");
-                                    return;
-
-                                }
-                        
-
                                 if (Energy.use(player, "Agility Leap", 0.5F, true)) {
                                     if (!WallJump(player)) {
-                                        if (RechargeManager.getInstance().add(player, "Agility Leap", 4, true)) {
+                                        if (RechargeManager.getInstance().add(player, "Agility Leap", 5, true)) {
                                             DoLeap(player, false);
                                         }
                                     }
@@ -154,6 +146,13 @@ public class AgilityHelmet implements IDonation, Listener {
                             continue;
                         } else {
                             if (!active.contains(player.getUniqueId())) {
+                                if (!UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 10000)) {
+                                    UtilMessage.message(player, "Agility Helmet", "You cannot use agility helmet while in combat.");
+                                    player.getEquipment().setHelmet(null);
+                                    UtilItem.insert(player, UtilClans.updateNames(new ItemStack(Material.TURTLE_HELMET)));
+                                    return;
+
+                                }
                                 active.add(player.getUniqueId());
                                 UtilMessage.message(player, "Agility Helmet", "Increased agility activated.");
                                 player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 1.f, 1.f);
