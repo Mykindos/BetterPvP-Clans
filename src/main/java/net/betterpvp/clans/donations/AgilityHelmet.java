@@ -80,16 +80,18 @@ public class AgilityHelmet implements IDonation, Listener {
                                     Suspicion.suspicions.remove(player.getUniqueId());
                                 }
 
-                                if(UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 5000)){
 
-                                    if (Energy.use(player, "Agility Leap", 0.5F, true)) {
-                                        if (WallJump(player)) {
+                               if (!UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 10000)) {
+                                    UtilMessage.message(player, "Agility Helmet", "You cannot use agility helmet while in combat.");
+                                    return;
 
-                                        } else {
+                                }
+                        
 
-                                            if (RechargeManager.getInstance().add(player, "Agility Leap", 5, true)) {
-                                                DoLeap(player, false);
-                                            }
+                                if (Energy.use(player, "Agility Leap", 0.5F, true)) {
+                                    if (!WallJump(player)) {
+                                        if (RechargeManager.getInstance().add(player, "Agility Leap", 4, true)) {
+                                            DoLeap(player, false);
                                         }
                                     }
                                 }
@@ -245,12 +247,14 @@ public class AgilityHelmet implements IDonation, Listener {
 
     public void DoLeap(Player player, boolean wallkick) {
         if (!wallkick) {
-            UtilVelocity.velocity(player, 1.2D, 0.4D, 1.0D, true);
+            UtilVelocity.velocity(player, 1.1D, 0.2D, 1.0D, true);
 
         } else {
             Vector vec = player.getLocation().getDirection();
             vec.setY(0);
-            UtilVelocity.velocity(player, vec, 1.15D, false, 0.0D, 1.2D, 2.0D, true);
+
+            UtilVelocity.velocity(player, vec, 0.9D, false, 0.0D, 0.8D, 2.0D, true);
+
         }
 
         if (!wallkick) {

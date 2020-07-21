@@ -17,7 +17,6 @@ public class CreateCommand implements IClanCommand {
             "kick", "ally", "trust", "enemy", "claim", "unclaim", "territory",
             "home", "spawn", "fields", "shop", "shops", "plains", "leave", "top",
             "menu", "unclaimall", "map", "home", "neutral", "energy", "wilderness"};
-    private String[] filtered = {"FILTERED WORDS GO HERE"};
 
     public final static int nameMax = 13;
     public final static int nameMin = 3;
@@ -52,23 +51,19 @@ public class CreateCommand implements IClanCommand {
             }
 
             for (String string : denied) {
-                if (string.equalsIgnoreCase(name)) {
+                if (name.toLowerCase().contains(name)) {
                     UtilMessage.message(player, "Clans", "Clan name cannot be a Clan command.");
                     return;
                 }
             }
 
-            if(FilterRepository.CHAT_FILTER.contains(name.toLowerCase())){
-                UtilMessage.message(player, "Clans", "You cannot use this clan name.");
-                return;
-            }
-
-            for (String string : filtered) {
-                if (name.toLowerCase().contains(string)) {
-                    UtilMessage.message(player, "Clans", "Clan name cannot be inappropriate.");
+            for(String string : FilterRepository.CHAT_FILTER){
+                if(name.toLowerCase().contains(string)){
+                    UtilMessage.message(player, "Clans", "You cannot use this clan name.");
                     return;
                 }
             }
+
         }
 
         Clan c = ClanUtilities.getClan(name);

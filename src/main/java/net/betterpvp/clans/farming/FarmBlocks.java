@@ -9,7 +9,7 @@ public class FarmBlocks {
                 || b == Material.WHEAT_SEEDS
                 || b == Material.SUGAR_CANE
                 || b == Material.POTATO
-                || b == Material.POTATO
+                || b == Material.POTATOES
                 || b == Material.CARROT
                 || b == Material.CARROTS
                 || b == Material.CACTUS

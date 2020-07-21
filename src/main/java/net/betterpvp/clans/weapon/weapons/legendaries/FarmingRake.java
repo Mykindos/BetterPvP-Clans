@@ -5,6 +5,7 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
@@ -126,7 +127,8 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.BEETROOTS);
 
                                     b.setType(Material.BEETROOTS);
-                                    p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
+                                    UtilItem.remove(p, Material.BEETROOT_SEEDS, 1);
+                                   // p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
                                 }
                             }else if(b.getType() == Material.SWEET_BERRY_BUSH){
 
