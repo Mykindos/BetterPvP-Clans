@@ -66,6 +66,7 @@ public class FishingListener extends BPVPListener<Clans> {
 
         if(event.getCaught() != null && event.getCaught() instanceof LivingEntity){
             if(ShopManager.isShop((LivingEntity) event.getCaught())){
+                event.setCancelled(true);
                 return;
             }
         }
