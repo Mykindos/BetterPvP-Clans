@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.ClanUtilities.ClanRelation;
 import net.betterpvp.clans.clans.commands.IClanCommand;
+import net.betterpvp.clans.clans.map.MapListener;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
@@ -25,12 +26,14 @@ public final class MapCommand implements IClanCommand {
 
     public void run(Player player, String[] args) {
         if (args.length == 1) {
-            if(Clans.getOptions().isAdvancedMap()) {
-                ItemStack map = Cartographer.getInstance().getMapManager().getItemFor(Cartographer.getInstance().getMapManager().getMinimaps().get("Clans"));
-                map = UtilClans.updateNames(map);
-                player.getInventory().addItem(map);
+            if (Clans.getOptions().isAdvancedMap()) {
+                if (player.getInventory().contains(MapListener.map)) {
+                    UtilMessage.message(player, "Map", "You already have a map in your inventory");
+                    return;
+                }
+                player.getInventory().addItem(MapListener.map.clone());
                 UtilMessage.message(player, "Map", "A map has been added to your inventory.");
-            }else {
+            } else {
                 UtilMessage.message(player, "Clans", "Clan Territory Map:");
                 displayMap(player);
             }
