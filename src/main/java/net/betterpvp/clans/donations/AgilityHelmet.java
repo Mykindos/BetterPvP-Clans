@@ -80,11 +80,13 @@ public class AgilityHelmet implements IDonation, Listener {
                                     Suspicion.suspicions.remove(player.getUniqueId());
                                 }
 
-                                if (!UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 10000)) {
+
+                               if (!UtilTime.elapsed(GamerManager.getOnlineGamer(player).getLastDamaged(), 10000)) {
                                     UtilMessage.message(player, "Agility Helmet", "You cannot use agility helmet while in combat.");
                                     return;
 
                                 }
+                        
 
                                 if (Energy.use(player, "Agility Leap", 0.5F, true)) {
                                     if (!WallJump(player)) {
@@ -250,7 +252,9 @@ public class AgilityHelmet implements IDonation, Listener {
         } else {
             Vector vec = player.getLocation().getDirection();
             vec.setY(0);
+
             UtilVelocity.velocity(player, vec, 0.9D, false, 0.0D, 0.8D, 2.0D, true);
+
         }
 
         if (!wallkick) {
@@ -265,7 +269,7 @@ public class AgilityHelmet implements IDonation, Listener {
 
     public boolean WallJump(Player player) {
 
-        if (RechargeManager.getInstance().add(player, "Agility WallKick", 0.25, false)) {
+        if (RechargeManager.getInstance().add(player, "Agility WallKick", 0.5, false)) {
             Vector vec = player.getLocation().getDirection();
 
             boolean xPos = true;

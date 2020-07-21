@@ -87,6 +87,11 @@ public class BeeRepository {
         QueryFactory.runQuery(query);
     }
 
+    public static void wipeBees(Clan clan){
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE Clan='" + clan.getName() + "';";
+        QueryFactory.runQuery(query);
+    }
+
 
     public LoadPriority getLoadPriority() {
         return LoadPriority.HIGHEST;
