@@ -4,17 +4,12 @@ package net.betterpvp.clans;
 import io.github.bananapuncher714.cartographer.core.Cartographer;
 import io.github.bananapuncher714.cartographer.core.api.map.MapCursorProvider;
 import io.github.bananapuncher714.cartographer.core.api.map.WorldCursorProvider;
-import io.github.bananapuncher714.cartographer.core.map.MapSettings;
 import io.github.bananapuncher714.cartographer.core.map.Minimap;
 import me.mykindos.MAH.user.MAHManager;
 import net.betterpvp.clans.anticheat.AnticheatManager;
 import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.ClanReloadCommand;
 import net.betterpvp.clans.clans.listeners.*;
-import net.betterpvp.clans.clans.map.ClanCursorProvider;
-import net.betterpvp.clans.clans.map.ClanMapSettings;
-import net.betterpvp.clans.clans.map.ClanPixelProvider;
-import net.betterpvp.clans.clans.map.MapListener;
 import net.betterpvp.clans.classes.DamageManager;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.RoleManager;
@@ -215,7 +210,6 @@ public class Clans extends JavaPlugin implements Listener {
         new ServerListener(this);
         new VoteListener(this);
         new BeeListener(this);
-        new MapListener(this);
         new ClanSpawnListener(this);
 
         CommandManager.addCommand(new ShopCommand(this));
@@ -234,26 +228,7 @@ public class Clans extends JavaPlugin implements Listener {
 
         getCommand("clan").setExecutor(new ClanCommand(this));
 
-        //Cartographer.getInstance().getMapManager().remove(Cartographer.getInstance().getMapManager().getMinimaps().get("Clans"));
 
-        ClanMapSettings clanMapSettings = new ClanMapSettings(YamlConfiguration.loadConfiguration(new File("/plugins/Cartographer2/Clans-Map-Config.yml")));
-        clanMapSettings.setDefaultZoom(2.0);
-        if(!Cartographer.getInstance().getMapManager().getMinimaps().containsKey("Clans")) {
-            Cartographer.getInstance().getMapManager().constructNewMinimap("Clans");
-        }
-
-        for(Map.Entry<String, Minimap> map : Cartographer.getInstance().getMapManager().getMinimaps().entrySet()){
-            for (MapCursorProvider prov : map.getValue().getMapCursorProviders()) {
-                map.getValue().unregisterProvider(prov);
-            }
-            for (WorldCursorProvider prov : map.getValue().getWorldCursorProviders()) {
-                map.getValue().unregisterProvider(prov);
-            }
-
-            map.getValue().registerProvider(new ClanCursorProvider());
-            map.getValue().registerProvider(new ClanPixelProvider());
-            map.getValue().setSettings(clanMapSettings);
-        }
 
     }
 
