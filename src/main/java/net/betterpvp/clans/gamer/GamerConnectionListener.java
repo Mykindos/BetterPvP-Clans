@@ -83,7 +83,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 Player player = Bukkit.getPlayer(e.getClient().getUUID());
                 if (player != null) {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
-                    if(!player.hasPlayedBefore() && GamerManager.getOnlineGamer(player).getStatValue("Time Played") < 1){
+                    if (!player.hasPlayedBefore() && GamerManager.getOnlineGamer(player).getStatValue("Time Played") < 1) {
                         EffectManager.addEffect(player, EffectType.PROTECTION, 60_000 * 15);
                         UtilMessage.message(player, "Protection", "You have received " + ChatColor.GREEN + 15
                                 + " minutes " + ChatColor.GRAY + "of PvP protection. " + ChatColor.YELLOW + "/protection " + ChatColor.GRAY + "to disable");
@@ -99,7 +99,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 try {
                     player.setResourcePack(Clans.getOptions().getTexturePackURL(),
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                     player.setResourcePack("https://puu.sh/FGt4O.zip",
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
@@ -110,15 +110,19 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
         gamer.setLastAction(System.currentTimeMillis());
         GamerManager.addOnlineGamer(gamer);
 
-        if(!Clans.getOptions().isHub()) {
+        if (Clans.getOptions().isHub()) {
             new Thread(() -> {
+                Gamer tGamer = GamerManager.getOnlineGamer(player);
                 if (UtilProxy.isUsingProxy(player)) {
+                    tGamer.setConnectedWithVPN(true);
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             ClientUtilities.messageStaff("Proxy", player.getName() + " may be using a VPN / Proxy", Rank.ADMIN);
                         }
                     }.runTask(getInstance());
+                } else {
+                    tGamer.setConnectedWithVPN(false);
                 }
             }).start();
         }

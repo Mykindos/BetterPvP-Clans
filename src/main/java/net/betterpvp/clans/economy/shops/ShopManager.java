@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.menus.EnergyMenu;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.commands.KitCommand;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
@@ -57,7 +58,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
 
         addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
-                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock");
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Energy");
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, 6.5, 49, -14.5),
@@ -191,6 +192,12 @@ public class ShopManager extends BPVPListener<Clans> {
                             ShopVillager tv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
                             Villager travel = tv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Travel Hub", travel);
+
+                            break;
+                        case "energy":
+                            ShopVillager ev = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager energy = ev.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clan Energy", energy);
 
                             break;
                         case "boss":
@@ -357,6 +364,12 @@ public class ShopManager extends BPVPListener<Clans> {
                         }
                         if (s.getName().toLowerCase().contains("travel")) {
                             e.getPlayer().openInventory(new TravelHubMenu(e.getPlayer()).getInventory());
+                        }else if(s.getName().toLowerCase().contains("energy")){
+                            if(ClanUtilities.getClan(e.getPlayer()) != null) {
+                                e.getPlayer().openInventory(new EnergyMenu(e.getPlayer()).getInventory());
+                            }else{
+                                UtilMessage.message(e.getPlayer(), "Clans", "You are not in a clan!");
+                            }
                         } else if (s.getName().equalsIgnoreCase("Boss Teleport")) {
 
                             if(EffectManager.hasEffect(e.getPlayer(), EffectType.PROTECTION)){

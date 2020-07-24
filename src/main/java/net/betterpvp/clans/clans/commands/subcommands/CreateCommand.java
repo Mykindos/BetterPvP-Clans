@@ -51,7 +51,7 @@ public class CreateCommand implements IClanCommand {
             }
 
             for (String string : denied) {
-                if (name.toLowerCase().contains(name)) {
+                if (name.toLowerCase().contains(string)) {
                     UtilMessage.message(player, "Clans", "Clan name cannot be a Clan command.");
                     return;
                 }

@@ -46,6 +46,7 @@ public class Gamer implements Invitable {
     private HashMap<String, Double> playerStats;
     private boolean starterKitClaimed;
     private long lastAction;
+    private boolean connectedWithVPN;
 
     //private HashMap<Enum, Object> data;
 
@@ -489,6 +490,14 @@ public class Gamer implements Invitable {
 
     public long getLastAction() {
         return lastAction;
+    }
+
+    public boolean isConnectedWithVPN() {
+        return connectedWithVPN;
+    }
+
+    public void setConnectedWithVPN(boolean connectedWithVPN) {
+        this.connectedWithVPN = connectedWithVPN;
     }
 
 

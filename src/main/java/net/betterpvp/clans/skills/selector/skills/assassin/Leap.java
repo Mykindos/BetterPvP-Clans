@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -58,59 +59,68 @@ public class Leap extends Skill implements InteractSkill {
     public boolean wallKick(Player player) {
 
 
-            if (RechargeManager.getInstance().add(player, "Wall Kick", 0.15, false)) {
-                Vector vec = player.getLocation().getDirection();
+        if (RechargeManager.getInstance().add(player, "Wall Kick", 0.15, false)) {
+            Vector vec = player.getLocation().getDirection();
 
-                boolean xPos = true;
-                boolean zPos = true;
+            boolean xPos = true;
+            boolean zPos = true;
 
-                if (vec.getX() < 0.0D) {
-                    xPos = false;
-                }
-                if (vec.getZ() < 0.0D) {
-                    zPos = false;
-                }
+            if (vec.getX() < 0.0D) {
+                xPos = false;
+            }
+            if (vec.getZ() < 0.0D) {
+                zPos = false;
+            }
 
-                for (int y = 0; y <= 0; y++) {
-                    for (int x = -1; x <= 1; x++) {
-                        for (int z = -1; z <= 1; z++) {
-                            if ((x != 0) || (z != 0)) {
-                                if (((!xPos) || (x <= 0))
-                                        && ((!zPos) || (z <= 0))
-                                        && ((xPos) || (x >= 0)) && ((zPos) || (z >= 0))) {
-                                    if (!UtilBlock.airFoliage(player.getLocation().getBlock().getRelative(x, y, z))) {
-                                        Block forward = null;
+            for (int y = 0; y <= 0; y++) {
+                for (int x = -1; x <= 1; x++) {
+                    for (int z = -1; z <= 1; z++) {
+                        if ((x != 0) || (z != 0)) {
+                            if (((!xPos) || (x <= 0))
+                                    && ((!zPos) || (z <= 0))
+                                    && ((xPos) || (x >= 0)) && ((zPos) || (z >= 0))) {
+                                Block back = player.getLocation().getBlock().getRelative(x, y, z);
+                                if (!UtilBlock.airFoliage(back)) {
+                                    if (back.getLocation().getY() == Math.floor(player.getLocation().getY())
+                                            || back.getLocation().getY() == Math.floor(player.getLocation().getY() - 0.25)) {
+                                        if (back.getRelative(BlockFace.UP).getType() == Material.AIR) {
+                                            if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                    Block forward = null;
 
+                                    if (Math.abs(vec.getX()) > Math.abs(vec.getZ())) {
+                                        if (xPos) {
+                                            forward = player.getLocation().getBlock().getRelative(1, 0, 0);
+                                        } else {
+                                            forward = player.getLocation().getBlock().getRelative(-1, 0, 0);
+                                        }
+
+                                    } else if (zPos) {
+                                        forward = player.getLocation().getBlock().getRelative(0, 0, 1);
+                                    } else {
+                                        forward = player.getLocation().getBlock().getRelative(0, 0, -1);
+                                    }
+
+                                    if (UtilBlock.airFoliage(forward)) {
                                         if (Math.abs(vec.getX()) > Math.abs(vec.getZ())) {
                                             if (xPos) {
-                                                forward = player.getLocation().getBlock().getRelative(1, 0, 0);
+                                                forward = player.getLocation().getBlock().getRelative(1, 1, 0);
                                             } else {
-                                                forward = player.getLocation().getBlock().getRelative(-1, 0, 0);
+                                                forward = player.getLocation().getBlock().getRelative(-1, 1, 0);
                                             }
-
                                         } else if (zPos) {
-                                            forward = player.getLocation().getBlock().getRelative(0, 0, 1);
+                                            forward = player.getLocation().getBlock().getRelative(0, 1, 1);
                                         } else {
-                                            forward = player.getLocation().getBlock().getRelative(0, 0, -1);
+                                            forward = player.getLocation().getBlock().getRelative(0, 1, -1);
                                         }
 
                                         if (UtilBlock.airFoliage(forward)) {
-                                            if (Math.abs(vec.getX()) > Math.abs(vec.getZ())) {
-                                                if (xPos) {
-                                                    forward = player.getLocation().getBlock().getRelative(1, 1, 0);
-                                                } else {
-                                                    forward = player.getLocation().getBlock().getRelative(-1, 1, 0);
-                                                }
-                                            } else if (zPos) {
-                                                forward = player.getLocation().getBlock().getRelative(0, 1, 1);
-                                            } else {
-                                                forward = player.getLocation().getBlock().getRelative(0, 1, -1);
-                                            }
 
-                                            if (UtilBlock.airFoliage(forward)) {
-                                                DoLeap(player, true);
-                                                return true;
-                                            }
+                                            DoLeap(player, true);
+                                            return true;
                                         }
                                     }
                                 }
@@ -119,6 +129,7 @@ public class Leap extends Skill implements InteractSkill {
                     }
                 }
             }
+        }
 
 
         /**

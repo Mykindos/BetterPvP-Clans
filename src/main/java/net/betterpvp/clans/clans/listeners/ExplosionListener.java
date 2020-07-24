@@ -1,11 +1,15 @@
 package net.betterpvp.clans.clans.listeners;
 
+import com.mysql.fabric.xmlrpc.Client;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.*;
 import net.betterpvp.clans.clans.Clan.DataType;
 import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilBlock;
@@ -46,6 +50,11 @@ public class ExplosionListener extends BPVPListener<Clans> {
                             // 5 minutes per member
                             bonus = (clan.getMembers().size() - Clans.getOptions().getTntBonusMemberThreshold())
                                     * (Clans.getOptions().getBonusTimeUntilTNTProtection() * 60000);
+                        }
+
+                        Gamer gamer = GamerManager.getOnlineGamer(member.getUUID());
+                        if (gamer != null) {
+                            if (gamer.getClient().isAdministrating()) continue;
                         }
 
                         clan.getData().put(DataType.PROTECTION, System.currentTimeMillis() +
@@ -92,7 +101,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 Clan clan = ClanUtilities.getClan(block.getLocation());
 
                 if (clan != null) {
-                    if(clan instanceof AdminClan){
+                    if (clan instanceof AdminClan) {
                         clear = true;
                         break;
                     }
@@ -156,7 +165,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
                 Clan c = ClanUtilities.getClan(block.getLocation());
                 if (c != null) {
-                    if(c instanceof AdminClan){
+                    if (c instanceof AdminClan) {
 
                         continue;
                     }
@@ -218,7 +227,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 Clans.getCoreProtect().logRemoval("TNT", b.getLocation(), b.getType(), b.getData());
                 Clan c = ClanUtilities.getClan(b.getLocation());
                 if (c != null) {
-                    if(c instanceof AdminClan){
+                    if (c instanceof AdminClan) {
                         continue;
                     }
                     if (!c.isVulnerable()) {
@@ -267,7 +276,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     }
                 }
 
-                if(broken){
+                if (broken) {
                     continue;
                 }
 
@@ -315,9 +324,6 @@ public class ExplosionListener extends BPVPListener<Clans> {
         PURPUR(Material.PURPUR_BLOCK, Material.PURPUR_PILLAR);
 
 
-
-
-
         private Material normal, damaged;
 
         TNTBlocks(Material normal, Material damaged) {
@@ -333,6 +339,6 @@ public class ExplosionListener extends BPVPListener<Clans> {
         public Material getDamaged() {
             return damaged;
         }
-        }
+    }
 
 }

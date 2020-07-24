@@ -343,7 +343,7 @@ public class WorldListener extends BPVPListener<Clans> {
      */
     @EventHandler
     public void stopLeafDecay(LeavesDecayEvent event) {
-        if(Bukkit.getOnlinePlayers().size() == 0){
+        if (Bukkit.getOnlinePlayers().size() == 0) {
             event.setCancelled(true);
             return;
         }
@@ -913,10 +913,10 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onDisableBed(PlayerInteractEvent e){
-        if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            if(e.getHand() != EquipmentSlot.OFF_HAND){
-                if(e.getPlayer().getInventory().getItemInMainHand() != null && e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("_BED")){
+    public void onDisableBed(PlayerInteractEvent e) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (e.getHand() != EquipmentSlot.OFF_HAND) {
+                if (e.getPlayer().getInventory().getItemInMainHand() != null && e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("_BED")) {
                     e.setCancelled(true);
                 }
             }
@@ -1035,10 +1035,11 @@ public class WorldListener extends BPVPListener<Clans> {
                         || itemType == Material.BREWING_STAND || itemType == Material.GOLDEN_APPLE || itemType == Material.GOLDEN_CARROT
                         || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK || itemType == Material.CROSSBOW
                         || itemType.name().toLowerCase().contains("boat")
-                        || itemType.name().contains("CAMPFIRE")) {
+                        || itemType.name().contains("CAMPFIRE")
+                        || itemType == Material.COOKIE) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
-                    if(e.getRecipe() != null) {
+                    if (e.getRecipe() != null) {
                         e.getInventory().setResult(UtilClans.updateNames(e.getRecipe().getResult()));
                     }
                 }
@@ -1108,7 +1109,7 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void armorStand(PlayerArmorStandManipulateEvent e) {
 
-        if(!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()){
+        if (!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
             e.setCancelled(true);
         }
 
@@ -1814,6 +1815,7 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+
     /*
      * Gives players money when they kill animals and monsters
      */
@@ -1854,11 +1856,11 @@ public class WorldListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onArmourStand(PlayerInteractEntityEvent e){
-        if(e.getRightClicked() instanceof ArmorStand){
+    public void onArmourStand(PlayerInteractEntityEvent e) {
+        if (e.getRightClicked() instanceof ArmorStand) {
             Client client = ClientUtilities.getOnlineClient(e.getPlayer());
-            if(client != null){
-                if(!client.isAdministrating()){
+            if (client != null) {
+                if (!client.isAdministrating()) {
                     e.setCancelled(true);
                 }
             }
@@ -1884,15 +1886,24 @@ public class WorldListener extends BPVPListener<Clans> {
     }*/
 
     @EventHandler
-    public void onInSpawn(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.SEC){
-            for(Player player : Bukkit.getOnlinePlayers()){
+    public void onInSpawn(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 Clan clan = ClanUtilities.getClan(player.getLocation());
-                if(clan != null && clan instanceof AdminClan){
-                    if(((AdminClan) clan).isSafe()){
+                if (clan != null && clan instanceof AdminClan) {
+                    if (((AdminClan) clan).isSafe()) {
                         EffectManager.addEffect(player, EffectType.NOFALL, 10_000);
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void disableWitherSkull(BlockPlaceEvent e) {
+        if (e.getBlock().getType() == Material.WITHER_SKELETON_SKULL) {
+            if (!ClientUtilities.getOnlineClient(e.getPlayer()).isAdministrating()) {
+                e.setCancelled(true);
             }
         }
     }

@@ -6,6 +6,7 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.farming.FarmBlocks;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.Skill;
@@ -139,7 +140,7 @@ public class ArcticArmour extends Skill implements ToggleSkill {
                                         && !relDown.getType().name().contains("STAIRS") && !relDown.getType().name().contains("CAMPFIRE")
                                         && !relDown.getType().name().contains("SLAB") && relDown.getType() != Material.GRASS_PATH
                                         && relDown.getType() != Material.FARMLAND && !relDown.isLiquid() && relDown.getType() != Material.RAIL
-                                        && !relDown.getType().name().contains("ICE")
+                                        && !relDown.getType().name().contains("ICE") && !UtilBlock.usable(relDown) && !FarmBlocks.isSeed(relDown.getType())
                                 && !relDown.getType().name().contains("FENCE")) {
                                     if (block.getType() == Material.AIR) {
                                         new BlockRestoreData(block, Material.SNOW, (byte) 0, duration);

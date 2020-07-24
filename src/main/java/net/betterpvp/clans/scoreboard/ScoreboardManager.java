@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
@@ -161,9 +162,9 @@ public class ScoreboardManager extends BPVPListener<Clans> {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onChunkClaim(ChunkClaimEvent e){
-        for(Entity ent : e.getChunk().getEntities()){
-            if(ent instanceof Player){
+    public void onChunkClaim(ChunkClaimEvent e) {
+        for (Entity ent : e.getChunk().getEntities()) {
+            if (ent instanceof Player) {
                 Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent((Player) ent));
             }
         }
@@ -178,7 +179,7 @@ public class ScoreboardManager extends BPVPListener<Clans> {
             @Override
             public void run() {
                 Player target = Bukkit.getPlayer(e.getTarget().getUUID());
-                if(target != null) {
+                if (target != null) {
                     initialise(getScoreboard(target));
                 }
                 Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(Bukkit.getPlayer(e.getTarget().getUUID())));
@@ -221,10 +222,20 @@ public class ScoreboardManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void updateScoreboardTimer(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.SEC_30){
+    public void updateScoreboardTimer(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC_30) {
             Bukkit.getOnlinePlayers().forEach(p -> Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p)));
         }
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
+            }
+        }.runTaskLater(getInstance(), 10);
     }
 
 
@@ -458,15 +469,15 @@ public class ScoreboardManager extends BPVPListener<Clans> {
                         : ChatColor.DARK_GREEN + prefix + " ");
                 team.setColor(c.hasTrust(d) ? ChatColor.DARK_GREEN : ChatColor.GREEN);
                 team.setSuffix("");
-            }else if(Pillage.isPillaging(c, d)) {
+            } else if (Pillage.isPillaging(c, d)) {
                 team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
                 team.setColor(ChatColor.LIGHT_PURPLE);
                 team.setSuffix("");
-            }else if(Pillage.isPillaging(d, c)){
+            } else if (Pillage.isPillaging(d, c)) {
                 team.setPrefix(ChatColor.DARK_PURPLE + prefix + " ");
                 team.setColor(ChatColor.LIGHT_PURPLE);
                 team.setSuffix("");
-            }else if (c.isEnemy(d)) {
+            } else if (c.isEnemy(d)) {
                 team.setPrefix(ChatColor.DARK_RED + prefix + " ");
                 team.setColor(ChatColor.RED);
                 team.setSuffix(d.getSimpleDominanceString(c));

@@ -10,7 +10,7 @@ import org.bukkit.Location;
 public class MiningMadness extends Environmental {
 
     public MiningMadness(Clans i) {
-        super(i, "MiningMadness", WEType.ENVIRONMENTAL, 30);
+        super(i, "MiningMadness", WEType.ENVIRONMENTAL, 15);
 
     }
 

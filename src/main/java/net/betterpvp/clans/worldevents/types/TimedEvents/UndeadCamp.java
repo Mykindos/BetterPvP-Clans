@@ -281,7 +281,7 @@ public class UndeadCamp extends Timed {
         }
 
         double rand = Math.random();
-        if (rand > 0.98) {
+        if (rand > 0.995) {
             world.dropItem(b.getLocation(), new ItemStack(Material.MUSIC_DISC_PIGSTEP));
         } else if (rand > 0.90) {
             world.dropItem(b.getLocation(), new ItemStack(Material.NETHERITE_AXE));

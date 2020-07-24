@@ -11,6 +11,7 @@ public class ClanHelpCommand implements IClanCommand {
     public void run(Player p, String[] args) {
         UtilMessage.message(p, ChatColor.YELLOW + "----- Clans Help -----");
         UtilMessage.message(p, ChatColor.AQUA + "/c create {name}" + ChatColor.GRAY + " - Creates a clan");
+        UtilMessage.message(p, ChatColor.AQUA + "/c menu" + ChatColor.GRAY + " - Opens a menu where you can manage your clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c invite {player}" + ChatColor.GRAY + " - Invites a player to your clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c promote {player}" + ChatColor.GRAY + " - Promotes a player in your clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c demote {player}" + ChatColor.GRAY + " - Demotes a player in your clan");
@@ -28,6 +29,7 @@ public class ClanHelpCommand implements IClanCommand {
         UtilMessage.message(p, ChatColor.AQUA + "/c ally {clan}" + ChatColor.GRAY + " - Requests an alliance with another clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c trust {clan}" + ChatColor.GRAY + " - Gives another clan access to your claims");
         UtilMessage.message(p, ChatColor.AQUA + "/c map" + ChatColor.GRAY + " - Shows a map of all clan claims around you");
+        UtilMessage.message(p, ChatColor.AQUA + "/c stuck" + ChatColor.GRAY + " - Stuck in a claim and can't get out? This command will help");
     }
 
     @Override

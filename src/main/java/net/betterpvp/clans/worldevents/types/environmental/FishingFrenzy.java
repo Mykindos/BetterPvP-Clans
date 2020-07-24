@@ -10,7 +10,7 @@ import org.bukkit.Location;
 public class FishingFrenzy extends Environmental {
 
     public FishingFrenzy(Clans i) {
-        super(i, "FishingFrenzy", WEType.ENVIRONMENTAL, 30);
+        super(i, "FishingFrenzy", WEType.ENVIRONMENTAL, 15);
 
     }
 

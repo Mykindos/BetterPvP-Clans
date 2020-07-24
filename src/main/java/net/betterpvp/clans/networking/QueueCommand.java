@@ -73,7 +73,6 @@ public class QueueCommand extends Command implements Listener {
     public void onDonate(DonationStatusEvent e) {
         if (Clans.getOptions().isHub()) {
             if (e.getPerk().getName().equals("ReservedSlot")) {
-                Player player = Bukkit.getPlayer(e.getClient().getUUID());
                 if (!reserved.contains(e.getClient().getUUID())) {
                     reserved.add(e.getClient().getUUID());
                 }
@@ -89,6 +88,27 @@ public class QueueCommand extends Command implements Listener {
             } else if (e.getMessage().equalsIgnoreCase("ReservedSlotAllowed")) {
                 reservedSlotAllowed = true;
             }
+        } else if (e.getChannel().equals("Client")) {
+            if (Clans.getOptions().isHub()) {
+                if (e.getMessage().startsWith("AllowVPN")) {
+                    String[] data = e.getMessage().split("-!-");
+
+                    Client client = ClientUtilities.getOnlineClient(data[1]);
+                    if (client != null) {
+                        if (client.hasDonation("ReservedSlot")) {
+                            if (!reserved.contains(client.getUUID())) {
+                                reserved.add(client.getUUID());
+                                return;
+                            }
+                        }
+
+                        if (!queue.contains(client.getUUID())) {
+                            queue.add(client.getUUID());
+                            UtilMessage.message(Bukkit.getPlayer(client.getUUID()), "Queue", "You have been added to the queue.");
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -103,11 +123,23 @@ public class QueueCommand extends Command implements Listener {
                 // TODO add MAH check
 
 
+                Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
                 MAHUser user = MAHManager.getOnlineMAHUser(e.getPlayer());
                 Client client = user.getClient();
                 if (client.hasRank(Rank.MODERATOR, false)) {
                     UtilMessage.message(e.getPlayer(), "Queue", "Type " + ChatColor.GREEN + "/queue" + ChatColor.GRAY + " to join the server (Mod+ only).");
                     return;
+                }
+
+                if (Clans.getOptions().isBlockingVPN()) {
+
+                    if (gamer.isConnectedWithVPN()) {
+                        if (!gamer.getClient().isAllowVPN()) {
+                            UtilMessage.message(e.getPlayer(), "Queue", "We have detected that you are using a VPN / Proxy, and will not be able to join the queue!");
+                            UtilMessage.message(e.getPlayer(), "Queue", "If you feel like this is a mistake, or want to request an exception, please contact an admin.");
+                            return;
+                        }
+                    }
                 }
 
                 if (Clans.getOptions().getMAHCheck()) {

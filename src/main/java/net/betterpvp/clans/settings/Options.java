@@ -55,6 +55,7 @@ public class Options {
     private boolean votingCratesEnabled;
     private boolean advancedMap;
     private int advancedMapDistance;
+    private boolean blockingVPN;
     private Clans i;
 
 
@@ -123,6 +124,7 @@ public class Options {
         votingCratesEnabled = i.getConfigManager().get(Configs.MAIN).getBool("Voting.CratesEnabled");
         advancedMap = i.getConfigManager().get(Configs.MAIN).getBool("Clans.AdvancedMap.Enabled");
         advancedMapDistance = i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.Distance");
+        blockingVPN = i.getConfigManager().get(Configs.MAIN).getBool("Network.BlockVPN");
     }
 
     public int getMAHPort() {
@@ -291,7 +293,7 @@ public class Options {
         return warpingEnabled;
     }
 
-    public String getTablePrefix(){
+    public String getTablePrefix() {
         return tablePrefix;
     }
 
@@ -348,6 +350,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Voting.CratesEnabled", false);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.Enabled", true);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.Distance", 100);
+        i.getConfigManager().get(Configs.MAIN).check("Network.BlockVPN", true);
 
     }
 
@@ -362,7 +365,6 @@ public class Options {
     public boolean isTexturePackForced() {
         return texturePackForce;
     }
-
 
 
     public int getTimeUntilTNTProtection() {
@@ -381,7 +383,7 @@ public class Options {
         return hub;
     }
 
-    public int getHubPort(){
+    public int getHubPort() {
         return hubPort;
     }
 
@@ -401,15 +403,19 @@ public class Options {
         return votingCratesEnabled;
     }
 
-    public boolean isAdvancedMap(){
+    public boolean isAdvancedMap() {
         return advancedMap;
     }
 
-    public void toggleAdvancedMap(){
+    public void toggleAdvancedMap() {
         advancedMap = !advancedMap;
     }
 
     public int getAdvancedMapDistance() {
         return advancedMapDistance;
+    }
+
+    public boolean isBlockingVPN() {
+        return blockingVPN;
     }
 }

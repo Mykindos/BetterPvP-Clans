@@ -72,7 +72,7 @@ public class Dominance {
 
             if(getClan().getDominance(getSelf()).getPoints() >= 10 && getClan().getDominance(getSelf()).getPoints() < 16){
                 int pointsUntilConquer = 16 - getClan().getDominance(getSelf()).getPoints();
-                getClan().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getClan().getName() + ChatColor.GRAY + " if you lose "
+                getClan().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getSelf().getName() + ChatColor.GRAY + " if you lose "
                         + ChatColor.GREEN + pointsUntilConquer + ChatColor.GRAY + " points.", null, true);
             }
 
