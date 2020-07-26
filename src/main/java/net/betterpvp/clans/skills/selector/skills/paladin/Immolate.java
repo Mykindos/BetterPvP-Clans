@@ -185,7 +185,7 @@ public class Immolate extends Skill implements ToggleSkill {
     @Override
     public float getEnergy(int level) {
 
-        return 8 - ((level - 1));
+        return 10 - ((level - 1));
     }
 
 

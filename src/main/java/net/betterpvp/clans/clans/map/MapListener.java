@@ -27,7 +27,7 @@ import java.util.Iterator;
 public class MapListener extends BPVPListener<Clans> {
 
     public static ItemStack map;
-    private static final Object[] MAP_ID = { "0" };
+    private static final Object[] MAP_ID = { "io", "github", "bananapuncher714", "cartographer", "map-id" };
 
     public MapListener(Clans instance) {
         super(instance);
@@ -57,15 +57,10 @@ public class MapListener extends BPVPListener<Clans> {
         }
 
         event.getMinimap().registerProvider(new ClanCursorProvider());
-        event.getMinimap().registerProvider(new ClanPixelProvider());
+        event.getMinimap().registerProvider(new ClanPixelProvider(getInstance()));
 
     }
 
-    @EventHandler
-    public void onCreate(MapViewerCreateEvent e) {
-        e.getViewer().setBackground(null);
-        e.getViewer().setOverlay(null);
-    }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {

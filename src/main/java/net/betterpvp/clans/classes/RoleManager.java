@@ -12,6 +12,7 @@ import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.UtilMessage;
+import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -84,14 +87,14 @@ public class RoleManager extends BPVPListener<Clans> {
             UtilMessage.message(player, "Skills", "Listing " + role.getName() + " Skills: ");
 
             UtilMessage.message(player, role.equipMessage(player));
-          //TODO  ClanStatRepository.addClassStat(role.getName());
+            //TODO  ClanStatRepository.addClassStat(role.getName());
 
             Gamer gamer = GamerManager.getOnlineGamer(player);
-            if(gamer != null){
+            if (gamer != null) {
                 gamer.setStatValue(role.getName(), gamer.getStatValue(role.getName()) + 1);
                 RoleBuild build = gamer.getActiveBuild(role.getName());
-                if(build != null){
-                    if(gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)){
+                if (build != null) {
+                    if (gamer.getActiveBuild(role.getName()).getActiveSkills().stream().anyMatch(s -> s != null && s instanceof ChannelSkill)) {
                         player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
                     }
                 }
@@ -109,7 +112,7 @@ public class RoleManager extends BPVPListener<Clans> {
             if (event.getDamager() instanceof Player) {
                 Player damaged = (Player) event.getDamagee();
                 Player damager = (Player) event.getDamager();
-                if(!damaged.getWorld().equals(damager.getWorld())) return;
+                if (!damaged.getWorld().equals(damager.getWorld())) return;
                 if (damaged.getLocation().distance(damager.getLocation()) <= 4.0) {
                     if (Role.getRole(damaged) != null) {
                         if (RechargeManager.getInstance().add(damager, "Damage", 0.7, false)) {
@@ -142,6 +145,23 @@ public class RoleManager extends BPVPListener<Clans> {
                 if (role != null) {
                     if (role instanceof Assassin) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (e.getSlotType() == InventoryType.SlotType.ARMOR) {
+            if (e.getWhoClicked() instanceof Player) {
+                Gamer gamer = GamerManager.getOnlineGamer((Player) e.getWhoClicked());
+                if (!UtilTime.elapsed(gamer.getLastDamagedByPlayer(), 10000)) {
+                    Player player = (Player) e.getWhoClicked();
+                    Role role = Role.getRole(player);
+                    if (role != null) {
+                        UtilMessage.message(player, "Class", "You cannot remove your class while in combat.");
+                        e.setCancelled(true);
                     }
                 }
             }

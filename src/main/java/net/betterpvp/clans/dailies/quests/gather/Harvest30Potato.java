@@ -29,7 +29,7 @@ public class Harvest30Potato extends General{
 	@EventHandler
 	public void onBreak(BlockBreakEvent e){
 		if(isActive()){
-			if(e.getBlock().getType() == Material.POTATO){
+			if(e.getBlock().getType() == Material.POTATOES){
 				if(e.getBlock().getData() == CropState.RIPE.getData()){
 					Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
 

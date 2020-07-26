@@ -1036,7 +1036,7 @@ public class WorldListener extends BPVPListener<Clans> {
                         || itemType == Material.ANVIL || itemType == Material.MAGMA_BLOCK || itemType == Material.CROSSBOW
                         || itemType.name().toLowerCase().contains("boat")
                         || itemType.name().contains("CAMPFIRE")
-                        || itemType == Material.COOKIE) {
+                        || itemType == Material.COOKIE || itemType == Material.BEEHIVE) {
                     e.getInventory().setResult(new ItemStack(Material.AIR));
                 } else {
                     if (e.getRecipe() != null) {
@@ -1908,4 +1908,13 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
+
+    @EventHandler
+    public void onEndermanPickup(EntityChangeBlockEvent e){
+        if(e.getEntity() instanceof Enderman){
+            e.setCancelled(true);
+        }else if(e.getEntity() instanceof Silverfish){
+            e.setCancelled(true);
+        }
+    }
 }

@@ -59,7 +59,6 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                 }
 
 
-
                 List<Block> blocks = UtilBlock.getSurrounding(block, true);
                 blocks.add(block);
                 for (Block b : blocks) {
@@ -75,13 +74,13 @@ public class DwarvenPickaxe extends Weapon implements ILegendary {
                             || b.getType() == Material.DIORITE) {
 
 
-                        Clan bClan = ClanUtilities.getClan(block.getChunk());
+                        Clan bClan = ClanUtilities.getClan(b.getLocation());
                         if (bClan != null) {
                             if (!bClan.equals(pClan)) {
                                 return;
                             }
                         }
-                        player.getInventory().getItemInMainHand().setDurability((short) 0);
+                        //player.getInventory().getItemInMainHand().setDurability((short) 0);
 
 
                         Clans.getCoreProtect().logRemoval("Dwarven Pickaxe - " + player.getName(), b.getLocation(), b.getType(), b.getData());

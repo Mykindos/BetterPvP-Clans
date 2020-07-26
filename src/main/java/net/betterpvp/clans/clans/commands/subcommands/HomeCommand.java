@@ -77,7 +77,7 @@ public class HomeCommand extends BPVPListener<Clans> implements IClanCommand {
                     if (player.getLocation().getY() > 110) {
                         Clan homeClan = ClanUtilities.getClan(clan.getHome());
                         if (homeClan != null && homeClan.equals(ClanUtilities.getClan(player))) {
-                            if(RechargeManager.getInstance().add(player, "Clan Home", 30, true)) {
+                            if(RechargeManager.getInstance().add(player, "Clan Home", 30, true, false)) {
                                 UtilMessage.message(player, "Clans", "You teleported to your Clan Home.");
                                 player.teleport(clan.getHome());
                             }

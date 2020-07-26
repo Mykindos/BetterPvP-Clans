@@ -47,7 +47,7 @@ public class Grasp extends Skill implements InteractSkill {
     public void activate(Player player, Gamer gamer) {
         int level = getLevel(player);
         UtilMessage.message(player, getClassType(), "You used " + ChatColor.GREEN + getName(level));
-        Block block = player.getTargetBlock(null, (20 + (level * 10) / 2));
+        Block block = player.getTargetBlock(null, (10 + (level * 10) / 2));
         Location startPos = player.getLocation();
 
         final Vector v = player.getLocation().toVector().subtract(block.getLocation().toVector()).normalize().multiply(0.2);
@@ -192,7 +192,7 @@ public class Grasp extends Skill implements InteractSkill {
                 "and drags all enemies with it.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
-                "Max range: " + ChatColor.GREEN + (20 + ((level * 10) / 2)),
+                "Max range: " + ChatColor.GREEN + (10 + ((level * 10) / 2)),
                 "Damage: " + ChatColor.GREEN + (2 + level)
 
         };

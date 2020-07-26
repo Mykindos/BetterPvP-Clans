@@ -145,7 +145,7 @@ public class BullsCharge extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 12 - ((level - 1) * 1);
+        return 14 - ((level - 1) * 1);
     }
 
     @Override

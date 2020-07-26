@@ -1,8 +1,10 @@
 package net.betterpvp.clans.general;
 
+import io.github.bananapuncher714.cartographer.core.api.events.chunk.ChunkLoadedEvent;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.map.ClanPixelProvider;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
@@ -14,14 +16,12 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class ClanSpawnListener extends BPVPListener<Clans> {
     private WeakHashMap<Player, Long> spawns;
@@ -57,8 +57,8 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         if (spawns.containsKey(e.getPlayer())) {
-            if (e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()
-                    || e.getFrom().getY() != e.getTo().getY()) {
+           if (e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockY() != e.getTo().getBlockY()
+                    || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
 
                 UtilMessage.message(e.getPlayer(), "Spawn", "Teleport cancelled.");
                 spawns.remove(e.getPlayer());
@@ -89,4 +89,5 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
             }
         }
     }
+
 }

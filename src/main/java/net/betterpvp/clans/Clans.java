@@ -250,7 +250,7 @@ public class Clans extends JavaPlugin implements Listener {
             }
 
             map.getValue().registerProvider(new ClanCursorProvider());
-            map.getValue().registerProvider(new ClanPixelProvider());
+            map.getValue().registerProvider(new ClanPixelProvider(this));
             map.getValue().setSettings(clanMapSettings);
         }
 

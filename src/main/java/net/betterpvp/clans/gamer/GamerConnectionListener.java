@@ -112,17 +112,19 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
         if (Clans.getOptions().isHub()) {
             new Thread(() -> {
-                Gamer tGamer = GamerManager.getOnlineGamer(player);
-                if (UtilProxy.isUsingProxy(player)) {
-                    tGamer.setConnectedWithVPN(true);
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            ClientUtilities.messageStaff("Proxy", player.getName() + " may be using a VPN / Proxy", Rank.ADMIN);
-                        }
-                    }.runTask(getInstance());
-                } else {
-                    tGamer.setConnectedWithVPN(false);
+                if(player != null) {
+                    Gamer tGamer = GamerManager.getOnlineGamer(player);
+                    if (UtilProxy.isUsingProxy(player)) {
+                        tGamer.setConnectedWithVPN(true);
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                ClientUtilities.messageStaff("Proxy", player.getName() + " may be using a VPN / Proxy", Rank.ADMIN);
+                            }
+                        }.runTask(getInstance());
+                    } else {
+                        tGamer.setConnectedWithVPN(false);
+                    }
                 }
             }).start();
         }

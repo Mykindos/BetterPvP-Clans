@@ -9,6 +9,7 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilTime.TimeUnit;
@@ -48,7 +49,9 @@ public class OldRiposte extends Skill implements InteractSkill {
                 if (hasSkill(player, this)) {
                     if (RechargeManager.getInstance().add(player, getName(), getRecharge(getLevel(player)), true)) {
                         UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
-                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
+                        ParticleEffect.SMOKE_LARGE.display(player.getLocation().add(0, 0.25, 0).add(player.getLocation().getDirection().multiply(0.4)));
+                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.3f);
+                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.3f);
                         prepare.put(player.getName(), System.currentTimeMillis());
 
                         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
@@ -176,8 +179,9 @@ public class OldRiposte extends Skill implements InteractSkill {
     public void activate(Player player, Gamer gamer) {
         UtilMessage.message(player, getClassType(), "You have prepared " + ChatColor.GREEN + getName(getLevel(player)) + ChatColor.GRAY + ".");
         prepare.put(player.getName(), System.currentTimeMillis());
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.0f);
-
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.3f);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_IRON_GOLEM_ATTACK, 2.0f, 1.3f);
+        ParticleEffect.SMOKE_LARGE.display(player.getLocation().add(0, 0.25, 0).add(player.getLocation().getDirection().multiply(0.4)));
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
             public void run() {
                 if (prepare.containsKey(player.getName())) {

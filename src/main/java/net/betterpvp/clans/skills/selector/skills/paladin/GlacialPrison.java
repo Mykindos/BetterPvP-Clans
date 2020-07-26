@@ -110,7 +110,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
     public void activate(Player p, Gamer gamer) {
         Item item = p.getWorld().dropItem(p.getEyeLocation(), new ItemStack(Material.ICE, 1, (byte) 15));
         item.setPickupDelay(Integer.MAX_VALUE);
-        item.setVelocity(p.getLocation().getDirection().multiply(1.3));
+        item.setVelocity(p.getLocation().getDirection().multiply(1.5));
         items.add(item);
     }
 }

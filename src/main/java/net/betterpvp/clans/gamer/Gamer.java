@@ -38,6 +38,7 @@ public class Gamer implements Invitable {
     private List<RoleBuild> builds;
     private boolean loaded;
     private long lastDamaged = 0;
+    private long lastDamagedByPlayer = 0;
     private boolean safeLogged;
     private Location home;
     private boolean filter;
@@ -498,6 +499,14 @@ public class Gamer implements Invitable {
 
     public void setConnectedWithVPN(boolean connectedWithVPN) {
         this.connectedWithVPN = connectedWithVPN;
+    }
+
+    public void setLastDamagedByPlayer(long lastDamagedByPlayer) {
+        this.lastDamagedByPlayer = lastDamagedByPlayer;
+    }
+
+    public long getLastDamagedByPlayer() {
+        return lastDamagedByPlayer;
     }
 
 

@@ -1,5 +1,6 @@
 package net.betterpvp.clans.clans;
 
+import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.events.ClanRelationshipEvent;
 import net.betterpvp.clans.clans.mysql.EnemyRepository;
 import net.betterpvp.core.database.Log;
@@ -74,6 +75,8 @@ public class Dominance {
                 int pointsUntilConquer = 16 - getClan().getDominance(getSelf()).getPoints();
                 getClan().messageClan(ChatColor.GRAY + "Your clan will be conquered by " + ChatColor.RED + getSelf().getName() + ChatColor.GRAY + " if you lose "
                         + ChatColor.GREEN + pointsUntilConquer + ChatColor.GRAY + " points.", null, true);
+                getClan().messageClan(ChatColor.GRAY + "If your clan is conquered, the conquerors will have full access to your claim for "
+                        + ChatColor.GREEN + Clans.getOptions().getPillageLength() + ChatColor.GRAY + " minutes.", null, true);
             }
 
             getClan().messageClan("You lost Dominance against " + ChatColor.RED + getSelf().getName() + " "

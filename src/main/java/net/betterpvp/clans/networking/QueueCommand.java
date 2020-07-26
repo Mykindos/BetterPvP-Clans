@@ -112,6 +112,14 @@ public class QueueCommand extends Command implements Listener {
         }
     }
 
+    @EventHandler
+    public void monitorOfflineQueue(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SLOW) {
+            queue.removeIf(u -> Bukkit.getPlayer(u) == null);
+            reserved.removeIf(u -> Bukkit.getPlayer(u) == null);
+        }
+    }
+
     @Override
     public void help(Player player) {
     }

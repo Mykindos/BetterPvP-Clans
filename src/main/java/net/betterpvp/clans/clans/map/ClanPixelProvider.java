@@ -1,6 +1,7 @@
 package net.betterpvp.clans.clans.map;
 
 import io.github.bananapuncher714.cartographer.core.api.MapPixel;
+import io.github.bananapuncher714.cartographer.core.api.events.chunk.ChunkLoadedEvent;
 import io.github.bananapuncher714.cartographer.core.api.map.MapPixelProvider;
 import io.github.bananapuncher714.cartographer.core.map.Minimap;
 import io.github.bananapuncher714.cartographer.core.renderer.PlayerSetting;
@@ -9,21 +10,24 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
-import net.betterpvp.core.utility.UtilBlock;
-import net.betterpvp.core.utility.UtilFormat;
-import net.betterpvp.core.utility.UtilLocation;
-import net.betterpvp.core.utility.restoration.BlockRestoreData;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import net.betterpvp.clans.clans.events.ChunkClaimEvent;
+import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.framework.UpdateEvent;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.*;
 import java.util.List;
 
-public class ClanPixelProvider implements MapPixelProvider {
+public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelProvider {
+
+    public ClanPixelProvider(Clans instance) {
+        super(instance);
+    }
 
     @Override
     public Collection<MapPixel> getMapPixels(Player player, Minimap minimap, PlayerSetting playerSetting) {
@@ -40,28 +44,25 @@ public class ClanPixelProvider implements MapPixelProvider {
                     }
                 } else {
                     if (!(clan instanceof AdminClan)) {
-                        Chunk cChunk = UtilFormat.stringToChunk(clan.getTerritory().get(0));
+                        Chunk cChunk = stringToChunk(clan.getTerritory().get(0));
                         if (cChunk != null) {
-                            Block cBlock = cChunk.getBlock(0, playerSetting.getLocation().getBlockY(), 0);
-                            if (cBlock.getLocation().distance(playerSetting.getLocation()) > Clans.getOptions().getAdvancedMapDistance()) continue;
+                            Block cBlock = cChunk.getBlock(0, player.getLocation().getBlockY(), 0);
+                            if (cBlock.getLocation().distance(player.getLocation()) > Clans.getOptions().getAdvancedMapDistance())
+                                continue;
                         }
                     }
                 }
 
-                List<Location> outline = clan.getChunkOutlines();
-                if (clan.getChunkOutlines().isEmpty()) {
-                    for (String s : clan.getTerritory()) {
-                        Chunk chunk = UtilFormat.stringToChunk(s);
-
-                        List<Location> temp = getChunkOutline(chunk);
-                        outline.addAll(temp);
-                    }
-                }
+                List<Location> outline = new ArrayList<>(clan.getChunkOutlines());
+                if (clan.getChunkOutlines().isEmpty()) continue;
 
 
                 for (Location loc : outline) {
-                    if(!loc.getWorld().equals(player.getWorld())) continue;
-                    if (loc.distance(playerSetting.getLocation()) > Clans.getOptions().getAdvancedMapDistance()) continue;
+                    if (!loc.getWorld().equals(player.getWorld())) continue;
+                    Location locCompare = loc.clone();
+                    locCompare.setY(player.getLocation().getY());
+                    if (locCompare.distance(player.getLocation()) > Clans.getOptions().getAdvancedMapDistance())
+                        continue;
                     int[] pixelLoc = MapUtil.getLocationToPixel(playerSetting.getLocation(), loc, playerSetting.getScale(),
                             Math.toRadians(playerSetting.isRotating() ? (player.getLocation().getYaw() + 180) : 0));
                     Color color = Color.YELLOW;
@@ -100,7 +101,7 @@ public class ClanPixelProvider implements MapPixelProvider {
         return pixels;
     }
 
-    public List<Location> getChunkOutline(Chunk chunk) {
+    public static List<Location> getChunkOutline(Chunk chunk) {
         List<Location> temp = new ArrayList<>();
 
         for (int x = 0; x < 16; ++x) {
@@ -113,6 +114,66 @@ public class ClanPixelProvider implements MapPixelProvider {
 
         return temp;
 
-
     }
+
+    @EventHandler
+    public void onChunkClaim(ChunkClaimEvent e) {
+        List<Location> locs = getChunkOutline(e.getChunk());
+        for (Location loc : locs) {
+            if (!e.getClan().getChunkOutlines().contains(loc)) {
+                e.getClan().getChunkOutlines().add(loc);
+            }
+        }
+    }
+
+
+    public Chunk stringToChunk(String string) {
+        try {
+            String[] tokens = string.split("/ ");
+            World world = Bukkit.getWorld(tokens[0]);
+            if (world != null) {
+                if (world.isChunkLoaded(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]))) {
+                    Chunk chunk = world.getChunkAt(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+                    return chunk;
+                }
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @EventHandler
+    public void onUpdate(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC_30) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    for (Clan clan : ClanUtilities.getClans()) {
+
+                        for (String s : clan.getTerritory()) {
+                            try {
+                                Chunk chunk = stringToChunk(s);
+                                if (chunk != null) {
+                                    List<Location> temp = getChunkOutline(chunk);
+                                    for (Location loc : temp) {
+                                        if (!clan.getChunkOutlines().contains(loc)) {
+                                            clan.getChunkOutlines().add(loc);
+                                        }
+                                    }
+
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }.runTaskAsynchronously(getInstance());
+
+        }
+    }
+
 }

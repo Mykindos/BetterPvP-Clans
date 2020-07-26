@@ -7,48 +7,50 @@ import net.betterpvp.clans.dailies.quests.General;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NetherWartsState;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.material.NetherWarts;
 
-public class Harvest30Netherwarts extends General{
+public class Harvest30Netherwarts extends General {
 
-	public Harvest30Netherwarts(Clans i) {
-		super(i, "Harvest 20 Nether Warts",	new String[]{
-				ChatColor.GRAY + "Harvest " + ChatColor.GREEN + "20" + ChatColor.GRAY + " batches of Nether Wart.",
-		});
+    public Harvest30Netherwarts(Clans i) {
+        super(i, "Harvest 20 Nether Warts", new String[]{
+                ChatColor.GRAY + "Harvest " + ChatColor.GREEN + "20" + ChatColor.GRAY + " batches of Nether Wart.",
+        });
 
-	}
+    }
 
-	@Override
-	public int getRequiredAmount() {
-		// TODO Auto-generated method stub
-		return 20;
-	}
+    @Override
+    public int getRequiredAmount() {
+        // TODO Auto-generated method stub
+        return 20;
+    }
 
-	@EventHandler
-	public void onBreak(BlockBreakEvent e){
-		if(isActive()){
-			if(e.getBlock().getType() == Material.NETHER_WART_BLOCK){
-				NetherWarts n = (NetherWarts) e.getBlock().getState().getData();
-				if( n.getState() == NetherWartsState.RIPE){
-					Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
+    @EventHandler
+    public void onBreak(BlockBreakEvent e) {
+        if (isActive()) {
+            if (e.getBlock().getType() == Material.NETHER_WART) {
+                Ageable ageable = (Ageable) e.getBlock().getBlockData();
 
-					if(!p.isComplete()){
-						if(p instanceof GeneralProgression){
-							GeneralProgression gp = (GeneralProgression) p;
-							gp.addCurrentAmount();
+                if (ageable.getAge() == ageable.getMaximumAge()) {
+                    Progress p = getQuestProgression(e.getPlayer().getUniqueId(), getName());
 
-							if(gp.getCurrentAmount() >= gp.getRequiredAmount()){
-								gp.onComplete(e.getPlayer().getUniqueId());
-							}
-						}
-					}
+                    if (!p.isComplete()) {
+                        if (p instanceof GeneralProgression) {
+                            GeneralProgression gp = (GeneralProgression) p;
+                            gp.addCurrentAmount();
 
-				}
-			}
-		}
-	}
+                            if (gp.getCurrentAmount() >= gp.getRequiredAmount()) {
+                                gp.onComplete(e.getPlayer().getUniqueId());
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 
 
 }
