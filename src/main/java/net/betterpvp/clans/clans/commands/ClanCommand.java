@@ -59,7 +59,7 @@ public class ClanCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("[BetterPvP > Command] Invaliad command sender!");
+            sender.sendMessage("[BetterPvP > Command] Invalid command sender!");
             return true;
         }
 
