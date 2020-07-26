@@ -44,7 +44,7 @@ public class ClanCommand implements CommandExecutor {
         commands.add(new JoinCommand(i));
         commands.add(new KickCommand());
         commands.add(new LeaveCommand(i));
-        commands.add(new MapCommand());
+        commands.add(new net.betterpvp.clans.clans.commands.subcommands.MapCommand());
         commands.add(new NeutralCommand());
         commands.add(new PromoteCommand());
         commands.add(new PromoteCommand());

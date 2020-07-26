@@ -54,12 +54,12 @@ public class AllyCommand implements IClanCommand {
             return;
         }
 
-        if(clan.getMembers().size() + clan.getAlliances().size() > Clans.getOptions().getMaxClanMembers()){
+        if(ClanUtilities.getSquadCount(clan) > Clans.getOptions().getMaxClanMembers()){
             UtilMessage.message(player, "Clans", "Your Clan has too many allies.");
             return;
         }
 
-        if(target.getMembers().size() + target.getAlliances().size() >= Clans.getOptions().getMaxClanMembers()){
+        if(ClanUtilities.getSquadCount(target) >= Clans.getOptions().getMaxClanMembers()){
             UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members/allies.");
             return;
         }

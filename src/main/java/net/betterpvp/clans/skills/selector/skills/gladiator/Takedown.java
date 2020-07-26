@@ -82,7 +82,7 @@ public class Takedown extends Skill implements InteractSkill {
 
                 for (Player other : Bukkit.getOnlinePlayers()) {
                     if (other.getName().equalsIgnoreCase(p.getName())) continue;
-                    if (UtilMath.offset(p, other) < 2.0) {
+                    if (UtilMath.offset(p, other) < 2.5) {
 
                         doTakeDown(next.getKey(), other);
                         it.remove();
@@ -94,7 +94,9 @@ public class Takedown extends Skill implements InteractSkill {
 
 
                 if (UtilBlock.isGrounded(p)) {
-
+                    if (!p.hasPotionEffect(PotionEffectType.SLOW)) {
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 50, 2));
+                    }
                     if (UtilTime.elapsed(next.getValue(), 750L)) {
                         it.remove();
                         continue;
