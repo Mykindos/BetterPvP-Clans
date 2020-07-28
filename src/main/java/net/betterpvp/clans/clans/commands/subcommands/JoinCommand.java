@@ -65,12 +65,7 @@ public class JoinCommand implements IClanCommand {
                 return;
             }
 
-            if (target.getMembers().size() >= Clans.getOptions().getMaxClanMembers()) {
-                UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members.");
-                return;
-            }
-
-            if (target.getMembers().size() + target.getAlliances().size() >= Clans.getOptions().getMaxClanMembers()) {
+            if (ClanUtilities.getSquadCount(target) >= Clans.getOptions().getMaxClanMembers()) {
                 UtilMessage.message(player, "Clans", ChatColor.YELLOW + "Clan " + target.getName() + ChatColor.GRAY + " has too many members or allies");
                 return;
 

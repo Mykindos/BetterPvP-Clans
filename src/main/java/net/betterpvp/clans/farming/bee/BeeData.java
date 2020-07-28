@@ -20,7 +20,7 @@ public class BeeData {
     }
 
     public void updateHarvestTime(){
-        this.harvestTime = System.currentTimeMillis() + UtilMath.randomInt(1800000, 3600000);
+        this.harvestTime = System.currentTimeMillis() + UtilMath.randomInt(1800000, 5400000);
     }
 
     public long getHarvestTime() {

@@ -45,6 +45,12 @@ public class FishingListener extends BPVPListener<Clans> {
             "Octopus", "Marlin", "Dolphin", "Angler Fish", "Carp", "Bream",
             "Stingray", "Mackerel", "Flathead", "Bass"};
 
+    private static final EntityType[] types = new EntityType[]{EntityType.CREEPER, EntityType.ZOMBIE,
+            EntityType.WITCH, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.CAVE_SPIDER, EntityType.ILLUSIONER};
+
+    private static final EntityType[] frenzyTypes = new EntityType[]{EntityType.CREEPER, EntityType.ZOMBIE,
+            EntityType.WITCH, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.CAVE_SPIDER, EntityType.GHAST, EntityType.VEX, EntityType.ILLUSIONER};
+
     List<String> lore = new ArrayList<String>();
 
     private String randomFish() {
@@ -167,12 +173,17 @@ public class FishingListener extends BPVPListener<Clans> {
                         int mobValue = UtilMath.randomInt(100);
                         if (mobValue <= 10) {
 
-                            EntityType[] types = new EntityType[]{EntityType.CREEPER, EntityType.ZOMBIE,
-                                    EntityType.WITCH, EntityType.SILVERFISH, EntityType.SKELETON, EntityType.CAVE_SPIDER};
-                            Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(types.length - 1)]);
-                            UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
-                            UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
-                            return;
+                            if(!WEManager.isEventActive("FishingFrenzy")) {
+                                Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(types.length - 1)]);
+                                UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
+                                UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
+                                return;
+                            }else{
+                                Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(frenzyTypes.length - 1)]);
+                                UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
+                                UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
+                                return;
+                            }
                         }
 
                         int itemValue = UtilMath.randomInt(100);

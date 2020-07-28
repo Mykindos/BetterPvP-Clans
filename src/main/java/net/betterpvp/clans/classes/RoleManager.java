@@ -20,11 +20,16 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.WeakHashMap;
 
 public class RoleManager extends BPVPListener<Clans> {
 
@@ -163,6 +168,40 @@ public class RoleManager extends BPVPListener<Clans> {
                         UtilMessage.message(player, "Class", "You cannot remove your class while in combat.");
                         e.setCancelled(true);
                     }
+                }
+            }
+        }
+    }
+
+    private WeakHashMap<Player, Long> crossbowTracker = new WeakHashMap<>();
+
+    @EventHandler
+    public void onCrossbow(EntityShootBowEvent e) {
+        if (e.getEntity() instanceof Player) {
+            if (e.getBow().getType() == Material.CROSSBOW) {
+                Player player = (Player) e.getEntity();
+                if (crossbowTracker.containsKey(player)) {
+                    if (!UtilTime.elapsed(crossbowTracker.get(player), 1500)) {
+                        e.setCancelled(true);
+                        UtilMessage.message(player, "Ranger", "You can only shoot a crossbow once every " + ChatColor.GREEN + "1.5 " + ChatColor.GRAY + " seconds.");
+
+                        new BukkitRunnable(){
+                            @Override
+                            public void run(){
+                                if(player.getInventory().getItemInMainHand().getType() == Material.CROSSBOW) {
+                                    CrossbowMeta meta = (CrossbowMeta) player.getInventory().getItemInMainHand().getItemMeta();
+                                    meta.addChargedProjectile(new ItemStack(Material.ARROW, 1));
+
+                                    player.getInventory().getItemInMainHand().setItemMeta(meta);
+                                }
+                            }
+                        }.runTaskLater(getInstance(), 2);
+
+                    } else {
+                        crossbowTracker.put(player, System.currentTimeMillis());
+                    }
+                } else {
+                    crossbowTracker.put(player, System.currentTimeMillis());
                 }
             }
         }

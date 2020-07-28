@@ -83,7 +83,7 @@ public class BeeListener extends BPVPListener<Clans> {
                         pClan.getBeeData().add(bee);
                         BeeRepository.saveBeeData(pClan, bee);
                     } else {
-                        UtilMessage.message(e.getPlayer(), "Farming","Your clan can only have up to "
+                        UtilMessage.message(e.getPlayer(), "Farming", "Your clan can only have up to "
                                 + ChatColor.GREEN + (5 + (pClan.getLevel() * 5)) + ChatColor.GRAY + " beehives.");
                         e.setCancelled(true);
                     }
@@ -151,10 +151,14 @@ public class BeeListener extends BPVPListener<Clans> {
     public void updateHives(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.MIN_01) {
             for (Clan clan : ClanUtilities.getClans()) {
-                if (!clan.isOnline()) continue;
                 if (clan.getBeeData().isEmpty()) continue;
+                boolean online = clan.isOnline();
                 for (BeeData data : clan.getBeeData()) {
                     if (data.isHarvestable()) continue;
+                    if (!online) {
+                        data.updateHarvestTime();
+                        continue;
+                    }
                     if (data.getHarvestTime() <= System.currentTimeMillis()) {
                         Block hive = Bukkit.getWorld("world").getBlockAt(data.getLoc());
                         if (hive.getType() == Material.BEEHIVE) {
