@@ -99,21 +99,21 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     b.setType(Material.WHEAT);
                                     p.getInventory().removeItem(new ItemStack(Material.WHEAT_SEEDS, 1));
                                 }
-                            } else if (b.getType() == Material.NETHER_WART_BLOCK) {
+                            } else if (b.getType() == Material.NETHER_WART) {
                                 NetherWarts n = (NetherWarts) b.getState().getData();
                                 if (n.getState() == NetherWartsState.RIPE) {
                                     if (p.getInventory().firstEmpty() == -1) {
-                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.NETHER_WART_BLOCK, UtilMath.randomInt(2, 4)));
+                                        p.getWorld().dropItem(b.getLocation(), new ItemStack(Material.NETHER_WART, UtilMath.randomInt(2, 4)));
                                     } else {
-                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_WART_BLOCK, UtilMath.randomInt(2, 4))));
+                                        p.getInventory().addItem(UtilClans.updateNames(new ItemStack(Material.NETHER_WART, UtilMath.randomInt(2, 4))));
                                     }
 
                                     p.getWorld().playSound(b.getLocation(), Sound.BLOCK_CROP_BREAK, 1.f, 1.f);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 3);
 
-                                    b.setType(Material.NETHER_WART_BLOCK);
-                                    p.getInventory().removeItem(new ItemStack(Material.NETHER_WART_BLOCK, 1));
+                                    b.setType(Material.NETHER_WART);
+                                    p.getInventory().removeItem(new ItemStack(Material.NETHER_WART, 1));
                                 }
                             }else if(b.getType().name().contains("BEETROOT")){
                                 Ageable age = (Ageable) b.getBlockData();

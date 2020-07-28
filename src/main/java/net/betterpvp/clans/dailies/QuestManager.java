@@ -7,6 +7,7 @@ import net.betterpvp.clans.dailies.quests.fighting.*;
 import net.betterpvp.clans.dailies.quests.gather.*;
 import net.betterpvp.core.configs.Configs;
 import net.betterpvp.core.utility.UtilMath;
+import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -72,6 +73,7 @@ public class QuestManager {
 					loadQuests();
 					Clans.getOptions().setDailyResetTime();
 					i.getConfigManager().get(Configs.MAIN).set("Daily-Reset-Time", System.currentTimeMillis());
+					UtilMessage.broadcast("Daily", "Daily quests have been reset!");
 					
 				}
 			}

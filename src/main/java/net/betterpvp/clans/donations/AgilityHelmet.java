@@ -80,7 +80,7 @@ public class AgilityHelmet implements IDonation, Listener {
                                     Suspicion.suspicions.remove(player.getUniqueId());
                                 }
 
-                                if (Energy.use(player, "Agility Leap", 0.5F, true)) {
+                                if (Energy.use(player, "Agility Leap", 0.3F, true)) {
                                     if (!WallJump(player)) {
                                         if (RechargeManager.getInstance().add(player, "Agility Leap", 5, true)) {
                                             DoLeap(player, false);

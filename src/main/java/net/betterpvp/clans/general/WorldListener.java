@@ -1929,4 +1929,9 @@ public class WorldListener extends BPVPListener<Clans> {
             }
         }
     }
+
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent e) {
+        e.getEntity().setItemStack(UtilClans.updateNames(e.getEntity().getItemStack()));
+    }
 }
