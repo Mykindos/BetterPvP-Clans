@@ -205,7 +205,7 @@ public class Grasp extends Skill implements InteractSkill {
 
     @Override
     public double getRecharge(int level) {
-        return 25 - (level * 1.5);
+        return 30 - (level * 1.5);
     }
 
     @Override

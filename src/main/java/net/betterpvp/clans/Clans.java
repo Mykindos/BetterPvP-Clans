@@ -55,6 +55,7 @@ import net.betterpvp.clans.general.VoteListener;
 import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
+import net.betterpvp.clans.general.commands.SendAllToHubCommand;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.networking.QueueCommand;
@@ -223,6 +224,7 @@ public class Clans extends JavaPlugin implements Listener {
         CommandManager.addCommand(new HubCommand(this));
         CommandManager.addCommand(new ClanReloadCommand(this));
         CommandManager.addCommand(new SearchChestsCommand(this));
+        CommandManager.addCommand(new SendAllToHubCommand(this));
 
         if (Clans.getOptions().isHub()) {
             QueueCommand queueCommand = new QueueCommand(this);

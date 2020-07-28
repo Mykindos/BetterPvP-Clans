@@ -8,6 +8,7 @@ import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.roles.Assassin;
+import net.betterpvp.clans.classes.roles.Gladiator;
 import net.betterpvp.clans.classes.roles.Ranger;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.economy.shops.menu.TravelHubMenu;
@@ -1910,11 +1911,27 @@ public class WorldListener extends BPVPListener<Clans> {
 
 
     @EventHandler
-    public void onEndermanPickup(EntityChangeBlockEvent e){
-        if(e.getEntity() instanceof Enderman){
+    public void onEndermanPickup(EntityChangeBlockEvent e) {
+        if (e.getEntity() instanceof Enderman) {
             e.setCancelled(true);
-        }else if(e.getEntity() instanceof Silverfish){
+        } else if (e.getEntity() instanceof Silverfish) {
             e.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onGladiatorTakeDamage(CustomDamageEvent e) {
+        if (e.getDamagee() instanceof Player && e.getDamager() instanceof Player) {
+            Player pDamagee = (Player) e.getDamagee();
+            Role role = Role.getRole(pDamagee);
+            if (role != null && role instanceof Gladiator) {
+                e.setDamage(e.getDamage() * 1.1);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent e) {
+        e.getEntity().setItemStack(UtilClans.updateNames(e.getEntity().getItemStack()));
     }
 }

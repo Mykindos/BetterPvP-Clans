@@ -530,6 +530,22 @@ public class ClanUtilities {
         return true;
     }
 
+    /**
+     * @param clan
+     * @return The total amount of members in an entire alliance
+     */
+    public static int getSquadCount(Clan clan) {
+        int count = 0;
+
+        count += clan.getMembers().size();
+
+        for (Alliance alliance : clan.getAlliances()) {
+            count += alliance.getClan().getMembers().size();
+        }
+
+        return count;
+    }
+
     public static List<String> territoryToString(List<Chunk> territory) {
         List<String> chunks = new ArrayList<String>();
         for (Chunk chunk : territory) {
