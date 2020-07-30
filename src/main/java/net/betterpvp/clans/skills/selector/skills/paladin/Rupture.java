@@ -138,6 +138,11 @@ public class Rupture extends Skill implements InteractSkill {
 
                 }
 
+                if (loc.getBlock().getType().name().contains("DOOR")) {
+                    cancel();
+                    return;
+                }
+
 
                 if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
                     Block halfBlock = loc.clone().add(0, -0.5, 0).getBlock();

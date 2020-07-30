@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.Clan.DataType;
 import net.betterpvp.clans.clans.InsuranceType;
 import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
+import net.betterpvp.clans.farming.bee.BeeRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.client.ClientUtilities;
@@ -298,6 +299,12 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
                 } else if (b.isLiquid()) {
                     b.setType(Material.AIR);
+                }
+
+                if(b.getType() == Material.BEEHIVE){
+                    c.getBeeData().removeIf(h -> h.getLoc().getX() == b.getLocation().getBlockX() && h.getLoc().getY() == b.getLocation().getBlockY()
+                            && h.getLoc().getZ() == b.getLocation().getBlockZ());
+                    BeeRepository.removeBeeData(b.getLocation());
                 }
 
                 b.breakNaturally();

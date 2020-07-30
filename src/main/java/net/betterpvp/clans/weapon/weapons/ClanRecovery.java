@@ -7,6 +7,7 @@ import net.betterpvp.clans.clans.insurance.InsuranceManager;
 import net.betterpvp.clans.economy.shops.events.ShopTradeEvent;
 import net.betterpvp.clans.economy.shops.events.TradeAction;
 import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.ChatColor;
@@ -41,6 +42,7 @@ public class ClanRecovery extends Weapon {
                         if (c.getInsurance().size() > 0) {
                             InsuranceManager.startRollback(c);
                             UtilMessage.message(e.getPlayer(), "Clan Recovery", "Clan recovery has begun!");
+                            Log.write("Clans", e.getPlayer().getName() + " purchased a clan recovery!");
                         } else {
                             e.setCancelled("Your clan has not been damaged recently!");
                             return;

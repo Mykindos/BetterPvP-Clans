@@ -263,6 +263,7 @@ public class SlimeKing extends Boss {
         fullSlime = null;
         if (!getSpawn().getChunk().isLoaded()) {
             getSpawn().getChunk().load();
+            getSpawn().getChunk().setForceLoaded(true);
         }
         fullSlime = (Slime) Bukkit.getWorld("bossworld").spawnEntity(getSpawn(),
                 getEntityType());

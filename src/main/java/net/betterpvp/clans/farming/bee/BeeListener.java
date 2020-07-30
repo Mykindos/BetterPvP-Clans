@@ -26,6 +26,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityEnterBlockEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -123,6 +124,7 @@ public class BeeListener extends BPVPListener<Clans> {
             BeeRepository.removeBeeData(e.getBlock().getLocation());
         }
     }
+
 
     @EventHandler
     public void onSpawn(UpdateEvent e) {

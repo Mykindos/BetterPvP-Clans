@@ -438,7 +438,7 @@ public class WorldListener extends BPVPListener<Clans> {
         if (e.getEntity() instanceof Player) {
             final Player player = (Player) e.getEntity();
             if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                if (UtilBlock.getBlockUnder(player.getLocation()).getType() == Material.SPONGE
+                if (UtilBlock.getBlockUnder(player.getLocation()).getType().name().contains("SPONGE")
                         || UtilBlock.getBlockUnder(player.getLocation()).getType().name().contains("WOOL")) {
                     e.setCancelled(true);
                 }
@@ -1919,7 +1919,7 @@ public class WorldListener extends BPVPListener<Clans> {
         }
     }
 
-    @EventHandler
+   /* @EventHandler
     public void onGladiatorTakeDamage(CustomDamageEvent e) {
         if (e.getDamagee() instanceof Player && e.getDamager() instanceof Player) {
             Player pDamagee = (Player) e.getDamagee();
@@ -1928,7 +1928,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 e.setDamage(e.getDamage() * 1.1);
             }
         }
-    }
+    }*/
 
     @EventHandler
     public void onItemSpawn(ItemSpawnEvent e) {

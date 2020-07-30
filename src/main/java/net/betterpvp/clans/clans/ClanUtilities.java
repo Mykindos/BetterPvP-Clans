@@ -191,8 +191,8 @@ public class ClanUtilities {
         return enemyString.toString();
     }
 
-    public static List<String> getClanTooltip(Player player, Clan target) {
-        List<String> list = new ArrayList<String>();
+    public synchronized static List<String> getClanTooltip(Player player, Clan target) {
+        List<String> list = new ArrayList<>();
         Clan clan = getClan(player);
         list.add(ChatColor.RED + "[Clans] " + getRelation(clan, target).getPrimary() + target.getName() + " Information:");
         list.add(" Age: " + ChatColor.YELLOW + target.getAge());
@@ -296,6 +296,7 @@ public class ClanUtilities {
         Log.write("Clans", ChatColor.stripColor(getEnemyListDom(player, clan)));
         if (clan.getEnemies().size() > 0) {
             UtilMessage.broadcast("Clans", "Dominance on disband: " + getEnemyListDom(player, clan));
+            Log.write("Clans", "Dominance on disband: " + getEnemyListDom(player, clan));
         }
         Iterator<Dominance> iterator = clan.getEnemies().iterator();
         while (iterator.hasNext()) {
@@ -412,16 +413,14 @@ public class ClanUtilities {
 
     public static void sort() {
 
-        Collections.sort(clans, new Comparator<Clan>() {
+        clans.sort((a, b) -> b.getPoints() - a.getPoints());
 
-            @Override
-            public int compare(Clan a, Clan b) {
+    }
 
-                return b.getPoints() - a.getPoints();
-            }
-
-        });
-
+    public static List<Clan> getSortedList() {
+        List<Clan> sorted = new ArrayList<>(getClans());
+        sorted.sort((a, b) -> b.getPoints() - a.getPoints());
+        return sorted;
     }
 
     public static boolean canCast(Player p) {

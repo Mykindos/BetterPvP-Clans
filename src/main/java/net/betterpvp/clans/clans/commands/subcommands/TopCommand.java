@@ -9,17 +9,19 @@ import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 
 public class TopCommand implements IClanCommand {
 
 
     public void run(Player player, String[] args) {
         boolean showPoints = ClientUtilities.getOnlineClient(player).hasRank(Rank.ADMIN, false);
-        ClanUtilities.sort();
+        List<Clan> sorted = ClanUtilities.getSortedList();
 
         UtilMessage.message(player, ChatColor.GREEN + "Top Clans");
         for (int i = 0; i < 10; i++) {
-            Clan c = ClanUtilities.clans.get(i);
+            Clan c = sorted.get(i);
             UtilMessage.message(player, ChatColor.WHITE.toString() + (i + 1) + " - "
                     + ClanUtilities.getRelation(c, ClanUtilities.getClan(player)).getPrimary()
                     + c.getName() + " "

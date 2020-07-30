@@ -135,7 +135,7 @@ public class SkillListener extends BPVPListener<Clans> {
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block b = event.getClickedBlock();
-            if (b.getType() == Material.SPONGE) {
+            if (b.getType().name().contains("SPONGE")) {
                 // Only cancel if the sponge is below the player
                 if (b.getLocation().getY() < player.getLocation().getY()) {
                     return;
