@@ -57,6 +57,7 @@ public class InsuranceListener extends BPVPListener<Clans> {
 
                 if (i.getMaterial() == Material.IRON_BLOCK
                         || i.getMaterial() == Material.DIAMOND_BLOCK || i.getMaterial() == Material.GOLD_BLOCK
+                        || i.getMaterial() == Material.NETHERITE_BLOCK
                         || i.getMaterial() == Material.TNT || i.getMaterial() == Material.ENCHANTING_TABLE
                         || i.getMaterial() == Material.REDSTONE_BLOCK
                         || i.getMaterial() == Material.ICE

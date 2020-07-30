@@ -48,7 +48,7 @@ public class AlligatorsTooth extends Weapon implements ChannelWeapon, ILegendary
                         ChatColor.GRAY + "its owner to swim with great speed, ",
                         ChatColor.GRAY + "able to catch any prey.",
                         ""
-                }, true, 3.5);
+                }, true, 4.0);
     }
 
     @EventHandler

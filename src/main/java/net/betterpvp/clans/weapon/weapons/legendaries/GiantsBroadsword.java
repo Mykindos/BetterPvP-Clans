@@ -21,7 +21,7 @@ public class GiantsBroadsword extends Weapon implements ILegendary {
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Slow attack speed",
                         "",
                         ChatColor.GRAY + "You deal massive damage, however you ",
-                        ChatColor.GRAY + "attack slower than usual", ""}, true, 3.5);
+                        ChatColor.GRAY + "attack slower than usual", ""}, true, 4.0);
 
 
     }

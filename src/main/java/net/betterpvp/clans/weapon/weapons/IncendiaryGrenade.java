@@ -73,7 +73,7 @@ public class IncendiaryGrenade extends Weapon {
 
                 if (UtilBlock.getBlockUnder(item.getLocation()).getType() != Material.AIR) {
                     areas.put(location, System.currentTimeMillis() + 6000L);
-                    ParticleEffect.SMOKE_NORMAL.display(location);
+                    ParticleEffect.SMOKE_LARGE.display(location);
 
                     location.getWorld().playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0F, 1.0F);
                     item.remove();

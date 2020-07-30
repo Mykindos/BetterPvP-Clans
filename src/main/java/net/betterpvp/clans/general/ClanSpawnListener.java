@@ -49,6 +49,11 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
             return;
         }
 
+        if(!e.getPlayer().getWorld().getName().equals("world")){
+            UtilMessage.message(e.getPlayer(), "Spawn", "You can only teleport to spawn from the main world.");
+            return;
+        }
+
         UtilMessage.message(e.getPlayer(), "Spawn", "Teleporting to spawn in " + ChatColor.GREEN + "15 seconds, " + ChatColor.GRAY + "do not move!");
         spawns.put(e.getPlayer(), System.currentTimeMillis());
 
@@ -78,6 +83,13 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
                     continue;
                 }
 
+
+
+                if(UtilClans.hasValuables(next.getKey())){
+                    UtilMessage.message(next.getKey(), "Spawn", "You cannot teleport to spawn with valuables.");
+                    it.remove();
+                    continue;
+                }
 
                 if (UtilTime.elapsed(next.getValue(), 15000)) {
                     if (RechargeManager.getInstance().add(next.getKey(), "Spawn", 900, true, false)) {

@@ -37,7 +37,7 @@ public class DurielsScepter extends Weapon implements ILegendary {
                         ChatColor.GRAY + "This mysterious weapon is believed",
                         ChatColor.GRAY + "to call the power of the gods",
                         ChatColor.GRAY + "and strike lightning on your enemies.",
-                        ""}, true, 3.5);
+                        ""}, true, 4.0);
     }
 
     private List<LightningScytheData> chargeData = new ArrayList<>();

@@ -1,6 +1,7 @@
 package net.betterpvp.clans.skills.selector.skills.warlock;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.effects.EffectManager;
@@ -117,6 +118,12 @@ public class Wreath extends Skill implements InteractSkill {
                         }
 
                     }
+
+                    if (loc.getBlock().getType().name().contains("DOOR")) {
+                        cancel();
+                        return;
+                    }
+
                     if ((loc.clone().add(0.0D, -1.0D, 0.0D).getBlock().getType() == Material.AIR)) {
                         loc.add(0.0D, -1.0D, 0.0D);
                     }
@@ -127,6 +134,11 @@ public class Wreath extends Skill implements InteractSkill {
 
                     EvokerFangs fangs = (EvokerFangs) player.getWorld().spawnEntity(loc, EntityType.EVOKER_FANGS);
                     for (LivingEntity ent : UtilEntity.getAllInRadius(fangs.getLocation(), 1.5)) {
+                        if (ent instanceof Player) {
+                            if (!ClanUtilities.canHurt(player, (Player) ent)) {
+                                continue;
+                            }
+                        }
                         CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + (getLevel(player) / 1.5), false);
                         LogManager.addLog(ent, player, "Wreath");
                         EffectManager.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, 40, 1));

@@ -39,9 +39,9 @@ public class InsuranceRepository {
                 "  `Material` varchar(255)," +
                 "  `Data` varchar(1000)," +
                 "  `Time` bigint(100)," +
-                "  `X` double(10,2)," +
-                "  `Y` double(10,2)," +
-                "  `Z` double(10,2)" +
+                "  `X` int," +
+                "  `Y` int," +
+                "  `Z` int" +
                 ") ";
         QueryFactory.runQuery(CREATE_INSURANCE_TABLE);
     }
@@ -65,9 +65,9 @@ public class InsuranceRepository {
                         Material mat = Material.valueOf(result.getString(3));
                         String data = result.getString(4);
                         long time = result.getLong(5);
-                        double x = result.getDouble(6);
-                        double y = result.getDouble(7);
-                        double z = result.getDouble(8);
+                        int x = result.getInt(6);
+                        int y = result.getInt(7);
+                        int z = result.getInt(8);
 
                         Clan c = ClanUtilities.getClan(clan);
                         if (c != null) {
@@ -110,9 +110,9 @@ public class InsuranceRepository {
                 + i.getMaterial().name() + "', '"
                 + i.getData() + "', '"
                 + i.getTime() + "', '"
-                + i.getLocation().getX() + "', '"
-                + i.getLocation().getY() + "', '"
-                + i.getLocation().getZ() + "')";
+                + i.getLocation().getBlockX() + "', '"
+                + i.getLocation().getBlockY() + "', '"
+                + i.getLocation().getBlockZ() + "')";
         QueryFactory.runQuery(query);
     }
 
