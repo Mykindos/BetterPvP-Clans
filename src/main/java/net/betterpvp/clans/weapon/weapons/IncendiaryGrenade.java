@@ -40,7 +40,7 @@ public class IncendiaryGrenade extends Weapon {
     @EventHandler
     public void onGrenadeUse(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (player.getInventory().getItemInMainHand() == null) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.MAGMA_CREAM) return;
 
@@ -78,6 +78,14 @@ public class IncendiaryGrenade extends Weapon {
                     location.getWorld().playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1.0F, 1.0F);
                     item.remove();
                     iterator.remove();
+                    continue;
+
+                }
+
+                if (item.getTicksLived() > 500) {
+                    item.remove();
+                    iterator.remove();
+                    continue;
                 }
             }
 

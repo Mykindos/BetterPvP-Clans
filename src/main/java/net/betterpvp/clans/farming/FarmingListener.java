@@ -24,7 +24,7 @@ public class FarmingListener extends BPVPListener<Clans> {
         super(instance);
     }
 
-    @EventHandler (priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent e) {
         Block b = e.getBlock();
 
@@ -37,8 +37,8 @@ public class FarmingListener extends BPVPListener<Clans> {
         if (clan != null) {
             int bonusLevels = 4 + ((clan.getLevel() - 1) * 4);
             int minY = Clans.getOptions().getFarmingMaxY() - bonusLevels;
-            if(FarmBlocks.isSeed(b.getType())){
-                if(b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.ceil(b.getLocation().getY()) < minY){
+            if (FarmBlocks.isSeed(b.getType())) {
+                if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.ceil(b.getLocation().getY()) < minY) {
                     UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between "
                             + ChatColor.GREEN + Clans.getOptions().getFarmingMaxY() + ChatColor.GRAY + " and " + ChatColor.GREEN + minY + ChatColor.GRAY + " Y.");
                     e.setCancelled(true);
@@ -50,8 +50,7 @@ public class FarmingListener extends BPVPListener<Clans> {
     }
 
 
-
-    @EventHandler (priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onInteract(PlayerInteractEvent e) {
         if (e.getHand() == EquipmentSlot.OFF_HAND) return;
 
@@ -63,14 +62,17 @@ public class FarmingListener extends BPVPListener<Clans> {
                 }
             }
 
+            if (e.getClickedBlock().getType() != Material.FARMLAND) {
+                return;
+            }
 
             Clan clan = ClanUtilities.getClan(e.getClickedBlock().getLocation());
             if (clan != null) {
                 Block b = e.getClickedBlock();
                 int bonusLevels = 4 + ((clan.getLevel() - 1) * 4);
                 int minY = Clans.getOptions().getFarmingMaxY() - bonusLevels;
-                if(FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())){
-                    if(b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.ceil(b.getLocation().getY()) < minY){
+                if (FarmBlocks.isSeed(e.getPlayer().getInventory().getItemInMainHand().getType())) {
+                    if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.ceil(b.getLocation().getY()) < minY) {
                         UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between "
                                 + ChatColor.GREEN + Clans.getOptions().getFarmingMaxY() + ChatColor.GRAY + " and " + ChatColor.GREEN + minY + ChatColor.GRAY + " Y.");
                         e.setCancelled(true);

@@ -266,6 +266,15 @@ public class ClanUtilities {
         return null;
     }
 
+    public static Clan getClanByChunkString(String chunk) {
+        for (Clan clan : clans) {
+            if (clan.getTerritory().contains(chunk)) {
+                return clan;
+            }
+        }
+        return null;
+    }
+
     public static Clan getClan(Location location) {
         return getClan(location.getChunk());
     }

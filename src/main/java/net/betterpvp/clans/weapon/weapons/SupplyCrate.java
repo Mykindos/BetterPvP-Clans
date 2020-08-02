@@ -154,13 +154,19 @@ public class SupplyCrate extends Weapon {
                                 Chest chest = (Chest) next.getLocation().getBlock().getState();
 
                                 if (!Clans.getOptions().isLastDay()) {
-                                    int rand = UtilMath.randomInt(5);
+                                    int rand = UtilMath.randomInt(6);
                                     switch (rand) {
                                         case 5:
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_HELMET));
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_CHESTPLATE));
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_LEGGINGS));
                                             chest.getInventory().addItem(new ItemStack(Material.LEATHER_BOOTS));
+                                            break;
+                                        case 6:
+                                            chest.getInventory().addItem(new ItemStack(Material.NETHERITE_HELMET));
+                                            chest.getInventory().addItem(new ItemStack(Material.NETHERITE_CHESTPLATE));
+                                            chest.getInventory().addItem(new ItemStack(Material.NETHERITE_LEGGINGS));
+                                            chest.getInventory().addItem(new ItemStack(Material.NETHERITE_BOOTS));
                                             break;
                                         case 1:
                                             chest.getInventory().addItem(new ItemStack(Material.IRON_HELMET));

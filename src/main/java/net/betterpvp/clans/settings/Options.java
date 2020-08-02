@@ -2,6 +2,8 @@ package net.betterpvp.clans.settings;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.core.configs.Configs;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 public class Options {
 
@@ -56,6 +58,7 @@ public class Options {
     private boolean advancedMap;
     private int advancedMapDistance;
     private boolean blockingVPN;
+    private Location redSpawnLoc, blueSpawnLoc, redShopLoc, blueShopLoc;
     private Clans i;
 
 
@@ -125,6 +128,18 @@ public class Options {
         advancedMap = i.getConfigManager().get(Configs.MAIN).getBool("Clans.AdvancedMap.Enabled");
         advancedMapDistance = i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.Distance");
         blockingVPN = i.getConfigManager().get(Configs.MAIN).getBool("Network.BlockVPN");
+        redSpawnLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedSpawn.X"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedSpawn.Y"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedSpawn.Z"));
+        blueSpawnLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueSpawn.X"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueSpawn.Y"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueSpawn.Z"));
+        redShopLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedShop.X"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedShop.Y"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.RedShop.Z"));
+        blueShopLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.X"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Y"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Z"));
     }
 
     public int getMAHPort() {
@@ -352,6 +367,20 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.Distance", 100);
         i.getConfigManager().get(Configs.MAIN).check("Network.BlockVPN", true);
 
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedSpawn.X", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedSpawn.Y", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedSpawn.Z", 0);
+
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueSpawn.X", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueSpawn.Y", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueSpawn.Z", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueShop.X", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueShop.Y", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.BlueShop.Z", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.X", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Y", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Z", 0);
+
     }
 
     public String getTexturePackURL() {
@@ -417,5 +446,21 @@ public class Options {
 
     public boolean isBlockingVPN() {
         return blockingVPN;
+    }
+
+    public Location getRedSpawnLoc() {
+        return redSpawnLoc;
+    }
+
+    public Location getBlueSpawnLoc() {
+        return blueSpawnLoc;
+    }
+
+    public Location getRedShopLoc() {
+        return redShopLoc;
+    }
+
+    public Location getBlueShopLoc() {
+        return blueShopLoc;
     }
 }

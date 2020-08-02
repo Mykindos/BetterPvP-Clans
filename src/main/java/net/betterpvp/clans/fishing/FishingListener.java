@@ -15,6 +15,7 @@ import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.core.client.Client;
 import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
 import net.minecraft.server.v1_16_R1.EntityFishingHook;
@@ -151,7 +152,7 @@ public class FishingListener extends BPVPListener<Clans> {
                         item.setItemMeta(im);
 
                         int legValue = UtilMath.randomInt(7500);
-                        if (legValue >= 7499) {
+                        if (legValue >= 7498) {
                             List<ItemStack> weapons = new ArrayList<>();
                             for (Weapon w : WeaponManager.weapons) {
                                 if (w instanceof ILegendary) {
@@ -163,6 +164,7 @@ public class FishingListener extends BPVPListener<Clans> {
                             ItemStack l = items.getItemStack();
                             UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
                             UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                            Log.write("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
                             for (Player d : Bukkit.getOnlinePlayers()) {
                                 d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
                             }
@@ -179,7 +181,7 @@ public class FishingListener extends BPVPListener<Clans> {
                                 UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
                                 return;
                             }else{
-                                Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), types[UtilMath.randomInt(frenzyTypes.length - 1)]);
+                                Entity entity = player.getWorld().spawnEntity(event.getHook().getLocation(), frenzyTypes[UtilMath.randomInt(frenzyTypes.length - 1)]);
                                 UtilVelocity.velocity(entity, UtilVelocity.getTrajectory(entity, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
                                 UtilMessage.message(player, "Fishing", "You caught a " + ChatColor.GREEN + UtilFormat.cleanString(entity.getType().toString()) + ChatColor.GRAY + ".");
                                 return;
