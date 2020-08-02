@@ -6,6 +6,7 @@ import io.github.bananapuncher714.cartographer.core.api.map.WorldCursorProvider;
 import io.github.bananapuncher714.cartographer.core.map.MapViewer;
 import io.github.bananapuncher714.cartographer.core.map.Minimap;
 import io.github.bananapuncher714.cartographer.core.renderer.PlayerSetting;
+import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Alliance;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanMember;
@@ -24,6 +25,13 @@ public class ClanCursorProvider implements WorldCursorProvider {
     public Collection<WorldCursor> getCursors(Player player, Minimap minimap, PlayerSetting playerSetting) {
         Set<WorldCursor> cursors = new HashSet<>();
         cursors.add(new WorldCursor(playerSetting.getLocation(), MapCursor.Type.WHITE_POINTER));
+
+        if (playerSetting.getScale() >= 4) {
+            cursors.add(new WorldCursor(ChatColor.WHITE + "Red Spawn", Clans.getOptions().getRedSpawnLoc(), MapCursor.Type.BANNER_RED));
+            cursors.add(new WorldCursor(ChatColor.WHITE + "Red Shop", Clans.getOptions().getRedShopLoc(), MapCursor.Type.BANNER_RED));
+            cursors.add(new WorldCursor(ChatColor.WHITE + "Blue Spawn", Clans.getOptions().getBlueSpawnLoc(), MapCursor.Type.BANNER_BLUE));
+            cursors.add(new WorldCursor(ChatColor.WHITE + "Blue Shop", Clans.getOptions().getBlueShopLoc(), MapCursor.Type.BANNER_BLUE));
+        }
 
         Clan clan = ClanUtilities.getClan(player);
         if (clan != null) {

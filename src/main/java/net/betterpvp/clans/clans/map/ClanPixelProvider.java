@@ -13,8 +13,10 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.events.ChunkClaimEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -47,8 +49,10 @@ public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelPr
                         Chunk cChunk = stringToChunk(clan.getTerritory().get(0));
                         if (cChunk != null) {
                             Block cBlock = cChunk.getBlock(0, player.getLocation().getBlockY(), 0);
-                            if (cBlock.getLocation().distance(player.getLocation()) > Clans.getOptions().getAdvancedMapDistance())
-                                continue;
+                            if (cBlock.getWorld().equals(player.getWorld())) {
+                                if (cBlock.getLocation().distance(player.getLocation()) > Clans.getOptions().getAdvancedMapDistance())
+                                    continue;
+                            }
                         }
                     }
                 }
@@ -85,11 +89,18 @@ public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelPr
                         if (((AdminClan) clan).isSafe()) {
                             color = Color.WHITE;
                         } else {
-                            color = Color.ORANGE;
+                            if (clan.getName().equals("Fields") || clan.getName().equals("Lake")) {
+                                color = Color.RED;
+                            } else {
+                                color = Color.PINK;
+                            }
                         }
                     }
 
                     MapPixel pixel = new MapPixel(pixelLoc[0], pixelLoc[1], color);
+                    if(!clan.getName().equals("Outskirts")){
+                        pixel.setPriority(999);
+                    }
                     pixels.add(pixel);
                 }
 
@@ -101,13 +112,44 @@ public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelPr
         return pixels;
     }
 
-    public static List<Location> getChunkOutline(Chunk chunk) {
+    private static final BlockFace[] BLOCK_FACES = {BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST};
+
+    public static List<Location> getChunkOutline(Clan clan, Chunk chunk) {
         List<Location> temp = new ArrayList<>();
 
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 if (z == 0 || z == 15 || x == 0 || x == 15) {
-                    temp.add(chunk.getBlock(x, 0, z).getLocation());
+                    Block block = chunk.getBlock(x, 0, z);
+                    boolean add = false;
+                    try {
+                        for (BlockFace f : BLOCK_FACES) {
+                            if (add) continue;
+
+                            if (block.getWorld().isChunkLoaded((block.getLocation().getBlockX() + f.getModX()) / 16, (block.getLocation().getBlockZ() + f.getModZ()) / 16)) {
+
+
+                                Location relLoc = block.getLocation().add(f.getModX(), f.getModY(), f.getModZ());
+
+                                Clan relClan = ClanUtilities.getClanByChunkString(relLoc.getWorld().getName() + "/ "
+                                        + ((int) (Math.floor(relLoc.getX() / 16))) + "/ " + ((int) (Math.floor(relLoc.getZ() / 16))));
+                                if (relClan == null) {
+                                    add = true;
+                                } else {
+                                    if (!relClan.equals(clan)) {
+                                        add = true;
+                                    }
+                                }
+
+
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    if (add) {
+                        temp.add(block.getLocation());
+                    }
                 }
             }
         }
@@ -118,12 +160,18 @@ public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelPr
 
     @EventHandler
     public void onChunkClaim(ChunkClaimEvent e) {
-        List<Location> locs = getChunkOutline(e.getChunk());
-        for (Location loc : locs) {
-            if (!e.getClan().getChunkOutlines().contains(loc)) {
-                e.getClan().getChunkOutlines().add(loc);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                List<Location> locs = getChunkOutline(e.getClan(), e.getChunk());
+                for (Location loc : locs) {
+                    if (!e.getClan().getChunkOutlines().contains(loc)) {
+                        e.getClan().getChunkOutlines().add(loc);
+                    }
+                }
             }
-        }
+        }.runTaskAsynchronously(getInstance());
+
     }
 
 
@@ -157,7 +205,7 @@ public class ClanPixelProvider extends BPVPListener<Clans> implements MapPixelPr
                             try {
                                 Chunk chunk = stringToChunk(s);
                                 if (chunk != null) {
-                                    List<Location> temp = getChunkOutline(chunk);
+                                    List<Location> temp = getChunkOutline(clan, chunk);
                                     for (Location loc : temp) {
                                         if (!clan.getChunkOutlines().contains(loc)) {
                                             clan.getChunkOutlines().add(loc);

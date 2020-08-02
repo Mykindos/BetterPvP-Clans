@@ -16,6 +16,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
@@ -52,7 +54,7 @@ public class EnderPearl extends Weapon {
                     .playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
             EffectManager.addEffect(player, EffectType.IMMUNETOEFFECTS, 5000);
 
-            /*for (PotionEffect pot : player.getActivePotionEffects()) {
+            for (PotionEffect pot : player.getActivePotionEffects()) {
                 if (pot.getType() == PotionEffectType.SLOW
                         || pot.getType() == PotionEffectType.CONFUSION
                         || pot.getType() == PotionEffectType.POISON
@@ -65,7 +67,7 @@ public class EnderPearl extends Weapon {
             EffectManager.removeEffect(player, EffectType.SHOCK);
             EffectManager.removeEffect(player, EffectType.SILENCE);
             EffectManager.removeEffect(player, EffectType.STUN);
-            EffectManager.removeEffect(player, EffectType.VULNERABILITY);*/
+            EffectManager.removeEffect(player, EffectType.VULNERABILITY);
 
             new BukkitRunnable() {
                 @Override
