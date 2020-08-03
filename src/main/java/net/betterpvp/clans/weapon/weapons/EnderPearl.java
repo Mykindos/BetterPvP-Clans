@@ -40,7 +40,7 @@ public class EnderPearl extends Weapon {
     @EventHandler
     public void onPearlUse(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
-        if(event.getHand() == EquipmentSlot.OFF_HAND) return;
+        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK
                 || event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (player.getInventory().getItemInMainHand() == null)
@@ -50,16 +50,18 @@ public class EnderPearl extends Weapon {
             event.setCancelled(true);
             UtilMessage
                     .message(player, "Ethereal Pearl", "You removed all negative effects!");
-            player.getWorld()
-                    .playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
             EffectManager.addEffect(player, EffectType.IMMUNETOEFFECTS, 5000);
 
+            /*
             for (PotionEffect pot : player.getActivePotionEffects()) {
+                System.out.println(pot.getType().getName());
                 if (pot.getType() == PotionEffectType.SLOW
                         || pot.getType() == PotionEffectType.CONFUSION
                         || pot.getType() == PotionEffectType.POISON
                         || pot.getType() == PotionEffectType.BLINDNESS
-                        || pot.getType() == PotionEffectType.WITHER) {
+                        || pot.getType().equals("WITHER")) {
+                    System.out.println("Removed" + pot.getType().getName());
                     player.removePotionEffect(pot.getType());
                 }
             }
@@ -67,7 +69,7 @@ public class EnderPearl extends Weapon {
             EffectManager.removeEffect(player, EffectType.SHOCK);
             EffectManager.removeEffect(player, EffectType.SILENCE);
             EffectManager.removeEffect(player, EffectType.STUN);
-            EffectManager.removeEffect(player, EffectType.VULNERABILITY);
+            EffectManager.removeEffect(player, EffectType.VULNERABILITY);*/
 
             new BukkitRunnable() {
                 @Override

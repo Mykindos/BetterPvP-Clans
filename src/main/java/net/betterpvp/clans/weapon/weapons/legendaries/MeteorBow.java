@@ -20,6 +20,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,17 @@ public class MeteorBow extends Weapon implements ILegendary {
 
             }
         }
+    }
+
+    @EventHandler
+    public void updateEvent(PlayerItemDamageEvent e) {
+
+        if(e.getItem().getType() == Material.BOW) {
+            if (isThisWeapon(e.getPlayer())) {
+                e.setCancelled(true);
+            }
+        }
+
     }
 
     @Override

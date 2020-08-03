@@ -84,7 +84,8 @@ public class GlacialPrison extends Skill implements InteractSkill {
                 Item i = it.next();
                 if (i.isOnGround()) {
                     for (Location loc : UtilMath.sphere(i.getLocation(), 5, true)) {
-                        if (loc.getBlock().getType() == Material.AIR) {
+                        if (loc.getBlock().getType().name().contains("REDSTONE")) continue;
+                        if (loc.getBlock().getType() == Material.AIR || UtilBlock.airFoliage(loc.getBlock())) {
                             new BlockRestoreData(loc.getBlock(), Material.ICE, (byte) 0, 5000L);
                             loc.getBlock().setType(Material.ICE);
                         }
@@ -99,7 +100,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
 
     @Override
     public boolean usageCheck(Player p) {
-        if(UtilBlock.isInLiquid(p)){
+        if (UtilBlock.isInLiquid(p)) {
             UtilMessage.message(p, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }

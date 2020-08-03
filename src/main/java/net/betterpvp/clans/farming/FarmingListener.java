@@ -44,6 +44,11 @@ public class FarmingListener extends BPVPListener<Clans> {
                     e.setCancelled(true);
                 }
             }
+        }else{
+            if(FarmBlocks.isSeed(b.getType()) || FarmBlocks.isCultivation(b.getType())){
+                UtilMessage.message(e.getPlayer(), "Cultivation", "You cannot cultivate in the wilderness.");
+                e.setCancelled(true);
+            }
         }
 
 

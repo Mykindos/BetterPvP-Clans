@@ -326,11 +326,11 @@ public class EffectManager extends BPVPListener<Clans> {
     public void onReceiveImmuneToEffect(EffectReceiveEvent e){
         if(e.getEffect().getType() == EffectType.IMMUNETOEFFECTS){
             for (PotionEffect pot : e.getPlayer().getActivePotionEffects()) {
-                if (pot.getType() == PotionEffectType.SLOW
-                        || pot.getType() == PotionEffectType.CONFUSION
-                        || pot.getType() == PotionEffectType.POISON
-                        || pot.getType() == PotionEffectType.BLINDNESS
-                        || pot.getType() == PotionEffectType.WITHER) {
+                if (pot.getType().getName().equals("SLOW")
+                        || pot.getType().getName().equals("CONFUSION")
+                        || pot.getType().getName().equals("POISON")
+                        || pot.getType().getName().equals("BLINDNESS")
+                        || pot.getType().getName().equals("WITHER")) {
                     e.getPlayer().removePotionEffect(pot.getType());
                 }
             }
