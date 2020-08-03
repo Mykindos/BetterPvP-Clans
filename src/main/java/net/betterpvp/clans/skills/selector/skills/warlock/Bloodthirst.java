@@ -36,7 +36,7 @@ public class Bloodthirst extends Skill {
 
     @EventHandler
     public void onUpdate(UpdateEvent e) {
-        if (e.getType() == UpdateEvent.UpdateType.FAST) {
+        if (e.getType() == UpdateEvent.UpdateType.SEC) {
             for (Player warlock : Bukkit.getOnlinePlayers()) {
                 Role role = Role.getRole(warlock);
                 if (role != null && role instanceof Warlock) {
