@@ -59,7 +59,7 @@ public class Leap extends Skill implements InteractSkill {
     public boolean wallKick(Player player) {
 
 
-        if (RechargeManager.getInstance().add(player, "Wall Kick", 0.15, false)) {
+        if (RechargeManager.getInstance().add(player, "Wall Kick", 0.25, false)) {
             Vector vec = player.getLocation().getDirection();
 
             boolean xPos = true;
