@@ -45,7 +45,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
         return new String[]{
                 "Your next arrow will mark players",
                 "for death, giving them Vulnerability II",
-                "for " + ChatColor.GREEN + (7 + level) + ChatColor.GRAY + " seconds",
+                "for " + ChatColor.GREEN + (4 + level) + ChatColor.GRAY + " seconds",
                 "Causing them to take 50% additional damage",
                 "from all targets.",
                 "",
@@ -180,7 +180,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
 
                         if (hasSkill(p, this)) {
                             if (arrows.contains((Arrow) e.getProjectile())) {
-                                EffectManager.addEffect(ent, EffectType.VULNERABILITY, 2, (7 + getLevel(p)) * 1000);
+                                EffectManager.addEffect(ent, EffectType.VULNERABILITY, 2, (4 + getLevel(p)) * 1000);
                                 LogManager.addLog(ent, p, "Marked for Death");
                                 UtilMessage.message(ent, getClassType(), p.getName() + " hit you with " + ChatColor.GREEN + getName());
                                 arrows.remove((Arrow) e.getProjectile());
