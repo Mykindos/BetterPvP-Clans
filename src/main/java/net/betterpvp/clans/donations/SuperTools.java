@@ -31,7 +31,7 @@ public class SuperTools implements IDonation, Listener {
             if(e.getHand() == EquipmentSlot.OFF_HAND) return;
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
             if (gamer != null) {
-                if (!gamer.getClient().hasDonation(getName())) return;
+                if (!gamer.getClient().hasDonation(getName()) && !gamer.getClient().hasDonation("VIP")) return;
                 if (PunishManager.isBuildLocked(e.getPlayer().getUniqueId())) return;
 
                 Block block = e.getClickedBlock();

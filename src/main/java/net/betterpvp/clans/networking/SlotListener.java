@@ -34,7 +34,9 @@ public class SlotListener extends BPVPListener<Clans> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Client pClient = ClientUtilities.getOnlineClient(p);
                 if (pClient != null) {
-                    if (pClient.hasDonation("ReservedSlot") || pClient.hasRank(Rank.TRIAL_MOD, false)) {
+                    if (pClient.hasDonation("ReservedSlot")
+                            || pClient.hasDonation("VIP")
+                            || pClient.hasRank(Rank.TRIAL_MOD, false)) {
                         count++;
                     }
                 }

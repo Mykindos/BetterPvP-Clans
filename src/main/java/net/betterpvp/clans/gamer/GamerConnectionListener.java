@@ -112,7 +112,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
 
         if (Clans.getOptions().isHub()) {
             new Thread(() -> {
-                if(player != null) {
+                if (player != null) {
                     Gamer tGamer = GamerManager.getOnlineGamer(player);
                     if (UtilProxy.isUsingProxy(player)) {
                         tGamer.setConnectedWithVPN(true);
@@ -139,7 +139,9 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Client pClient = ClientUtilities.getOnlineClient(p);
                     if (pClient != null) {
-                        if (pClient.hasDonation("ReservedSlot") || pClient.hasRank(Rank.TRIAL_MOD, false)) {
+                        if (pClient.hasDonation("ReservedSlot")
+                                || pClient.hasDonation("VIP")
+                                || pClient.hasRank(Rank.TRIAL_MOD, false)) {
                             count++;
                         }
                     }
@@ -148,6 +150,7 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 if (Bukkit.getOnlinePlayers().size() > Bukkit.getServer().getMaxPlayers() + count) {
                     for (Gamer gamer : GamerManager.getOnlineGamers()) {
                         if (gamer.getClient().hasDonation("ReservedSlot")) continue;
+                        if (gamer.getClient().hasDonation("VIP")) continue;
                         if (gamer.getClient().hasRank(Rank.TRIAL_MOD, false)) continue;
                         if (UtilTime.elapsed(gamer.getLastAction(), 60000 * 15)) {
                             Player player = Bukkit.getPlayer(gamer.getUUID());
