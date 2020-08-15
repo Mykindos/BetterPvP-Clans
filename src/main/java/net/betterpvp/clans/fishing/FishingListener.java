@@ -151,7 +151,7 @@ public class FishingListener extends BPVPListener<Clans> {
                         im.setDisplayName(name);
                         item.setItemMeta(im);
 
-                        if(clan != null && c.getName().equals("Lake")) {
+                        if(clan != null && (c.getName().equals("Lake") || c.getName().equals("Fields"))) {
                             int legValue = UtilMath.randomInt(7500);
                             if (legValue >= 7498) {
                                 List<ItemStack> weapons = new ArrayList<>();
@@ -239,6 +239,10 @@ public class FishingListener extends BPVPListener<Clans> {
                                 value *= 3;
                                 tripled = true;
                             }
+                        }
+
+                        if(!(clan != null && (clan.getName().equals("Fields") || clan.getName().equals("Lake")))){
+                            value = (int) (value * 0.8);
                         }
                         item.setAmount(value / 3);
                         UtilItem.insert(player, UtilClans.updateNames(item));
