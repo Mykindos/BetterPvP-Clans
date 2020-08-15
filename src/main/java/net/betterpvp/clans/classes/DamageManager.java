@@ -8,6 +8,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
+import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
@@ -72,7 +73,6 @@ public class DamageManager extends BPVPListener<Clans> {
             }
         }
 
-
         if (hasDamageData(e.getEntity().getUniqueId().toString(), e.getCause())) {
             e.setCancelled(true);
 
@@ -107,6 +107,13 @@ public class DamageManager extends BPVPListener<Clans> {
 
         if (ShopManager.isShop((LivingEntity) e.getEntity())) {
             e.setCancelled(true);
+        }
+
+        if(e.getEntity() instanceof Sheep){
+            Sheep sheep = (Sheep) e.getEntity();
+            if(sheep.getCustomName() != null){
+                e.setCancelled(true);
+            }
         }
 
 
@@ -273,6 +280,14 @@ public class DamageManager extends BPVPListener<Clans> {
             if (hasDamageData(e.getDamagee().getUniqueId().toString(), e.getCause())) {
                 return;
 
+            }
+
+            if(e.getDamagee() instanceof Sheep){
+                Sheep sheep = (Sheep) e.getDamagee();
+                if(sheep.getCustomName() != null){
+                    e.setCancelled("Combat Log Sheep");
+                    return;
+                }
             }
 
             if (e.getCause() == DamageCause.ENTITY_ATTACK) {

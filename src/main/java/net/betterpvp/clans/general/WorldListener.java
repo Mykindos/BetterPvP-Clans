@@ -877,7 +877,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
         if (c != null) {
             if (!c.isAdministrating()) {
-                if (block.getType() == Material.OBSIDIAN || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
+                if (block.getType().name().contains("OBSIDIAN") || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
                         || block.getType() == Material.SPAWNER || block.getType() == Material.COBWEB || block.getType() == Material.BREWING_STAND
                         || block.getType() == Material.BREWING_STAND || block.getType().name().contains("_BED")) {
                     UtilMessage.message(player, "Server", "You cannot place " + ChatColor.YELLOW

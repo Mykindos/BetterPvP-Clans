@@ -63,7 +63,7 @@ public class Cyclone extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 12 - ((level - 1) * 1);
+        return 16 - ((level - 1) * 1);
     }
 
 
