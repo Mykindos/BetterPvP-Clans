@@ -72,7 +72,7 @@ public class DurielsScepter extends Weapon implements ILegendary {
     public void skill(Player p) {
 
 
-        if (RechargeManager.getInstance().add(p, getName(), 7.5, true)) {
+        if (RechargeManager.getInstance().add(p, getName(), 15, true)) {
             if (Energy.use(p, getName(), 40.0, true)) {
                 Block b = p.getTargetBlock( null, 50);
                 if (b.getType() != null) {

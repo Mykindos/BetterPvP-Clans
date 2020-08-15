@@ -10,6 +10,7 @@ import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.weapon.weapons.SupplyCrateData;
 import net.betterpvp.core.client.ClientUtilities;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilFirework;
@@ -73,6 +74,8 @@ public class KOTHManager extends BPVPListener<Clans> {
                 if(winner != null) {
                     if (!broadcasted) {
                         UtilMessage.broadcast("KOTH", ChatColor.YELLOW + "Clan " + winner.getKey().getName() + ChatColor.GRAY
+                                + " has won the KOTH with " + ChatColor.GREEN + winner.getValue() + ChatColor.GRAY + " kills!");
+                        Log.write("KOTH", ChatColor.YELLOW + "Clan " + winner.getKey().getName() + ChatColor.GRAY
                                 + " has won the KOTH with " + ChatColor.GREEN + winner.getValue() + ChatColor.GRAY + " kills!");
                         finalWinner = winner.getKey()
                                 .getName();

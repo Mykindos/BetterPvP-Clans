@@ -305,7 +305,7 @@ public class ClanUtilities {
         Log.write("Clans", ChatColor.stripColor(getEnemyListDom(player, clan)));
         if (clan.getEnemies().size() > 0) {
             UtilMessage.broadcast("Clans", "Dominance on disband: " + getEnemyListDom(player, clan));
-            Log.write("Clans", "Dominance on disband: " + getEnemyListDom(player, clan));
+            Log.write("Clans",  clan.getName() + " dominance on disband: " + ChatColor.stripColor(getEnemyListDom(player, clan)));
         }
         Iterator<Dominance> iterator = clan.getEnemies().iterator();
         while (iterator.hasNext()) {

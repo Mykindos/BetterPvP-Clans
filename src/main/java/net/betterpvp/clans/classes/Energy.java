@@ -88,7 +88,7 @@ public class Energy extends BPVPListener<Clans> {
         }
         double energy = 0.006D;
 
-        if (cur.isSprinting() || UtilBlock.isInLiquid(cur)) {
+        if (cur.isSprinting() || UtilBlock.isInLiquid(cur) || cur.isGliding()) {
             energy = 0.0008D;
         }
 

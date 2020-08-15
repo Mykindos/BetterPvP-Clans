@@ -78,10 +78,15 @@ public class Takedown extends Skill implements InteractSkill {
 
                 Entry<Player, Long> next = it.next();
                 Player p = next.getKey();
-
+                if (p.isDead()) {
+                    it.remove();
+                    continue;
+                }
 
                 for (Player other : Bukkit.getOnlinePlayers()) {
-                    if (other.getName().equalsIgnoreCase(p.getName())) continue;
+                    if (other.equals(p)) continue;
+                    if (other.isDead()) continue;
+
                     if (UtilMath.offset(p, other) < 2.5) {
 
                         doTakeDown(next.getKey(), other);

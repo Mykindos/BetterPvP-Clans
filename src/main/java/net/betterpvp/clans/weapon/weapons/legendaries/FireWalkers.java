@@ -15,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -40,7 +41,7 @@ public class FireWalkers extends Weapon implements ILegendary {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getEquipment().getBoots() != null) {
                     Weapon weapon = WeaponManager.getWeapon(p.getEquipment().getBoots());
-                    if(weapon != null) {
+                    if (weapon != null) {
                         if (weapon.equals(this)) {
                             Item fire = p.getWorld().dropItem(p.getLocation().add(0.0D, 0.5D, 0.0D), new ItemStack(Material.BLAZE_POWDER));
                             ThrowableManager.addThrowable(fire, p, getName(), 2000L);
@@ -48,6 +49,20 @@ public class FireWalkers extends Weapon implements ILegendary {
                         }
                     }
 
+                }
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void updateEvent(PlayerItemDamageEvent e) {
+
+        if (e.getItem().getType() == Material.DIAMOND_BOOTS) {
+            Weapon weapon = WeaponManager.getWeapon(e.getPlayer().getEquipment().getBoots());
+            if (weapon != null) {
+                if (weapon.equals(this)) {
+                    e.setCancelled(true);
                 }
             }
         }
