@@ -9,13 +9,18 @@ import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -68,6 +73,33 @@ public class FireWalkers extends Weapon implements ILegendary {
         }
 
     }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+
+        if (e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
+            if (e.getPlayer().getEquipment().getBoots() != null) {
+                Weapon weapon = WeaponManager.getWeapon(e.getPlayer().getEquipment().getBoots());
+                if (weapon != null) {
+                    if (weapon.equals(this)) {
+                        for (Block b : UtilBlock.getInRadius(e.getPlayer().getLocation(), 2, 2).keySet()) {
+
+                            if (b.getType() == Material.LAVA) {
+                                if (e.getPlayer().getLocation().getBlock().isLiquid()) continue;
+                                if (b.getRelative(BlockFace.UP).getType() != Material.AIR) continue;
+
+                                new BlockRestoreData(b, b.getType(), (byte) 0, 5000L);
+                                b.setType(Material.MAGMA_BLOCK);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     @EventHandler
     public void onCollide(ThrowableCollideEntityEvent e) {
