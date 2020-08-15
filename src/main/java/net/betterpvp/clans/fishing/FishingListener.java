@@ -151,25 +151,27 @@ public class FishingListener extends BPVPListener<Clans> {
                         im.setDisplayName(name);
                         item.setItemMeta(im);
 
-                        int legValue = UtilMath.randomInt(7500);
-                        if (legValue >= 7498) {
-                            List<ItemStack> weapons = new ArrayList<>();
-                            for (Weapon w : WeaponManager.weapons) {
-                                if (w instanceof ILegendary) {
-                                    weapons.add(w.createWeapon(true));
+                        if(clan != null && c.getName().equals("Lake")) {
+                            int legValue = UtilMath.randomInt(7500);
+                            if (legValue >= 7498) {
+                                List<ItemStack> weapons = new ArrayList<>();
+                                for (Weapon w : WeaponManager.weapons) {
+                                    if (w instanceof ILegendary) {
+                                        weapons.add(w.createWeapon(true));
+                                    }
+
+                                }
+                                Item items = player.getWorld().dropItem(event.getHook().getLocation(), weapons.get(UtilMath.randomInt(weapons.size())));
+                                ItemStack l = items.getItemStack();
+                                UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
+                                UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                                Log.write("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                                for (Player d : Bukkit.getOnlinePlayers()) {
+                                    d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
                                 }
 
+                                return;
                             }
-                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), weapons.get(UtilMath.randomInt(weapons.size())));
-                            ItemStack l = items.getItemStack();
-                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
-                            UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                            Log.write("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                            for (Player d : Bukkit.getOnlinePlayers()) {
-                                d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
-                            }
-
-                            return;
                         }
 
                         int mobValue = UtilMath.randomInt(100);
