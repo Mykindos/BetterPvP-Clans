@@ -29,6 +29,7 @@ import net.betterpvp.clans.crates.CrateListener;
 import net.betterpvp.clans.crates.CrateManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
+import net.betterpvp.clans.donations.cosmetics.*;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
@@ -73,6 +74,7 @@ import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.configs.ConfigManager;
 import net.betterpvp.core.database.Connect;
 import net.betterpvp.core.database.Repository;
+import net.betterpvp.core.donation.DonationManager;
 import net.betterpvp.core.framework.CoreLoadedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
@@ -226,6 +228,7 @@ public class Clans extends JavaPlugin implements Listener {
         CommandManager.addCommand(new SearchChestsCommand(this));
         CommandManager.addCommand(new SendAllToHubCommand(this));
 
+
         if (Clans.getOptions().isHub()) {
             QueueCommand queueCommand = new QueueCommand(this);
             CommandManager.addCommand(queueCommand);
@@ -237,6 +240,13 @@ public class Clans extends JavaPlugin implements Listener {
         getCommand("clan").setExecutor(new ClanCommand(this));
 
         //Cartographer.getInstance().getMapManager().remove(Cartographer.getInstance().getMapManager().getMinimaps().get("Clans"));
+
+        DonationManager.addDonation(new AssassinWings(this));
+        DonationManager.addDonation(new KnightWings(this));
+        DonationManager.addDonation(new RangerWings(this));
+        DonationManager.addDonation(new WarlockWings(this));
+        DonationManager.addDonation(new GladiatorWings(this));
+        DonationManager.addDonation(new PaladinWings(this));
 
         ClanMapSettings clanMapSettings = new ClanMapSettings(YamlConfiguration.loadConfiguration(new File("/plugins/Cartographer2/Clans-Map-Config.yml")));
         if(!Cartographer.getInstance().getMapManager().getMinimaps().containsKey("Clans")) {

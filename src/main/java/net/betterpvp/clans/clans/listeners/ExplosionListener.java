@@ -302,9 +302,11 @@ public class ExplosionListener extends BPVPListener<Clans> {
                 }
 
                 if(b.getType() == Material.BEEHIVE){
-                    c.getBeeData().removeIf(h -> h.getLoc().getX() == b.getLocation().getBlockX() && h.getLoc().getY() == b.getLocation().getBlockY()
-                            && h.getLoc().getZ() == b.getLocation().getBlockZ());
-                    BeeRepository.removeBeeData(b.getLocation());
+                    if(c != null && c.getBeeData().isEmpty()) {
+                        c.getBeeData().removeIf(h -> h.getLoc().getX() == b.getLocation().getBlockX() && h.getLoc().getY() == b.getLocation().getBlockY()
+                                && h.getLoc().getZ() == b.getLocation().getBlockZ());
+                        BeeRepository.removeBeeData(b.getLocation());
+                    }
                 }
 
                 b.breakNaturally();

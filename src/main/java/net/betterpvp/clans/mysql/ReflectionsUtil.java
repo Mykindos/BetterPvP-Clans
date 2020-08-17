@@ -1,5 +1,6 @@
 package net.betterpvp.clans.mysql;
 
+import net.betterpvp.clans.donations.cosmetics.CosmeticWings;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;
@@ -19,14 +20,11 @@ import java.util.Set;
 
 /**
  * Duplicate code due to a bug with the Reflections library & spigot.
- *
  */
 public class ReflectionsUtil {
 
     /**
-
-     * @param instance
-     * Loads all Repository objects in order of priority. Data that requires other data to be loaded first should be on high
+     * @param instance Loads all Repository objects in order of priority. Data that requires other data to be loaded first should be on high
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static List<Repository> loadRepositories(String packageName, JavaPlugin instance) {
@@ -68,7 +66,7 @@ public class ReflectionsUtil {
             try {
 
                 Bukkit.broadcastMessage(c.getName());
-                if(c.getConstructors()[0].getParameterCount() > 0){
+                if (c.getConstructors()[0].getParameterCount() > 0) {
                     System.out.println("Skipped Command (Requires arguments): " + c.getName());
                     continue;
                 }
@@ -103,6 +101,7 @@ public class ReflectionsUtil {
         for (Class<? extends IDonation> d : classes) {
             try {
                 if (Listener.class.isAssignableFrom(d)) {
+                    if (CosmeticWings.class.isAssignableFrom(d)) continue;
                     IDonation donation = d.newInstance();
                     Bukkit.getPluginManager().registerEvents((Listener) donation, instance);
                     System.out.println("Registered donation + listener");
