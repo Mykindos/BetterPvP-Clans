@@ -250,6 +250,8 @@ public class InteractListener extends BPVPListener<Clans> {
 
                     if (ClanUtilities.getRelation(clan, bClan) == ClanRelation.ALLY_TRUST && ( block.getType() == Material.IRON_DOOR
                             || block.getType() == Material.IRON_TRAPDOOR
+                            || block.getType().name().contains("GATE")
+                            || block.getType().name().contains("DOOR")
                             || block.getType().name().contains("_BUTTON")
                             || block.getType() == Material.LEVER)) {
                         return;
