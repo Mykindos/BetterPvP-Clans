@@ -886,28 +886,6 @@ public class WorldListener extends BPVPListener<Clans> {
                     return;
                 }
 
-                Clan clan = ClanUtilities.getClan(player);
-
-                if (ClanUtilities.getClan(block.getLocation()) != clan && ClanUtilities.getClan(block.getLocation()) != null) {
-                    return;
-                }
-
-                if (event.getBlock().getType() == Material.OAK_DOOR
-                        || event.getBlock().getType() == Material.ACACIA_DOOR
-                        || event.getBlock().getType() == Material.SPRUCE_DOOR
-                        || event.getBlock().getType() == Material.BIRCH_DOOR
-                        || event.getBlock().getType() == Material.JUNGLE_DOOR
-                        || event.getBlock().getType() == Material.DARK_OAK_DOOR) {
-                    event.setCancelled(true);
-                    UtilItem.remove(player, event.getBlock().getType(), 1);
-                    event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_DOOR));
-                    UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Doors" + ChatColor.GRAY + " (You can right click to open them).");
-                } else if (event.getBlock().getType().name().contains("_TRAPDOOR") && event.getBlock().getType() != Material.IRON_TRAPDOOR) {
-                    event.setCancelled(true);
-                    UtilItem.remove(player, event.getBlock().getType(), 1);
-                    event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.IRON_TRAPDOOR));
-                    UtilMessage.message(event.getPlayer(), "Game", "Please use " + ChatColor.YELLOW + "Iron Trap Doors" + ChatColor.GRAY + " (You can right click to open them).");
-                }
 
             }
         }
@@ -1025,6 +1003,14 @@ public class WorldListener extends BPVPListener<Clans> {
                 }
 
                 if (e.getRecipe().getResult().getType().name().contains("BANNER")) {
+                    return;
+                }
+
+                if(e.getRecipe().getResult().getType().name().contains("TRAPDOOR")){
+                    e.getInventory().setResult(UtilClans.updateNames(new ItemStack(Material.IRON_TRAPDOOR)));
+                    return;
+                }else if(e.getRecipe().getResult().getType().name().contains("_DOOR")){
+                    e.getInventory().setResult(UtilClans.updateNames(new ItemStack(Material.IRON_DOOR)));
                     return;
                 }
 
