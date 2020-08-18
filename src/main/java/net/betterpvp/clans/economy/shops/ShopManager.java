@@ -58,7 +58,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
 
         addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
-                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Energy");
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Energy", "Decoration");
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, 6.5, 49, -14.5),
@@ -198,6 +198,12 @@ public class ShopManager extends BPVPListener<Clans> {
                             ShopVillager ev = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
                             Villager energy = ev.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clan Energy", energy);
+
+                            break;
+                        case "decoration":
+                            ShopVillager dc = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
+                            Villager dec = dc.spawn(loc);
+                            createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Decoration", dec);
 
                             break;
                         case "boss":
