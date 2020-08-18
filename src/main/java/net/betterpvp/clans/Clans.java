@@ -247,6 +247,7 @@ public class Clans extends JavaPlugin implements Listener {
         DonationManager.addDonation(new WarlockWings(this));
         DonationManager.addDonation(new GladiatorWings(this));
         DonationManager.addDonation(new PaladinWings(this));
+        DonationManager.addDonation(new BoosterWings(this));
 
         ClanMapSettings clanMapSettings = new ClanMapSettings(YamlConfiguration.loadConfiguration(new File("/plugins/Cartographer2/Clans-Map-Config.yml")));
         if(!Cartographer.getInstance().getMapManager().getMinimaps().containsKey("Clans")) {
