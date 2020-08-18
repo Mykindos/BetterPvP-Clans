@@ -190,6 +190,10 @@ public abstract class Boss extends WorldEvent {
 
                  */
 
+                    if(killerGamer.getClient().hasDonation("VIP")){
+                        fragments = fragments * 1.5;
+                    }
+
                     killerGamer.addCoins(50000);
                     killerGamer.addFragments(fragments);
 

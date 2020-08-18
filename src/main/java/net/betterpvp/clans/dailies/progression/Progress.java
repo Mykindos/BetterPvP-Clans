@@ -39,6 +39,9 @@ public class Progress {
                     + ChatColor.GREEN + "5000 " + ChatColor.GRAY + "coins and " + ChatColor.GREEN + fragments + ChatColor.GRAY + " fragments.");
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null) {
+                if(gamer.getClient().hasDonation("VIP")){
+                    fragments = fragments * 1.5;
+                }
 				gamer.addFragments(fragments);
 				gamer.addCoins(5000);
 			}

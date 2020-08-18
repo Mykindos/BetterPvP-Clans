@@ -145,6 +145,9 @@ public class ChatListener extends BPVPListener<Clans> {
                     }
 
                     String donationRank = "";
+                    if(gamer.getClient().hasDonation("VIP")){
+                        donationRank = ChatColor.LIGHT_PURPLE.toString()  + "VIP ";
+                    }
 
 					/*
 					if(CosmeticManager.hasActiveCosmetic(p, CosmeticType.PREFIX)){
