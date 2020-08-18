@@ -350,6 +350,10 @@ public class Clans extends JavaPlugin implements Listener {
                             add += 1000;
                         }
 
+                        if(gamer.getClient().hasDonation("VIP")){
+                            frags = (int) (frags * 1.5);
+                        }
+
                         gamer.addCoins((getOptions().getOnlineReward() + add));
 
                         gamer.addFragments(frags);

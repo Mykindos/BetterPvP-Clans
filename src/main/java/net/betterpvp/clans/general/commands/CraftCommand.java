@@ -21,7 +21,8 @@ public class CraftCommand extends Command {
         Gamer gamer = GamerManager.getOnlineGamer(player);
         if (gamer != null) {
 
-            if(gamer.getClient().hasDonation("ConveniencePackage") || gamer.getClient().hasRank(Rank.ADMIN, false)) {
+            if(gamer.getClient().hasDonation("ConveniencePackage")
+                    || gamer.getClient().hasDonation("VIP") || gamer.getClient().hasRank(Rank.ADMIN, false)) {
                 player.openWorkbench(null, true);
             }else{
                 UtilMessage.message(player, "Donation", "You need to own the convenience package to use this command. " + ChatColor.GREEN + "/buy");
