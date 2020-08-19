@@ -2,6 +2,7 @@ package net.betterpvp.clans.clans.menus;
 
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.clans.menus.buttons.BuyTNTProtection;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.Buy1KEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneDayEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneHourEnergy;
@@ -10,13 +11,13 @@ import net.betterpvp.core.interfaces.Menu;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
-public class EnergyMenu extends Menu {
+public class ClanShopMenu extends Menu {
 
     private Clan clan;
 
 
-    public EnergyMenu(Player player) {
-        super(player, 9, ChatColor.GREEN + "Buy Energy", new Button[]{});
+    public ClanShopMenu(Player player) {
+        super(player, 27, ChatColor.GREEN + "Clan Shop", new Button[]{});
         this.clan = ClanUtilities.getClan(player);
         fillPage();
         construct();
@@ -29,6 +30,8 @@ public class EnergyMenu extends Menu {
             addButton(new BuyOneDayEnergy(clan));
 
             addButton(new Buy1KEnergy(clan));
+
+            addButton(new BuyTNTProtection(clan));
         }
     }
 

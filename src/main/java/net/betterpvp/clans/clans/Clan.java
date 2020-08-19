@@ -41,6 +41,7 @@ public class Clan implements Invitable {
     private int level;
     private List<BeeData> beeData;
     private List<Location> chunkOutlines;
+    private boolean instantTntProtection = false;
 
     public Clan(String name) {
         this.name = name;
@@ -393,6 +394,14 @@ public class Clan implements Invitable {
 
     public void setChunkOutlines(List<Location> list){
         this.chunkOutlines = list;
+    }
+
+    public boolean isInstantTntProtection() {
+        return instantTntProtection;
+    }
+
+    public void setInstantTntProtection(boolean instantTntProtection) {
+        this.instantTntProtection = instantTntProtection;
     }
 
     public enum DataType {
