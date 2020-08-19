@@ -114,7 +114,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
                     }
                 }else{
-                    UtilMessage.message(e.getPlayer(), "Clans", "Your clan ahs already purchased this!");
+                    UtilMessage.message(e.getPlayer(), "Clans", "Your clan has already purchased this!");
                 }
             }
 

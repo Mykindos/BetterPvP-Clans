@@ -16,7 +16,7 @@ public class ServerListener extends BPVPListener<Clans> {
     private static final String[] tips = new String[]{
             "Show your support and donate! Type " + ChatColor.GREEN + ChatColor.BOLD + "/buy",
             "Vote daily to receive a" + ChatColor.YELLOW + " voting crate " + ChatColor.GRAY + "(Win up to 50k, TNT and MORE!" + ChatColor.YELLOW + " (/vote)",
-            "Don't forget to buy clan energy! If you run out your clan will be disbanded. ('" + ChatColor.YELLOW + "/c energy" + ChatColor.GRAY + "')",
+            "Don't forget to buy clan energy! If you run out your clan will be disbanded. ('" + ChatColor.YELLOW + "/c shop" + ChatColor.GRAY + "')",
             "Not sure where fields are located? Type " + ChatColor.YELLOW + "/coords " + ChatColor.GRAY + "to find out!",
             "Want to learn more about specific features? View our collection of indepth guides! " + ChatColor.YELLOW + "https://betterpvp.net/forum/pages/Guides/",
             "You can teleport to the boss arena's by clicking on the " + ChatColor.YELLOW + "Boss Teleport NPC's" + ChatColor.GRAY + " at Fields!",
