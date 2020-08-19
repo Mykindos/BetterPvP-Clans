@@ -9,11 +9,8 @@ import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.menus.ClanMenu;
-import net.betterpvp.clans.clans.menus.EnergyMenu;
-import net.betterpvp.clans.clans.menus.buttons.ClaimButton;
-import net.betterpvp.clans.clans.menus.buttons.EnergyMenuButton;
-import net.betterpvp.clans.clans.menus.buttons.LeaveButton;
-import net.betterpvp.clans.clans.menus.buttons.MemberButton;
+import net.betterpvp.clans.clans.menus.ClanShopMenu;
+import net.betterpvp.clans.clans.menus.buttons.*;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.Buy1KEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneDayEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneHourEnergy;
@@ -43,7 +40,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
             if (e.getButton() instanceof EnergyMenuButton) {
 
-                e.getPlayer().openInventory(new EnergyMenu(e.getPlayer()).getInventory());
+                e.getPlayer().openInventory(new ClanShopMenu(e.getPlayer()).getInventory());
             }
 
 
@@ -52,7 +49,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onEnergyBuy(ButtonClickEvent e) {
-        if (e.getMenu() instanceof EnergyMenu) {
+        if (e.getMenu() instanceof ClanShopMenu) {
             int cost = 0;
             int energy = 0;
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
@@ -104,6 +101,20 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                             + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                     return;
+                }
+            }else if(e.getButton() instanceof BuyTNTProtection){
+                BuyTNTProtection buyTNTProtection = (BuyTNTProtection) e.getButton();
+
+                if(!buyTNTProtection.getClan().isInstantTntProtection()) {
+                    if (gamer.hasCoins(250_000)) {
+                        gamer.removeCoins(250_000);
+
+                        UtilMessage.message(e.getPlayer(), "Clans", "The next time everybody in your clan logs out, you will have instant TNT protection.");
+                        buyTNTProtection.getClan().setInstantTntProtection(true);
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
+                    }
+                }else{
+                    UtilMessage.message(e.getPlayer(), "Clans", "Your clan ahs already purchased this!");
                 }
             }
 

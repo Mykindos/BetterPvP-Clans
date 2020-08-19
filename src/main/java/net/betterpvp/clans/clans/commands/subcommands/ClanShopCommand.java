@@ -3,11 +3,11 @@ package net.betterpvp.clans.clans.commands.subcommands;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.commands.IClanCommand;
-import net.betterpvp.clans.clans.menus.EnergyMenu;
+import net.betterpvp.clans.clans.menus.ClanShopMenu;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.entity.Player;
 
-public class EnergyCommand implements IClanCommand {
+public class ClanShopCommand implements IClanCommand {
 
 
     @Override
@@ -19,14 +19,14 @@ public class EnergyCommand implements IClanCommand {
             return;
         }
 
-        p.openInventory(new EnergyMenu(p).getInventory());
+        p.openInventory(new ClanShopMenu(p).getInventory());
 
     }
 
     @Override
     public String getName() {
 
-        return "Energy";
+        return "Shop";
     }
 
 }

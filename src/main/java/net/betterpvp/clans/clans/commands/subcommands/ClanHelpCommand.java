@@ -19,7 +19,7 @@ public class ClanHelpCommand implements IClanCommand {
         UtilMessage.message(p, ChatColor.AQUA + "/c claim" + ChatColor.GRAY + " - Claims a chunk of land for your clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c unclaim" + ChatColor.GRAY + " - Unclaims a chunk of land for your clan");
         UtilMessage.message(p, ChatColor.AQUA + "/c sethome" + ChatColor.GRAY + " - Sets your clan home");
-        UtilMessage.message(p, ChatColor.AQUA + "/c energy" + ChatColor.GRAY + " - Buy clan energy here");
+        UtilMessage.message(p, ChatColor.AQUA + "/c shop" + ChatColor.GRAY + " - Open the clan shop");
         UtilMessage.message(p, ChatColor.AQUA + "/c stuck" + ChatColor.GRAY + " - Teleport out of neutral or ally clan territory.");
         UtilMessage.message(p, ChatColor.AQUA + "/c home" + ChatColor.GRAY + " - Teleports you to your clan home");
         UtilMessage.message(p, ChatColor.AQUA + "/c leave" + ChatColor.GRAY + " - Leaves your clan");
