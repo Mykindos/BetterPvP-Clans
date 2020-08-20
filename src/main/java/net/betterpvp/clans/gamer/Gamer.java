@@ -156,6 +156,8 @@ public class Gamer implements Invitable {
 
     public void addFragments(double amount) {
         fragments += amount;
+
+        setStatValue("Fragments earnt", getStatValue("Fragments earnt") + amount);
     }
 
     public boolean hasBattleCoins(int amount) {
@@ -183,6 +185,8 @@ public class Gamer implements Invitable {
     public void takeFragments(int amount) {
         fragments -= amount;
         GamerRepository.updateFragments(this);
+
+        setStatValue("Fragments spent", getStatValue("Fragments spent") + amount);
     }
 
 
@@ -395,7 +399,7 @@ public class Gamer implements Invitable {
 
     public void loadDefaults() {
 
-        if(!getBuilds().isEmpty()) return;
+        if (!getBuilds().isEmpty()) return;
 
         for (int d = 1; d < 5; d++) {
 

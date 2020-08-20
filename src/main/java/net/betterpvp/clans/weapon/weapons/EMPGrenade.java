@@ -8,6 +8,8 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.Throwables;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
 import net.betterpvp.clans.economy.shops.ShopManager;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
@@ -68,6 +70,11 @@ public class EMPGrenade extends Weapon {
                         item.setVelocity(player.getLocation().getDirection().multiply(1.3));
                         Throwables throwables = new Throwables(item, player, "EMP Grenade", 60_000);
                         ThrowableManager.getThrowables().add(throwables);
+
+                        Gamer gamer = GamerManager.getOnlineGamer(player);
+                        if(gamer != null){
+                            gamer.setStatValue(ChatColor.stripColor(getName()), gamer.getStatValue(ChatColor.stripColor(getName())) + 1);
+                        }
                     }
                 }
             }
