@@ -5,6 +5,8 @@ import net.betterpvp.clans.clans.AdminClan;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.economy.shops.ShopManager;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.particles.ParticleEffect;
@@ -60,6 +62,11 @@ public class GravityGrenade extends Weapon {
                         item.setPickupDelay(Integer.MAX_VALUE);
                         item.setVelocity(player.getLocation().getDirection().multiply(1.3));
                         gravity.put(item, System.currentTimeMillis());
+
+                        Gamer gamer = GamerManager.getOnlineGamer(player);
+                        if(gamer != null){
+                            gamer.setStatValue(ChatColor.stripColor(getName()), gamer.getStatValue(ChatColor.stripColor(getName())) + 1);
+                        }
                     }
                 }
             }

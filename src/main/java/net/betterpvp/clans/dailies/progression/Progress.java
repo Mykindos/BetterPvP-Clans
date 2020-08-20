@@ -44,6 +44,8 @@ public class Progress {
                 }
 				gamer.addFragments(fragments);
 				gamer.addCoins(5000);
+
+                gamer.setStatValue("Dailies completed", gamer.getStatValue("Dailies completed") + 1);
 			}
 
         }

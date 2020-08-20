@@ -6,6 +6,8 @@ import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.Throwables;
 import net.betterpvp.clans.combat.throwables.events.ThrowableCollideEntityEvent;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.utility.UtilBlock;
@@ -57,6 +59,11 @@ public class Web extends Weapon {
                         item.setPickupDelay(Integer.MAX_VALUE);
                         item.setVelocity(player.getLocation().getDirection().multiply(1.8));
                         items.add(item);
+
+                        Gamer gamer = GamerManager.getOnlineGamer(player);
+                        if(gamer != null){
+                            gamer.setStatValue(net.md_5.bungee.api.ChatColor.stripColor(getName()), gamer.getStatValue(net.md_5.bungee.api.ChatColor.stripColor(getName())) + 1);
+                        }
                     }
                 }
             }

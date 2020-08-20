@@ -8,6 +8,8 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -104,7 +106,8 @@ public class FishingListener extends BPVPListener<Clans> {
         if (Energy.use(player, "Hook", 25D, true)) {
 
 
-            Client c = ClientUtilities.getOnlineClient(player);
+            Gamer gamer = GamerManager.getOnlineGamer(player);
+            Client c = gamer.getClient();
             if (c.hasDonation("MasterFisher")) {
 
                 setBiteTime(event.getHook(), UtilMath.randomInt(100, 650));
@@ -233,6 +236,8 @@ public class FishingListener extends BPVPListener<Clans> {
                             }
                         }
 
+                        gamer.setStatValue("Fish Weight", gamer.getStatValue("Fish Weight") + value);
+                        gamer.setStatValue("Fish Reeled", gamer.getStatValue("Fish Reeled") + 1);
                         boolean tripled = false;
                         if (clan != null && (clan.getName().equalsIgnoreCase("Fields") || clan.getName().equalsIgnoreCase("Lake"))) {
                             if (WEManager.isEventActive("FishingFrenzy")) {

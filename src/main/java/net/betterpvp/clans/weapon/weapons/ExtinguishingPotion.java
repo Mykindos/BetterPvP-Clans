@@ -3,6 +3,8 @@ package net.betterpvp.clans.weapon.weapons;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.combat.throwables.events.ThrowableHitGroundEvent;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMath;
@@ -60,6 +62,11 @@ public class ExtinguishingPotion extends Weapon {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 80, 0));
                 player.getWorld().playEffect(player.getEyeLocation(), Effect.STEP_SOUND, Material.WATER);
                 player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 1.0F, 1.0F);
+            }
+
+            Gamer gamer = GamerManager.getOnlineGamer(player);
+            if(gamer != null){
+                gamer.setStatValue(ChatColor.stripColor(getName()), gamer.getStatValue(ChatColor.stripColor(getName())) + 1);
             }
 
 			/*
