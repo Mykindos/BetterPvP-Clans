@@ -379,7 +379,8 @@ public class ExplosionListener extends BPVPListener<Clans> {
         BLACKSTONE(Material.POLISHED_BLACKSTONE_BRICKS, Material.CRACKED_POLISHED_BLACKSTONE_BRICKS),
         QUARTZ(Material.QUARTZ_BRICKS, Material.CHISELED_QUARTZ_BLOCK),
         PURPUR(Material.PURPUR_BLOCK, Material.PURPUR_PILLAR),
-        ENDSTONE(Material.END_STONE_BRICKS, Material.END_STONE);
+        ENDSTONE(Material.END_STONE_BRICKS, Material.END_STONE),
+        MOSSYSTONEBRICK(Material.MOSSY_STONE_BRICKS, Material.MOSSY_COBBLESTONE);
 
 
         private Material normal, damaged;
