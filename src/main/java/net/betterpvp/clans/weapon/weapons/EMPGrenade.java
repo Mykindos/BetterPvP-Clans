@@ -86,10 +86,12 @@ public class EMPGrenade extends Weapon {
         if (e.getThrowable().getSkillName().equals("EMP Grenade")) {
             chunks.put(e.getThrowable().getItem().getLocation().getChunk(), System.currentTimeMillis() + 60_000);
 
-            Clan clan = ClanUtilities.getClan(e.getThrowable().getItem().getLocation());
-            if(clan != null){
-                clan.messageClan(ChatColor.RED + "Chunk " + ChatColor.YELLOW + UtilLocation.chunkToString(e.getThrowable().getItem().getLocation().getChunk())
-                        + ChatColor.RED + " was hit with an EMP grenade! Redstone is disabled for 60 seconds.", null, false);
+            if(e.getThrowable().getItem() != null) {
+                Clan clan = ClanUtilities.getClan(e.getThrowable().getItem().getLocation());
+                if (clan != null) {
+                    clan.messageClan(ChatColor.RED + "Chunk " + ChatColor.YELLOW + UtilLocation.chunkToString(e.getThrowable().getItem().getLocation().getChunk())
+                            + ChatColor.RED + " was hit with an EMP grenade! Redstone is disabled for 60 seconds.", null, false);
+                }
             }
 
             if (redstoneLocs.containsKey(e.getThrowable().getItem().getLocation().getChunk())) {
