@@ -24,7 +24,8 @@ public class RepairCommand extends Command {
         Gamer gamer = GamerManager.getOnlineGamer(player);
         if (gamer != null) {
 
-            if(gamer.getClient().hasDonation("ConveniencePackage") || gamer.getClient().hasRank(Rank.ADMIN, false)) {
+            if(gamer.getClient().hasDonation("ConveniencePackage")
+                    || gamer.getClient().hasDonation("VIP") || gamer.getClient().hasRank(Rank.ADMIN, false)) {
                 if (RechargeManager.getInstance().add(player, "Repair", 43200, true, false)) {
                     ItemStack hand = player.getInventory().getItemInMainHand();
                     if(hand != null){

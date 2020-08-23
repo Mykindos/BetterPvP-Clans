@@ -8,6 +8,8 @@ import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.fishing.mysql.FishRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -104,7 +106,8 @@ public class FishingListener extends BPVPListener<Clans> {
         if (Energy.use(player, "Hook", 25D, true)) {
 
 
-            Client c = ClientUtilities.getOnlineClient(player);
+            Gamer gamer = GamerManager.getOnlineGamer(player);
+            Client c = gamer.getClient();
             if (c.hasDonation("MasterFisher")) {
 
                 setBiteTime(event.getHook(), UtilMath.randomInt(100, 650));
@@ -151,25 +154,27 @@ public class FishingListener extends BPVPListener<Clans> {
                         im.setDisplayName(name);
                         item.setItemMeta(im);
 
-                        int legValue = UtilMath.randomInt(7500);
-                        if (legValue >= 7498) {
-                            List<ItemStack> weapons = new ArrayList<>();
-                            for (Weapon w : WeaponManager.weapons) {
-                                if (w instanceof ILegendary) {
-                                    weapons.add(w.createWeapon(true));
+                        if(clan != null && (c.getName().equals("Lake") || c.getName().equals("Fields"))) {
+                            int legValue = UtilMath.randomInt(5000);
+                            if (legValue >= 7498) {
+                                List<ItemStack> weapons = new ArrayList<>();
+                                for (Weapon w : WeaponManager.weapons) {
+                                    if (w instanceof ILegendary) {
+                                        weapons.add(w.createWeapon(true));
+                                    }
+
+                                }
+                                Item items = player.getWorld().dropItem(event.getHook().getLocation(), weapons.get(UtilMath.randomInt(weapons.size())));
+                                ItemStack l = items.getItemStack();
+                                UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
+                                UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                                Log.write("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
+                                for (Player d : Bukkit.getOnlinePlayers()) {
+                                    d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
                                 }
 
+                                return;
                             }
-                            Item items = player.getWorld().dropItem(event.getHook().getLocation(), weapons.get(UtilMath.randomInt(weapons.size())));
-                            ItemStack l = items.getItemStack();
-                            UtilVelocity.velocity(items, UtilVelocity.getTrajectory(items, player), 1.1D, false, 0.0D, 0.4D, 10.0D, false);
-                            UtilMessage.broadcast("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                            Log.write("Fishing", player.getName() + " caught a " + ChatColor.GREEN + l.getItemMeta().getDisplayName() + ChatColor.GRAY + ".");
-                            for (Player d : Bukkit.getOnlinePlayers()) {
-                                d.playSound(d.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1F, 1F);
-                            }
-
-                            return;
                         }
 
                         int mobValue = UtilMath.randomInt(100);
@@ -231,12 +236,18 @@ public class FishingListener extends BPVPListener<Clans> {
                             }
                         }
 
+                        gamer.setStatValue("Fish Weight", gamer.getStatValue("Fish Weight") + value);
+                        gamer.setStatValue("Fish Reeled", gamer.getStatValue("Fish Reeled") + 1);
                         boolean tripled = false;
                         if (clan != null && (clan.getName().equalsIgnoreCase("Fields") || clan.getName().equalsIgnoreCase("Lake"))) {
                             if (WEManager.isEventActive("FishingFrenzy")) {
                                 value *= 3;
                                 tripled = true;
                             }
+                        }
+
+                        if(!(clan != null && (clan.getName().equals("Fields") || clan.getName().equals("Lake")))){
+                            value = (int) (value * 0.8);
                         }
                         item.setAmount(value / 3);
                         UtilItem.insert(player, UtilClans.updateNames(item));

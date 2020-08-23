@@ -28,6 +28,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ListIterator;
 
@@ -77,6 +80,51 @@ public class ExplosionListener extends BPVPListener<Clans> {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent e) {
+        Clan clan = ClanUtilities.getClan(e.getPlayer());
+        if (clan != null) {
+            if (clan.isInstantTntProtection()) {
+                for (ClanMember member : clan.getMembers()) {
+                    if (member.getUUID().equals(e.getPlayer().getUniqueId())) continue;
+
+                    Player pMember = Bukkit.getPlayer(member.getUUID());
+                    if (pMember != null) {
+                        return;
+                    }
+                }
+
+                new BukkitRunnable(){
+                    @Override
+                    public void run(){
+                        clan.getData().put(DataType.PROTECTION, 0L);
+                    }
+                }.runTaskLater(getInstance(), 40L);
+
+            }
+        }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        Clan clan = ClanUtilities.getClan(e.getPlayer());
+        if (clan != null) {
+            if (clan.isInstantTntProtection()) {
+                for (ClanMember member : clan.getMembers()) {
+                    Player pMember = Bukkit.getPlayer(member.getUUID());
+                    if (pMember != null && !pMember.equals(e.getPlayer())) {
+                        return;
+                    }
+                }
+
+                clan.setInstantTntProtection(false);
+                UtilMessage.message(e.getPlayer(), "Clans", "You are the first clan member to log back in since buying TNT Protection.");
+                UtilMessage.message(e.getPlayer(), "Clans", "Your instant protection is no longer available. Purchase the protection again to re-activate it.");
+            }
+        }
+    }
+
+
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         Clan c = ClanUtilities.getClan(e.getPlayer());
@@ -117,8 +165,35 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         clan.setLastTnted(System.currentTimeMillis() + 300000);
 
 
+
                         if (clan.isOnline()) {
                             clan.messageClan("YOUR TERRITORY IS UNDER ATTACK!", null, true);
+
+                            if(clan.isInstantTntProtection()) {
+                                clan.setInstantTntProtection(false);
+                                clan.messageClan("Your instant TNT protection timer has reset.", null, true);
+                                new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+
+                                        if (clan != null) {
+                                            clan.setInstantTntProtection(true);
+
+                                            boolean skip = false;
+                                            for (ClanMember member : clan.getMembers()) {
+                                                if (Bukkit.getPlayer(member.getUUID()) != null) {
+                                                    skip = true;
+                                                }
+                                            }
+
+                                            if (!skip) {
+                                                clan.getData().put(Clan.DataType.PROTECTION, 0L);
+                                            }
+                                        }
+
+                                    }
+                                }.runTaskLater(getInstance(), 18000L);
+                            }
 
                             for (ClanMember member : clan.getMembers()) {
                                 if (Bukkit.getPlayer(member.getUUID()) != null) {
@@ -301,10 +376,12 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     b.setType(Material.AIR);
                 }
 
-                if(b.getType() == Material.BEEHIVE){
-                    c.getBeeData().removeIf(h -> h.getLoc().getX() == b.getLocation().getBlockX() && h.getLoc().getY() == b.getLocation().getBlockY()
-                            && h.getLoc().getZ() == b.getLocation().getBlockZ());
-                    BeeRepository.removeBeeData(b.getLocation());
+                if (b.getType() == Material.BEEHIVE) {
+                    if (c != null && c.getBeeData().isEmpty()) {
+                        c.getBeeData().removeIf(h -> h.getLoc().getX() == b.getLocation().getBlockX() && h.getLoc().getY() == b.getLocation().getBlockY()
+                                && h.getLoc().getZ() == b.getLocation().getBlockZ());
+                        BeeRepository.removeBeeData(b.getLocation());
+                    }
                 }
 
                 b.breakNaturally();
@@ -328,7 +405,9 @@ public class ExplosionListener extends BPVPListener<Clans> {
         REDSANDSTONE(Material.SMOOTH_RED_SANDSTONE, Material.RED_SANDSTONE),
         BLACKSTONE(Material.POLISHED_BLACKSTONE_BRICKS, Material.CRACKED_POLISHED_BLACKSTONE_BRICKS),
         QUARTZ(Material.QUARTZ_BRICKS, Material.CHISELED_QUARTZ_BLOCK),
-        PURPUR(Material.PURPUR_BLOCK, Material.PURPUR_PILLAR);
+        PURPUR(Material.PURPUR_BLOCK, Material.PURPUR_PILLAR),
+        ENDSTONE(Material.END_STONE_BRICKS, Material.END_STONE),
+        MOSSYSTONEBRICK(Material.MOSSY_STONE_BRICKS, Material.MOSSY_COBBLESTONE);
 
 
         private Material normal, damaged;

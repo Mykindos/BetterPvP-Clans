@@ -72,7 +72,8 @@ public class QueueCommand extends Command implements Listener {
     @EventHandler
     public void onDonate(DonationStatusEvent e) {
         if (Clans.getOptions().isHub()) {
-            if (e.getPerk().getName().equals("ReservedSlot")) {
+            if (e.getPerk().getName().equals("ReservedSlot")
+                    || e.getPerk().getName().equals("VIP")) {
                 if (!reserved.contains(e.getClient().getUUID())) {
                     reserved.add(e.getClient().getUUID());
                 }
@@ -95,7 +96,8 @@ public class QueueCommand extends Command implements Listener {
 
                     Client client = ClientUtilities.getOnlineClient(data[1]);
                     if (client != null) {
-                        if (client.hasDonation("ReservedSlot")) {
+                        if (client.hasDonation("ReservedSlot")
+                                || client.hasDonation("VIP")) {
                             if (!reserved.contains(client.getUUID())) {
                                 reserved.add(client.getUUID());
                                 return;
@@ -161,7 +163,8 @@ public class QueueCommand extends Command implements Listener {
                     }
                 }
 
-                if (client.hasDonation("ReservedSlot")) {
+                if (client.hasDonation("ReservedSlot")
+                        || client.hasDonation("VIP")) {
                     UtilMessage.message(e.getPlayer(), "Queue", "As you have a reserved slot, you skip the queue.");
                     if (!reserved.contains(e.getPlayer().getUniqueId())) {
                         reserved.add(e.getPlayer().getUniqueId());
@@ -238,7 +241,7 @@ public class QueueCommand extends Command implements Listener {
                     if (side == null) {
                         side = scoreboard.registerNewObjective("BetterPvP", "dummy", "BetterPvP");
                         side.setDisplaySlot(DisplaySlot.SIDEBAR);
-                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 1  ");
+                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 2  ");
                     }
 
 

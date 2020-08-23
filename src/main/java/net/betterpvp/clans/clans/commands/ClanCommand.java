@@ -38,7 +38,7 @@ public class ClanCommand implements CommandExecutor {
         commands.add(new DemoteCommand());
         commands.add(new DisbandCommand());
         commands.add(new EnemyCommand());
-        commands.add(new EnergyCommand());
+        commands.add(new ClanShopCommand());
         commands.add(new InviteCommand());
         commands.add(new HomeCommand(i));
         commands.add(new JoinCommand(i));

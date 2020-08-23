@@ -154,7 +154,7 @@ public class Grasp extends Skill implements InteractSkill {
                 if (!cooldownJump.get(player).contains(ed)) {
 
                     LogManager.addLog(ed, player, "Grasp");
-                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + level, false));
+                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, level, false));
                     cooldownJump.get(player).add(ed);
                 }
                 if (ent.getLocation().distance(player.getLocation()) < 3) continue;
@@ -193,7 +193,7 @@ public class Grasp extends Skill implements InteractSkill {
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level),
                 "Max range: " + ChatColor.GREEN + (10 + ((level * 10) / 2)),
-                "Damage: " + ChatColor.GREEN + (2 + level)
+                "Damage: " + ChatColor.GREEN + (1 + (level - 1))
 
         };
     }

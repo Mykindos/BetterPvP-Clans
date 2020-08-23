@@ -7,6 +7,7 @@ import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.weapon.weapons.legendaries.FireWalkers;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.*;
@@ -215,6 +216,7 @@ public class SupplyCrate extends Weapon {
  
                                     for (Weapon w : WeaponManager.weapons) {
                                         if (w instanceof ILegendary) {
+                                            if(w instanceof FireWalkers) continue;
                                             if (Math.random() > 0.50) {
                                                 chest.getInventory().addItem(w.createWeapon(true));
                                             }
