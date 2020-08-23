@@ -9,6 +9,9 @@ import net.betterpvp.clans.classes.events.CustomDeathEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilRating;
+import net.betterpvp.clans.weapon.ILegendary;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilFormat;
@@ -88,6 +91,9 @@ public class CombatManager extends BPVPListener<Clans> {
                             if (Role.getRole(p) != null) {
                                 double fragments = 2;
 
+                                if(damGamer.getClient().hasDonation("VIP")){
+                                    fragments = fragments * 1.25;
+                                }
 
                                 damGamer.addFragments(fragments);
 
@@ -144,7 +150,10 @@ public class CombatManager extends BPVPListener<Clans> {
                     Role killerRole = Role.getRole(dam);
                     if (killedRole != null) {
                         if(killerRole != null){
-                            UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
+                            Weapon weapon = WeaponManager.getWeapon(dam.getInventory().getItemInMainHand());
+                            if(weapon == null || (weapon != null && !(weapon instanceof ILegendary))) {
+                                UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
+                            }
                         }
 
 

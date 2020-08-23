@@ -165,8 +165,35 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         clan.setLastTnted(System.currentTimeMillis() + 300000);
 
 
+
                         if (clan.isOnline()) {
                             clan.messageClan("YOUR TERRITORY IS UNDER ATTACK!", null, true);
+
+                            if(clan.isInstantTntProtection()) {
+                                clan.setInstantTntProtection(false);
+                                clan.messageClan("Your instant TNT protection timer has reset.", null, true);
+                                new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+
+                                        if (clan != null) {
+                                            clan.setInstantTntProtection(true);
+
+                                            boolean skip = false;
+                                            for (ClanMember member : clan.getMembers()) {
+                                                if (Bukkit.getPlayer(member.getUUID()) != null) {
+                                                    skip = true;
+                                                }
+                                            }
+
+                                            if (!skip) {
+                                                clan.getData().put(Clan.DataType.PROTECTION, 0L);
+                                            }
+                                        }
+
+                                    }
+                                }.runTaskLater(getInstance(), 18000L);
+                            }
 
                             for (ClanMember member : clan.getMembers()) {
                                 if (Bukkit.getPlayer(member.getUUID()) != null) {
