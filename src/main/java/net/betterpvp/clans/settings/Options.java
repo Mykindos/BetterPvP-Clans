@@ -59,6 +59,7 @@ public class Options {
     private int advancedMapDistance;
     private boolean blockingVPN;
     private Location redSpawnLoc, blueSpawnLoc, redShopLoc, blueShopLoc;
+    private boolean wingsEnabled;
     private Clans i;
 
 
@@ -140,6 +141,7 @@ public class Options {
         blueShopLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.X"),
                 i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Y"),
                 i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Z"));
+        wingsEnabled = i.getConfigManager().get(Configs.MAIN).getBool("WingsEnabled");
     }
 
     public int getMAHPort() {
@@ -380,6 +382,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.X", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Y", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Z", 0);
+        i.getConfigManager().get(Configs.MAIN).check("WingsEnabled", false);
 
     }
 
@@ -462,5 +465,13 @@ public class Options {
 
     public Location getBlueShopLoc() {
         return blueShopLoc;
+    }
+
+    public boolean isWingsEnabled() {
+        return wingsEnabled;
+    }
+
+    public void setWingsEnabled(boolean wingsEnabled) {
+        this.wingsEnabled = wingsEnabled;
     }
 }

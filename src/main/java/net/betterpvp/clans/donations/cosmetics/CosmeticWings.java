@@ -203,10 +203,12 @@ public abstract class CosmeticWings implements IDonation, Listener {
     @EventHandler
     public void update(UpdateEvent e) {
         if (e.getType() == UpdateEvent.UpdateType.TICK_2) {
-            for (UUID uuid : actives) {
-                Player p = Bukkit.getPlayer(uuid);
-                if (p != null) {
-                    run(p);
+            if(Clans.getOptions().isWingsEnabled()) {
+                for (UUID uuid : actives) {
+                    Player p = Bukkit.getPlayer(uuid);
+                    if (p != null) {
+                        run(p);
+                    }
                 }
             }
         }

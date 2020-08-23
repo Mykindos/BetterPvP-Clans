@@ -241,7 +241,7 @@ public class QueueCommand extends Command implements Listener {
                     if (side == null) {
                         side = scoreboard.registerNewObjective("BetterPvP", "dummy", "BetterPvP");
                         side.setDisplaySlot(DisplaySlot.SIDEBAR);
-                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 1  ");
+                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 2  ");
                     }
 
 

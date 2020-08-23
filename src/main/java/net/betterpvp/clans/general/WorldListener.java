@@ -285,7 +285,7 @@ public class WorldListener extends BPVPListener<Clans> {
     public void blockFlint(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-            if (e.getPlayer().getItemInHand().getType() == Material.FLINT_AND_STEEL) {
+            if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.FLINT_AND_STEEL) {
                 if (e.getClickedBlock().getType() != Material.TNT && e.getClickedBlock().getType() != Material.NETHERRACK) {
                     UtilMessage.message(e.getPlayer(), "Flint and Steel", "You may not use Flint and Steel on this block type!");
                     e.setCancelled(true);
@@ -878,7 +878,7 @@ public class WorldListener extends BPVPListener<Clans> {
         if (c != null) {
             if (!c.isAdministrating()) {
                 if (block.getType().name().contains("OBSIDIAN") || block.getType() == Material.BEDROCK || block.getType() == Material.WATER_BUCKET
-                        || block.getType() == Material.SPAWNER || block.getType() == Material.COBWEB || block.getType() == Material.BREWING_STAND
+                        || block.getType() == Material.SPAWNER || block.getType() == Material.COBWEB
                         || block.getType() == Material.BREWING_STAND || block.getType().name().contains("_BED")) {
                     UtilMessage.message(player, "Server", "You cannot place " + ChatColor.YELLOW
                             + WordUtils.capitalizeFully(block.getType().toString()) + ChatColor.GRAY + ".");
@@ -1642,10 +1642,10 @@ public class WorldListener extends BPVPListener<Clans> {
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(world, 475.5, 64, 15.5, -90, 0));
+                e.getPlayer().teleport(new Location(world, 373.5, 69, 26.5, -140, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, -475.5, 72, -15.5, 90, 0));
+                e.getPlayer().teleport(new Location(world, -427.5, 66, -15.5, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
 

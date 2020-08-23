@@ -40,7 +40,7 @@ public class Progress {
             Gamer gamer = GamerManager.getOnlineGamer(player);
             if(gamer != null) {
                 if(gamer.getClient().hasDonation("VIP")){
-                    fragments = fragments * 1.5;
+                    fragments = fragments * 1.25;
                 }
 				gamer.addFragments(fragments);
 				gamer.addCoins(5000);
