@@ -11,6 +11,7 @@ import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
+import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.events.SkillEquipEvent;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
@@ -67,6 +68,15 @@ public class Recall extends Skill implements ToggleSkill {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onSkillDequip(SkillDequipEvent e) {
+        if (e.getSkill().equals(this)) {
+            if(data.containsKey(e.getPlayer())){
+                data.remove(e.getPlayer());
             }
         }
     }

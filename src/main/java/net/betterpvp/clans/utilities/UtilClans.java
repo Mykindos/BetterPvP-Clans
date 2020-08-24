@@ -145,15 +145,17 @@ public class UtilClans {
             a.setDisplayName("Agility Helmet");
         }
 
-        if (a.hasDisplayName()) {
-            if (a.getDisplayName().equalsIgnoreCase(ChatColor.stripColor("Base Fishing"))) {
-                lore.add(ChatColor.WHITE + "Allows a player to fish inside their base");
+        if(a != null) {
+            if (a.hasDisplayName()) {
+                if (a.getDisplayName().equalsIgnoreCase(ChatColor.stripColor("Base Fishing"))) {
+                    lore.add(ChatColor.WHITE + "Allows a player to fish inside their base");
+                }
+                if (!a.getDisplayName().contains("Crate")) {
+                    a.setDisplayName(ChatColor.YELLOW + ChatColor.stripColor(a.getDisplayName()));
+                }
+            } else {
+                a.setDisplayName(ChatColor.YELLOW + UtilFormat.cleanString(abc.getType().name()));
             }
-            if (!a.getDisplayName().contains("Crate")) {
-                a.setDisplayName(ChatColor.YELLOW + ChatColor.stripColor(a.getDisplayName()));
-            }
-        } else {
-            a.setDisplayName(ChatColor.YELLOW + UtilFormat.cleanString(abc.getType().name()));
         }
         a.setLore(lore);
         abc.setItemMeta(a);
