@@ -3,6 +3,8 @@ package net.betterpvp.clans.weapon.weapons;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.effects.EffectManager;
 import net.betterpvp.clans.effects.EffectType;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.core.utility.UtilItem;
 import net.betterpvp.core.utility.UtilMessage;
@@ -53,6 +55,10 @@ public class EnderPearl extends Weapon {
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EAT, 2F, 1F);
             EffectManager.addEffect(player, EffectType.IMMUNETOEFFECTS, 5000);
 
+            Gamer gamer = GamerManager.getOnlineGamer(player);
+            if(gamer != null){
+                gamer.setStatValue(ChatColor.stripColor(getName()), gamer.getStatValue(ChatColor.stripColor(getName())) + 1);
+            }
             /*
             for (PotionEffect pot : player.getActivePotionEffects()) {
                 System.out.println(pot.getType().getName());

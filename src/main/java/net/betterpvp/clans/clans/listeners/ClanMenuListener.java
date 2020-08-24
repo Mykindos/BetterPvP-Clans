@@ -9,17 +9,15 @@ import net.betterpvp.clans.clans.commands.ClanCommand;
 import net.betterpvp.clans.clans.commands.IClanCommand;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.clans.menus.ClanMenu;
-import net.betterpvp.clans.clans.menus.EnergyMenu;
-import net.betterpvp.clans.clans.menus.buttons.ClaimButton;
-import net.betterpvp.clans.clans.menus.buttons.EnergyMenuButton;
-import net.betterpvp.clans.clans.menus.buttons.LeaveButton;
-import net.betterpvp.clans.clans.menus.buttons.MemberButton;
+import net.betterpvp.clans.clans.menus.ClanShopMenu;
+import net.betterpvp.clans.clans.menus.buttons.*;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.Buy1KEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneDayEnergy;
 import net.betterpvp.clans.clans.menus.buttons.energybuttons.BuyOneHourEnergy;
 import net.betterpvp.clans.clans.mysql.ClanRepository;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.interfaces.events.ButtonClickEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -29,6 +27,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ClanMenuListener extends BPVPListener<Clans> {
 
@@ -43,7 +42,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
             if (e.getButton() instanceof EnergyMenuButton) {
 
-                e.getPlayer().openInventory(new EnergyMenu(e.getPlayer()).getInventory());
+                e.getPlayer().openInventory(new ClanShopMenu(e.getPlayer()).getInventory());
             }
 
 
@@ -52,7 +51,7 @@ public class ClanMenuListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onEnergyBuy(ButtonClickEvent e) {
-        if (e.getMenu() instanceof EnergyMenu) {
+        if (e.getMenu() instanceof ClanShopMenu) {
             int cost = 0;
             int energy = 0;
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
@@ -104,6 +103,46 @@ public class ClanMenuListener extends BPVPListener<Clans> {
                             + ChatColor.GRAY + " energy for " + ChatColor.GREEN + "$" + cost);
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1.0F, 2.0F);
                     return;
+                }
+            }else if(e.getButton() instanceof BuyTNTProtection){
+                BuyTNTProtection buyTNTProtection = (BuyTNTProtection) e.getButton();
+
+                if(!buyTNTProtection.getClan().isInstantTntProtection()) {
+                    if (gamer.hasCoins(250_000)) {
+                        gamer.removeCoins(250_000);
+                        UtilMessage.message(e.getPlayer(), "Clans", "Your instant TNT protection will be available in 15 minutes.");
+                        Log.write("Clans", e.getPlayer() + " purchased Instant TNT Protection for " + buyTNTProtection.getClan().getName());
+
+                        new BukkitRunnable(){
+                            Clan clan = buyTNTProtection.getClan();
+                            @Override
+                            public void run() {
+                                if(e.getPlayer() != null){
+                                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
+                                    UtilMessage.message(e.getPlayer(), "Clans", "The next time everybody in your clan logs out, you will have instant TNT protection.");
+                                }
+
+                                if(clan!= null) {
+                                    clan.setInstantTntProtection(true);
+
+                                    boolean skip = false;
+                                    for(ClanMember member : clan.getMembers()){
+                                        if(Bukkit.getPlayer(member.getUUID()) != null){
+                                            skip = true;
+                                        }
+                                    }
+
+                                    if(!skip){
+                                        clan.getData().put(Clan.DataType.PROTECTION, 0L);
+                                    }
+                                }
+
+                            }
+                        }.runTaskLater(getInstance(), 18000L);
+
+                    }
+                }else{
+                    UtilMessage.message(e.getPlayer(), "Clans", "Your clan has already purchased this!");
                 }
             }
 

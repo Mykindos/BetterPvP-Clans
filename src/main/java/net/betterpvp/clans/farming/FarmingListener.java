@@ -14,6 +14,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -44,8 +45,8 @@ public class FarmingListener extends BPVPListener<Clans> {
                     e.setCancelled(true);
                 }
             }
-        }else{
-            if(FarmBlocks.isSeed(b.getType()) || FarmBlocks.isCultivation(b.getType())){
+        } else {
+            if (FarmBlocks.isSeed(b.getType()) || FarmBlocks.isCultivation(b.getType())) {
                 UtilMessage.message(e.getPlayer(), "Cultivation", "You cannot cultivate in the wilderness.");
                 e.setCancelled(true);
             }
@@ -85,6 +86,20 @@ public class FarmingListener extends BPVPListener<Clans> {
                 }
             }
 
+        }
+    }
+
+    @EventHandler
+    public void onGrow(BlockGrowEvent e) {
+
+        Material type = e.getNewState().getType();
+        if (type == Material.SUGAR_CANE || type.name().contains("MELON") || type.name().contains("PUMPKIN")) {
+            Clan clan = ClanUtilities.getClan(e.getBlock().getChunk());
+            if (clan != null) {
+                if (!clan.isOnline()) {
+                    e.setCancelled(true);
+                }
+            }
         }
     }
 }

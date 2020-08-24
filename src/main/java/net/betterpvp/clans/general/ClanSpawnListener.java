@@ -11,6 +11,7 @@ import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.commands.events.SpawnTeleportEvent;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.Titles;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -55,7 +56,7 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
         }
 
         UtilMessage.message(e.getPlayer(), "Spawn", "Teleporting to spawn in " + ChatColor.GREEN + "15 seconds, " + ChatColor.GRAY + "do not move!");
-        spawns.put(e.getPlayer(), System.currentTimeMillis());
+        spawns.put(e.getPlayer(), System.currentTimeMillis() + 15000);
 
     }
 
@@ -83,7 +84,9 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
                     continue;
                 }
 
-
+                Titles.sendTitle(next.getKey(), 0, 20, 20, "", ChatColor.YELLOW + "Teleporting in " + ChatColor.GREEN +
+                        (int) (Math.max(0, UtilTime.convert((next.getValue()) - System.currentTimeMillis(), UtilTime.TimeUnit.BEST, 1)))
+                        + " " + UtilTime.getTimeUnit2(next.getValue() - System.currentTimeMillis()));
 
                 if(UtilClans.hasValuables(next.getKey())){
                     UtilMessage.message(next.getKey(), "Spawn", "You cannot teleport to spawn with valuables.");
@@ -91,8 +94,8 @@ public class ClanSpawnListener extends BPVPListener<Clans> {
                     continue;
                 }
 
-                if (UtilTime.elapsed(next.getValue(), 15000)) {
-                    if (RechargeManager.getInstance().add(next.getKey(), "Spawn", 900, true, false)) {
+                if (next.getValue() - System.currentTimeMillis() <= 0) {
+                    if (RechargeManager.getInstance().add(next.getKey(), "Spawn", 300, true, false)) {
                         next.getKey().teleport(Bukkit.getWorld("world").getSpawnLocation());
                         UtilMessage.message(next.getKey(), "Spawn", "You teleported to spawn.");
                         it.remove();

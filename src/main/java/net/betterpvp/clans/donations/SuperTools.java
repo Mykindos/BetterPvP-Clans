@@ -31,37 +31,38 @@ public class SuperTools implements IDonation, Listener {
             if(e.getHand() == EquipmentSlot.OFF_HAND) return;
             Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
             if (gamer != null) {
-                if (!gamer.getClient().hasDonation(getName())) return;
-                if (PunishManager.isBuildLocked(e.getPlayer().getUniqueId())) return;
+                if (gamer.getClient().hasDonation(getName()) || gamer.getClient().hasDonation("VIP")) {
+                    if (PunishManager.isBuildLocked(e.getPlayer().getUniqueId())) return;
 
-                Block block = e.getClickedBlock();
-                Clan blockClan = ClanUtilities.getClan(block.getChunk());
-                if (blockClan != null) {
-                    if (!blockClan.equals(ClanUtilities.getClan(e.getPlayer()))) {
-                        return;
+                    Block block = e.getClickedBlock();
+                    Clan blockClan = ClanUtilities.getClan(block.getChunk());
+                    if (blockClan != null) {
+                        if (!blockClan.equals(ClanUtilities.getClan(e.getPlayer()))) {
+                            return;
+                        }
                     }
+
+                    Material mat = block.getType();
+                    ItemStack hand = e.getPlayer().getEquipment().getItemInMainHand();
+                    if (hand == null) return;
+                    if (hand.getType() == Material.DIAMOND_AXE) {
+                        if (mat.name().contains("WOOD") || mat.name().contains("_LOG") || mat == Material.MELON || mat == Material.PUMPKIN) {
+                            superTool(gamer, e.getPlayer(), block);
+                        }
+                    } else if (hand.getType() == Material.DIAMOND_PICKAXE) {
+                        if ((mat.name().contains("STONE") && mat != Material.GLOWSTONE) || mat.name().contains("_ORE") || mat.name().contains("BRICK")
+                                || mat.name().contains("COAL") || mat == Material.ANDESITE || mat == Material.GRANITE || mat == Material.DIORITE
+                                || mat.name().contains("PURPUR_")) {
+                            superTool(gamer, e.getPlayer(), block);
+                        }
+                    } else if (hand.getType() == Material.DIAMOND_SHOVEL) {
+                        if (mat.name().contains("GRASS") || mat.name().contains("DIRT") || mat == Material.SAND || mat == Material.GRAVEL
+                                || mat == Material.SOUL_SAND || mat == Material.FARMLAND) {
+                            superTool(gamer, e.getPlayer(), block);
+                        }
+                    }
+
                 }
-
-                Material mat = block.getType();
-                ItemStack hand = e.getPlayer().getEquipment().getItemInMainHand();
-                if (hand == null) return;
-                if (hand.getType() == Material.DIAMOND_AXE) {
-                    if (mat.name().contains("WOOD") || mat.name().contains("_LOG") || mat == Material.MELON || mat == Material.PUMPKIN) {
-                        superTool(gamer, e.getPlayer(), block);
-                    }
-                } else if (hand.getType() == Material.DIAMOND_PICKAXE) {
-                    if ((mat.name().contains("STONE") && mat != Material.GLOWSTONE) || mat.name().contains("_ORE") || mat.name().contains("BRICK")
-                            || mat.name().contains("COAL") || mat == Material.ANDESITE || mat == Material.GRANITE || mat == Material.DIORITE
-                            || mat.name().contains("PURPUR_")) {
-                        superTool(gamer, e.getPlayer(), block);
-                    }
-                } else if (hand.getType() == Material.DIAMOND_SHOVEL) {
-                    if (mat.name().contains("GRASS") || mat.name().contains("DIRT") || mat == Material.SAND || mat == Material.GRAVEL
-                            || mat == Material.SOUL_SAND || mat == Material.FARMLAND){
-                        superTool(gamer, e.getPlayer(), block);
-                    }
-                }
-
             }
         }
     }
@@ -77,9 +78,14 @@ public class SuperTools implements IDonation, Listener {
             }
 
             hand.setDurability(dura);
-            Clans.getCoreProtect().logRemoval(player.getName(), block.getLocation(), block.getType(), (byte) 0);
+
             block.breakNaturally();
             gamer.setStatValue("BlocksBroken", gamer.getStatValue("BlocksBroken") + 1);
+            try {
+                Clans.getCoreProtect().logRemoval(player.getName(), block.getLocation(), block.getType(), (byte) 0);
+            }catch(Exception ex){
+
+            }
         }
     }
 

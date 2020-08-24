@@ -241,7 +241,7 @@ public class ShopListener extends BPVPListener<Clans> {
                                     + item.getItemName() + ChatColor.GRAY + " for "
                                     + ChatColor.GREEN + "$" + UtilFormat.formatNumber(cost));
 
-                            Log.write("Shop", p.getName() + " " + "sold " + +amount + " " + item.getItemName() +
+                            Log.write("Shop", p.getName() + " sold " + +amount + " " + item.getItemName() +
                                     " for " + "$" + UtilFormat.formatNumber((int) cost));
 
                             return;

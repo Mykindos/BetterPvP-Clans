@@ -233,6 +233,7 @@ public class DamageManager extends BPVPListener<Clans> {
                 if (gamer != null) {
                     gamer.setLastDamaged(System.currentTimeMillis());
                     gamer.setLastDamagedByPlayer(System.currentTimeMillis());
+                    gamer.setStatValue("Damage dealt", gamer.getStatValue("Damage dealt") + e.getDamage());
                 }
 
 
