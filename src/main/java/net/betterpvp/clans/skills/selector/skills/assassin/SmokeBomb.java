@@ -235,7 +235,7 @@ public class SmokeBomb extends Skill implements ToggleSkill {
 
             p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
             EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
-            smoked.put(p, (3 + getLevel(p)) * 2);
+            smoked.put(p, (3 + getLevel(p)));
             //timer.put(p, System.currentTimeMillis());
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.hidePlayer(p);
