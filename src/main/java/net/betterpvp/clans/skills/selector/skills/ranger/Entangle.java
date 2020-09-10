@@ -26,7 +26,7 @@ public class Entangle extends Skill {
     public String[] getDescription(int level) {
 
         return new String[]{"Your arrows apply Slowness 2",
-                "to any damageable target for " + ChatColor.GREEN + (level * 0.5) + ChatColor.GRAY + " seconds"};
+                "to any damageable target for " + ChatColor.GREEN + (2 + (level * 0.5)) + ChatColor.GRAY + " seconds"};
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Entangle extends Skill {
 
                         LogManager.addLog(ent, p, "Entangle");
 
-                        ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 0.5) * 20), 1));
+                        ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((2 +(getLevel(p) * 0.5)) * 20), 1));
                     }
                 }
 

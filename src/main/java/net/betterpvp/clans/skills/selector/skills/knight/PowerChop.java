@@ -37,7 +37,7 @@ public class PowerChop extends Skill implements InteractSkill {
         return new String[]{
                 "Put more strength into your",
                 "next axe attack, causing it",
-                "to deal " + ChatColor.GREEN + (Math.max(1, (level))) + ChatColor.GRAY + " bonus damage.",
+                "to deal " + ChatColor.GREEN + (Math.max(1, (level + 2))) + ChatColor.GRAY + " bonus damage.",
                 "",
                 "Attack must be made within",
                 "0.5 seconds of being used.",
@@ -81,7 +81,7 @@ public class PowerChop extends Skill implements InteractSkill {
                                 }
                             }
                             LogManager.addLog(e.getDamagee(), p, "Power Chop");
-                            e.setDamage(e.getDamage() + ((Math.max(0.75, getLevel(p)) * 0.75)));
+                            e.setDamage(e.getDamage() + ((Math.max(0.75, (getLevel(p) + 2)) * 0.75)));
                             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_IRON_GOLEM_HURT, 1.0F, 1.0F);
                             charge.remove(p);
                         }
