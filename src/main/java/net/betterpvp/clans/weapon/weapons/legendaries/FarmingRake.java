@@ -2,6 +2,8 @@ package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -57,6 +59,7 @@ public class FarmingRake extends Weapon implements ILegendary {
 
         if (RechargeManager.getInstance().add(p, getName(), 1.0, true)) {
             if (Energy.use(p, getName(), 25.0, true)) {
+                int total = 0;
                 for (int x = -5; x < 5; x++) {
                     for (int z = -5; z < 5; z++) {
                         Location loc = new Location(p.getWorld(), p.getLocation().getX() + x, p.getLocation().getY() + 0.1, p.getLocation().getZ() + z);
@@ -74,6 +77,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.POTATOES);
                                     b.setType(Material.POTATOES);
                                     p.getInventory().removeItem(new ItemStack(Material.POTATO, 1));
+                                    total++;
                                 }
                             } else if (b.getType() == Material.CARROTS) {
                                 if (b.getData() == CropState.RIPE.getData()) {
@@ -87,6 +91,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.CARROTS);
                                     b.setType(Material.CARROTS);
                                     p.getInventory().removeItem(new ItemStack(Material.CARROT, 1));
+                                    total++;
                                 }
 
                             } else if (b.getType() == Material.WHEAT) {
@@ -98,6 +103,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.WHEAT);
                                     b.setType(Material.WHEAT);
                                     p.getInventory().removeItem(new ItemStack(Material.WHEAT_SEEDS, 1));
+                                    total++;
                                 }
                             } else if (b.getType() == Material.NETHER_WART) {
                                 NetherWarts n = (NetherWarts) b.getState().getData();
@@ -114,6 +120,7 @@ public class FarmingRake extends Weapon implements ILegendary {
 
                                     b.setType(Material.NETHER_WART);
                                     p.getInventory().removeItem(new ItemStack(Material.NETHER_WART, 1));
+                                    total++;
                                 }
                             }else if(b.getType().name().contains("BEETROOT")){
                                 Ageable age = (Ageable) b.getBlockData();
@@ -129,6 +136,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     b.setType(Material.BEETROOTS);
                                     UtilItem.remove(p, Material.BEETROOT_SEEDS, 1);
                                    // p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
+                                    total++;
                                 }
                             }else if(b.getType() == Material.SWEET_BERRY_BUSH){
 
@@ -142,6 +150,7 @@ public class FarmingRake extends Weapon implements ILegendary {
                                     p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.SWEET_BERRY_BUSH);
                                     age.setAge(1);
                                     b.setBlockData(age);
+                                    total++;
                                     //b.setType(Material.SWEET_BERRY_BUSH);
                                     //p.getInventory().removeItem(new ItemStack(Material.BEETROOT_SEEDS, 1));
                                 }
@@ -149,6 +158,10 @@ public class FarmingRake extends Weapon implements ILegendary {
 
                         }
                     }
+                }
+                Gamer gamer = GamerManager.getOnlineGamer(p);
+                if(gamer != null){
+                    gamer.setStatValue("Crops Raked", gamer.getStatValue("Crops Raked") + total);
                 }
 
             }

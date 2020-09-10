@@ -11,6 +11,7 @@ import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -179,7 +180,7 @@ public class MoltenBlast extends Skill implements InteractSkill {
 		 */
 
 
-        if (player.getLocation().getBlock().getType() == Material.WATER) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }

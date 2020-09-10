@@ -39,7 +39,7 @@ public class FarmingListener extends BPVPListener<Clans> {
             int bonusLevels = 4 + ((clan.getLevel() - 1) * 4);
             int minY = Clans.getOptions().getFarmingMaxY() - bonusLevels;
             if (FarmBlocks.isSeed(b.getType())) {
-                if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.ceil(b.getLocation().getY()) < minY) {
+                if (b.getLocation().getY() > Clans.getOptions().getFarmingMaxY() || Math.floor(b.getLocation().getY()) < minY) {
                     UtilMessage.message(e.getPlayer(), "Farming", "You can only cultivate between "
                             + ChatColor.GREEN + Clans.getOptions().getFarmingMaxY() + ChatColor.GRAY + " and " + ChatColor.GREEN + minY + ChatColor.GRAY + " Y.");
                     e.setCancelled(true);

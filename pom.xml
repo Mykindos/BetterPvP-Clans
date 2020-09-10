@@ -64,7 +64,7 @@
 
                         </excludes>
                     </artifactSet>
-                    <outputFile>F:\BetterPvP\Output\BetterPvP-Clans.jar</outputFile>
+                    <outputFile>C:\F\BetterPvP\Output\BetterPvP-Clans.jar</outputFile>
 
                 </configuration>
             </plugin>
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>CoreProtect</groupId>
             <artifactId>CoreProtect</artifactId>
-            <version>2.13.1</version>
+            <version>2.17.5</version>
         </dependency>
 
 
@@ -137,10 +137,9 @@
             <version>4.4.0</version>
         </dependency>
 
-        <!--Bukkit API-->
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
             <version>1.16.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -160,11 +159,11 @@
 
         </dependency>
         <dependency>
-        <groupId>me.mykindos</groupId>
-        <artifactId>MAH</artifactId>
-        <version>1.16</version>
+            <groupId>me.mykindos</groupId>
+            <artifactId>MAH</artifactId>
+            <version>1.16</version>
 
-    </dependency>
+        </dependency>
 
         <dependency>
             <groupId>me.mykindos</groupId>

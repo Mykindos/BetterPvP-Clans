@@ -195,7 +195,7 @@ public class SeismicSlam extends Skill implements InteractSkill {
             }
         }
 
-        if (player.getLocation().getBlock().getType() == Material.WATER) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }

@@ -8,6 +8,9 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.selector.RoleBuild;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
+import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.Weapon;
+import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -72,6 +75,12 @@ public class RoleManager extends BPVPListener<Clans> {
             }
 
             player.getInventory().setItemInOffHand(null);
+            Weapon weapon = WeaponManager.getWeapon(event.getPlayer().getInventory().getItemInMainHand());
+            if(weapon != null){
+                if(UtilClans.isUsableWithShield(weapon.createWeapon())){
+                    player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                }
+            }
         } else {
 
             for (PotionEffect effect : player.getActivePotionEffects()) {
@@ -104,6 +113,13 @@ public class RoleManager extends BPVPListener<Clans> {
                     }
                 }
 
+            }
+
+            Weapon weapon = WeaponManager.getWeapon(event.getPlayer().getInventory().getItemInMainHand());
+            if(weapon != null){
+                if(UtilClans.isUsableWithShield(weapon.createWeapon())){
+                    player.getInventory().setItemInOffHand(new ItemStack(Material.SHIELD));
+                }
             }
 
         }

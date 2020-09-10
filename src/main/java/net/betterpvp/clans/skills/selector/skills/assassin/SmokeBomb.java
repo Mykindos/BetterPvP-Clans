@@ -16,6 +16,7 @@ import net.betterpvp.clans.skills.selector.skills.ToggleSkill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.recharge.RechargeManager;
@@ -199,7 +200,7 @@ public class SmokeBomb extends Skill implements ToggleSkill {
             }
         }
 
-        if ( player.getLocation().getBlock().getType() == Material.WATER) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, getClassType(),
                     "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;

@@ -142,7 +142,7 @@ public class Leap extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player player) {
 
-        if (player.getLocation().getBlock().getType() == Material.WATER) {
+        if (UtilBlock.isInLiquid(player)) {
             UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
