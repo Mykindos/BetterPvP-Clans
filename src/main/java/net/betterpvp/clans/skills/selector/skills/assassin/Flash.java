@@ -54,7 +54,7 @@ public class Flash extends Skill implements InteractSkill {
                 "Instantly teleport forwards 8 Blocks.",
                 "Cannot be used while Slowed.",
                 "",
-                "Stores up to 3 charges.",
+                "Stores up to 4 charges.",
                 "",
                 "Cannot be used while Slowed.",
                 "Recharge: 1 charge per " + ChatColor.GREEN + (11 - level) + ChatColor.GRAY + " seconds."
@@ -94,13 +94,13 @@ public class Flash extends Skill implements InteractSkill {
                         lastRecharge.put(p, System.currentTimeMillis());
                     }
 
-                    if (charges.get(p) == 3) {
+                    if (charges.get(p) == 4) {
                         lastRecharge.put(p, System.currentTimeMillis());
                         continue;
                     }
 
                     if (UtilTime.elapsed(lastRecharge.get(p), (11000 - (getLevel(p) * 1000)))) {
-                        charges.put(p, Math.min(3, charges.get(p) + 1));
+                        charges.put(p, Math.min(4, charges.get(p) + 1));
                         UtilMessage.message(p, getClassType(), "Flash Charges: " + ChatColor.GREEN + charges.get(p));
                         lastRecharge.put(p, System.currentTimeMillis());
                     }
