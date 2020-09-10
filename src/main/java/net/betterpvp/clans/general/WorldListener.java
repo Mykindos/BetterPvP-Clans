@@ -57,6 +57,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -1919,5 +1920,15 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onItemSpawn(ItemSpawnEvent e) {
         e.getEntity().setItemStack(UtilClans.updateNames(e.getEntity().getItemStack()));
+    }
+
+    @EventHandler
+    public void onCombust(EntityCombustEvent e){
+        if(e.getEntity() instanceof LivingEntity){
+            LivingEntity ent = (LivingEntity) e.getEntity();
+            if(ent.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE)){
+                e.setCancelled(true);
+            }
+        }
     }
 }
