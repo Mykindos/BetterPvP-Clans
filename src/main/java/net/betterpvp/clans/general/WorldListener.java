@@ -807,13 +807,13 @@ public class WorldListener extends BPVPListener<Clans> {
                 if (UtilItem.isSword(m)) {
 
                     if (m == Material.DIAMOND_SWORD) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.GOLDEN_SWORD) {
-                        e.setDamage(6);
+                        e.setDamage(7);
                     } else if (m == Material.NETHERITE_SWORD) {
-                        e.setDamage(6);
+                        e.setDamage(7);
                     } else if (m == Material.IRON_SWORD) {
-                        e.setDamage(4.5);
+                        e.setDamage(5.5);
 
                         Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                         if (w != null) {
@@ -832,13 +832,13 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 } else if (UtilItem.isAxe(m)) {
                     if (m == Material.DIAMOND_AXE) {
-                        e.setDamage(4);
+                        e.setDamage(5);
                     } else if (m == Material.GOLDEN_AXE) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.NETHERITE_AXE) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.IRON_AXE) {
-                        e.setDamage(3);
+                        e.setDamage(4);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
                     } else if (m == Material.WOODEN_AXE) {
