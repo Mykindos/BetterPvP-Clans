@@ -15,6 +15,7 @@ import net.betterpvp.clans.clans.map.ClanCursorProvider;
 import net.betterpvp.clans.clans.map.ClanMapSettings;
 import net.betterpvp.clans.clans.map.ClanPixelProvider;
 import net.betterpvp.clans.clans.map.MapListener;
+import net.betterpvp.clans.clans.tnt.TNTManager;
 import net.betterpvp.clans.classes.DamageManager;
 import net.betterpvp.clans.classes.Energy;
 import net.betterpvp.clans.classes.RoleManager;
@@ -220,6 +221,7 @@ public class Clans extends JavaPlugin implements Listener {
         new BeeListener(this);
         new MapListener(this);
         new ClanSpawnListener(this);
+        new TNTManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));
