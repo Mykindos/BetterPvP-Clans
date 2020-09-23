@@ -18,11 +18,12 @@ public class RatingRepository implements Repository<Clans> {
     @Override
     public void initialize() {
         TABLE_NAME = Clans.getOptions().getTablePrefix() + TABLE_NAME;
-        CREATE_TABLE =  "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+        CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                 " (" +
                 "UUID varchar(255)," +
                 "Class varchar(255)," +
                 "Rating int," +
+                "LastKill bigint(255)," +
                 "unique clans_rat_pk (UUID, Class)" +
                 ")";
         QueryFactory.runQuery(CREATE_TABLE);
@@ -38,7 +39,10 @@ public class RatingRepository implements Repository<Clans> {
                 while (result.next()) {
                     String role = result.getString(2);
                     int rating = result.getInt(3);
-                    gamer.getRatings().put(role, rating);
+                    long lastKill = result.getLong(4);
+
+                    Rating ratingObj = new Rating(rating, lastKill);
+                    gamer.getRatings().put(role, ratingObj);
                 }
 
                 statement.close();
@@ -59,17 +63,18 @@ public class RatingRepository implements Repository<Clans> {
     }
 
     public static void updateRating(Gamer gamer, String role) {
-        String query = "UPDATE " + TABLE_NAME + " SET Rating = " + gamer.getRatings().get(role) + " WHERE UUID ='" + gamer.getClient().getUUID() + "' AND Class ='" + role + "'";
+        String query = "UPDATE " + TABLE_NAME + " SET Rating = " + gamer.getRatings().get(role).getRating() + ",LastKill="
+                + gamer.getRatings().get(role).getLastKill() + " WHERE UUID ='" + gamer.getClient().getUUID() + "' AND Class ='" + role + "'";
         QueryFactory.runQuery(query);
     }
 
-    public static void saveRatings(Gamer gamer){
+    public static void saveRatings(Gamer gamer) {
         String query = "INSERT IGNORE INTO " + TABLE_NAME + " VALUES ";
-        for(Role role : Role.roles){
-            query += "('" + gamer.getUUID().toString() + "', '" + role.getName() + "', " + 1500 + "),";
+        for (Role role : Role.roles) {
+            query += "('" + gamer.getUUID().toString() + "', '" + role.getName() + "', " + 1500 + "," + System.currentTimeMillis() + "),";
         }
 
-        query = query.substring(0, query.length() -1);
+        query = query.substring(0, query.length() - 1);
         QueryFactory.runQuery(query);
     }
 }

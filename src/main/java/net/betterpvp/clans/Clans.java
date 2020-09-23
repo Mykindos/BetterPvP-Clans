@@ -24,6 +24,7 @@ import net.betterpvp.clans.combat.CombatManager;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.combatlog.CombatLogManager;
 import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
+import net.betterpvp.clans.combat.ratings.RatingManager;
 import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
 import net.betterpvp.clans.crates.CrateListener;
@@ -222,6 +223,7 @@ public class Clans extends JavaPlugin implements Listener {
         new MapListener(this);
         new ClanSpawnListener(this);
         new TNTManager(this);
+        new RatingManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));

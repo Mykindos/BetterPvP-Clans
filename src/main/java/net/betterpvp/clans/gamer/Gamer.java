@@ -4,6 +4,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Invitable;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
 import net.betterpvp.clans.classes.Role;
+import net.betterpvp.clans.combat.ratings.Rating;
 import net.betterpvp.clans.dailies.perks.QuestPerk;
 import net.betterpvp.clans.gamer.mysql.GamerRepository;
 import net.betterpvp.clans.gamer.mysql.PlayerStatRepository;
@@ -43,7 +44,7 @@ public class Gamer implements Invitable {
     private Location home;
     private boolean filter;
     private Scoreboard scoreboard;
-    private HashMap<String, Integer> ratings;
+    private HashMap<String, Rating> ratings;
     private HashMap<String, Double> playerStats;
     private boolean starterKitClaimed;
     private long lastAction;
@@ -70,7 +71,7 @@ public class Gamer implements Invitable {
         playerStats = new HashMap<>();
 
         for (Role role : Role.roles) {
-            ratings.put(role.getName(), 1500);
+            ratings.put(role.getName(), new Rating(1500, System.currentTimeMillis()));
         }
         lastAction = System.currentTimeMillis();
 
@@ -363,10 +364,10 @@ public class Gamer implements Invitable {
 
 
     public int getRating(Role role) {
-        return ratings.get(role.getName());
+        return ratings.get(role.getName()).getRating();
     }
 
-    public HashMap<String, Integer> getRatings() {
+    public HashMap<String, Rating> getRatings() {
         return ratings;
     }
 
