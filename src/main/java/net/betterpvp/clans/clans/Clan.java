@@ -82,12 +82,12 @@ public class Clan implements Invitable {
 
 
     public long getCooldown() {
-        return (cooldown + 43200000) - System.currentTimeMillis();
+        return (cooldown + 14_400_000) - System.currentTimeMillis();
     }
 
 
     public boolean isOnCooldown() {
-        return (cooldown + 43200000) - System.currentTimeMillis() >= 0;
+        return (cooldown + 14_400_000) - System.currentTimeMillis() >= 0;
     }
 
     public List<Insurance> getInsurance() {
