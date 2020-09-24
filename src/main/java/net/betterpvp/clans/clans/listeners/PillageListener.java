@@ -20,6 +20,8 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.ItemDespawnEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 
 import java.util.Iterator;
 
@@ -129,6 +131,16 @@ public class PillageListener extends BPVPListener<Clans> {
                 }
             }
 
+        }
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemDespawnEvent e){
+        Clan clan = ClanUtilities.getClan(e.getLocation());
+        if(clan != null){
+            if(Pillage.isBeingPillaged(clan) || !UtilTime.elapsed(clan.getCooldown(), 60_000 * 5)){
+                e.setCancelled(true);
+            }
         }
     }
 }
