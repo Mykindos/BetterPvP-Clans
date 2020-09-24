@@ -170,6 +170,16 @@ public class Pillage {
         return false;
     }
 
+    public static boolean isBeingPillaged(Clan clan){
+        for (Pillage pillage : pillages) {
+            if (pillage.getPillaged().equals(clan)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public class LastPillage {
 
         public String pillaged;
