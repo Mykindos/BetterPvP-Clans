@@ -151,17 +151,20 @@ public class Grasp extends Skill implements InteractSkill {
                     }
 
                 }
+                if (ent.getLocation().distance(player.getLocation()) < 3) continue;
+                Location target = player.getLocation();
+                target.add(target.getDirection().normalize().multiply(2));
+
+
                 if (!cooldownJump.get(player).contains(ed)) {
 
                     LogManager.addLog(ed, player, "Grasp");
                     Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, level, false));
                     cooldownJump.get(player).add(ed);
+                    UtilVelocity.velocity(ent, UtilVelocity.getTrajectory(ent.getLocation(), target), 1.0, false, 0, 0.5, 1, true);
                 }
-                if (ent.getLocation().distance(player.getLocation()) < 3) continue;
-                Location target = player.getLocation();
-                target.add(target.getDirection().normalize().multiply(2));
-                UtilVelocity.velocity(ent, UtilVelocity.getTrajectory(ent.getLocation(), target), 1.0, false, 0, 0.5, 1, true);
 
+                //UtilVelocity.velocity(ent, UtilVelocity.getTrajectory(ent.getLocation(), target), 1.0, false, 0, 0.5, 1, true);
 
             }
         }
