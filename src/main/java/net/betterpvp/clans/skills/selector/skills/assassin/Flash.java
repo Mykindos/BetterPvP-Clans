@@ -212,6 +212,11 @@ public class Flash extends Skill implements InteractSkill {
             return false;
         }
 
+        if (player.getLocation().getBlock().getType().name().contains("GATE")
+                || player.getLocation().add(0, 1, 0).getBlock().getType().name().contains("GATE")) {
+            return false;
+        }
+
         if (player.getTargetBlock((Set<Material>) null, 4).getType() == Material.GLASS) {
             return false;
         }
