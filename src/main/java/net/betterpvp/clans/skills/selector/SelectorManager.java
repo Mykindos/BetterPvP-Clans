@@ -148,6 +148,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Hunters Thrill", new HuntersThrill(i));
         skills.put("Incendiary Shot", new IncendiaryShot(i));
         skills.put("Longshot", new Longshot(i));
+        skills.put("Levitating Shot", new LevitatingShot(i));
 
         /*
          * Gladiator Skills

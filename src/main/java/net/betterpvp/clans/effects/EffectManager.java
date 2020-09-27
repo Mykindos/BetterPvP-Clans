@@ -79,6 +79,10 @@ public class EffectManager extends BPVPListener<Clans> {
         if (effect.getType() == EffectType.VULNERABILITY) {
             p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) ((effect.getRawLength() / 1000) * 20), 0));
         }
+
+        if(effect.getType() == EffectType.LEVITATION){
+            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) ((effect.getRawLength() / 1000) * 20), effect.getLevel()));
+        }
         getEffects().add(effect);
     }
 
@@ -89,7 +93,8 @@ public class EffectManager extends BPVPListener<Clans> {
             if (hasEffect((Player) ent, EffectType.IMMUNETOEFFECTS)) {
                 if (effect.getType() == PotionEffectType.SLOW || effect.getType() == PotionEffectType.BLINDNESS
                         || effect.getType() == PotionEffectType.WITHER || effect.getType() == PotionEffectType.CONFUSION
-                        || effect.getType() == PotionEffectType.WEAKNESS || effect.getType() == PotionEffectType.POISON) {
+                        || effect.getType() == PotionEffectType.WEAKNESS || effect.getType() == PotionEffectType.POISON
+                        || effect.getType() == PotionEffectType.LEVITATION) {
                     return;
                 }
             }
@@ -316,7 +321,7 @@ public class EffectManager extends BPVPListener<Clans> {
             EffectType type = e.getEffect().getType();
 
             if (type == EffectType.SILENCE || type == EffectType.SHOCK || type == EffectType.VULNERABILITY
-                    || type == EffectType.STUN || type == EffectType.FRAILTY){
+                    || type == EffectType.STUN || type == EffectType.FRAILTY || type == EffectType.IMMUNETOEFFECTS){
                 e.setCancelled(true);
             }
         }
@@ -330,7 +335,8 @@ public class EffectManager extends BPVPListener<Clans> {
                         || pot.getType().getName().contains("CONFUSION")
                         || pot.getType().getName().contains("POISON")
                         || pot.getType().getName().contains("BLINDNESS")
-                        || pot.getType().getName().contains("WITHER")) {
+                        || pot.getType().getName().contains("WITHER")
+                        || pot.getType().getName().contains("LEVITATION")) {
                     e.getPlayer().removePotionEffect(pot.getType());
                 }
             }
@@ -340,6 +346,7 @@ public class EffectManager extends BPVPListener<Clans> {
             EffectManager.removeEffect(e.getPlayer(), EffectType.STUN);
             EffectManager.removeEffect(e.getPlayer(), EffectType.VULNERABILITY);
             EffectManager.removeEffect(e.getPlayer(), EffectType.FRAILTY);
+            EffectManager.removeEffect(e.getPlayer(), EffectType.LEVITATION);
         }
     }
 
