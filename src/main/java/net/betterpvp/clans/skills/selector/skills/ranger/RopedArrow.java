@@ -10,11 +10,14 @@ import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
+import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
@@ -67,6 +70,27 @@ public class RopedArrow extends Skill implements InteractSkill {
             return false;
         }
         return true;
+    }
+
+    @EventHandler
+    public void updateParticle(UpdateEvent e) {
+        if (e.getType() == UpdateType.TICK) {
+            Iterator<Arrow> it = arrows.iterator();
+            while (it.hasNext()) {
+                Arrow next = it.next();
+                if (next == null) {
+                    it.remove();
+                } else if (next.isDead()) {
+                    it.remove();
+                } else {
+                    Location loc = next.getLocation().add(new Vector(0, 0.25, 0));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(165,42,42));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(165,42,42));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(165,42,42));
+
+                }
+            }
+        }
     }
 
     @EventHandler

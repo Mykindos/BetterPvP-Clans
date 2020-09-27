@@ -8,9 +8,13 @@ import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -18,8 +22,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,6 +58,27 @@ public class IncendiaryShot extends Skill implements InteractSkill {
         if (e.getSkill() == this) {
             if (active.contains(e.getPlayer().getUniqueId())) {
                 active.remove(e.getPlayer().getUniqueId());
+            }
+        }
+    }
+
+    @EventHandler
+    public void updateParticle(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.TICK) {
+            Iterator<Arrow> it = incens.iterator();
+            while (it.hasNext()) {
+                Arrow next = it.next();
+                if (next == null) {
+                    it.remove();
+                } else if (next.isDead()) {
+                    it.remove();
+                } else {
+                    Location loc = next.getLocation().add(new Vector(0, 0.25, 0));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
+
+                }
             }
         }
     }
