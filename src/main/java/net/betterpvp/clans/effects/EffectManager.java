@@ -81,7 +81,7 @@ public class EffectManager extends BPVPListener<Clans> {
         }
 
         if(effect.getType() == EffectType.LEVITATION){
-            p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) ((effect.getRawLength() / 1000) * 20), effect.getLevel()));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) ((effect.getRawLength() / 1000) * 20), effect.getLevel()));
         }
         getEffects().add(effect);
     }

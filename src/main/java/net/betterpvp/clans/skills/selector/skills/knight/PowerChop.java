@@ -55,7 +55,7 @@ public class PowerChop extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 12 - ((level - 1) * 1.5);
+        return 14 - ((level - 1) * 1.5);
     }
 
     @Override

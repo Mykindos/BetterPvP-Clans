@@ -15,6 +15,7 @@ import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -81,9 +82,9 @@ public class LevitatingShot extends Skill implements InteractSkill {
                             e.setReason("Levitating Shot");
 
                             if (e.getDamagee() instanceof Player) {
-                                EffectManager.addEffect((Player) e.getDamagee(), EffectType.LEVITATION, 1, (int) (3.5 + (getLevel(p) * 0.5)));
+                                EffectManager.addEffect((Player) e.getDamagee(), EffectType.LEVITATION, 1, (int) (2.5 + (getLevel(p) * 0.5)) * 1000);
                             } else {
-                                e.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (3.5 + (getLevel(p) * 0.5)), 1));
+                                e.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (2.5 + (getLevel(p) * 0.5)) * 20, 1));
                             }
 
                             LogManager.addLog(e.getDamagee(), p, "Levitating Shot");
@@ -156,7 +157,7 @@ public class LevitatingShot extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 12 - ((level - 1));
+        return 14 - ((level - 1));
     }
 
     @Override
