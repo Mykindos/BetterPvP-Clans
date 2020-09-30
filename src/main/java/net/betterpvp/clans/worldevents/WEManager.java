@@ -12,6 +12,7 @@ import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.clans.worldevents.types.Boss;
 import net.betterpvp.clans.worldevents.types.Environmental;
 import net.betterpvp.clans.worldevents.types.TimedEvents.UndeadCamp;
+import net.betterpvp.clans.worldevents.types.TimedEvents.VillagePillage;
 import net.betterpvp.clans.worldevents.types.bosses.*;
 import net.betterpvp.clans.worldevents.types.environmental.FishingFrenzy;
 import net.betterpvp.clans.worldevents.types.environmental.MiningMadness;
@@ -65,6 +66,7 @@ public class WEManager extends BPVPListener<Clans> {
 
         };
         addWorldEvent(new UndeadCamp(i));
+        addWorldEvent(new VillagePillage(i));
 
 
         new BukkitRunnable() {
