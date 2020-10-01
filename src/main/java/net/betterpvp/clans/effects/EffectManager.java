@@ -321,7 +321,7 @@ public class EffectManager extends BPVPListener<Clans> {
             EffectType type = e.getEffect().getType();
 
             if (type == EffectType.SILENCE || type == EffectType.SHOCK || type == EffectType.VULNERABILITY
-                    || type == EffectType.STUN || type == EffectType.FRAILTY || type == EffectType.IMMUNETOEFFECTS){
+                    || type == EffectType.STUN || type == EffectType.FRAILTY){
                 e.setCancelled(true);
             }
         }
