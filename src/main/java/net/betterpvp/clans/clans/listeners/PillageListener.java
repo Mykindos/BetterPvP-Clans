@@ -138,7 +138,7 @@ public class PillageListener extends BPVPListener<Clans> {
     public void onItemSpawn(ItemDespawnEvent e){
         Clan clan = ClanUtilities.getClan(e.getLocation());
         if(clan != null){
-            if(Pillage.isBeingPillaged(clan) || !UtilTime.elapsed(clan.getCooldown(), 60_000 * 5)){
+            if(Pillage.isBeingPillaged(clan) || !UtilTime.elapsed(clan.getCooldown(), 60_000 * 15)){
                 e.setCancelled(true);
             }
         }

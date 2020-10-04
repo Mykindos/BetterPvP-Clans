@@ -84,9 +84,11 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
                 if (player != null) {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(player));
                     if (!player.hasPlayedBefore() && GamerManager.getOnlineGamer(player).getStatValue("Time Played") < 1) {
-                        EffectManager.addEffect(player, EffectType.PROTECTION, 60_000 * 15);
-                        UtilMessage.message(player, "Protection", "You have received " + ChatColor.GREEN + 15
-                                + " minutes " + ChatColor.GRAY + "of PvP protection. " + ChatColor.YELLOW + "/protection " + ChatColor.GRAY + "to disable");
+                        if (!Clans.getOptions().isHub()) {
+                            EffectManager.addEffect(player, EffectType.PROTECTION, 60_000 * 15);
+                            UtilMessage.message(player, "Protection", "You have received " + ChatColor.GREEN + 15
+                                    + " minutes " + ChatColor.GRAY + "of PvP protection. " + ChatColor.YELLOW + "/protection " + ChatColor.GRAY + "to disable");
+                        }
                     }
                 }
             }

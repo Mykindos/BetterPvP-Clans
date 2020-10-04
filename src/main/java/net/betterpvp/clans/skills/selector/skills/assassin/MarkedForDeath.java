@@ -44,9 +44,9 @@ public class MarkedForDeath extends Skill implements InteractSkill {
 
         return new String[]{
                 "Your next arrow will mark players",
-                "for death, giving them Vulnerability II",
+                "for death, giving them Vulnerability I",
                 "for " + ChatColor.GREEN + (4 + level) + ChatColor.GRAY + " seconds",
-                "Causing them to take 50% additional damage",
+                "Causing them to take 25% additional damage",
                 "from all targets.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)

@@ -2,20 +2,15 @@ package net.betterpvp.clans.worldevents.types.TimedEvents;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
-import net.betterpvp.clans.combat.CombatLogs;
 import net.betterpvp.clans.combat.LogManager;
-import net.betterpvp.clans.crates.Crate;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
-import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Timed;
 import net.betterpvp.clans.worldevents.types.TimedEvents.ads.*;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
-import net.betterpvp.clans.worldevents.types.nms.BossSkeleton;
-import net.betterpvp.clans.worldevents.types.nms.BossZombie;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
@@ -28,16 +23,12 @@ import org.bukkit.block.Chest;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -131,10 +122,10 @@ public class VillagePillage extends Timed {
             p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1F, 1F);
         }
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
-                if(!isActive()){
+                if (!isActive()) {
                     this.cancel();
                     return;
                 }
@@ -143,10 +134,10 @@ public class VillagePillage extends Timed {
             }
         }.runTaskTimer(getInstance(), 0, 20 * 60);
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
-                if(!isActive()){
+                if (!isActive()) {
                     this.cancel();
                     return;
                 }
@@ -159,7 +150,7 @@ public class VillagePillage extends Timed {
 
     private void spawnVillagers() {
         long activeVillagers = world.getLivingEntities().stream().filter(l -> l instanceof Villager).count();
-        for(int i = (int) activeVillagers; i < 25; i++) {
+        for (int i = (int) activeVillagers; i < 25; i++) {
             Villager villager = (Villager) world.spawnEntity(villagerSpawnLocations[UtilMath.randomInt(villagerSpawnLocations.length - 1)], EntityType.VILLAGER);
             getMinions().add(new EventVillager(villager));
 
@@ -169,12 +160,12 @@ public class VillagePillage extends Timed {
     private void spawnMobs() {
 
         long activePillagers = world.getLivingEntities().stream().filter(l -> l instanceof Pillager || l instanceof Ravager).count();
-        for(int i = (int) activePillagers; i < 25; i++) {
+        for (int i = (int) activePillagers; i < 25; i++) {
             Ravager ravager = null;
 
             Location sLoc = mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)];
 
-            if(UtilMath.randomInt(10) == 5){
+            if (UtilMath.randomInt(10) == 5) {
                 ravager = (Ravager) world.spawnEntity(sLoc, EntityType.RAVAGER);
                 getMinions().add(new EventRavager(ravager));
             }
@@ -184,13 +175,11 @@ public class VillagePillage extends Timed {
             getMinions().add(new EventPillager(pillager));
 
 
-
-
             List<LivingEntity> targets = world.getLivingEntities().stream().filter(l -> l instanceof Villager).collect(Collectors.toList());
             Villager target = (Villager) targets.get(UtilMath.randomInt(targets.size() - 1));
 
-            if(target != null){
-                if(ravager != null){
+            if (target != null) {
+                if (ravager != null) {
                     ravager.addPassenger(pillager);
                     ravager.setTarget(target);
                 }
@@ -199,21 +188,21 @@ public class VillagePillage extends Timed {
 
         }
 
-        long activeVindicators = world.getLivingEntities().stream().filter(l -> l instanceof Vindicator ).count();
-        for(int i = (int) activeVindicators; i < 7; i++) {
-            Vindicator vindicator = (Vindicator) world.spawnEntity( mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)], EntityType.VINDICATOR);
+        long activeVindicators = world.getLivingEntities().stream().filter(l -> l instanceof Vindicator).count();
+        for (int i = (int) activeVindicators; i < 4; i++) {
+            Vindicator vindicator = (Vindicator) world.spawnEntity(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)], EntityType.VINDICATOR);
             getMinions().add(new EventVindicator(vindicator));
 
 
             List<LivingEntity> targets = world.getLivingEntities().stream().filter(l -> l instanceof Villager).collect(Collectors.toList());
             Villager target = (Villager) targets.get(UtilMath.randomInt(targets.size() - 1));
 
-            if(target != null){
+            if (target != null) {
                 vindicator.setTarget(target);
             }
         }
 
-        for(Player player : world.getPlayers()){
+        for (Player player : world.getPlayers()) {
             player.playSound(player.getLocation(), Sound.EVENT_RAID_HORN, 2f, 1f);
         }
 
@@ -270,7 +259,7 @@ public class VillagePillage extends Timed {
                         e.setCancelled("Pillagers cannot damage each other");
                     }
 
-                    if(e.getDamager() instanceof Player){
+                    if (e.getDamager() instanceof Player) {
                         e.setCancelled("Players can't damage villagers");
                     }
 
@@ -312,8 +301,9 @@ public class VillagePillage extends Timed {
 
     @EventHandler
     public void updateBossbar(UpdateEvent e) {
-        if (isActive()) {
-            if (e.getType() == UpdateType.SEC) {
+        if (e.getType() == UpdateType.SEC) {
+            if (isActive()) {
+
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (player.getWorld().getName().equalsIgnoreCase("bossworld")) {
                         bossBar.addPlayer(player);
@@ -327,6 +317,11 @@ public class VillagePillage extends Timed {
 
                 if (score <= 0) {
                     endEvent();
+                }
+
+            } else {
+                if (!bossBar.getPlayers().isEmpty()) {
+                    bossBar.removeAll();
                 }
             }
         }
@@ -347,10 +342,11 @@ public class VillagePillage extends Timed {
 
         if (score > 0) {
             processRewards();
-        }else{
+        } else {
             UtilMessage.broadcast("World Event", "As the final score was below 0, no rewards were earned.");
         }
     }
+
 
 
     private void processRewards() {
@@ -436,7 +432,7 @@ public class VillagePillage extends Timed {
             Inventory inv = chest.getInventory();
 
             inv.addItem(items.toArray(new ItemStack[items.size()]));
-        }else{
+        } else {
             System.out.println("No chest found at location for Village Pillage event");
         }
 

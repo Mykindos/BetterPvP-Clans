@@ -29,12 +29,12 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onUpdate(UpdateEvent e){
-        if(e.getType() == UpdateEvent.UpdateType.FASTER){
-            for(Player player : Bukkit.getOnlinePlayers()){
+    public void onUpdate(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.FASTER) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 Objective health = player.getScoreboard().getObjective("healthDisplay");
-                if(health != null){
-                    for(Player p : Bukkit.getOnlinePlayers()){
+                if (health != null) {
+                    for (Player p : Bukkit.getOnlinePlayers()) {
                         health.getScore(p.getName()).setScore((int) p.getHealth());
                     }
                 }
@@ -45,9 +45,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
     @EventHandler
     public void onScoreboardUpdate(ScoreboardUpdateEvent e) {
 
-        if (Clans.getOptions().isHub()) {
-            return;
-        }
+
         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
         Scoreboard scoreboard = e.getPlayer().getScoreboard();
@@ -61,6 +59,9 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
                 }
 
                 if (gamer.getClient().getSettingAsBoolean("General.Sidebar")) {
+                    if (Clans.getOptions().isHub()) {
+                        return;
+                    }
                     Objective side = scoreboard.getObjective("BetterPvP");
                     if (side == null) {
                         side = scoreboard.registerNewObjective("BetterPvP", "dummy", "BetterPvP");

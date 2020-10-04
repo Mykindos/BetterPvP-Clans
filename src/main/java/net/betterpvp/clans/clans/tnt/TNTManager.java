@@ -116,7 +116,7 @@ public class TNTManager extends BPVPListener<Clans> {
                         continue;
                     }
 
-                    if (attacker.getDominance(target).getPoints() < Clans.getOptions().getDominanceBeforeTnt()) {
+                    if (target.getDominance(attacker).getPoints() < Clans.getOptions().getDominanceBeforeTnt()) {
                         success = false;
                         continue;
                     }
