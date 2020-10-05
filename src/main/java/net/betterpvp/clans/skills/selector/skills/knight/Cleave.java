@@ -29,7 +29,7 @@ public class Cleave extends Skill {
 
         return new String[]{
                 "Your attacks hit all opponents",
-                "within " + ChatColor.GREEN + (4 + level) + ChatColor.GRAY + " blocks of your target.",
+                "within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks of your target.",
                 "",
                 "Only applies to axes."
         };
@@ -54,7 +54,7 @@ public class Cleave extends Skill {
                             }
                         }
 
-                        for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), getLevel(p))) {
+                        for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), 2 + getLevel(p))) {
                             if (ent.equals(p)) continue;
                             if (ent.equals(e.getEntity())) continue;
 

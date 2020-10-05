@@ -4,9 +4,11 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.weapon.EnchantedWeapon;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
+import net.betterpvp.clans.worldevents.Drop;
 import net.betterpvp.clans.worldevents.WEType;
 import net.betterpvp.clans.worldevents.types.Timed;
 import net.betterpvp.clans.worldevents.types.TimedEvents.ads.*;
@@ -379,6 +381,12 @@ public class VillagePillage extends Timed {
             lootTable.put(UtilClans.updateNames(new ItemStack(Material.NETHERITE_BLOCK, 7)), 10D);
             lootTable.put(UtilClans.updateNames(new ItemStack(Material.GOLD_BLOCK, 7)), 10D);
             lootTable.put(UtilClans.updateNames(new ItemStack(Material.EMERALD_BLOCK, 7)), 10D);
+
+            for(Weapon w : WeaponManager.weapons) {
+                if (w instanceof EnchantedWeapon) {
+                    lootTable.put(w.createWeapon(), w.getChance() / 2);
+                }
+            }
         }
 
         if (score >= 8000) {
@@ -439,4 +447,10 @@ public class VillagePillage extends Timed {
 
     }
 
+    @EventHandler
+    public void onVindicatorDamage(CustomDamageEvent e){
+        if(e.getDamager() instanceof Vindicator){
+            e.setDamage(e.getDamage() * 0.70);
+        }
+    }
 }

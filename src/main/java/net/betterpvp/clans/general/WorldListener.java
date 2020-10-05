@@ -1935,7 +1935,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
     @EventHandler
     public void onInteractEntityVillager(PlayerInteractEntityEvent e) {
-        if (e.getRightClicked() instanceof Villager) {
+        if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof WanderingTrader) {
                 e.setCancelled(true);
         }
     }
