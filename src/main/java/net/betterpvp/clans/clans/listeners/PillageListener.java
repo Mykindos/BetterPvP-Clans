@@ -10,12 +10,18 @@ import net.betterpvp.clans.clans.insurance.Insurance;
 import net.betterpvp.clans.clans.mysql.InsuranceRepository;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.ItemDespawnEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 
 import java.util.Iterator;
 
@@ -89,6 +95,51 @@ public class PillageListener extends BPVPListener<Clans> {
                         InsuranceType.BREAK, System.currentTimeMillis());
                 InsuranceRepository.saveInsurance(pillaged, i);
                 pillaged.getInsurance().add(i);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBreakStorage(BlockBreakEvent e) {
+        Clan pillager = ClanUtilities.getClan(e.getPlayer());
+        Clan pillaged = ClanUtilities.getClan(e.getBlock().getLocation());
+        if (pillager != null && pillaged != null) {
+            if (Pillage.isPillaging(pillager, pillaged)) {
+
+                Material broken = e.getBlock().getType();
+                if (broken.name().contains("CHEST") || broken == Material.BARREL) {
+                    if (!RechargeManager.getInstance().add(e.getPlayer(), "Break " + broken.name().toLowerCase(), 30, true, false)) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlaceStorage(BlockPlaceEvent e) {
+        Clan pillaged = ClanUtilities.getClan(e.getPlayer());
+
+        if (pillaged != null) {
+            if (Pillage.isBeingPillaged(pillaged)) {
+
+                Material broken = e.getBlock().getType();
+                if (broken.name().contains("CHEST") || broken == Material.BARREL) {
+                    if (!RechargeManager.getInstance().add(e.getPlayer(), "Place " + broken.name().toLowerCase(), 45, true, false)) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+
+        }
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemDespawnEvent e){
+        Clan clan = ClanUtilities.getClan(e.getLocation());
+        if(clan != null){
+            if(Pillage.isBeingPillaged(clan) || !UtilTime.elapsed(clan.getCooldown(), 60_000 * 15)){
+                e.setCancelled(true);
             }
         }
     }

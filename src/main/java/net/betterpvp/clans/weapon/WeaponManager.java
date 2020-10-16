@@ -47,6 +47,7 @@ public class WeaponManager extends BPVPListener<Clans> {
         addWeapon(new GlacialAxe(i));
         addWeapon(new ClanRecovery(i));
         addWeapon(new ClanLevelUpgrade(i));
+        addWeapon(new TNTItem(i));
 
         for (Qualities q : Qualities.values()) {
             for (ArmourNames an : ArmourNames.values()) {
@@ -57,7 +58,7 @@ public class WeaponManager extends BPVPListener<Clans> {
             }
 
             addWeapon(new EnchantedWeapon(i, Material.IRON_SWORD, (byte) 0, q.getQuality() + ChatColor.YELLOW + "Iron Sword",
-                    new String[]{ChatColor.WHITE + "Damage: " + ChatColor.YELLOW + (5 + q.getBonus())}, q.getBonus(), q.getChance()));
+                    new String[]{ChatColor.WHITE + "Damage: " + ChatColor.YELLOW + (6 + q.getBonus())}, q.getBonus(), q.getChance()));
         }
     }
 

@@ -57,6 +57,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -806,13 +807,13 @@ public class WorldListener extends BPVPListener<Clans> {
                 if (UtilItem.isSword(m)) {
 
                     if (m == Material.DIAMOND_SWORD) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.GOLDEN_SWORD) {
-                        e.setDamage(6);
+                        e.setDamage(7);
                     } else if (m == Material.NETHERITE_SWORD) {
-                        e.setDamage(6);
+                        e.setDamage(7);
                     } else if (m == Material.IRON_SWORD) {
-                        e.setDamage(4.5);
+                        e.setDamage(5.5);
 
                         Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                         if (w != null) {
@@ -831,13 +832,13 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 } else if (UtilItem.isAxe(m)) {
                     if (m == Material.DIAMOND_AXE) {
-                        e.setDamage(4);
+                        e.setDamage(5);
                     } else if (m == Material.GOLDEN_AXE) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.NETHERITE_AXE) {
-                        e.setDamage(5);
+                        e.setDamage(6);
                     } else if (m == Material.IRON_AXE) {
-                        e.setDamage(3);
+                        e.setDamage(4);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
                     } else if (m == Material.WOODEN_AXE) {
@@ -1625,7 +1626,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
@@ -1637,15 +1638,15 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(world, 373.5, 69, 26.5, -140, 0));
+                e.getPlayer().teleport(new Location(world, -445.5, 66, 0.5, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, -427.5, 66, -15.5, 90, 0));
+                e.getPlayer().teleport(new Location(world, 413.5, 71, 47.5, -90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
 
@@ -1919,5 +1920,23 @@ public class WorldListener extends BPVPListener<Clans> {
     @EventHandler
     public void onItemSpawn(ItemSpawnEvent e) {
         e.getEntity().setItemStack(UtilClans.updateNames(e.getEntity().getItemStack()));
+    }
+
+    @EventHandler
+    public void onCombust(EntityCombustEvent e){
+        if(e.getEntity() instanceof LivingEntity){
+            LivingEntity ent = (LivingEntity) e.getEntity();
+            if(ent.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE)){
+                e.setCancelled(true);
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onInteractEntityVillager(PlayerInteractEntityEvent e) {
+        if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof WanderingTrader) {
+                e.setCancelled(true);
+        }
     }
 }

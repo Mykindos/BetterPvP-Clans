@@ -45,6 +45,11 @@ public class BossCommand extends Command {
                         undeadcamp.spawn();
                         undeadcamp.setActive(true);
                         break;
+                    case "villagepillage":
+                        Timed villagepillage = (Timed) WEManager.getWorldEvent("villagepillage");
+                        villagepillage.spawn();
+                        villagepillage.setActive(true);
+                        break;
                     case "skeletonking":
                         Boss a = (Boss) WEManager.getWorldEvent("skeletonking");
                         a.spawn();

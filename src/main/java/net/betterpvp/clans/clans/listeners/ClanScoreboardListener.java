@@ -4,19 +4,22 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.clans.events.ScoreboardUpdateEvent;
+import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.worldevents.WEManager;
 import net.betterpvp.clans.worldevents.WorldEvent;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.settings.SettingChangedEvent;
 import net.betterpvp.core.utility.UtilFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.*;
 
 public class ClanScoreboardListener extends BPVPListener<Clans> {
 
@@ -26,22 +29,44 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
+    public void onUpdate(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.FASTER) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                Objective health = player.getScoreboard().getObjective("healthDisplay");
+                if (health != null) {
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        health.getScore(p.getName()).setScore((int) p.getHealth());
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onScoreboardUpdate(ScoreboardUpdateEvent e) {
 
-        if(Clans.getOptions().isHub()){
-            return;
-        }
+
         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
 
         Scoreboard scoreboard = e.getPlayer().getScoreboard();
         if (scoreboard != null) {
             if (gamer != null) {
+                Objective health = scoreboard.getObjective("healthDisplay");
+                if (health == null) {
+                    health = scoreboard.registerNewObjective("healthDisplay", "dummy", "BetterPvP");
+                    health.setDisplayName(ChatColor.RED + "❤");
+                    health.setDisplaySlot(DisplaySlot.BELOW_NAME);
+                }
+
                 if (gamer.getClient().getSettingAsBoolean("General.Sidebar")) {
+                    if (Clans.getOptions().isHub()) {
+                        return;
+                    }
                     Objective side = scoreboard.getObjective("BetterPvP");
                     if (side == null) {
                         side = scoreboard.registerNewObjective("BetterPvP", "dummy", "BetterPvP");
                         side.setDisplaySlot(DisplaySlot.SIDEBAR);
-                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 2  ");
+                        side.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "  2020 Season 3  ");
                     }
 
 
@@ -89,7 +114,7 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
                         side.getScore(we.getDisplayName()).setScore(2);
 
                     }
-                }else{
+                } else {
                     e.getPlayer().getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
                     Objective side = scoreboard.getObjective("BetterPvP");
                     if (side != null) {
@@ -102,10 +127,9 @@ public class ClanScoreboardListener extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onSettingsChange(SettingChangedEvent e){
+    public void onSettingsChange(SettingChangedEvent e) {
         Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(e.getPlayer()));
     }
-
 
 
 }

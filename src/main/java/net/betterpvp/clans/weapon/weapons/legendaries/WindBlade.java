@@ -127,7 +127,7 @@ public class WindBlade extends Weapon implements ChannelWeapon, ILegendary {
                                 continue;
                             }
 
-                            UtilVelocity.velocity(player, 0.6D, 0.11D, 1.0D, true);
+                            UtilVelocity.velocity(player, 0.8D, 0.11D, 1.0D, true);
                             //player.getWorld().playEffect(player.getLocation(), Effect.STEP_SOUND, 80);
                             ParticleEffect.FIREWORKS_SPARK.display(player.getLocation());
                             player.getWorld().spawnEntity(player.getLocation(), EntityType.LLAMA_SPIT);

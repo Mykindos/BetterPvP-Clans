@@ -29,7 +29,7 @@ public class Cleave extends Skill {
 
         return new String[]{
                 "Your attacks hit all opponents",
-                "within " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " blocks of your target.",
+                "within " + ChatColor.GREEN + (2 + level) + ChatColor.GRAY + " blocks of your target.",
                 "",
                 "Only applies to axes."
         };
@@ -54,13 +54,13 @@ public class Cleave extends Skill {
                             }
                         }
 
-                        for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), getLevel(p))) {
+                        for (LivingEntity ent : UtilPlayer.getAllInRadius(p.getLocation(), 2 + getLevel(p))) {
                             if (ent.equals(p)) continue;
                             if (ent.equals(e.getEntity())) continue;
 
 
                             LogManager.addLog(ent, p, "Cleave");
-                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (3 + getLevel(p)), true));
+                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (4 + getLevel(p)), true));
                         }
                     }
                 }

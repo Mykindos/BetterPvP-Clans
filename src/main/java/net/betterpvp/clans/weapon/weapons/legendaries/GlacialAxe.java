@@ -1,6 +1,9 @@
 package net.betterpvp.clans.weapon.weapons.legendaries;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.clans.AdminClan;
+import net.betterpvp.clans.clans.Clan;
+import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.weapon.ILegendary;
 import net.betterpvp.clans.weapon.Weapon;
@@ -24,7 +27,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
 
     public GlacialAxe(Clans i) {
         super(i, Material.MUSIC_DISC_FAR, (byte) 0, ChatColor.RED + "Glacial Axe",
-                new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "6",
+                new String[]{"", ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "7",
                         ChatColor.GRAY + "Passive: " + ChatColor.YELLOW + "Water Walking",
                         "",
                         ChatColor.GRAY + "When walking on water, a radius below",
@@ -39,6 +42,11 @@ public class GlacialAxe extends Weapon implements ILegendary {
             if (e.getPlayer().getInventory().getItemInMainHand() != null) {
                 if (isThisWeapon(e.getPlayer())) {
                     for (Block b : UtilBlock.getInRadius(e.getPlayer().getLocation(), 5, 2).keySet()) {
+
+                        Clan clan = ClanUtilities.getClan(b.getLocation());
+                        if(clan != null && !(clan instanceof AdminClan)){
+                            continue;
+                        }
 
                         if (b.getType() == Material.WATER) {
                             if (e.getPlayer().getLocation().getBlock().isLiquid()) continue;
@@ -62,7 +70,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
             if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_FAR) return;
             if (isThisWeapon(player)) {
 
-                event.setDamage(6);
+                event.setDamage(7);
                 event.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 1));
 
             }

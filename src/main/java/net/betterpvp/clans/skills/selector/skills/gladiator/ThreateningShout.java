@@ -8,6 +8,8 @@ import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
 import net.betterpvp.clans.skills.selector.skills.Skill;
+import net.betterpvp.core.utility.UtilBlock;
+import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilPlayer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
@@ -44,7 +46,7 @@ public class ThreateningShout extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 19 - ((level - 1));
+        return 20 - ((level - 1));
     }
 
     @Override
@@ -57,6 +59,10 @@ public class ThreateningShout extends Skill implements InteractSkill {
     @Override
     public boolean usageCheck(Player p) {
 
+        if(!UtilBlock.isGrounded(p)){
+            UtilMessage.message(p, getClassType(), "You can only use threatening shout while grounded.");
+            return false;
+        }
         return true;
     }
 
@@ -64,7 +70,7 @@ public class ThreateningShout extends Skill implements InteractSkill {
     public void activate(Player p, Gamer gamer) {
         p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 2.0F, 2.0F);
         int level = getLevel(p);
-        for (Player d : UtilPlayer.getInRadius(p.getLocation(), (8 + level))) {
+        for (Player d : UtilPlayer.getInRadius(p.getLocation(), (6 + level))) {
             if (ClanUtilities.canHurt(p, d)) {
                 EffectManager.addEffect(d, EffectType.VULNERABILITY, (3 + getLevel(p)) * 1000);
             }

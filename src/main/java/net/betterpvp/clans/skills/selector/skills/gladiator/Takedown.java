@@ -87,7 +87,7 @@ public class Takedown extends Skill implements InteractSkill {
                     if (other.equals(p)) continue;
                     if (other.isDead()) continue;
 
-                    if (UtilMath.offset(p, other) < 2.5) {
+                    if (UtilMath.offset(p, other) < 1.5) {
 
                         doTakeDown(next.getKey(), other);
                         it.remove();

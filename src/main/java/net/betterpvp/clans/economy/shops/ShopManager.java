@@ -61,18 +61,18 @@ public class ShopManager extends BPVPListener<Clans> {
                 "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Shop", "Decoration");
 
         World world = Bukkit.getWorld("world");
-        returnLocs = new Location[]{new Location(world, -12.5, 37, -17.5),
-                new Location(world, 4.5, 38, -38.5),
-                new Location(world, 43.5, 33, -25.5),
-                new Location(world, 46.5, 34.5, -13.5),
-                new Location(world, 13.5, 52, -14.5),
-                new Location(world, 10.5, 54, 22.5),
-                new Location(world, 19.5, 65, 30.5),
-                new Location(world, 0.5, 63, -2.5),
-                new Location(world, -7.5, 72, -9.5),
-                new Location(world, 21.5, 73, 13.5),
-                new Location(world, -38.5, 69, 28.5),
-                new Location(world, -33.5, 49, 38.5)};
+        returnLocs = new Location[]{new Location(world, -41.5, 63, -25.5),
+                new Location(world, 2.5, 62, -39.5),
+                new Location(world, 16.5, 48, -17.5),
+                new Location(world, 45.5, 53, -18.5),
+                new Location(world, 38.5, 48, 17.5),
+                new Location(world, 58.5, 74, -13.5),
+                new Location(world, 58.5, 67, 22.5),
+                new Location(world, 16.5, 82, 59.5),
+                new Location(world, -17.5, 81, 27.5),
+                new Location(world, -13.5, 47, -36.5),
+                new Location(world, -49.5, 45, -3.5),
+                new Location(world, -33.5, 44, 41.5)};
     }
 
 

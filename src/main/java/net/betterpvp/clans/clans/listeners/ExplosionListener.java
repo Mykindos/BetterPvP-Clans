@@ -94,9 +94,9 @@ public class ExplosionListener extends BPVPListener<Clans> {
                     }
                 }
 
-                new BukkitRunnable(){
+                new BukkitRunnable() {
                     @Override
-                    public void run(){
+                    public void run() {
                         clan.getData().put(DataType.PROTECTION, 0L);
                     }
                 }.runTaskLater(getInstance(), 40L);
@@ -142,6 +142,8 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onTNTExplode(EntityExplodeEvent e) {
+        if (e.isCancelled()) return;
+
         if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
             e.getEntity().getWorld().playSound(e.getEntity().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 2.0f, 1.0f);
 
@@ -165,11 +167,10 @@ public class ExplosionListener extends BPVPListener<Clans> {
                         clan.setLastTnted(System.currentTimeMillis() + 300000);
 
 
-
                         if (clan.isOnline()) {
                             clan.messageClan("YOUR TERRITORY IS UNDER ATTACK!", null, true);
 
-                            if(clan.isInstantTntProtection()) {
+                            if (clan.isInstantTntProtection()) {
                                 clan.setInstantTntProtection(false);
                                 clan.messageClan("Your instant TNT protection timer has reset.", null, true);
                                 new BukkitRunnable() {
@@ -220,6 +221,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityExplode(EntityExplodeEvent e) {
+        if (e.isCancelled()) return;
         e.setCancelled(true);
         if (e.getEntity() != null && e.getEntity().getType() == EntityType.PRIMED_TNT) {
 
@@ -392,6 +394,7 @@ public class ExplosionListener extends BPVPListener<Clans> {
 
     @EventHandler(priority = EventPriority.LOW)
     public void ExplosionBlocks(EntityExplodeEvent e) {
+        if(e.isCancelled()) return;
         if (e.getEntity() == null) {
             e.blockList().clear();
         }

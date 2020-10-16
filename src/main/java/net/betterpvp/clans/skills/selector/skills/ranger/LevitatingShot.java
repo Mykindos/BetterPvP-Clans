@@ -3,6 +3,8 @@ package net.betterpvp.clans.skills.selector.skills.ranger;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.combat.LogManager;
+import net.betterpvp.clans.effects.EffectManager;
+import net.betterpvp.clans.effects.EffectType;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.events.SkillDequipEvent;
@@ -13,6 +15,7 @@ import net.betterpvp.core.particles.ParticleEffect;
 import net.betterpvp.core.particles.data.color.RegularColor;
 import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -21,6 +24,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -29,13 +34,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class IncendiaryShot extends Skill implements InteractSkill {
+public class LevitatingShot extends Skill implements InteractSkill {
 
     public static List<UUID> active = new ArrayList<UUID>();
-    private List<Arrow> incens = new ArrayList<>();
+    private List<Arrow> levitatingArrows = new ArrayList<>();
 
-    public IncendiaryShot(Clans i) {
-        super(i, "Incendiary Shot", "Ranger",
+    public LevitatingShot(Clans i) {
+        super(i, "Levitating Shot", "Ranger",
                 getBow, leftClick
                 , 5, true, true);
     }
@@ -46,8 +51,10 @@ public class IncendiaryShot extends Skill implements InteractSkill {
         return new String[]{
                 "Left click to activate.",
                 "",
-                "Shoot an ignited arrow",
-                "burning anyone hit for " + ChatColor.GREEN + (0 + level) + ChatColor.GRAY + " seconds",
+                "Your next arrow is tipped with mysterious magic,",
+                "causing the next target you hit to receive Levitation for " + ChatColor.GREEN + (3.5 + (level * .5)) + ChatColor.GRAY + " seconds.",
+                "",
+                "Players with levitation are unable to use abilities.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
@@ -62,27 +69,6 @@ public class IncendiaryShot extends Skill implements InteractSkill {
         }
     }
 
-    @EventHandler
-    public void updateParticle(UpdateEvent e) {
-        if (e.getType() == UpdateEvent.UpdateType.TICK) {
-            Iterator<Arrow> it = incens.iterator();
-            while (it.hasNext()) {
-                Arrow next = it.next();
-                if (next == null) {
-                    it.remove();
-                } else if (next.isDead()) {
-                    it.remove();
-                } else {
-                    Location loc = next.getLocation().add(new Vector(0, 0.25, 0));
-                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
-                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
-                    ParticleEffect.REDSTONE.display(loc, new RegularColor(255, 0, 0));
-
-                }
-            }
-        }
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(CustomDamageEvent e) {
         if (e.getProjectile() != null) {
@@ -92,21 +78,40 @@ public class IncendiaryShot extends Skill implements InteractSkill {
                 if (hasSkill(p, this)) {
                     if (e.getProjectile() instanceof Arrow) {
                         Arrow a = (Arrow) e.getProjectile();
-                        if (incens.contains(a)) {
-                            e.setReason("Incendiary Shot");
+                        if (levitatingArrows.contains(a)) {
+                            e.setReason("Levitating Shot");
 
-                            //1.15.2 setting players on fire is weird
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    e.getDamagee().setFireTicks(getLevel(p) * 30);
-                                }
-                            }.runTaskLater(getInstance(), 2);
+                            if (e.getDamagee() instanceof Player) {
+                                EffectManager.addEffect((Player) e.getDamagee(), EffectType.LEVITATION, 1, (int) (2.5 + (getLevel(p) * 0.5)) * 1000);
+                            } else {
+                                e.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (2.5 + (getLevel(p) * 0.5)) * 20, 1));
+                            }
 
-                            LogManager.addLog(e.getDamagee(), p, "Incendiary Shot");
-                            incens.remove(a);
+                            LogManager.addLog(e.getDamagee(), p, "Levitating Shot");
+                            levitatingArrows.remove(a);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void updateParticle(UpdateEvent e) {
+        if (e.getType() == UpdateEvent.UpdateType.TICK) {
+            Iterator<Arrow> it = levitatingArrows.iterator();
+            while (it.hasNext()) {
+                Arrow next = it.next();
+                if (next == null) {
+                    it.remove();
+                } else if (next.isDead()) {
+                    it.remove();
+                } else {
+                    Location loc = next.getLocation().add(new Vector(0, 0.25, 0));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(128, 0, 128));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(128, 0, 128));
+                    ParticleEffect.REDSTONE.display(loc, new RegularColor(128, 0, 128));
+
                 }
             }
         }
@@ -129,14 +134,14 @@ public class IncendiaryShot extends Skill implements InteractSkill {
         UtilMessage.message(player, getClassType(), "You fired " + ChatColor.GREEN + getName() + ChatColor.GRAY + ".");
         //event.getProjectile().setFireTicks(Integer.MAX_VALUE);
         active.remove(player.getUniqueId());
-        incens.add((Arrow) event.getProjectile());
+        levitatingArrows.add((Arrow) event.getProjectile());
     }
 
 
     @Override
     public boolean usageCheck(Player player) {
         if (UtilBlock.isInLiquid(player)) {
-            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY +  " in water.");
+            UtilMessage.message(player, "Skill", "You cannot use " + ChatColor.GREEN + getName() + ChatColor.GRAY + " in water.");
             return false;
         }
         return true;
@@ -152,7 +157,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 12 - ((level - 1));
+        return 14 - ((level - 1));
     }
 
     @Override

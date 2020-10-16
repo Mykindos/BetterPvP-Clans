@@ -63,7 +63,7 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
                     return;
                 }
 
-                if (Energy.use(player, getName(), 10.0, true)) {
+                if (Energy.use(player, getName(), 5.0, true)) {
                     active.add(player.getName());
                 }
             }
@@ -77,7 +77,7 @@ public class MagneticHammer extends Weapon implements ChannelWeapon, ILegendary 
                 if (active.contains(p.getName())) {
 
                     if (p.isHandRaised()) {
-                        if (!Energy.use(p, getName(), 2, true)) {
+                        if (!Energy.use(p, getName(), 1.5, true)) {
                             active.remove(p.getName());
                         } else if (UtilBlock.isInLiquid(p)) {
                             active.remove(p.getName());

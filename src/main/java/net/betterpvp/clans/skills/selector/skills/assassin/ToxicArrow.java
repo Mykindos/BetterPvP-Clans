@@ -42,8 +42,8 @@ public class ToxicArrow extends Skill implements InteractSkill {
     public String[] getDescription(int level) {
 
         return new String[]{
-                "Your next arrow will give your",
-                "target confusion for " + ChatColor.GREEN + (15 + level) + ChatColor.GRAY + " seconds.",
+                "Your next arrow will poison your target, and give them",
+                "nausea for " + ChatColor.GREEN + (6 + level) + ChatColor.GRAY + " seconds.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)
 
@@ -104,7 +104,8 @@ public class ToxicArrow extends Skill implements InteractSkill {
                                     if (ent.hasPotionEffect(PotionEffectType.CONFUSION)) {
                                         ent.removePotionEffect(PotionEffectType.CONFUSION);
                                     }
-                                    ent.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (15 + getLevel(p)) * 20, 0));
+                                    ent.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (6 + getLevel(p)) * 20, 0));
+                                    ent.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (6 + getLevel(p)) * 20, 0));
                                     LogManager.addLog(ent, p, "Toxic Arrow");
                                     arrows.remove((Arrow) e.getProjectile());
                                 }

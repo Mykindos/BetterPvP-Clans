@@ -18,6 +18,7 @@ public class Options {
     private boolean fng;
     private int timeUntilTNTProtection;
     private int bonusTimeUntilTNTProtection;
+    private int dominanceBeforeTnt;
     private int tntBonusMemberThreshold;
     private int maxClaims;
     private int autoClickThreshold;
@@ -85,6 +86,7 @@ public class Options {
         timeUntilTNTProtection = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.TimeUntilProtection");
         bonusTimeUntilTNTProtection = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.BonusTime");
         tntBonusMemberThreshold = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.MemberThreshold");
+        dominanceBeforeTnt = i.getConfigManager().get(Configs.MAIN).getInt("Clans.TNT.DominanceBeforeTnt");
         pillageLength = i.getConfigManager().get(Configs.MAIN).getInt("PillageLength");
         farmMaxY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MaxY");
         farmMinY = i.getConfigManager().get(Configs.MAIN).getInt("Farming.MinY");
@@ -324,6 +326,7 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.TimeUntilProtection", 10);
         i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.BonusTime", 5);
         i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.MemberThreshold", 4);
+        i.getConfigManager().get(Configs.MAIN).check("Clans.TNT.DominanceBeforeTnt", 5);
         i.getConfigManager().get(Configs.MAIN).check("PillageLength", 10);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MaxY", 60);
         i.getConfigManager().get(Configs.MAIN).check("Farming.MinY", 44);
@@ -473,5 +476,9 @@ public class Options {
 
     public void setWingsEnabled(boolean wingsEnabled) {
         this.wingsEnabled = wingsEnabled;
+    }
+
+    public int getDominanceBeforeTnt() {
+        return dominanceBeforeTnt;
     }
 }

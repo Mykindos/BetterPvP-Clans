@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class TopRatingsCommand extends Command implements Listener {
 
-    public List<Rating> ratings;
+    public List<CacheRating> ratings;
 
     public TopRatingsCommand() {
         super("toprating", new String[]{"topratings"}, Rank.PLAYER);
@@ -29,20 +29,20 @@ public class TopRatingsCommand extends Command implements Listener {
     public void execute(Player player, String[] args) {
         if (args != null) {
             UtilMessage.message(player, ChatColor.GREEN.toString() + ChatColor.BOLD + "Top 10 " + args[0] + " Ratings");
-            List<Rating> temp = new ArrayList<>(ratings).stream().filter(r -> r.role.equalsIgnoreCase(args[0]) && r.rating != 1500).collect(Collectors.toList());
+            List<CacheRating> temp = new ArrayList<>(ratings).stream().filter(r -> r.role.equalsIgnoreCase(args[0]) && r.rating != 1500).collect(Collectors.toList());
             temp.sort((o1, o2) -> o2.rating - o1.rating);
             for (int i = 0; i < Math.min(10, temp.size()); i++) {
-                Rating rating = temp.get(i);
+                CacheRating rating = temp.get(i);
                 UtilMessage.message(player, ChatColor.YELLOW + rating.name + " - " + ChatColor.WHITE + rating.rating);
             }
             UtilMessage.message(player, ChatColor.GREEN + "The ratings leaderboard updates every 30 minutes.");
         } else {
             UtilMessage.message(player, ChatColor.GREEN.toString() + ChatColor.BOLD + "Top 10 Ratings ");
-            List<Rating> temp = new ArrayList<>(ratings).stream().filter(r -> r.rating != 1500).collect(Collectors.toList());
+            List<CacheRating> temp = new ArrayList<>(ratings).stream().filter(r -> r.rating != 1500).collect(Collectors.toList());
             temp.sort((o1, o2) -> o2.rating - o1.rating);
 
             for (int i = 0; i < Math.min(10, temp.size()); i++) {
-                Rating rating = temp.get(i);
+                CacheRating rating = temp.get(i);
                 UtilMessage.message(player, ChatColor.YELLOW + rating.name + " (" + rating.role + ") - " + ChatColor.WHITE + rating.rating);
             }
 
@@ -65,8 +65,8 @@ public class TopRatingsCommand extends Command implements Listener {
     private void populateRatings() {
         ratings.clear();
         for (Gamer gamer : GamerManager.getGamers()) {
-            for (Map.Entry<String, Integer> rating : gamer.getRatings().entrySet()) {
-                ratings.add(new Rating(gamer.getClient().getName(), rating.getKey(), rating.getValue()));
+            for (Map.Entry<String, Rating> rating : gamer.getRatings().entrySet()) {
+                ratings.add(new CacheRating(gamer.getClient().getName(), rating.getKey(), rating.getValue().getRating()));
             }
         }
     }
@@ -76,12 +76,12 @@ public class TopRatingsCommand extends Command implements Listener {
 
     }
 
-    private class Rating {
+    private class CacheRating {
         public String name;
         public String role;
         public int rating;
 
-        public Rating(String name, String role, int rating) {
+        public CacheRating(String name, String role, int rating) {
             this.name = name;
             this.role = role;
             this.rating = rating;

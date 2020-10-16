@@ -366,6 +366,7 @@ public class ClanEventListener extends BPVPListener<Clans> {
                 target.getEnemies().remove(tarDom);
                 // ScoreboardManager.updateRelation();
                 InviteHandler.removeInvite(clan, target, "Neutral");
+                InviteHandler.removeInvite(target, clan, "Neutral");
 
                 Bukkit.getPluginManager().callEvent(new ClanRelationshipEvent(clan, target));
                 return;

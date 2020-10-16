@@ -21,10 +21,10 @@ public class RecallData {
         return locs.get(0).getHealth();
     }
 
-    public void addLocation(Location l, double h) {
+    public void addLocation(Location l, double h, double max) {
         TempData loc = new TempData(l, h);
         locs.add(loc);
-        if (locs.size() > 3) {
+        if (locs.size() > max) {
             locs.remove(0);
         }
     }

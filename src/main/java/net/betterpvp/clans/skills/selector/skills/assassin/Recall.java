@@ -56,15 +56,16 @@ public class Recall extends Skill implements ToggleSkill {
                 Role r = Role.getRole(p);
                 if (r != null && r instanceof Assassin) {
                     if (hasSkill(p, this)) {
+                        int level = getLevel(p);
                         if (data.containsKey(p)) {
                             RecallData rd = data.get(p);
                             if (UtilTime.elapsed(rd.getTime(), 1000)) {
-                                rd.addLocation(p.getLocation(), p.getHealth());
+                                rd.addLocation(p.getLocation(), p.getHealth(), (2.5 + (level / 2)));
                                 rd.setTime(System.currentTimeMillis());
                             }
                         } else {
                             data.put(p, new RecallData());
-                            data.get(p).addLocation(p.getLocation(), p.getHealth());
+                            data.get(p).addLocation(p.getLocation(), p.getHealth(), (2.5 + (level / 2)));
                         }
                     }
                 }
@@ -117,9 +118,9 @@ public class Recall extends Skill implements ToggleSkill {
         return new String[]{"Drop Sword / Axe to Activate",
                 "",
                 "Teleports you back to where you ",
-                "were located 3 seconds ago",
+                "were located " + ChatColor.GREEN + (2.5 + (level / 2)) + ChatColor.GRAY + " seconds ago",
                 "Increases health by 1/4 of the health you had",
-                "3 seconds ago",
+                ChatColor.GREEN.toString() + (2.5 + (level / 2)) + ChatColor.GRAY + " seconds ago",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };

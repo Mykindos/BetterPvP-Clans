@@ -30,6 +30,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -176,6 +177,11 @@ public class SkillListener extends BPVPListener<Clans> {
                     }
                     if (EffectManager.hasEffect(player, EffectType.SILENCE)) {
                         UtilMessage.message(player, "Effect", "You are silenced!");
+                        return;
+                    }
+
+                    if(player.hasPotionEffect(PotionEffectType.LEVITATION)){
+                        UtilMessage.message(player, "Effect", "You cannot use skills while levitating!");
                         return;
                     }
 

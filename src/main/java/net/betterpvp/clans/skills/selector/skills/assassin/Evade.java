@@ -2,8 +2,11 @@ package net.betterpvp.clans.skills.selector.skills.assassin;
 
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.classes.Energy;
+import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
+import net.betterpvp.clans.classes.roles.Assassin;
 import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.skills.Types;
 import net.betterpvp.clans.skills.selector.skills.ChannelSkill;
 import net.betterpvp.clans.skills.selector.skills.InteractSkill;
@@ -24,13 +27,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class Evade extends ChannelSkill implements InteractSkill {
 
@@ -303,6 +304,19 @@ public class Evade extends ChannelSkill implements InteractSkill {
         return lastValid;
     }
 
+
+    @EventHandler
+    public void onInteractEntity(PlayerInteractEntityEvent e){
+        Player player = e.getPlayer();
+        Role role = Role.getRole(player);
+        if(role != null && role instanceof Assassin){
+            if(hasSkill(player, this)){
+               if(Arrays.asList(getMaterials()).contains(player.getInventory().getItemInMainHand().getType())){
+                   activate(player, GamerManager.getOnlineGamer(e.getPlayer()));
+               }
+            }
+        }
+    }
 
     @Override
     public void activate(Player player, Gamer gamer) {

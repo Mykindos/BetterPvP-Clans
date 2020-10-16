@@ -6,14 +6,16 @@ import net.betterpvp.clans.weapon.Weapon;
 import net.betterpvp.clans.weapon.WeaponManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 public class FireAxe extends Weapon {
 
     public FireAxe(Clans i) {
         super(i, Material.GOLDEN_AXE, (byte) 0, ChatColor.LIGHT_PURPLE + "Fire Axe", new String[]{
-                ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "5",
+                ChatColor.GRAY + "Damage: " + ChatColor.YELLOW + "4",
                 ChatColor.GRAY + "Ignites players on hit"
         }, false, 0);
     }
@@ -30,6 +32,15 @@ public class FireAxe extends Weapon {
 
 
             e.getDamagee().setFireTicks(40);
+        }
+    }
+
+    @EventHandler (priority = EventPriority.LOW)
+    public void onDamage(CustomDamageEvent e){
+        if(e.getDamager() instanceof Player){
+            if(isThisWeapon((Player) e.getDamager())){
+                e.setDamage(4);
+            }
         }
     }
 

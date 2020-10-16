@@ -111,11 +111,11 @@ public class OldRiposte extends Skill implements InteractSkill {
                             return;
                         }
                         if (damager instanceof Player) {
-                            UtilMessage.message((Player) damager, getClassType(), ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " is invulnerable to melee attacks for "
+                            UtilMessage.message((Player) damager, getClassType(), ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " is resistant to melee attacks for "
                                     + ChatColor.GREEN + ChatColor.GREEN + remaining + ChatColor.GRAY + " second.");
                         }
-                        event.setCancelled("Riposte");
-
+                        event.setDamage(event.getDamage() * 0.25);
+                        event.setKnockback(false);
                         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
                             public void run() {
                                 if (god.containsKey(target.getName())) {
@@ -130,6 +130,8 @@ public class OldRiposte extends Skill implements InteractSkill {
         }
 
     }
+
+
 
 
     @EventHandler
@@ -150,8 +152,8 @@ public class OldRiposte extends Skill implements InteractSkill {
         return new String[]{
                 "Right click with a sword to activate.",
                 "",
-                "Become invulnerable to all",
-                "melee damage for " + ChatColor.GREEN + (1 + (level * 0.5)) + ChatColor.GRAY + " seconds.",
+                "Reduce all melee damage by 75% for " + ChatColor.GREEN + (1 + (level * 0.5)) + ChatColor.GRAY + " seconds.",
+                "Impervious to knockback while active.",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)
         };
