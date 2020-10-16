@@ -2,6 +2,7 @@ package net.betterpvp.clans.combat.combatlog;
 
 import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
+import net.betterpvp.clans.classes.Role;
 import net.betterpvp.clans.combat.combatlog.npc.NPC;
 import net.betterpvp.clans.utilities.UtilClans;
 import org.bukkit.ChatColor;
@@ -20,6 +21,7 @@ public class CombatLog {
     private NPC npc;
     private List<ItemStack> items;
     private Long time;
+    private Role role;
 
     public CombatLog(Player player) {
         this.player = player;
@@ -29,7 +31,10 @@ public class CombatLog {
         npc.getEntity().setCustomNameVisible(true);
         this.items = new ArrayList<>();
 
-
+        Role r = Role.getRole(player);
+        if(r != null){
+            role = r;
+        }
 
 
         if(UtilClans.hasValuables(player) || inEnemyLand()){
@@ -103,5 +108,9 @@ public class CombatLog {
             }
         }
         return null;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

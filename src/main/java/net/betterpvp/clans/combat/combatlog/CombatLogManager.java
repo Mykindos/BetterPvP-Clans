@@ -6,6 +6,10 @@ import net.betterpvp.clans.clans.ClanMember;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.combatlog.npc.events.PlayerInteractNPCEvent;
+import net.betterpvp.clans.combat.ratings.Rating;
+import net.betterpvp.clans.combat.ratings.RatingRepository;
+import net.betterpvp.clans.gamer.Gamer;
+import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.utility.UtilMessage;
@@ -127,6 +131,16 @@ public class CombatLogManager extends BPVPListener<Clans> {
                                 enemy.getDominance(self).addPoint();
                             }
                         }
+                    }
+                }
+
+                if (logger.getRole() != null) {
+                    Gamer gamer = GamerManager.getGamer(logger.getPlayer().getUniqueId());
+                    if (gamer != null) {
+                        Rating rating = gamer.getRatings().get(logger.getRole().getName());
+                        rating.setRating(rating.getRating() - 15);
+                        gamer.getRatings().put(logger.getRole().getName(), rating);
+                        RatingRepository.updateRating(gamer, logger.getRole().getName());
                     }
                 }
 

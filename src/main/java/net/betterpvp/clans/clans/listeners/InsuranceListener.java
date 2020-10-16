@@ -64,6 +64,7 @@ public class InsuranceListener extends BPVPListener<Clans> {
                         || i.getMaterial() == Material.WATER
                         || i.getMaterial() == Material.LAVA
                         || i.getMaterial() == Material.AIR
+                        || i.getMaterial() == Material.BEEHIVE
                         || i.getMaterial().name().contains("CHEST")) {
                     return;
                 }

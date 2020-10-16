@@ -82,7 +82,7 @@ public class Siphon extends Skill {
                                     }
 
                                     ParticleEffect.END_ROD.display(position);
-                                    v.multiply(0.6);
+                                    v.multiply(0.7);
                                     position.add(v);
                                 }
                             }.runTaskTimer(getInstance(), 0l, 2);
