@@ -30,6 +30,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityTransformEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -451,6 +452,17 @@ public class VillagePillage extends Timed {
     public void onVindicatorDamage(CustomDamageEvent e){
         if(e.getDamager() instanceof Vindicator){
             e.setDamage(e.getDamage() * 0.70);
+        }
+    }
+
+    @EventHandler
+    public void onVillagerTransform(EntityTransformEvent e){
+        if(isActive()){
+            if(e.getEntity().getWorld().equals(world)){
+                if(e.getTransformReason() == EntityTransformEvent.TransformReason.LIGHTNING){
+                    e.setCancelled(true);
+                }
+            }
         }
     }
 }
