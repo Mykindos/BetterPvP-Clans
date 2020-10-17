@@ -39,13 +39,19 @@ import net.betterpvp.core.networking.events.NetworkMessageEvent;
 import net.betterpvp.core.punish.PunishManager;
 import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
+import net.betterpvp.core.utility.restoration.BlockRestore;
+import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.BubbleColumn;
 import org.bukkit.block.data.type.Gate;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -1937,6 +1943,24 @@ public class WorldListener extends BPVPListener<Clans> {
     public void onInteractEntityVillager(PlayerInteractEntityEvent e) {
         if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof WanderingTrader) {
                 e.setCancelled(true);
+        }
+    }
+
+
+    @EventHandler
+    public void onMoveBubbleColumn(PlayerMoveEvent e){
+        Block block = e.getPlayer().getLocation().getBlock();
+        if(block.getType() == Material.BUBBLE_COLUMN){
+            Clan clan = ClanUtilities.getClan(e.getPlayer().getLocation());
+            if(clan == null || (clan != null && !clan.equals(ClanUtilities.getClan(e.getPlayer())))){
+                for(int i = 0; i < 100; i++){
+                    Block newBlock = block.getLocation().add(0, block.getY() - i, 0).getBlock();
+                    if(newBlock.getType() == Material.SOUL_SAND || newBlock.getType() == Material.MAGMA_BLOCK){
+                        new BlockRestoreData(newBlock, Material.STONE, (byte) 0, 15_000);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
