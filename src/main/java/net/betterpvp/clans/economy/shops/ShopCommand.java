@@ -1,18 +1,21 @@
 package net.betterpvp.clans.economy.shops;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.economy.shops.ignatius.IgnatiusSpawnEvent;
 import net.betterpvp.clans.economy.shops.mysql.ShopKeeperRepository;
 import net.betterpvp.clans.economy.shops.mysql.ShopRepository;
 import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.WanderingTrader;
 import org.bukkit.event.EventHandler;
 
 import java.util.HashMap;
@@ -30,27 +33,6 @@ public class ShopCommand extends Command {
 
     }
 
-
- /*   @EventHandler
-    public void onUpdate(UpdateEvent e) {
-        if (e.getType() == UpdateEvent.UpdateType.SEC) {
-            Iterator<Entry<UUID, Long>> it = cd.entrySet().iterator();
-            while (it.hasNext()) {
-                Entry<UUID, Long> next = it.next();
-                if (UtilTime.elapsed(next.getValue(), 60000 * 5)) {
-                    Player p = Bukkit.getPlayer(next.getKey());
-                    if (p != null) {
-                        RechargeManager.getInstance().add(p, "Portable Shop", 7200, true, false, false);
-                        UtilMessage.message(p, "Shop", "Portable Shop is now on cooldown!");
-                        it.remove();
-                    }
-
-                }
-            }
-        }
-    }
-*/
-
     @Override
     public void execute(final Player p, String[] args) {
         if (args != null) {
@@ -61,16 +43,18 @@ public class ShopCommand extends Command {
                         p.sendMessage("Shops have been reloaded");
                         ShopRepository.loadShops(i);
                         ShopKeeperRepository.loadShopKeepers(i);
+                    } else if (args[0].equalsIgnoreCase("ignatius")) {
+                        UtilMessage.message(p, "Shop", "Spawned Ignatius");
+                        Bukkit.getPluginManager().callEvent(new IgnatiusSpawnEvent());
                     }
                 } else if (args.length > 0) {
-                    if (ClientUtilities.getOnlineClient(p).hasRank(Rank.ADMIN, true)) {
-                        if (args.length == 2) {
-                            if (args[0].equalsIgnoreCase("create")) {
-                                ShopManager.spawnShop(i, p.getLocation(), args[1]);
-                                ShopKeeperRepository.addKeeper(args[1], p.getLocation());
-                            }
+                    if (args.length == 2) {
+                        if (args[0].equalsIgnoreCase("create")) {
+                            ShopManager.spawnShop(i, p.getLocation(), args[1]);
+                            ShopKeeperRepository.addKeeper(args[1], p.getLocation());
                         }
                     }
+
                 }
             }
         }
@@ -81,7 +65,7 @@ public class ShopCommand extends Command {
         if (ev.getType() == UpdateEvent.UpdateType.MIN_16) {
             for (World w : Bukkit.getWorlds()) {
                 for (LivingEntity e : w.getLivingEntities()) {
-                    if (e instanceof Player || e instanceof ArmorStand) continue;
+                    if (e instanceof Player || e instanceof ArmorStand || e instanceof WanderingTrader) continue;
 
                     for (Shop s : ShopManager.getShops()) {
                         //Bukkit.broadcastMessage(s.getName());

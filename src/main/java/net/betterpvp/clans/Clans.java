@@ -36,6 +36,7 @@ import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.economy.shops.ShopListener;
+import net.betterpvp.clans.economy.shops.ignatius.IgnatiusListener;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
@@ -224,6 +225,7 @@ public class Clans extends JavaPlugin implements Listener {
         new ClanSpawnListener(this);
         new TNTManager(this);
         new RatingManager(this);
+        new IgnatiusListener(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));

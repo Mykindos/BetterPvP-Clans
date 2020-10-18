@@ -14,6 +14,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 public class ClanRecovery extends Weapon {
 
@@ -25,7 +26,7 @@ public class ClanRecovery extends Weapon {
                 false, 0);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGH)
     public void onBuyClanRecovery(ShopTradeEvent e) {
         if (e.getAction() == TradeAction.BUY_FRAGMENTITEM) {
             if (e.getGamer().hasFragments(e.getItem().getBuyPrice())) {

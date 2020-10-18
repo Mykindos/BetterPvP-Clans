@@ -12,6 +12,7 @@ import net.betterpvp.clans.worldevents.types.TimedEvents.ads.UndeadZombie;
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossSkeleton;
 import net.betterpvp.clans.worldevents.types.nms.BossZombie;
+import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.UpdateEvent;
 import net.betterpvp.core.framework.UpdateEvent.UpdateType;
 import net.betterpvp.core.utility.*;
@@ -273,10 +274,17 @@ public class UndeadCamp extends Timed {
         ItemStack[] gems = {new ItemStack(Material.EMERALD, amount), new ItemStack(Material.DIAMOND, amount),
                 new ItemStack(Material.IRON_INGOT, amount), new ItemStack(Material.GOLD_INGOT, amount), new ItemStack(Material.LEATHER, amount)};
         world.dropItem(b.getLocation(), gems[UtilMath.randomInt(gems.length - 1)]);
-        if (UtilMath.random.nextDouble() > 0.98) {
-            world.dropItem(b.getLocation(), WEManager.getRandomItem());
-            for (Player p : UtilPlayer.getInRadius(b.getLocation(), 25)) {
-                UtilMessage.message(p, "Undead Camp", "A special item has dropped from a chest!");
+        if(UtilMath.random.nextDouble() > 0.90) {
+            if (UtilMath.random.nextDouble() > 0.98) {
+                ItemStack special = WEManager.getRandomItem();
+                world.dropItem(b.getLocation(), special);
+                for (Player p : UtilPlayer.getInRadius(b.getLocation(), 25)) {
+                    UtilMessage.message(p, "Undead Camp", "A special item has dropped from a chest!");
+
+                }
+                UtilMessage.broadcast("Legendary", ChatColor.YELLOW + "A "
+                        + special.getItemMeta().getDisplayName() + ChatColor.YELLOW + " dropped at the Undead Camp!");
+                Log.write("Legendary", special.getItemMeta().getDisplayName() + " dropped at the undead camp.");
             }
         }
 
