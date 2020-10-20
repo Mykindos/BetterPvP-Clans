@@ -27,6 +27,7 @@ import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.combat.ratings.RatingManager;
 import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.cosmetics.CosmeticManager;
 import net.betterpvp.clans.crates.CrateListener;
 import net.betterpvp.clans.crates.CrateManager;
 import net.betterpvp.clans.dailies.QuestManager;
@@ -226,6 +227,7 @@ public class Clans extends JavaPlugin implements Listener {
         new TNTManager(this);
         new RatingManager(this);
         new IgnatiusListener(this);
+        new CosmeticManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));
