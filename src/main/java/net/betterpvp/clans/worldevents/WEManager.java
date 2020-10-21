@@ -17,10 +17,7 @@ import net.betterpvp.clans.worldevents.types.bosses.*;
 import net.betterpvp.clans.worldevents.types.environmental.FishingFrenzy;
 import net.betterpvp.clans.worldevents.types.environmental.MiningMadness;
 import net.betterpvp.core.framework.BPVPListener;
-import net.betterpvp.core.utility.Titles;
-import net.betterpvp.core.utility.UtilMath;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.*;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -208,6 +205,8 @@ public class WEManager extends BPVPListener<Clans> {
                     Bukkit.getPluginManager().callEvent(new ScoreboardUpdateEvent(p));
                 }
             }
+
+            UtilDiscord.sendWebhook(Clans.getOptions().getDiscordChatWebhook(), "SERVER", getActiveWorldEvent().getName() + " has started.");
         }
     }
 

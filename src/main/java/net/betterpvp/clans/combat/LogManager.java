@@ -76,7 +76,7 @@ public class LogManager {
         return null;
     }
 
-    public static HashMap<UUID, Integer> getDamageBreakdown(Player killed){
+    public static LinkedHashMap<UUID, Integer> getDamageBreakdown(Player killed){
         HashMap<UUID, Integer> breakdown = new HashMap<>();
         if(getCombatLogs().containsKey(killed)){
           List<CombatLogs> logs = getCombatLogs().get(killed);
@@ -94,11 +94,11 @@ public class LogManager {
         return sortByValue(breakdown);
     }
 
-    public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(HashMap<K, V> map) {
+    public static <K, V extends Comparable<? super V>> LinkedHashMap<K, V> sortByValue(HashMap<K, V> map) {
         List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
-        list.sort(Map.Entry.comparingByValue());
+        list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        HashMap<K, V> result = new LinkedHashMap<>();
+        LinkedHashMap<K, V> result = new LinkedHashMap<>();
         for (HashMap.Entry<K, V> entry : list) {
             result.put(entry.getKey(), entry.getValue());
         }

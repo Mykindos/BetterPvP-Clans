@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Hearts extends Cosmetic {
@@ -48,7 +49,7 @@ public class Hearts extends Cosmetic {
                 final Player player = Bukkit.getPlayer(uuid);
                 if(player != null){
                     if(!canShow(player)) continue;
-
+                    List<Player> playerList = getClosePlayers(player);
                     int radius = 1;
                     for(int q = 0; q <= 5; q++){
                         final float x = (float) (radius * Math.cos(q));
@@ -57,7 +58,7 @@ public class Hearts extends Cosmetic {
                         new BukkitRunnable(){
                             @Override
                             public void run() {
-                                ParticleEffect.HEART.display(player.getLocation().add(x, 2, z));
+                                ParticleEffect.HEART.display(player.getLocation().add(x, 2, z), playerList);
                             }
                         }.runTaskLater(getInstance(), q * 5L);
                     }

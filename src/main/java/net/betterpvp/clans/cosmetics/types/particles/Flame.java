@@ -12,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
+import java.util.List;
+
 public class Flame extends Cosmetic {
 
     public Flame(Clans instance) {
@@ -42,14 +44,16 @@ public class Flame extends Cosmetic {
     public void onMove(PlayerMoveEvent e){
         Player player = e.getPlayer();
         if(getActive().contains(player.getUniqueId())){
+            List<Player> playerList = getClosePlayers(player);
             if(!canShow(player)) return;
             if(e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()){
-                float radius = 0.7f;
+                float radius = 0.4f;
                 for(float y = 0; y <= 0.5; y+=0.25) {
                     for (int q = 0; q <= 5; q++) {
                         float x = (float) (radius * Math.cos(q) * 3);
                         float z = (float) (radius * Math.sin(q) * 3);
-                        ParticleEffect.FLAME.display(player.getLocation(), new Vector(x, y, z).normalize().multiply(0.5), 0.015f, 1, null, Bukkit.getOnlinePlayers());
+                        ParticleEffect.FLAME.display(player.getLocation(), new Vector(x, y, z).normalize().multiply(0.5),
+                                0.015f, 1, null, playerList);
                     }
                 }
             }

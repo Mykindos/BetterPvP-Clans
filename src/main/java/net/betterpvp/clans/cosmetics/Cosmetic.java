@@ -8,12 +8,14 @@ import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.donation.IDonation;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.UtilTime;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public abstract class Cosmetic extends BPVPListener<Clans> implements IDonation {
 
@@ -48,6 +50,12 @@ public abstract class Cosmetic extends BPVPListener<Clans> implements IDonation 
         }
 
         return true;
+    }
+
+    protected List<Player> getClosePlayers(Player player){
+        return Bukkit.getOnlinePlayers().stream()
+                .filter(p -> p.getWorld().equals(player.getWorld()) && p.getLocation().distance(player.getLocation()) <= 20)
+                .collect(Collectors.toList());
     }
 
 }

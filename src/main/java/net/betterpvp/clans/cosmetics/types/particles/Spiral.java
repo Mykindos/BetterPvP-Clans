@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Spiral extends Cosmetic {
@@ -49,7 +50,7 @@ public class Spiral extends Cosmetic {
                 final Player player = Bukkit.getPlayer(uuid);
                 if(player != null){
                     if(!canShow(player)) continue;
-
+                    List<Player> playerList = getClosePlayers(player);
                     int radius = 1;
                     AtomicDouble y = new AtomicDouble(0);
                     for(int q = 0; q <=100; q++){
@@ -60,7 +61,7 @@ public class Spiral extends Cosmetic {
                             @Override
                             public void run() {
                                 if(!EffectManager.hasEffect(player, EffectType.INVISIBILITY)) {
-                                    ParticleEffect.FIREWORKS_SPARK.display(player.getLocation().add(x, y.doubleValue(), z));
+                                    ParticleEffect.FIREWORKS_SPARK.display(player.getLocation().add(x, y.doubleValue(), z), playerList);
                                     y.set(y.doubleValue() + 0.025f);
                                 }
                             }

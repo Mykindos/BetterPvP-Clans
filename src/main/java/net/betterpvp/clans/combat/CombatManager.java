@@ -158,10 +158,7 @@ public class CombatManager extends BPVPListener<Clans> {
                         }
 
                         UtilMessage.message(online, "Breakdown",msg);
-
-
-
-
+                        Log.write("Kill", "Breakdown for " + dam.getName() + " killing " + p.getName() + " -- " + msg);
 
                     }
 
@@ -178,7 +175,6 @@ public class CombatManager extends BPVPListener<Clans> {
                             }
                         }
 
-
                         g.addDeath();
                         damGamer.addKill();
 
@@ -189,7 +185,6 @@ public class CombatManager extends BPVPListener<Clans> {
                     g.removeCoins(tax);
                     damGamer.addCoins(tax);
 
-
                     UtilMessage.message(dam, "Coins", "You collected " + ChatColor.YELLOW + "$"
                             + UtilFormat.formatNumber(tax) + ChatColor.GRAY + " Coins");
                     UtilMessage.message(p, "Coins", "You lost " + ChatColor.YELLOW + "$"
@@ -197,7 +192,6 @@ public class CombatManager extends BPVPListener<Clans> {
 
                     Clan killerClan = ClanUtilities.getClan(dam);
                     Clan deadClan = ClanUtilities.getClan(p);
-
 
                     String dom = "";
                     if (killerClan != null && deadClan != null) {
@@ -215,13 +209,10 @@ public class CombatManager extends BPVPListener<Clans> {
                             return;
                         }
 
-
                         if (deadClan.isEnemy(killerClan)) {
 
                             killerClan.getDominance(deadClan).addPoint();
                             dom = " (+1 Dom)";
-                            //ScoreboardManager.updateRelation(deadClan, killerClan);
-
                         }
                     }
 

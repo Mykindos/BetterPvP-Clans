@@ -62,6 +62,7 @@ public class Options {
     private Location redSpawnLoc, blueSpawnLoc, redShopLoc, blueShopLoc;
     private Location ignatiusSpawnLoc;
     private boolean wingsEnabled;
+    private String discordChatWebhook;
     private Clans i;
 
 
@@ -148,6 +149,7 @@ public class Options {
                 i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.Y"),
                 i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.Z"));
         wingsEnabled = i.getConfigManager().get(Configs.MAIN).getBool("WingsEnabled");
+        discordChatWebhook = i.getConfigManager().get(Configs.MAIN).getString("Discord.ChatWebhook");
     }
 
     public int getMAHPort() {
@@ -396,6 +398,8 @@ public class Options {
 
         i.getConfigManager().get(Configs.MAIN).check("WingsEnabled", false);
 
+        i.getConfigManager().get(Configs.MAIN).check("Discord.ChatWebhook", "");
+
     }
 
     public String getTexturePackURL() {
@@ -493,5 +497,9 @@ public class Options {
 
     public Location getIgnatiusSpawnLocation() {
         return ignatiusSpawnLoc;
+    }
+
+    public String getDiscordChatWebhook() {
+        return discordChatWebhook;
     }
 }
