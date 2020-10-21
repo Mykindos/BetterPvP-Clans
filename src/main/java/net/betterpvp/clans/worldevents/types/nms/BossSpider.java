@@ -13,6 +13,10 @@ public class BossSpider extends EntitySpider {
 
     }
 
+    @Override
+    public boolean eM() {
+        return false;
+    }
 
     public Spider spawnSpider(Location loc) {
         setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
