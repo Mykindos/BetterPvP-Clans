@@ -87,7 +87,7 @@ public class OldRiposte extends Skill implements InteractSkill {
 
                     prepare.remove(target.getName());
                     if (damager instanceof Player) {
-                        UtilMessage.message(target, getClassType(), "Contered an attack from " + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
+                        UtilMessage.message(target, getClassType(), "Countered an attack from " + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
 
 
                         UtilMessage.message(target, getClassType(), "You " + ChatColor.LIGHT_PURPLE + "Riposted " + ChatColor.GRAY + "against "
@@ -114,7 +114,7 @@ public class OldRiposte extends Skill implements InteractSkill {
                             UtilMessage.message((Player) damager, getClassType(), ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " is resistant to melee attacks for "
                                     + ChatColor.GREEN + ChatColor.GREEN + remaining + ChatColor.GRAY + " second.");
                         }
-                        event.setDamage(event.getDamage() * 0.25);
+                        event.setDamage(event.getDamage() * 0.35);
                         event.setKnockback(false);
                         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
                             public void run() {
