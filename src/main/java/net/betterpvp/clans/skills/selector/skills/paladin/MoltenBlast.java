@@ -121,9 +121,9 @@ public class MoltenBlast extends Skill implements InteractSkill {
             if (j instanceof LargeFireball && j.getShooter() instanceof Player) {
                 Player player = (Player) j.getShooter();
 
-                LogManager.addLog(e.getDamagee(), player, "Molten Blast");
                 e.setKnockback(true);
                 e.setDamage(6);
+                e.setReason(getName());
                 new BukkitRunnable(){
                     @Override
                     public void run(){

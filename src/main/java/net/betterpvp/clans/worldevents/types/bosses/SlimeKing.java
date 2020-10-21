@@ -341,7 +341,7 @@ public class SlimeKing extends Boss {
 
                         LogManager.addLog(e.getDamagee(),
                                 e.getDamager(),
-                                slime.getDisplayName(), "");
+                                slime.getDisplayName(), "", e.getDamage());
                     }
                 }
             }

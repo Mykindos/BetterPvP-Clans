@@ -32,7 +32,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class CombatManager extends BPVPListener<Clans> {
@@ -65,7 +68,7 @@ public class CombatManager extends BPVPListener<Clans> {
             if (ent != null) {
                 Player p = (Player) e.getEntity();
                 //String name = ent.getCustomName() != null ? ent.getCustomName() : ChatColor.YELLOW + ent.getName();
-                LogManager.addLog(p, ent, "");
+                LogManager.addLog(p, ent, "", e.getDamage());
             }
         }
     }
@@ -139,6 +142,25 @@ public class CombatManager extends BPVPListener<Clans> {
                            UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
                                     + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(killDetails.getCause())) + length);
                         }
+
+                        HashMap<UUID, Integer> damageBreakdown = LogManager.getDamageBreakdown(p);
+                        int x = 0;
+                        String msg = "";
+                        for(Map.Entry<UUID, Integer> entry : damageBreakdown.entrySet()){
+                            Gamer dGamer = GamerManager.getOnlineGamer(entry.getKey());
+                            if(dGamer != null) {
+                                msg += ChatColor.GREEN + "#" + (x + 1) + " - " + ChatColor.YELLOW + dGamer.getClient().getName() + ChatColor.DARK_AQUA + " (" + entry.getValue() + ") ";
+                                x++;
+                                if (x >= Math.min(damageBreakdown.size(), 3)) {
+                                    break;
+                                }
+                            }
+                        }
+
+                        UtilMessage.message(online, "Breakdown",msg);
+
+
+
 
 
                     }
@@ -333,30 +355,6 @@ public class CombatManager extends BPVPListener<Clans> {
         return "";
     }
 
-
-    @EventHandler(priority = EventPriority.LOW)
-    public void onHit(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof LivingEntity) {
-            LivingEntity p = (LivingEntity) e.getEntity();
-            LivingEntity dam = null;
-            if (e.getDamager() instanceof LivingEntity) {
-
-                dam = (LivingEntity) e.getDamager();
-                LogManager.addLog(p, dam, null);
-
-            } else if (e.getDamager() instanceof Projectile) {
-                Projectile j = (Projectile) e.getDamager();
-                if (j.getShooter() instanceof Player) {
-                    dam = (Player) j.getShooter();
-
-                    LogManager.addLog(p, dam, null);
-
-                }
-            }
-
-
-        }
-    }
 
 
     private String getCause(DamageCause cause) {

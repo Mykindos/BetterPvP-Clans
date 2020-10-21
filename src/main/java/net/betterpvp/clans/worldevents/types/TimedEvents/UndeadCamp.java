@@ -423,7 +423,7 @@ public class UndeadCamp extends Timed {
             }
             if (e.getDamagee() instanceof Player) {
                 if (isMinion(e.getDamager())) {
-                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "");
+                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "", e.getDamage());
                 }
             }
         }

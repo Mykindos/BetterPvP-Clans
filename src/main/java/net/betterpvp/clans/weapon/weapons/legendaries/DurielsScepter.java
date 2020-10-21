@@ -81,8 +81,7 @@ public class DurielsScepter extends Weapon implements ILegendary {
                     b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
                     b.getLocation().getWorld().spigot().strikeLightning(b.getLocation(), true);
                     for (LivingEntity z : UtilPlayer.getAllInRadius(b.getLocation(), 3)) {
-                        LogManager.addLog(z, p, "Lightning Strike");
-                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(z, p, null, DamageCause.LIGHTNING, 15, false));
+                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(z, p, null, DamageCause.LIGHTNING, 15, false, "Duriel's Scepter"));
 
                     }
                     p.playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);

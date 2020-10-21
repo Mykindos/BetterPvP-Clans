@@ -98,11 +98,10 @@ public class LightningOrb extends Skill implements InteractSkill {
 
                     }
 
-                    LogManager.addLog(ent, thrower, "Lightning Orb");
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1));
 
                     thrower.getLocation().getWorld().spigot().strikeLightning(ent.getLocation(), true);
-                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false));
+                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 11, false, getName()));
 
 
                     ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0F, 1.0F);

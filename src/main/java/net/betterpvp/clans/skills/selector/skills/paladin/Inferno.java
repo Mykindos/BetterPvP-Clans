@@ -104,7 +104,6 @@ public class Inferno extends ChannelSkill implements InteractSkill {
                     }
                     if (!e.getThrowable().getImmunes().contains(e.getCollision())) {
                         if (tempImmune.containsKey(e.getCollision())) return;
-                        LogManager.addLog(e.getCollision(), damager, "Inferno");
                         CustomDamageEvent cde = new CustomDamageEvent(e.getCollision(), damager, null, DamageCause.FIRE, 1, false, "Inferno");
                         cde.setDamageDelay(0);
                         Bukkit.getPluginManager().callEvent(cde);

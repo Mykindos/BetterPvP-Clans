@@ -87,8 +87,7 @@ public class HiltSmash extends Skill {
                                         }
 
                                         UtilMessage.message(p, getClassType(), "You hit " + ent.getName() + " with " + ChatColor.GREEN + getName(level));
-                                        LogManager.addLog(ent, p, getName());
-                                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + level, false));
+                                        Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, 3 + level, false, getName()));
 
                                         ent.getWorld().playSound(ent.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1.0F, 1.2F);
                                         //ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 , 4));

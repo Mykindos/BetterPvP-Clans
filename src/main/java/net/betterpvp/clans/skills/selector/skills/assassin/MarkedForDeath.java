@@ -181,7 +181,7 @@ public class MarkedForDeath extends Skill implements InteractSkill {
                         if (hasSkill(p, this)) {
                             if (arrows.contains((Arrow) e.getProjectile())) {
                                 EffectManager.addEffect(ent, EffectType.VULNERABILITY, 1, (6 + getLevel(p)) * 1000);
-                                LogManager.addLog(ent, p, "Marked for Death");
+                                e.setReason(getName());
                                 UtilMessage.message(ent, getClassType(), p.getName() + " hit you with " + ChatColor.GREEN + getName());
                                 arrows.remove((Arrow) e.getProjectile());
                             }

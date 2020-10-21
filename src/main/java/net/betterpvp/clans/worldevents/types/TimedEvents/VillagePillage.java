@@ -270,7 +270,7 @@ public class VillagePillage extends Timed {
             }
             if (e.getDamagee() instanceof Player) {
                 if (isMinion(e.getDamager())) {
-                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "");
+                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "", e.getDamage());
                 }
             }
         }
@@ -385,7 +385,7 @@ public class VillagePillage extends Timed {
 
             for(Weapon w : WeaponManager.weapons) {
                 if (w instanceof EnchantedWeapon) {
-                    lootTable.put(w.createWeapon(), w.getChance() / 2);
+                    lootTable.put(w.createWeapon(), w.getChance() / 4);
                 }
             }
         }

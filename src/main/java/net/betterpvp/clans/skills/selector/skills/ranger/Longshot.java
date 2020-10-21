@@ -139,8 +139,7 @@ public class Longshot extends Skill {
 
                             if (e.getDamagee() instanceof Player) {
 
-                                LogManager.addLog(e.getDamagee(), shooter, "Longshot");
-
+                               e.setReason(getName());
                             }
                         }
 

@@ -139,8 +139,8 @@ public class Wreath extends Skill implements InteractSkill {
                                 continue;
                             }
                         }
-                        CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + (getLevel(player) / 1.5), false);
-                        LogManager.addLog(ent, player, "Wreath");
+                        CustomDamageEvent dmg = new CustomDamageEvent(ent, player, null, EntityDamageEvent.DamageCause.CUSTOM, 2 + (getLevel(player) / 1.5), false, getName());
+
                         EffectManager.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, 40, 1));
                         Bukkit.getPluginManager().callEvent(dmg);
                     }

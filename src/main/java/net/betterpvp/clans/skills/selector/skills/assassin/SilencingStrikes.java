@@ -60,7 +60,7 @@ public class SilencingStrikes extends Skill {
                         SilencingStrikesData d = getSilencingStrikesData(p, ent);
                         d.addCount();
                         d.setLastHit(System.currentTimeMillis());
-                        LogManager.addLog(ent, p, "Silencing Strikes");
+                        e.setReason(getName());
                         if (d.getCount() == 3) {
                             EffectManager.addEffect(ent, EffectType.SILENCE, (long) ((getLevel(p) * 1000) * 0.75));
                             if (EffectManager.hasEffect(ent, EffectType.IMMUNETOEFFECTS)) {

@@ -39,7 +39,7 @@ public class CripplingBlow extends Skill {
                 if (hasSkill(p, this)) {
 
                     LivingEntity ent =  e.getDamagee();
-                    LogManager.addLog(ent, p, "Crippling Blow");
+                    e.setReason(getName());
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((2 + (getLevel(p) * 0.5)) * 20), 0));
 
                 }

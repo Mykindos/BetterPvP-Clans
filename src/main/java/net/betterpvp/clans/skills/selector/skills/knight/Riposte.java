@@ -113,7 +113,7 @@ public class Riposte extends Skill implements InteractSkill {
                                 UtilMessage.message(damager, getClassType(), "You countered with " + getName() + ChatColor.GRAY + ".");
                                 if (damagee != null) {
                                     UtilMessage.message(damagee, getClassType(), damager.getName() + " countered with " + getName() + ChatColor.GRAY + ".");
-                                    LogManager.addLog(damagee, damager, "Riposte");
+                                    LogManager.addLog(damagee, damager, "Riposte", e.getDamage());
                                 }
                             }
                         }

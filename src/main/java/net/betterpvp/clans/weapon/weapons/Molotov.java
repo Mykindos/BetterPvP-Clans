@@ -114,7 +114,7 @@ public class Molotov extends Weapon {
                 return;
             }
             e.getCollision().setFireTicks(80);
-            LogManager.addLog(e.getCollision(), e.getThrowable().getThrower(), "Molotov");
+            LogManager.addLog(e.getCollision(), e.getThrowable().getThrower(), "Molotov", 0);
 
         }
     }

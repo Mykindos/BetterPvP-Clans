@@ -75,7 +75,7 @@ public class MeteorBow extends Weapon implements ILegendary {
             for (Player p : UtilPlayer.getNearby(proj.getLocation(), 5)) {
                 if (ClanUtilities.canHurt(damager, p)) {
                     if (p.getHealth() > 0) {
-                        LogManager.addLog(p, damager, "Explosive Arrow");
+                        LogManager.addLog(p, damager, "Explosive Arrow", UtilGamer.getDamageReduced(10, p));
                         p.damage(UtilGamer.getDamageReduced(10, p));
                         GamerManager.getOnlineGamer(p).setLastDamaged(System.currentTimeMillis());
 
@@ -84,10 +84,6 @@ public class MeteorBow extends Weapon implements ILegendary {
             }
             proj.remove();
 
-            for (Player cur : UtilPlayer.getNearby(proj.getLocation(), 6.0D)) {
-                LogManager.addLog(cur, damager, "Explosive Arrow");
-
-            }
         }
     }
 

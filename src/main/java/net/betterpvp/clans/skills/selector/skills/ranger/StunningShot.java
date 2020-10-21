@@ -97,7 +97,7 @@ public class StunningShot extends Skill implements InteractSkill {
                         if (e.getProjectile() instanceof Arrow) {
 
                             if (arrows.contains((Arrow) e.getProjectile())) {
-                                LogManager.addLog(e.getDamagee(), p, "Stunning Shot");
+                                e.setReason(getName());
                                 UtilMessage.message((Player) e.getDamagee(), getClassType(), "You were hit by a " + getName());
                                 EffectManager.addEffect((Player) e.getDamagee(), EffectType.STUN, (long) ((getLevel(p) * 0.40) * 1000));
                                 arrows.remove((Arrow) e.getProjectile());

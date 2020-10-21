@@ -149,7 +149,7 @@ public class Volley extends Skill implements InteractSkill {
             if (arrows.contains(a)) {
                 if (a.getShooter() instanceof LivingEntity) {
                     e.setDamage(8);
-                    LogManager.addLog(p, (LivingEntity) a.getShooter(), "Volley");
+                    e.setReason(getName());
                 }
             }
         }

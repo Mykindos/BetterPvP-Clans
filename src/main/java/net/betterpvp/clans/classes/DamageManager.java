@@ -8,6 +8,7 @@ import net.betterpvp.clans.clans.Clan;
 import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.classes.events.CustomDamageEvent;
 import net.betterpvp.clans.classes.events.CustomKnockbackEvent;
+import net.betterpvp.clans.combat.LogManager;
 import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.gamer.Gamer;
@@ -318,6 +319,7 @@ public class DamageManager extends BPVPListener<Clans> {
                         }
                     }
 
+                    LogManager.addLog(e.getDamagee(), e.getDamager(), e.getReason(), damage);
                     playDamageEffect(e);
                     updateDurability(e);
 
@@ -329,21 +331,8 @@ public class DamageManager extends BPVPListener<Clans> {
                                 return;
                             }
 
-
                             e.getDamagee().setHealth(0);
-                            // Fixed in spigot version
-                           //if (e.getDamagee().isDead()) {
-                           //    if (!(e.getDamagee() instanceof Player)) {
 
-                           //        /*
-                           //         * EntityDeathEvent not called if entity is killed with setHealth(0);
-                           //         */
-                           //        List<ItemStack> drops = new ArrayList<>();
-                           //        Bukkit.getPluginManager().callEvent(new EntityDeathEvent(e.getDamagee(), drops));
-
-                           //    }
-                           //    return;
-                           //}
 
                         } else {
 
@@ -354,6 +343,8 @@ public class DamageManager extends BPVPListener<Clans> {
                     }
 
                 }
+
+
 
                 if (e.getDamagee() instanceof Player) {
                     Player p = (Player) e.getDamagee();

@@ -114,7 +114,7 @@ public class FireWalkers extends Weapon implements ILegendary {
                     }
 
                     if (e.getCollision().getFireTicks() > 0) return;
-                    LogManager.addLog(e.getCollision(), damager, "Flamebringer Treads");
+                    LogManager.addLog(e.getCollision(), damager, "Flamebringer Treads", 1);
                     e.getCollision().setFireTicks(80);
                 }
             }

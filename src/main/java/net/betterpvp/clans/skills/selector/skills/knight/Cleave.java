@@ -58,9 +58,7 @@ public class Cleave extends Skill {
                             if (ent.equals(p)) continue;
                             if (ent.equals(e.getEntity())) continue;
 
-
-                            LogManager.addLog(ent, p, "Cleave");
-                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (4 + getLevel(p)), true));
+                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.ENTITY_ATTACK, (4 + getLevel(p)), true, "Cleave"));
                         }
                     }
                 }

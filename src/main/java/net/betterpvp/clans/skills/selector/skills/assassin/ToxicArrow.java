@@ -106,7 +106,7 @@ public class ToxicArrow extends Skill implements InteractSkill {
                                     }
                                     ent.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (6 + getLevel(p)) * 20, 0));
                                     ent.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (6 + getLevel(p)) * 20, 0));
-                                    LogManager.addLog(ent, p, "Toxic Arrow");
+                                    e.setReason(getName());
                                     arrows.remove((Arrow) e.getProjectile());
                                 }
                             }

@@ -87,7 +87,7 @@ public class LevitatingShot extends Skill implements InteractSkill {
                                 e.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (2.5 + (getLevel(p) * 0.5)) * 20, 1));
                             }
 
-                            LogManager.addLog(e.getDamagee(), p, "Levitating Shot");
+                            e.setReason(getName());
                             levitatingArrows.remove(a);
                         }
                     }

@@ -215,7 +215,7 @@ public class Broodmother extends Boss {
 
                     LogManager.addLog(e.getDamagee(),
                             e.getDamager(),
-                            getBossName(), "");
+                            getBossName(), "", e.getDamage());
                 }
             }
         }
@@ -352,7 +352,7 @@ public class Broodmother extends Boss {
 
                     if (e.getDamager() instanceof Player) {
                         Player p = (Player) e.getDamager();
-                        LogManager.addLog(p, ent, getBossName(), "Poisonous Fang");
+                        LogManager.addLog(p, ent, getBossName(), "Poisonous Fang", e.getDamage());
                         Bukkit.getPluginManager().callEvent(new CustomDamageEvent(p, ent, null, DamageCause.ENTITY_ATTACK, 4, false));
 
                         p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 300, 0));

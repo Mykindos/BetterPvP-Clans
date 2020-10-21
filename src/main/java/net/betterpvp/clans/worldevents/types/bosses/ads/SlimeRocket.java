@@ -46,7 +46,7 @@ public class SlimeRocket {
         s.getWorld().createExplosion(s.getLocation(), 0f);
         for (LivingEntity ent : UtilPlayer.getAllInRadius(s.getLocation(), 2)) {
             Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, s, null, DamageCause.ENTITY_EXPLOSION, 4, false));
-            LogManager.addLog(ent, s, ChatColor.RED.toString() + ChatColor.BOLD + "Slime King", "Slime Rocket");
+            LogManager.addLog(ent, s, ChatColor.RED.toString() + ChatColor.BOLD + "Slime King", "Slime Rocket", 4);
         }
 
         s.remove();

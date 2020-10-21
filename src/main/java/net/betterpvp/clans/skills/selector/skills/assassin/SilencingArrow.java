@@ -170,7 +170,7 @@ public class SilencingArrow extends Skill implements InteractSkill {
                                 if (arrows.contains((Arrow) e.getProjectile())) {
 
                                     EffectManager.addEffect(ent, EffectType.SILENCE, (3 + getLevel(p)) * 1000);
-                                    LogManager.addLog(ent, p, "Silencing Arrow");
+                                    e.setReason(getName());
                                     if (EffectManager.hasEffect(ent, EffectType.IMMUNETOEFFECTS)) {
                                         UtilMessage.message(p, getClassType(), ChatColor.GREEN + ent.getName() + ChatColor.GRAY + " is immune to your silence!");
                                     }

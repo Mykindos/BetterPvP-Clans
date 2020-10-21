@@ -70,8 +70,7 @@ public class RepeatedStrikes extends Skill {
                     int level = getLevel(p);
                     repeat.put(p, Math.min(level, repeat.get(p) + 1));
                     last.put(p, System.currentTimeMillis());
-                    LogManager.addLog(e.getDamagee(), p, "Repeated Strikes");
-
+                    e.setReason(getName());
 
                 }
             }

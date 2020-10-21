@@ -72,7 +72,7 @@ public class WolfsFury extends Skill implements InteractSkill {
 
                 if (active.containsKey((Player) e.getDamager())) {
                     if (hasSkill((Player) e.getDamager(), this)) {
-                        LogManager.addLog(e.getDamagee(), e.getDamager(), "Wolfs Fury");
+                        e.setReason(getName());
                     }
                     e.setKnockback(false);
                 }

@@ -180,8 +180,7 @@ public class FleshHook extends ChannelSkill implements InteractSkill {
             UtilVelocity.velocity(collide, UtilVelocity.getTrajectory(collide.getLocation(), e.getThrowable().getThrower().getLocation()), 2.0D, false, 0.0D, 0.8D, 1.0D, true);
             e.getThrowable().getItem().remove();
 
-            LogManager.addLog(collide, e.getThrowable().getThrower(), "Flesh Hook");
-            CustomDamageEvent ev = new CustomDamageEvent(collide, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 2, false);
+            CustomDamageEvent ev = new CustomDamageEvent(collide, e.getThrowable().getThrower(), null, DamageCause.CUSTOM, 2, false, getName());
             ev.setIgnoreArmour(false);
 
             Bukkit.getPluginManager().callEvent(ev);
