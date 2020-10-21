@@ -169,7 +169,13 @@ public class CombatManager extends BPVPListener<Clans> {
                     Role killerRole = Role.getRole(dam);
                     if (killedRole != null) {
                         if(killerRole != null){
-                            Weapon weapon = WeaponManager.getWeapon(dam.getInventory().getItemInMainHand());
+                            Weapon weapon = null;
+                            for(ItemStack item : dam.getInventory().getContents()){
+                                Weapon temp = WeaponManager.getWeapon(item);
+                                if(temp instanceof ILegendary){
+                                    weapon = temp;
+                                }
+                            }
                             if(weapon == null || (weapon != null && !(weapon instanceof ILegendary))) {
                                 UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
                             }
