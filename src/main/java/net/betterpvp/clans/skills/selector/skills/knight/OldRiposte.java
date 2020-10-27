@@ -114,7 +114,7 @@ public class OldRiposte extends Skill implements InteractSkill {
                             UtilMessage.message((Player) damager, getClassType(), ChatColor.YELLOW + target.getName() + ChatColor.GRAY + " is resistant to melee attacks for "
                                     + ChatColor.GREEN + ChatColor.GREEN + remaining + ChatColor.GRAY + " second.");
                         }
-                        event.setDamage(event.getDamage() * 0.35);
+                        event.setDamage(event.getDamage() * 0.25);
                         event.setKnockback(false);
                         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(getInstance(), new Runnable() {
                             public void run() {
