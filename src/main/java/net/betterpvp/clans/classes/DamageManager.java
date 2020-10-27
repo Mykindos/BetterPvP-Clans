@@ -61,7 +61,7 @@ public class DamageManager extends BPVPListener<Clans> {
         if ((e instanceof EntityDamageByEntityEvent)) {
             EntityDamageByEntityEvent ev = (EntityDamageByEntityEvent) e;
 
-            if(ev.getDamager() instanceof EvokerFangs){
+            if (ev.getDamager() instanceof EvokerFangs) {
                 e.setCancelled(true);
             }
 
@@ -78,7 +78,6 @@ public class DamageManager extends BPVPListener<Clans> {
             e.setCancelled(true);
 
         }
-
 
         if (e.getCause() == DamageCause.LIGHTNING) {
             e.setCancelled(true);
@@ -110,9 +109,9 @@ public class DamageManager extends BPVPListener<Clans> {
             e.setCancelled(true);
         }
 
-        if(e.getEntity() instanceof Sheep){
+        if (e.getEntity() instanceof Sheep) {
             Sheep sheep = (Sheep) e.getEntity();
-            if(sheep.getCustomName() != null){
+            if (sheep.getCustomName() != null) {
                 e.setCancelled(true);
             }
         }
@@ -152,12 +151,12 @@ public class DamageManager extends BPVPListener<Clans> {
     }
 
     @EventHandler
-    public void onMAHDamage(CustomDamageEvent e){
-        if(e.getDamager() instanceof Player){
+    public void onMAHDamage(CustomDamageEvent e) {
+        if (e.getDamager() instanceof Player) {
             MAHUser user = MAHManager.getOnlineMAHUser((Player) e.getDamager());
-            if(user != null){
-                if(user.isForced()){
-                    if(!user.isAuthenticated()){
+            if (user != null) {
+                if (user.isForced()) {
+                    if (!user.isAuthenticated()) {
                         e.setCancelled("Must authenticate with MAH");
                     }
                 }
@@ -209,14 +208,14 @@ public class DamageManager extends BPVPListener<Clans> {
     @EventHandler(priority = EventPriority.MONITOR)
     public void damageEvent(CustomDamageEvent e) {
 
-        if(e.getDamagee() instanceof ArmorStand){
+        if (e.getDamagee() instanceof ArmorStand) {
             return;
         }
 
-        if(e.getDamagee() instanceof Player){
+        if (e.getDamagee() instanceof Player) {
             Player damagee = (Player) e.getDamagee();
-            if(damagee.getGameMode() == GameMode.CREATIVE
-                    || damagee.getGameMode() == GameMode.SPECTATOR){
+            if (damagee.getGameMode() == GameMode.CREATIVE
+                    || damagee.getGameMode() == GameMode.SPECTATOR) {
                 return;
             }
         }
@@ -284,16 +283,16 @@ public class DamageManager extends BPVPListener<Clans> {
 
             }
 
-            if(e.getDamagee() instanceof Sheep){
+            if (e.getDamagee() instanceof Sheep) {
                 Sheep sheep = (Sheep) e.getDamagee();
-                if(sheep.getCustomName() != null){
+                if (sheep.getCustomName() != null) {
                     e.setCancelled("Combat Log Sheep");
                     return;
                 }
             }
 
             if (e.getCause() == DamageCause.ENTITY_ATTACK) {
-                if(e.getDamager() != null) {
+                if (e.getDamager() != null) {
                     if (e.getDamager().getHealth() <= 0) {
                         return;
                     }
@@ -319,7 +318,9 @@ public class DamageManager extends BPVPListener<Clans> {
                         }
                     }
 
-                    LogManager.addLog(e.getDamagee(), e.getDamager(), e.getReason(), damage);
+                    if (e.getDamager() != null) {
+                        LogManager.addLog(e.getDamagee(), e.getDamager(), e.getReason(), damage);
+                    }
                     playDamageEffect(e);
                     updateDurability(e);
 
@@ -343,7 +344,6 @@ public class DamageManager extends BPVPListener<Clans> {
                     }
 
                 }
-
 
 
                 if (e.getDamagee() instanceof Player) {
@@ -438,7 +438,7 @@ public class DamageManager extends BPVPListener<Clans> {
                                 takeDura = true;
                             }
 
-                            if(armour.getType() == Material.TURTLE_HELMET){
+                            if (armour.getType() == Material.TURTLE_HELMET) {
                                 takeDura = false;
                             }
 

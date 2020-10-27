@@ -1,6 +1,7 @@
 package net.betterpvp.clans.cosmetics;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.classes.roles.Paladin;
 import net.betterpvp.clans.cosmetics.menu.CosmeticMenuListener;
 import net.betterpvp.clans.cosmetics.types.death.Scream;
 import net.betterpvp.clans.cosmetics.types.death.TNTSplatter;
@@ -10,6 +11,7 @@ import net.betterpvp.clans.cosmetics.types.particles.Flame;
 import net.betterpvp.clans.cosmetics.types.particles.Hearts;
 import net.betterpvp.clans.cosmetics.types.particles.Spiral;
 import net.betterpvp.clans.cosmetics.types.particles.Wake;
+import net.betterpvp.clans.cosmetics.types.wings.*;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.core.donation.DonationManager;
@@ -40,6 +42,15 @@ public class CosmeticManager {
         addCosmetic(new Flame(instance));
         addCosmetic(new Hearts(instance));
         addCosmetic(new Spiral(instance));
+
+        // Wing Effects
+        addCosmetic(new AssassinWings(instance));
+        addCosmetic(new BoosterWings(instance));
+        addCosmetic(new KnightWings(instance));
+        addCosmetic(new GladiatorWings(instance));
+        addCosmetic(new WarlockWings(instance));
+        addCosmetic(new PaladinWings(instance));
+        addCosmetic(new RangerWings(instance));
 
     }
 

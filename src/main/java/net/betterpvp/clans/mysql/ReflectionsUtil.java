@@ -1,6 +1,6 @@
 package net.betterpvp.clans.mysql;
 
-import net.betterpvp.clans.donations.cosmetics.CosmeticWings;
+import net.betterpvp.clans.cosmetics.types.wings.CosmeticWings;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
 import net.betterpvp.core.database.QueryFactory;

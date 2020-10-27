@@ -28,6 +28,8 @@ public class CosmeticMenuListener extends BPVPListener<Clans> {
                 e.getPlayer().openInventory(new KillEffectMenu(e.getPlayer()).getInventory());
             }else if(e.getButton().getName().contains("Particle Effects")){
                 e.getPlayer().openInventory(new ParticleEffectMenu(e.getPlayer()).getInventory());
+            }else if(e.getButton().getName().contains("Wings")){
+                e.getPlayer().openInventory(new WingEffectMenu(e.getPlayer()).getInventory());
             }
         }else if(e.getMenu() instanceof CosmeticSubMenu){
             if(e.getClickType() == ClickType.LEFT) {

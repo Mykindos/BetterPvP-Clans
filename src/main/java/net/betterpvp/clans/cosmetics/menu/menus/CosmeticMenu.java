@@ -20,6 +20,6 @@ public class CosmeticMenu extends Menu {
         addButton(new Button(2, new ItemStack(Material.DIAMOND_SWORD), ChatColor.GREEN + "Kill Effects",ChatColor.GRAY +  "View Owned / Select active kill effects"));
         addButton(new Button(4, new ItemStack(Material.CAKE), ChatColor.GREEN + "Death Effects", ChatColor.GRAY + "View Owned / Select active death effects"));
         addButton(new Button(6, new ItemStack(Material.ENDER_CHEST), ChatColor.GREEN + "Other Effects", ChatColor.GRAY + "View Owned / Select active misc effects"));
-        addButton(new Button(8, new ItemStack(Material.NAME_TAG), ChatColor.GREEN + "Pets", ChatColor.GRAY + "View Owned / Select active Pets"));
+        addButton(new Button(8, new ItemStack(Material.ELYTRA), ChatColor.GREEN + "Wings", ChatColor.GRAY + "View Owned / Select active Wings"));
     }
 }
