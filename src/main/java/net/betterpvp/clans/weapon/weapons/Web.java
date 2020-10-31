@@ -49,7 +49,7 @@ public class Web extends Weapon {
         if (isThisWeapon(player)) {
             if (ClanUtilities.canCast(player)) {
                 if (event.getAction() == Action.LEFT_CLICK_AIR) {
-                    if (RechargeManager.getInstance().add(player, "Throwing Web", 10, true)) {
+                    if (RechargeManager.getInstance().add(player, "this throwable", 10, true)) {
                         Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.COBWEB));
                         Throwables thro = new Throwables(item, player, "Throwing Web", 10000);
                         thro.getImmunes().add(player);
