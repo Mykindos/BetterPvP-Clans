@@ -19,6 +19,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -44,7 +45,7 @@ public class GlacialAxe extends Weapon implements ILegendary {
                     for (Block b : UtilBlock.getInRadius(e.getPlayer().getLocation(), 5, 2).keySet()) {
 
                         Clan clan = ClanUtilities.getClan(b.getLocation());
-                        if(clan != null && !(clan instanceof AdminClan)){
+                        if (clan != null && !(clan instanceof AdminClan)) {
                             continue;
                         }
 
@@ -63,16 +64,18 @@ public class GlacialAxe extends Weapon implements ILegendary {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onEntityDamage(CustomDamageEvent event) {
-        if (event.getDamager() instanceof Player) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (event.getDamager() instanceof Player) {
 
-            Player player = (Player) event.getDamager();
-            if (player.getInventory().getItemInMainHand() == null) return;
-            if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_FAR) return;
-            if (isThisWeapon(player)) {
+                Player player = (Player) event.getDamager();
+                if (player.getInventory().getItemInMainHand() == null) return;
+                if (player.getInventory().getItemInMainHand().getType() != Material.MUSIC_DISC_FAR) return;
+                if (isThisWeapon(player)) {
 
-                event.setDamage(7);
-                event.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 1));
+                    event.setDamage(7);
+                    event.getDamagee().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 1));
 
+                }
             }
         }
 
