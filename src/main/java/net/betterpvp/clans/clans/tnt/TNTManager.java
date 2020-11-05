@@ -79,7 +79,9 @@ public class TNTManager extends BPVPListener<Clans> {
     @EventHandler
     public void onPlaceTnt(BlockPlaceEvent e) {
         if (e.getBlock().getType() != Material.TNT) return;
-
+        if(Clans.getOptions().isLastDay()){
+            return;
+        }
         Gamer gamer = GamerManager.getOnlineGamer(e.getPlayer());
         if (gamer != null) {
             Clan clan = ClanUtilities.getClan(e.getPlayer());
@@ -104,6 +106,9 @@ public class TNTManager extends BPVPListener<Clans> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onExplode(EntityExplodeEvent e) {
+        if(Clans.getOptions().isLastDay()){
+            return;
+        }
         if (getPrimedTntMap().containsKey(e.getEntity())) {
             Clan attacker = getPrimedTntMap().get(e.getEntity());
 
