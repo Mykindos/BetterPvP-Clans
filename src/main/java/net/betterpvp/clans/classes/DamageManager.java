@@ -220,7 +220,10 @@ public class DamageManager extends BPVPListener<Clans> {
             }
         }
 
-        if (e.isCancelled()) return;
+        if (e.isCancelled()) {
+            //System.out.println(e.getCancelReason());
+            return;
+        }
         if (!(e.getDamager() instanceof Player) && e.getDamagee() instanceof Player) {
             Gamer gamer = GamerManager.getOnlineGamer((Player) e.getDamagee());
             if (gamer != null) {
