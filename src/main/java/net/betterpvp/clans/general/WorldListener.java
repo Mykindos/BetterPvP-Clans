@@ -1652,7 +1652,7 @@ public class WorldListener extends BPVPListener<Clans> {
                 e.getPlayer().teleport(new Location(world, 384.5, 65, 11, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, 413.5, 71, 47.5, -90, 0));
+                e.getPlayer().teleport(new Location(world, -453.5, 67, -11.5, -90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
 

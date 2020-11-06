@@ -1,5 +1,6 @@
 package net.betterpvp.clans.mysql;
 
+import net.betterpvp.clans.cosmetics.Cosmetic;
 import net.betterpvp.clans.cosmetics.types.wings.CosmeticWings;
 import net.betterpvp.core.command.Command;
 import net.betterpvp.core.command.CommandManager;
@@ -101,7 +102,7 @@ public class ReflectionsUtil {
         for (Class<? extends IDonation> d : classes) {
             try {
                 if (Listener.class.isAssignableFrom(d)) {
-                    if (CosmeticWings.class.isAssignableFrom(d)) continue;
+                    if (Cosmetic.class.isAssignableFrom(d)) continue;
                     IDonation donation = d.newInstance();
                     Bukkit.getPluginManager().registerEvents((Listener) donation, instance);
                     System.out.println("Registered donation + listener");

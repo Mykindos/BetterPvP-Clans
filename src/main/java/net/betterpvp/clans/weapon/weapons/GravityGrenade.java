@@ -56,7 +56,7 @@ public class GravityGrenade extends Weapon {
         if (isThisWeapon(player)) {
             if (ClanUtilities.canCast(player)) {
                 if (event.getAction() == Action.LEFT_CLICK_AIR) {
-                    if (RechargeManager.getInstance().add(player, "this throwable", 10, true)) {
+                    if (RechargeManager.getInstance().add(player, "Throwable", 10, true)) {
                         Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.BLACK_TERRACOTTA, 1));
                         UtilItem.remove(player, Material.BLACK_TERRACOTTA, 1);
                         item.setPickupDelay(Integer.MAX_VALUE);

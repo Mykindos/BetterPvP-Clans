@@ -184,9 +184,10 @@ public class ChatListener extends BPVPListener<Clans> {
                                 .tooltip(ClanUtilities.getClanTooltip(p, clan)).then(e.getMessage()).send(online);
                     }
 
-                    submitChatToWebhook(p,  e.getMessage());
+
                 }
             }
+            submitChatToWebhook(p,  e.getMessage());
         }
 
         e.setCancelled(true);
