@@ -56,7 +56,7 @@ public class LightningOrb extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 25 - ((level * 2));
+        return 23 - ((level * 2));
     }
 
     @Override

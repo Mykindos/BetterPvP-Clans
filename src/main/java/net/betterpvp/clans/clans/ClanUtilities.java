@@ -433,6 +433,12 @@ public class ClanUtilities {
     }
 
     public static boolean canCast(Player p) {
+
+
+        return canCast(p, true);
+    }
+
+    public static boolean canCast(Player p, boolean message) {
         Clan clanLoc = getClan(p.getLocation());
         if (clanLoc != null) {
             if (clanLoc instanceof AdminClan) {
@@ -448,7 +454,9 @@ public class ClanUtilities {
                         }
                     }
 
-                    UtilMessage.message(p, "Restriction", "You are not allowed to cast abilities here!");
+                    if(message) {
+                        UtilMessage.message(p, "Restriction", "You are not allowed to cast abilities here!");
+                    }
                     return false;
                 }
             }
@@ -471,11 +479,6 @@ public class ClanUtilities {
         if (PunishManager.getPunish(player.getUniqueId(), PunishType.PVPLock) != null) {
             return false;
         }
-
-        if (Agility.getActive().contains(target.getUniqueId())) {
-            return false;
-        }
-
 
         if (Clans.getOptions().isFNG()) {
             return true;

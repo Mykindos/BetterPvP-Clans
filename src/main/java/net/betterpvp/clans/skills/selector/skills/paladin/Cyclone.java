@@ -93,7 +93,7 @@ public class Cyclone extends Skill implements InteractSkill {
                 }
                 Vector v = UtilVelocity.getTrajectory(target, p);
                 LogManager.addLog(target, p, "Cyclone", 0);
-                UtilVelocity.velocity(target, v, 1.3D, false, 0.0D, 0.5D, 4.0D, true);
+                UtilVelocity.velocity(target, v, 1.2D, false, 0.0D, 0.5D, 4.0D, true);
 
 
             }

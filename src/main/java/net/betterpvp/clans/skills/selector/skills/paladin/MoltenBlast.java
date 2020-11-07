@@ -210,7 +210,7 @@ public class MoltenBlast extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 25 - ((level - 1) * 2);
+        return 23 - ((level - 1) * 2);
     }
 
     @Override

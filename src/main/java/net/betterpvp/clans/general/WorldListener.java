@@ -1314,7 +1314,9 @@ public class WorldListener extends BPVPListener<Clans> {
             if (c instanceof AdminClan) {
                 AdminClan ac = (AdminClan) c;
                 if (ac.isSafe()) {
-                    e.setCancelled(true);
+                    if(!ClanUtilities.canCast(p, false)) {
+                        e.setCancelled(true);
+                    }
                     return;
                 }
             }
@@ -1330,7 +1332,7 @@ public class WorldListener extends BPVPListener<Clans> {
 
             Role r = Role.getRole(p);
             if (r != null) {
-                Weapon wep = WeaponManager.getWeapon(p.getItemInHand());
+                Weapon wep = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                 if (wep != null && wep instanceof MeteorBow) {
                     return;
 

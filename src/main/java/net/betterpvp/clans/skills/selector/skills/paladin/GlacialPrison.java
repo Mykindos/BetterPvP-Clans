@@ -86,7 +86,7 @@ public class GlacialPrison extends Skill implements InteractSkill {
                     for (Location loc : UtilMath.sphere(i.getLocation(), 5, true)) {
                         if (loc.getBlock().getType().name().contains("REDSTONE")) continue;
                         if (loc.getBlock().getType() == Material.AIR || UtilBlock.airFoliage(loc.getBlock())) {
-                            new BlockRestoreData(loc.getBlock(), Material.ICE, (byte) 0, 5000L);
+                            new BlockRestoreData(loc.getBlock(), Material.ICE, (byte) 0, 4000L);
                             loc.getBlock().setType(Material.ICE);
                         }
                     }

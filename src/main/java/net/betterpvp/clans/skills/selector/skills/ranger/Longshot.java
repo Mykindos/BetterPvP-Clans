@@ -71,11 +71,12 @@ public class Longshot extends Skill {
     public void onShoot(EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (ClanUtilities.canCast(p)) {
+
                 Role r = Role.getRole(p);
                 if (r != null && r.getName().equals(getClassType())) {
 
                     if (hasSkill(p, this)) {
+                        if (ClanUtilities.canCast(p)) {
                         if (e.getProjectile() instanceof Arrow) {
                             Projectile j = (Projectile) e.getProjectile();
                             if (j.getShooter() instanceof Player) {

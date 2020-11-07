@@ -92,8 +92,9 @@ public class Volley extends Skill implements InteractSkill {
     public void onShoot(final EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (ClanUtilities.canCast(p)) {
+
                 if (hasSkill(p, this)) {
+                    if (ClanUtilities.canCast(p)) {
                     if (volleys.contains(p.getUniqueId())) {
                         Location c = p.getLocation();
                         new BukkitRunnable() {

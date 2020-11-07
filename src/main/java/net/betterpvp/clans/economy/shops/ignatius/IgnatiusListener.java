@@ -36,7 +36,7 @@ public class IgnatiusListener extends BPVPListener<Clans> {
     public IgnatiusListener(Clans instance) {
         super(instance);
         lastIgnatiusSpawn = System.currentTimeMillis();
-        ignatiusRespawnCooldown = UtilMath.randomInt(8, 16) * 3_600_000_000L;
+        ignatiusRespawnCooldown = UtilMath.randomInt(8, 16) * 3_600_000;
     }
 
     @EventHandler
