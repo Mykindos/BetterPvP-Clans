@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 
 public class WEManager extends BPVPListener<Clans> {
@@ -37,6 +38,8 @@ public class WEManager extends BPVPListener<Clans> {
 
     private static Location[] returnLocs;
     private static Location[] bossLocs;
+
+    private WorldEvent lastWorldEvent = null;
 
     public WEManager(Clans i) {
         super(i);
@@ -72,13 +75,24 @@ public class WEManager extends BPVPListener<Clans> {
             public void run() {
                 if (Bukkit.getOnlinePlayers().size() >= Clans.getOptions().MinPlayersForWorldEvent()) {
                     if (!isWorldEventActive()) {
-                        WorldEvent we = getWorldEvents().get(ThreadLocalRandom.current().nextInt(getWorldEvents().size()));
+                        List<WorldEvent> events = getWorldEvents().stream()
+                                .filter(w -> {
+                                    if(lastWorldEvent != null){
+                                        if(w.getName().equalsIgnoreCase(lastWorldEvent.getName())){
+                                            return false;
+                                        }
+                                    }
+                                    return true;
+                                }).collect(Collectors.toList());
+
+                        WorldEvent we = events.get(ThreadLocalRandom.current().nextInt(getWorldEvents().size()));
                         if (!we.getSpawn().getChunk().isLoaded()) {
                             we.getSpawn().getChunk().load();
                         }
                         we.spawn();
                         we.setActive(true);
                         announce();
+                        lastWorldEvent = we;
                     }
                 }
             }
