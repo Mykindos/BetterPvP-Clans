@@ -219,7 +219,7 @@ public class SmokeBomb extends Skill implements ToggleSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 45 - ((level - 1) * 2.5);
+        return 50 - ((level - 1) * 2.5);
     }
 
     @Override
@@ -234,8 +234,8 @@ public class SmokeBomb extends Skill implements ToggleSkill {
         if (RechargeManager.getInstance().add(p, getName(), getRecharge(getLevel(p)), showRecharge())) {
 
             p.playSound(p.getLocation(), Sound.BLOCK_CONDUIT_AMBIENT, 2.0f, 1.f);
-            EffectManager.addEffect(p, EffectType.INVISIBILITY, (3 + getLevel(p)) * 1000);
-            smoked.put(p, (3 + getLevel(p)));
+            EffectManager.addEffect(p, EffectType.INVISIBILITY, (5 + getLevel(p)) * 1000);
+            smoked.put(p, (5 + getLevel(p)));
             //timer.put(p, System.currentTimeMillis());
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.hidePlayer(p);

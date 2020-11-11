@@ -132,6 +132,14 @@ public class ShopListener extends BPVPListener<Clans> {
 
             if (e.getCurrency() == TradeCurrency.COINS) {
 
+                if (e.getGamer().getClient().hasDonation("ConveniencePackage")) {
+                    cost = cost * 0.90;
+                }
+
+                if (QuestPerkManager.hasPerk(e.getPlayer(), "5% Shop Discount")) {
+                    cost = cost * 0.95;
+                }
+
                 ItemStack k;
                 Weapon wep = WeaponManager.getWeapon(e.getItem().getItemName());
                 if (wep != null) {

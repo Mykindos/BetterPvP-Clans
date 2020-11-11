@@ -85,7 +85,7 @@ public class WEManager extends BPVPListener<Clans> {
                                     return true;
                                 }).collect(Collectors.toList());
 
-                        WorldEvent we = events.get(ThreadLocalRandom.current().nextInt(getWorldEvents().size()));
+                        WorldEvent we = events.get(ThreadLocalRandom.current().nextInt(events.size()));
                         if (!we.getSpawn().getChunk().isLoaded()) {
                             we.getSpawn().getChunk().load();
                         }
