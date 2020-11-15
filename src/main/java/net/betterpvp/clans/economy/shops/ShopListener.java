@@ -62,12 +62,14 @@ public class ShopListener extends BPVPListener<Clans> {
             }
 
             if (e.getCurrency() == TradeCurrency.COINS) {
-                if (e.getGamer().getClient().hasDonation("ConveniencePackage")) {
-                    cost = cost * 0.90;
-                }
+                if (!e.getItem().getItemStack().getType().name().contains("MUSIC")) {
+                    if (e.getGamer().getClient().hasDonation("ConveniencePackage")) {
+                        cost = cost * 0.90;
+                    }
 
-                if (QuestPerkManager.hasPerk(e.getPlayer(), "5% Shop Discount")) {
-                    cost = cost * 0.95;
+                    if (QuestPerkManager.hasPerk(e.getPlayer(), "5% Shop Discount")) {
+                        cost = cost * 0.95;
+                    }
                 }
 
                 if (!e.getGamer().hasCoins((int) cost)) {
@@ -131,13 +133,14 @@ public class ShopListener extends BPVPListener<Clans> {
             double cost = e.isShift() ? e.getItem().getBuyPrice() * 64 : e.getItem().getBuyPrice();
 
             if (e.getCurrency() == TradeCurrency.COINS) {
+                if (!e.getItem().getItemStack().getType().name().contains("MUSIC")) {
+                    if (e.getGamer().getClient().hasDonation("ConveniencePackage")) {
+                        cost = cost * 0.90;
+                    }
 
-                if (e.getGamer().getClient().hasDonation("ConveniencePackage")) {
-                    cost = cost * 0.90;
-                }
-
-                if (QuestPerkManager.hasPerk(e.getPlayer(), "5% Shop Discount")) {
-                    cost = cost * 0.95;
+                    if (QuestPerkManager.hasPerk(e.getPlayer(), "5% Shop Discount")) {
+                        cost = cost * 0.95;
+                    }
                 }
 
                 ItemStack k;
@@ -270,7 +273,7 @@ public class ShopListener extends BPVPListener<Clans> {
             ShopItem item = (ShopItem) e.getButton();
             boolean isShifting = e.getClickType().name().contains("SHIFT");
             Gamer gamer = GamerManager.getOnlineGamer(p);
-            if(!RechargeManager.getInstance().add(p, "Shop", 0.15, false, true)){
+            if (!RechargeManager.getInstance().add(p, "Shop", 0.15, false, true)) {
                 return;
             }
             if (e.getClickType().name().contains("LEFT")) {
@@ -388,7 +391,7 @@ public class ShopListener extends BPVPListener<Clans> {
 
     }
 
-    private void sellIgnatiusLegendary(ShopTradeEvent e){
+    private void sellIgnatiusLegendary(ShopTradeEvent e) {
         if (e.getPlayer().getInventory().contains(e.getItem().getItemStack().getType())) {
             for (int x = 0; x < e.getPlayer().getInventory().getSize(); x++) {
                 ItemStack i = e.getPlayer().getInventory().getItem(x);

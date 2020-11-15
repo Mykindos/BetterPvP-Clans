@@ -11,10 +11,7 @@ import net.betterpvp.clans.weapon.WeaponManager;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
-import net.betterpvp.core.utility.Titles;
-import net.betterpvp.core.utility.UtilMath;
-import net.betterpvp.core.utility.UtilMessage;
-import net.betterpvp.core.utility.UtilTime;
+import net.betterpvp.core.utility.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -64,7 +61,7 @@ public class IgnatiusListener extends BPVPListener<Clans> {
 
     private void spawnIgnatius(){
         lastIgnatiusSpawn = System.currentTimeMillis();
-        ignatiusRespawnCooldown = UtilMath.randomInt(8, 16) * 3_600_000_000L;
+        ignatiusRespawnCooldown = UtilMath.randomInt(8, 16) *  3_600_000L;
         ShopManager.spawnShop(getInstance(), Clans.getOptions().getIgnatiusSpawnLocation(), "Ignatius");
 
         Bukkit.getOnlinePlayers().forEach(player -> {
@@ -75,6 +72,8 @@ public class IgnatiusListener extends BPVPListener<Clans> {
         });
 
         UtilMessage.broadcast("Shop", "Ignatius has entered the world.");
+
+        UtilDiscord.sendWebhook(Clans.getOptions().getDiscordChatWebhook(), "SERVER", "Ignatius has entered the world.");
     }
 
     private void killIgnatius(){

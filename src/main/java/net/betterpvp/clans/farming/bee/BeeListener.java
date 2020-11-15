@@ -222,6 +222,12 @@ public class BeeListener extends BPVPListener<Clans> {
                     }
                 }
             }
+        }else if(e.getType() == UpdateEvent.UpdateType.MIN_60){
+            for (LivingEntity ent : Bukkit.getWorld("world").getLivingEntities()) {
+                if (ent instanceof Bee) {
+                    ent.setHealth(0);
+                }
+            }
         }
     }
 

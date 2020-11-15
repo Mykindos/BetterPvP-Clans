@@ -155,8 +155,8 @@ public class FishingListener extends BPVPListener<Clans> {
                         item.setItemMeta(im);
 
                         if(clan != null && (c.getName().equals("Lake") || c.getName().equals("Fields"))) {
-                            int legValue = UtilMath.randomInt(4000);
-                            if (legValue >= 3998) {
+                            int legValue = UtilMath.randomInt(3000);
+                            if (legValue >= 2998) {
                                 List<ItemStack> weapons = new ArrayList<>();
                                 for (Weapon w : WeaponManager.weapons) {
                                     if (w instanceof ILegendary) {
