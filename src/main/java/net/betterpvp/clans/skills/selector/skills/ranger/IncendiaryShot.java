@@ -103,7 +103,7 @@ public class IncendiaryShot extends Skill implements InteractSkill {
                                 }
                             }.runTaskLater(getInstance(), 2);
 
-                            LogManager.addLog(e.getDamagee(), p, "Incendiary Shot");
+                            e.setReason(getName());
                             incens.remove(a);
                         }
                     }

@@ -1,24 +1,27 @@
-package net.betterpvp.clans.donations.cosmetics;
+package net.betterpvp.clans.cosmetics.types.wings;
 
 import net.betterpvp.clans.Clans;
-import net.betterpvp.core.particles.ParticleEffect;
+import net.betterpvp.clans.cosmetics.CosmeticType;
 import net.betterpvp.core.particles.data.color.RegularColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class BoosterWings extends CosmeticWings{
+import java.awt.*;
+import java.util.List;
 
-    public BoosterWings(Clans clans) {
+public class RangerWings extends CosmeticWings{
+
+    public RangerWings(Clans clans) {
         super(clans);
     }
 
     @Override
-    String getSetting() {
-        return "Cosmetics.Booster Wings";
+    public CosmeticType getCosmeticType() {
+        return CosmeticType.WINGS;
     }
 
     @Override
-    void run(Player player) {
+    void run(Player player, List<Player> playerList) {
         if (!canShow(player)) return;
 
         Location loc = player.getLocation().clone();
@@ -28,7 +31,7 @@ public class BoosterWings extends CosmeticWings{
         loc.setYaw(loc.getYaw() + 75);
         Location loc2 = loc.clone();
 
-        display(loc, loc2, new RegularColor(255,105,180), new RegularColor(255,105,180), new RegularColor(255,105,180));
+        display(loc, loc2, new RegularColor(Color.GREEN), new RegularColor(Color.GREEN), new RegularColor(Color.GREEN), playerList);
 
         loc = player.getLocation().clone();
         loc.setPitch(0.0F);
@@ -36,17 +39,17 @@ public class BoosterWings extends CosmeticWings{
         loc.add(loc.getDirection().multiply(-0.2D));
         loc.setYaw(loc.getYaw() - 75);
         loc2 = loc.clone();
-        display(loc, loc2, new RegularColor(255,105,180), new RegularColor(255,105,180), new RegularColor(255,105,180));
+        display(loc, loc2, new RegularColor(Color.GREEN), new RegularColor(Color.GREEN), new RegularColor(Color.GREEN), playerList);
     }
 
     @Override
     public String getName() {
-        return "BoosterWings";
+        return "RangerWings";
     }
 
     @Override
     public String getDisplayName() {
-        return "Booster Wings";
+        return "Ranger Wings";
     }
 
     @Override

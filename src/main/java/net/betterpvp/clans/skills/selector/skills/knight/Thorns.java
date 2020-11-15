@@ -74,8 +74,7 @@ public class Thorns extends Skill {
 
                             if (UtilTime.elapsed(cd.get(d), 2000)) {
 
-                                Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, getLevel(p) * 0.80, false));
-                                LogManager.addLog(d, p, "Thorns");
+                                Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, getLevel(p) * 0.80, false, getName()));
                                 cd.put(d, System.currentTimeMillis());
                                 return;
                             }
@@ -86,7 +85,7 @@ public class Thorns extends Skill {
                         return;
                     }
                     LivingEntity ent = (LivingEntity) e.getDamager();
-                    LogManager.addLog(ent, p, "Thorns");
+                    LogManager.addLog(ent, p, "Thorns", getLevel(p));
                     ent.damage(getLevel(p));
                 }
 

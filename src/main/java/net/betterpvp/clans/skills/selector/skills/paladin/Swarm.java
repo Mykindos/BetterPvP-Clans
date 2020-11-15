@@ -141,7 +141,7 @@ public class Swarm extends ChannelSkill implements InteractSkill {
                         if (hitPlayer(bat.getLocation(), other)) {
 
 
-                            LogManager.addLog(other, p, "Swarm");
+
                             if (other instanceof Player) {
 
                                 if (other.equals(p)) continue;
@@ -174,7 +174,8 @@ public class Swarm extends ChannelSkill implements InteractSkill {
                                 v.setY(v.getY() + 0.4d);
 
                             other.setFallDistance(0);
-                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(other, p, null, DamageCause.CUSTOM, 1, false));
+                            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(other, p, null, DamageCause.CUSTOM, 1, false, getName()));
+
                             //other.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 0));
                             if (other instanceof Player) {
                                 EffectManager.addEffect((Player) other, EffectType.SHOCK, 800L);

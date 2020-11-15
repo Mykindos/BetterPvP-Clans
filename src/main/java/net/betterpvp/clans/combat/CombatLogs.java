@@ -8,8 +8,9 @@ public class CombatLogs {
     private String cause;
     private String name;
     private Long expiry;
+    private double damage;
 
-    public CombatLogs(LivingEntity damager, String name, String cause) {
+    public CombatLogs(LivingEntity damager, String name, String cause, double damage) {
         this.damager = damager;
         this.name = name;
         if (cause != null) {
@@ -19,6 +20,7 @@ public class CombatLogs {
         }
 
         this.expiry = System.currentTimeMillis();
+        this.damage = damage;
     }
 
 
@@ -41,4 +43,7 @@ public class CombatLogs {
         return expiry;
     }
 
+    public double getDamage() {
+        return damage;
+    }
 }

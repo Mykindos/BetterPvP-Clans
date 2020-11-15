@@ -4,7 +4,6 @@ package net.betterpvp.clans;
 import io.github.bananapuncher714.cartographer.core.Cartographer;
 import io.github.bananapuncher714.cartographer.core.api.map.MapCursorProvider;
 import io.github.bananapuncher714.cartographer.core.api.map.WorldCursorProvider;
-import io.github.bananapuncher714.cartographer.core.map.MapSettings;
 import io.github.bananapuncher714.cartographer.core.map.Minimap;
 import me.mykindos.MAH.user.MAHManager;
 import net.betterpvp.clans.anticheat.AnticheatManager;
@@ -27,15 +26,17 @@ import net.betterpvp.clans.combat.combatlog.npc.NPCManager;
 import net.betterpvp.clans.combat.ratings.RatingManager;
 import net.betterpvp.clans.combat.safelog.SafeLogManager;
 import net.betterpvp.clans.combat.throwables.ThrowableManager;
+import net.betterpvp.clans.cosmetics.CosmeticManager;
+import net.betterpvp.clans.cosmetics.types.wings.*;
 import net.betterpvp.clans.crates.CrateListener;
 import net.betterpvp.clans.crates.CrateManager;
 import net.betterpvp.clans.dailies.QuestManager;
 import net.betterpvp.clans.dailies.perks.QuestPerkManager;
-import net.betterpvp.clans.donations.cosmetics.*;
 import net.betterpvp.clans.economy.shops.ShopCommand;
 import net.betterpvp.clans.economy.shops.ShopEntities;
 import net.betterpvp.clans.economy.shops.ShopManager;
 import net.betterpvp.clans.economy.shops.ShopListener;
+import net.betterpvp.clans.economy.shops.ignatius.IgnatiusListener;
 import net.betterpvp.clans.economy.shops.nms.ShopSkeleton;
 import net.betterpvp.clans.economy.shops.nms.ShopVillager;
 import net.betterpvp.clans.economy.shops.nms.ShopZombie;
@@ -224,6 +225,8 @@ public class Clans extends JavaPlugin implements Listener {
         new ClanSpawnListener(this);
         new TNTManager(this);
         new RatingManager(this);
+        new IgnatiusListener(this);
+        new CosmeticManager(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));
@@ -244,14 +247,6 @@ public class Clans extends JavaPlugin implements Listener {
         getCommand("clan").setExecutor(new ClanCommand(this));
 
         //Cartographer.getInstance().getMapManager().remove(Cartographer.getInstance().getMapManager().getMinimaps().get("Clans"));
-
-        DonationManager.addDonation(new AssassinWings(this));
-        DonationManager.addDonation(new KnightWings(this));
-        DonationManager.addDonation(new RangerWings(this));
-        DonationManager.addDonation(new WarlockWings(this));
-        DonationManager.addDonation(new GladiatorWings(this));
-        DonationManager.addDonation(new PaladinWings(this));
-        DonationManager.addDonation(new BoosterWings(this));
 
         ClanMapSettings clanMapSettings = new ClanMapSettings(YamlConfiguration.loadConfiguration(new File("/plugins/Cartographer2/Clans-Map-Config.yml")));
         if(!Cartographer.getInstance().getMapManager().getMinimaps().containsKey("Clans")) {

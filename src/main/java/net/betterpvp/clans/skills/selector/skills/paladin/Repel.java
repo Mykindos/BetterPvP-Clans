@@ -101,7 +101,7 @@ public class Repel extends Skill implements InteractSkill {
                         if (hitPlayer(bat.getLocation(), other)) {
 
 
-                            LogManager.addLog(other, p, "Repel");
+                            LogManager.addLog(other, p, "Repel", 2);
                             if (other instanceof Player) {
 
                                 if (other.equals(p)) continue;

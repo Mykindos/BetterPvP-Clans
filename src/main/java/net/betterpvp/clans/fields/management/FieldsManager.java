@@ -10,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import sun.reflect.generics.repository.FieldRepository;
 
 
 public class FieldsManager extends BPVPListener<Clans> {

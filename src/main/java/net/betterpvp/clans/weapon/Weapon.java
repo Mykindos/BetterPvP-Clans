@@ -1,6 +1,7 @@
 package net.betterpvp.clans.weapon;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilItem;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -37,13 +38,16 @@ public class Weapon implements Listener {
 
     }
 
-    public List<String> getLoreWithPrice(String store, int price) {
+    public List<String> getLoreWithPrice(String store, int buyPrice, int sellPrice) {
         List<String> temp = new ArrayList<String>();
 
         if (store.contains("Fragment Vendor")) {
-            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price + ChatColor.GRAY + " fragments");
+            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW +  UtilFormat.formatNumber(buyPrice) + ChatColor.GRAY + " fragments");
+        } else if(store.contains("Ignatius")){
+            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW +  UtilFormat.formatNumber(buyPrice) + ChatColor.GRAY + " coins");
+            temp.add(ChatColor.GRAY + "Sell Price: " + ChatColor.YELLOW +  UtilFormat.formatNumber(sellPrice) + ChatColor.GRAY + " coins");
         } else {
-            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + price);
+            temp.add(ChatColor.GRAY + "Buy Price: " + ChatColor.YELLOW + UtilFormat.formatNumber(buyPrice));
         }
         if (getLore() != null) {
             temp.addAll(Arrays.asList(getLore()));

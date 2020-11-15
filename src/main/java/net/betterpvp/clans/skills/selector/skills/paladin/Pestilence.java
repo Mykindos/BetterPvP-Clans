@@ -105,7 +105,7 @@ public class Pestilence extends Skill implements InteractSkill {
                     continue;
                 }
                 d.getPestilence().addInfected(d.getPlayer());
-                LogManager.addLog(d.getPlayer(), d.getDamager(), "Pestilence");
+                LogManager.addLog(d.getPlayer(), d.getDamager(), "Pestilence", 0);
             }
         }
     }

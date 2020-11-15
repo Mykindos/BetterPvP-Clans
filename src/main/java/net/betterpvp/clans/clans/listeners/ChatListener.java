@@ -17,7 +17,10 @@ import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.client.commands.admin.ChatToggle;
 import net.betterpvp.core.client.commands.admin.StaffChatCommand;
 import net.betterpvp.core.framework.BPVPListener;
+import net.betterpvp.core.networking.NetworkReceiver;
+import net.betterpvp.core.networking.discord.DiscordWebhook;
 import net.betterpvp.core.punish.PunishManager;
+import net.betterpvp.core.utility.UtilDiscord;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.fancymessage.FancyMessage;
 import org.bukkit.Bukkit;
@@ -57,7 +60,7 @@ public class ChatListener extends BPVPListener<Clans> {
             if (ClanChatCommand.enabled.contains(p.getName())) {
 
                 clan.messageClan(ChatColor.AQUA + p.getName() + " " + ChatColor.DARK_AQUA + e.getMessage(), null, false);
-
+                submitChatToWebhook(p, "Clan Chat> " + e.getMessage());
                 e.setCancelled(true);
                 return;
             } else if (AllyChatCommand.enabled.contains(p.getName())) {
@@ -70,6 +73,8 @@ public class ChatListener extends BPVPListener<Clans> {
                 clan.messageClan(ChatColor.DARK_GREEN + clan.getName() + " " + p.getName() + " "
                         + ChatColor.GREEN + e.getMessage(), null, false);
 
+                submitChatToWebhook(p, "Ally Chat> " + e.getMessage());
+
                 e.setCancelled(true);
                 return;
             }
@@ -77,6 +82,7 @@ public class ChatListener extends BPVPListener<Clans> {
 
         if (StaffChatCommand.enabled.contains(p.getName())) {
             ClientUtilities.messageStaff(ChatColor.RED + p.getName() + "> " + ChatColor.WHITE + e.getMessage(), Rank.MODERATOR);
+            submitChatToWebhook(p, "Staff Chat> " + e.getMessage());
             e.setCancelled(true);
             return;
         }
@@ -177,10 +183,18 @@ public class ChatListener extends BPVPListener<Clans> {
                                 + ClanUtilities.getRelation(clan, target).getPrimary() + p.getName() + ": ")
                                 .tooltip(ClanUtilities.getClanTooltip(p, clan)).then(e.getMessage()).send(online);
                     }
+
+
                 }
             }
+            submitChatToWebhook(p,  e.getMessage());
         }
 
         e.setCancelled(true);
+    }
+
+    private void submitChatToWebhook(Player author, String message){
+        UtilDiscord.sendWebhook(Clans.getOptions().getDiscordChatWebhook(), author.getName(), message);
+
     }
 }

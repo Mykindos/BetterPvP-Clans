@@ -35,7 +35,6 @@ public class SeverData implements Listener {
                             if (RechargeManager.getInstance().add(damagee, "Sever-Damage", 0.75, false)) {
                                 Bukkit.getPluginManager().callEvent(new CustomDamageEvent(damagee, damager, null,
                                         DamageCause.CUSTOM, 1.5, false, "Sever"));
-                                LogManager.addLog(damagee, damager, "Sever");
                             }
                         }
                     }

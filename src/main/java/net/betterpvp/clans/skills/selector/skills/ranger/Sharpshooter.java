@@ -67,11 +67,11 @@ public class Sharpshooter extends Skill {
 
                             SharpshooterData data = getSharpshooterData(player.getUniqueId());
 
-                            if (data.getCharge() < 4) {
-                                data.addCharge();
-                                data.setLastHit(System.currentTimeMillis());
-                                event.setDamage(event.getDamage() + (data.getCharge() * (getLevel(player) * 0.75)));
-                            }
+
+                            data.addCharge();
+                            data.setLastHit(System.currentTimeMillis());
+                            event.setDamage(event.getDamage() + (Math.min(4, data.getCharge()) * (getLevel(player) * 0.75)));
+
                         }
                     }
 

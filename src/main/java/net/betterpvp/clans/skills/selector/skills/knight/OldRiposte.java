@@ -87,7 +87,7 @@ public class OldRiposte extends Skill implements InteractSkill {
 
                     prepare.remove(target.getName());
                     if (damager instanceof Player) {
-                        UtilMessage.message(target, getClassType(), "Contered an attack from " + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
+                        UtilMessage.message(target, getClassType(), "Countered an attack from " + ChatColor.YELLOW + damager.getName() + ChatColor.GRAY + ".");
 
 
                         UtilMessage.message(target, getClassType(), "You " + ChatColor.LIGHT_PURPLE + "Riposted " + ChatColor.GRAY + "against "

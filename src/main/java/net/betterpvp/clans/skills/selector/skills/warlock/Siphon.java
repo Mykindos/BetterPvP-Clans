@@ -76,7 +76,7 @@ public class Siphon extends Skill {
                                         if (UtilMath.randomInt(10) == 1) {
                                             UtilPlayer.health(player, 1);
                                         }
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 50, 1));
+                                        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 50, 0));
                                         this.cancel();
                                         return;
                                     }

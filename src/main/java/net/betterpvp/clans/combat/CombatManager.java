@@ -32,7 +32,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class CombatManager extends BPVPListener<Clans> {
@@ -65,7 +68,7 @@ public class CombatManager extends BPVPListener<Clans> {
             if (ent != null) {
                 Player p = (Player) e.getEntity();
                 //String name = ent.getCustomName() != null ? ent.getCustomName() : ChatColor.YELLOW + ent.getName();
-                LogManager.addLog(p, ent, "");
+                LogManager.addLog(p, ent, "", e.getDamage());
             }
         }
     }
@@ -118,6 +121,23 @@ public class CombatManager extends BPVPListener<Clans> {
                     }
 
 
+                    HashMap<UUID, Integer> damageBreakdown = LogManager.getDamageBreakdown(p);
+                    int x = 0;
+                    String msg = "";
+                    for(Map.Entry<UUID, Integer> entry : damageBreakdown.entrySet()){
+                        Gamer dGamer = GamerManager.getOnlineGamer(entry.getKey());
+                        if(dGamer != null) {
+                            msg += ChatColor.GREEN + "#" + (x + 1) + " - " + ChatColor.YELLOW + dGamer.getClient().getName() + ChatColor.DARK_AQUA + " (" + entry.getValue() + ") ";
+                            x++;
+                            if (x >= Math.min(damageBreakdown.size(), 3)) {
+                                break;
+                            }
+                        }
+                    }
+
+                   // UtilMessage.message(online, "Breakdown",msg);
+                    String tooltip = msg;
+                    Log.write("Kill", "Breakdown for " + dam.getName() + " killing " + p.getName() + " -- " + msg);
                     for (Player online : Bukkit.getOnlinePlayers()) {
 
                         Gamer onlineGamer = GamerManager.getOnlineGamer(online);
@@ -133,12 +153,16 @@ public class CombatManager extends BPVPListener<Clans> {
                         String killerColour = ClanUtilities.getRelation(clanA, ClanUtilities.getClan(dam)).getPrimary().toString();
 
                         if (killDetails.getCause().equals("")) {
-                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
-                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getInventory().getItemInMainHand()))));
+                           UtilMessage.fancyMessage(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(getWeaponName(dam.getInventory().getItemInMainHand()))),
+                                   tooltip);
                         } else {
-                           UtilMessage.message(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
-                                    + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(killDetails.getCause())) + length);
+
+                           UtilMessage.fancyMessage(online, prefix, rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + roleb + killerColour + dam.getName()
+                                   + ChatColor.GRAY + " with " + ChatColor.GREEN + UtilFormat.cleanString(ChatColor.stripColor(killDetails.getCause())) + length,
+                                   tooltip);
                         }
+
 
 
                     }
@@ -150,12 +174,21 @@ public class CombatManager extends BPVPListener<Clans> {
                     Role killerRole = Role.getRole(dam);
                     if (killedRole != null) {
                         if(killerRole != null){
-                            Weapon weapon = WeaponManager.getWeapon(dam.getInventory().getItemInMainHand());
+                            Weapon weapon = null;
+                            for(ItemStack item : dam.getInventory().getContents()){
+                                if(item != null) {
+                                    Weapon temp = WeaponManager.getWeapon(item);
+                                    if (temp != null) {
+                                        if (temp instanceof ILegendary) {
+                                            weapon = temp;
+                                        }
+                                    }
+                                }
+                            }
                             if(weapon == null || (weapon != null && !(weapon instanceof ILegendary))) {
                                 UtilRating.adjustRating(damGamer, killerRole, g, killedRole);
                             }
                         }
-
 
                         g.addDeath();
                         damGamer.addKill();
@@ -167,7 +200,6 @@ public class CombatManager extends BPVPListener<Clans> {
                     g.removeCoins(tax);
                     damGamer.addCoins(tax);
 
-
                     UtilMessage.message(dam, "Coins", "You collected " + ChatColor.YELLOW + "$"
                             + UtilFormat.formatNumber(tax) + ChatColor.GRAY + " Coins");
                     UtilMessage.message(p, "Coins", "You lost " + ChatColor.YELLOW + "$"
@@ -175,7 +207,6 @@ public class CombatManager extends BPVPListener<Clans> {
 
                     Clan killerClan = ClanUtilities.getClan(dam);
                     Clan deadClan = ClanUtilities.getClan(p);
-
 
                     String dom = "";
                     if (killerClan != null && deadClan != null) {
@@ -193,13 +224,10 @@ public class CombatManager extends BPVPListener<Clans> {
                             return;
                         }
 
-
                         if (deadClan.isEnemy(killerClan)) {
 
                             killerClan.getDominance(deadClan).addPoint();
                             dom = " (+1 Dom)";
-                            //ScoreboardManager.updateRelation(deadClan, killerClan);
-
                         }
                     }
 
@@ -215,7 +243,6 @@ public class CombatManager extends BPVPListener<Clans> {
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
                         String playerColour = ClanUtilities.getRelation(ClanUtilities.getClan(online), ClanUtilities.getClan(p)).getPrimary().toString();
-
 
                         UtilMessage.message(online, "Death", rolea + playerColour + p.getName() + ChatColor.GRAY + " was killed by " + ChatColor.YELLOW + reason + cause);
 
@@ -333,30 +360,6 @@ public class CombatManager extends BPVPListener<Clans> {
         return "";
     }
 
-
-    @EventHandler(priority = EventPriority.LOW)
-    public void onHit(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof LivingEntity) {
-            LivingEntity p = (LivingEntity) e.getEntity();
-            LivingEntity dam = null;
-            if (e.getDamager() instanceof LivingEntity) {
-
-                dam = (LivingEntity) e.getDamager();
-                LogManager.addLog(p, dam, null);
-
-            } else if (e.getDamager() instanceof Projectile) {
-                Projectile j = (Projectile) e.getDamager();
-                if (j.getShooter() instanceof Player) {
-                    dam = (Player) j.getShooter();
-
-                    LogManager.addLog(p, dam, null);
-
-                }
-            }
-
-
-        }
-    }
 
 
     private String getCause(DamageCause cause) {

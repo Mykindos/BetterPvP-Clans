@@ -72,12 +72,12 @@ public class HuntersThrill extends Skill {
 
                                 HuntersThrillData data = getHuntersThrillData(player.getUniqueId());
 
-                                if (data.getCharge() < 4) {
+
                                     data.addCharge();
                                     data.setLastHit(System.currentTimeMillis());
                                     player.removePotionEffect(PotionEffectType.SPEED);
-                                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, data.getCharge() - 1));
-                                }
+                                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, Math.min(4, data.getCharge()) - 1));
+
                             }
                         }
 

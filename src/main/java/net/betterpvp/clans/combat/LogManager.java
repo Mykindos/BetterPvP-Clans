@@ -7,6 +7,8 @@ import net.betterpvp.clans.clans.ClanUtilities;
 import net.betterpvp.clans.gamer.Gamer;
 import net.betterpvp.clans.gamer.GamerManager;
 import net.betterpvp.clans.utilities.UtilClans;
+import net.betterpvp.clans.utilities.UtilGamer;
+import net.betterpvp.core.utility.UtilPlayer;
 import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.GameMode;
 import org.bukkit.entity.LivingEntity;
@@ -23,7 +25,7 @@ public class LogManager {
         return logs;
     }
 
-    public static void addLog(LivingEntity damagee, LivingEntity damager, String name, String cause) {
+    public static void addLog(LivingEntity damagee, LivingEntity damager, String name, String cause, double damage) {
         if (damagee instanceof Player && damager instanceof Player) {
             if (!ClanUtilities.canHurt((Player) damager, (Player) damagee)) {
                 return;
@@ -34,11 +36,11 @@ public class LogManager {
             getCombatLogs().put(damagee, new ArrayList<CombatLogs>());
         }
 
-        getCombatLogs().get(damagee).add(new CombatLogs(damager, name, cause));
+        getCombatLogs().get(damagee).add(new CombatLogs(damager, name, cause, damage));
     }
 
-    public static synchronized void addLog(LivingEntity damagee, LivingEntity damager, String cause) {
-        addLog(damagee, damager, "", cause);
+    public static synchronized void addLog(LivingEntity damagee, LivingEntity damager, String cause, double damage) {
+        addLog(damagee, damager, "", cause, damage);
     }
 
 
@@ -73,6 +75,38 @@ public class LogManager {
         }
         return null;
     }
+
+    public static LinkedHashMap<UUID, Integer> getDamageBreakdown(Player killed){
+        HashMap<UUID, Integer> breakdown = new HashMap<>();
+        if(getCombatLogs().containsKey(killed)){
+          List<CombatLogs> logs = getCombatLogs().get(killed);
+          logs.stream().forEach(c -> {
+              if(c.getDamager() instanceof Player){
+                  Player dam = (Player) c.getDamager();
+                  if(breakdown.containsKey(dam.getUniqueId())){
+                      breakdown.put(dam.getUniqueId(), breakdown.get(dam.getUniqueId()) + (int) c.getDamage());
+                  }else{
+                      breakdown.put(dam.getUniqueId(), (int) c.getDamage());
+                  }
+              }
+          });
+        }
+        return sortByValue(breakdown);
+    }
+
+    public static <K, V extends Comparable<? super V>> LinkedHashMap<K, V> sortByValue(HashMap<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        LinkedHashMap<K, V> result = new LinkedHashMap<>();
+        for (HashMap.Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
+    }
+
+
 
     public static boolean isSafe(Player p) {
 

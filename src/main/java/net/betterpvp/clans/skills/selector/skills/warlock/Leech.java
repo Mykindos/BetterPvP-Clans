@@ -276,8 +276,7 @@ public class Leech extends Skill implements InteractSkill {
                         continue;
                     }
                 }
-                LogManager.addLog(l.target, l.owner, "Leech");
-                CustomDamageEvent leechDmg = new CustomDamageEvent(l.target, l.owner, null, EntityDamageEvent.DamageCause.MAGIC, 1, false);
+                CustomDamageEvent leechDmg = new CustomDamageEvent(l.target, l.owner, null, EntityDamageEvent.DamageCause.MAGIC, 1, false, getName());
                 leechDmg.setIgnoreArmour(true);
                 Bukkit.getPluginManager().callEvent(leechDmg);
                 UtilPlayer.health(l.owner, 1);

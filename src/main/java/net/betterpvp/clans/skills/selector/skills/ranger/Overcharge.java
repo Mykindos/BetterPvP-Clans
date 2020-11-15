@@ -133,10 +133,8 @@ public class Overcharge extends Skill {
                     Arrow a = (Arrow) e.getProjectile();
 
                     if (bonus.containsKey(a)) {
-
-
-                        LogManager.addLog(e.getDamagee(), ((Player) a.getShooter()), "Overcharge: " + bonus.get(a));
                         e.setDamage(e.getDamage() + bonus.get(a));
+                        e.setReason(getName());
                     }
                 }
             }

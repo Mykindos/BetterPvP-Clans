@@ -43,7 +43,7 @@ public class Longshot extends Skill {
         return new String[]{
                 "Shoot an arrow that gains additional",
                 "damage the further the target hit is",
-                "Caps out at " + ChatColor.GREEN + (16 + level) + ChatColor.GRAY + " damage",
+                "Caps out at " + ChatColor.GREEN + (18 + level) + ChatColor.GRAY + " damage",
                 "Cannot be used in own territory"};
     }
 
@@ -71,11 +71,12 @@ public class Longshot extends Skill {
     public void onShoot(EntityShootBowEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (ClanUtilities.canCast(p)) {
+
                 Role r = Role.getRole(p);
                 if (r != null && r.getName().equals(getClassType())) {
 
                     if (hasSkill(p, this)) {
+                        if (ClanUtilities.canCast(p)) {
                         if (e.getProjectile() instanceof Arrow) {
                             Projectile j = (Projectile) e.getProjectile();
                             if (j.getShooter() instanceof Player) {
@@ -132,15 +133,14 @@ public class Longshot extends Skill {
                             Location loc = arrows.get(arrow);
                             double length = UtilMath.offset(loc, e.getDamagee().getLocation());
 
-                            double damage = Math.min((16 + getLevel((Player) arrow.getShooter())), length / 3.0 - 4);
+                            double damage = Math.min((18 + getLevel((Player) arrow.getShooter())), length / 3.0 - 4);
 
                             e.setDamage(e.getDamage() + (damage));
                             arrows.remove(arrow);
 
                             if (e.getDamagee() instanceof Player) {
 
-                                LogManager.addLog(e.getDamagee(), shooter, "Longshot");
-
+                               e.setReason(getName());
                             }
                         }
 

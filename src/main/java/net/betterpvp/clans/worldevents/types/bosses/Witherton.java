@@ -607,7 +607,7 @@ public class Witherton extends Boss {
 
                     LogManager.addLog(e.getDamagee(),
                             e.getDamager(),
-                            getBossName(), "");
+                            getBossName(), "", e.getDamage());
                 }
             }
         }

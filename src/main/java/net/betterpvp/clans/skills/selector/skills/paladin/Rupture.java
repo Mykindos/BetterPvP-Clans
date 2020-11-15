@@ -103,7 +103,7 @@ public class Rupture extends Skill implements InteractSkill {
     @Override
     public double getRecharge(int level) {
 
-        return 14 - ((level - 1) * 1);
+        return 12 - ((level - 1) * 1);
     }
 
     @Override
@@ -187,8 +187,7 @@ public class Rupture extends Skill implements InteractSkill {
 
                                 UtilVelocity.velocity(ed, 0.5, 1, 2.0, false);
                                 ed.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 2));
-                                LogManager.addLog(ed, p, "Rupture");
-                                Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, p, null, DamageCause.CUSTOM, 8.0, false));
+                                Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, p, null, DamageCause.CUSTOM, 8.0, false, getName()));
 
                                 cooldownJump.get(p).add(ed);
                             }

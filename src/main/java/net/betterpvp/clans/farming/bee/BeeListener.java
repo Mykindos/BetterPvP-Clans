@@ -30,6 +30,8 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BeeListener extends BPVPListener<Clans> {
@@ -155,6 +157,7 @@ public class BeeListener extends BPVPListener<Clans> {
             for (Clan clan : ClanUtilities.getClans()) {
                 if (clan.getBeeData().isEmpty()) continue;
                 boolean online = clan.isOnline();
+                List<BeeData> remove = new ArrayList<>();
                 for (BeeData data : clan.getBeeData()) {
                     if (data.isHarvestable()) continue;
                     if (!online) {
@@ -169,9 +172,16 @@ public class BeeListener extends BPVPListener<Clans> {
                             hive.setBlockData(hiveData);
 
                             data.setHarvestable(true);
+                        }else{
+                            remove.add(data);
                         }
                     }
                 }
+
+                remove.forEach(b -> {
+                    clan.getBeeData().remove(b);
+                    BeeRepository.removeBeeData(b.getLoc());
+                });
             }
         }
     }
@@ -210,6 +220,12 @@ public class BeeListener extends BPVPListener<Clans> {
                     if (lClan == null) {
                         ent.setHealth(0);
                     }
+                }
+            }
+        }else if(e.getType() == UpdateEvent.UpdateType.MIN_60){
+            for (LivingEntity ent : Bukkit.getWorld("world").getLivingEntities()) {
+                if (ent instanceof Bee) {
+                    ent.setHealth(0);
                 }
             }
         }

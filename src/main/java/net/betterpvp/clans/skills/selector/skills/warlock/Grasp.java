@@ -158,8 +158,7 @@ public class Grasp extends Skill implements InteractSkill {
 
                 if (!cooldownJump.get(player).contains(ed)) {
 
-                    LogManager.addLog(ed, player, "Grasp");
-                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, level, false));
+                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ed, player, null, EntityDamageEvent.DamageCause.CUSTOM, level, false, getName()));
                     cooldownJump.get(player).add(ed);
                     UtilVelocity.velocity(ent, UtilVelocity.getTrajectory(ent.getLocation(), target), 1.0, false, 0, 0.5, 1, true);
                 }

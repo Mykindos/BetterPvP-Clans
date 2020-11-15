@@ -12,6 +12,7 @@ import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.utilities.UtilClans;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.framework.UpdateEvent;
+import net.betterpvp.core.utility.UtilMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,8 +20,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.map.MapView;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Iterator;
 
@@ -59,6 +62,18 @@ public class MapListener extends BPVPListener<Clans> {
         event.getMinimap().registerProvider(new ClanCursorProvider());
         event.getMinimap().registerProvider(new ClanPixelProvider(getInstance()));
 
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent e){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                if (Clans.getOptions().isAdvancedMap()) {
+                    e.getPlayer().getInventory().addItem(MapListener.map.clone());
+                }
+            }
+        }.runTaskLater(getInstance(), 10);
     }
 
 

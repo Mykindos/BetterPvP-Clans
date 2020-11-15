@@ -222,13 +222,13 @@ public class BorisAndDoris extends Boss {
                 if (isBoss(e.getDamager())) {
                     if (doris != null) {
                         if (e.getDamager().equals(doris)) {
-                            LogManager.addLog(e.getDamagee(), e.getDamager(), getDorisName(), "");
+                            LogManager.addLog(e.getDamagee(), e.getDamager(), getDorisName(), "", e.getDamage());
 
                         }
                     }
                     if (boris != null) {
                         if (e.getDamager().equals(boris)) {
-                            LogManager.addLog(e.getDamagee(), e.getDamager(), getBorisName(), "");
+                            LogManager.addLog(e.getDamagee(), e.getDamager(), getBorisName(), "", e.getDamage());
                         }
                     }
 

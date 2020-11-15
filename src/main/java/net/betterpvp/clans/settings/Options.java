@@ -60,7 +60,9 @@ public class Options {
     private int advancedMapDistance;
     private boolean blockingVPN;
     private Location redSpawnLoc, blueSpawnLoc, redShopLoc, blueShopLoc;
+    private Location ignatiusSpawnLoc;
     private boolean wingsEnabled;
+    private String discordChatWebhook;
     private Clans i;
 
 
@@ -143,7 +145,11 @@ public class Options {
         blueShopLoc = new Location(Bukkit.getWorld("world"), i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.X"),
                 i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Y"),
                 i.getConfigManager().get(Configs.MAIN).getInt("Clans.AdvancedMap.BlueShop.Z"));
+        ignatiusSpawnLoc = new Location(Bukkit.getWorld(world), i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.X"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.Y"),
+                i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.Z"));
         wingsEnabled = i.getConfigManager().get(Configs.MAIN).getBool("WingsEnabled");
+        discordChatWebhook = i.getConfigManager().get(Configs.MAIN).getString("Discord.ChatWebhook");
     }
 
     public int getMAHPort() {
@@ -385,7 +391,14 @@ public class Options {
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.X", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Y", 0);
         i.getConfigManager().get(Configs.MAIN).check("Clans.AdvancedMap.RedShop.Z", 0);
+
+        i.getConfigManager().get(Configs.MAIN).check("Shops.Ignatius.X", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Shops.Ignatius.Y", 0);
+        i.getConfigManager().get(Configs.MAIN).check("Shops.Ignatius.Z", 0);
+
         i.getConfigManager().get(Configs.MAIN).check("WingsEnabled", false);
+
+        i.getConfigManager().get(Configs.MAIN).check("Discord.ChatWebhook", "");
 
     }
 
@@ -480,5 +493,13 @@ public class Options {
 
     public int getDominanceBeforeTnt() {
         return dominanceBeforeTnt;
+    }
+
+    public Location getIgnatiusSpawnLocation() {
+        return ignatiusSpawnLoc;
+    }
+
+    public String getDiscordChatWebhook() {
+        return discordChatWebhook;
     }
 }

@@ -30,6 +30,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityTransformEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -269,7 +270,7 @@ public class VillagePillage extends Timed {
             }
             if (e.getDamagee() instanceof Player) {
                 if (isMinion(e.getDamager())) {
-                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "");
+                    LogManager.addLog(e.getDamagee(), e.getDamager(), getMinion(e.getDamager()).getDisplayName(), "", e.getDamage());
                 }
             }
         }
@@ -384,7 +385,7 @@ public class VillagePillage extends Timed {
 
             for(Weapon w : WeaponManager.weapons) {
                 if (w instanceof EnchantedWeapon) {
-                    lootTable.put(w.createWeapon(), w.getChance() / 2);
+                    lootTable.put(w.createWeapon(), w.getChance() / 4);
                 }
             }
         }
@@ -451,6 +452,17 @@ public class VillagePillage extends Timed {
     public void onVindicatorDamage(CustomDamageEvent e){
         if(e.getDamager() instanceof Vindicator){
             e.setDamage(e.getDamage() * 0.70);
+        }
+    }
+
+    @EventHandler
+    public void onVillagerTransform(EntityTransformEvent e){
+        if(isActive()){
+            if(e.getEntity().getWorld().equals(world)){
+                if(e.getTransformReason() == EntityTransformEvent.TransformReason.LIGHTNING){
+                    e.setCancelled(true);
+                }
+            }
         }
     }
 }

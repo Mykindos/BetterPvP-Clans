@@ -45,7 +45,7 @@ public class ShockingStrikes extends Skill {
                         if (hasSkill(dam, this)) {
                             EffectManager.addEffect(ent, EffectType.SHOCK, (long) (getLevel(dam)) * 1000);
                             ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 0));
-                            LogManager.addLog(ent, dam, "Shocking Strikes");
+                            e.setReason(getName());
                         }
                     }
                 }

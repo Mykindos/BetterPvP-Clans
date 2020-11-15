@@ -86,8 +86,7 @@ public class PinDown extends Skill implements InteractSkill {
                             LivingEntity ent = e.getDamagee();
 
 
-                            LogManager.addLog(e.getDamagee(), p, "Pin Down");
-
+                            e.setReason(getName());
 
                             ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((getLevel(p) * 1.5) * 20), 3));
                         }

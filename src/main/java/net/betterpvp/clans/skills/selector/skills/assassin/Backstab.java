@@ -43,7 +43,7 @@ public class Backstab extends Skill {
 
                         if (UtilMath.getAngle(dam.getLocation().getDirection(), e.getDamagee().getLocation().getDirection()) < 60) {
 
-                            LogManager.addLog(e.getDamagee(), dam, "Backstab");
+
                             int level = getLevel(dam);
                             e.setDamage(e.getDamage() * (1.2 + (level * 0.1)));
                             dam.getWorld().playEffect(e.getDamagee().getLocation().add(0, 1, 0), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
@@ -57,6 +57,8 @@ public class Backstab extends Skill {
                                     }
                                 }
                             }
+
+                            e.setReason("Backstab");
                         }
 
                     }

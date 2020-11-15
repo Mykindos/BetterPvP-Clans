@@ -59,8 +59,7 @@ public class Entangle extends Skill {
                 if (r != null && r.getName().equals(getClassType())) {
                     if (hasSkill(p, this)) {
 
-                        LogManager.addLog(ent, p, "Entangle");
-
+                        e.setReason(getName());
                         ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) ((2 +(getLevel(p) * 0.5)) * 20), 1));
                     }
                 }

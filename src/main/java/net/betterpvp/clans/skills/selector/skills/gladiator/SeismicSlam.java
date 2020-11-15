@@ -153,9 +153,8 @@ public class SeismicSlam extends Skill implements InteractSkill {
                     }
 
                     immune.get(p).add(ent);
-                    LogManager.addLog(ent, p, "Seismic Slam");
                     UtilVelocity.velocity(ent, 0.3 * ((height.get(p) - ent.getLocation().getY()) * 0.1), 1, 3, true);
-                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.CUSTOM, 3.0, false));
+                    Bukkit.getPluginManager().callEvent(new CustomDamageEvent(ent, p, null, DamageCause.CUSTOM, 3.0, false, getName()));
                 }
                 i++;
             }

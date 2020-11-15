@@ -16,6 +16,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
@@ -47,7 +48,7 @@ public class Agility extends Skill implements InteractSkill {
                 "",
                 "Sprint with great agility, gaining",
                 "Speed I for " + ChatColor.GREEN + (3 + level) + ChatColor.GRAY + " seconds.",
-                "You are immune to melee attacks while sprinting.",
+                "You also take 60% reduced damage while active.",
                 "Agility ends if you interact",
                 "",
                 "Cooldown: " + ChatColor.GREEN + getRecharge(level)
@@ -97,13 +98,18 @@ public class Agility extends Skill implements InteractSkill {
             if (e.getDamagee() instanceof Player) {
                 Player dam = (Player) e.getDamager();
                 Player p = (Player) e.getDamagee();
-                if (p.isSprinting()) {
+
+                if (active.contains(p.getUniqueId())) {
+                    e.setDamage(e.getDamage() * 0.40);
+                    e.setKnockback(false);
+                    UtilMessage.message(dam, getClassType(), p.getName() + " is using " + getName());
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 0.5F, 2.0F);
+                }
 
 
-                    if (active.contains(p.getUniqueId())) {
-                        e.setCancelled("Agility");
-                        UtilMessage.message(dam, getClassType(), p.getName() + " is using " + getName());
-                        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 0.5F, 2.0F);
+                if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                    if (active.contains(dam.getUniqueId())) {
+                        active.remove(dam.getUniqueId());
                     }
                 }
 

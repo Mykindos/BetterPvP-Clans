@@ -58,21 +58,18 @@ public class ShopManager extends BPVPListener<Clans> {
 
 
         addShops("Farmer", "Weapons / Tools", "Armour", "Resources", "Building", "Fragment Vendor", "Travel Hub",
-                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Shop", "Decoration");
+                "Boss Teleport", "Assassin", "Knight", "Paladin", "Gladiator", "Ranger", "Warlock", "Clan Shop", "Decoration", "Ignatius");
 
         World world = Bukkit.getWorld("world");
-        returnLocs = new Location[]{new Location(world, -41.5, 63, -25.5),
-                new Location(world, 2.5, 62, -39.5),
-                new Location(world, 16.5, 48, -17.5),
-                new Location(world, 45.5, 53, -18.5),
-                new Location(world, 38.5, 48, 17.5),
-                new Location(world, 58.5, 74, -13.5),
-                new Location(world, 58.5, 67, 22.5),
-                new Location(world, 16.5, 82, 59.5),
-                new Location(world, -17.5, 81, 27.5),
-                new Location(world, -13.5, 47, -36.5),
-                new Location(world, -49.5, 45, -3.5),
-                new Location(world, -33.5, 44, 41.5)};
+        returnLocs = new Location[]{
+                new Location(world, -23.5, 58, -11.5, -90, 0),
+                new Location(world, 6.5, 58, 5, 143, 0),
+                new Location(world, -3.5, 59, -41.5),
+                new Location(world, -0.5, 76, 24.5, 145, 0),
+                new Location(world, -17.5, 91, 43.5),
+                new Location(world, -24.5, 50, -11.5, -90, 0),
+                new Location(world, 6.5, 91, -44.5, 94, 0)
+        };
     }
 
 
@@ -266,6 +263,10 @@ public class ShopManager extends BPVPListener<Clans> {
                             gladiatorSkeleton.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
                             createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Gladiator", gladiatorSkeleton);
                             break;
+                        case "ignatius":
+                            WanderingTrader ignatius = (WanderingTrader) loc.getWorld().spawnEntity(loc, EntityType.WANDERING_TRADER);
+                            createShop(ChatColor.GOLD.toString() + ChatColor.BOLD + "Ignatius", ignatius);
+                            break;
 
                     }
 
@@ -314,7 +315,7 @@ public class ShopManager extends BPVPListener<Clans> {
 
         if (legendary) {
 
-            shopItems.add(new LegendaryShopItem(store, mat, data, slot, amount, buyPrice, itemName, glow));
+            shopItems.add(new LegendaryShopItem(store, mat, data, slot, amount, buyPrice, sellPrice, itemName, glow));
         } else if (quest) {
             shopItems.add(new QuestShopItem(store, mat, data, slot, amount, itemName, buyPrice));
         } else if (dynamic) {

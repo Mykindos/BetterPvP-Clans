@@ -3,7 +3,6 @@ package net.betterpvp.clans.economy.shops.events;
 
 import net.betterpvp.clans.economy.shops.menu.buttons.ShopItem;
 import net.betterpvp.clans.gamer.Gamer;
-import net.betterpvp.clans.skills.selector.skills.Skill;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -26,17 +25,19 @@ public class ShopTradeEvent extends Event {
     private final Player p;
     private final ShopItem item;
     private final TradeAction action;
+    private final TradeCurrency currency;
     private boolean shift;
     private boolean cancelled;
     private String cancelReason;
 
     private boolean giveItem = true;
 
-    public ShopTradeEvent(Gamer gamer, Player p, ShopItem item, TradeAction action, boolean shift) {
+    public ShopTradeEvent(Gamer gamer, Player p, ShopItem item, TradeAction action, TradeCurrency currency, boolean shift) {
         this.gamer = gamer;
         this.p = p;
         this.item = item;
         this.action = action;
+        this.currency = currency;
         this.shift = shift;
     }
 
@@ -84,5 +85,9 @@ public class ShopTradeEvent extends Event {
 
     public Gamer getGamer() {
         return gamer;
+    }
+
+    public TradeCurrency getCurrency() {
+        return currency;
     }
 }

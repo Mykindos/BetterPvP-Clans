@@ -80,9 +80,10 @@ public class PowerChop extends Skill implements InteractSkill {
                                     return;
                                 }
                             }
-                            LogManager.addLog(e.getDamagee(), p, "Power Chop");
+
                             e.setDamage(e.getDamage() + ((Math.max(0.75, (getLevel(p) + 2)) * 0.75)));
                             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_IRON_GOLEM_HURT, 1.0F, 1.0F);
+                            e.setReason(getName());
                             charge.remove(p);
                         }
                     }

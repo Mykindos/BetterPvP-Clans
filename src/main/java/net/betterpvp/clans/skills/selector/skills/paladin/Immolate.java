@@ -120,7 +120,7 @@ public class Immolate extends Skill implements ToggleSkill {
                     }
 
                     if (e.getCollision().getFireTicks() > 0) return;
-                    LogManager.addLog(e.getCollision(), damager, "Immolate");
+                    LogManager.addLog(e.getCollision(), damager, "Immolate", 0);
                     e.getCollision().setFireTicks(80);
                 }
             }

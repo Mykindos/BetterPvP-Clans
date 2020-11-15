@@ -265,13 +265,13 @@ public class SkeletonKing extends Boss {
                             e.setCancelled("Minions available");
                             return;
                         }
-                        LogManager.addLog(e.getDamagee(), e.getDamager(), getBossName(), "");
+                        LogManager.addLog(e.getDamagee(), e.getDamager(), getBossName(), "", e.getDamage());
                     } else if (isMinion(e.getDamager())) {
                         SkeletonMinion skele = (SkeletonMinion) getMinion(e.getDamager());
 
                         LogManager.addLog(e.getDamagee(),
                                 e.getDamager(),
-                                skele.getDisplayName(), "");
+                                skele.getDisplayName(), "", e.getDamage());
 
                     }
 

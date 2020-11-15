@@ -1,9 +1,7 @@
 package net.betterpvp.clans.clans.map;
 
-import io.github.bananapuncher714.cartographer.core.Cartographer;
 import io.github.bananapuncher714.cartographer.core.api.WorldCursor;
 import io.github.bananapuncher714.cartographer.core.api.map.WorldCursorProvider;
-import io.github.bananapuncher714.cartographer.core.map.MapViewer;
 import io.github.bananapuncher714.cartographer.core.map.Minimap;
 import io.github.bananapuncher714.cartographer.core.renderer.PlayerSetting;
 import net.betterpvp.clans.Clans;

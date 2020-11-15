@@ -1,23 +1,28 @@
-package net.betterpvp.clans.donations.cosmetics;
+package net.betterpvp.clans.cosmetics.types.wings;
 
 import net.betterpvp.clans.Clans;
+import net.betterpvp.clans.cosmetics.CosmeticType;
 import net.betterpvp.core.particles.data.color.RegularColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class AssassinWings extends CosmeticWings{
+import java.awt.*;
+import java.util.List;
 
-    public AssassinWings(Clans clans) {
+public class KnightWings extends CosmeticWings{
+
+    public KnightWings(Clans clans) {
         super(clans);
     }
 
     @Override
-    String getSetting() {
-        return "Cosmetics.Assassin Wings";
+    public CosmeticType getCosmeticType() {
+        return CosmeticType.WINGS;
     }
 
+
     @Override
-    void run(Player player) {
+    void run(Player player, List<Player> playerList) {
         if (!canShow(player)) return;
 
         Location loc = player.getLocation().clone();
@@ -27,7 +32,7 @@ public class AssassinWings extends CosmeticWings{
         loc.setYaw(loc.getYaw() + 75);
         Location loc2 = loc.clone();
 
-        display(loc, loc2, new RegularColor(94, 57, 33), new RegularColor(94, 57, 33), new RegularColor(94, 57, 33));
+        display(loc, loc2, new RegularColor(Color.WHITE), new RegularColor(Color.WHITE), new RegularColor(Color.WHITE), playerList);
 
         loc = player.getLocation().clone();
         loc.setPitch(0.0F);
@@ -35,17 +40,17 @@ public class AssassinWings extends CosmeticWings{
         loc.add(loc.getDirection().multiply(-0.2D));
         loc.setYaw(loc.getYaw() - 75);
         loc2 = loc.clone();
-        display(loc, loc2, new RegularColor(94, 57, 33), new RegularColor(94, 57, 33), new RegularColor(94, 57, 33));
+        display(loc, loc2, new RegularColor(Color.WHITE), new RegularColor(Color.WHITE), new RegularColor(Color.WHITE), playerList);
     }
 
     @Override
     public String getName() {
-        return "AssassinWings";
+        return "KnightWings";
     }
 
     @Override
     public String getDisplayName() {
-        return "Assassin Wings";
+        return "Knight Wings";
     }
 
     @Override

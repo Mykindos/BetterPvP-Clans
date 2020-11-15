@@ -80,7 +80,7 @@ public class Concussion extends Skill implements InteractSkill {
                 if (hasSkill(p, this)) {
                     if (ClanUtilities.canHurt(p, ent)) {
                         if (active.contains(p.getUniqueId())) {
-                            LogManager.addLog(ent, p, "Concussion");
+                            e.setReason("Concussion");
                             ent.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) ((getLevel(p)) * 20) + 20, 0));
                             UtilMessage.message(p, getName(), "You gave " + ChatColor.GREEN + ent.getName() + ChatColor.GRAY + " a concussion.");
                             UtilMessage.message(ent, getName(), ChatColor.GREEN + p.getName() + ChatColor.GRAY + " gave you a concussion.");

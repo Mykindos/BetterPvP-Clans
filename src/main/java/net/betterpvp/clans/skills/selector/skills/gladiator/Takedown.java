@@ -117,15 +117,14 @@ public class Takedown extends Skill implements InteractSkill {
 
         if (ClanUtilities.canHurt(p, d)) {
 
-            LogManager.addLog(p, d, "Takedown Recoil");
-            LogManager.addLog(d, p, "Takedown");
+
             UtilMessage.message(p, getClassType(), "You hit " + ChatColor.GREEN + d.getName() + ChatColor.GRAY + " with " + ChatColor.GREEN + getName());
 
-            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, 10, false));
+            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(d, p, null, DamageCause.CUSTOM, 10, false, "Takedown"));
 
 
             UtilMessage.message(d, getClassType(), ChatColor.GREEN + p.getName() + ChatColor.GRAY + " hit you with " + ChatColor.GREEN + getName(getLevel(p)));
-            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(p, d, null, DamageCause.CUSTOM, 10, false));
+            Bukkit.getPluginManager().callEvent(new CustomDamageEvent(p, d, null, DamageCause.CUSTOM, 10, false, "Takedown Recoil"));
 
             PotionEffect pot = new PotionEffect(PotionEffectType.SLOW, (int) (1 + (getLevel(p) * 0.5)) * 20, 2);
             p.addPotionEffect(pot);
