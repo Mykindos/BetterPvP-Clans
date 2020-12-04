@@ -95,7 +95,7 @@ public class SelectorManager extends BPVPListener<Clans> {
         skills.put("Silencing Strikes", new SilencingStrikes(i));
         skills.put("Concussion", new Concussion(i));
         skills.put("Marked for Death", new MarkedForDeath(i));
-        skills.put("Shocking Strikes", new ShockingStrikes(i));
+        //skills.put("Shocking Strikes", new ShockingStrikes(i));
         skills.put("Silencing Arrow", new SilencingArrow(i));
         skills.put("Toxic Arrow", new ToxicArrow(i));
         skills.put("Sever", new Sever(i));
