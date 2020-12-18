@@ -18,6 +18,7 @@ public class ServerListener extends BPVPListener<Clans> {
             "Vote daily to receive a" + ChatColor.YELLOW + " voting crate " + ChatColor.GRAY + "(Win up to 50k, TNT and MORE!" + ChatColor.YELLOW + " (/vote)",
             "Don't forget to buy clan energy! If you run out your clan will be disbanded. ('" + ChatColor.YELLOW + "/c shop" + ChatColor.GRAY + "')",
             "Not sure where fields are located? Type " + ChatColor.YELLOW + "/coords " + ChatColor.GRAY + "to find out!",
+            "Claim a free daily legendary with " + ChatColor.YELLOW + "/legendary",
             "Want to learn more about specific features? View our collection of indepth guides! " + ChatColor.YELLOW + "https://betterpvp.net/forum/pages/Guides/",
             "You can teleport to the boss arena's by clicking on the " + ChatColor.YELLOW + "Boss Teleport NPC's" + ChatColor.GRAY + " at Fields!",
             "Sign up on our forums! " + ChatColor.GREEN.toString() + ChatColor.BOLD + ChatColor.UNDERLINE + "http://betterpvp.net/forum",

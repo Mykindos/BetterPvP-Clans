@@ -60,6 +60,7 @@ import net.betterpvp.clans.general.WorldListener;
 import net.betterpvp.clans.general.commands.HubCommand;
 import net.betterpvp.clans.general.commands.SearchChestsCommand;
 import net.betterpvp.clans.general.commands.SendAllToHubCommand;
+import net.betterpvp.clans.general.commands.menu.LegendaryMenuListener;
 import net.betterpvp.clans.koth.KOTHManager;
 import net.betterpvp.clans.mysql.ReflectionsUtil;
 import net.betterpvp.clans.networking.QueueCommand;
@@ -227,6 +228,7 @@ public class Clans extends JavaPlugin implements Listener {
         new RatingManager(this);
         new IgnatiusListener(this);
         new CosmeticManager(this);
+        new LegendaryMenuListener(this);
 
         CommandManager.addCommand(new ShopCommand(this));
         //CommandManager.addCommand(new FindCommand(this));

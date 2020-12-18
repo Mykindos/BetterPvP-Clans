@@ -1634,7 +1634,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
@@ -1646,15 +1646,15 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(world, 384.5, 65, 11, 90, 0));
+                e.getPlayer().teleport(new Location(world, 475.5, 64, 15.5, -90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, -453.5, 67, -11.5, -90, 0));
+                e.getPlayer().teleport(new Location(world, -475.5, 72, -15.5, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
 

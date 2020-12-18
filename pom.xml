@@ -61,6 +61,8 @@
                             <exclude>*LibsDisguises*</exclude>
                             <exclude>*CoreProtect*</exclude>
                             <exclude>*votifier*</exclude>
+                            <exclude>*destroystokyo*</exclude>
+                            <exclude>*paper*</exclude>
 
                         </excludes>
                     </artifactSet>

@@ -230,7 +230,7 @@ public class WEManager extends BPVPListener<Clans> {
     private void loadItems() {
         for (Weapon weapons : WeaponManager.weapons) {
             if (weapons instanceof ILegendary) {
-                dropList.add(new Drop(weapons.createWeapon(true), weapons.getChance()));
+                dropList.add(new Drop(weapons.createWeapon(true), weapons.getChance() * 3));
             }
 
             if (weapons instanceof EnchantedWeapon) {
