@@ -378,7 +378,7 @@ public class ShopListener extends BPVPListener<Clans> {
                                     + item.getItemName() + ChatColor.GRAY + " for "
                                     + ChatColor.GREEN + "$" + UtilFormat.formatNumber(cost));
 
-                            Log.write("Shop", p.getName() + " sold " + +amount + " " + item.getItemName() +
+                            Log.write("Shop", p.getName() + " sold " + amount + " " + item.getItemName() +
                                     " for " + "$" + UtilFormat.formatNumber((int) cost));
 
                             return;
@@ -406,7 +406,7 @@ public class ShopListener extends BPVPListener<Clans> {
                                     e.getPlayer().getInventory().setItem(x, new ItemStack(Material.AIR));
                                     e.getGamer().addCoins(cost);
                                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 2.0F);
-                                    UtilMessage.message(e.getPlayer(), "Shop", "You sold " + ChatColor.YELLOW + " 1"
+                                    UtilMessage.message(e.getPlayer(), "Shop", "You sold " + ChatColor.YELLOW + " 1 "
                                             + e.getItem().getItemName() + ChatColor.GRAY + " for "
                                             + ChatColor.GREEN + "$" + UtilFormat.formatNumber(cost));
 
