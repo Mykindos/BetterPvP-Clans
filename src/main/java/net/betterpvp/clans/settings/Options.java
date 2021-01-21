@@ -63,6 +63,7 @@ public class Options {
     private Location ignatiusSpawnLoc;
     private boolean wingsEnabled;
     private String discordChatWebhook;
+    private boolean kitmap;
     private Clans i;
 
 
@@ -150,6 +151,7 @@ public class Options {
                 i.getConfigManager().get(Configs.MAIN).getInt("Shops.Ignatius.Z"));
         wingsEnabled = i.getConfigManager().get(Configs.MAIN).getBool("WingsEnabled");
         discordChatWebhook = i.getConfigManager().get(Configs.MAIN).getString("Discord.ChatWebhook");
+        kitmap = i.getConfigManager().get(Configs.MAIN).getBool("Kitmap");
     }
 
     public int getMAHPort() {
@@ -400,6 +402,8 @@ public class Options {
 
         i.getConfigManager().get(Configs.MAIN).check("Discord.ChatWebhook", "");
 
+        i.getConfigManager().get(Configs.MAIN).check("Kitmap", false);
+
     }
 
     public String getTexturePackURL() {
@@ -501,5 +505,9 @@ public class Options {
 
     public String getDiscordChatWebhook() {
         return discordChatWebhook;
+    }
+
+    public boolean isKitmap() {
+        return kitmap;
     }
 }

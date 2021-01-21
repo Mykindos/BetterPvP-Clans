@@ -83,18 +83,21 @@ public class Cyclone extends Skill implements InteractSkill {
         int level = getLevel(p);
         UtilMessage.message(p, getName(), "You used " + ChatColor.GREEN + getName(level) + ChatColor.GRAY + ".");
         for (LivingEntity target : UtilPlayer.getAllInRadius(p.getLocation(), (7 + level))) {
-            if(ShopManager.isShop(target)) continue;
+            if (ShopManager.isShop(target)) continue;
             if (target instanceof ArmorStand) continue;
             if (!target.getName().equalsIgnoreCase(p.getName())) {
-                if (target instanceof Player) {
-                    if (!ClanUtilities.canHurt(p, (Player) target)) continue;
-                    UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
+                if (p.hasLineOfSight(target)) {
+                    if (target instanceof Player) {
+                        if (!ClanUtilities.canHurt(p, (Player) target)) continue;
+                        UtilMessage.message(target, "Cyclone", ChatColor.GREEN + p.getName() + ChatColor.GRAY + " pulled you in with " + ChatColor.GREEN + getName(level));
 
+                    }
+
+
+                    Vector v = UtilVelocity.getTrajectory(target, p);
+                    LogManager.addLog(target, p, "Cyclone", 0);
+                    UtilVelocity.velocity(target, v, 1.2D, false, 0.0D, 0.5D, 4.0D, true);
                 }
-                Vector v = UtilVelocity.getTrajectory(target, p);
-                LogManager.addLog(target, p, "Cyclone", 0);
-                UtilVelocity.velocity(target, v, 1.2D, false, 0.0D, 0.5D, 4.0D, true);
-
 
             }
         }

@@ -813,13 +813,13 @@ public class WorldListener extends BPVPListener<Clans> {
                 if (UtilItem.isSword(m)) {
 
                     if (m == Material.DIAMOND_SWORD) {
-                        e.setDamage(6);
+                        e.setDamage(5);
                     } else if (m == Material.GOLDEN_SWORD) {
-                        e.setDamage(7);
+                        e.setDamage(6);
                     } else if (m == Material.NETHERITE_SWORD) {
-                        e.setDamage(7);
+                        e.setDamage(6);
                     } else if (m == Material.IRON_SWORD) {
-                        e.setDamage(5.5);
+                        e.setDamage(4.5);
 
                         Weapon w = WeaponManager.getWeapon(p.getInventory().getItemInMainHand());
                         if (w != null) {
@@ -838,13 +838,13 @@ public class WorldListener extends BPVPListener<Clans> {
 
                 } else if (UtilItem.isAxe(m)) {
                     if (m == Material.DIAMOND_AXE) {
-                        e.setDamage(5);
-                    } else if (m == Material.GOLDEN_AXE) {
-                        e.setDamage(6);
-                    } else if (m == Material.NETHERITE_AXE) {
-                        e.setDamage(6);
-                    } else if (m == Material.IRON_AXE) {
                         e.setDamage(4);
+                    } else if (m == Material.GOLDEN_AXE) {
+                        e.setDamage(5);
+                    } else if (m == Material.NETHERITE_AXE) {
+                        e.setDamage(5);
+                    } else if (m == Material.IRON_AXE) {
+                        e.setDamage(3);
                     } else if (m == Material.STONE_AXE) {
                         e.setDamage(2);
                     } else if (m == Material.WOODEN_AXE) {
@@ -1634,7 +1634,7 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(redSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Red Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Spawn.");
                     }
                 }
@@ -1646,15 +1646,15 @@ public class WorldListener extends BPVPListener<Clans> {
                     if (myClan.getName().equalsIgnoreCase(blueSpawn.getName())) {
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You are already at Blue Spawn.");
                     } else {
-                        e.getPlayer().teleport(Core.getOptions().getSpawnA());
+                        e.getPlayer().teleport(Core.getOptions().getSpawnB());
                         UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Spawn.");
                     }
                 }
             } else if (e.getButton().getName().equals(ChatColor.AQUA + "Blue Shop")) {
-                e.getPlayer().teleport(new Location(world, 384.5, 65, 11, 90, 0));
+                e.getPlayer().teleport(new Location(world, 475.5, 64, 15.5, -90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Blue Shop.");
             } else if (e.getButton().getName().equals(ChatColor.RED + "Red Shop")) {
-                e.getPlayer().teleport(new Location(world, -453.5, 67, -11.5, -90, 0));
+                e.getPlayer().teleport(new Location(world, -475.5, 72, -15.5, 90, 0));
                 UtilMessage.message(e.getPlayer(), "Travel Hub", "You teleported to Red Shop.");
             }
 

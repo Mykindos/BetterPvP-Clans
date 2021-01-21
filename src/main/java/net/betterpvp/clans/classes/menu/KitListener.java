@@ -74,7 +74,7 @@ public class KitListener extends BPVPListener<Clans> {
                         ChatColor.GRAY + "Note: You must be in an unsafe zone to cast abilities.",
                         ChatColor.GRAY + "Note: This will not work if you do not have a bow ability selected,",
                         ChatColor.GRAY + "right click an enchanting table to modify your class!");
-                ItemStack arrows = UtilClans.updateNames(new ItemStack(Material.ARROW, 32));
+                ItemStack arrows = UtilClans.updateNames(new ItemStack(Material.ARROW, 64));
 
                 UtilItem.insert(p, sword);
                 UtilItem.insert(p, axe);

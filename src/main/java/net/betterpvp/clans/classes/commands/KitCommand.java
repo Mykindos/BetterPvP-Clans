@@ -62,6 +62,10 @@ public class KitCommand extends Command {
                 player.openInventory(new KitMenu(player, false).getInventory());
             }
         }else if(gamer.getClient().hasRank(Rank.PLAYER, false)){
+            if(Clans.getOptions().isKitmap()){
+                player.openInventory(new KitMenu(player, false).getInventory());
+                return;
+            }
             if(Clans.getOptions().isStarterKitEnabled()) {
                 if (Clans.getOptions().isHub()) {
                     UtilMessage.message(player, "You cannot claim your starter kit in the Hub!");
