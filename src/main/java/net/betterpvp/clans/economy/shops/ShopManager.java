@@ -62,17 +62,14 @@ public class ShopManager extends BPVPListener<Clans> {
 
         World world = Bukkit.getWorld("world");
         returnLocs = new Location[]{new Location(world, 6.5, 49, -14.5),
-                new Location(world, -7.5, 46, -47.5),
-                new Location(world, -26.5, 47, -24.5),
-                new Location(world, -46.5, 50, 4.5),
-                new Location(world, -45.5, 50, 21.5),
-                new Location(world, -20.5, 60, 50.5),
-                new Location(world, 31.5, 62, 82.5),
-                new Location(world, 55.5, 63, 47.5),
-                new Location(world, 73.5, 51, 51.5),
-                new Location(world, 82.5, 52, -8.5),
-                new Location(world, 47.5, 48, -44.5),
-                new Location(world, 5.5, 70, -36.5)};
+                new Location(world, -11.5, 50, 46.5),
+                new Location(world, -3.5, 53, 65.5),
+                new Location(world, -28.5, 58, 76.5),
+                new Location(world, -39.5, 67, 94.5),
+                new Location(world, -65.5, 68, 51.5),
+                new Location(world, -45.5, 71, 29.5),
+                new Location(world, -31.5, 72, -9.5),
+                new Location(world, -8.5, 63, -40.5)};
     }
 
 

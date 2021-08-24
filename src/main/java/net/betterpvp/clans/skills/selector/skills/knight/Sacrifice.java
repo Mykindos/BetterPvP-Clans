@@ -20,7 +20,7 @@ public class Sacrifice extends Skill {
     @Override
     public String[] getDescription(int level) {
 
-        return new String[]{"Deal an extra " + ChatColor.GREEN + level + 0 + "%" + ChatColor.GRAY + " damage",
+        return new String[]{"Deal an extra " + ChatColor.GREEN + ((level * 0.08) * 100) + "%" + ChatColor.GRAY + " damage",
                 "But you now also take",
                 ChatColor.GREEN.toString() + (1 + level) + "0%" + ChatColor.GRAY + " extra damage from melee attacks"
         };
@@ -47,7 +47,7 @@ public class Sacrifice extends Skill {
 
             if (hasSkill(p, this)) {
                 int level = getLevel(p);
-                e.setDamage(Math.ceil(e.getDamage() * (1.0 + (level * 0.1))));
+                e.setDamage(Math.ceil(e.getDamage() * (1.0 + (level * 0.08))));
             }
 
         }
