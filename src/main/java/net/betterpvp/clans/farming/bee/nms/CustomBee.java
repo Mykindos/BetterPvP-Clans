@@ -1,18 +1,18 @@
 package net.betterpvp.clans.farming.bee.nms;
 
-import net.minecraft.server.v1_16_R1.Entity;
-import net.minecraft.server.v1_16_R1.EntityBee;
-import net.minecraft.server.v1_16_R1.EntityTypes;
-import net.minecraft.server.v1_16_R1.World;
+
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.animal.EntityBee;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.Bee;
-import org.bukkit.entity.Wither;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 public class CustomBee extends EntityBee {
 
     public CustomBee(World world) {
-        super(EntityTypes.BEE, world);
+        super(EntityTypes.g, world);
     }
 
     @Override

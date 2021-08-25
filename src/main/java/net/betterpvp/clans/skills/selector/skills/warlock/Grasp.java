@@ -15,10 +15,10 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
-import net.minecraft.server.v1_16_R1.EntityTypes;
+import net.minecraft.world.entity.EntityTypes;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -127,7 +127,7 @@ public class Grasp extends Skill implements InteractSkill {
 
 
     private void createArmourStand(Player player, Location loc, int level) {
-        CustomArmorStand as = new CustomArmorStand(EntityTypes.ARMOR_STAND, ((CraftWorld) loc.getWorld()).getHandle());
+        CustomArmorStand as = new CustomArmorStand(EntityTypes.c, ((CraftWorld) loc.getWorld()).getHandle());
         ArmorStand test = as.spawn(loc);
         test.setVisible(false);
         // ArmorStand test = (ArmorStand) p.getWorld().spawnEntity(tempLoc, EntityType.ARMOR_STAND);

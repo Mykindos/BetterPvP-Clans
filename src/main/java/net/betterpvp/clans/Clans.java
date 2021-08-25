@@ -84,7 +84,15 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.world.entity.animal.EntityPolarBear;
+import net.minecraft.world.entity.animal.EntitySnowman;
+import net.minecraft.world.entity.boss.wither.EntityWither;
+import net.minecraft.world.entity.decoration.EntityArmorStand;
+import net.minecraft.world.entity.monster.EntityCaveSpider;
+import net.minecraft.world.entity.monster.EntitySkeleton;
+import net.minecraft.world.entity.monster.EntitySpider;
+import net.minecraft.world.entity.monster.EntityZombie;
+import net.minecraft.world.entity.npc.EntityVillager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldCreator;
@@ -102,6 +110,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 
 public class Clans extends JavaPlugin implements Listener {
@@ -327,7 +336,7 @@ public class Clans extends JavaPlugin implements Listener {
                     GamerRepository.updateGamer(gamer);
 
                 }
-                System.out.println("Updated player data!");
+                getLogger().log(Level.INFO, "Updated player data");
             }
         }.runTaskTimerAsynchronously(this, 6000L, 6000L);
 

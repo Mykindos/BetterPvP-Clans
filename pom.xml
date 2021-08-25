@@ -47,24 +47,12 @@
                     </relocations>
                     <artifactSet>
 
-                        <excludes>
-                            <exclude>*guava*</exclude>
-                            <exclude>junit:junit</exclude>
-                            <exclude>*comphenix*</exclude>
-                            <exclude>*cglib*</exclude>
-                            <exclude>jmock:*</exclude>
-                            <exclude>*:xml-apis</exclude>
-                            <exclude>org.apache.maven:lib:tests</exclude>
-                            <exclude>log4j:log4j:jar:</exclude>
-                            <exclude>*net.betterpvp:core*</exclude>
-                            <exclude>*me.mykindos:MAH*</exclude>
-                            <exclude>*LibsDisguises*</exclude>
-                            <exclude>*CoreProtect*</exclude>
-                            <exclude>*votifier*</exclude>
-                            <exclude>*destroystokyo*</exclude>
-                            <exclude>*paper*</exclude>
+                        <includes>
+                            <include>*org.reflections*</include>
+                            <include>*gson*</include>
+                            <include>*apache*</include>
+                        </includes>
 
-                        </excludes>
                     </artifactSet>
                     <outputFile>C:\F\BetterPvP\Output\BetterPvP-Clans.jar</outputFile>
 
@@ -116,20 +104,20 @@
         <dependency>
             <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
-            <version>8.6.7</version>
+            <version>10.0.26</version>
         </dependency>
 
         <dependency>
             <groupId>CoreProtect</groupId>
             <artifactId>CoreProtect</artifactId>
-            <version>2.17.5</version>
+            <version>20.1</version>
         </dependency>
 
 
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -140,9 +128,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
+            <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
 
         </dependency>
 
@@ -157,20 +145,19 @@
         <dependency>
             <groupId>net.betterpvp</groupId>
             <artifactId>core</artifactId>
-            <version>1.16</version>
+            <version>1.17</version>
 
         </dependency>
         <dependency>
             <groupId>me.mykindos</groupId>
             <artifactId>MAH</artifactId>
-            <version>1.16</version>
-
+            <version>1.17</version>
         </dependency>
 
         <dependency>
             <groupId>me.mykindos</groupId>
             <artifactId>votifier</artifactId>
-            <version>1.16</version>
+            <version>1.17</version>
 
         </dependency>
 

@@ -1,6 +1,17 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.server.level.WorldServer;
+import net.minecraft.sounds.SoundEffect;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityLightning;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalLookAtPlayer;
+import net.minecraft.world.entity.npc.EntityVillager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.player.EntityHuman;
+import net.minecraft.world.level.World;
+import net.minecraft.world.phys.Vec3D;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -10,9 +21,9 @@ public class ShopVillager extends EntityVillager {
 
 
     public ShopVillager(World world) {
-        super(EntityTypes.VILLAGER, world);
+        super(EntityTypes.aV, world);
 
-       goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 16.0F));
+       bP.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 16.0F));
 
 
     }
@@ -21,7 +32,7 @@ public class ShopVillager extends EntityVillager {
     public void setMot(Vec3D vec3d){return;}
 
     @Override
-    public void onLightningStrike(EntityLightning entitylightning) {
+    public void onLightningStrike(WorldServer worldserver, EntityLightning entitylightning) {
         return;
     }
 
@@ -32,16 +43,6 @@ public class ShopVillager extends EntityVillager {
         return;
    }
 
-   // @Override
- //   public boolean a(BlockPosition blockposition){return false;}
-
-   // @Override
-   // public void movementTick(){return;}
-
-
-   // @Override
-  //  public void a(NBTTagCompound nbttagcompound){return;};
-
     @Override
     public void setVillagerData(VillagerData villagerdata) {return;}
 
@@ -51,7 +52,10 @@ public class ShopVillager extends EntityVillager {
     }
 
     @Override
-    public void h(double d0, double d1, double d2) { return;}
+    public void i(double d0, double d1, double d2) { return;}
+
+    @Override
+    public void p(double d0, double d1, double d2){return;}
 
 
     @Override
@@ -59,8 +63,6 @@ public class ShopVillager extends EntityVillager {
         return false;
     }
 
-    @Override
-    public void f(double d0, double d1, double d2){return;}
 
     @Override
     public boolean a(double d0, double d1, double d2, boolean flag) {

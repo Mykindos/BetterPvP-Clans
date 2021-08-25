@@ -1,6 +1,8 @@
 package net.betterpvp.clans.worldevents.types.nms;
 
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.monster.EntitySpider;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.Spider;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -9,12 +11,12 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 public class BossSpider extends EntitySpider {
 
     public BossSpider(World world) {
-        super(EntityTypes.SPIDER, world);
+        super(EntityTypes.aI, world);
 
     }
 
     @Override
-    public boolean eM() {
+    public boolean isClimbing() {
         return false;
     }
 

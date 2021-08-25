@@ -1,14 +1,10 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.types.Type;
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityTypes;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 
 public class UtilShop {
 

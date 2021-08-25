@@ -20,12 +20,12 @@ import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
-import net.minecraft.server.v1_16_R1.EntityFishingHook;
+import net.minecraft.world.entity.projectile.EntityFishingHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -303,7 +303,7 @@ public class FishingListener extends BPVPListener<Clans> {
                 @Override
                 public void run() {
                     try {
-                        Field tmp = EntityFishingHook.class.getDeclaredField("ao");
+                        Field tmp = EntityFishingHook.class.getDeclaredField("aq");
                         tmp.setAccessible(true);
                         tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) / 2));
                         System.out.println(tmp.getInt(hookCopy));
