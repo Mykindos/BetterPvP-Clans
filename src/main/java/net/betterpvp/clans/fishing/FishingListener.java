@@ -285,15 +285,10 @@ public class FishingListener extends BPVPListener<Clans> {
         try {
             fishCatchTime = EntityFishingHook.class.getDeclaredField("ao");
 
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException e) {
             e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
         }
+
 
         fishCatchTime.setAccessible(true);
 
@@ -303,7 +298,7 @@ public class FishingListener extends BPVPListener<Clans> {
                 @Override
                 public void run() {
                     try {
-                        Field tmp = EntityFishingHook.class.getDeclaredField("aq");
+                        Field tmp = EntityFishingHook.class.getDeclaredField("ar");
                         tmp.setAccessible(true);
                         tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) / 2));
                         System.out.println(tmp.getInt(hookCopy));

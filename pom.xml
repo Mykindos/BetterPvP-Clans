@@ -162,6 +162,13 @@
         </dependency>
 
         <dependency>
+            <groupId>me.mykindos</groupId>
+            <artifactId>lunar</artifactId>
+            <version>1.17</version>
+
+        </dependency>
+
+        <dependency>
             <groupId>io.github.bananapuncher714</groupId>
             <artifactId>Cartographer2</artifactId>
             <version>2.14.0</version>
