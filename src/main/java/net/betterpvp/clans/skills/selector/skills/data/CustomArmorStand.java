@@ -1,6 +1,11 @@
 package net.betterpvp.clans.skills.selector.skills.data;
 
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.sounds.SoundEffect;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.decoration.EntityArmorStand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -38,10 +43,10 @@ public class CustomArmorStand extends EntityArmorStand {
     }
 
     @Override
-    protected void b(ItemStack itemstack) {return;}
+    protected void f(ItemStack itemstack) {return;}
 
     @Override
-    protected SoundEffect c(ItemStack itemstack) {
+    protected SoundEffect d(ItemStack itemstack) {
         return null;
     }
 }

@@ -16,8 +16,9 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
-import net.minecraft.server.v1_16_R1.EntityPlayer;
-import net.minecraft.server.v1_16_R1.PacketPlayOutAnimation;
+
+import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
+import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -25,7 +26,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -334,9 +335,10 @@ public class InteractListener extends BPVPListener<Clans> {
                     block.getState().update();
 
 
+                    // b = playerConnection
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
                     PacketPlayOutAnimation packet = new PacketPlayOutAnimation(ep, 0);
-                    ((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(packet);
+                    ((CraftPlayer) e.getPlayer()).getHandle().b.sendPacket(packet);
                     e.setCancelled(true);
                 } else if (block.getType() == Material.IRON_TRAPDOOR) {
 
@@ -359,7 +361,7 @@ public class InteractListener extends BPVPListener<Clans> {
                     //Bukkit.broadcastMessage(block.getData() + "");
                     EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
                     PacketPlayOutAnimation packet = new PacketPlayOutAnimation(ep, 0);
-                    ((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(packet);
+                    ((CraftPlayer) e.getPlayer()).getHandle().b.sendPacket(packet);
                     e.setCancelled(true);
 
                 }

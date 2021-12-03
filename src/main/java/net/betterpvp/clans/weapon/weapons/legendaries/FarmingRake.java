@@ -13,7 +13,6 @@ import net.betterpvp.core.utility.recharge.RechargeManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
-import org.bukkit.craftbukkit.v1_16_R1.block.impl.CraftSweetBerryBush;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;

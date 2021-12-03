@@ -16,7 +16,7 @@ import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;

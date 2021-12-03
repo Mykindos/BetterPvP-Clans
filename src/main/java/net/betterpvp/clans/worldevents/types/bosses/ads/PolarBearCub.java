@@ -2,7 +2,6 @@ package net.betterpvp.clans.worldevents.types.bosses.ads;
 
 import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.betterpvp.clans.worldevents.types.nms.BossPolarBear;
-import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;

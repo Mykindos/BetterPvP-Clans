@@ -4,11 +4,12 @@ import net.betterpvp.clans.worldevents.types.WorldEventMinion;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.inventory.ItemStack;
 
 public class UndeadSkeleton extends WorldEventMinion {
 
-    public UndeadSkeleton(Skeleton ent) {
+    public UndeadSkeleton(WitherSkeleton ent) {
         super(ent);
         ent.getEquipment().setItemInMainHand(new ItemStack(Material.BOW));
         ent.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));

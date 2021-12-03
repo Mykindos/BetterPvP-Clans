@@ -1,6 +1,18 @@
 package net.betterpvp.clans.economy.shops.nms;
 
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.sounds.SoundEffect;
+import net.minecraft.world.DifficultyDamageScaler;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalFloat;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalInteract;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalLookAtPlayer;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalMoveTowardsRestriction;
+import net.minecraft.world.entity.monster.EntitySkeleton;
+import net.minecraft.world.entity.npc.EntityVillager;
+import net.minecraft.world.entity.player.EntityHuman;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -11,19 +23,18 @@ public class ShopSkeleton extends EntitySkeleton {
 
 
     public ShopSkeleton(World world) {
-        super(EntityTypes.SKELETON, world);
-        goalSelector.a(0, new PathfinderGoalFloat(this));
-        goalSelector.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.0D));
-        goalSelector.a(9, new PathfinderGoalInteract(this, EntityHuman.class, 3.0F, 1.0F));
-        goalSelector.a(9, new PathfinderGoalInteract(this, EntityVillager.class, 5.0F, 0.02F));
+        super(EntityTypes.aB, world);
+        bP.a(0, new PathfinderGoalFloat(this));
+        bP.a(5, new PathfinderGoalMoveTowardsRestriction(this, 0.0D));
+        bP.a(9, new PathfinderGoalInteract(this, EntityHuman.class, 3.0F, 1.0F));
+        bP.a(9, new PathfinderGoalInteract(this, EntityVillager.class, 5.0F, 0.02F));
 
-        goalSelector.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
+        bP.a(10, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
     }
 
     @Override
     protected void initPathfinder() {
 
-        return;
     }
 
     @Override
@@ -41,15 +52,17 @@ public class ShopSkeleton extends EntitySkeleton {
         return false;
     }
 
+
     @Override
-    public void f(double d0, double d1, double d2){return;}
+    public void i(double d0, double d1, double d2) { return;}
+
+    @Override
+    public void p(double d0, double d1, double d2){return;}
 
     @Override
     public boolean a(double d0, double d1, double d2, boolean flag) {
         return false;
     }
-
-
 
     @Override
     protected SoundEffect getSoundAmbient() {
@@ -66,8 +79,7 @@ public class ShopSkeleton extends EntitySkeleton {
         return null;
     }
 
-    @Override
-    public void h(double d0, double d1, double d2) { return;}
+
 
     //Combustion
     @Override
@@ -76,7 +88,7 @@ public class ShopSkeleton extends EntitySkeleton {
     }
 
     @Override
-    protected void b(DifficultyDamageScaler difficultydamagescaler){return;}
+    protected void a(DifficultyDamageScaler difficultydamagescaler){return;}
 
     @Override
     public void setOnFire(int i, boolean callEvent) {
@@ -84,7 +96,7 @@ public class ShopSkeleton extends EntitySkeleton {
     }
 
     @Override
-    public double A(@Nullable Entity entity){
+    public double y(@Nullable Entity entity){
         return 0;
     }
 

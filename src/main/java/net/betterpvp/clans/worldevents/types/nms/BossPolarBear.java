@@ -1,21 +1,27 @@
 package net.betterpvp.clans.worldevents.types.nms;
 
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalFloat;
+import net.minecraft.world.entity.ai.goal.PathfinderGoalRandomLookaround;
+import net.minecraft.world.entity.ai.goal.target.PathfinderGoalHurtByTarget;
+import net.minecraft.world.entity.ai.goal.target.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.world.entity.animal.EntityPolarBear;
+import net.minecraft.world.entity.player.EntityHuman;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.PolarBear;
-import org.bukkit.entity.Spider;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 
 public class BossPolarBear extends EntityPolarBear {
 
     public BossPolarBear(World world) {
-        super(EntityTypes.POLAR_BEAR, world);
-        this.goalSelector.a(1, new PathfinderGoalFloat(this));
+        super(EntityTypes.ar, world);
+        this.bP.a(1, new PathfinderGoalFloat(this));
 
-        this.goalSelector.a(6, new PathfinderGoalRandomLookaround(this));
-        this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, new Class[0]));
-        this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this,
+        this.bP.a(6, new PathfinderGoalRandomLookaround(this));
+        this.bQ.a(1, new PathfinderGoalHurtByTarget(this, new Class[0]));
+        this.bQ.a(2, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this,
                 EntityHuman.class, true));
     }
 

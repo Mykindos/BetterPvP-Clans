@@ -99,11 +99,12 @@ public class GamerConnectionListener extends BPVPListener<Clans> {
             gamer.setScoreboard(new Scoreboard(player));
             if (Clans.getOptions().isHub()) {
                 try {
+                    System.out.println("Forcing resource pack");
                     player.setResourcePack(Clans.getOptions().getTexturePackURL(),
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    player.setResourcePack("https://puu.sh/FGt4O.zip",
+                    player.setResourcePack("https://puu.sh/I6rzC.zip",
                             UtilFormat.hexStringToByteArray(Clans.getOptions().getTexturePackSHA()));
                 }
             }

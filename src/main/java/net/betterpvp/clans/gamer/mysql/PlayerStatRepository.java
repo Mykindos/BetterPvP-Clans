@@ -89,10 +89,10 @@ public class PlayerStatRepository implements Repository<Clans> {
     }
 
     public static void updateAllStats(Gamer gamer){
-        List<String> queries = new ArrayList<>();
+        List<Statement> queries = new ArrayList<>();
         for (Map.Entry<String, Double> entry : gamer.getPlayerStats().entrySet()) {
             String query = "UPDATE `" + TABLE_NAME + "` SET Value = " + entry.getValue() + " WHERE Stat ='" + entry.getKey() + "' AND UUID='" + gamer.getUUID() + "'";
-            queries.add(query);
+            queries.add(new Statement(query));
         }
 
         QueryFactory.runTransaction(queries);

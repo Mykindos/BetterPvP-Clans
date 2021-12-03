@@ -2,10 +2,11 @@ package net.betterpvp.clans.general.commands;
 
 import net.betterpvp.core.client.Rank;
 import net.betterpvp.core.command.Command;
-import net.minecraft.server.v1_16_R1.DataWatcher;
-import net.minecraft.server.v1_16_R1.DataWatcherRegistry;
-import net.minecraft.server.v1_16_R1.EntityPlayer;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+
+import net.minecraft.network.syncher.DataWatcher;
+import net.minecraft.network.syncher.DataWatcherRegistry;
+import net.minecraft.server.level.EntityPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

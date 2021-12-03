@@ -1,9 +1,9 @@
 package net.betterpvp.clans.worldevents.types.nms;
 
-import net.minecraft.server.v1_16_R1.EntityLiving;
-import net.minecraft.server.v1_16_R1.EntityTypes;
-import net.minecraft.server.v1_16_R1.EntityWitherSkull;
-import net.minecraft.server.v1_16_R1.World;
+import net.minecraft.world.entity.EntityLiving;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.projectile.EntityWitherSkull;
+import net.minecraft.world.level.World;
 import org.bukkit.Location;
 import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -12,7 +12,7 @@ import org.bukkit.projectiles.ProjectileSource;
 public class BossWitherSkull extends EntityWitherSkull {
 
     public BossWitherSkull(World world, ProjectileSource src) {
-        super(EntityTypes.WITHER_SKULL, world);
+        super(EntityTypes.bb, world);
         this.projectileSource = src;
 
     }

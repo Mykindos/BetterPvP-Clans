@@ -1,5 +1,6 @@
 package net.betterpvp.clans.clans.listeners;
 
+import com.lunarclient.bukkitapi.LunarClientAPI;
 import me.mykindos.MAH.user.MAHManager;
 import me.mykindos.MAH.user.MAHUser;
 import net.betterpvp.clans.Clans;
@@ -167,6 +168,8 @@ public class ChatListener extends BPVPListener<Clans> {
                     if(mahUser != null){
                         if(mahUser.isAuthenticated()){
                             prefix = ChatColor.GREEN + "* ";
+                        }else if(LunarClientAPI.getInstance().isRunningLunarClient(p)){
+                            prefix = ChatColor.BLUE + "* ";
                         }
 
                         if(mahUser.isForced()){
