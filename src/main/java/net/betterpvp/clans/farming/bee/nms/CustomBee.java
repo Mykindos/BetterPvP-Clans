@@ -2,33 +2,33 @@ package net.betterpvp.clans.farming.bee.nms;
 
 
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.EntityBee;
-import net.minecraft.world.level.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.level.Level;
 import org.bukkit.Location;
-import org.bukkit.entity.Bee;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-public class CustomBee extends EntityBee {
+public class CustomBee extends Bee {
 
-    public CustomBee(World world) {
-        super(EntityTypes.g, world);
+    public CustomBee(Level world) {
+        super(EntityType.BEE, world);
     }
 
     @Override
-    public boolean attackEntity(Entity entity) {
+    public boolean doHurtTarget(Entity entity) {
         return false;
     }
 
     @Override
-    public void anger() {
+    public void startPersistentAngerTimer() {
 
     }
 
-    public Bee spawn(Location loc) {
-        setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        getWorld().addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-        return (Bee) getBukkitEntity();
+    public CraftEntity spawn(Location loc) {
+        this.absMoveTo(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+        this.level.addFreshEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
+        return getBukkitEntity();
     }
 
 }

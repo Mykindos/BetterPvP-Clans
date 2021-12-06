@@ -17,8 +17,7 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 
-import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
-import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -26,7 +25,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -336,9 +335,9 @@ public class InteractListener extends BPVPListener<Clans> {
 
 
                     // b = playerConnection
-                    EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
-                    PacketPlayOutAnimation packet = new PacketPlayOutAnimation(ep, 0);
-                    ((CraftPlayer) e.getPlayer()).getHandle().b.sendPacket(packet);
+                    net.minecraft.world.entity.player.Player ep = ((CraftPlayer) e.getPlayer()).getHandle();
+                    ClientboundAnimatePacket packet = new ClientboundAnimatePacket(ep, 0);
+                    ((CraftPlayer) e.getPlayer()).getHandle().connection.send(packet);
                     e.setCancelled(true);
                 } else if (block.getType() == Material.IRON_TRAPDOOR) {
 
@@ -359,9 +358,9 @@ public class InteractListener extends BPVPListener<Clans> {
                     block.getState().update();
 
                     //Bukkit.broadcastMessage(block.getData() + "");
-                    EntityPlayer ep = ((CraftPlayer) e.getPlayer()).getHandle();
-                    PacketPlayOutAnimation packet = new PacketPlayOutAnimation(ep, 0);
-                    ((CraftPlayer) e.getPlayer()).getHandle().b.sendPacket(packet);
+                    net.minecraft.world.entity.player.Player ep = ((CraftPlayer) e.getPlayer()).getHandle();
+                    ClientboundAnimatePacket packet = new ClientboundAnimatePacket(ep, 0);
+                    ((CraftPlayer) e.getPlayer()).getHandle().connection.send(packet);
                     e.setCancelled(true);
 
                 }
@@ -378,7 +377,7 @@ public class InteractListener extends BPVPListener<Clans> {
 
             if (e.getClickedBlock().getType() == Material.IRON_DOOR
                     || e.getClickedBlock().getType() == Material.LEGACY_IRON_DOOR_BLOCK
-                    || e.getClickedBlock().getType().name().contains("TRA_DOOR")) {
+                    || e.getClickedBlock().getType().name().contains("TRAP_DOOR")) {
 
                 Block block = e.getClickedBlock();
                 if (!ClanUtilities.hasAccess(e.getPlayer(), block.getLocation())) {

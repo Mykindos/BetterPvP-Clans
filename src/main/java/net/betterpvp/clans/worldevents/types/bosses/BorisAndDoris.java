@@ -26,7 +26,7 @@ import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -65,7 +65,7 @@ public class BorisAndDoris extends Boss {
         phase = BorisDorisPhase.PHASE_ONE;
 
         BossPolarBear dorisBoss = new BossPolarBear(((CraftWorld) world).getHandle());
-        doris = dorisBoss.spawnPolarBear(new Location(world, -2.5, 140, 127.5));
+        doris = (PolarBear) dorisBoss.spawnPolarBear(new Location(world, -2.5, 140, 127.5));
         doris.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
         doris.setHealth(getMaxHealth());
         doris.setCustomName(ChatColor.RED.toString() + ChatColor.BOLD + "Doris");
@@ -74,7 +74,7 @@ public class BorisAndDoris extends Boss {
         doris.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 
         BossPolarBear borisBoss = new BossPolarBear(((CraftWorld) world).getHandle());
-        boris = borisBoss.spawnPolarBear(new Location(world, 32.5, 140, 91.5));
+        boris = (PolarBear) borisBoss.spawnPolarBear(new Location(world, 32.5, 140, 91.5));
         boris.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
         boris.setHealth(getMaxHealth());
         boris.setCustomName(ChatColor.RED.toString() + ChatColor.BOLD + "Boris");
@@ -292,7 +292,7 @@ public class BorisAndDoris extends Boss {
     private void spawnCubs(int amount) {
         for (int i = 0; i < amount; i++) {
             BossPolarBear cub = new BossPolarBear(((CraftWorld) world).getHandle());
-            PolarBear cubEntity = cub.spawnPolarBear(doris.getLocation());
+            PolarBear cubEntity = (PolarBear) cub.spawnPolarBear(doris.getLocation());
             PolarBearCub sm = new PolarBearCub(cubEntity);
             if (doris != null && doris.getTarget() != null) {
                 ((PolarBear) sm.getEntity()).setTarget(doris.getTarget());
@@ -305,7 +305,7 @@ public class BorisAndDoris extends Boss {
     private void spawnSnowmen(int amount) {
         for (int i = 0; i < amount; i++) {
             BossSnowGolem golem = new BossSnowGolem(((CraftWorld) world).getHandle());
-            Snowman golemEntity = golem.spawnGolem(boris.getLocation());
+            Snowman golemEntity = (Snowman) golem.spawn(boris.getLocation());
             SnowGolemMinion sm = new SnowGolemMinion(golemEntity);
             if (boris != null && boris.getTarget() != null) {
                 ((Snowman) sm.getEntity()).setTarget(boris.getTarget());

@@ -23,12 +23,11 @@ import net.betterpvp.core.utility.*;
 import net.betterpvp.core.utility.recharge.RechargeManager;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.world.entity.EntityLiving;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -126,7 +125,7 @@ public class Witherton extends Boss {
                 getSpawn().getChunk().load();
             }
             BossWither bs = new BossWither(((CraftWorld) world).getHandle());
-            wither = bs.spawn(getSpawn());
+            wither = (Wither) bs.spawn(getSpawn());
 
             wither.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
             wither.setHealth(getMaxHealth());
@@ -454,9 +453,9 @@ public class Witherton extends Boss {
 
                         Vector v = next.getKey().getLocation().subtract(0, 2, 0).toVector().subtract(getBoss().getLocation().toVector());
                         BossWitherSkull bws = new BossWitherSkull(((CraftWorld) getBoss().getWorld()).getHandle(),
-                                ((EntityLiving) ((CraftEntity) getBoss()).getHandle()),
+                                ((net.minecraft.world.entity.LivingEntity) ((CraftEntity) getBoss()).getHandle()),
                                 v.getX(), v.getY(), v.getZ(), getBoss());
-                        WitherSkull f = bws.spawn(getBoss().getEyeLocation());
+                        WitherSkull f = (WitherSkull) bws.spawn(getBoss().getEyeLocation());
                         f.setCharged(true);
 
                         skulls.add(new TrackingSkull(next.getKey(), f));
@@ -508,24 +507,12 @@ public class Witherton extends Boss {
                     if (UtilMath.randDouble(0, 100) > 80) {
                         Vector v = e.getDamager().getLocation().subtract(0, 2, 0).toVector().subtract(e.getDamagee().getLocation().toVector());
                         BossWitherSkull bws = new BossWitherSkull(((CraftWorld) e.getDamagee().getWorld()).getHandle(),
-                                ((EntityLiving) ((CraftEntity) e.getDamagee()).getHandle()),
+                                ((net.minecraft.world.entity.LivingEntity) ((CraftEntity) e.getDamagee()).getHandle()),
                                 v.getX(), v.getY(), v.getZ(), e.getDamagee());
-                        WitherSkull f = bws.spawn(e.getDamagee().getEyeLocation());
+                        WitherSkull f = (WitherSkull) bws.spawn(e.getDamagee().getEyeLocation());
                         f.setVelocity(f.getVelocity().multiply(5));
                     }
 
-
-					/*
-				double vecX = e.getDamager().getLocation().getX() - e.getDamagee().getLocation().getX();
-				double vecY = e.getDamager().getLocation().getY() - e.getDamagee().getLocation().getY();
-				double vecZ = e.getDamager().getLocation().getZ() - e.getDamagee().getLocation().getZ();
-
-				Vector v = new Vector(vecX, vecY, vecZ);
-					 */
-                    //UtilVelocity.velocity(f, UtilVelocity.getTrajectory(e.getDamagee(), e.getDamager()), 0.1, false, 0.1, 0, 0, false);
-
-
-                    //f.setVelocity(v);
                 }
             }
         }

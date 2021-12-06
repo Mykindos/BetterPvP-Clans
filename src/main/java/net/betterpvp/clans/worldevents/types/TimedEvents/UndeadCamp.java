@@ -20,7 +20,7 @@ import net.betterpvp.core.utility.UtilTime.TimeUnit;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -204,13 +204,13 @@ public class UndeadCamp extends Timed {
                 if (p.getWorld().getName().equalsIgnoreCase("bossworld")) {
                     if (count < 4) {
                         BossZombie uz = new BossZombie(((CraftWorld) world).getHandle());
-                        Zombie undeadZombie = uz.spawnZombie(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
+                        Zombie undeadZombie = (Zombie) uz.spawn(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
                         undeadZombie.setTarget(p);
                         getMinions().add(new UndeadZombie(undeadZombie));
 
 
                         BossSkeleton us = new BossSkeleton(((CraftWorld) world).getHandle());
-                        WitherSkeleton undeadArcher = us.spawn(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
+                        WitherSkeleton undeadArcher = (WitherSkeleton) us.spawn(mobSpawnLocations[UtilMath.randomInt(mobSpawnLocations.length - 1)]);
                         undeadArcher.setTarget(p);
                         getMinions().add(new UndeadSkeleton(undeadArcher));
                     }

@@ -16,10 +16,9 @@ import net.betterpvp.core.utility.UtilBlock;
 import net.betterpvp.core.utility.UtilMath;
 import net.betterpvp.core.utility.UtilMessage;
 import net.betterpvp.core.utility.UtilVelocity;
-import net.minecraft.world.entity.EntityTypes;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -156,8 +155,8 @@ public class Rupture extends Skill implements InteractSkill {
                     Location tempLoc = new Location(p.getWorld(), loc.getX() + UtilMath.randDouble(-1.5D, 1.5D), loc.getY() + UtilMath.randDouble(0.3D, 0.8D) - 0.75,
                             loc.getZ() + UtilMath.randDouble(-1.5D, 1.5D));
 
-                    CustomArmorStand as = new CustomArmorStand(EntityTypes.c, ((CraftWorld) loc.getWorld()).getHandle());
-                    ArmorStand test = as.spawn(tempLoc);
+                    CustomArmorStand as = new CustomArmorStand(((CraftWorld) loc.getWorld()).getHandle());
+                    ArmorStand test = (ArmorStand) as.spawn(tempLoc);
                    // ArmorStand test = (ArmorStand) p.getWorld().spawnEntity(tempLoc, EntityType.ARMOR_STAND);
                     test.getEquipment().setHelmet(new ItemStack(Material.PACKED_ICE));
                     test.setGravity(false);

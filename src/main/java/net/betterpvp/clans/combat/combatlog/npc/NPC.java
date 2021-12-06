@@ -1,12 +1,12 @@
 package net.betterpvp.clans.combat.combatlog.npc;
 
 
-import net.minecraft.world.entity.EntityAgeable;
-import net.minecraft.world.entity.EntityCreature;
+
+import net.minecraft.world.entity.Mob;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftAgeable;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftCreature;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftAgeable;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -45,7 +45,7 @@ public class NPC {
         entity.setCustomName(name);
         entity.setCustomNameVisible(true);
 
-        if ((((CraftLivingEntity) entity).getHandle() instanceof EntityAgeable)) {
+        if ((((CraftLivingEntity) entity).getHandle() instanceof Mob)) {
             ((CraftAgeable) entity).getHandle().ageLocked = true;
         }
 
@@ -110,8 +110,8 @@ public class NPC {
             getEntity().teleport(getLocation());
         }
 
-        EntityCreature ec = ((CraftCreature) getEntity()).getHandle();
-        ec.getNavigation().a(getLocation().getX(), getLocation().getY(), getLocation().getZ(), 0.8D);
+        Mob ec = ((CraftCreature) getEntity()).getHandle();
+        ec.getNavigation().moveTo(getLocation().getX(), getLocation().getY(), getLocation().getZ(), 0.8D);
     }
 
     public static NPC getNPC(String name) {

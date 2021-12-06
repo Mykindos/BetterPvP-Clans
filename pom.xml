@@ -117,7 +117,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18-R0.1-SNAPSHOT</version>
+            <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
 
@@ -130,8 +131,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
-
+            <version>1.18-R0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>net.betterpvp</groupId>
             <artifactId>core</artifactId>
-            <version>1.17</version>
+            <version>1.18</version>
 
         </dependency>
         <dependency>

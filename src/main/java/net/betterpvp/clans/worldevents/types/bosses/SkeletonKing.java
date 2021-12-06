@@ -16,7 +16,7 @@ import net.betterpvp.core.utility.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
@@ -117,7 +117,7 @@ public class SkeletonKing extends Boss {
             }
             Location loc = getSpawn();
             BossSkeleton bs = new BossSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-            skeleton = bs.spawn(loc);
+            skeleton = (WitherSkeleton) bs.spawn(loc);
 
             skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
             skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());;

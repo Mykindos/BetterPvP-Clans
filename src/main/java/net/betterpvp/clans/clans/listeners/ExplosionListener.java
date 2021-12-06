@@ -1,6 +1,5 @@
 package net.betterpvp.clans.clans.listeners;
 
-import com.mysql.fabric.xmlrpc.Client;
 import net.betterpvp.clans.Clans;
 import net.betterpvp.clans.clans.*;
 import net.betterpvp.clans.clans.Clan.DataType;

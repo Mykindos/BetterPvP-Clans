@@ -84,15 +84,11 @@ import net.betterpvp.core.utility.UtilFormat;
 import net.betterpvp.core.utility.UtilMessage;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
-import net.minecraft.world.entity.animal.EntityPolarBear;
-import net.minecraft.world.entity.animal.EntitySnowman;
-import net.minecraft.world.entity.boss.wither.EntityWither;
-import net.minecraft.world.entity.decoration.EntityArmorStand;
-import net.minecraft.world.entity.monster.EntityCaveSpider;
-import net.minecraft.world.entity.monster.EntitySkeleton;
-import net.minecraft.world.entity.monster.EntitySpider;
-import net.minecraft.world.entity.monster.EntityZombie;
-import net.minecraft.world.entity.npc.EntityVillager;
+import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.Villager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.WorldCreator;
@@ -106,6 +102,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
 
 import java.io.File;
 import java.util.List;
@@ -162,17 +159,17 @@ public class Clans extends JavaPlugin implements Listener {
 
         new RoleManager(this);
 
-        UtilShop.registerEntity("Zombie", 54, EntityZombie.class, ShopZombie.class);
-        UtilShop.registerEntity("Spider", 52, EntitySpider.class, BossSpider.class);
-        UtilShop.registerEntity("CaveSpider", 59, EntityCaveSpider.class, BossCaveSpider.class);
-        UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, ShopSkeleton.class);
-        UtilShop.registerEntity("Zombie", 54, EntityZombie.class, BossZombie.class);
-        UtilShop.registerEntity("Wither", 64, EntityWither.class, BossWither.class);
-        UtilShop.registerEntity("Skeleton", 51, EntitySkeleton.class, BossSkeleton.class);
-        UtilShop.registerEntity("PolarBear", 102, EntityPolarBear.class, BossPolarBear.class);
-        UtilShop.registerEntity("Snowman", 97, EntitySnowman.class, BossSnowGolem.class);
-        UtilShop.registerEntity("Villager", 120, EntityVillager.class, ShopVillager.class);
-        UtilShop.registerEntity("ArmorStand", 30, EntityArmorStand.class, CustomArmorStand.class);
+        UtilShop.registerEntity("Zombie", 54, Zombie.class, ShopZombie.class);
+        UtilShop.registerEntity("Spider", 52, Spider.class, BossSpider.class);
+        UtilShop.registerEntity("CaveSpider", 59, CaveSpider.class, BossCaveSpider.class);
+        UtilShop.registerEntity("Skeleton", 51, Skeleton.class, ShopSkeleton.class);
+        UtilShop.registerEntity("Zombie", 54, Zombie.class, BossZombie.class);
+        UtilShop.registerEntity("Wither", 64, WitherBoss.class, BossWither.class);
+        UtilShop.registerEntity("Skeleton", 51, Skeleton.class, BossSkeleton.class);
+        UtilShop.registerEntity("PolarBear", 102, PolarBear.class, BossPolarBear.class);
+        UtilShop.registerEntity("Snowman", 97, SnowGolem.class, BossSnowGolem.class);
+        UtilShop.registerEntity("Villager", 120, Villager.class, ShopVillager.class);
+        UtilShop.registerEntity("ArmorStand", 30, net.minecraft.world.entity.decoration.ArmorStand.class, CustomArmorStand.class);
 
         repositoryList = ReflectionsUtil.loadRepositories("net.betterpvp.clans", this);
         ReflectionsUtil.registerCommands("net.betterpvp.clans", this);

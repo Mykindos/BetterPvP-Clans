@@ -20,12 +20,12 @@ import net.betterpvp.core.client.ClientUtilities;
 import net.betterpvp.core.database.Log;
 import net.betterpvp.core.framework.BPVPListener;
 import net.betterpvp.core.utility.*;
-import net.minecraft.world.entity.projectile.EntityFishingHook;
+import net.minecraft.world.entity.projectile.FishingHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -278,19 +278,8 @@ public class FishingListener extends BPVPListener<Clans> {
     }
 
     private void setBiteTime(FishHook hook, int time) {
-        EntityFishingHook hookCopy = (EntityFishingHook) ((CraftEntity) hook).getHandle();
+        FishingHook hookCopy = (FishingHook) ((CraftEntity) hook).getHandle();
 
-        Field fishCatchTime = null;
-
-        try {
-            fishCatchTime = EntityFishingHook.class.getDeclaredField("ao");
-
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-
-        fishCatchTime.setAccessible(true);
 
         try {
 
@@ -298,7 +287,7 @@ public class FishingListener extends BPVPListener<Clans> {
                 @Override
                 public void run() {
                     try {
-                        Field tmp = EntityFishingHook.class.getDeclaredField("ar");
+                        Field tmp = FishingHook.class.getDeclaredField("timeUntilLured");
                         tmp.setAccessible(true);
                         tmp.setInt(hookCopy, (int) (tmp.getInt(hookCopy) / 2));
                         System.out.println(tmp.getInt(hookCopy));
@@ -311,6 +300,5 @@ public class FishingListener extends BPVPListener<Clans> {
             e.printStackTrace();
         }
 
-        fishCatchTime.setAccessible(false);
     }
 }

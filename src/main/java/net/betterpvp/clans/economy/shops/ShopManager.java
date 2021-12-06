@@ -34,7 +34,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
@@ -142,38 +142,38 @@ public class ShopManager extends BPVPListener<Clans> {
                         case "armour":
 
                             ShopSkeleton as = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton armour = as.spawn(loc);
+                            Skeleton armour = (Skeleton) as.spawn(loc);
                             armour.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Armour", armour);
                             break;
                         case "weapons":
 
                             ShopZombie wz = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
-                            Zombie weapons = wz.spawn(loc);
+                            Zombie weapons = (Zombie) wz.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Weapons / Tools", weapons);
 
                             break;
                         case "farmer":
                             ShopVillager fv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager farmer = fv.spawn(loc);
+                            Villager farmer = (Villager) fv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Farmer", farmer);
                             break;
                         case "building":
                             ShopVillager bv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager builder = bv.spawn(loc);
+                            Villager builder = (Villager) bv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Building", builder);
 
                             break;
                         case "resources":
                             ShopVillager rv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager resources = rv.spawn(loc);
+                            Villager resources = (Villager) rv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Resources", resources);
 
 
                             break;
                         case "fragment":
                             ShopSkeleton bs = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton battle = bs.spawn(loc);
+                            Skeleton battle = (Skeleton) bs.spawn(loc);
                             battle.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Fragment Vendor", battle);
 
@@ -181,37 +181,37 @@ public class ShopManager extends BPVPListener<Clans> {
 
                         case "disc":
                             ShopVillager dv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager disc = dv.spawn(loc);
+                            Villager disc = (Villager) dv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Disc", disc);
 
                             break;
                         case "travel":
                             ShopVillager tv = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager travel = tv.spawn(loc);
+                            Villager travel = (Villager) tv.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Travel Hub", travel);
 
                             break;
                         case "clanshop":
                             ShopVillager ev = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager energy = ev.spawn(loc);
+                            Villager energy = (Villager) ev.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clan Shop", energy);
 
                             break;
                         case "decoration":
                             ShopVillager dc = new ShopVillager(((CraftWorld) loc.getWorld()).getHandle());
-                            Villager dec = dc.spawn(loc);
+                            Villager dec = (Villager) dc.spawn(loc);
                             createShop(ChatColor.GREEN.toString() + ChatColor.BOLD + "Decoration", dec);
 
                             break;
                         case "boss":
                             ShopZombie sv = new ShopZombie(((CraftWorld) loc.getWorld()).getHandle());
-                            Zombie boss = sv.spawn(loc);
+                            Zombie boss = (Zombie) sv.spawn(loc);
 
                             createShop(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Boss Teleport", boss);
                             break;
                         case "assassin":
                             ShopSkeleton assassin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton assassinSkeleton = assassin.spawn(loc);
+                            Skeleton assassinSkeleton = (Skeleton) assassin.spawn(loc);
                             assassinSkeleton.getEquipment().setHelmet(new ItemStack(Material.LEATHER_HELMET));
                             assassinSkeleton.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
                             assassinSkeleton.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
@@ -220,7 +220,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             break;
                         case "knight":
                             ShopSkeleton knight = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton knightSkeleton = knight.spawn(loc);
+                            Skeleton knightSkeleton = (Skeleton) knight.spawn(loc);
                             knightSkeleton.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
                             knightSkeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
                             knightSkeleton.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
@@ -228,8 +228,8 @@ public class ShopManager extends BPVPListener<Clans> {
                             createShop(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Knight", knightSkeleton);
                             break;
                         case "warlock":
-                            ShopSkeleton Warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton WarlockSkeleton = Warlock.spawn(loc);
+                            ShopSkeleton warlock = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
+                            Skeleton WarlockSkeleton = (Skeleton) warlock.spawn(loc);
                             WarlockSkeleton.getEquipment().setHelmet(new ItemStack(Material.NETHERITE_HELMET));
                             WarlockSkeleton.getEquipment().setChestplate(new ItemStack(Material.NETHERITE_CHESTPLATE));
                             WarlockSkeleton.getEquipment().setLeggings(new ItemStack(Material.NETHERITE_LEGGINGS));
@@ -238,7 +238,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             break;
                         case "paladin":
                             ShopSkeleton paladin = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton paladinSkeleton = paladin.spawn(loc);
+                            Skeleton paladinSkeleton = (Skeleton) paladin.spawn(loc);
                             paladinSkeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
                             paladinSkeleton.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
                             paladinSkeleton.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
@@ -247,7 +247,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             break;
                         case "ranger":
                             ShopSkeleton ranger = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton rangerSkeleton = ranger.spawn(loc);
+                            Skeleton rangerSkeleton = (Skeleton) ranger.spawn(loc);
                             rangerSkeleton.getEquipment().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
                             rangerSkeleton.getEquipment().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
                             rangerSkeleton.getEquipment().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
@@ -256,7 +256,7 @@ public class ShopManager extends BPVPListener<Clans> {
                             break;
                         case "gladiator":
                             ShopSkeleton gladiator = new ShopSkeleton(((CraftWorld) loc.getWorld()).getHandle());
-                            Skeleton gladiatorSkeleton = gladiator.spawn(loc);
+                            Skeleton gladiatorSkeleton = (Skeleton) gladiator.spawn(loc);
                             gladiatorSkeleton.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
                             gladiatorSkeleton.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
                             gladiatorSkeleton.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
