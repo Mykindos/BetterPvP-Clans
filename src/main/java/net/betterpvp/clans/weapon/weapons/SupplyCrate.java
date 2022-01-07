@@ -136,6 +136,7 @@ public class SupplyCrate extends Weapon {
 
     @EventHandler
     public void onUpdate(UpdateEvent e) {
+        
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
             if (crates.isEmpty()) return;
             final Iterator<SupplyCrateData> it = crates.iterator();

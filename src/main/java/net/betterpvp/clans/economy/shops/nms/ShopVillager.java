@@ -48,6 +48,11 @@ public class ShopVillager extends Villager {
     }
 
     @Override
+    public boolean isPushable() {
+        return false;
+    }
+
+    @Override
     public void setVillagerData(VillagerData villagerdata) {return;}
 
     @Override

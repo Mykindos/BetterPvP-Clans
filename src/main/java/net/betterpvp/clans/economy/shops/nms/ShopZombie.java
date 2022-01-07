@@ -60,6 +60,10 @@ public class ShopZombie extends Zombie {
         return false;
     }
 
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
 
     @Override
     protected SoundEvent getAmbientSound() {

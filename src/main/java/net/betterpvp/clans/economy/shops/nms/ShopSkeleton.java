@@ -80,7 +80,10 @@ public class ShopSkeleton extends Skeleton {
         return null;
     }
 
-
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
 
     //Combustion
     @Override
