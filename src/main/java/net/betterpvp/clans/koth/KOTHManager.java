@@ -20,12 +20,14 @@ import net.betterpvp.core.utility.UtilTime;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Firework;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
@@ -58,8 +60,9 @@ public class KOTHManager extends BPVPListener<Clans> {
                 Location loc = new Location(koth.getLocation().getWorld(), koth.getLocation().getX() + 0.5,
                         Math.min(300, koth.getLocation().getY() + koth.getCount()),
                         koth.getLocation().getZ() + 0.5);
-                UtilFirework.spawn(loc, fe);
-                UtilFirework.spawn(loc, fe2);
+
+                UtilFirework.spawnFireworkWithEffects(getInstance(), fe, loc);
+                UtilFirework.spawnFireworkWithEffects(getInstance(), fe2, loc);
                 koth.takeCount();
             }
             if (koth.getCount() == 0) {
@@ -123,6 +126,8 @@ public class KOTHManager extends BPVPListener<Clans> {
             }
         }
     }
+
+
 
     @EventHandler
     public void onKill(CustomDeathEvent e) {

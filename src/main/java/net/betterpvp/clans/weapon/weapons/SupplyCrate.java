@@ -136,6 +136,7 @@ public class SupplyCrate extends Weapon {
 
     @EventHandler
     public void onUpdate(UpdateEvent e) {
+        
         if (e.getType() == UpdateEvent.UpdateType.SEC) {
             if (crates.isEmpty()) return;
             final Iterator<SupplyCrateData> it = crates.iterator();
@@ -143,7 +144,7 @@ public class SupplyCrate extends Weapon {
                 final SupplyCrateData next = it.next();
                 FireworkEffect fe = FireworkEffect.builder().with(Type.BALL_LARGE).withColor(Color.RED).build();
                 Location loc = new Location(next.getLocation().getWorld(), next.getLocation().getX() + 0.5, next.getLocation().getY() + next.getCount(), next.getLocation().getZ() + 0.5);
-                UtilFirework.spawn(loc, fe);
+                UtilFirework.spawnFireworkWithEffects(getInstance(), fe, loc);
                 next.takeCount();
                 if (next.getCount() == 0) {
                     next.getLocation().getBlock().setType(Material.CHEST);

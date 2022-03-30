@@ -20,13 +20,12 @@ import net.betterpvp.core.utility.UtilTime;
 import net.betterpvp.core.utility.UtilVelocity;
 import net.betterpvp.core.utility.restoration.BlockRestoreData;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.world.entity.monster.EntitySlime;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftSlime;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftSlime;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -300,8 +299,7 @@ public class SlimeKing extends Boss {
 
 
                     }
-                    EntitySlime es = ((CraftSlime) e.getDamagee()).getHandle();
-                    es.setGoalTarget(es.getLastDamager());
+                    ((Slime) e.getDamagee()).setTarget(e.getDamager());
                 }
             }
 
